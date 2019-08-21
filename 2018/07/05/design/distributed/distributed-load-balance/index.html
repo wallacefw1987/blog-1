@@ -1,0 +1,1825 @@
+<!DOCTYPE html>
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+<html class="theme-next muse use-motion" lang="zh-CN">
+<head><meta name="generator" content="Hexo 3.9.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+
+
+
+
+  
+  
+    
+      
+    
+    
+      
+    
+  <script src="//cdnjs.cloudflare.com/ajax/libs/pace/1.0.2/pace.min.js"></script>
+  <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/pace/1.0.2/themes/blue/pace-theme-minimal.min.css">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<link rel="stylesheet" href="/blog/lib/font-awesome/css/font-awesome.min.css?v=4.6.2">
+
+<link rel="stylesheet" href="/blog/css/main.css?v=7.0.1">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/blog/images/apple-touch-icon-next.png?v=7.0.1">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/blog/images/favicon-32x32-next.png?v=7.0.1">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/blog/images/favicon-16x16-next.png?v=7.0.1">
+
+
+  <link rel="mask-icon" href="/blog/images/logo.svg?v=7.0.1" color="#222">
+
+
+
+
+
+
+
+<script id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/blog/',
+    scheme: 'Muse',
+    version: '7.0.1',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":true,"onmobile":true,"dimmer":false},
+    fancybox: false,
+    fastclick: false,
+    lazyload: false,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+  
+
+
+
+
+  <meta name="description" content="负载均衡  负载均衡原理 系统的扩展可分为垂直扩展和水平扩展。   垂直扩展，是从单机的角度通过增加硬件处理能力，比如 CPU 处理能力，内存容量，磁盘等方面，实现服务器处理能力的提升。这种方式不能满足大型分布式系统（网站），大流量，高并发，海量数据的问题。   水平扩展，是通过添加机器来满足大型网站服务的处理能力。比如：一台机器不能满足，则增加两台或者多台机器，共同承担访问压力。  应用集群：">
+<meta name="keywords" content="design,distributed">
+<meta property="og:type" content="article">
+<meta property="og:title" content="负载均衡">
+<meta property="og:url" content="https://dunwu.github.io/2018/07/05/design/distributed/distributed-load-balance/index.html">
+<meta property="og:site_name" content="静默虚空的博客">
+<meta property="og:description" content="负载均衡  负载均衡原理 系统的扩展可分为垂直扩展和水平扩展。   垂直扩展，是从单机的角度通过增加硬件处理能力，比如 CPU 处理能力，内存容量，磁盘等方面，实现服务器处理能力的提升。这种方式不能满足大型分布式系统（网站），大流量，高并发，海量数据的问题。   水平扩展，是通过添加机器来满足大型网站服务的处理能力。比如：一台机器不能满足，则增加两台或者多台机器，共同承担访问压力。  应用集群：">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:image" content="http://dunwu.test.upcdn.net/images/java/javaweb/distributed/architecture/代理自动配置.jpg!zp">
+<meta property="og:image" content="http://dunwu.test.upcdn.net/images/java/javaweb/distributed/architecture/Http重定向.png!zp">
+<meta property="og:image" content="http://dunwu.test.upcdn.net/images/java/javaweb/distributed/architecture/Dns重定向.png!zp">
+<meta property="og:image" content="http://dunwu.test.upcdn.net/images/java/javaweb/distributed/architecture/修改IP地址.png!zp">
+<meta property="og:image" content="http://dunwu.test.upcdn.net/images/java/javaweb/distributed/architecture/修改Mac地址.png!zp">
+<meta property="og:image" content="https://images2015.cnblogs.com/blog/820332/201512/820332-20151213200106747-94797427.png">
+<meta property="og:image" content="https://images2015.cnblogs.com/blog/820332/201512/820332-20151213200117825-1452672107.png">
+<meta property="og:image" content="http://dunwu.test.upcdn.net/images/java/javaweb/distributed/architecture/负载均衡算法之轮询-01.jpg!zp">
+<meta property="og:image" content="http://dunwu.test.upcdn.net/images/java/javaweb/distributed/architecture/负载均衡算法之轮询-02.jpg!zp">
+<meta property="og:image" content="http://dunwu.test.upcdn.net/images/java/javaweb/distributed/architecture/负载均衡算法之加权轮询.jpg!zp">
+<meta property="og:image" content="http://dunwu.test.upcdn.net/images/java/javaweb/distributed/architecture/负载均衡算法之最少连接-01.jpg!zp">
+<meta property="og:image" content="http://dunwu.test.upcdn.net/images/java/javaweb/distributed/architecture/负载均衡算法之最少连接-02.jpg!zp">
+<meta property="og:image" content="http://dunwu.test.upcdn.net/images/java/javaweb/distributed/architecture/负载均衡算法之加权最少连接.jpg!zp">
+<meta property="og:image" content="http://dunwu.test.upcdn.net/images/java/javaweb/distributed/architecture/负载均衡算法之随机.jpg!zp">
+<meta property="og:image" content="http://dunwu.test.upcdn.net/images/java/javaweb/distributed/architecture/负载均衡算法之IpHash.jpg!zp">
+<meta property="og:image" content="https://images2015.cnblogs.com/blog/820332/201512/820332-20151227195943640-864372763.jpg">
+<meta property="og:image" content="https://images2015.cnblogs.com/blog/820332/201512/820332-20151227195957171-1801771404.jpg">
+<meta property="og:image" content="https://images2015.cnblogs.com/blog/820332/201512/820332-20151227201913984-412518987.jpg">
+<meta property="og:image" content="https://images2015.cnblogs.com/blog/820332/201512/820332-20151227201851812-352858632.jpg">
+<meta property="og:image" content="https://images2015.cnblogs.com/blog/820332/201512/820332-20151227202044781-2116477406.png">
+<meta property="og:image" content="https://images2015.cnblogs.com/blog/820332/201512/820332-20151227202054421-2015542569.png">
+<meta property="og:image" content="https://images2015.cnblogs.com/blog/820332/201512/820332-20151227202100921-915093452.png">
+<meta property="og:image" content="https://images2015.cnblogs.com/blog/820332/201512/820332-20151227220009109-1768809526.png">
+<meta property="og:updated_time" content="2019-08-21T04:00:13.499Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="负载均衡">
+<meta name="twitter:description" content="负载均衡  负载均衡原理 系统的扩展可分为垂直扩展和水平扩展。   垂直扩展，是从单机的角度通过增加硬件处理能力，比如 CPU 处理能力，内存容量，磁盘等方面，实现服务器处理能力的提升。这种方式不能满足大型分布式系统（网站），大流量，高并发，海量数据的问题。   水平扩展，是通过添加机器来满足大型网站服务的处理能力。比如：一台机器不能满足，则增加两台或者多台机器，共同承担访问压力。  应用集群：">
+<meta name="twitter:image" content="http://dunwu.test.upcdn.net/images/java/javaweb/distributed/architecture/代理自动配置.jpg!zp">
+
+
+
+  <link rel="alternate" href="/blog/atom.xml" title="静默虚空的博客" type="application/atom+xml">
+
+
+
+
+  <link rel="canonical" href="https://dunwu.github.io/2018/07/05/design/distributed/distributed-load-balance/">
+
+
+
+<script id="page.configurations">
+  CONFIG.page = {
+    sidebar: "",
+  };
+</script>
+
+  <title>负载均衡 | 静默虚空的博客</title>
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .motion-element,
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-title { opacity: initial; }
+
+  .use-motion .logo,
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-CN">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-template">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/blog/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">静默虚空的博客</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+    
+      
+        <h1 class="site-subtitle" itemprop="description">大道至简，知易行难</h1>
+      
+    
+    
+  </div>
+
+  <div class="site-nav-toggle">
+    <button aria-label="切换导航栏">
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  
+    <ul id="menu" class="menu">
+      
+        
+        
+        
+          
+          <li class="menu-item menu-item-home">
+
+    
+    
+    
+      
+    
+
+    
+
+    <a href="/blog/" rel="section"><i class="menu-item-icon fa fa-fw fa-home"></i> <br>首页</a>
+
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-about">
+
+    
+    
+    
+      
+    
+
+    
+
+    <a href="/blog/about/" rel="section"><i class="menu-item-icon fa fa-fw fa-user"></i> <br>关于</a>
+
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-tags">
+
+    
+    
+    
+      
+    
+
+    
+
+    <a href="/blog/tags/" rel="section"><i class="menu-item-icon fa fa-fw fa-tags"></i> <br>标签</a>
+
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-categories">
+
+    
+    
+    
+      
+    
+
+    
+
+    <a href="/blog/categories/" rel="section"><i class="menu-item-icon fa fa-fw fa-th"></i> <br>分类</a>
+
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-archives">
+
+    
+    
+    
+      
+    
+
+    
+
+    <a href="/blog/archives/" rel="section"><i class="menu-item-icon fa fa-fw fa-archive"></i> <br>归档</a>
+
+  </li>
+
+      
+      
+        <li class="menu-item menu-item-search">
+          
+            <a href="javascript:;" class="popup-trigger">
+          
+            
+              <i class="menu-item-icon fa fa-search fa-fw"></i> <br>搜索</a>
+        </li>
+      
+    </ul>
+  
+
+  
+    
+
+  
+
+  
+    <div class="site-search">
+      
+  <div class="popup search-popup local-search-popup">
+  <div class="local-search-header clearfix">
+    <span class="search-icon">
+      <i class="fa fa-search"></i>
+    </span>
+    <span class="popup-btn-close">
+      <i class="fa fa-times-circle"></i>
+    </span>
+    <div class="local-search-input-wrapper">
+      <input autocomplete="off" placeholder="搜索..." spellcheck="false" type="text" id="local-search-input">
+    </div>
+  </div>
+  <div id="local-search-result"></div>
+</div>
+
+
+
+    </div>
+  
+</nav>
+
+
+
+  
+
+
+
+</div>
+    </header>
+
+    
+  
+  
+  
+  
+
+  
+
+  <a href="https://github.com/dunwu" class="github-corner" title="Follow me on GitHub" aria-label="Follow me on GitHub" rel="noopener" target="_blank"><svg width="80" height="80" viewbox="0 0 250 250" style="fill: #222; color: #fff; position: absolute; top: 0; border: 0; right: 0;" aria-hidden="true"><path d="M0,0 L115,115 L130,115 L142,142 L250,250 L250,0 Z"/><path d="M128.3,109.0 C113.8,99.7 119.0,89.6 119.0,89.6 C122.0,82.7 120.5,78.6 120.5,78.6 C119.2,72.0 123.4,76.3 123.4,76.3 C127.3,80.9 125.5,87.3 125.5,87.3 C122.9,97.6 130.6,101.9 134.4,103.2" fill="currentColor" style="transform-origin: 130px 106px;" class="octo-arm"/><path d="M115.0,115.0 C114.9,115.1 118.7,116.5 119.8,115.4 L133.7,101.6 C136.9,99.2 139.9,98.4 142.2,98.6 C133.8,88.0 127.5,74.4 143.8,58.0 C148.5,53.4 154.0,51.2 159.7,51.0 C160.3,49.4 163.2,43.6 171.4,40.1 C171.4,40.1 176.1,42.5 178.8,56.2 C183.1,58.6 187.2,61.8 190.9,65.4 C194.5,69.0 197.7,73.2 200.1,77.6 C213.8,80.2 216.3,84.9 216.3,84.9 C212.7,93.1 206.9,96.0 205.4,96.6 C205.1,102.4 203.0,107.8 198.3,112.5 C181.9,128.9 168.3,122.5 157.7,114.1 C157.9,116.9 156.7,120.9 152.7,124.9 L141.0,136.5 C139.8,137.7 141.6,141.9 141.8,141.8 Z" fill="currentColor" class="octo-body"/></svg></a>
+
+
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  
+    <div class="reading-progress-bar"></div>
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://dunwu.github.io/blog/2018/07/05/design/distributed/distributed-load-balance/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Zhang Peng">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/blog/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="静默虚空的博客">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h2 class="post-title" itemprop="name headline">负载均衡<a href="https://github.com/dunwu/blog/blob/master/source/_posts/design/distributed/distributed-load-balance.md" class="post-edit-link" title="编辑" rel="noopener" target="_blank"><i class="fa fa-pencil"></i></a>
+
+              
+            
+          </h2>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+
+            
+            
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+
+              
+                
+              
+
+              <time title="创建时间：2018-07-05 15:50:00" itemprop="dateCreated datePublished" datetime="2018-07-05T15:50:00+08:00">2018-07-05</time>
+            
+
+            
+              
+
+              
+                
+                <span class="post-meta-divider">|</span>
+                
+
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">更新于</span>
+                
+                <time title="修改时间：2019-08-21 12:00:13" itemprop="dateModified" datetime="2019-08-21T12:00:13+08:00">2019-08-21</time>
+              
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/blog/categories/design/" itemprop="url" rel="index"><span itemprop="name">design</span></a></span>
+
+                
+                
+                  ，
+                
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/blog/categories/design/distributed/" itemprop="url" rel="index"><span itemprop="name">distributed</span></a></span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+            
+          
+
+          
+          
+
+          
+
+          
+            <div class="post-symbolscount">
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">本文字数：</span>
+                
+                <span title="本文字数">14k</span>
+              
+
+              
+                <span class="post-meta-divider">|</span>
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-clock-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">阅读时长 &asymp;</span>
+                
+                <span title="阅读时长">13 分钟</span>
+              
+            </div>
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h1 id="负载均衡"><a class="markdownIt-Anchor" href="#负载均衡"></a> 负载均衡</h1>
+<h2 id="负载均衡原理"><a class="markdownIt-Anchor" href="#负载均衡原理"></a> 负载均衡原理</h2>
+<p>系统的扩展可分为垂直扩展和水平扩展。</p>
+<ul>
+<li>
+<p>垂直扩展，是从单机的角度通过增加硬件处理能力，比如 CPU 处理能力，内存容量，磁盘等方面，实现服务器处理能力的提升。这种方式不能满足大型分布式系统（网站），大流量，高并发，海量数据的问题。</p>
+</li>
+<li>
+<p>水平扩展，是通过添加机器来满足大型网站服务的处理能力。比如：一台机器不能满足，则增加两台或者多台机器，共同承担访问压力。</p>
+<ul>
+<li>应用集群：将同一应用部署到多台机器上，组成处理集群，接收负载均衡设备分发的请求，进行处理，并返回相应数据。</li>
+<li>负载均衡设备：将用户访问的请求，根据负载均衡算法，分发到集群中的一台处理服务器。（一种把网络请求分散到一个服务器集群中的可用服务器上去的设备）</li>
+</ul>
+</li>
+</ul>
+<p>负载均衡的作用（解决的问题）：</p>
+<ul>
+<li>解决并发压力，提高应用处理性能（增加吞吐量，加强网络处理能力）；</li>
+<li>提供故障转移，实现高可用；</li>
+<li>通过添加或减少服务器数量，提供网站伸缩性（扩展性）；</li>
+<li>安全防护；（负载均衡设备上做一些过滤，黑白名单等处理）</li>
+</ul>
+<h2 id="负载均衡分类"><a class="markdownIt-Anchor" href="#负载均衡分类"></a> 负载均衡分类</h2>
+<p>根据实现技术不同，可分为反向代理、HTTP 重定向、DNS 重定向、修改 IP 地址、修改 MAC 地址等。</p>
+<h3 id="反向代理"><a class="markdownIt-Anchor" href="#反向代理"></a> 反向代理</h3>
+<blockquote>
+<p>正向代理与反向代理的区别：</p>
+<ul>
+<li>正向代理：发生在客户端，是由用户主动发起的。比如翻墙，客户端通过主动访问代理服务器，让代理服务器获得需要的外网数据，然后转发回客户端。</li>
+<li>反向代理：发生在服务器端，用户不知道代理的存在。</li>
+</ul>
+<p>反向代理的作用是保护网站安全，所有互联网的请求都必须经过代理服务器，相当于在 web 服务器和可能的网络攻击之间建立了一个屏障。</p>
+<p>优点：部署简单</p>
+<p>缺点：可能成为系统瓶颈</p>
+</blockquote>
+<div align="center">
+<img src="http://dunwu.test.upcdn.net/images/java/javaweb/distributed/architecture/代理自动配置.jpg!zp" width="640">
+</div>
+<h3 id="http-重定向"><a class="markdownIt-Anchor" href="#http-重定向"></a> HTTP 重定向</h3>
+<blockquote>
+<p>HTTP 重定向服务器收到 HTTP 请求之后会返回服务器的地址，并将该地址写入 HTTP 重定向响应中返回给浏览器，浏览器收到后需要再次发送请求。</p>
+<p>缺点：</p>
+<ul>
+<li>用户访问的延迟会增加；</li>
+<li>如果负载均衡器宕机，就无法访问该站点。</li>
+</ul>
+</blockquote>
+<div align="center">
+<img src="http://dunwu.test.upcdn.net/images/java/javaweb/distributed/architecture/Http重定向.png!zp" width="640">
+</div>
+<h3 id="dns-重定向"><a class="markdownIt-Anchor" href="#dns-重定向"></a> DNS 重定向</h3>
+<blockquote>
+<p><strong>使用 DNS 作为负载均衡器，根据负载情况返回不同服务器的 IP 地址。</strong></p>
+<p>大型网站基本使用了这种方式做为第一级负载均衡手段，然后在内部使用其它方式做第二级负载均衡。</p>
+<p>优点：</p>
+<ul>
+<li>使用简单：负载均衡工作，交给 DNS 服务器处理，省掉了负载均衡服务器维护的麻烦</li>
+<li>提高性能：可以支持基于地址的域名解析，解析成距离用户最近的服务器地址，可以加快访问速度，改善性能；</li>
+</ul>
+<p>缺点：</p>
+<ul>
+<li>可用性差：DNS 解析是多级解析，新增/修改 DNS 后，解析时间较长；解析过程中，用户访问网站将失败；</li>
+<li>扩展性低：DNS 负载均衡的控制权在域名商那里，无法对其做更多的改善和扩展；</li>
+<li>维护性差：也不能反映服务器的当前运行状态；支持的算法少；不能区分服务器的差异（不能根据系统与服务的状态来判断负载）</li>
+</ul>
+<p>建议：</p>
+<ul>
+<li>将 DNS 作为第一级负载均衡，A 记录对应着内部负载均衡的 IP 地址，通过内部负载均衡将请求分发到真实的 Web 服务器上。一般用于互联网公司，复杂的业务系统不合适使用。</li>
+</ul>
+</blockquote>
+<div align="center">
+<img src="http://dunwu.test.upcdn.net/images/java/javaweb/distributed/architecture/Dns重定向.png!zp" width="640">
+</div>
+<h3 id="修改-ip-地址"><a class="markdownIt-Anchor" href="#修改-ip-地址"></a> 修改 IP 地址</h3>
+<blockquote>
+<p><strong>在网络层修改请求的目的 IP 地址来进行负载均衡。</strong></p>
+<p>用户请求数据包，到达负载均衡服务器后，负载均衡服务器在操作系统内核进程获取网络数据包，根据负载均衡算法得到一台真实服务器地址，然后将请求目的地址修改为，获得的真实 ip 地址，不需要经过用户进程处理。真实服务器处理完成后，响应数据包回到负载均衡服务器，负载均衡服务器，再将数据包源地址修改为自身的 ip 地址，发送给用户浏览器。</p>
+<p>IP 负载均衡，真实物理服务器返回给负载均衡服务器，存在两种方式：</p>
+<ol>
+<li>负载均衡服务器在修改目的 ip 地址的同时修改源地址。将数据包源地址设为自身盘，即<a href="https://www.nginx.com/resources/glossary/layer-4-load-balancing/" target="_blank" rel="noopener">网络地址转换（NAT）</a>。</li>
+<li>将负载均衡服务器同时作为真实物理服务器集群的网关服务器。</li>
+</ol>
+<p>优点：在内核进程完成数据分发，比在应用层分发性能更好；</p>
+<p>缺点：所有请求响应都需要经过负载均衡服务器，集群最大吞吐量受限于负载均衡服务器网卡带宽；</p>
+</blockquote>
+<div align="center">
+<img src="http://dunwu.test.upcdn.net/images/java/javaweb/distributed/architecture/修改IP地址.png!zp" width="640">
+</div>
+<h3 id="修改-mac-地址"><a class="markdownIt-Anchor" href="#修改-mac-地址"></a> 修改 MAC 地址</h3>
+<blockquote>
+<p>使用 LVS（Linux Virtual Server）这种链路层负载均衡器，根据负载情况修改请求的 MAC 地址。</p>
+<p>实际处理服务器 ip 和数据请求目的 ip 一致，不需要经过负载均衡服务器进行地址转换，可将响应数据包直接返回给用户浏览器，避免负载均衡服务器网卡带宽成为瓶颈。也称为直接路由模式（DR 模式）。</p>
+<p>优点：性能好；</p>
+<p>缺点：配置复杂；</p>
+<p>建议：DR 模式是目前使用最广泛的一种负载均衡方式。</p>
+</blockquote>
+<div align="center">
+<img src="http://dunwu.test.upcdn.net/images/java/javaweb/distributed/architecture/修改Mac地址.png!zp" width="640">
+</div>
+<h3 id="混合负载均衡"><a class="markdownIt-Anchor" href="#混合负载均衡"></a> 混合负载均衡</h3>
+<p>由于多个服务器群内硬件设备、各自的规模、提供的服务等的差异，可以考虑给每个服务器群采用最合适的负载均衡方式，然后又在这多个服务器群间再一次负载均衡或群集起来以一个整体向外界提供服务（即把这多个服务器群当做一个新的服务器群），从而达到最佳的性能。将这种方式称之为混合型负载均衡。</p>
+<p>此种方式有时也用于单台均衡设备的性能不能满足大量连接请求的情况下。是目前大型互联网公司，普遍使用的方式。</p>
+<p>方式一，如下图：</p>
+<div align="center"><img src="https://images2015.cnblogs.com/blog/820332/201512/820332-20151213200106747-94797427.png"></div>
+<p>以上模式适合有动静分离的场景，反向代理服务器（集群）可以起到缓存和动态请求分发的作用，当时静态资源缓存在代理服务器时，则直接返回到浏览器。如果动态页面则请求后面的应用负载均衡（应用集群）。</p>
+<p>方式二，如下图：</p>
+<div align="center"><img src="https://images2015.cnblogs.com/blog/820332/201512/820332-20151213200117825-1452672107.png"></div>
+<p>以上模式，适合动态请求场景。</p>
+<p>因混合模式，可以根据具体场景，灵活搭配各种方式，以上两种方式仅供参考。</p>
+<h2 id="负载均衡算法"><a class="markdownIt-Anchor" href="#负载均衡算法"></a> 负载均衡算法</h2>
+<p>常用的负载均衡算法有：轮询、随机、最少连接、源地址散列、加权等方式。</p>
+<h3 id="轮询"><a class="markdownIt-Anchor" href="#轮询"></a> 轮询</h3>
+<blockquote>
+<p>轮询（Round Robin）算法将所有请求，依次分发到每台服务器上，适合服务器硬件同相同的场景。</p>
+<ul>
+<li>优点：服务器请求数目相同；</li>
+<li>缺点：服务器压力不一样，不适合服务器配置不同的情况；</li>
+</ul>
+</blockquote>
+<p>下图中，一共有 6 个客户端产生了 6 个请求，这 6 个请求按 (1, 2, 3, 4, 5, 6) 的顺序发送。最后，(1, 3, 5) 的请求会被发送到服务器 1，(2, 4, 6) 的请求会被发送到服务器 2。</p>
+<div align="center">
+<img src="http://dunwu.test.upcdn.net/images/java/javaweb/distributed/architecture/负载均衡算法之轮询-01.jpg!zp" width="640">
+</div>
+<p>该算法比较适合每个服务器的性能差不多的场景，如果有性能存在差异的情况下，那么性能较差的服务器可能无法承担过大的负载（下图的 Server 2）。</p>
+<div align="center">
+<img src="http://dunwu.test.upcdn.net/images/java/javaweb/distributed/architecture/负载均衡算法之轮询-02.jpg!zp" width="640">
+</div>
+<p>算法示例：</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">private</span> Integer pos = <span class="number">0</span>;</span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">roundRobin</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    List&lt;String&gt; keyList = <span class="keyword">new</span> ArrayList&lt;String&gt;(serverMap.keySet());</span><br><span class="line">    String server = <span class="keyword">null</span>;</span><br><span class="line">    <span class="keyword">synchronized</span> (pos) &#123;</span><br><span class="line">        <span class="keyword">if</span> (pos &gt; keyList.size()) &#123;</span><br><span class="line">            pos = <span class="number">0</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        server = keyList.get(pos);</span><br><span class="line">        pos++;</span><br><span class="line">    &#125;</span><br><span class="line">    System.out.println(server);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h4 id="加权轮询"><a class="markdownIt-Anchor" href="#加权轮询"></a> 加权轮询</h4>
+<blockquote>
+<p>加权轮询（Weighted Round Robbin）算法在轮询算法的基础上，通过加权的方式，进行负载服务器分配。</p>
+<ul>
+<li>优点：根据权重，调节转发服务器的请求数目；</li>
+<li>缺点：使用相对复杂；</li>
+</ul>
+</blockquote>
+<p>加权轮询是在轮询的基础上，根据服务器的性能差异，为服务器赋予一定的权值。例如下图中，服务器 1 被赋予的权值为 5，服务器 2 被赋予的权值为 1，那么 (1, 2, 3, 4, 5) 请求会被发送到服务器 1，(6) 请求会被发送到服务器 2。</p>
+<div align="center">
+<img src="http://dunwu.test.upcdn.net/images/java/javaweb/distributed/architecture/负载均衡算法之加权轮询.jpg!zp" width="640">
+</div>
+<p>算法示例：</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">weightRoundRobin</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    Set&lt;String&gt; keySet = serverMap.keySet();</span><br><span class="line">    List&lt;String&gt; servers = <span class="keyword">new</span> ArrayList&lt;String&gt;();</span><br><span class="line">    <span class="keyword">for</span> (Iterator&lt;String&gt; it = keySet.iterator(); it.hasNext(); ) &#123;</span><br><span class="line">        String server = it.next();</span><br><span class="line">        <span class="keyword">int</span> weithgt = serverMap.get(server);</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; weithgt; i++) &#123;</span><br><span class="line">            servers.add(server);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    String server = <span class="keyword">null</span>;</span><br><span class="line">    <span class="keyword">synchronized</span> (pos) &#123;</span><br><span class="line">        <span class="keyword">if</span> (pos &gt; keySet.size()) &#123;</span><br><span class="line">            pos = <span class="number">0</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        server = servers.get(pos);</span><br><span class="line">        pos++;</span><br><span class="line">    &#125;</span><br><span class="line">    System.out.println(server);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="最少连接"><a class="markdownIt-Anchor" href="#最少连接"></a> 最少连接</h3>
+<blockquote>
+<p>最少连接（Least Busy）算法将请求分配到连接数最少的服务器（目前处理请求最少的服务器）。</p>
+<ul>
+<li>优点：根据服务器当前的请求处理情况，动态分配；</li>
+<li>缺点：算法实现相对复杂，需要监控服务器请求连接数；</li>
+</ul>
+</blockquote>
+<p>由于每个请求的连接时间不一样，使用轮询或者加权轮询算法的话，可能会让一台服务器当前连接数过大，而另一台服务器的连接过小，造成负载不均衡。例如下图中，(1, 3, 5) 请求会被发送到服务器 1，但是 (1, 3) 很快就断开连接，此时只有 (5) 请求连接服务器 1；(2, 4, 6) 请求被发送到服务器 2，只有 (2) 的连接断开。该系统继续运行时，服务器 2 会承担过大的负载。</p>
+<div align="center">
+<img src="http://dunwu.test.upcdn.net/images/java/javaweb/distributed/architecture/负载均衡算法之最少连接-01.jpg!zp" width="640">
+</div>
+<p>最少连接算法就是将请求发送给当前最少连接数的服务器上。例如下图中，服务器 1 当前连接数最小，那么新到来的请求 6 就会被发送到服务器 1 上。</p>
+<div align="center">
+<img src="http://dunwu.test.upcdn.net/images/java/javaweb/distributed/architecture/负载均衡算法之最少连接-02.jpg!zp" width="640">
+</div>
+<h4 id="加权最少连接"><a class="markdownIt-Anchor" href="#加权最少连接"></a> 加权最少连接</h4>
+<blockquote>
+<p>加权最少连接（Weighted Least Connection）在最少连接的基础上，根据服务器的性能为每台服务器分配权重，再根据权重计算出每台服务器能处理的连接数。</p>
+</blockquote>
+<div align="center">
+<img src="http://dunwu.test.upcdn.net/images/java/javaweb/distributed/architecture/负载均衡算法之加权最少连接.jpg!zp" width="640">
+</div>
+### 随机
+<blockquote>
+<p>随机（Random）算法将请求随机分配到各个服务器。</p>
+<ul>
+<li>优点：使用简单；</li>
+<li>缺点：不适合机器配置不同的场景；</li>
+</ul>
+</blockquote>
+<p>和轮询算法类似，该算法比较适合服务器性能差不多的场景。</p>
+<div align="center">
+<img src="http://dunwu.test.upcdn.net/images/java/javaweb/distributed/architecture/负载均衡算法之随机.jpg!zp" width="640">
+</div>
+<h3 id="哈希hash"><a class="markdownIt-Anchor" href="#哈希hash"></a> 哈希（Hash）</h3>
+<h4 id="普通-hash"><a class="markdownIt-Anchor" href="#普通-hash"></a> 普通 Hash</h4>
+<blockquote>
+<p>根据 IP 地址进行 Hash 计算，得到 IP 地址。</p>
+<ul>
+<li>优点：将来自同一 IP 地址的请求，同一会话期内，转发到相同的服务器；实现会话粘滞。</li>
+<li>缺点：目标服务器宕机后，会话会丢失；</li>
+</ul>
+</blockquote>
+<div align="center">
+<img src="http://dunwu.test.upcdn.net/images/java/javaweb/distributed/architecture/负载均衡算法之IpHash.jpg!zp" width="640">
+</div>
+<p>算法示例：</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">hash</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    List&lt;String&gt; keyList = <span class="keyword">new</span> ArrayList&lt;String&gt;(serverMap.keySet());</span><br><span class="line">    String remoteIp = <span class="string">"192.168.2.215"</span>;</span><br><span class="line">    <span class="keyword">int</span> hashCode = remoteIp.hashCode();</span><br><span class="line">    <span class="keyword">int</span> idx = hashCode % keyList.size();</span><br><span class="line">    String server = keyList.get(Math.abs(idx));</span><br><span class="line">    System.out.println(server);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h4 id="一致性哈希"><a class="markdownIt-Anchor" href="#一致性哈希"></a> 一致性哈希</h4>
+<p>一致性 Hash，相同参数的请求总是发到同一提供者。当某一台提供者挂时，原本发往该提供者的请求，基于虚拟节点，平摊到其它提供者，不会引起剧烈变动。</p>
+<h2 id="硬件负载均衡"><a class="markdownIt-Anchor" href="#硬件负载均衡"></a> 硬件负载均衡</h2>
+<p>采用硬件的方式实现负载均衡，一般是单独的负载均衡服务器，价格昂贵，一般土豪级公司可以考虑，业界领先的有两款，F5 和 A10。</p>
+<ul>
+<li>使用硬件负载均衡，主要考虑一下几个方面：</li>
+<li>功能考虑：功能全面支持各层级的负载均衡，支持全面的负载均衡算法，支持全局负载均衡；</li>
+<li>性能考虑：一般软件负载均衡支持到 5 万级并发已经很困难了，硬件负载均衡可以支持</li>
+<li>稳定性：商用硬件负载均衡，经过了良好的严格的测试，从经过大规模使用，在稳定性方面高；</li>
+<li>安全防护：硬件均衡设备除具备负载均衡功能外，还具备防火墙，防 DDOS 攻击等安全功能；</li>
+<li>维护角度：提供良好的维护管理界面，售后服务和技术支持；</li>
+<li>土豪公司：F5 Big Ip 价格：15w~55w 不等；A10 价格：55w-100w 不等；</li>
+</ul>
+<p>缺点</p>
+<ul>
+<li>价格昂贵；</li>
+<li>扩展能力差；</li>
+</ul>
+<p>小结</p>
+<ul>
+<li>一般硬件的负载均衡也要做双机高可用，因此成本会比较高。</li>
+<li>互联网公司一般使用开源软件，因此大部分应用采用软件负载均衡；部分采用硬件负载均衡。</li>
+</ul>
+<p>比如某互联网公司，目前是使用几台 F5 做全局负载均衡，内部使用 Nginx 等软件负载均衡。</p>
+<h2 id="ngnix-负载均衡"><a class="markdownIt-Anchor" href="#ngnix-负载均衡"></a> Ngnix 负载均衡</h2>
+<p>Ngnix 是一款轻量级的 Web 服务器/反向代理服务器，工作在七层 Http 协议的负载均衡系统。具有高性能、高并发、低内存使用等特点。是一个轻量级的 Http 和反向代理服务器。Nginx 使用 epoll and kqueue 作为开发模型。能够支持高达 50,000 个并发连接数的响应。</p>
+<p>操作系统：Liunx，Windows（Linux、FreeBSD、Solaris、Mac OS X、AIX 以及 Microsoft Windows）</p>
+<p>开发语言：C</p>
+<p>并发性能：官方支持每秒 5 万并发，实际国内一般到每秒 2 万并发，有优化到每秒 10 万并发的。具体性能看应用场景。</p>
+<h3 id="ngnix-特点"><a class="markdownIt-Anchor" href="#ngnix-特点"></a> Ngnix 特点</h3>
+<ul>
+<li>模块化设计：良好的扩展性，可以通过模块方式进行功能扩展。</li>
+<li>高可靠性：主控进程和 worker 是同步实现的，一个 worker 出现问题，会立刻启动另一个 worker。</li>
+<li>内存消耗低：一万个长连接（keep-alive）,仅消耗 2.5MB 内存。</li>
+<li>支持热部署：不用停止服务器，实现更新配置文件，更换日志文件、更新服务器程序版本。</li>
+<li>并发能力强：官方数据每秒支持 5 万并发；</li>
+<li>功能丰富：优秀的反向代理功能和灵活的负载均衡策略</li>
+</ul>
+<h3 id="ngnix-功能"><a class="markdownIt-Anchor" href="#ngnix-功能"></a> Ngnix 功能</h3>
+<h4 id="基本功能"><a class="markdownIt-Anchor" href="#基本功能"></a> 基本功能</h4>
+<ul>
+<li>支持静态资源的 web 服务器。</li>
+<li>http,smtp,pop3 协议的反向代理服务器、缓存、负载均衡；</li>
+<li>支持 FASTCGI（fpm）</li>
+<li>支持模块化，过滤器（让文本可以实现压缩，节约带宽）,ssl 及图像大小调整。</li>
+<li>内置的健康检查功能</li>
+<li>基于名称和 ip 的虚拟主机</li>
+<li>定制访问日志</li>
+<li>支持平滑升级</li>
+<li>支持 KEEPALIVE</li>
+<li>支持 url rewrite</li>
+<li>支持路径别名</li>
+<li>支持基于 IP 和用户名的访问控制。</li>
+<li>支持传输速率限制，支持并发数限制。</li>
+</ul>
+<h4 id="扩展功能"><a class="markdownIt-Anchor" href="#扩展功能"></a> 扩展功能</h4>
+<h4 id="性能"><a class="markdownIt-Anchor" href="#性能"></a> 性能</h4>
+<p>Nginx 的高并发，官方测试支持 5 万并发连接。实际生产环境能到 2-3 万并发连接数。10000 个非活跃的 HTTP keep-alive 连接仅占用约 2.5MB 内存。三万并发连接下，10 个 Nginx 进程，消耗内存 150M。淘宝 tengine 团队测试结果是“24G 内存机器上，处理并发请求可达 200 万”。</p>
+<h3 id="ngnix-架构"><a class="markdownIt-Anchor" href="#ngnix-架构"></a> Ngnix 架构</h3>
+<h4 id="nginx-的基本工作模式"><a class="markdownIt-Anchor" href="#nginx-的基本工作模式"></a> Nginx 的基本工作模式</h4>
+<div align="center"><img src="https://images2015.cnblogs.com/blog/820332/201512/820332-20151227195943640-864372763.jpg"></div>
+<p>一个 master 进程，生成一个或者多个 worker 进程。但是这里 master 是使用 root 身份启动的，因为 nginx 要工作在 80 端口。而只有管理员才有权限启动小于低于 1023 的端口。master 主要是负责的作用只是启动 worker，加载配置文件，负责系统的平滑升级。其它的工作是交给 worker。那么当 worker 被启动之后，也只是负责一些 web 最简单的工作，而其他的工作都是有 worker 中调用的模块来实现的。</p>
+<p>模块之间是以流水线的方式实现功能的。流水线，指的是一个用户请求，由多个模块组合各自的功能依次实现完成的。比如：第一个模块只负责分析请求首部，第二个模块只负责查找数据，第三个模块只负责压缩数据，依次完成各自工作。来实现整个工作的完成。</p>
+<p>他们是如何实现热部署的呢？其实是这样的，我们前面说 master 不负责具体的工作，而是调用 worker 工作，他只是负责读取配置文件，因此当一个模块修改或者配置文件发生变化，是由 master 进行读取，因此此时不会影响到 worker 工作。在 master 进行读取配置文件之后，不会立即的把修改的配置文件告知 worker。而是让被修改的 worker 继续使用老的配置文件工作，当 worker 工作完毕之后，直接当掉这个子进程，更换新的子进程，使用新的规则。</p>
+<h4 id="nginx-支持的-sendfile-机制"><a class="markdownIt-Anchor" href="#nginx-支持的-sendfile-机制"></a> Nginx 支持的 sendfile 机制</h4>
+<p>Sendfile 机制，用户将请求发给内核，内核根据用户的请求调用相应用户进程，进程在处理时需要资源。此时再把请求发给内核（进程没有直接 IO 的能力），由内核加载数据。内核查找到数据之后，会把数据复制给用户进程，由用户进程对数据进行封装，之后交给内核，内核在进行 tcp/ip 首部的封装，最后再发给客户端。这个功能用户进程只是发生了一个封装报文的过程，却要绕一大圈。因此 nginx 引入了 sendfile 机制，使得内核在接受到数据之后，不再依靠用户进程给予封装，而是自己查找自己封装，减少了一个很长一段时间的浪费，这是一个提升性能的核心点。</p>
+<div align="center"><img src="https://images2015.cnblogs.com/blog/820332/201512/820332-20151227195957171-1801771404.jpg"></div>
+<p>以上内容摘自网友发布的文章，简单一句话是资源的处理，直接通过内核层进行数据传递，避免了数据传递到应用层，应用层再传递到内核层的开销。</p>
+<p>目前高并发的处理，一般都采用 sendfile 模式。通过直接操作内核层数据，减少应用与内核层数据传递。</p>
+<h4 id="nginx-通信模型io-复用机制"><a class="markdownIt-Anchor" href="#nginx-通信模型io-复用机制"></a> Nginx 通信模型（I/O 复用机制）</h4>
+<p>开发模型：epoll 和 kqueue。</p>
+<p>支持的事件机制：kqueue、epoll、rt signals、/dev/poll 、event ports、select 以及 poll。</p>
+<p>支持的 kqueue 特性包括 EV_CLEAR、EV_DISABLE、NOTE_LOWAT、EV_EOF，可用数据的数量，错误代码.</p>
+<p>支持 sendfile、sendfile64 和 sendfilev;文件 AIO；DIRECTIO;支持 Accept-filters 和 TCP_DEFER_ACCEP.</p>
+<p>以上概念较多，大家自行百度或谷歌，知识领域是网络通信（BIO,NIO,AIO）和多线程方面的知识。</p>
+<h3 id="ngnix-均衡策略"><a class="markdownIt-Anchor" href="#ngnix-均衡策略"></a> Ngnix 均衡策略</h3>
+<p>nginx 的负载均衡策略可以划分为两大类：内置策略和扩展策略。内置策略包含加权轮询和 ip hash，在默认情况下这两种策略会编译进 nginx 内核，只需在 nginx 配置中指明参数即可。扩展策略有很多，如 fair、通用 hash、consistent hash 等，默认不编译进 nginx 内核。由于在 nginx 版本升级中负载均衡的代码没有本质性的变化，因此下面将以 nginx1.0.15 稳定版为例，从源码角度分析各个策略。</p>
+<h4 id="加权轮询weighted-round-robin"><a class="markdownIt-Anchor" href="#加权轮询weighted-round-robin"></a> 加权轮询（weighted round robin）</h4>
+<p>轮询的原理很简单，首先我们介绍一下轮询的基本流程。如下是处理一次请求的流程图：</p>
+<div align="center"><img src="https://images2015.cnblogs.com/blog/820332/201512/820332-20151227201913984-412518987.jpg"></div>
+<p>图中有两点需要注意，第一，如果可以把加权轮询算法分为先深搜索和先广搜索，那么 nginx 采用的是先深搜索算法，即将首先将请求都分给高权重的机器，直到该机器的权值降到了比其他机器低，才开始将请求分给下一个高权重的机器；第二，当所有后端机器都 down 掉时，nginx 会立即将所有机器的标志位清成初始状态，以避免造成所有的机器都处在 timeout 的状态，从而导致整个前端被夯住。</p>
+<h4 id="ip-hash"><a class="markdownIt-Anchor" href="#ip-hash"></a> ip hash</h4>
+<p>ip hash 是 nginx 内置的另一个负载均衡的策略，流程和轮询很类似，只是其中的算法和具体的策略有些变化，如下图所示：</p>
+<div align="center"><img src="https://images2015.cnblogs.com/blog/820332/201512/820332-20151227201851812-352858632.jpg"></div>
+<h4 id="fair"><a class="markdownIt-Anchor" href="#fair"></a> fair</h4>
+<p>fair 策略是扩展策略，默认不被编译进 nginx 内核。其原理是根据后端服务器的响应时间判断负载情况，从中选出负载最轻的机器进行分流。这种策略具有很强的自适应性，但是实际的网络环境往往不是那么简单，因此要慎用。</p>
+<h4 id="通用-hash-一致性-hash"><a class="markdownIt-Anchor" href="#通用-hash-一致性-hash"></a> 通用 hash、一致性 hash</h4>
+<p>这两种也是扩展策略，在具体的实现上有些差别，通用 hash 比较简单，可以以 nginx 内置的变量为 key 进行 hash，一致性 hash 采用了 nginx 内置的一致性 hash 环，可以支持 memcache。</p>
+<h3 id="ngnix-场景"><a class="markdownIt-Anchor" href="#ngnix-场景"></a> Ngnix 场景</h3>
+<p>Ngnix 一般作为入口负载均衡或内部负载均衡，结合反向代理服务器使用。以下架构示例，仅供参考，具体使用根据场景而定。</p>
+<h4 id="入口负载均衡架构"><a class="markdownIt-Anchor" href="#入口负载均衡架构"></a> 入口负载均衡架构</h4>
+<div align="center"><img src="https://images2015.cnblogs.com/blog/820332/201512/820332-20151227202044781-2116477406.png"></div>
+<p>Ngnix 服务器在用户访问的最前端。根据用户请求再转发到具体的应用服务器或二级负载均衡服务器（LVS）</p>
+<h4 id="内部负载均衡架构"><a class="markdownIt-Anchor" href="#内部负载均衡架构"></a> 内部负载均衡架构</h4>
+<div align="center"><img src="https://images2015.cnblogs.com/blog/820332/201512/820332-20151227202054421-2015542569.png"></div>
+<p>LVS 作为入口负载均衡，将请求转发到二级 Ngnix 服务器，Ngnix 再根据请求转发到具体的应用服务器。</p>
+<h4 id="ngnix-高可用"><a class="markdownIt-Anchor" href="#ngnix-高可用"></a> Ngnix 高可用</h4>
+<div align="center"><img src="https://images2015.cnblogs.com/blog/820332/201512/820332-20151227202100921-915093452.png"></div>
+<p>分布式系统中，应用只部署一台服务器会存在单点故障，负载均衡同样有类似的问题。一般可采用主备或负载均衡设备集群的方式节约单点故障或高并发请求分流。</p>
+<p>Ngnix 高可用，至少包含两个 Ngnix 服务器，一台主服务器，一台备服务器，之间使用 Keepalived 做健康监控和故障检测。开放 VIP 端口，通过防火墙进行外部映射。</p>
+<p>DNS 解析公网的 IP 实际为 VIP。</p>
+<h2 id="lvs-负载均衡"><a class="markdownIt-Anchor" href="#lvs-负载均衡"></a> LVS 负载均衡</h2>
+<p>LVS 是一个开源的软件，由毕业于国防科技大学的章文嵩博士于 1998 年 5 月创立，用来实现 Linux 平台下的简单负载均衡。LVS 是 Linux Virtual Server 的缩写，意思是 Linux 虚拟服务器。</p>
+<p>基于 IP 层的负载均衡调度技术，它在操作系统核心层上，将来自 IP 层的 TCP/UDP 请求均衡地转移到不同的 服务器，从而将一组服务器构成一个高性能、高可用的虚拟服务器。</p>
+<p>操作系统：Liunx</p>
+<p>开发语言：C</p>
+<p>并发性能：默认 4096，可以修改但需要重新编译。</p>
+<h3 id="lvs-功能"><a class="markdownIt-Anchor" href="#lvs-功能"></a> LVS 功能</h3>
+<p>LVS 的主要功能是实现 IP 层（网络层）负载均衡，有 NAT,TUN,DR 三种请求转发模式。</p>
+<h4 id="lvsnat-方式的负载均衡集群"><a class="markdownIt-Anchor" href="#lvsnat-方式的负载均衡集群"></a> LVS/NAT 方式的负载均衡集群</h4>
+<p>NAT 是指 Network Address Translation，它的转发流程是：Director 机器收到外界请求，改写数据包的目标地址，按相应的调度算法将其发送到相应 Real Server 上，Real Server 处理完该请求后，将结果数据包返回到其默认网关，即 Director 机器上，Director 机器再改写数据包的源地址，最后将其返回给外界。这样就完成一次负载调度。</p>
+<p>构架一个最简单的 LVS/NAT 方式的负载均衡集群 Real Server 可以是任何的操作系统，而且无需做任何特殊的设定，惟一要做的就是将其默认网关指向 Director 机器。Real Server 可以使用局域网的内部 IP(192.168.0.0/24)。Director 要有两块网卡，一块网卡绑定一个外部 IP 地址 (10.0.0.1)，另一块网卡绑定局域网的内部 IP(192.168.0.254)，作为 Real Server 的默认网关。</p>
+<p>LVS/NAT 方式实现起来最为简单，而且 Real Server 使用的是内部 IP，可以节省 Real IP 的开销。但因为执行 NAT 需要重写流经 Director 的数据包，在速度上有一定延迟；</p>
+<p>当用户的请求非常短，而服务器的回应非常大的情况下，会对 Director 形成很大压力，成为新的瓶颈，从而使整个系统的性能受到限制。</p>
+<h4 id="lvstun-方式的负载均衡集群"><a class="markdownIt-Anchor" href="#lvstun-方式的负载均衡集群"></a> LVS/TUN 方式的负载均衡集群</h4>
+<p>TUN 是指 IP Tunneling，它的转发流程是：Director 机器收到外界请求，按相应的调度算法,通过 IP 隧道发送到相应 Real Server，Real Server 处理完该请求后，将结果数据包直接返回给客户。至此完成一次负载调度。</p>
+<p>最简单的 LVS/TUN 方式的负载均衡集群架构使用 IP Tunneling 技术，在 Director 机器和 Real Server 机器之间架设一个 IP Tunnel，通过 IP Tunnel 将负载分配到 Real Server 机器上。Director 和 Real Server 之间的关系比较松散，可以是在同一个网络中，也可以是在不同的网络中，只要两者能够通过 IP Tunnel 相连就行。收到负载分配的 Real Server 机器处理完后会直接将反馈数据送回给客户，而不必通过 Director 机器。实际应用中，服务器必须拥有正式的 IP 地址用于与客户机直接通信，并且所有服务器必须支持 IP 隧道协议。</p>
+<p>该方式中 Director 将客户请求分配到不同的 Real Server，Real Server 处理请求后直接回应给用户，这样 Director 就只处理客户机与服务器的一半连接，极大地提高了 Director 的调度处理能力，使集群系统能容纳更多的节点数。另外 TUN 方式中的 Real Server 可以在任何 LAN 或 WAN 上运行，这样可以构筑跨地域的集群，其应对灾难的能力也更强，但是服务器需要为 IP 封装付出一定的资源开销，而且后端的 Real Server 必须是支持 IP Tunneling 的操作系统。</p>
+<h4 id="lvstun-方式的负载均衡集群-2"><a class="markdownIt-Anchor" href="#lvstun-方式的负载均衡集群-2"></a> LVS/TUN 方式的负载均衡集群</h4>
+<p>DR 是指 Direct Routing，它的转发流程是：Director 机器收到外界请求，按相应的调度算法将其直接发送到相应 Real Server，Real Server 处理完该请求后，将结果数据包直接返回给客户，完成一次负载调度。</p>
+<p>构架一个最简单的 LVS/DR 方式的负载均衡集群 Real Server 和 Director 都在同一个物理网段中，Director 的网卡 IP 是 192.168.0.253，再绑定另一个 IP： 192.168.0.254 作为对外界的 virtual IP，外界客户通过该 IP 来访问整个集群系统。Real Server 在 lo 上绑定 IP：192.168.0.254，同时加入相应的路由。</p>
+<p>LVS/DR 方式与前面的 LVS/TUN 方式有些类似，前台的 Director 机器也是只需要接收和调度外界的请求，而不需要负责返回这些请求的反馈结果，所以能够负载更多的 Real Server，提高 Director 的调度处理能力，使集群系统容纳更多的 Real Server。但 LVS/DR 需要改写请求报文的 MAC 地址，所以所有服务器必须在同一物理网段内。</p>
+<h3 id="lvs-架构"><a class="markdownIt-Anchor" href="#lvs-架构"></a> LVS 架构</h3>
+<p>LVS 架设的服务器集群系统有三个部分组成：最前端的负载均衡层（Loader Balancer），中间的服务器群组层，用 Server Array 表示，最底层的数据共享存储层，用 Shared Storage 表示。在用户看来所有的应用都是透明的，用户只是在使用一个虚拟服务器提供的高性能服务。</p>
+<p>LVS 的体系架构如图：</p>
+<div align="center"><img src="https://images2015.cnblogs.com/blog/820332/201512/820332-20151227220009109-1768809526.png"></div>
+<p>LVS 的各个层次的详细介绍：</p>
+<p>Load Balancer 层：位于整个集群系统的最前端，有一台或者多台负载调度器（Director Server）组成，LVS 模块就安装在 Director Server 上，而 Director 的主要作用类似于一个路由器，它含有完成 LVS 功能所设定的路由表，通过这些路由表把用户的请求分发给 Server Array 层的应用服务器（Real Server）上。同时，在 Director Server 上还要安装对 Real Server 服务的监控模块 Ldirectord，此模块用于监测各个 Real Server 服务的健康状况。在 Real Server 不可用时把它从 LVS 路由表中剔除，恢复时重新加入。</p>
+<p>Server Array 层：由一组实际运行应用服务的机器组成，Real Server 可以是 WEB 服务器、MAIL 服务器、FTP 服务器、DNS 服务器、视频服务器中的一个或者多个，每个 Real Server 之间通过高速的 LAN 或分布在各地的 WAN 相连接。在实际的应用中，Director Server 也可以同时兼任 Real Server 的角色。</p>
+<p>Shared Storage 层：是为所有 Real Server 提供共享存储空间和内容一致性的存储区域，在物理上，一般有磁盘阵列设备组成，为了提供内容的一致性，一般可以通过 NFS 网络文件系统共享数 据，但是 NFS 在繁忙的业务系统中，性能并不是很好，此时可以采用集群文件系统，例如 Red hat 的 GFS 文件系统，oracle 提供的 OCFS2 文件系统等。</p>
+<p>从整个 LVS 结构可以看出，Director Server 是整个 LVS 的核心，目前，用于 Director Server 的操作系统只能是 Linux 和 FreeBSD，linux2.6 内核不用任何设置就可以支持 LVS 功能，而 FreeBSD 作为 Director Server 的应用还不是很多，性能也不是很好。对于 Real Server，几乎可以是所有的系统平台，Linux、windows、Solaris、AIX、BSD 系列都能很好的支持。</p>
+<h3 id="lvs-均衡策略"><a class="markdownIt-Anchor" href="#lvs-均衡策略"></a> LVS 均衡策略</h3>
+<p>LVS 默认支持八种负载均衡策略，简述如下：</p>
+<h4 id="轮询调度round-robin"><a class="markdownIt-Anchor" href="#轮询调度round-robin"></a> 轮询调度（Round Robin）</h4>
+<p>调度器通过“轮询”调度算法将外部请求按顺序轮流分配到集群中的真实服务器上，它均等地对待每一台服务器，而不管服务器上实际的连接数和系统负载。</p>
+<h4 id="加权轮询weighted-round-robin-2"><a class="markdownIt-Anchor" href="#加权轮询weighted-round-robin-2"></a> 加权轮询（Weighted Round Robin）</h4>
+<p>调度器通过“加权轮询”调度算法根据真实服务器的不同处理能力来调度访问请求。这样可以保证处理能力强的服务器能处理更多的访问流量。调度器可以自动问询真实服务器的负载情况，并动态地调整其权值。</p>
+<h4 id="最少链接least-connections"><a class="markdownIt-Anchor" href="#最少链接least-connections"></a> 最少链接（Least Connections）</h4>
+<p>调度器通过“最少连接”调度算法动态地将网络请求调度到已建立的链接数最少的服务器上。如果集群系统的真实服务器具有相近的系统性能，采用“最小连接”调度算法可以较好地均衡负载。</p>
+<h4 id="加权最少链接weighted-least-connections"><a class="markdownIt-Anchor" href="#加权最少链接weighted-least-connections"></a> 加权最少链接（Weighted Least Connections）</h4>
+<p>在集群系统中的服务器性能差异较大的情况下，调度器采用“加权最少链接”调度算法优化负载均衡性能，具有较高权值的服务器将承受较大比例的活动连接负载。调度器可以自动问询真实服务器的负载情况，并动态地调整其权值。</p>
+<h4 id="基于局部性的最少链接locality-based-least-connections"><a class="markdownIt-Anchor" href="#基于局部性的最少链接locality-based-least-connections"></a> 基于局部性的最少链接（Locality-Based Least Connections）</h4>
+<p>“基于局部性的最少链接”调度算法是针对目标 IP 地址的负载均衡，目前主要用于 Cache 集群系统。该算法根据请求的目标 IP 地址找出该目标 IP 地址最近使用的服务器，若该服务器是可用的且没有超载，将请求发送到该服务器；若服务器不存在，或者该服务器超载且有服务器处于一半的工作负载，则用“最少链接” 的原则选出一个可用的服务器，将请求发送到该服务器。</p>
+<h4 id="带复制的基于局部性最少链接locality-based-least-connections-with-replication"><a class="markdownIt-Anchor" href="#带复制的基于局部性最少链接locality-based-least-connections-with-replication"></a> 带复制的基于局部性最少链接（Locality-Based Least Connections with Replication）</h4>
+<p>“带复制的基于局部性最少链接”调度算法也是针对目标 IP 地址的负载均衡，目前主要用于 Cache 集群系统。它与 LBLC 算法的不同之处是它要维护从一个目标 IP 地址到一组服务器的映射，而 LBLC 算法维护从一个目标 IP 地址到一台服务器的映射。该算法根据请求的目标 IP 地址找出该目标 IP 地址对应的服务器组，按“最小连接”原则从服务器组中选出一台服务器，若服务器没有超载，将请求发送到该服务器；若服务器超载，则按“最小连接”原则从这个集群中选出一台服务器，将该服务器加入到服务器组中，将请求发送到该服务器。同时，当该服务器组有一段时间没有被修改，将最忙的服务器从服务器组中删除，以降低复制的程度。</p>
+<h4 id="目标地址散列destination-hashing"><a class="markdownIt-Anchor" href="#目标地址散列destination-hashing"></a> 目标地址散列（Destination Hashing）</h4>
+<p>“目标地址散列”调度算法根据请求的目标 IP 地址，作为散列键（Hash Key）从静态分配的散列表找出对应的服务器，若该服务器是可用的且未超载，将请求发送到该服务器，否则返回空。</p>
+<h4 id="源地址散列source-hashing"><a class="markdownIt-Anchor" href="#源地址散列source-hashing"></a> 源地址散列（Source Hashing）</h4>
+<p>“源地址散列”调度算法根据请求的源 IP 地址，作为散列键（Hash Key）从静态分配的散列表找出对应的服务器，若该服务器是可用的且未超载，将请求发送到该服务器，否则返回空。</p>
+<p>除具备以上负载均衡算法外，还可以自定义均衡策略。</p>
+<h3 id="lvs-场景"><a class="markdownIt-Anchor" href="#lvs-场景"></a> LVS 场景</h3>
+<p>一般作为入口负载均衡或内部负载均衡，结合反向代理服务器使用。相关架构可参考 Ngnix 场景架构。</p>
+<h2 id="haproxy-负载均衡"><a class="markdownIt-Anchor" href="#haproxy-负载均衡"></a> HaProxy 负载均衡</h2>
+<p>HAProxy 也是使用较多的一款负载均衡软件。HAProxy 提供高可用性、负载均衡以及基于 TCP 和 HTTP 应用的代理，支持虚拟主机，是免费、快速并且可靠的一种解决方案。特别适用于那些负载特大的 web 站点。运行模式使得它可以很简单安全的整合到当前的架构中，同时可以保护你的 web 服务器不被暴露到网络上。</p>
+<h3 id="haproxy-特点"><a class="markdownIt-Anchor" href="#haproxy-特点"></a> HaProxy 特点</h3>
+<ul>
+<li>支持两种代理模式：TCP（四层）和 HTTP（七层），支持虚拟主机；</li>
+<li>配置简单，支持 url 检测后端服务器状态；</li>
+<li>做负载均衡软件使用，在高并发情况下，处理速度高于 nginx；</li>
+<li>TCP 层多用于 Mysql 从（读）服务器负载均衡。 （对 Mysql 进行负载均衡，对后端的 DB 节点进行检测和负载均衡）</li>
+<li>能够补充 Nginx 的一些缺点比如 Session 的保持，Cookie 引导等工作</li>
+</ul>
+<h3 id="haproxy-均衡策略"><a class="markdownIt-Anchor" href="#haproxy-均衡策略"></a> HaProxy 均衡策略</h3>
+<p>支持四种常用算法：</p>
+<ul>
+<li>roundrobin：轮询，轮流分配到后端服务器；</li>
+<li>static-rr：根据后端服务器性能分配；</li>
+<li>leastconn：最小连接者优先处理；</li>
+<li>source：根据请求源 IP，与 Nginx 的 IP_Hash 类似。</li>
+</ul>
+<h2 id="资料"><a class="markdownIt-Anchor" href="#资料"></a> 资料</h2>
+<ul>
+<li><a href="https://www.cnblogs.com/itfly8/p/5043435.html" target="_blank" rel="noopener">大型网站架构系列：负载均衡详解（1）</a></li>
+<li><a href="https://www.cnblogs.com/itfly8/p/5043452.html" target="_blank" rel="noopener">大型网站架构系列：负载均衡详解（2）</a></li>
+<li><a href="https://www.cnblogs.com/itfly8/p/5080743.html" target="_blank" rel="noopener">大型网站架构系列：负载均衡详解（3）</a></li>
+<li><a href="https://www.cnblogs.com/itfly8/p/5080988.html" target="_blank" rel="noopener">大型网站架构系列：负载均衡详解（4）</a></li>
+<li><a href="https://segmentfault.com/a/1190000004492447" target="_blank" rel="noopener">https://segmentfault.com/a/1190000004492447</a></li>
+</ul>
+
+      
+    </div>
+
+    
+      
+
+
+    
+
+    
+    
+    
+
+    
+
+    
+      
+    
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/blog/tags/design/" rel="tag"># design</a>
+          
+            <a href="/blog/tags/distributed/" rel="tag"># distributed</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/blog/2018/07/05/design/architecture/网站的高性能架构/" rel="next" title="网站的高性能架构">
+                <i class="fa fa-chevron-left"></i> 网站的高性能架构
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/blog/2018/07/09/design/architecture/分布式技术实现/" rel="prev" title="分布式技术实现">
+                分布式技术实现 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+  </div>
+
+
+          </div>
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image" src="/blog/images/avatar.gif" alt="Zhang Peng">
+            
+              <p class="site-author-name" itemprop="name">Zhang Peng</p>
+              <p class="site-description motion-element" itemprop="description"></p>
+          </div>
+
+          
+            <nav class="site-state motion-element">
+              
+                <div class="site-state-item site-state-posts">
+                
+                  <a href="/blog/archives/">
+                
+                    <span class="site-state-item-count">68</span>
+                    <span class="site-state-item-name">日志</span>
+                  </a>
+                </div>
+              
+
+              
+                
+                
+                <div class="site-state-item site-state-categories">
+                  <a href="/blog/categories/index.html">
+                    
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">15</span>
+                    <span class="site-state-item-name">分类</span>
+                  </a>
+                </div>
+              
+
+              
+                
+                
+                <div class="site-state-item site-state-tags">
+                  <a href="/blog/tags/index.html">
+                    
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">43</span>
+                    <span class="site-state-item-name">标签</span>
+                  </a>
+                </div>
+              
+            </nav>
+          
+
+          
+            <div class="feed-link motion-element">
+              <a href="/blog/atom.xml" rel="alternate">
+                <i class="fa fa-rss"></i>
+                RSS
+              </a>
+            </div>
+          
+
+          
+            <div class="links-of-author motion-element">
+              
+                <span class="links-of-author-item">
+                  
+                  
+                    
+                  
+                  
+                    
+                  
+                  <a href="https://github.com/dunwu" title="GitHub &rarr; https://github.com/dunwu" rel="noopener" target="_blank"><i class="fa fa-fw fa-github"></i>GitHub</a>
+                </span>
+              
+                <span class="links-of-author-item">
+                  
+                  
+                    
+                  
+                  
+                    
+                  
+                  <a href="mailto:forbreak@163.com" title="E-Mail &rarr; mailto:forbreak@163.com" rel="noopener" target="_blank"><i class="fa fa-fw fa-envelope"></i>E-Mail</a>
+                </span>
+              
+            </div>
+          
+
+          
+             <div class="cc-license motion-element" itemprop="license">
+              
+              
+                
+              
+              
+              
+              <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh" class="cc-opacity" rel="noopener" target="_blank"><img src="/blog/images/cc-by-nc-sa.svg" alt="Creative Commons"></a>
+             </div>
+          
+
+          
+          
+
+          
+            
+          
+          
+
+        </div>
+      </div>
+
+      
+      <!--noindex-->
+        <div class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+            
+            
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#负载均衡"><span class="nav-text"> 负载均衡</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#负载均衡原理"><span class="nav-text"> 负载均衡原理</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#负载均衡分类"><span class="nav-text"> 负载均衡分类</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#反向代理"><span class="nav-text"> 反向代理</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#http-重定向"><span class="nav-text"> HTTP 重定向</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#dns-重定向"><span class="nav-text"> DNS 重定向</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#修改-ip-地址"><span class="nav-text"> 修改 IP 地址</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#修改-mac-地址"><span class="nav-text"> 修改 MAC 地址</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#混合负载均衡"><span class="nav-text"> 混合负载均衡</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#负载均衡算法"><span class="nav-text"> 负载均衡算法</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#轮询"><span class="nav-text"> 轮询</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#加权轮询"><span class="nav-text"> 加权轮询</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#最少连接"><span class="nav-text"> 最少连接</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#加权最少连接"><span class="nav-text"> 加权最少连接</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#哈希hash"><span class="nav-text"> 哈希（Hash）</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#普通-hash"><span class="nav-text"> 普通 Hash</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#一致性哈希"><span class="nav-text"> 一致性哈希</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#硬件负载均衡"><span class="nav-text"> 硬件负载均衡</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#ngnix-负载均衡"><span class="nav-text"> Ngnix 负载均衡</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#ngnix-特点"><span class="nav-text"> Ngnix 特点</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#ngnix-功能"><span class="nav-text"> Ngnix 功能</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#基本功能"><span class="nav-text"> 基本功能</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#扩展功能"><span class="nav-text"> 扩展功能</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#性能"><span class="nav-text"> 性能</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#ngnix-架构"><span class="nav-text"> Ngnix 架构</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#nginx-的基本工作模式"><span class="nav-text"> Nginx 的基本工作模式</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#nginx-支持的-sendfile-机制"><span class="nav-text"> Nginx 支持的 sendfile 机制</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#nginx-通信模型io-复用机制"><span class="nav-text"> Nginx 通信模型（I/O 复用机制）</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#ngnix-均衡策略"><span class="nav-text"> Ngnix 均衡策略</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#加权轮询weighted-round-robin"><span class="nav-text"> 加权轮询（weighted round robin）</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#ip-hash"><span class="nav-text"> ip hash</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#fair"><span class="nav-text"> fair</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#通用-hash-一致性-hash"><span class="nav-text"> 通用 hash、一致性 hash</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#ngnix-场景"><span class="nav-text"> Ngnix 场景</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#入口负载均衡架构"><span class="nav-text"> 入口负载均衡架构</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#内部负载均衡架构"><span class="nav-text"> 内部负载均衡架构</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#ngnix-高可用"><span class="nav-text"> Ngnix 高可用</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#lvs-负载均衡"><span class="nav-text"> LVS 负载均衡</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#lvs-功能"><span class="nav-text"> LVS 功能</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#lvsnat-方式的负载均衡集群"><span class="nav-text"> LVS/NAT 方式的负载均衡集群</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#lvstun-方式的负载均衡集群"><span class="nav-text"> LVS/TUN 方式的负载均衡集群</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#lvstun-方式的负载均衡集群-2"><span class="nav-text"> LVS/TUN 方式的负载均衡集群</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#lvs-架构"><span class="nav-text"> LVS 架构</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#lvs-均衡策略"><span class="nav-text"> LVS 均衡策略</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#轮询调度round-robin"><span class="nav-text"> 轮询调度（Round Robin）</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#加权轮询weighted-round-robin-2"><span class="nav-text"> 加权轮询（Weighted Round Robin）</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#最少链接least-connections"><span class="nav-text"> 最少链接（Least Connections）</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#加权最少链接weighted-least-connections"><span class="nav-text"> 加权最少链接（Weighted Least Connections）</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#基于局部性的最少链接locality-based-least-connections"><span class="nav-text"> 基于局部性的最少链接（Locality-Based Least Connections）</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#带复制的基于局部性最少链接locality-based-least-connections-with-replication"><span class="nav-text"> 带复制的基于局部性最少链接（Locality-Based Least Connections with Replication）</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#目标地址散列destination-hashing"><span class="nav-text"> 目标地址散列（Destination Hashing）</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#源地址散列source-hashing"><span class="nav-text"> 源地址散列（Source Hashing）</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#lvs-场景"><span class="nav-text"> LVS 场景</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#haproxy-负载均衡"><span class="nav-text"> HaProxy 负载均衡</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#haproxy-特点"><span class="nav-text"> HaProxy 特点</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#haproxy-均衡策略"><span class="nav-text"> HaProxy 均衡策略</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#资料"><span class="nav-text"> 资料</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </div>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+  
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; 2015 – <span itemprop="copyrightYear">2019</span>
+  <span class="with-love" id="animate">
+    <i class="fa fa-paper-plane"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Zhang Peng</span>
+
+  
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-area-chart"></i>
+    </span>
+    
+    <span title="站点总字数">380k</span>
+  
+
+  
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-coffee"></i>
+    </span>
+    
+    <span title="站点阅读时长">5:46</span>
+  
+</div>
+
+
+
+
+
+
+
+
+
+        
+
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+          <span id="scrollpercent"><span>0</span>%</span>
+        
+      </div>
+    
+
+    
+
+    
+
+    
+  </div>
+
+  
+
+<script>
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+    
+    
+      
+    
+  
+  <script color="107,97,95" opacity="0.5" zindex="-1" count="99" src="//cdn.jsdelivr.net/gh/theme-next/theme-next-canvas-nest@1.0.0/canvas-nest.min.js"></script>
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+  
+  <script src="/blog/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script src="/blog/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script src="/blog/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script src="//cdn.jsdelivr.net/gh/theme-next/theme-next-reading-progress@1/reading_progress.min.js"></script>
+
+
+  
+
+
+  <script src="/blog/js/src/utils.js?v=7.0.1"></script>
+
+  <script src="/blog/js/src/motion.js?v=7.0.1"></script>
+
+
+
+  
+  
+
+
+  <script src="/blog/js/src/schemes/muse.js?v=7.0.1"></script>
+
+
+
+  
+  <script src="/blog/js/src/scrollspy.js?v=7.0.1"></script>
+<script src="/blog/js/src/post-details.js?v=7.0.1"></script>
+
+
+
+  
+
+
+  <script src="/blog/js/src/bootstrap.js?v=7.0.1"></script>
+
+
+  
+  
+
+
+  
+
+
+  
+  <script>
+    // Popup Window;
+    var isfetched = false;
+    var isXml = true;
+    // Search DB path;
+    var search_path = "search.xml";
+    if (search_path.length === 0) {
+      search_path = "search.xml";
+    } else if (/json$/i.test(search_path)) {
+      isXml = false;
+    }
+    var path = "/blog/" + search_path;
+    // monitor main search box;
+
+    var onPopupClose = function (e) {
+      $('.popup').hide();
+      $('#local-search-input').val('');
+      $('.search-result-list').remove();
+      $('#no-result').remove();
+      $(".local-search-pop-overlay").remove();
+      $('body').css('overflow', '');
+    }
+
+    function proceedsearch() {
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay"></div>')
+        .css('overflow', 'hidden');
+      $('.search-popup-overlay').click(onPopupClose);
+      $('.popup').toggle();
+      var $localSearchInput = $('#local-search-input');
+      $localSearchInput.attr("autocapitalize", "none");
+      $localSearchInput.attr("autocorrect", "off");
+      $localSearchInput.focus();
+    }
+
+    // search function;
+    var searchFunc = function(path, search_id, content_id) {
+      'use strict';
+
+      // start loading animation
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay">' +
+          '<div id="search-loading-icon">' +
+          '<i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>' +
+          '</div>' +
+          '</div>')
+        .css('overflow', 'hidden');
+      $("#search-loading-icon").css('margin', '20% auto 0 auto').css('text-align', 'center');
+
+      
+
+      $.ajax({
+        url: path,
+        dataType: isXml ? "xml" : "json",
+        async: true,
+        success: function(res) {
+          // get the contents from search data
+          isfetched = true;
+          $('.popup').detach().appendTo('.header-inner');
+          var datas = isXml ? $("entry", res).map(function() {
+            return {
+              title: $("title", this).text(),
+              content: $("content",this).text(),
+              url: $("url" , this).text()
+            };
+          }).get() : res;
+          var input = document.getElementById(search_id);
+          var resultContent = document.getElementById(content_id);
+          var inputEventFunction = function() {
+            var searchText = input.value.trim().toLowerCase();
+            var keywords = searchText.split(/[\s\-]+/);
+            if (keywords.length > 1) {
+              keywords.push(searchText);
+            }
+            var resultItems = [];
+            if (searchText.length > 0) {
+              // perform local searching
+              datas.forEach(function(data) {
+                var isMatch = false;
+                var hitCount = 0;
+                var searchTextCount = 0;
+                var title = data.title.trim();
+                var titleInLowerCase = title.toLowerCase();
+                var content = data.content.trim().replace(/<[^>]+>/g,"");
+                
+                var contentInLowerCase = content.toLowerCase();
+                var articleUrl = decodeURIComponent(data.url).replace(/\/{2,}/g, '/');
+                var indexOfTitle = [];
+                var indexOfContent = [];
+                // only match articles with not empty titles
+                if(title != '') {
+                  keywords.forEach(function(keyword) {
+                    function getIndexByWord(word, text, caseSensitive) {
+                      var wordLen = word.length;
+                      if (wordLen === 0) {
+                        return [];
+                      }
+                      var startPosition = 0, position = [], index = [];
+                      if (!caseSensitive) {
+                        text = text.toLowerCase();
+                        word = word.toLowerCase();
+                      }
+                      while ((position = text.indexOf(word, startPosition)) > -1) {
+                        index.push({position: position, word: word});
+                        startPosition = position + wordLen;
+                      }
+                      return index;
+                    }
+
+                    indexOfTitle = indexOfTitle.concat(getIndexByWord(keyword, titleInLowerCase, false));
+                    indexOfContent = indexOfContent.concat(getIndexByWord(keyword, contentInLowerCase, false));
+                  });
+                  if (indexOfTitle.length > 0 || indexOfContent.length > 0) {
+                    isMatch = true;
+                    hitCount = indexOfTitle.length + indexOfContent.length;
+                  }
+                }
+
+                // show search results
+
+                if (isMatch) {
+                  // sort index by position of keyword
+
+                  [indexOfTitle, indexOfContent].forEach(function (index) {
+                    index.sort(function (itemLeft, itemRight) {
+                      if (itemRight.position !== itemLeft.position) {
+                        return itemRight.position - itemLeft.position;
+                      } else {
+                        return itemLeft.word.length - itemRight.word.length;
+                      }
+                    });
+                  });
+
+                  // merge hits into slices
+
+                  function mergeIntoSlice(text, start, end, index) {
+                    var item = index[index.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    var hits = [];
+                    var searchTextCountInSlice = 0;
+                    while (position + word.length <= end && index.length != 0) {
+                      if (word === searchText) {
+                        searchTextCountInSlice++;
+                      }
+                      hits.push({position: position, length: word.length});
+                      var wordEnd = position + word.length;
+
+                      // move to next position of hit
+
+                      index.pop();
+                      while (index.length != 0) {
+                        item = index[index.length - 1];
+                        position = item.position;
+                        word = item.word;
+                        if (wordEnd > position) {
+                          index.pop();
+                        } else {
+                          break;
+                        }
+                      }
+                    }
+                    searchTextCount += searchTextCountInSlice;
+                    return {
+                      hits: hits,
+                      start: start,
+                      end: end,
+                      searchTextCount: searchTextCountInSlice
+                    };
+                  }
+
+                  var slicesOfTitle = [];
+                  if (indexOfTitle.length != 0) {
+                    slicesOfTitle.push(mergeIntoSlice(title, 0, title.length, indexOfTitle));
+                  }
+
+                  var slicesOfContent = [];
+                  while (indexOfContent.length != 0) {
+                    var item = indexOfContent[indexOfContent.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    // cut out 100 characters
+                    var start = position - 20;
+                    var end = position + 80;
+                    if(start < 0){
+                      start = 0;
+                    }
+                    if (end < position + word.length) {
+                      end = position + word.length;
+                    }
+                    if(end > content.length){
+                      end = content.length;
+                    }
+                    slicesOfContent.push(mergeIntoSlice(content, start, end, indexOfContent));
+                  }
+
+                  // sort slices in content by search text's count and hits' count
+
+                  slicesOfContent.sort(function (sliceLeft, sliceRight) {
+                    if (sliceLeft.searchTextCount !== sliceRight.searchTextCount) {
+                      return sliceRight.searchTextCount - sliceLeft.searchTextCount;
+                    } else if (sliceLeft.hits.length !== sliceRight.hits.length) {
+                      return sliceRight.hits.length - sliceLeft.hits.length;
+                    } else {
+                      return sliceLeft.start - sliceRight.start;
+                    }
+                  });
+
+                  // select top N slices in content
+
+                  var upperBound = parseInt('1');
+                  if (upperBound >= 0) {
+                    slicesOfContent = slicesOfContent.slice(0, upperBound);
+                  }
+
+                  // highlight title and content
+
+                  function highlightKeyword(text, slice) {
+                    var result = '';
+                    var prevEnd = slice.start;
+                    slice.hits.forEach(function (hit) {
+                      result += text.substring(prevEnd, hit.position);
+                      var end = hit.position + hit.length;
+                      result += '<b class="search-keyword">' + text.substring(hit.position, end) + '</b>';
+                      prevEnd = end;
+                    });
+                    result += text.substring(prevEnd, slice.end);
+                    return result;
+                  }
+
+                  var resultItem = '';
+
+                  if (slicesOfTitle.length != 0) {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + highlightKeyword(title, slicesOfTitle[0]) + "</a>";
+                  } else {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + title + "</a>";
+                  }
+
+                  slicesOfContent.forEach(function (slice) {
+                    resultItem += "<a href='" + articleUrl + "'>" +
+                      "<p class=\"search-result\">" + highlightKeyword(content, slice) +
+                      "...</p>" + "</a>";
+                  });
+
+                  resultItem += "</li>";
+                  resultItems.push({
+                    item: resultItem,
+                    searchTextCount: searchTextCount,
+                    hitCount: hitCount,
+                    id: resultItems.length
+                  });
+                }
+              })
+            };
+            if (keywords.length === 1 && keywords[0] === "") {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-search fa-5x"></i></div>'
+            } else if (resultItems.length === 0) {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-frown-o fa-5x"></i></div>'
+            } else {
+              resultItems.sort(function (resultLeft, resultRight) {
+                if (resultLeft.searchTextCount !== resultRight.searchTextCount) {
+                  return resultRight.searchTextCount - resultLeft.searchTextCount;
+                } else if (resultLeft.hitCount !== resultRight.hitCount) {
+                  return resultRight.hitCount - resultLeft.hitCount;
+                } else {
+                  return resultRight.id - resultLeft.id;
+                }
+              });
+              var searchResultList = '<ul class=\"search-result-list\">';
+              resultItems.forEach(function (result) {
+                searchResultList += result.item;
+              })
+              searchResultList += "</ul>";
+              resultContent.innerHTML = searchResultList;
+            }
+          }
+
+          if ('auto' === 'auto') {
+            input.addEventListener('input', inputEventFunction);
+          } else {
+            $('.search-icon').click(inputEventFunction);
+            input.addEventListener('keypress', function (event) {
+              if (event.keyCode === 13) {
+                inputEventFunction();
+              }
+            });
+          }
+
+          // remove loading animation
+          $(".local-search-pop-overlay").remove();
+          $('body').css('overflow', '');
+
+          proceedsearch();
+        }
+      });
+    }
+
+    // handle and trigger popup window;
+    $('.popup-trigger').click(function(e) {
+      e.stopPropagation();
+      if (isfetched === false) {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+      } else {
+        proceedsearch();
+      };
+    });
+
+    $('.popup-btn-close').click(onPopupClose);
+    $('.popup').click(function(e){
+      e.stopPropagation();
+    });
+    $(document).on('keyup', function (event) {
+      var shouldDismissSearchPopup = event.which === 27 &&
+        $('.search-popup').is(':visible');
+      if (shouldDismissSearchPopup) {
+        onPopupClose();
+      }
+    });
+  </script>
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+  
+  
+    
+  
+  <script src="//cdn.jsdelivr.net/gh/theme-next/theme-next-bookmark@1/bookmark.min.js"></script>
+  <script>
+  
+    bookmark.scrollToMark('auto', "#更多");
+  
+  </script>
+
+
+  
+
+</body>
+</html>
