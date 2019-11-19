@@ -115,16 +115,16 @@
 <meta property="og:site_name" content="静默虚空的博客">
 <meta property="og:description" content="计算机网络之数据链路层  数据链路层（Data Link Layer） - 网络层针对的还是主机之间的数据传输服务，而主机之间可以有很多链路，链路层协议就是为同一链路的主机提供数据传输服务。数据链路层把网络层传下来的分组封装成帧。  主要协议：PPP、CSMA/CD 等。 数据单元：帧（frame）。 典型设备：二层交换机、网桥、网卡。     简介 基本问题  封装成帧 透明传输 差错检测">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:image" content="http://dunwu.test.upcdn.net/images/network/data-link/数据链路帧.png">
-<meta property="og:image" content="http://dunwu.test.upcdn.net/images/network/data-link/经过字节填充后发送的数据.png">
-<meta property="og:image" content="http://dunwu.test.upcdn.net/images/network/data-link/PPP协议.png">
-<meta property="og:image" content="http://dunwu.test.upcdn.net/images/network/data-link/PPP帧.png">
-<meta property="og:image" content="http://dunwu.test.upcdn.net/images/network/data-link/MAC帧.png">
-<meta property="og:updated_time" content="2019-08-20T07:08:56.787Z">
+<meta property="og:image" content="http://dunwu.test.upcdn.net/cs/network/data-link/数据链路帧.png">
+<meta property="og:image" content="http://dunwu.test.upcdn.net/cs/network/data-link/经过字节填充后发送的数据.png">
+<meta property="og:image" content="http://dunwu.test.upcdn.net/cs/network/data-link/PPP协议.png">
+<meta property="og:image" content="http://dunwu.test.upcdn.net/cs/network/data-link/PPP帧.png">
+<meta property="og:image" content="http://dunwu.test.upcdn.net/cs/network/data-link/MAC帧.png">
+<meta property="og:updated_time" content="2019-08-21T05:20:30.435Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="计算机网络之数据链路层">
 <meta name="twitter:description" content="计算机网络之数据链路层  数据链路层（Data Link Layer） - 网络层针对的还是主机之间的数据传输服务，而主机之间可以有很多链路，链路层协议就是为同一链路的主机提供数据传输服务。数据链路层把网络层传下来的分组封装成帧。  主要协议：PPP、CSMA/CD 等。 数据单元：帧（frame）。 典型设备：二层交换机、网桥、网卡。     简介 基本问题  封装成帧 透明传输 差错检测">
-<meta name="twitter:image" content="http://dunwu.test.upcdn.net/images/network/data-link/数据链路帧.png">
+<meta name="twitter:image" content="http://dunwu.test.upcdn.net/cs/network/data-link/数据链路帧.png">
 
 
 
@@ -463,7 +463,7 @@
                 
                   <span class="post-meta-item-text">更新于</span>
                 
-                <time title="修改时间：2019-08-20 15:08:56" itemprop="dateModified" datetime="2019-08-20T15:08:56+08:00">2019-08-20</time>
+                <time title="修改时间：2019-08-21 13:20:30" itemprop="dateModified" datetime="2019-08-21T13:20:30+08:00">2019-08-21</time>
               
             
           </span>
@@ -597,11 +597,11 @@
 <h3 id="封装成帧"><a class="markdownIt-Anchor" href="#封装成帧"></a> 封装成帧</h3>
 <p>为网络层传下来的 IP 数据报添加首部和尾部，用于标记帧的开始和结束。</p>
 <p>为了提高传输效率，应该让数据部分长度尽可能大于首部和尾部。但是，每种链路层协议都限制了帧的数据部分长度上线——最大传送单元 MTU（Maximum Transfer Unit）</p>
-<div align="center"><img src="http://dunwu.test.upcdn.net/images/network/data-link/数据链路帧.png"></div>
+<div align="center"><img src="http://dunwu.test.upcdn.net/cs/network/data-link/数据链路帧.png"></div>
 <h3 id="透明传输"><a class="markdownIt-Anchor" href="#透明传输"></a> 透明传输</h3>
 <p><strong>透明</strong>表示：某一个实际存在的事物看起来好像不存在一样。</p>
 <p>帧使用首部和尾部进行定界，如果帧的数据部分含有和首部尾部相同的内容，那么帧的开始和结束位置就会被错误的判定。需要在数据部分出现首部尾部相同的内容前面插入转义字符。如果数据部分出现转义字符，那么就在转义字符前面再加个转义字符。在接收端进行处理之后可以还原出原始数据。这个过程透明传输的内容是转义字符，用户察觉不到转义字符的存在。</p>
-<div align="center"><img src="http://dunwu.test.upcdn.net/images/network/data-link/经过字节填充后发送的数据.png"></div>
+<div align="center"><img src="http://dunwu.test.upcdn.net/cs/network/data-link/经过字节填充后发送的数据.png"></div>
 <h3 id="差错检测"><a class="markdownIt-Anchor" href="#差错检测"></a> 差错检测</h3>
 <p>目前数据链路层广泛使用了<a href="https://zh.wikipedia.org/wiki/%E5%BE%AA%E7%8E%AF%E5%86%97%E4%BD%99%E6%A3%80%E9%AA%8C" target="_blank" rel="noopener"><strong>循环冗余检验 CRC（Cyclic redundancy check）</strong></a>来检查比特差错。</p>
 <h2 id="点对点信道"><a class="markdownIt-Anchor" href="#点对点信道"></a> 点对点信道</h2>
@@ -609,9 +609,9 @@
 <p>对于点对点的链路，点对点协议 PPP（Point-to-Point Protocol）是使用最广泛的数据链路层协议。</p>
 <h3 id="ppp-协议"><a class="markdownIt-Anchor" href="#ppp-协议"></a> PPP 协议</h3>
 <p>互联网用户通常都要连接到某个 ISP 之后才能接入到互联网，PPP 协议是用户计算机和 ISP 进行通信时所使用的数据链路层协议。</p>
-<div align="center"><img src="http://dunwu.test.upcdn.net/images/network/data-link/PPP协议.png"></div>
+<div align="center"><img src="http://dunwu.test.upcdn.net/cs/network/data-link/PPP协议.png"></div>
 <p>PPP（点到点协议）是为在同等单元之间传输数据包这样的简单链路设计的链路层协议。这种链路提供全双工操作，并按照顺序传递数据包。设计目的主要是用来通过拨号或专线方式建立点对点连接发送数据，使其成为各种主机、网桥和路由器之间简单连接的一种共通的解决方案。</p>
-<div align="center"><img src="http://dunwu.test.upcdn.net/images/network/data-link/PPP帧.png"></div>
+<div align="center"><img src="http://dunwu.test.upcdn.net/cs/network/data-link/PPP帧.png"></div>
 <p>PPP 的帧格式：</p>
 <ul>
 <li>F 字段为帧的定界符</li>
@@ -642,7 +642,7 @@
 <p>MAC 地址（Media Access Control Address），也称为以太网地址或物理地址，它是一个用来确认网上设备位置的地址。</p>
 <p>MAC 地址长度为 6 字节（48 位），用于唯一标识网络适配器（网卡）。</p>
 <p>一台主机拥有多少个网络适配器就有多少个 MAC 地址。</p>
-<div align="center"><img src="http://dunwu.test.upcdn.net/images/network/data-link/MAC帧.png"></div>
+<div align="center"><img src="http://dunwu.test.upcdn.net/cs/network/data-link/MAC帧.png"></div>
 <h2 id="设备"><a class="markdownIt-Anchor" href="#设备"></a> 设备</h2>
 <h3 id="适配器"><a class="markdownIt-Anchor" href="#适配器"></a> 适配器</h3>
 <p>网络适配器一般指网卡。</p>
@@ -704,8 +704,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/blog/2019/03/06/communication/network-network/" rel="next" title="计算机网络之网络层">
-                <i class="fa fa-chevron-left"></i> 计算机网络之网络层
+              <a href="/blog/2019/03/06/communication/network-application/" rel="next" title="计算机网络之应用层">
+                <i class="fa fa-chevron-left"></i> 计算机网络之应用层
               </a>
             
           </div>
@@ -714,8 +714,8 @@
 
           <div class="post-nav-prev post-nav-item">
             
-              <a href="/blog/2019/03/06/communication/network-physical/" rel="prev" title="计算机网络之物理层">
-                计算机网络之物理层 <i class="fa fa-chevron-right"></i>
+              <a href="/blog/2019/03/06/method/dir-style/" rel="prev" title="目录规范">
+                目录规范 <i class="fa fa-chevron-right"></i>
               </a>
             
           </div>
@@ -787,7 +787,7 @@
                 
                   <a href="/blog/archives/">
                 
-                    <span class="site-state-item-count">68</span>
+                    <span class="site-state-item-count">67</span>
                     <span class="site-state-item-name">日志</span>
                   </a>
                 </div>
@@ -925,11 +925,7 @@
                     
                       
                     
-                      
-                    
-                      
-                    
-                    <span class="site-state-item-count">43</span>
+                    <span class="site-state-item-count">41</span>
                     <span class="site-state-item-name">标签</span>
                   </a>
                 </div>
@@ -1041,7 +1037,7 @@
       <i class="fa fa-area-chart"></i>
     </span>
     
-    <span title="站点总字数">380k</span>
+    <span title="站点总字数">353k</span>
   
 
   
@@ -1050,7 +1046,7 @@
       <i class="fa fa-coffee"></i>
     </span>
     
-    <span title="站点阅读时长">5:46</span>
+    <span title="站点阅读时长">5:21</span>
   
 </div>
 

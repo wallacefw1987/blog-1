@@ -115,16 +115,16 @@
 <meta property="og:site_name" content="静默虚空的博客">
 <meta property="og:description" content="网站的伸缩性架构  📓 本文已归档到：「blog」    1. 网站架构的伸缩性设计  1.1. 不同功能进行物理分离实现伸缩 1.2. 单一功能通过集群规模实现伸缩   2. 应用服务器集群的伸缩性设计  2.1. HTTP 重定向负载均衡 2.2. DNS 域名解析负载均衡 2.3. 反向代理负载均衡 2.4. IP 负载均衡 2.5. 数据链路层负载均衡 2.6. 负载均衡算法   3.">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:image" content="http://dunwu.test.upcdn.net/images/architecture/负载均衡-HTTP重定向.png">
-<meta property="og:image" content="http://dunwu.test.upcdn.net/images/architecture/负载均衡-DNS域名解析.png">
-<meta property="og:image" content="http://dunwu.test.upcdn.net/images/architecture/负载均衡-反向代理.png">
-<meta property="og:image" content="http://dunwu.test.upcdn.net/images/architecture/负载均衡-IP层.png">
-<meta property="og:image" content="http://dunwu.test.upcdn.net/images/architecture/负载均衡-数据链路层.png">
-<meta property="og:updated_time" content="2019-08-20T07:35:24.776Z">
+<meta property="og:image" content="http://dunwu.test.upcdn.net/cs/architecture/负载均衡-HTTP重定向.png">
+<meta property="og:image" content="http://dunwu.test.upcdn.net/cs/architecture/负载均衡-DNS域名解析.png">
+<meta property="og:image" content="http://dunwu.test.upcdn.net/cs/architecture/负载均衡-反向代理.png">
+<meta property="og:image" content="http://dunwu.test.upcdn.net/cs/architecture/负载均衡-IP层.png">
+<meta property="og:image" content="http://dunwu.test.upcdn.net/cs/architecture/负载均衡-数据链路层.png">
+<meta property="og:updated_time" content="2019-08-21T05:20:28.363Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="网站的伸缩性架构">
 <meta name="twitter:description" content="网站的伸缩性架构  📓 本文已归档到：「blog」    1. 网站架构的伸缩性设计  1.1. 不同功能进行物理分离实现伸缩 1.2. 单一功能通过集群规模实现伸缩   2. 应用服务器集群的伸缩性设计  2.1. HTTP 重定向负载均衡 2.2. DNS 域名解析负载均衡 2.3. 反向代理负载均衡 2.4. IP 负载均衡 2.5. 数据链路层负载均衡 2.6. 负载均衡算法   3.">
-<meta name="twitter:image" content="http://dunwu.test.upcdn.net/images/architecture/负载均衡-HTTP重定向.png">
+<meta name="twitter:image" content="http://dunwu.test.upcdn.net/cs/architecture/负载均衡-HTTP重定向.png">
 
 
 
@@ -463,7 +463,7 @@
                 
                   <span class="post-meta-item-text">更新于</span>
                 
-                <time title="修改时间：2019-08-20 15:35:24" itemprop="dateModified" datetime="2019-08-20T15:35:24+08:00">2019-08-20</time>
+                <time title="修改时间：2019-08-21 13:20:28" itemprop="dateModified" datetime="2019-08-21T13:20:28+08:00">2019-08-21</time>
               
             
           </span>
@@ -591,13 +591,13 @@
 <h2 id="2-应用服务器集群的伸缩性设计"><a class="markdownIt-Anchor" href="#2-应用服务器集群的伸缩性设计"></a> 2. 应用服务器集群的伸缩性设计</h2>
 <h3 id="21-http-重定向负载均衡"><a class="markdownIt-Anchor" href="#21-http-重定向负载均衡"></a> 2.1. HTTP 重定向负载均衡</h3>
 <div align="center">
-<img src="http://dunwu.test.upcdn.net/images/architecture/负载均衡-HTTP重定向.png" width="500">
+<img src="http://dunwu.test.upcdn.net/cs/architecture/负载均衡-HTTP重定向.png" width="500">
 </div>
 <p>利用 HTTP 重定向协议实现负载均衡。</p>
 <p>这种负载均衡方案的优点是比较简单。缺点是浏览器需要两次请求服务器才能完成一次访问，性能较差：重定向服务器自身的处理能力有可能成为瓶颈，整个集群的伸缩性规模有限；使用 HTTP 302 响应码重定向，可能使搜索引擎判断为 SEO 作弊，降低搜索排名。</p>
 <h3 id="22-dns-域名解析负载均衡"><a class="markdownIt-Anchor" href="#22-dns-域名解析负载均衡"></a> 2.2. DNS 域名解析负载均衡</h3>
 <div align="center">
-<img src="http://dunwu.test.upcdn.net/images/architecture/负载均衡-DNS域名解析.png" width="500">
+<img src="http://dunwu.test.upcdn.net/cs/architecture/负载均衡-DNS域名解析.png" width="500">
 </div>
 <p>利用 DNS 处理域名解析请求的同时进行负载均衡处理的一种方案。</p>
 <p>在 DNS 服务器中配置多个 A 记录，如：</p>
@@ -615,19 +615,19 @@
 </ul>
 <h3 id="23-反向代理负载均衡"><a class="markdownIt-Anchor" href="#23-反向代理负载均衡"></a> 2.3. 反向代理负载均衡</h3>
 <div align="center">
-<img src="http://dunwu.test.upcdn.net/images/architecture/负载均衡-反向代理.png" width="500">
+<img src="http://dunwu.test.upcdn.net/cs/architecture/负载均衡-反向代理.png" width="500">
 </div>
 <p>大多数反向代理服务器同时提供反向代理和负载均衡的功能。</p>
 <p>反向代理服务器的优点是部署简单。缺点是反向代理服务器时所有请求和响应的中转站，其性能可能会成为瓶颈。</p>
 <h3 id="24-ip-负载均衡"><a class="markdownIt-Anchor" href="#24-ip-负载均衡"></a> 2.4. IP 负载均衡</h3>
 <div align="center">
-<img src="http://dunwu.test.upcdn.net/images/architecture/负载均衡-IP层.png" width="500">
+<img src="http://dunwu.test.upcdn.net/cs/architecture/负载均衡-IP层.png" width="500">
 </div>
 <p>在网络层通过修改请求目标地址进行负载均衡。负载均衡服务器（网关服务器）在操作系统内核获取网络数据包，根据负载均衡算法计算得到一台真实 Web 服务器 10.0.0.1，然后将目的 IP 地址修改为 10.0.0.1，不需要通过用户进程。真实 Web 服务器处理完成后，响应数据包回到负载均衡服务器，负载均衡服务器再将数据包原地址修改为自身的 IP 地址（114.100.80.10）发送给浏览器。</p>
 <p>IP 负载均衡在内核完成数据分发，所以处理性能优于反向代理负载均衡。但是因为所有请求响应都要经过负载均衡服务器，集群的最大响应数据吞吐量受制于负载均衡服务器网卡带宽。</p>
 <h3 id="25-数据链路层负载均衡"><a class="markdownIt-Anchor" href="#25-数据链路层负载均衡"></a> 2.5. 数据链路层负载均衡</h3>
 <div align="center">
-<img src="http://dunwu.test.upcdn.net/images/architecture/负载均衡-数据链路层.png" width="500">
+<img src="http://dunwu.test.upcdn.net/cs/architecture/负载均衡-数据链路层.png" width="500">
 </div>
 <p>数据链路层负载均衡是指在通信协议的数据链路层修改 mac 地址进行负载均衡。</p>
 <p>这种方式又称作三角传输方式，负载均衡数据分发过程中不修改 IP 地址，只修改目的 mac 地址，通过配置真实物理服务器集群所有机器虚拟 IP 和负载均衡服务器 IP 地址一致，从而达到不修改数据包的源地址和目的地址就可以进行数据分发的目的，由于实际处理请求的真实物理服务器 IP 和数据请求目的 IP 一致，不需要通过负载均衡服务器进行地址转换，可将响应数据包直接返回给用户浏览器，避免负载均衡服务器网卡带宽成为瓶颈。这种负载方式又称作直接路由方式。</p>
@@ -703,8 +703,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/blog/2018/07/05/design/architecture/网站的安全架构/" rel="next" title="网站的安全架构">
-                <i class="fa fa-chevron-left"></i> 网站的安全架构
+              <a href="/blog/2018/07/05/design/architecture/网站的高可用架构/" rel="next" title="网站的高可用架构">
+                <i class="fa fa-chevron-left"></i> 网站的高可用架构
               </a>
             
           </div>
@@ -713,8 +713,8 @@
 
           <div class="post-nav-prev post-nav-item">
             
-              <a href="/blog/2018/07/05/design/architecture/大型网站架构概述/" rel="prev" title="大型网站架构概述">
-                大型网站架构概述 <i class="fa fa-chevron-right"></i>
+              <a href="/blog/2018/07/05/design/architecture/分布式架构/" rel="prev" title="分布式架构">
+                分布式架构 <i class="fa fa-chevron-right"></i>
               </a>
             
           </div>
@@ -786,7 +786,7 @@
                 
                   <a href="/blog/archives/">
                 
-                    <span class="site-state-item-count">68</span>
+                    <span class="site-state-item-count">67</span>
                     <span class="site-state-item-name">日志</span>
                   </a>
                 </div>
@@ -924,11 +924,7 @@
                     
                       
                     
-                      
-                    
-                      
-                    
-                    <span class="site-state-item-count">43</span>
+                    <span class="site-state-item-count">41</span>
                     <span class="site-state-item-name">标签</span>
                   </a>
                 </div>
@@ -1040,7 +1036,7 @@
       <i class="fa fa-area-chart"></i>
     </span>
     
-    <span title="站点总字数">380k</span>
+    <span title="站点总字数">353k</span>
   
 
   
@@ -1049,7 +1045,7 @@
       <i class="fa fa-coffee"></i>
     </span>
     
-    <span title="站点阅读时长">5:46</span>
+    <span title="站点阅读时长">5:21</span>
   
 </div>
 
