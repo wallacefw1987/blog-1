@@ -153,17 +153,17 @@
   </li>
         <li class="menu-item menu-item-tags">
 
-    <a href="/blog/tags/" rel="section"><i class="fa fa-fw fa-tags"></i>标签<span class="badge">35</span></a>
+    <a href="/blog/tags/" rel="section"><i class="fa fa-fw fa-tags"></i>标签<span class="badge">32</span></a>
 
   </li>
         <li class="menu-item menu-item-categories">
 
-    <a href="/blog/categories/" rel="section"><i class="fa fa-fw fa-th"></i>分类<span class="badge">12</span></a>
+    <a href="/blog/categories/" rel="section"><i class="fa fa-fw fa-th"></i>分类<span class="badge">11</span></a>
 
   </li>
         <li class="menu-item menu-item-archives">
 
-    <a href="/blog/archives/" rel="section"><i class="fa fa-fw fa-archive"></i>归档<span class="badge">68</span></a>
+    <a href="/blog/archives/" rel="section"><i class="fa fa-fw fa-archive"></i>归档<span class="badge">67</span></a>
 
   </li>
       <li class="menu-item menu-item-search">
@@ -217,6 +217,259 @@
             
 
   <div class="posts-expand">
+        
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://dunwu.github.io/blog/blog/bigdata/MapReduce/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/blog/images/avatar.gif">
+      <meta itemprop="name" content="Zhang Peng">
+      <meta itemprop="description" content="Dunwu's Blog">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Dunwu">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/blog/bigdata/MapReduce/" class="post-title-link" itemprop="url">MapReduce</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2018-09-03 00:00:00" itemprop="dateCreated datePublished" datetime="2018-09-03T00:00:00+08:00">2018-09-03</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2019-05-08 18:07:48" itemprop="dateModified" datetime="2019-05-08T18:07:48+08:00">2019-05-08</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/blog/categories/bigdata/" itemprop="url" rel="index">
+                    <span itemprop="name">bigdata</span>
+                  </a>
+                </span>
+            </span>
+
+          
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="fa fa-comment-o"></i>
+      </span>
+      <span class="post-meta-item-text">Disqus：</span>
+    
+    <a title="disqus" href="/blog/bigdata/MapReduce/#comments" itemprop="discussionUrl">
+      <span class="post-comments-count disqus-comment-count" data-disqus-identifier="bigdata/MapReduce/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  <br>
+            <span class="post-meta-item" title="本文字数">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-file-word-o"></i>
+              </span>
+                <span class="post-meta-item-text">本文字数：</span>
+              <span>1.8k</span>
+            </span>
+            <span class="post-meta-item" title="阅读时长">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-clock-o"></i>
+              </span>
+                <span class="post-meta-item-text">阅读时长 &asymp;</span>
+              <span>2 分钟</span>
+            </span>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h1 id="mapreduce"><a class="markdownIt-Anchor" href="#mapreduce"></a> MapReduce</h1>
+<!-- TOC depthFrom:2 depthTo:3 -->
+<ul>
+<li><a href="#mapreduce-%E7%AE%80%E4%BB%8B">MapReduce 简介</a>
+<ul>
+<li><a href="#%E6%A6%82%E5%BF%B5">概念</a></li>
+<li><a href="#%E6%80%9D%E6%83%B3">思想</a></li>
+<li><a href="#%E7%89%B9%E7%82%B9">特点</a></li>
+<li><a href="#%E9%80%82%E7%94%A8%E5%9C%BA%E6%99%AF">适用场景</a></li>
+<li><a href="#%E4%B8%8D%E9%80%82%E7%94%A8%E5%9C%BA%E6%99%AF">不适用场景</a></li>
+</ul>
+</li>
+<li><a href="#mapreduce-%E5%8E%9F%E7%90%86">MapReduce 原理</a>
+<ul>
+<li><a href="#job--task%E4%BD%9C%E4%B8%9A%E4%B8%8E%E4%BB%BB%E5%8A%A1">Job &amp; Task（作业与任务）</a></li>
+<li><a href="#split%E5%88%87%E7%89%87">Split（切片）</a></li>
+<li><a href="#map-%E9%98%B6%E6%AE%B5%E6%98%A0%E5%B0%84">Map 阶段（映射）</a></li>
+<li><a href="#reduce-%E9%98%B6%E6%AE%B5%E5%8C%96%E7%AE%80">Reduce 阶段（化简）</a></li>
+<li><a href="#shuffle-%E9%98%B6%E6%AE%B5%E6%B4%97%E7%89%8C">Shuffle 阶段（洗牌）</a></li>
+</ul>
+</li>
+<li><a href="#shuffle-%E8%AF%A6%E8%A7%A3">Shuffle 详解</a>
+<ul>
+<li><a href="#map-%E7%AB%AF">Map 端</a></li>
+<li><a href="#reduce-%E7%AB%AF">Reduce 端</a></li>
+</ul>
+</li>
+<li><a href="#%E4%BD%9C%E4%B8%9A%E8%BF%90%E8%A1%8C%E6%A8%A1%E5%BC%8F">作业运行模式</a>
+<ul>
+<li><a href="#jobtrackertasktracker-%E6%A8%A1%E5%BC%8Fhadoop-1x">JobTracker/TaskTracker 模式（Hadoop 1.X）</a></li>
+<li><a href="#yarn-%E6%A8%A1%E5%BC%8Fhadoop-2x">YARN 模式（Hadoop 2.X）</a></li>
+</ul>
+</li>
+</ul>
+<!-- /TOC -->
+<h2 id="mapreduce-简介"><a class="markdownIt-Anchor" href="#mapreduce-简介"></a> MapReduce 简介</h2>
+<h3 id="概念"><a class="markdownIt-Anchor" href="#概念"></a> 概念</h3>
+<p>MapReduce 是一个面向批处理的分布式计算框架。</p>
+<p>编程模型：MapReduce 程序被分为 Map（映射）阶段和 Reduce（化简）阶段。</p>
+<h3 id="思想"><a class="markdownIt-Anchor" href="#思想"></a> 思想</h3>
+<p>分而治之，并行计算<br />
+移动计算，而非移动数据</p>
+<h3 id="特点"><a class="markdownIt-Anchor" href="#特点"></a> 特点</h3>
+<ul>
+<li>计算跟着数据走</li>
+<li>良好的扩展性：计算能力随着节点数增加，近似线性递增</li>
+<li>高容错</li>
+<li>状态监控</li>
+<li>适合海量数据的离线批处理</li>
+<li>降低了分布式编程的门槛</li>
+</ul>
+<h3 id="适用场景"><a class="markdownIt-Anchor" href="#适用场景"></a> 适用场景</h3>
+<ul>
+<li>数据统计，如：网站的 PV、UV 统计</li>
+<li>搜索引擎构建索引</li>
+<li>海量数据查询</li>
+</ul>
+<h3 id="不适用场景"><a class="markdownIt-Anchor" href="#不适用场景"></a> 不适用场景</h3>
+<ul>
+<li>OLAP
+<ul>
+<li>要求毫秒或秒级返回结果</li>
+</ul>
+</li>
+<li>流计算
+<ul>
+<li>流计算的输入数据集是动态的，而 MapReduce 是静态的</li>
+</ul>
+</li>
+<li>DAG 计算
+<ul>
+<li>多个作业存在依赖关系，后一个的输入是前一个的输出，构成有向无环图 DAG</li>
+<li>每个 MapReduce 作业的输出结果都会落盘，造成大量磁盘 IO，导致性能非常低下</li>
+</ul>
+</li>
+</ul>
+<h2 id="mapreduce-原理"><a class="markdownIt-Anchor" href="#mapreduce-原理"></a> MapReduce 原理</h2>
+<h3 id="job-task作业与任务"><a class="markdownIt-Anchor" href="#job-task作业与任务"></a> Job &amp; Task（作业与任务）</h3>
+<ul>
+<li>作业是客户端请求执行的一个工作单元
+<ul>
+<li>包括输入数据、MapReduce 程序、配置信息</li>
+</ul>
+</li>
+<li>任务是将作业分解后得到的细分工作单元
+<ul>
+<li>分为 Map 任务和 Reduce 任务</li>
+</ul>
+</li>
+</ul>
+<h3 id="split切片"><a class="markdownIt-Anchor" href="#split切片"></a> Split（切片）</h3>
+<ul>
+<li>输入数据被划分成等长的小数据块，称为输入切片（Input Split），简称切片</li>
+<li>Split 是逻辑概念，仅包含元数据信息，如：数据的起始位置、长度、所在节点等</li>
+<li>每个 Split 交给一个 Map 任务处理，Split 的数量决定 Map 任务的数量</li>
+<li>Split 的划分方式由程序设定，Split 与 HDFS Block 没有严格的对应关系</li>
+<li>Split 的大小默认等于 Block 大小</li>
+<li>Split 越小，负载越均衡，但集群的开销越大</li>
+</ul>
+<h3 id="map-阶段映射"><a class="markdownIt-Anchor" href="#map-阶段映射"></a> Map 阶段（映射）</h3>
+<ul>
+<li>由若干 Map 任务组成，任务数量由 Split 数量决定</li>
+<li>输入：Split 切片（key-value），输出：中间计算结果（key-value）</li>
+</ul>
+<h3 id="reduce-阶段化简"><a class="markdownIt-Anchor" href="#reduce-阶段化简"></a> Reduce 阶段（化简）</h3>
+<ul>
+<li>由若干 Reduce 任务组成，任务数量由程序指定</li>
+<li>输入：Map 阶段输出的中间结果（key-value），输出：最终结果（key-value）</li>
+</ul>
+<h3 id="shuffle-阶段洗牌"><a class="markdownIt-Anchor" href="#shuffle-阶段洗牌"></a> Shuffle 阶段（洗牌）</h3>
+<ul>
+<li>Map、Reduce 阶段的中间环节，负责执行 Partition（分区）、Sort（排序）、Spill（溢写）、Merge（合并）、抓取（Fetch）等工作</li>
+<li>Partition 决定了 Map 任务输出的每条数据放入哪个分区，交给哪个 Reduce 任务处理</li>
+<li>Reduce 任务的数量决定了 Partition 数量</li>
+<li>Partition 编号 = Reduce 任务编号 =“key hashcode % reduce task number”</li>
+<li>避免和减少 Shuffle 是 MapReduce 程序调优的重点</li>
+</ul>
+<h2 id="shuffle-详解"><a class="markdownIt-Anchor" href="#shuffle-详解"></a> Shuffle 详解</h2>
+<h3 id="map-端"><a class="markdownIt-Anchor" href="#map-端"></a> Map 端</h3>
+<p>Map 任务将中间结果写入专用内存缓冲区 Buffer（默认 100M），同时进行 Partition 和 Sort（先按“key hashcode % reduce task number”对数据进行分区，分区内再按 key 排序）<br />
+当 Buffer 的数据量达到阈值（默认 80%）时，将数据溢写（Spill）到磁盘的一个临时文件中，文件内数据先分区后排序<br />
+Map 任务结束前，将多个临时文件合并（Merge）为一个 Map 输出文件，文件内数据先分区后排序</p>
+<h3 id="reduce-端"><a class="markdownIt-Anchor" href="#reduce-端"></a> Reduce 端</h3>
+<p>Reduce 任务从多个 Map 输出文件中主动抓取（Fetch）属于自己的分区数据，先写入 Buffer，数据量达到阈值后，溢写到磁盘的一个临时文件中<br />
+数据抓取完成后，将多个临时文件合并为一个 Reduce 输入文件，文件内数据按 key 排序</p>
+<h2 id="作业运行模式"><a class="markdownIt-Anchor" href="#作业运行模式"></a> 作业运行模式</h2>
+<h3 id="jobtrackertasktracker-模式hadoop-1x"><a class="markdownIt-Anchor" href="#jobtrackertasktracker-模式hadoop-1x"></a> JobTracker/TaskTracker 模式（Hadoop 1.X）</h3>
+<p><strong>JobTracker 节点（Master）</strong></p>
+<ul>
+<li>调度任务在 TaskTracker 上运行</li>
+<li>若任务失败，指定新 TaskTracker 重新运行</li>
+</ul>
+<p><strong>TaskTracker 节点（Slave）</strong></p>
+<ul>
+<li>执行任务，发送进度报告</li>
+</ul>
+<p><strong>存在的问题</strong></p>
+<ul>
+<li>JobTracker 存在单点故障</li>
+<li>JobTracker 负载太重（上限 4000 节点）</li>
+<li>JobTracker 缺少对资源的全面管理</li>
+<li>TaskTracker 对资源的描述过于简单</li>
+<li>源码很难理解</li>
+</ul>
+<h3 id="yarn-模式hadoop-2x"><a class="markdownIt-Anchor" href="#yarn-模式hadoop-2x"></a> YARN 模式（Hadoop 2.X）</h3>
+<ul>
+<li>提交作业</li>
+<li>查看作业</li>
+<li>终止作业</li>
+</ul>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
         
   
   
@@ -424,582 +677,6 @@
 </ul>
 </li>
 </ul>
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-        
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="https://dunwu.github.io/blog/blog/bigdata/overview/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/blog/images/avatar.gif">
-      <meta itemprop="name" content="Zhang Peng">
-      <meta itemprop="description" content="Dunwu's Blog">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Dunwu">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/blog/bigdata/overview/" class="post-title-link" itemprop="url">大数据简介</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-
-              <time title="创建时间：2018-09-03 00:00:00" itemprop="dateCreated datePublished" datetime="2018-09-03T00:00:00+08:00">2018-09-03</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-calendar-check-o"></i>
-                </span>
-                <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2019-05-08 18:07:48" itemprop="dateModified" datetime="2019-05-08T18:07:48+08:00">2019-05-08</time>
-              </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/blog/categories/bigdata/" itemprop="url" rel="index">
-                    <span itemprop="name">bigdata</span>
-                  </a>
-                </span>
-            </span>
-
-          
-  
-  <span class="post-meta-item">
-    
-      <span class="post-meta-item-icon">
-        <i class="fa fa-comment-o"></i>
-      </span>
-      <span class="post-meta-item-text">Disqus：</span>
-    
-    <a title="disqus" href="/blog/bigdata/overview/#comments" itemprop="discussionUrl">
-      <span class="post-comments-count disqus-comment-count" data-disqus-identifier="bigdata/overview/" itemprop="commentCount"></span>
-    </a>
-  </span>
-  
-  <br>
-            <span class="post-meta-item" title="本文字数">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-file-word-o"></i>
-              </span>
-                <span class="post-meta-item-text">本文字数：</span>
-              <span>2k</span>
-            </span>
-            <span class="post-meta-item" title="阅读时长">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-clock-o"></i>
-              </span>
-                <span class="post-meta-item-text">阅读时长 &asymp;</span>
-              <span>2 分钟</span>
-            </span>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h1 id="大数据简介"><a class="markdownIt-Anchor" href="#大数据简介"></a> 大数据简介</h1>
-<!-- TOC depthFrom:2 depthTo:3 -->
-<ul>
-<li><a href="#%E7%AE%80%E4%BB%8B">简介</a>
-<ul>
-<li><a href="#%E4%BB%80%E4%B9%88%E6%98%AF%E5%A4%A7%E6%95%B0%E6%8D%AE">什么是大数据</a></li>
-<li><a href="#%E5%BA%94%E7%94%A8%E5%9C%BA%E6%99%AF">应用场景</a></li>
-<li><a href="#hadoop-%E7%BC%96%E5%B9%B4%E5%8F%B2">Hadoop 编年史</a></li>
-</ul>
-</li>
-<li><a href="#%E6%8A%80%E6%9C%AF%E4%BD%93%E7%B3%BB">技术体系</a>
-<ul>
-<li><a href="#hdfs">HDFS</a></li>
-<li><a href="#mapreduce">MapReduce</a></li>
-<li><a href="#spark">Spark</a></li>
-<li><a href="#yarn">YARN</a></li>
-<li><a href="#hive">Hive</a></li>
-<li><a href="#hbase">HBase</a></li>
-<li><a href="#elasticsearch">ElasticSearch</a></li>
-</ul>
-</li>
-<li><a href="#%E6%9C%AF%E8%AF%AD">术语</a></li>
-<li><a href="#%E8%B5%84%E6%BA%90">资源</a></li>
-</ul>
-<!-- /TOC -->
-<h2 id="简介"><a class="markdownIt-Anchor" href="#简介"></a> 简介</h2>
-<h3 id="什么是大数据"><a class="markdownIt-Anchor" href="#什么是大数据"></a> 什么是大数据</h3>
-<p>大数据是指超出传统数据库工具收集、存储、管理和分析能力的数据集。与此同时，及时采集、存储、聚合、管理数据，以及对数据深度分析的新技术和新能力，正在快速增长，就像预测计算芯片增长速度的摩尔定律一样。</p>
-<ul>
-<li><strong>Volume</strong> - 数据规模巨大</li>
-<li><strong>Velocity</strong> - 生成和处理速度极快</li>
-<li><strong>Variety</strong> - 数据规模巨大</li>
-<li><strong>Value</strong> - 生成和处理速度极快</li>
-</ul>
-<h3 id="应用场景"><a class="markdownIt-Anchor" href="#应用场景"></a> 应用场景</h3>
-<p>基于大数据的数据仓库</p>
-<p>基于大数据的实时流处理</p>
-<h3 id="hadoop-编年史"><a class="markdownIt-Anchor" href="#hadoop-编年史"></a> Hadoop 编年史</h3>
-<table>
-<thead>
-<tr>
-<th style="text-align:left">时间</th>
-<th style="text-align:left">事件</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td style="text-align:left">2003.01</td>
-<td style="text-align:left">Google发表了Google File System论文</td>
-</tr>
-<tr>
-<td style="text-align:left">2004.01</td>
-<td style="text-align:left">Google发表了MapReduce论文</td>
-</tr>
-<tr>
-<td style="text-align:left">2006.02</td>
-<td style="text-align:left">Apache Hadoop项目正式启动，并支持MapReduce和HDFS独立发展</td>
-</tr>
-<tr>
-<td style="text-align:left">2006.11</td>
-<td style="text-align:left">Google发表了Bigtable论文</td>
-</tr>
-<tr>
-<td style="text-align:left">2008.01</td>
-<td style="text-align:left">Hadoop成为Apache顶级项目</td>
-</tr>
-<tr>
-<td style="text-align:left">2009.03</td>
-<td style="text-align:left">Cloudera推出世界上首个Hadoop发行版——CDH，并完全开放源码</td>
-</tr>
-<tr>
-<td style="text-align:left">2012.03</td>
-<td style="text-align:left">HDFS NameNode HA加入Hadoop主版本</td>
-</tr>
-<tr>
-<td style="text-align:left">2014.02</td>
-<td style="text-align:left">Spark代替MapReduce成为Hadoop的缺省计算引擎，并成为Apache顶级项目</td>
-</tr>
-</tbody>
-</table>
-<h2 id="技术体系"><a class="markdownIt-Anchor" href="#技术体系"></a> 技术体系</h2>
-<h3 id="hdfs"><a class="markdownIt-Anchor" href="#hdfs"></a> HDFS</h3>
-<p><strong>概念</strong></p>
-<ul>
-<li>Hadoop 分布式文件系统（Hadoop Distributed File System）</li>
-<li>在开源大数据技术体系中，地位无可替代</li>
-</ul>
-<p><strong>特点</strong></p>
-<ul>
-<li>高容错：数据多副本，副本丢失后自动恢复</li>
-<li>高可用：NameNode HA，安全模式</li>
-<li>高扩展：10K 节点规模</li>
-<li>简单一致性模型：一次写入多次读取，支持追加，不允许修改</li>
-<li>流式数据访问：批量读而非随机读，关注吞吐量而非时间</li>
-<li>大规模数据集：典型文件大小 GB~TB 级，百万以上文件数量， PB 以上数据规模</li>
-<li>构建成本低且安全可靠：运行在大量的廉价商用机器上，硬件错误是常态，提供容错机制</li>
-</ul>
-<h3 id="mapreduce"><a class="markdownIt-Anchor" href="#mapreduce"></a> MapReduce</h3>
-<p><strong>概念</strong></p>
-<ul>
-<li>面向批处理的分布式计算框架</li>
-<li>编程模型：将 MapReduce 程序分为 Map、Reduce 两个阶段</li>
-</ul>
-<p><strong>核心思想</strong></p>
-<ul>
-<li>分而治之，分布式计算</li>
-<li>移动计算，而非移动数据</li>
-</ul>
-<p><strong>特点</strong></p>
-<ul>
-<li>高容错：任务失败，自动调度到其他节点重新执行</li>
-<li>高扩展：计算能力随着节点数增加，近似线性递增</li>
-<li>适用于海量数据的离线批处理</li>
-<li>降低了分布式编程的门槛</li>
-</ul>
-<h3 id="spark"><a class="markdownIt-Anchor" href="#spark"></a> Spark</h3>
-<p>高性能分布式通用计算引擎</p>
-<ul>
-<li>Spark Core - 基础计算框架（批处理、交互式分析）</li>
-<li>Spark SQL - SQL 引擎（海量结构化数据的高性能查询）</li>
-<li>Spark Streaming - 实时流处理（微批）</li>
-<li>Spark MLlib - 机器学习</li>
-<li>Spark GraphX - 图计算</li>
-</ul>
-<p>采用 Scala 语言开发</p>
-<p><strong>特点</strong></p>
-<ul>
-<li>计算高效 - 内存计算、Cache 缓存机制、DAG 引擎、多线程池模型</li>
-<li>通用易用 - 适用于批处理、交互式计算、流处理、机器学习、图计算等多种场景</li>
-<li>运行模式多样 - Local、Standalone、YARN/Mesos</li>
-</ul>
-<h3 id="yarn"><a class="markdownIt-Anchor" href="#yarn"></a> YARN</h3>
-<p><strong>概念</strong></p>
-<ul>
-<li>Yet Another Resource Negotiator，另一种资源管理器</li>
-<li>为了解决 Hadoop 1.x 中 MapReduce 的先天缺陷</li>
-<li>分布式通用资源管理系统</li>
-<li>负责集群资源的统一管理</li>
-<li>从 Hadoop 2.x 开始，YARN 成为 Hadoop 的核心组件</li>
-</ul>
-<p><strong>特点</strong></p>
-<ul>
-<li>专注于资源管理和作业调度</li>
-<li>通用 - 适用各种计算框架，如 - MapReduce、Spark</li>
-<li>高可用 - ResourceManager 高可用、HDFS 高可用</li>
-<li>高扩展</li>
-</ul>
-<h3 id="hive"><a class="markdownIt-Anchor" href="#hive"></a> Hive</h3>
-<p><strong>概念</strong></p>
-<ul>
-<li>Hadoop 数据仓库 - 企业决策支持</li>
-<li>SQL 引擎 - 对海量结构化数据进行高性能的 SQL 查询</li>
-<li>采用 HDFS 或 HBase 为数据存储</li>
-<li>采用 MapReduce 或 Spark 为计算框架</li>
-</ul>
-<p><strong>特点</strong></p>
-<ul>
-<li>提供类 SQL 查询语言</li>
-<li>支持命令行或 JDBC/ODBC</li>
-<li>提供灵活的扩展性</li>
-<li>提供复杂数据类型、扩展函数、脚本等</li>
-</ul>
-<h3 id="hbase"><a class="markdownIt-Anchor" href="#hbase"></a> HBase</h3>
-<p><strong>概念</strong></p>
-<ul>
-<li>Hadoop Database</li>
-<li>Google BigTable 的开源实现</li>
-<li>分布式 NoSQL 数据库</li>
-<li>列式存储 - 主要用于半结构化、非结构化数据</li>
-<li>采用 HDFS 为文件存储系统</li>
-</ul>
-<p><strong>特点</strong></p>
-<ul>
-<li>高性能 - 支持高并发写入和查询</li>
-<li>高可用 - HDFS 高可用、Region 高可用</li>
-<li>高扩展 - 数据自动切分和分布，可动态扩容，无需停机</li>
-<li>海量存储 - 单表可容纳数十亿行，上百万列</li>
-</ul>
-<h3 id="elasticsearch"><a class="markdownIt-Anchor" href="#elasticsearch"></a> ElasticSearch</h3>
-<ul>
-<li>开源的分布式全文检索引擎</li>
-<li>基于 Lucene 实现全文数据的快速存储、搜索和分析</li>
-<li>处理大规模数据 - PB 级以上</li>
-<li>具有较强的扩展性，集群规模可达上百台</li>
-<li>首选的分布式搜索引擎</li>
-</ul>
-<h2 id="术语"><a class="markdownIt-Anchor" href="#术语"></a> 术语</h2>
-<p><strong>数据仓库（Data Warehouse）</strong> - 数据仓库，是为企业所有级别的决策制定过程，提供所有类型数据支持的战略集合。它是单个数据存储，出于分析性报告和决策支持目的而创建。 为需要业务智能的企业，提供指导业务流程改进、监视时间、成本、质量以及控制。</p>
-<h2 id="资源"><a class="markdownIt-Anchor" href="#资源"></a> 资源</h2>
-<ul>
-<li><a href="https://github.com/onurakpolat/awesome-bigdata" target="_blank" rel="noopener">awesome-bigdata</a></li>
-<li><a href="http://hadoop.apache.org/" target="_blank" rel="noopener">Hadoop</a></li>
-<li><a href="http://hbase.apache.org/" target="_blank" rel="noopener">HBase</a></li>
-<li><a href="http://hive.apache.org/" target="_blank" rel="noopener">Hive</a></li>
-<li><a href="http://impala.apache.org/" target="_blank" rel="noopener">Impala</a></li>
-<li><a href="http://flume.apache.org/" target="_blank" rel="noopener">Flume</a></li>
-<li><a href="http://kafka.apache.org/" target="_blank" rel="noopener">Kafka</a></li>
-<li><a href="http://spark.apache.org/" target="_blank" rel="noopener">Spark</a></li>
-<li><a href="http://sqoop.apache.org/" target="_blank" rel="noopener">Sqoop</a></li>
-<li><a href="https://www.elastic.co/guide/index.html" target="_blank" rel="noopener">ElasticSearch</a></li>
-</ul>
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-        
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="https://dunwu.github.io/blog/blog/bigdata/YARN/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/blog/images/avatar.gif">
-      <meta itemprop="name" content="Zhang Peng">
-      <meta itemprop="description" content="Dunwu's Blog">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Dunwu">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/blog/bigdata/YARN/" class="post-title-link" itemprop="url">YARN</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-
-              <time title="创建时间：2018-09-03 00:00:00" itemprop="dateCreated datePublished" datetime="2018-09-03T00:00:00+08:00">2018-09-03</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-calendar-check-o"></i>
-                </span>
-                <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2019-05-08 18:07:49" itemprop="dateModified" datetime="2019-05-08T18:07:49+08:00">2019-05-08</time>
-              </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/blog/categories/bigdata/" itemprop="url" rel="index">
-                    <span itemprop="name">bigdata</span>
-                  </a>
-                </span>
-            </span>
-
-          
-  
-  <span class="post-meta-item">
-    
-      <span class="post-meta-item-icon">
-        <i class="fa fa-comment-o"></i>
-      </span>
-      <span class="post-meta-item-text">Disqus：</span>
-    
-    <a title="disqus" href="/blog/bigdata/YARN/#comments" itemprop="discussionUrl">
-      <span class="post-comments-count disqus-comment-count" data-disqus-identifier="bigdata/YARN/" itemprop="commentCount"></span>
-    </a>
-  </span>
-  
-  <br>
-            <span class="post-meta-item" title="本文字数">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-file-word-o"></i>
-              </span>
-                <span class="post-meta-item-text">本文字数：</span>
-              <span>2k</span>
-            </span>
-            <span class="post-meta-item" title="阅读时长">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-clock-o"></i>
-              </span>
-                <span class="post-meta-item-text">阅读时长 &asymp;</span>
-              <span>2 分钟</span>
-            </span>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h1 id="yarn"><a class="markdownIt-Anchor" href="#yarn"></a> YARN</h1>
-<blockquote>
-<p>YARN 的目标是解决 MapReduce 的缺陷。</p>
-</blockquote>
-<!-- TOC depthFrom:2 depthTo:3 -->
-<ul>
-<li><a href="#mapreduce-%E7%9A%84%E7%BC%BA%E9%99%B7hadoop-1x">MapReduce 的缺陷（Hadoop 1.x）</a></li>
-<li><a href="#yarn-%E7%AE%80%E4%BB%8B">YARN 简介</a></li>
-<li><a href="#yarn-%E7%B3%BB%E7%BB%9F%E6%9E%B6%E6%9E%84">YARN 系统架构</a>
-<ul>
-<li><a href="#resourcemanagerrm">ResourceManager（RM）</a></li>
-<li><a href="#nodemanagernm">NodeManager（NM）</a></li>
-<li><a href="#applicationmasteram">ApplicationMaster（AM）</a></li>
-<li><a href="#container">Container</a></li>
-</ul>
-</li>
-<li><a href="#yarn-%E9%AB%98%E5%8F%AF%E7%94%A8">YARN 高可用</a></li>
-<li><a href="#yarn-%E8%B5%84%E6%BA%90%E8%B0%83%E5%BA%A6%E7%AD%96%E7%95%A5">YARN 资源调度策略</a>
-<ul>
-<li><a href="#fifo-scheduler%E5%85%88%E8%BF%9B%E5%85%88%E5%87%BA%E8%B0%83%E5%BA%A6%E5%99%A8">FIFO Scheduler（先进先出调度器）</a></li>
-<li><a href="#capacity-scheduler%E5%AE%B9%E9%87%8F%E8%B0%83%E5%BA%A6%E5%99%A8">Capacity Scheduler（容量调度器）</a></li>
-<li><a href="#fair-scheduler%E5%85%AC%E5%B9%B3%E8%B0%83%E5%BA%A6%E5%99%A8">Fair Scheduler（公平调度器）</a></li>
-</ul>
-</li>
-<li><a href="#%E8%B5%84%E6%BA%90">资源</a></li>
-</ul>
-<!-- /TOC -->
-<h2 id="mapreduce-的缺陷hadoop-1x"><a class="markdownIt-Anchor" href="#mapreduce-的缺陷hadoop-1x"></a> MapReduce 的缺陷（Hadoop 1.x）</h2>
-<ul>
-<li>身兼两职：计算框架 + 资源管理框架</li>
-<li>JobTracker
-<ul>
-<li>既做资源管理，又做任务调度</li>
-<li>任务太重，开销过大</li>
-<li>存在单点故障</li>
-</ul>
-</li>
-<li>资源描述模型过于简单，资源利用率较低
-<ul>
-<li>仅把 Task 数量看作资源，没有考虑 CPU 和内存</li>
-<li>强制把资源分成 Map Task Slot 和 Reduce Task Slot</li>
-</ul>
-</li>
-<li>扩展性较差，集群规模上限 4K</li>
-<li>源码难于理解，升级维护困难</li>
-</ul>
-<h2 id="yarn-简介"><a class="markdownIt-Anchor" href="#yarn-简介"></a> YARN 简介</h2>
-<p>YARN(Yet Another Resource Negotiator，另一种资源管理器)是一个<strong>分布式通用资源管理系统</strong>。</p>
-<p>设计目标：聚焦资源管理、通用（适用各种计算框架）、高可用、高扩展。</p>
-<h2 id="yarn-系统架构"><a class="markdownIt-Anchor" href="#yarn-系统架构"></a> YARN 系统架构</h2>
-<ul>
-<li>主从结构（master/slave）</li>
-<li>将 JobTracker 的资源管理、任务调度功能分离</li>
-<li>三种角色：
-<ul>
-<li>ResourceManager（Master） - 集群资源的统一管理和分配</li>
-<li>NodeManager（Slave） - 管理节点资源，以及容器的生命周期</li>
-<li>ApplicationMaster（新角色） - 管理应用程序实例，包括任务调度和资源申请</li>
-</ul>
-</li>
-</ul>
-<h3 id="resourcemanagerrm"><a class="markdownIt-Anchor" href="#resourcemanagerrm"></a> ResourceManager（RM）</h3>
-<p><strong>主要功能</strong></p>
-<ul>
-<li>统一管理集群的所有资源</li>
-<li>将资源按照一定策略分配给各个应用（ApplicationMaster）</li>
-<li>接收 NodeManager 的资源上报信息</li>
-</ul>
-<p><strong>核心组件</strong></p>
-<ul>
-<li>用户交互服务（User Service）</li>
-<li>NodeManager 管理</li>
-<li>ApplicationMaster 管理</li>
-<li>Application 管理</li>
-<li>安全管理</li>
-<li>资源管理</li>
-</ul>
-<h3 id="nodemanagernm"><a class="markdownIt-Anchor" href="#nodemanagernm"></a> NodeManager（NM）</h3>
-<p><strong>主要功能</strong></p>
-<ul>
-<li>管理单个节点的资源</li>
-<li>向 ResourceManager 汇报节点资源使用情况</li>
-<li>管理 Container 的生命周期</li>
-</ul>
-<p><strong>核心组件</strong></p>
-<ul>
-<li>NodeStatusUpdater</li>
-<li>ContainerManager</li>
-<li>ContainerExecutor</li>
-<li>NodeHealthCheckerService</li>
-<li>Security</li>
-<li>WebServer</li>
-</ul>
-<h3 id="applicationmasteram"><a class="markdownIt-Anchor" href="#applicationmasteram"></a> ApplicationMaster（AM）</h3>
-<p><strong>主要功能</strong></p>
-<ul>
-<li>管理应用程序实例</li>
-<li>向 ResourceManager 申请任务执行所需的资源</li>
-<li>任务调度和监管</li>
-</ul>
-<p><strong>实现方式</strong></p>
-<ul>
-<li>需要为每个应用开发一个 AM 组件</li>
-<li>YARN 提供 MapReduce 的 ApplicationMaster 实现</li>
-<li>采用基于事件驱动的异步编程模型，由中央事件调度器统一管理所有事件</li>
-<li>每种组件都是一种事件处理器，在中央事件调度器中注册</li>
-</ul>
-<h3 id="container"><a class="markdownIt-Anchor" href="#container"></a> Container</h3>
-<ul>
-<li>概念：Container 封装了节点上进程的相关资源，是 YARN 中资源的抽象</li>
-<li>分类：运行 ApplicationMaster 的 Container 、运行应用任务的 Container</li>
-</ul>
-<h2 id="yarn-高可用"><a class="markdownIt-Anchor" href="#yarn-高可用"></a> YARN 高可用</h2>
-<p>ResourceManager 高可用</p>
-<ul>
-<li>1 个 Active RM、多个 Standby RM</li>
-<li>宕机后自动实现主备切换</li>
-<li>ZooKeeper 的核心作用
-<ul>
-<li>Active 节点选举</li>
-<li>恢复 Active RM 的原有状态信息</li>
-</ul>
-</li>
-<li>重启 AM，杀死所有运行中的 Container</li>
-<li>切换方式：手动、自动</li>
-</ul>
-<h2 id="yarn-资源调度策略"><a class="markdownIt-Anchor" href="#yarn-资源调度策略"></a> YARN 资源调度策略</h2>
-<h3 id="fifo-scheduler先进先出调度器"><a class="markdownIt-Anchor" href="#fifo-scheduler先进先出调度器"></a> FIFO Scheduler（先进先出调度器）</h3>
-<p><strong>调度策略</strong></p>
-<p>将所有任务放入一个队列，先进队列的先获得资源，排在后面的任务只有等待</p>
-<p><strong>缺点</strong></p>
-<ul>
-<li>资源利用率低，无法交叉运行任务</li>
-<li>灵活性差，如：紧急任务无法插队，耗时长的任务拖慢耗时短的任务</li>
-</ul>
-<h3 id="capacity-scheduler容量调度器"><a class="markdownIt-Anchor" href="#capacity-scheduler容量调度器"></a> Capacity Scheduler（容量调度器）</h3>
-<p><strong>核心思想</strong> - 提前<strong>做预算</strong>，在预算指导下分享集群资源。</p>
-<p><strong>调度策略</strong></p>
-<ul>
-<li>集群资源由多个队列分享</li>
-<li>每个队列都要预设资源分配的比例（提前做预算）</li>
-<li>空闲资源优先分配给“实际资源/预算资源”比值最低的队列</li>
-<li>队列内部采用 FIFO 调度策略</li>
-</ul>
-<p><strong>特点</strong></p>
-<ul>
-<li>层次化的队列设计：子队列可使用父队列资源</li>
-<li>容量保证：每个队列都要预设资源占比，防止资源独占</li>
-<li>弹性分配：空闲资源可以分配给任何队列，当多个队列争用时，会按比例进行平衡</li>
-<li>支持动态管理：可以动态调整队列的容量、权限等参数，也可动态增加、暂停队列</li>
-<li>访问控制：用户只能向自己的队列中提交任务，不能访问其他队列</li>
-<li>多租户：多用户共享集群资源</li>
-</ul>
-<h3 id="fair-scheduler公平调度器"><a class="markdownIt-Anchor" href="#fair-scheduler公平调度器"></a> Fair Scheduler（公平调度器）</h3>
-<p><strong>调度策略</strong></p>
-<ul>
-<li>多队列公平共享集群资源</li>
-<li>通过平分的方式，动态分配资源，无需预先设定资源分配比例</li>
-<li>队列内部可配置调度策略：FIFO、Fair（默认）</li>
-</ul>
-<p><strong>资源抢占</strong></p>
-<ul>
-<li>终止其他队列的任务，使其让出所占资源，然后将资源分配给占用资源量少于最小资源量限制的队列</li>
-</ul>
-<p><strong>队列权重</strong></p>
-<ul>
-<li>当队列中有任务等待，并且集群中有空闲资源时，每个队列可以根据权重获得不同比例的空闲资源</li>
-</ul>
-<h2 id="资源"><a class="markdownIt-Anchor" href="#资源"></a> 资源</h2>
 
       
     </div>
@@ -1333,7 +1010,7 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="https://dunwu.github.io/blog/blog/bigdata/MapReduce/">
+    <link itemprop="mainEntityOfPage" href="https://dunwu.github.io/blog/blog/bigdata/YARN/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/blog/images/avatar.gif">
@@ -1347,7 +1024,279 @@
       <header class="post-header">
         <h2 class="post-title" itemprop="name headline">
           
-            <a href="/blog/bigdata/MapReduce/" class="post-title-link" itemprop="url">MapReduce</a>
+            <a href="/blog/bigdata/YARN/" class="post-title-link" itemprop="url">YARN</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2018-09-03 00:00:00" itemprop="dateCreated datePublished" datetime="2018-09-03T00:00:00+08:00">2018-09-03</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2019-05-08 18:07:49" itemprop="dateModified" datetime="2019-05-08T18:07:49+08:00">2019-05-08</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/blog/categories/bigdata/" itemprop="url" rel="index">
+                    <span itemprop="name">bigdata</span>
+                  </a>
+                </span>
+            </span>
+
+          
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="fa fa-comment-o"></i>
+      </span>
+      <span class="post-meta-item-text">Disqus：</span>
+    
+    <a title="disqus" href="/blog/bigdata/YARN/#comments" itemprop="discussionUrl">
+      <span class="post-comments-count disqus-comment-count" data-disqus-identifier="bigdata/YARN/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  <br>
+            <span class="post-meta-item" title="本文字数">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-file-word-o"></i>
+              </span>
+                <span class="post-meta-item-text">本文字数：</span>
+              <span>2k</span>
+            </span>
+            <span class="post-meta-item" title="阅读时长">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-clock-o"></i>
+              </span>
+                <span class="post-meta-item-text">阅读时长 &asymp;</span>
+              <span>2 分钟</span>
+            </span>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h1 id="yarn"><a class="markdownIt-Anchor" href="#yarn"></a> YARN</h1>
+<blockquote>
+<p>YARN 的目标是解决 MapReduce 的缺陷。</p>
+</blockquote>
+<!-- TOC depthFrom:2 depthTo:3 -->
+<ul>
+<li><a href="#mapreduce-%E7%9A%84%E7%BC%BA%E9%99%B7hadoop-1x">MapReduce 的缺陷（Hadoop 1.x）</a></li>
+<li><a href="#yarn-%E7%AE%80%E4%BB%8B">YARN 简介</a></li>
+<li><a href="#yarn-%E7%B3%BB%E7%BB%9F%E6%9E%B6%E6%9E%84">YARN 系统架构</a>
+<ul>
+<li><a href="#resourcemanagerrm">ResourceManager（RM）</a></li>
+<li><a href="#nodemanagernm">NodeManager（NM）</a></li>
+<li><a href="#applicationmasteram">ApplicationMaster（AM）</a></li>
+<li><a href="#container">Container</a></li>
+</ul>
+</li>
+<li><a href="#yarn-%E9%AB%98%E5%8F%AF%E7%94%A8">YARN 高可用</a></li>
+<li><a href="#yarn-%E8%B5%84%E6%BA%90%E8%B0%83%E5%BA%A6%E7%AD%96%E7%95%A5">YARN 资源调度策略</a>
+<ul>
+<li><a href="#fifo-scheduler%E5%85%88%E8%BF%9B%E5%85%88%E5%87%BA%E8%B0%83%E5%BA%A6%E5%99%A8">FIFO Scheduler（先进先出调度器）</a></li>
+<li><a href="#capacity-scheduler%E5%AE%B9%E9%87%8F%E8%B0%83%E5%BA%A6%E5%99%A8">Capacity Scheduler（容量调度器）</a></li>
+<li><a href="#fair-scheduler%E5%85%AC%E5%B9%B3%E8%B0%83%E5%BA%A6%E5%99%A8">Fair Scheduler（公平调度器）</a></li>
+</ul>
+</li>
+<li><a href="#%E8%B5%84%E6%BA%90">资源</a></li>
+</ul>
+<!-- /TOC -->
+<h2 id="mapreduce-的缺陷hadoop-1x"><a class="markdownIt-Anchor" href="#mapreduce-的缺陷hadoop-1x"></a> MapReduce 的缺陷（Hadoop 1.x）</h2>
+<ul>
+<li>身兼两职：计算框架 + 资源管理框架</li>
+<li>JobTracker
+<ul>
+<li>既做资源管理，又做任务调度</li>
+<li>任务太重，开销过大</li>
+<li>存在单点故障</li>
+</ul>
+</li>
+<li>资源描述模型过于简单，资源利用率较低
+<ul>
+<li>仅把 Task 数量看作资源，没有考虑 CPU 和内存</li>
+<li>强制把资源分成 Map Task Slot 和 Reduce Task Slot</li>
+</ul>
+</li>
+<li>扩展性较差，集群规模上限 4K</li>
+<li>源码难于理解，升级维护困难</li>
+</ul>
+<h2 id="yarn-简介"><a class="markdownIt-Anchor" href="#yarn-简介"></a> YARN 简介</h2>
+<p>YARN(Yet Another Resource Negotiator，另一种资源管理器)是一个<strong>分布式通用资源管理系统</strong>。</p>
+<p>设计目标：聚焦资源管理、通用（适用各种计算框架）、高可用、高扩展。</p>
+<h2 id="yarn-系统架构"><a class="markdownIt-Anchor" href="#yarn-系统架构"></a> YARN 系统架构</h2>
+<ul>
+<li>主从结构（master/slave）</li>
+<li>将 JobTracker 的资源管理、任务调度功能分离</li>
+<li>三种角色：
+<ul>
+<li>ResourceManager（Master） - 集群资源的统一管理和分配</li>
+<li>NodeManager（Slave） - 管理节点资源，以及容器的生命周期</li>
+<li>ApplicationMaster（新角色） - 管理应用程序实例，包括任务调度和资源申请</li>
+</ul>
+</li>
+</ul>
+<h3 id="resourcemanagerrm"><a class="markdownIt-Anchor" href="#resourcemanagerrm"></a> ResourceManager（RM）</h3>
+<p><strong>主要功能</strong></p>
+<ul>
+<li>统一管理集群的所有资源</li>
+<li>将资源按照一定策略分配给各个应用（ApplicationMaster）</li>
+<li>接收 NodeManager 的资源上报信息</li>
+</ul>
+<p><strong>核心组件</strong></p>
+<ul>
+<li>用户交互服务（User Service）</li>
+<li>NodeManager 管理</li>
+<li>ApplicationMaster 管理</li>
+<li>Application 管理</li>
+<li>安全管理</li>
+<li>资源管理</li>
+</ul>
+<h3 id="nodemanagernm"><a class="markdownIt-Anchor" href="#nodemanagernm"></a> NodeManager（NM）</h3>
+<p><strong>主要功能</strong></p>
+<ul>
+<li>管理单个节点的资源</li>
+<li>向 ResourceManager 汇报节点资源使用情况</li>
+<li>管理 Container 的生命周期</li>
+</ul>
+<p><strong>核心组件</strong></p>
+<ul>
+<li>NodeStatusUpdater</li>
+<li>ContainerManager</li>
+<li>ContainerExecutor</li>
+<li>NodeHealthCheckerService</li>
+<li>Security</li>
+<li>WebServer</li>
+</ul>
+<h3 id="applicationmasteram"><a class="markdownIt-Anchor" href="#applicationmasteram"></a> ApplicationMaster（AM）</h3>
+<p><strong>主要功能</strong></p>
+<ul>
+<li>管理应用程序实例</li>
+<li>向 ResourceManager 申请任务执行所需的资源</li>
+<li>任务调度和监管</li>
+</ul>
+<p><strong>实现方式</strong></p>
+<ul>
+<li>需要为每个应用开发一个 AM 组件</li>
+<li>YARN 提供 MapReduce 的 ApplicationMaster 实现</li>
+<li>采用基于事件驱动的异步编程模型，由中央事件调度器统一管理所有事件</li>
+<li>每种组件都是一种事件处理器，在中央事件调度器中注册</li>
+</ul>
+<h3 id="container"><a class="markdownIt-Anchor" href="#container"></a> Container</h3>
+<ul>
+<li>概念：Container 封装了节点上进程的相关资源，是 YARN 中资源的抽象</li>
+<li>分类：运行 ApplicationMaster 的 Container 、运行应用任务的 Container</li>
+</ul>
+<h2 id="yarn-高可用"><a class="markdownIt-Anchor" href="#yarn-高可用"></a> YARN 高可用</h2>
+<p>ResourceManager 高可用</p>
+<ul>
+<li>1 个 Active RM、多个 Standby RM</li>
+<li>宕机后自动实现主备切换</li>
+<li>ZooKeeper 的核心作用
+<ul>
+<li>Active 节点选举</li>
+<li>恢复 Active RM 的原有状态信息</li>
+</ul>
+</li>
+<li>重启 AM，杀死所有运行中的 Container</li>
+<li>切换方式：手动、自动</li>
+</ul>
+<h2 id="yarn-资源调度策略"><a class="markdownIt-Anchor" href="#yarn-资源调度策略"></a> YARN 资源调度策略</h2>
+<h3 id="fifo-scheduler先进先出调度器"><a class="markdownIt-Anchor" href="#fifo-scheduler先进先出调度器"></a> FIFO Scheduler（先进先出调度器）</h3>
+<p><strong>调度策略</strong></p>
+<p>将所有任务放入一个队列，先进队列的先获得资源，排在后面的任务只有等待</p>
+<p><strong>缺点</strong></p>
+<ul>
+<li>资源利用率低，无法交叉运行任务</li>
+<li>灵活性差，如：紧急任务无法插队，耗时长的任务拖慢耗时短的任务</li>
+</ul>
+<h3 id="capacity-scheduler容量调度器"><a class="markdownIt-Anchor" href="#capacity-scheduler容量调度器"></a> Capacity Scheduler（容量调度器）</h3>
+<p><strong>核心思想</strong> - 提前<strong>做预算</strong>，在预算指导下分享集群资源。</p>
+<p><strong>调度策略</strong></p>
+<ul>
+<li>集群资源由多个队列分享</li>
+<li>每个队列都要预设资源分配的比例（提前做预算）</li>
+<li>空闲资源优先分配给“实际资源/预算资源”比值最低的队列</li>
+<li>队列内部采用 FIFO 调度策略</li>
+</ul>
+<p><strong>特点</strong></p>
+<ul>
+<li>层次化的队列设计：子队列可使用父队列资源</li>
+<li>容量保证：每个队列都要预设资源占比，防止资源独占</li>
+<li>弹性分配：空闲资源可以分配给任何队列，当多个队列争用时，会按比例进行平衡</li>
+<li>支持动态管理：可以动态调整队列的容量、权限等参数，也可动态增加、暂停队列</li>
+<li>访问控制：用户只能向自己的队列中提交任务，不能访问其他队列</li>
+<li>多租户：多用户共享集群资源</li>
+</ul>
+<h3 id="fair-scheduler公平调度器"><a class="markdownIt-Anchor" href="#fair-scheduler公平调度器"></a> Fair Scheduler（公平调度器）</h3>
+<p><strong>调度策略</strong></p>
+<ul>
+<li>多队列公平共享集群资源</li>
+<li>通过平分的方式，动态分配资源，无需预先设定资源分配比例</li>
+<li>队列内部可配置调度策略：FIFO、Fair（默认）</li>
+</ul>
+<p><strong>资源抢占</strong></p>
+<ul>
+<li>终止其他队列的任务，使其让出所占资源，然后将资源分配给占用资源量少于最小资源量限制的队列</li>
+</ul>
+<p><strong>队列权重</strong></p>
+<ul>
+<li>当队列中有任务等待，并且集群中有空闲资源时，每个队列可以根据权重获得不同比例的空闲资源</li>
+</ul>
+<h2 id="资源"><a class="markdownIt-Anchor" href="#资源"></a> 资源</h2>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+        
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://dunwu.github.io/blog/blog/bigdata/overview/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/blog/images/avatar.gif">
+      <meta itemprop="name" content="Zhang Peng">
+      <meta itemprop="description" content="Dunwu's Blog">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Dunwu">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/blog/bigdata/overview/" class="post-title-link" itemprop="url">大数据简介</a>
         </h2>
 
         <div class="post-meta">
@@ -1387,8 +1336,8 @@
       </span>
       <span class="post-meta-item-text">Disqus：</span>
     
-    <a title="disqus" href="/blog/bigdata/MapReduce/#comments" itemprop="discussionUrl">
-      <span class="post-comments-count disqus-comment-count" data-disqus-identifier="bigdata/MapReduce/" itemprop="commentCount"></span>
+    <a title="disqus" href="/blog/bigdata/overview/#comments" itemprop="discussionUrl">
+      <span class="post-comments-count disqus-comment-count" data-disqus-identifier="bigdata/overview/" itemprop="commentCount"></span>
     </a>
   </span>
   
@@ -1398,7 +1347,7 @@
                 <i class="fa fa-file-word-o"></i>
               </span>
                 <span class="post-meta-item-text">本文字数：</span>
-              <span>1.8k</span>
+              <span>2k</span>
             </span>
             <span class="post-meta-item" title="阅读时长">
               <span class="post-meta-item-icon">
@@ -1417,155 +1366,206 @@
     <div class="post-body" itemprop="articleBody">
 
       
-          <h1 id="mapreduce"><a class="markdownIt-Anchor" href="#mapreduce"></a> MapReduce</h1>
+          <h1 id="大数据简介"><a class="markdownIt-Anchor" href="#大数据简介"></a> 大数据简介</h1>
 <!-- TOC depthFrom:2 depthTo:3 -->
 <ul>
-<li><a href="#mapreduce-%E7%AE%80%E4%BB%8B">MapReduce 简介</a>
+<li><a href="#%E7%AE%80%E4%BB%8B">简介</a>
 <ul>
-<li><a href="#%E6%A6%82%E5%BF%B5">概念</a></li>
-<li><a href="#%E6%80%9D%E6%83%B3">思想</a></li>
-<li><a href="#%E7%89%B9%E7%82%B9">特点</a></li>
-<li><a href="#%E9%80%82%E7%94%A8%E5%9C%BA%E6%99%AF">适用场景</a></li>
-<li><a href="#%E4%B8%8D%E9%80%82%E7%94%A8%E5%9C%BA%E6%99%AF">不适用场景</a></li>
+<li><a href="#%E4%BB%80%E4%B9%88%E6%98%AF%E5%A4%A7%E6%95%B0%E6%8D%AE">什么是大数据</a></li>
+<li><a href="#%E5%BA%94%E7%94%A8%E5%9C%BA%E6%99%AF">应用场景</a></li>
+<li><a href="#hadoop-%E7%BC%96%E5%B9%B4%E5%8F%B2">Hadoop 编年史</a></li>
 </ul>
 </li>
-<li><a href="#mapreduce-%E5%8E%9F%E7%90%86">MapReduce 原理</a>
+<li><a href="#%E6%8A%80%E6%9C%AF%E4%BD%93%E7%B3%BB">技术体系</a>
 <ul>
-<li><a href="#job--task%E4%BD%9C%E4%B8%9A%E4%B8%8E%E4%BB%BB%E5%8A%A1">Job &amp; Task（作业与任务）</a></li>
-<li><a href="#split%E5%88%87%E7%89%87">Split（切片）</a></li>
-<li><a href="#map-%E9%98%B6%E6%AE%B5%E6%98%A0%E5%B0%84">Map 阶段（映射）</a></li>
-<li><a href="#reduce-%E9%98%B6%E6%AE%B5%E5%8C%96%E7%AE%80">Reduce 阶段（化简）</a></li>
-<li><a href="#shuffle-%E9%98%B6%E6%AE%B5%E6%B4%97%E7%89%8C">Shuffle 阶段（洗牌）</a></li>
+<li><a href="#hdfs">HDFS</a></li>
+<li><a href="#mapreduce">MapReduce</a></li>
+<li><a href="#spark">Spark</a></li>
+<li><a href="#yarn">YARN</a></li>
+<li><a href="#hive">Hive</a></li>
+<li><a href="#hbase">HBase</a></li>
+<li><a href="#elasticsearch">ElasticSearch</a></li>
 </ul>
 </li>
-<li><a href="#shuffle-%E8%AF%A6%E8%A7%A3">Shuffle 详解</a>
-<ul>
-<li><a href="#map-%E7%AB%AF">Map 端</a></li>
-<li><a href="#reduce-%E7%AB%AF">Reduce 端</a></li>
-</ul>
-</li>
-<li><a href="#%E4%BD%9C%E4%B8%9A%E8%BF%90%E8%A1%8C%E6%A8%A1%E5%BC%8F">作业运行模式</a>
-<ul>
-<li><a href="#jobtrackertasktracker-%E6%A8%A1%E5%BC%8Fhadoop-1x">JobTracker/TaskTracker 模式（Hadoop 1.X）</a></li>
-<li><a href="#yarn-%E6%A8%A1%E5%BC%8Fhadoop-2x">YARN 模式（Hadoop 2.X）</a></li>
-</ul>
-</li>
+<li><a href="#%E6%9C%AF%E8%AF%AD">术语</a></li>
+<li><a href="#%E8%B5%84%E6%BA%90">资源</a></li>
 </ul>
 <!-- /TOC -->
-<h2 id="mapreduce-简介"><a class="markdownIt-Anchor" href="#mapreduce-简介"></a> MapReduce 简介</h2>
-<h3 id="概念"><a class="markdownIt-Anchor" href="#概念"></a> 概念</h3>
-<p>MapReduce 是一个面向批处理的分布式计算框架。</p>
-<p>编程模型：MapReduce 程序被分为 Map（映射）阶段和 Reduce（化简）阶段。</p>
-<h3 id="思想"><a class="markdownIt-Anchor" href="#思想"></a> 思想</h3>
-<p>分而治之，并行计算<br />
-移动计算，而非移动数据</p>
-<h3 id="特点"><a class="markdownIt-Anchor" href="#特点"></a> 特点</h3>
+<h2 id="简介"><a class="markdownIt-Anchor" href="#简介"></a> 简介</h2>
+<h3 id="什么是大数据"><a class="markdownIt-Anchor" href="#什么是大数据"></a> 什么是大数据</h3>
+<p>大数据是指超出传统数据库工具收集、存储、管理和分析能力的数据集。与此同时，及时采集、存储、聚合、管理数据，以及对数据深度分析的新技术和新能力，正在快速增长，就像预测计算芯片增长速度的摩尔定律一样。</p>
 <ul>
-<li>计算跟着数据走</li>
-<li>良好的扩展性：计算能力随着节点数增加，近似线性递增</li>
-<li>高容错</li>
-<li>状态监控</li>
-<li>适合海量数据的离线批处理</li>
+<li><strong>Volume</strong> - 数据规模巨大</li>
+<li><strong>Velocity</strong> - 生成和处理速度极快</li>
+<li><strong>Variety</strong> - 数据规模巨大</li>
+<li><strong>Value</strong> - 生成和处理速度极快</li>
+</ul>
+<h3 id="应用场景"><a class="markdownIt-Anchor" href="#应用场景"></a> 应用场景</h3>
+<p>基于大数据的数据仓库</p>
+<p>基于大数据的实时流处理</p>
+<h3 id="hadoop-编年史"><a class="markdownIt-Anchor" href="#hadoop-编年史"></a> Hadoop 编年史</h3>
+<table>
+<thead>
+<tr>
+<th style="text-align:left">时间</th>
+<th style="text-align:left">事件</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left">2003.01</td>
+<td style="text-align:left">Google发表了Google File System论文</td>
+</tr>
+<tr>
+<td style="text-align:left">2004.01</td>
+<td style="text-align:left">Google发表了MapReduce论文</td>
+</tr>
+<tr>
+<td style="text-align:left">2006.02</td>
+<td style="text-align:left">Apache Hadoop项目正式启动，并支持MapReduce和HDFS独立发展</td>
+</tr>
+<tr>
+<td style="text-align:left">2006.11</td>
+<td style="text-align:left">Google发表了Bigtable论文</td>
+</tr>
+<tr>
+<td style="text-align:left">2008.01</td>
+<td style="text-align:left">Hadoop成为Apache顶级项目</td>
+</tr>
+<tr>
+<td style="text-align:left">2009.03</td>
+<td style="text-align:left">Cloudera推出世界上首个Hadoop发行版——CDH，并完全开放源码</td>
+</tr>
+<tr>
+<td style="text-align:left">2012.03</td>
+<td style="text-align:left">HDFS NameNode HA加入Hadoop主版本</td>
+</tr>
+<tr>
+<td style="text-align:left">2014.02</td>
+<td style="text-align:left">Spark代替MapReduce成为Hadoop的缺省计算引擎，并成为Apache顶级项目</td>
+</tr>
+</tbody>
+</table>
+<h2 id="技术体系"><a class="markdownIt-Anchor" href="#技术体系"></a> 技术体系</h2>
+<h3 id="hdfs"><a class="markdownIt-Anchor" href="#hdfs"></a> HDFS</h3>
+<p><strong>概念</strong></p>
+<ul>
+<li>Hadoop 分布式文件系统（Hadoop Distributed File System）</li>
+<li>在开源大数据技术体系中，地位无可替代</li>
+</ul>
+<p><strong>特点</strong></p>
+<ul>
+<li>高容错：数据多副本，副本丢失后自动恢复</li>
+<li>高可用：NameNode HA，安全模式</li>
+<li>高扩展：10K 节点规模</li>
+<li>简单一致性模型：一次写入多次读取，支持追加，不允许修改</li>
+<li>流式数据访问：批量读而非随机读，关注吞吐量而非时间</li>
+<li>大规模数据集：典型文件大小 GB~TB 级，百万以上文件数量， PB 以上数据规模</li>
+<li>构建成本低且安全可靠：运行在大量的廉价商用机器上，硬件错误是常态，提供容错机制</li>
+</ul>
+<h3 id="mapreduce"><a class="markdownIt-Anchor" href="#mapreduce"></a> MapReduce</h3>
+<p><strong>概念</strong></p>
+<ul>
+<li>面向批处理的分布式计算框架</li>
+<li>编程模型：将 MapReduce 程序分为 Map、Reduce 两个阶段</li>
+</ul>
+<p><strong>核心思想</strong></p>
+<ul>
+<li>分而治之，分布式计算</li>
+<li>移动计算，而非移动数据</li>
+</ul>
+<p><strong>特点</strong></p>
+<ul>
+<li>高容错：任务失败，自动调度到其他节点重新执行</li>
+<li>高扩展：计算能力随着节点数增加，近似线性递增</li>
+<li>适用于海量数据的离线批处理</li>
 <li>降低了分布式编程的门槛</li>
 </ul>
-<h3 id="适用场景"><a class="markdownIt-Anchor" href="#适用场景"></a> 适用场景</h3>
+<h3 id="spark"><a class="markdownIt-Anchor" href="#spark"></a> Spark</h3>
+<p>高性能分布式通用计算引擎</p>
 <ul>
-<li>数据统计，如：网站的 PV、UV 统计</li>
-<li>搜索引擎构建索引</li>
-<li>海量数据查询</li>
+<li>Spark Core - 基础计算框架（批处理、交互式分析）</li>
+<li>Spark SQL - SQL 引擎（海量结构化数据的高性能查询）</li>
+<li>Spark Streaming - 实时流处理（微批）</li>
+<li>Spark MLlib - 机器学习</li>
+<li>Spark GraphX - 图计算</li>
 </ul>
-<h3 id="不适用场景"><a class="markdownIt-Anchor" href="#不适用场景"></a> 不适用场景</h3>
+<p>采用 Scala 语言开发</p>
+<p><strong>特点</strong></p>
 <ul>
-<li>OLAP
-<ul>
-<li>要求毫秒或秒级返回结果</li>
+<li>计算高效 - 内存计算、Cache 缓存机制、DAG 引擎、多线程池模型</li>
+<li>通用易用 - 适用于批处理、交互式计算、流处理、机器学习、图计算等多种场景</li>
+<li>运行模式多样 - Local、Standalone、YARN/Mesos</li>
 </ul>
-</li>
-<li>流计算
+<h3 id="yarn"><a class="markdownIt-Anchor" href="#yarn"></a> YARN</h3>
+<p><strong>概念</strong></p>
 <ul>
-<li>流计算的输入数据集是动态的，而 MapReduce 是静态的</li>
+<li>Yet Another Resource Negotiator，另一种资源管理器</li>
+<li>为了解决 Hadoop 1.x 中 MapReduce 的先天缺陷</li>
+<li>分布式通用资源管理系统</li>
+<li>负责集群资源的统一管理</li>
+<li>从 Hadoop 2.x 开始，YARN 成为 Hadoop 的核心组件</li>
 </ul>
-</li>
-<li>DAG 计算
+<p><strong>特点</strong></p>
 <ul>
-<li>多个作业存在依赖关系，后一个的输入是前一个的输出，构成有向无环图 DAG</li>
-<li>每个 MapReduce 作业的输出结果都会落盘，造成大量磁盘 IO，导致性能非常低下</li>
+<li>专注于资源管理和作业调度</li>
+<li>通用 - 适用各种计算框架，如 - MapReduce、Spark</li>
+<li>高可用 - ResourceManager 高可用、HDFS 高可用</li>
+<li>高扩展</li>
 </ul>
-</li>
-</ul>
-<h2 id="mapreduce-原理"><a class="markdownIt-Anchor" href="#mapreduce-原理"></a> MapReduce 原理</h2>
-<h3 id="job-task作业与任务"><a class="markdownIt-Anchor" href="#job-task作业与任务"></a> Job &amp; Task（作业与任务）</h3>
+<h3 id="hive"><a class="markdownIt-Anchor" href="#hive"></a> Hive</h3>
+<p><strong>概念</strong></p>
 <ul>
-<li>作业是客户端请求执行的一个工作单元
-<ul>
-<li>包括输入数据、MapReduce 程序、配置信息</li>
+<li>Hadoop 数据仓库 - 企业决策支持</li>
+<li>SQL 引擎 - 对海量结构化数据进行高性能的 SQL 查询</li>
+<li>采用 HDFS 或 HBase 为数据存储</li>
+<li>采用 MapReduce 或 Spark 为计算框架</li>
 </ul>
-</li>
-<li>任务是将作业分解后得到的细分工作单元
+<p><strong>特点</strong></p>
 <ul>
-<li>分为 Map 任务和 Reduce 任务</li>
+<li>提供类 SQL 查询语言</li>
+<li>支持命令行或 JDBC/ODBC</li>
+<li>提供灵活的扩展性</li>
+<li>提供复杂数据类型、扩展函数、脚本等</li>
 </ul>
-</li>
-</ul>
-<h3 id="split切片"><a class="markdownIt-Anchor" href="#split切片"></a> Split（切片）</h3>
+<h3 id="hbase"><a class="markdownIt-Anchor" href="#hbase"></a> HBase</h3>
+<p><strong>概念</strong></p>
 <ul>
-<li>输入数据被划分成等长的小数据块，称为输入切片（Input Split），简称切片</li>
-<li>Split 是逻辑概念，仅包含元数据信息，如：数据的起始位置、长度、所在节点等</li>
-<li>每个 Split 交给一个 Map 任务处理，Split 的数量决定 Map 任务的数量</li>
-<li>Split 的划分方式由程序设定，Split 与 HDFS Block 没有严格的对应关系</li>
-<li>Split 的大小默认等于 Block 大小</li>
-<li>Split 越小，负载越均衡，但集群的开销越大</li>
+<li>Hadoop Database</li>
+<li>Google BigTable 的开源实现</li>
+<li>分布式 NoSQL 数据库</li>
+<li>列式存储 - 主要用于半结构化、非结构化数据</li>
+<li>采用 HDFS 为文件存储系统</li>
 </ul>
-<h3 id="map-阶段映射"><a class="markdownIt-Anchor" href="#map-阶段映射"></a> Map 阶段（映射）</h3>
+<p><strong>特点</strong></p>
 <ul>
-<li>由若干 Map 任务组成，任务数量由 Split 数量决定</li>
-<li>输入：Split 切片（key-value），输出：中间计算结果（key-value）</li>
+<li>高性能 - 支持高并发写入和查询</li>
+<li>高可用 - HDFS 高可用、Region 高可用</li>
+<li>高扩展 - 数据自动切分和分布，可动态扩容，无需停机</li>
+<li>海量存储 - 单表可容纳数十亿行，上百万列</li>
 </ul>
-<h3 id="reduce-阶段化简"><a class="markdownIt-Anchor" href="#reduce-阶段化简"></a> Reduce 阶段（化简）</h3>
+<h3 id="elasticsearch"><a class="markdownIt-Anchor" href="#elasticsearch"></a> ElasticSearch</h3>
 <ul>
-<li>由若干 Reduce 任务组成，任务数量由程序指定</li>
-<li>输入：Map 阶段输出的中间结果（key-value），输出：最终结果（key-value）</li>
+<li>开源的分布式全文检索引擎</li>
+<li>基于 Lucene 实现全文数据的快速存储、搜索和分析</li>
+<li>处理大规模数据 - PB 级以上</li>
+<li>具有较强的扩展性，集群规模可达上百台</li>
+<li>首选的分布式搜索引擎</li>
 </ul>
-<h3 id="shuffle-阶段洗牌"><a class="markdownIt-Anchor" href="#shuffle-阶段洗牌"></a> Shuffle 阶段（洗牌）</h3>
+<h2 id="术语"><a class="markdownIt-Anchor" href="#术语"></a> 术语</h2>
+<p><strong>数据仓库（Data Warehouse）</strong> - 数据仓库，是为企业所有级别的决策制定过程，提供所有类型数据支持的战略集合。它是单个数据存储，出于分析性报告和决策支持目的而创建。 为需要业务智能的企业，提供指导业务流程改进、监视时间、成本、质量以及控制。</p>
+<h2 id="资源"><a class="markdownIt-Anchor" href="#资源"></a> 资源</h2>
 <ul>
-<li>Map、Reduce 阶段的中间环节，负责执行 Partition（分区）、Sort（排序）、Spill（溢写）、Merge（合并）、抓取（Fetch）等工作</li>
-<li>Partition 决定了 Map 任务输出的每条数据放入哪个分区，交给哪个 Reduce 任务处理</li>
-<li>Reduce 任务的数量决定了 Partition 数量</li>
-<li>Partition 编号 = Reduce 任务编号 =“key hashcode % reduce task number”</li>
-<li>避免和减少 Shuffle 是 MapReduce 程序调优的重点</li>
-</ul>
-<h2 id="shuffle-详解"><a class="markdownIt-Anchor" href="#shuffle-详解"></a> Shuffle 详解</h2>
-<h3 id="map-端"><a class="markdownIt-Anchor" href="#map-端"></a> Map 端</h3>
-<p>Map 任务将中间结果写入专用内存缓冲区 Buffer（默认 100M），同时进行 Partition 和 Sort（先按“key hashcode % reduce task number”对数据进行分区，分区内再按 key 排序）<br />
-当 Buffer 的数据量达到阈值（默认 80%）时，将数据溢写（Spill）到磁盘的一个临时文件中，文件内数据先分区后排序<br />
-Map 任务结束前，将多个临时文件合并（Merge）为一个 Map 输出文件，文件内数据先分区后排序</p>
-<h3 id="reduce-端"><a class="markdownIt-Anchor" href="#reduce-端"></a> Reduce 端</h3>
-<p>Reduce 任务从多个 Map 输出文件中主动抓取（Fetch）属于自己的分区数据，先写入 Buffer，数据量达到阈值后，溢写到磁盘的一个临时文件中<br />
-数据抓取完成后，将多个临时文件合并为一个 Reduce 输入文件，文件内数据按 key 排序</p>
-<h2 id="作业运行模式"><a class="markdownIt-Anchor" href="#作业运行模式"></a> 作业运行模式</h2>
-<h3 id="jobtrackertasktracker-模式hadoop-1x"><a class="markdownIt-Anchor" href="#jobtrackertasktracker-模式hadoop-1x"></a> JobTracker/TaskTracker 模式（Hadoop 1.X）</h3>
-<p><strong>JobTracker 节点（Master）</strong></p>
-<ul>
-<li>调度任务在 TaskTracker 上运行</li>
-<li>若任务失败，指定新 TaskTracker 重新运行</li>
-</ul>
-<p><strong>TaskTracker 节点（Slave）</strong></p>
-<ul>
-<li>执行任务，发送进度报告</li>
-</ul>
-<p><strong>存在的问题</strong></p>
-<ul>
-<li>JobTracker 存在单点故障</li>
-<li>JobTracker 负载太重（上限 4000 节点）</li>
-<li>JobTracker 缺少对资源的全面管理</li>
-<li>TaskTracker 对资源的描述过于简单</li>
-<li>源码很难理解</li>
-</ul>
-<h3 id="yarn-模式hadoop-2x"><a class="markdownIt-Anchor" href="#yarn-模式hadoop-2x"></a> YARN 模式（Hadoop 2.X）</h3>
-<ul>
-<li>提交作业</li>
-<li>查看作业</li>
-<li>终止作业</li>
+<li><a href="https://github.com/onurakpolat/awesome-bigdata" target="_blank" rel="noopener">awesome-bigdata</a></li>
+<li><a href="http://hadoop.apache.org/" target="_blank" rel="noopener">Hadoop</a></li>
+<li><a href="http://hbase.apache.org/" target="_blank" rel="noopener">HBase</a></li>
+<li><a href="http://hive.apache.org/" target="_blank" rel="noopener">Hive</a></li>
+<li><a href="http://impala.apache.org/" target="_blank" rel="noopener">Impala</a></li>
+<li><a href="http://flume.apache.org/" target="_blank" rel="noopener">Flume</a></li>
+<li><a href="http://kafka.apache.org/" target="_blank" rel="noopener">Kafka</a></li>
+<li><a href="http://spark.apache.org/" target="_blank" rel="noopener">Spark</a></li>
+<li><a href="http://sqoop.apache.org/" target="_blank" rel="noopener">Sqoop</a></li>
+<li><a href="https://www.elastic.co/guide/index.html" target="_blank" rel="noopener">ElasticSearch</a></li>
 </ul>
 
       
@@ -3319,7 +3319,7 @@ Map 任务结束前，将多个临时文件合并（Merge）为一个 Map 输出
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="https://dunwu.github.io/blog/blog/design/architecture/%E7%BD%91%E7%AB%99%E7%9A%84%E5%8F%AF%E6%89%A9%E5%B1%95%E6%9E%B6%E6%9E%84/">
+    <link itemprop="mainEntityOfPage" href="https://dunwu.github.io/blog/blog/design/architecture/%E7%BD%91%E7%AB%99%E7%9A%84%E9%AB%98%E5%8F%AF%E7%94%A8%E6%9E%B6%E6%9E%84/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/blog/images/avatar.gif">
@@ -3333,7 +3333,7 @@ Map 任务结束前，将多个临时文件合并（Merge）为一个 Map 输出
       <header class="post-header">
         <h2 class="post-title" itemprop="name headline">
           
-            <a href="/blog/design/architecture/%E7%BD%91%E7%AB%99%E7%9A%84%E5%8F%AF%E6%89%A9%E5%B1%95%E6%9E%B6%E6%9E%84/" class="post-title-link" itemprop="url">网站的可扩展架构</a>
+            <a href="/blog/design/architecture/%E7%BD%91%E7%AB%99%E7%9A%84%E9%AB%98%E5%8F%AF%E7%94%A8%E6%9E%B6%E6%9E%84/" class="post-title-link" itemprop="url">网站的高可用架构</a>
         </h2>
 
         <div class="post-meta">
@@ -3350,7 +3350,7 @@ Map 任务结束前，将多个临时文件合并（Merge）为一个 Map 输出
                   <i class="fa fa-calendar-check-o"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2019-08-21 13:20:28" itemprop="dateModified" datetime="2019-08-21T13:20:28+08:00">2019-08-21</time>
+                <time title="修改时间：2019-08-21 13:20:31" itemprop="dateModified" datetime="2019-08-21T13:20:31+08:00">2019-08-21</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -3379,8 +3379,8 @@ Map 任务结束前，将多个临时文件合并（Merge）为一个 Map 输出
       </span>
       <span class="post-meta-item-text">Disqus：</span>
     
-    <a title="disqus" href="/blog/design/architecture/%E7%BD%91%E7%AB%99%E7%9A%84%E5%8F%AF%E6%89%A9%E5%B1%95%E6%9E%B6%E6%9E%84/#comments" itemprop="discussionUrl">
-      <span class="post-comments-count disqus-comment-count" data-disqus-identifier="design/architecture/网站的可扩展架构/" itemprop="commentCount"></span>
+    <a title="disqus" href="/blog/design/architecture/%E7%BD%91%E7%AB%99%E7%9A%84%E9%AB%98%E5%8F%AF%E7%94%A8%E6%9E%B6%E6%9E%84/#comments" itemprop="discussionUrl">
+      <span class="post-comments-count disqus-comment-count" data-disqus-identifier="design/architecture/网站的高可用架构/" itemprop="commentCount"></span>
     </a>
   </span>
   
@@ -3390,14 +3390,14 @@ Map 任务结束前，将多个临时文件合并（Merge）为一个 Map 输出
                 <i class="fa fa-file-word-o"></i>
               </span>
                 <span class="post-meta-item-text">本文字数：</span>
-              <span>1.4k</span>
+              <span>3.2k</span>
             </span>
             <span class="post-meta-item" title="阅读时长">
               <span class="post-meta-item-icon">
                 <i class="fa fa-clock-o"></i>
               </span>
                 <span class="post-meta-item-text">阅读时长 &asymp;</span>
-              <span>1 分钟</span>
+              <span>3 分钟</span>
             </span>
 
         </div>
@@ -3409,57 +3409,143 @@ Map 任务结束前，将多个临时文件合并（Merge）为一个 Map 输出
     <div class="post-body" itemprop="articleBody">
 
       
-          <h1 id="网站的可扩展架构"><a class="markdownIt-Anchor" href="#网站的可扩展架构"></a> 网站的可扩展架构</h1>
+          <h1 id="网站的高可用架构"><a class="markdownIt-Anchor" href="#网站的高可用架构"></a> 网站的高可用架构</h1>
 <blockquote>
 <p>📓 本文已归档到：「<a href="https://github.com/dunwu/blog" target="_blank" rel="noopener">blog</a>」</p>
 </blockquote>
 <!-- TOC depthFrom:2 depthTo:3 -->
 <ul>
-<li><a href="#1-%E6%9E%84%E5%BB%BA%E5%8F%AF%E6%89%A9%E5%B1%95%E7%9A%84%E7%BD%91%E7%AB%99%E6%9E%B6%E6%9E%84">1. 构建可扩展的网站架构</a></li>
-<li><a href="#2-%E5%88%A9%E7%94%A8%E5%88%86%E5%B8%83%E5%BC%8F%E6%B6%88%E6%81%AF%E9%98%9F%E5%88%97%E9%99%8D%E4%BD%8E%E7%B3%BB%E7%BB%9F%E8%80%A6%E5%90%88%E6%80%A7">2. 利用分布式消息队列降低系统耦合性</a>
+<li><a href="#1-%E7%BD%91%E7%AB%99%E5%8F%AF%E7%94%A8%E6%80%A7%E7%9A%84%E5%BA%A6%E9%87%8F">1. 网站可用性的度量</a></li>
+<li><a href="#2-%E9%AB%98%E5%8F%AF%E7%94%A8%E7%9A%84%E7%BD%91%E7%AB%99%E6%9E%B6%E6%9E%84">2. 高可用的网站架构</a></li>
+<li><a href="#3-%E9%AB%98%E5%8F%AF%E7%94%A8%E7%9A%84%E5%BA%94%E7%94%A8">3. 高可用的应用</a>
 <ul>
-<li><a href="#21-%E4%BA%8B%E4%BB%B6%E9%A9%B1%E5%8A%A8%E6%9E%B6%E6%9E%84">2.1. 事件驱动架构</a></li>
-<li><a href="#22-%E5%88%86%E5%B8%83%E5%BC%8F%E6%B6%88%E6%81%AF%E9%98%9F%E5%88%97">2.2. 分布式消息队列</a></li>
+<li><a href="#31-%E9%80%9A%E8%BF%87%E8%B4%9F%E8%BD%BD%E5%9D%87%E8%A1%A1%E8%BF%9B%E8%A1%8C%E6%97%A0%E7%8A%B6%E6%80%81%E6%9C%8D%E5%8A%A1%E7%9A%84%E5%A4%B1%E6%95%88%E8%BD%AC%E7%A7%BB">3.1. 通过负载均衡进行无状态服务的失效转移</a></li>
+<li><a href="#32-%E5%BA%94%E7%94%A8%E6%9C%8D%E5%8A%A1%E5%99%A8%E9%9B%86%E7%BE%A4%E7%9A%84-session-%E7%AE%A1%E7%90%86">3.2. 应用服务器集群的 Session 管理</a></li>
 </ul>
 </li>
-<li><a href="#3-%E5%88%A9%E7%94%A8%E5%88%86%E5%B8%83%E5%BC%8F%E6%9C%8D%E5%8A%A1%E6%89%93%E9%80%A0%E5%8F%AF%E5%A4%8D%E7%94%A8%E7%9A%84%E4%B8%9A%E5%8A%A1%E5%B9%B3%E5%8F%B0">3. 利用分布式服务打造可复用的业务平台</a></li>
-<li><a href="#4-%E5%8F%AF%E6%89%A9%E5%B1%95%E7%9A%84%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84">4. 可扩展的数据结构</a></li>
-<li><a href="#5-%E8%B5%84%E6%96%99">5. 资料</a></li>
+<li><a href="#4-%E9%AB%98%E5%8F%AF%E7%94%A8%E7%9A%84%E6%9C%8D%E5%8A%A1">4. 高可用的服务</a></li>
+<li><a href="#5-%E9%AB%98%E5%8F%AF%E7%94%A8%E7%9A%84%E6%95%B0%E6%8D%AE">5. 高可用的数据</a>
+<ul>
+<li><a href="#51-cap-%E5%8E%9F%E7%90%86">5.1. CAP 原理</a></li>
+<li><a href="#52-%E6%95%B0%E6%8D%AE%E5%A4%87%E4%BB%BD">5.2. 数据备份</a></li>
+<li><a href="#53-%E5%A4%B1%E6%95%88%E8%BD%AC%E7%A7%BB">5.3. 失效转移</a></li>
+</ul>
+</li>
+<li><a href="#6-%E9%AB%98%E5%8F%AF%E7%94%A8%E7%BD%91%E7%AB%99%E7%9A%84%E8%BD%AF%E4%BB%B6%E8%B4%A8%E9%87%8F%E4%BF%9D%E8%AF%81">6. 高可用网站的软件质量保证</a></li>
+<li><a href="#7-%E7%BD%91%E7%AB%99%E7%9B%91%E6%8E%A7">7. 网站监控</a></li>
+<li><a href="#8-%E8%B5%84%E6%96%99">8. 资料</a></li>
 </ul>
 <!-- /TOC -->
-<p><strong>扩展性（Extensibility）</strong> - 指对现有系统影响最小的情况下，系统功能可持续扩展或提升的能力。表现在系统基础设施稳定不需要经常变更，应用之间较少依赖和耦合，对需求变更可以敏捷响应。它是系统架构设计层面的开闭原则（对扩展开放、对修改关闭），架构设计考虑未来功能扩展，当系统增加新功能时，不需要对现有系统的结构和代码进行修改。</p>
-<p><strong>伸缩性（Scalability）</strong> - 指系统能够通过增加减少自身资源规模的方式增减自己计算处理事务的能力。如果这种增减是成比例的，就被称作线性伸缩性。在网站架构中 ，通常指利用集群的方式增加服务器数量、提高系统的整体事务吞吐能力。</p>
-<h2 id="1-构建可扩展的网站架构"><a class="markdownIt-Anchor" href="#1-构建可扩展的网站架构"></a> 1. 构建可扩展的网站架构</h2>
-<p>低耦合的系统更容易扩展、复用。</p>
-<p>设计网站可扩展架构的核心思想是模块化，并在此基础上，降低模块间的耦合性，提高模块的复用性。</p>
-<p>分层和分割不仅可以进行架构伸缩，也是模块化设计的重要手段，利用分层和分割的方式将软件分割为若干个低耦合的独立的组件模块，这些组件模块以消息传递及依赖调用的方式聚合成一个完整的系统。</p>
-<p>在大型网站中，这些模块通过分布式部署的方式，独立的模块部署在独立的服务器上，从物理上分离模块间的耦合关系，进一步降低耦合性提高复用性。</p>
-<h2 id="2-利用分布式消息队列降低系统耦合性"><a class="markdownIt-Anchor" href="#2-利用分布式消息队列降低系统耦合性"></a> 2. 利用分布式消息队列降低系统耦合性</h2>
-<h3 id="21-事件驱动架构"><a class="markdownIt-Anchor" href="#21-事件驱动架构"></a> 2.1. 事件驱动架构</h3>
-<p>事件驱动架构通过在低耦合的模块间传输事件消息，以保持模块的松散耦合，并借助事件消息的通信完成模块间合作。典型的事件驱动架构就是操作系统中常见的生产者消费者模式。在大型网站中，最常见的实现手段就是分布式消息队列。</p>
-<h3 id="22-分布式消息队列"><a class="markdownIt-Anchor" href="#22-分布式消息队列"></a> 2.2. 分布式消息队列</h3>
-<p>消息生产者应用程序通过远程访问接口将消息推送给消息队列服务器，消息队列服务器将消息写入本地内存队列后立即返回成功响应给消息生产者。消息队列服务器根据消息订阅列表查找订阅该消息的消息消费者应用程序，将消息队列中的消息按照先进先出（FIFO）的原则将消息通过远程通信接口发送给消息消费者程序。</p>
-<div align="center">
-<img src="http://dunwu.test.upcdn.net/cs/architecture/分布式消息队列架构原理.png" />
-</div>
-<p>在伸缩性方面，由于消息队列服务器上的数据可以看作是即时处理的，因此类似于无状态的服务器，伸缩性设计比较简单。将新服务器加入分布式消息队列集群中，通知生产者服务器更改消息队列服务器列表即可。</p>
-<p>在可用性方面，为了避免消费者进程处理缓慢，分布式消息队列服务器内存空间不足造成的问题，如果内存队列已满，会将消息写入磁盘，消息推送模块在将内存队列消息处理完成以后，将磁盘内容加载到内存队列继续处理。</p>
-<h2 id="3-利用分布式服务打造可复用的业务平台"><a class="markdownIt-Anchor" href="#3-利用分布式服务打造可复用的业务平台"></a> 3. 利用分布式服务打造可复用的业务平台</h2>
-<p>分布式服务则通过接口分解系统耦合性，不同子系统通过相同的接口描述进行服务调用。</p>
-<p>大型网站分布式服务的需求与特点：</p>
+<h2 id="1-网站可用性的度量"><a class="markdownIt-Anchor" href="#1-网站可用性的度量"></a> 1. 网站可用性的度量</h2>
+<p>网站不可用也被称作网站故障，业界通常用多个 9 来衡量网站的可用性。如 QQ 的可用性为 4 个 9，即 99.99% 可用。</p>
+<figure class="highlight angelscript"><table><tr><td class="code"><pre><span class="line">网站不可用时间 = 故障修复时间点 - 故障发现时间点</span><br><span class="line">网站年度可用性指标 = (<span class="number">1</span> - 网站不可用时间/年度总时间) * <span class="number">100</span>%</span><br></pre></td></tr></table></figure>
+<h2 id="2-高可用的网站架构"><a class="markdownIt-Anchor" href="#2-高可用的网站架构"></a> 2. 高可用的网站架构</h2>
+<p>大型网站的分层架构及服务器的分布式部署使得位于不同层次的服务器具有不同的可用性特点。关闭服务或服务器宕机时产生的影响也不相同，高可用的解决方案也差异甚大。</p>
+<h2 id="3-高可用的应用"><a class="markdownIt-Anchor" href="#3-高可用的应用"></a> 3. 高可用的应用</h2>
+<h3 id="31-通过负载均衡进行无状态服务的失效转移"><a class="markdownIt-Anchor" href="#31-通过负载均衡进行无状态服务的失效转移"></a> 3.1. 通过负载均衡进行无状态服务的失效转移</h3>
+<p>应用层主要处理网站应用的业务逻辑，一个显著的特点是应用的 <strong>无状态</strong> 性。</p>
+<p>所谓的 <strong>无状态</strong> 的应用是指应用服务器不保存业务的上下文信息，而仅根据每次请求提交的数据进行相应的业务逻辑处理，多个服务实例之间完全对等，请求提交到任意服务器，处理结果都是完全一样的。</p>
+<p>负载均衡，顾名思义，主要使用在业务量和数据量较高的情况下，当单台服务器不足以承担所有的负载压力时，通过负载均衡手段，将流量和数据分摊到一个集群组成的多台服务器上，以提高整体的负载处理能力。</p>
+<h3 id="32-应用服务器集群的-session-管理"><a class="markdownIt-Anchor" href="#32-应用服务器集群的-session-管理"></a> 3.2. 应用服务器集群的 Session 管理</h3>
+<p>应用服务器的高可用架构设计主要基于服务无状态这一特性。事实上，业务总是有状态的，如购物车记录用户的购买信息；用户的登录状态；最新发布的消息等等。</p>
+<p>Web 应用中将这些多次请求修改使用的上下文对象称作会话。单机情况下，Session 可由部署在服务器上的 Web 容器管理。</p>
+<p>而在集群环境下，Session 管理有以下手段：</p>
+<h4 id="session-复制"><a class="markdownIt-Anchor" href="#session-复制"></a> Session 复制</h4>
+<p>Session 复制是指应用服务器开发 Web 容器的 Session 复制功能，在集群中的几台服务器之间同步 Session 对象。</p>
+<p>这种方案很简单，但当集群规模较大时，集群服务间需要大量的通信来进行 Session 复制。</p>
+<h4 id="session-绑定"><a class="markdownIt-Anchor" href="#session-绑定"></a> Session 绑定</h4>
+<p>可以利用负载均衡的源地址 Hash 算法实现，总是将来源于同一 IP 的请求分发到同一台服务器上。这样在整个会话期间，用户所有的请求都在同一台服务器上处理，即 Session 绑定到某台特定服务器上。这种方法又被称作会话粘滞。</p>
+<p>但是这种策略不符合高可用的需求，因为一旦某台服务器宕机，那么该机器上的 Session 也就不复存在了。</p>
+<h4 id="利用-cookie-记录-session"><a class="markdownIt-Anchor" href="#利用-cookie-记录-session"></a> 利用 Cookie 记录 Session</h4>
+<p>可以将 Session 记录在客户端（浏览器 Cookie），每次请求服务器时，将 Session 放在请求中发送给服务器，服务器处理完请求后再将修改过的 Session 响应给客户端。</p>
+<p>这种策略的缺点是：Cookie 有大小限制，能记录的信息有限；每次请求响应都需要传输 Cookie，影响性能；如果用户关闭 Cookie，访问就不能工作。</p>
+<h4 id="session-服务器"><a class="markdownIt-Anchor" href="#session-服务器"></a> Session 服务器</h4>
+<p>利用独立部署的 Session 服务器（集群）统一管理 Session，应用服务器每次读写 Session 时，都访问 Session 服务器。</p>
+<p>实现 Session 服务器的一种简单方法时：利用分布式缓存、数据库等，在此基础上进行包装，使其符合 Session 的存储和访问要求。</p>
+<h2 id="4-高可用的服务"><a class="markdownIt-Anchor" href="#4-高可用的服务"></a> 4. 高可用的服务</h2>
+<p>高可用的服务策略：</p>
 <ul>
-<li>负载均衡</li>
-<li>失效转移</li>
-<li>高效的远程通信</li>
-<li>整合异构系统</li>
-<li>对应用最少侵入</li>
-<li>版本管理</li>
-<li>实时监控</li>
+<li><strong>分级管理</strong> - 将服务根据业务重要性进行分级管理，并在服务部署上进行隔离。</li>
+<li><strong>超时设置</strong> - 由于服务器宕机、线程死锁等原因，可能导致应用程序对服务端的调用失去响应。所以有必要引入超时机制，一旦调用超时，服务化框架抛出异常，应用程序根据服务调度策略，选择重试或请求转移到其他机器上。</li>
+<li><strong>异步调用</strong> - 对于需要即时响应的业务，应用在调用服务时可以通过消息队列等异步方式完成，避免长时间等待服务响应结果。</li>
+<li><strong>服务降级</strong> - 网站访问高峰期，服务可能因为大量并发调用而性能下降，严重时可能会导致宕机。为了保证核心功能的正常运行，需要对服务进行降级。降级有两种手段：拒绝服务和关闭服务。</li>
+<li><strong>幂等性设计</strong> - 为了避免服务重复调用，可以通过设置编号的方式进行服务调用有效性校验，有效的操作才能继续执行。</li>
 </ul>
-<h2 id="4-可扩展的数据结构"><a class="markdownIt-Anchor" href="#4-可扩展的数据结构"></a> 4. 可扩展的数据结构</h2>
-<p>传统的关系型数据库为了保证关系运算的正确性，在设计数据库表结构的时候，就需要指定表的 schema ——字段名称，数据类型等，并要遵循特定的设计范式。这些规范带来一个问题：难以面对需求变更带来的挑战，所以有人通过预先设计一些冗余字段来应对。</p>
-<p>许多 NoSql 数据库使用 ColumnFamily 设计来设计可扩展的数据结构。</p>
-<h2 id="5-资料"><a class="markdownIt-Anchor" href="#5-资料"></a> 5. 资料</h2>
+<h2 id="5-高可用的数据"><a class="markdownIt-Anchor" href="#5-高可用的数据"></a> 5. 高可用的数据</h2>
+<h3 id="51-cap-原理"><a class="markdownIt-Anchor" href="#51-cap-原理"></a> 5.1. CAP 原理</h3>
+<p>分布式系统不可能同时满足一致性（C：Consistency）、可用性（A：Availability）和分区容忍性（P：Partition Tolerance），最多只能同时满足其中两项。</p>
+<div align="center">
+<img src="http://dunwu.test.upcdn.net/cs/distributed/architecture/分布式理论-CAP.jpg" width="450"/>
+</div>
+<h4 id="可用性"><a class="markdownIt-Anchor" href="#可用性"></a> 可用性</h4>
+<p>可用性指分布式系统在面对各种异常时可以提供正常服务的能力，可以用系统可用时间占总时间的比值来衡量，4 个 9 的可用性表示系统 99.99% 的时间是可用的。</p>
+<p>在可用性条件下，系统提供的服务一直处于可用的状态，对于用户的每一个操作请求总是能够在有限的时间内返回结果。</p>
+<h4 id="分区容忍性"><a class="markdownIt-Anchor" href="#分区容忍性"></a> 分区容忍性</h4>
+<p>网络分区指分布式系统中的节点被划分为多个区域，每个区域内部可以通信，但是区域之间无法通信。</p>
+<p>在分区容忍性条件下，分布式系统在遇到任何网络分区故障的时候，仍然需要能对外提供一致性和可用性的服务，除非是整个网络环境都发生了故障。</p>
+<h4 id="一致性"><a class="markdownIt-Anchor" href="#一致性"></a> 一致性</h4>
+<p>一致性指的是多个数据副本是否能保持一致的特性。</p>
+<p>在一致性的条件下，系统在执行数据更新操作之后能够从一致性状态转移到另一个一致性状态。</p>
+<p>数据一致性又可以分为以下几点：</p>
+<ul>
+<li>强一致性 - 数据更新操作结果和操作响应总是一致的，即操作响应通知更新失败，那么数据一定没有被更新，而不是处于不确定状态。</li>
+<li>最终一致性 - 即物理存储的数据可能是不一致的，终端用户访问到的数据可能也是不一致的，但系统经过一段时间的自我修复和修正，数据最终会达到一致。</li>
+</ul>
+<h4 id="权衡"><a class="markdownIt-Anchor" href="#权衡"></a> 权衡</h4>
+<p>在分布式系统中，分区容忍性必不可少，因为需要总是假设网络是不可靠的。因此，CAP 理论实际在是要在可用性和一致性之间做权衡。</p>
+<p>可用性和一致性往往是冲突的，很难都使它们同时满足。在多个节点之间进行数据同步时，</p>
+<ul>
+<li>为了保证一致性（CP），就需要让所有节点下线成为不可用的状态，等待同步完成；</li>
+<li>为了保证可用性（AP），在同步过程中允许读取所有节点的数据，但是数据可能不一致。</li>
+</ul>
+<h3 id="52-数据备份"><a class="markdownIt-Anchor" href="#52-数据备份"></a> 5.2. 数据备份</h3>
+<ul>
+<li>冷备份：定期将数据复制到某种存储介质。</li>
+<li>热备份
+<ul>
+<li>异步热备方式 - 异步方式是指多份数据副本的写入操作异步完成，应用程序收到数据服务系统的写操作成功响应时，只写成功了一份，存储系统将会异步地写其他副本。</li>
+<li>同步热备方式 - 同步方式是指多份数据副本的写入操作同步完成，即应用程序收到数据服务系统的写成功响应时，多份数据都已经写操作成功。但是当应用程序收到数据写操作失败的响应式，可能有部分副本或者全部副本都已经写入成功了（因为网络或者系统故障，无法返回操作成功的响应）。</li>
+</ul>
+</li>
+</ul>
+<h3 id="53-失效转移"><a class="markdownIt-Anchor" href="#53-失效转移"></a> 5.3. 失效转移</h3>
+<h4 id="失效确认"><a class="markdownIt-Anchor" href="#失效确认"></a> 失效确认</h4>
+<div align="center">
+<img src="http://dunwu.test.upcdn.net/cs/architecture/check-fail.png" width="500" />
+</div>
+<p>判断服务器宕机的手段有两种：心跳检测和访问失败报告。</p>
+<p>对于应用程序的访问失败报告，控制中心还需要再一次发送心跳检测进行确认，以免错误判断服务器宕机。因为一旦进行数据访问的失效转移，意味着数据存储多份副本不一致，需要进行后续一系列的复杂动作。</p>
+<h4 id="访问转移"><a class="markdownIt-Anchor" href="#访问转移"></a> 访问转移</h4>
+<p>确认某台数据服务器宕机后，就需要将数据读写访问重新路由到其他服务器上。对于完全对等存储的服务器，当其中一台宕机后，应用程序根据配置直接切换到对等服务器上。如果存储不对等，就需要重新计算路由，选择存储服务器。</p>
+<h4 id="数据恢复"><a class="markdownIt-Anchor" href="#数据恢复"></a> 数据恢复</h4>
+<p>因为某台服务器宕机，所以数据存储的副本数目会减少，必须将副本的数目恢复到系统设定的值，否则，再有服务器宕机时，就可能出现无法访问转移，数据永久丢失的情况。因此系统需要从健康的服务器复制数据，将数据副本数目恢复到设定值。</p>
+<h2 id="6-高可用网站的软件质量保证"><a class="markdownIt-Anchor" href="#6-高可用网站的软件质量保证"></a> 6. 高可用网站的软件质量保证</h2>
+<p>高可用网站的软件质量保证的手段：</p>
+<ul>
+<li>自动化发布</li>
+<li>自动化测试</li>
+<li>预发布验证</li>
+<li>代码控制</li>
+<li>灰度发布</li>
+</ul>
+<h2 id="7-网站监控"><a class="markdownIt-Anchor" href="#7-网站监控"></a> 7. 网站监控</h2>
+<ul>
+<li>监控数据采集
+<ul>
+<li>用户行为日志收集</li>
+<li>服务器性能监控</li>
+<li>运行数据报告</li>
+</ul>
+</li>
+<li>监控管理
+<ul>
+<li>系统报警</li>
+<li>失效转移</li>
+<li>自动优雅降级</li>
+</ul>
+</li>
+</ul>
+<h2 id="8-资料"><a class="markdownIt-Anchor" href="#8-资料"></a> 8. 资料</h2>
 <ul>
 <li><a href="https://item.jd.com/11322972.html" target="_blank" rel="noopener">大型网站技术架构</a></li>
 </ul>
@@ -3528,20 +3614,20 @@ Map 任务结束前，将多个临时文件合并（Merge）为一个 Map 输出
       <div class="site-state-item site-state-posts">
           <a href="/blog/archives/">
         
-          <span class="site-state-item-count">68</span>
+          <span class="site-state-item-count">67</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
       <div class="site-state-item site-state-categories">
             <a href="/blog/categories/">
           
-        <span class="site-state-item-count">12</span>
+        <span class="site-state-item-count">11</span>
         <span class="site-state-item-name">分类</span></a>
       </div>
       <div class="site-state-item site-state-tags">
             <a href="/blog/tags/">
           
-        <span class="site-state-item-count">35</span>
+        <span class="site-state-item-count">32</span>
         <span class="site-state-item-name">标签</span></a>
       </div>
   </nav>
@@ -3586,12 +3672,12 @@ Map 任务结束前，将多个临时文件合并（Merge）为一个 Map 输出
     <span class="post-meta-item-icon">
       <i class="fa fa-area-chart"></i>
     </span>
-    <span title="站点总字数">329k</span>
+    <span title="站点总字数">318k</span>
     <span class="post-meta-divider">|</span>
     <span class="post-meta-item-icon">
       <i class="fa fa-coffee"></i>
     </span>
-    <span title="站点阅读时长">4:59</span>
+    <span title="站点阅读时长">4:49</span>
 </div>
 
         
