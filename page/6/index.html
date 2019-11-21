@@ -153,7 +153,7 @@
   </li>
         <li class="menu-item menu-item-tags">
 
-    <a href="/blog/tags/" rel="section"><i class="fa fa-fw fa-tags"></i>标签<span class="badge">32</span></a>
+    <a href="/blog/tags/" rel="section"><i class="fa fa-fw fa-tags"></i>标签<span class="badge">30</span></a>
 
   </li>
         <li class="menu-item menu-item-categories">
@@ -221,7 +221,7 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="https://dunwu.github.io/blog/blog/design/architecture/%E5%A4%A7%E5%9E%8B%E7%BD%91%E7%AB%99%E6%9E%B6%E6%9E%84%E6%A6%82%E8%BF%B0/">
+    <link itemprop="mainEntityOfPage" href="https://dunwu.github.io/blog/blog/design/architecture/%E7%BD%91%E7%AB%99%E5%85%B8%E5%9E%8B%E6%95%85%E9%9A%9C/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/blog/images/avatar.gif">
@@ -235,7 +235,7 @@
       <header class="post-header">
         <h2 class="post-title" itemprop="name headline">
           
-            <a href="/blog/design/architecture/%E5%A4%A7%E5%9E%8B%E7%BD%91%E7%AB%99%E6%9E%B6%E6%9E%84%E6%A6%82%E8%BF%B0/" class="post-title-link" itemprop="url">大型网站架构概述</a>
+            <a href="/blog/design/architecture/%E7%BD%91%E7%AB%99%E5%85%B8%E5%9E%8B%E6%95%85%E9%9A%9C/" class="post-title-link" itemprop="url">网站典型故障</a>
         </h2>
 
         <div class="post-meta">
@@ -252,7 +252,7 @@
                   <i class="fa fa-calendar-check-o"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2019-08-21 13:20:28" itemprop="dateModified" datetime="2019-08-21T13:20:28+08:00">2019-08-21</time>
+                <time title="修改时间：2019-05-08 18:07:49" itemprop="dateModified" datetime="2019-05-08T18:07:49+08:00">2019-05-08</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -281,8 +281,8 @@
       </span>
       <span class="post-meta-item-text">Disqus：</span>
     
-    <a title="disqus" href="/blog/design/architecture/%E5%A4%A7%E5%9E%8B%E7%BD%91%E7%AB%99%E6%9E%B6%E6%9E%84%E6%A6%82%E8%BF%B0/#comments" itemprop="discussionUrl">
-      <span class="post-comments-count disqus-comment-count" data-disqus-identifier="design/architecture/大型网站架构概述/" itemprop="commentCount"></span>
+    <a title="disqus" href="/blog/design/architecture/%E7%BD%91%E7%AB%99%E5%85%B8%E5%9E%8B%E6%95%85%E9%9A%9C/#comments" itemprop="discussionUrl">
+      <span class="post-comments-count disqus-comment-count" data-disqus-identifier="design/architecture/网站典型故障/" itemprop="commentCount"></span>
     </a>
   </span>
   
@@ -292,14 +292,14 @@
                 <i class="fa fa-file-word-o"></i>
               </span>
                 <span class="post-meta-item-text">本文字数：</span>
-              <span>5.1k</span>
+              <span>786</span>
             </span>
             <span class="post-meta-item" title="阅读时长">
               <span class="post-meta-item-icon">
                 <i class="fa fa-clock-o"></i>
               </span>
                 <span class="post-meta-item-text">阅读时长 &asymp;</span>
-              <span>5 分钟</span>
+              <span>1 分钟</span>
             </span>
 
         </div>
@@ -311,286 +311,50 @@
     <div class="post-body" itemprop="articleBody">
 
       
-          <h1 id="大型网站架构概述"><a class="markdownIt-Anchor" href="#大型网站架构概述"></a> 大型网站架构概述</h1>
+          <h1 id="网站典型故障"><a class="markdownIt-Anchor" href="#网站典型故障"></a> 网站典型故障</h1>
 <blockquote>
 <p>📓 本文已归档到：「<a href="https://github.com/dunwu/blog" target="_blank" rel="noopener">blog</a>」</p>
 </blockquote>
 <!-- TOC depthFrom:2 depthTo:3 -->
 <ul>
-<li><a href="#1-%E5%A4%A7%E5%9E%8B%E7%BD%91%E7%AB%99%E7%B3%BB%E7%BB%9F%E7%9A%84%E7%89%B9%E7%82%B9">1. 大型网站系统的特点</a></li>
-<li><a href="#2-%E5%A4%A7%E5%9E%8B%E7%BD%91%E7%AB%99%E6%9E%B6%E6%9E%84%E6%BC%94%E5%8C%96%E5%8E%86%E7%A8%8B">2. 大型网站架构演化历程</a>
-<ul>
-<li><a href="#21-%E5%88%9D%E5%A7%8B%E9%98%B6%E6%AE%B5%E6%9E%B6%E6%9E%84">2.1. 初始阶段架构</a></li>
-<li><a href="#22-%E5%BA%94%E7%94%A8%E6%9C%8D%E5%8A%A1%E5%92%8C%E6%95%B0%E6%8D%AE%E6%9C%8D%E5%8A%A1%E5%88%86%E7%A6%BB">2.2. 应用服务和数据服务分离</a></li>
-<li><a href="#23-%E4%BD%BF%E7%94%A8%E7%BC%93%E5%AD%98%E6%94%B9%E5%96%84%E6%80%A7%E8%83%BD">2.3. 使用缓存改善性能</a></li>
-<li><a href="#24-%E4%BD%BF%E7%94%A8%E5%BA%94%E7%94%A8%E6%9C%8D%E5%8A%A1%E5%99%A8%E9%9B%86%E7%BE%A4">2.4. 使用应用服务器集群</a></li>
-<li><a href="#25-%E6%95%B0%E6%8D%AE%E5%BA%93%E8%AF%BB%E5%86%99%E5%88%86%E7%A6%BB">2.5. 数据库读写分离</a></li>
-<li><a href="#26-%E5%8F%8D%E5%90%91%E4%BB%A3%E7%90%86%E5%92%8C-cdn-%E5%8A%A0%E9%80%9F">2.6. 反向代理和 CDN 加速</a></li>
-<li><a href="#27-%E5%88%86%E5%B8%83%E5%BC%8F%E6%96%87%E4%BB%B6%E7%B3%BB%E7%BB%9F%E5%92%8C%E5%88%86%E5%B8%83%E5%BC%8F%E6%95%B0%E6%8D%AE%E5%BA%93">2.7. 分布式文件系统和分布式数据库</a></li>
-<li><a href="#28-%E4%BD%BF%E7%94%A8-nosql-%E5%92%8C%E6%90%9C%E7%B4%A2%E5%BC%95%E6%93%8E">2.8. 使用 NoSQL 和搜索引擎</a></li>
-<li><a href="#29-%E4%B8%9A%E5%8A%A1%E6%8B%86%E5%88%86">2.9. 业务拆分</a></li>
-<li><a href="#210-%E5%88%86%E5%B8%83%E5%BC%8F%E6%9C%8D%E5%8A%A1">2.10. 分布式服务</a></li>
-</ul>
-</li>
-<li><a href="#3-%E5%A4%A7%E5%9E%8B%E7%BD%91%E7%AB%99%E6%9E%B6%E6%9E%84%E6%A8%A1%E5%BC%8F">3. 大型网站架构模式</a>
-<ul>
-<li><a href="#31-%E5%88%86%E5%B1%82">3.1. 分层</a></li>
-<li><a href="#32-%E5%88%86%E5%89%B2">3.2. 分割</a></li>
-<li><a href="#33-%E5%88%86%E5%B8%83%E5%BC%8F">3.3. 分布式</a></li>
-<li><a href="#34-%E9%9B%86%E7%BE%A4">3.4. 集群</a></li>
-<li><a href="#35-%E7%BC%93%E5%AD%98">3.5. 缓存</a></li>
-<li><a href="#36-%E5%BC%82%E6%AD%A5">3.6. 异步</a></li>
-<li><a href="#37-%E5%86%97%E4%BD%99">3.7. 冗余</a></li>
-<li><a href="#38-%E8%87%AA%E5%8A%A8%E5%8C%96">3.8. 自动化</a></li>
-<li><a href="#39-%E5%AE%89%E5%85%A8">3.9. 安全</a></li>
-</ul>
-</li>
-<li><a href="#4-%E5%A4%A7%E5%9E%8B%E7%BD%91%E7%AB%99%E6%A0%B8%E5%BF%83%E6%9E%B6%E6%9E%84%E8%A6%81%E7%B4%A0">4. 大型网站核心架构要素</a>
-<ul>
-<li><a href="#41-%E6%80%A7%E8%83%BD">4.1. 性能</a></li>
-<li><a href="#42-%E5%8F%AF%E7%94%A8%E6%80%A7">4.2. 可用性</a></li>
-<li><a href="#43-%E4%BC%B8%E7%BC%A9%E6%80%A7">4.3. 伸缩性</a></li>
-<li><a href="#44-%E6%89%A9%E5%B1%95%E6%80%A7">4.4. 扩展性</a></li>
-<li><a href="#45-%E5%AE%89%E5%85%A8%E6%80%A7">4.5. 安全性</a></li>
-</ul>
-</li>
-<li><a href="#5-%E8%B5%84%E6%96%99">5. 资料</a></li>
+<li><a href="#1-%E6%B5%B7%E9%87%8F%E6%97%A5%E5%BF%97%E8%80%97%E5%B0%BD%E7%A3%81%E7%9B%98%E7%A9%BA%E9%97%B4%E5%BC%95%E5%8F%91%E7%9A%84%E6%95%85%E9%9A%9C">1. 海量日志耗尽磁盘空间引发的故障</a></li>
+<li><a href="#2-%E9%AB%98%E5%B9%B6%E5%8F%91%E8%AE%BF%E9%97%AE%E6%95%B0%E6%8D%AE%E5%BA%93%E5%BC%95%E5%8F%91%E7%9A%84%E6%95%85%E9%9A%9C">2. 高并发访问数据库引发的故障</a></li>
+<li><a href="#3-%E9%AB%98%E5%B9%B6%E5%8F%91%E6%83%85%E5%86%B5%E4%B8%8B%E9%94%81%E5%BC%95%E5%8F%91%E7%9A%84%E6%95%85%E9%9A%9C">3. 高并发情况下锁引发的故障</a></li>
+<li><a href="#4-%E7%BC%93%E5%AD%98%E5%BC%95%E5%8F%91%E7%9A%84%E6%95%85%E9%9A%9C">4. 缓存引发的故障</a></li>
+<li><a href="#5-%E5%BA%94%E7%94%A8%E5%90%AF%E5%8A%A8%E4%B8%8D%E5%90%8C%E6%AD%A5%E5%BC%95%E5%8F%91%E7%9A%84%E6%95%85%E9%9A%9C">5. 应用启动不同步引发的故障</a></li>
+<li><a href="#6-%E5%A4%A7%E6%96%87%E4%BB%B6%E8%AF%BB%E5%86%99%E7%8B%AC%E5%8D%A0%E7%A3%81%E7%9B%98%E5%BC%95%E5%8F%91%E7%9A%84%E6%95%85%E9%9A%9C">6. 大文件读写独占磁盘引发的故障</a></li>
+<li><a href="#7-%E8%B5%84%E6%96%99">7. 资料</a></li>
 </ul>
 <!-- /TOC -->
-<h2 id="1-大型网站系统的特点"><a class="markdownIt-Anchor" href="#1-大型网站系统的特点"></a> 1. 大型网站系统的特点</h2>
+<h2 id="1-海量日志耗尽磁盘空间引发的故障"><a class="markdownIt-Anchor" href="#1-海量日志耗尽磁盘空间引发的故障"></a> 1. 海量日志耗尽磁盘空间引发的故障</h2>
+<p>现象：应用发布后，硬盘空间低于警戒值，服务器宕机。<br />
+分析：应用部署在服务器上，不断打印日志，但不定期清理日志，导致磁盘空间最终被耗尽。<br />
+总结：</p>
 <ul>
-<li>高并发、大流量</li>
-<li>高可用</li>
-<li>海量数据</li>
-<li>用户分布广泛，网络情况复杂</li>
-<li>安全环境恶劣</li>
-<li>需求快速变更，迭代频繁</li>
-<li>渐进式发展</li>
+<li>应用自身的日志和第三方组件日志应分别配置。</li>
+<li>日志输出级别不要设置太低，导致打印很多无关痛痒的信息。</li>
 </ul>
-<h2 id="2-大型网站架构演化历程"><a class="markdownIt-Anchor" href="#2-大型网站架构演化历程"></a> 2. 大型网站架构演化历程</h2>
-<h3 id="21-初始阶段架构"><a class="markdownIt-Anchor" href="#21-初始阶段架构"></a> 2.1. 初始阶段架构</h3>
-<p>问题：网站运营初期，访问用户少，一台服务器绰绰有余。</p>
-<p>特征：<strong>应用程序、数据库、文件等所有的资源都在一台服务器上。</strong></p>
-<p>描述：通常服务器操作系统使用 linux，应用程序使用 PHP 开发，然后部署在 Apache 上，数据库使用 Mysql，通俗称为 LAMP。汇集各种免费开源软件以及一台廉价服务器就可以开始系统的发展之路了。</p>
-<div align="center">
-<img src="http://dunwu.test.upcdn.net/cs/distributed/architecture/系统架构进化-初始阶段架构.jpg" width="400"/>
-</div>
-<h3 id="22-应用服务和数据服务分离"><a class="markdownIt-Anchor" href="#22-应用服务和数据服务分离"></a> 2.2. 应用服务和数据服务分离</h3>
-<p>问题：越来越多的用户访问导致性能越来越差，越来越多的数据导致存储空间不足，一台服务器已不足以支撑。</p>
-<p>特征：<strong>应用服务器、数据库服务器、文件服务器分别独立部署。</strong></p>
-<p>描述：三台服务器对性能要求各不相同：应用服务器要处理大量业务逻辑，因此需要更快更强大的 CPU；数据库服务器需要快速磁盘检索和数据缓存，因此需要更快的硬盘和更大的内存；文件服务器需要存储大量文件，因此需要更大容量的硬盘。</p>
-<div align="center">
-<img src="http://dunwu.test.upcdn.net/cs/distributed/architecture/系统架构进化-应用服务和数据服务分离.jpg" width="450"/>
-</div>
-<h3 id="23-使用缓存改善性能"><a class="markdownIt-Anchor" href="#23-使用缓存改善性能"></a> 2.3. 使用缓存改善性能</h3>
-<p>问题：随着用户逐渐增多，数据库压力太大导致访问延迟。</p>
-<p>特征：由于网站访问和财富分配一样遵循二八定律：80% 的业务访问集中在 20% 的数据上。<strong>将数据库中访问较集中的少部分数据缓存在内存中，可以减少数据库的访问次数，降低数据库的访问压力。</strong></p>
-<p>描述：缓存分为两种：应用服务器上的本地缓存和分布式缓存服务器上的远程缓存，本地缓存访问速度更快，但缓存数据量有限，同时存在与应用程序争用内存的情况。分布式缓存可以采用集群方式，理论上可以做到不受内存容量限制的缓存服务。</p>
-<div align="center">
-<img src="http://dunwu.test.upcdn.net/cs/distributed/architecture/系统架构进化-使用缓存改善性能.jpg" width="450"/>
-</div>
-<h3 id="24-使用应用服务器集群"><a class="markdownIt-Anchor" href="#24-使用应用服务器集群"></a> 2.4. 使用应用服务器集群</h3>
-<p>问题：使用缓存后，数据库访问压力得到有效缓解。但是单一应用服务器能够处理的请求连接有限，在访问高峰期，成为瓶颈。</p>
-<p>特征：<strong>多台服务器通过负载均衡同时向外部提供服务，解决单一服务器处理能力和存储空间不足的问题。</strong></p>
-<p>描述：使用集群是系统解决高并发、海量数据问题的常用手段。通过向集群中追加资源，提升系统的并发处理能力，使得服务器的负载压力不再成为整个系统的瓶颈。</p>
-<div align="center">
-<img src="http://dunwu.test.upcdn.net/cs/distributed/architecture/系统架构进化-使用应用服务器集群.jpg" width="500"/>
-</div>
-<h3 id="25-数据库读写分离"><a class="markdownIt-Anchor" href="#25-数据库读写分离"></a> 2.5. 数据库读写分离</h3>
-<p>问题：网站使用缓存后，使绝大部分数据读操作访问都可以不通过数据库就能完成，但是仍有一部分读操作和全部的写操作需要访问数据库，在网站的用户达到一定规模后，数据库因为负载压力过高而成为网站的瓶颈。</p>
-<p>特征：目前大部分的主流数据库都提供主从热备功能，通过配置两台数据库主从关系，可以将一台数据库服务器的数据更新同步到一台服务器上。<strong>网站利用数据库的主从热备功能，实现数据库读写分离，从而改善数据库负载压力。</strong></p>
-<p>描述：应用服务器在写操作的时候，访问主数据库，主数据库通过主从复制机制将数据更新同步到从数据库。这样当应用服务器在读操作的时候，访问从数据库获得数据。为了便于应用程序访问读写分离后的数据库，通常在应用服务器端使用专门的数据访问模块，使数据库读写分离的对应用透明。</p>
-<div align="center">
-<img src="http://dunwu.test.upcdn.net/cs/distributed/architecture/系统架构进化-数据库读写分离.jpg" width="500"/>
-</div>
-<h3 id="26-反向代理和-cdn-加速"><a class="markdownIt-Anchor" href="#26-反向代理和-cdn-加速"></a> 2.6. 反向代理和 CDN 加速</h3>
-<p>问题：中国网络环境复杂，不同地区的用户访问网站时，速度差别也极大。</p>
-<p>特征：<strong>采用 CDN 和反向代理加快系统的静态资源访问速度。</strong></p>
-<p>描述：CDN 和反向代理的基本原理都是缓存，区别在于 CDN 部署在网络提供商的机房，使用户在请求网站服务时，可以从距离自己最近的网络提供商机房获取数据；而反向代理则部署在网站的中心机房，当用户请求到达中心机房后，首先访问的服务器时反向代理服务器，如果反向代理服务器中缓存着用户请求的资源，就将其直接返回给用户。</p>
-<div align="center">
-<img src="http://dunwu.test.upcdn.net/cs/distributed/architecture/系统架构进化-反向代理和CDN加速.jpg" width="500"/>
-</div>
-<h3 id="27-分布式文件系统和分布式数据库"><a class="markdownIt-Anchor" href="#27-分布式文件系统和分布式数据库"></a> 2.7. 分布式文件系统和分布式数据库</h3>
-<p>问题：随着大型网站业务持续增长，数据库经过读写分离，从一台服务器拆分为两台服务器，依然不能满足需求。</p>
-<p>特征：<strong>数据库采用分布式数据库，文件系统采用分布式文件系统。</strong></p>
-<p>描述：分布式数据库是数据库拆分的最后方法，只有在单表数据规模非常庞大的时候才使用。不到不得已时，更常用的数据库拆分手段是业务分库，将不同的业务数据库部署在不同的物理服务器上。</p>
-<div align="center">
-<img src="http://dunwu.test.upcdn.net/cs/distributed/architecture/系统架构进化-分布式文件系统和分布式数据库.jpg" />
-</div>
-<h3 id="28-使用-nosql-和搜索引擎"><a class="markdownIt-Anchor" href="#28-使用-nosql-和搜索引擎"></a> 2.8. 使用 NoSQL 和搜索引擎</h3>
-<p>问题：随着网站业务越来越复杂，对数据存储和检索的需求也越来越复杂。</p>
-<p>特征：<strong>系统引入 NoSQL 数据库及搜索引擎。</strong></p>
-<p>描述：NoSQL 数据库及搜索引擎对可伸缩的分布式特性具有更好的支持。应用服务器通过统一数据访问模块访问各种数据，减轻应用程序管理诸多数据源的麻烦。</p>
-<div align="center">
-<img src="http://dunwu.test.upcdn.net/cs/distributed/architecture/系统架构进化-使用NoSQL和搜索引擎.jpg" />
-</div>
-<h3 id="29-业务拆分"><a class="markdownIt-Anchor" href="#29-业务拆分"></a> 2.9. 业务拆分</h3>
-<p>问题：大型网站的业务场景日益复杂，分为多个产品线。</p>
-<p>特征：采用分而治之的手段将整个网站业务分成不同的产品线。<strong>系统上按照业务进行拆分改造，应用服务器按照业务区分进行分别部署。</strong></p>
-<p>描述：应用之间可以通过超链接建立关系，也可以通过消息队列进行数据分发，当然更多的还是通过访问同一个数据存储系统来构成一个关联的完整系统。</p>
-<p>纵向拆分：将一个大应用拆分为多个小应用，如果新业务较为独立，那么就直接将其设计部署为一个独立的 Web 应用系统。纵向拆分相对较为简单，通过梳理业务，将较少相关的业务剥离即可。</p>
-<p>横向拆分：将复用的业务拆分出来，独立部署为分布式服务，新增业务只需要调用这些分布式服务横向拆分需要识别可复用的业务，设计服务接口，规范服务依赖关系。</p>
-<div align="center">
-<img src="http://dunwu.test.upcdn.net/cs/distributed/architecture/系统架构进化-业务拆分.jpg" />
-</div>
-<h3 id="210-分布式服务"><a class="markdownIt-Anchor" href="#210-分布式服务"></a> 2.10. 分布式服务</h3>
-<p>问题：随着业务越拆越小，存储系统越来越庞大，应用系统整体复杂程度呈指数级上升，部署维护越来越困难。由于所有应用要和所有数据库系统连接，最终导致数据库连接资源不足，拒绝服务。</p>
-<p>特征：<strong>公共业务提取出来，独立部署。由这些可复用的业务连接数据库，通过分布式服务提供共用业务服务。</strong></p>
-<div align="center">
-<img src="http://dunwu.test.upcdn.net/cs/distributed/architecture/系统架构进化-分布式服务.jpg" />
-</div>
-<h2 id="3-大型网站架构模式"><a class="markdownIt-Anchor" href="#3-大型网站架构模式"></a> 3. 大型网站架构模式</h2>
-<h3 id="31-分层"><a class="markdownIt-Anchor" href="#31-分层"></a> 3.1. 分层</h3>
-<p>大型网站架构中常采用分层结构，将软件系统分为应用层、服务层、数据层：</p>
-<ul>
-<li><strong>应用层</strong> - 负责具体业务和视图展示。如网站首页及搜索输入和结果展示。</li>
-<li><strong>服务层</strong> - 为应用层提供服务支持。如用户管理服务、购物车服务等。</li>
-<li><strong>应用层</strong> - 提供数据存储访问服务。如数据库、缓存、文件、搜索引擎等。</li>
-</ul>
-<p>分层架构的约束：禁止跨层次的调用（应用层直接调用数据层）及逆向调用（数据层调用服务层，或者服务层调用应用层）。</p>
-<p>分层结构内部还可以继续分层，如应用可以再细分为视图层和业务逻辑层；服务层也可以细分为数据接口层和逻辑处理层。</p>
-<h3 id="32-分割"><a class="markdownIt-Anchor" href="#32-分割"></a> 3.2. 分割</h3>
-<p>将不同的功能和服务分割开来，包装成高内聚低耦合的模块单元。这有助于软件的开发和维护，便于不同模块的分布式部署，提高网站的并发处理能力和功能扩展能力。</p>
-<h3 id="33-分布式"><a class="markdownIt-Anchor" href="#33-分布式"></a> 3.3. 分布式</h3>
-<p>大于大型网站，分层和分割的一个主要目的是为了切分后的模块便于分布式部署，即将不同模块部署在不同的服务器上，通过远程调用协同工作。</p>
-<p>分布式意味可以用更多的机器工作，那么 CPU、内存、存储资源也就更丰富，能够处理的并发访问和数据量就越大，进而能够为更多的用户提供服务。</p>
-<p>分布式也引入了一些问题：</p>
-<ul>
-<li>服务调用必须通过网络，网络延迟会影响性能</li>
-<li>服务器越多，宕机概率也越大，是可用性降低</li>
-<li>数据一致性非常困难，分布式事务也难以保证</li>
-<li>网站依赖错综复杂，开发管理维护困难</li>
-</ul>
-<p>常用的分布式方案：</p>
-<ul>
-<li>分布式应用和服务</li>
-<li>分布式静态资源</li>
-<li>分布式数据和存储</li>
-<li>分布式计算</li>
-</ul>
-<h3 id="34-集群"><a class="markdownIt-Anchor" href="#34-集群"></a> 3.4. 集群</h3>
-<p>集群即多台服务器部署相同应用构成一个集群，通过负载均衡设备共同对外提供服务。</p>
-<p>集群需要具备伸缩性和故障转移机制：伸缩性是指可以根据用户访问量向集群添加或减少机器；故障转移是指，当某台机器出现故障时，负载均衡设备或失效转移机制将请求转发到集群中的其他机器上，从而不影响用户使用。</p>
-<h3 id="35-缓存"><a class="markdownIt-Anchor" href="#35-缓存"></a> 3.5. 缓存</h3>
-<p>缓存就是将数据存放在距离最近的位置以加快处理速度。缓存是改善软件性能的第一手段。</p>
-<p>网站应用中，缓存除了可以加快数据访问速度以外，还可以减轻后端应用和数据存储的负载压力。</p>
-<p>常见缓存手段：</p>
-<ul>
-<li>CDN</li>
-<li>反向代理</li>
-<li>本地缓存</li>
-<li>分布式缓存</li>
-</ul>
-<p>使用缓存有两个前提：</p>
-<ul>
-<li>数据访问热点不均匀，频繁访问的数据应该放在缓存中</li>
-<li>数据在某个时间段有效，不过很快过期，否则缓存数据会因已经失效而产生脏读</li>
-</ul>
-<h3 id="36-异步"><a class="markdownIt-Anchor" href="#36-异步"></a> 3.6. 异步</h3>
-<p>软件发展的一个重要目标和驱动力是降低软件耦合性。事物之间直接关系越少，彼此影响就越小，也就更容易独立发展。</p>
-<p>大型网站架构中，系统解耦的手段除了分层、分割、分布式等，还有一个重要手段——异步。</p>
-<p>业务间的消息传递不是同步调用，而是将一个业务操作拆分成多阶段，每个阶段间通过共享数据的方式异步执行进行协作。</p>
-<ul>
-<li>在单一服务器内部可通过多线程共享内存队列的方式实现异步，处在业务操作前面的线程将操作输出到队列，后面的线程从队列中读取数据进行处理；</li>
-<li>在分布式系统中，多个服务器集群通过分布式消息队列实现异步。</li>
-</ul>
-<p>异步架构是典型的生产者消费模式，二者不存在直接调用。异步消息队列还有如下特性：</p>
-<ul>
-<li>提高系统可用性</li>
-<li>加快响应速度</li>
-<li>消除并发访问高峰</li>
-</ul>
-<h3 id="37-冗余"><a class="markdownIt-Anchor" href="#37-冗余"></a> 3.7. 冗余</h3>
-<p>大型网站，出现服务器宕机是必然事件。要保证部分服务器宕机的情况下网站依然可以继续服务，不丢失数据，就需要一定程度的服务器冗余运行，数据冗余备份。这样当某台服务器宕机是，可以将其上的服务和数据访问转移到其他机器上。</p>
-<p>访问和负载很小的服务也必须部署 至少两台服务器构成一个集群，目的就是通过冗余实现服务高可用。数据除了定期备份，存档保存，实现 <strong>冷备份</strong> 外；为了保证在线业务高可用，还需要对数据库进行主从分离，实时同步实现 <strong>热备份</strong>。</p>
-<p>为了抵御地震、海啸等不可抗因素导致的网站完全瘫痪，某些大型网站会对整个数据中心进行备份，全球范围内部署 <strong>灾备数据中心</strong>。网站程序和数据实时同步到多个灾备数据中心。</p>
-<h3 id="38-自动化"><a class="markdownIt-Anchor" href="#38-自动化"></a> 3.8. 自动化</h3>
-<p>大型网站架构的自动化架构设计主要集中在发布运维方面：</p>
-<ul>
-<li>发布过程自动化
-<ul>
-<li>自动化代码管理</li>
-<li>自动化测试</li>
-<li>自动化安全监测</li>
-<li>自动化部署</li>
-</ul>
-</li>
-<li>运维自动化
-<ul>
-<li>自动化监控</li>
-<li>自动化报警</li>
-<li>自动化失效转移</li>
-<li>自动化失效恢复</li>
-<li>自动化降级</li>
-<li>自动化分配资源</li>
-</ul>
-</li>
-</ul>
-<h3 id="39-安全"><a class="markdownIt-Anchor" href="#39-安全"></a> 3.9. 安全</h3>
-<ul>
-<li><strong>密码</strong> 和 <strong>手机校验码</strong> 进行身份认证</li>
-<li>登录、交易等重要操作需要对网络通信进行 <strong>加密</strong>，存储的敏感数据如用户信息等也进行加密处理</li>
-<li>防止机器人程序攻击网站，使用 <strong>验证码</strong> 进行识别</li>
-<li>对常见用于 <strong>攻击</strong> 网站的 XSS 攻击、SQL 注入、进行编码转换等相应处理</li>
-<li>对垃圾信息、敏感信息进行 <strong>过滤</strong></li>
-<li>对交易转账等重要操作根据交易模式和交易信息进行 <strong>风险控制</strong></li>
-</ul>
-<h2 id="4-大型网站核心架构要素"><a class="markdownIt-Anchor" href="#4-大型网站核心架构要素"></a> 4. 大型网站核心架构要素</h2>
-<p><strong>架构</strong> 的一种通俗说法是：<strong>最高层次的规划，难以改变的决定。</strong></p>
-<p>除了系统功能需求外，架构还需要关注以下架构要素：</p>
-<h3 id="41-性能"><a class="markdownIt-Anchor" href="#41-性能"></a> 4.1. 性能</h3>
-<p>性能问题无处不在，所以网站性能优化手段也十分繁多：</p>
-<ul>
-<li>前端
-<ul>
-<li>浏览器缓存</li>
-<li>静态资源压缩</li>
-<li>合理布局页面</li>
-<li>减少 cookie 传输</li>
-<li>CDN</li>
-</ul>
-</li>
-<li>应用服务器
-<ul>
-<li>本地缓存</li>
-<li>分布式缓存</li>
-<li>异步消息队列</li>
-<li>集群</li>
-<li>代码层面：使用多线程、改善内存管理</li>
-</ul>
-</li>
-<li>数据库
-<ul>
-<li>索引</li>
-<li>数据库缓存</li>
-<li>SQL 优化</li>
-</ul>
-</li>
-</ul>
-<h3 id="42-可用性"><a class="markdownIt-Anchor" href="#42-可用性"></a> 4.2. 可用性</h3>
-<p>可用性指部分服务器出现故障时，还能否对用户提供服务</p>
-<ul>
-<li>冗余
-<ul>
-<li>通过负载均衡设备建立集群共同对外提供服务</li>
-<li>数据存储在多台服务器，互相备份</li>
-</ul>
-</li>
-<li>自动化：通过预发布验证、自动化测试、自动化发布、灰度发布等手段，减少将故障引入线上环境的可能</li>
-</ul>
-<h3 id="43-伸缩性"><a class="markdownIt-Anchor" href="#43-伸缩性"></a> 4.3. 伸缩性</h3>
-<p>衡量伸缩的标准就是是否可以用多台服务器构建集群，是否容易向集群中增删服务器节点。增删服务器节点后是否可以提供和之前无差别的服务。集群中可容纳的总服务器数是否有限制。</p>
-<ul>
-<li>应用服务器集群 - 只要服务器上保存数据，则所有服务器都是对等的，通过负载均衡设备向集群中不断加入服务器即可</li>
-<li>缓存服务器集群 - 加入新的服务器可能会导致缓存路由失效，进而导致集群中的大部分缓存数据都无法访问。虽然缓存数据可以通过数据库重新加载，但是如果应用严重依赖缓存，可能会导致网站崩溃。需要改进缓存路由算法保证缓存数据的可访问性。</li>
-<li>关系型数据库集群 - 关系型数据库虽然支持数据复制，主从热备等机制，但是很难做到大规模集群的可伸缩性，因此关系型数据库的集群伸缩性方案必须在数据库之外实现，通过路由分区等手段将部署有多个数据库的服务器组成一个集群。</li>
-<li>NOSql 数据库集群 - 由于先天就是为了应对海量数据而产生，因此对伸缩性的支持通常都非常好。</li>
-</ul>
-<h3 id="44-扩展性"><a class="markdownIt-Anchor" href="#44-扩展性"></a> 4.4. 扩展性</h3>
-<p>衡量扩展性的标准就是增加新的业务产品时，是否可以实现对现有产品透明无影响，不需要任何改动或很少改动，既有功能就可以上线新产品。主要手段有：事件驱动架构和分布式服务。</p>
-<h3 id="45-安全性"><a class="markdownIt-Anchor" href="#45-安全性"></a> 4.5. 安全性</h3>
-<p>安全性保护网站不受恶意攻击，保护网站重要数据不被窃取。</p>
-<h2 id="5-资料"><a class="markdownIt-Anchor" href="#5-资料"></a> 5. 资料</h2>
+<h2 id="2-高并发访问数据库引发的故障"><a class="markdownIt-Anchor" href="#2-高并发访问数据库引发的故障"></a> 2. 高并发访问数据库引发的故障</h2>
+<p>现象：数据库负载居高不下。<br />
+分析：某条 sql 执行频率非常高，追查发现，被网站首页调用。<br />
+总结：首页不应该访问数据库。</p>
+<h2 id="3-高并发情况下锁引发的故障"><a class="markdownIt-Anchor" href="#3-高并发情况下锁引发的故障"></a> 3. 高并发情况下锁引发的故障</h2>
+<p>现象：应用不定时地因为响应超时而报警，但是很快又超时接触，恢复正常。<br />
+分析：某个单例对象中多处使用了 synchronized，由于 this 对象只有一个，所有的并发请求都要排队获得者唯一的一把锁。<br />
+总结：使用锁操作要谨慎。</p>
+<h2 id="4-缓存引发的故障"><a class="markdownIt-Anchor" href="#4-缓存引发的故障"></a> 4. 缓存引发的故障</h2>
+<p>现象：没有新应用发布，但是数据库突然负载飙升，并很快失去响应。<br />
+分析：缓存服务器管理失当。<br />
+总结：当网站架构对缓存依赖性很强时，应该重视对缓存服务的管理。</p>
+<h2 id="5-应用启动不同步引发的故障"><a class="markdownIt-Anchor" href="#5-应用启动不同步引发的故障"></a> 5. 应用启动不同步引发的故障</h2>
+<p>现象：某应用发布后，服务器立即崩溃。<br />
+分析：后台服务还没准备好，前台应用就开始接受请求，导致故障。<br />
+总结：发布脚本中不断用 curl 命令访问后台应用特定页面，直到收到 OK，再启动前台应用。</p>
+<h2 id="6-大文件读写独占磁盘引发的故障"><a class="markdownIt-Anchor" href="#6-大文件读写独占磁盘引发的故障"></a> 6. 大文件读写独占磁盘引发的故障</h2>
+<p>现象：上传图片非常慢。<br />
+分析：文件存储最有可能出错的地方是存储服务器。检查发现，大部分文件大小比较小，少数几个文件非常大，读写大文件比较耗时，在这个读写时间内，磁盘基本被大文件操作独占，导致其他用户的文件操作缓慢。<br />
+总结：文件存储下需要根据不同文件类型和用途进行管理。</p>
+<h2 id="7-资料"><a class="markdownIt-Anchor" href="#7-资料"></a> 7. 资料</h2>
 <ul>
 <li><a href="https://item.jd.com/11322972.html" target="_blank" rel="noopener">大型网站技术架构</a></li>
 </ul>
@@ -849,226 +613,6 @@
 <p>许多 Nosql 数据库中的索引采用 LSM 树作为主要数据结构。LSM 树可视为一个 N 阶合并树。数据写操作都在内存中进行。在 LSM 树上进行一次数据更新不需要磁盘访问，速度远快于 B+ 树。</p>
 <h3 id="43-raid-和-hdfs"><a class="markdownIt-Anchor" href="#43-raid-和-hdfs"></a> 4.3. RAID 和 HDFS</h3>
 <p>HDFS(分布式文件系统) 更被大型网站所青睐。它可以配合 MapReduce 并发计算任务框架进行大数据处理，可以在整个集群上并发访问所有磁盘，无需 RAID 支持。</p>
-<h2 id="5-资料"><a class="markdownIt-Anchor" href="#5-资料"></a> 5. 资料</h2>
-<ul>
-<li><a href="https://item.jd.com/11322972.html" target="_blank" rel="noopener">大型网站技术架构</a></li>
-</ul>
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-        
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="https://dunwu.github.io/blog/blog/design/architecture/%E7%BD%91%E7%AB%99%E7%9A%84%E4%BC%B8%E7%BC%A9%E6%80%A7%E6%9E%B6%E6%9E%84/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/blog/images/avatar.gif">
-      <meta itemprop="name" content="Zhang Peng">
-      <meta itemprop="description" content="Dunwu's Blog">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Dunwu">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/blog/design/architecture/%E7%BD%91%E7%AB%99%E7%9A%84%E4%BC%B8%E7%BC%A9%E6%80%A7%E6%9E%B6%E6%9E%84/" class="post-title-link" itemprop="url">网站的伸缩性架构</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-
-              <time title="创建时间：2018-07-05 15:11:00" itemprop="dateCreated datePublished" datetime="2018-07-05T15:11:00+08:00">2018-07-05</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-calendar-check-o"></i>
-                </span>
-                <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2019-08-21 13:20:28" itemprop="dateModified" datetime="2019-08-21T13:20:28+08:00">2019-08-21</time>
-              </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/blog/categories/design/" itemprop="url" rel="index">
-                    <span itemprop="name">design</span>
-                  </a>
-                </span>
-                  ，
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/blog/categories/design/architecture/" itemprop="url" rel="index">
-                    <span itemprop="name">architecture</span>
-                  </a>
-                </span>
-            </span>
-
-          
-  
-  <span class="post-meta-item">
-    
-      <span class="post-meta-item-icon">
-        <i class="fa fa-comment-o"></i>
-      </span>
-      <span class="post-meta-item-text">Disqus：</span>
-    
-    <a title="disqus" href="/blog/design/architecture/%E7%BD%91%E7%AB%99%E7%9A%84%E4%BC%B8%E7%BC%A9%E6%80%A7%E6%9E%B6%E6%9E%84/#comments" itemprop="discussionUrl">
-      <span class="post-comments-count disqus-comment-count" data-disqus-identifier="design/architecture/网站的伸缩性架构/" itemprop="commentCount"></span>
-    </a>
-  </span>
-  
-  <br>
-            <span class="post-meta-item" title="本文字数">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-file-word-o"></i>
-              </span>
-                <span class="post-meta-item-text">本文字数：</span>
-              <span>2.5k</span>
-            </span>
-            <span class="post-meta-item" title="阅读时长">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-clock-o"></i>
-              </span>
-                <span class="post-meta-item-text">阅读时长 &asymp;</span>
-              <span>2 分钟</span>
-            </span>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h1 id="网站的伸缩性架构"><a class="markdownIt-Anchor" href="#网站的伸缩性架构"></a> 网站的伸缩性架构</h1>
-<blockquote>
-<p>📓 本文已归档到：「<a href="https://github.com/dunwu/blog" target="_blank" rel="noopener">blog</a>」</p>
-</blockquote>
-<!-- TOC depthFrom:2 depthTo:3 -->
-<ul>
-<li><a href="#1-%E7%BD%91%E7%AB%99%E6%9E%B6%E6%9E%84%E7%9A%84%E4%BC%B8%E7%BC%A9%E6%80%A7%E8%AE%BE%E8%AE%A1">1. 网站架构的伸缩性设计</a>
-<ul>
-<li><a href="#11-%E4%B8%8D%E5%90%8C%E5%8A%9F%E8%83%BD%E8%BF%9B%E8%A1%8C%E7%89%A9%E7%90%86%E5%88%86%E7%A6%BB%E5%AE%9E%E7%8E%B0%E4%BC%B8%E7%BC%A9">1.1. 不同功能进行物理分离实现伸缩</a></li>
-<li><a href="#12-%E5%8D%95%E4%B8%80%E5%8A%9F%E8%83%BD%E9%80%9A%E8%BF%87%E9%9B%86%E7%BE%A4%E8%A7%84%E6%A8%A1%E5%AE%9E%E7%8E%B0%E4%BC%B8%E7%BC%A9">1.2. 单一功能通过集群规模实现伸缩</a></li>
-</ul>
-</li>
-<li><a href="#2-%E5%BA%94%E7%94%A8%E6%9C%8D%E5%8A%A1%E5%99%A8%E9%9B%86%E7%BE%A4%E7%9A%84%E4%BC%B8%E7%BC%A9%E6%80%A7%E8%AE%BE%E8%AE%A1">2. 应用服务器集群的伸缩性设计</a>
-<ul>
-<li><a href="#21-http-%E9%87%8D%E5%AE%9A%E5%90%91%E8%B4%9F%E8%BD%BD%E5%9D%87%E8%A1%A1">2.1. HTTP 重定向负载均衡</a></li>
-<li><a href="#22-dns-%E5%9F%9F%E5%90%8D%E8%A7%A3%E6%9E%90%E8%B4%9F%E8%BD%BD%E5%9D%87%E8%A1%A1">2.2. DNS 域名解析负载均衡</a></li>
-<li><a href="#23-%E5%8F%8D%E5%90%91%E4%BB%A3%E7%90%86%E8%B4%9F%E8%BD%BD%E5%9D%87%E8%A1%A1">2.3. 反向代理负载均衡</a></li>
-<li><a href="#24-ip-%E8%B4%9F%E8%BD%BD%E5%9D%87%E8%A1%A1">2.4. IP 负载均衡</a></li>
-<li><a href="#25-%E6%95%B0%E6%8D%AE%E9%93%BE%E8%B7%AF%E5%B1%82%E8%B4%9F%E8%BD%BD%E5%9D%87%E8%A1%A1">2.5. 数据链路层负载均衡</a></li>
-<li><a href="#26-%E8%B4%9F%E8%BD%BD%E5%9D%87%E8%A1%A1%E7%AE%97%E6%B3%95">2.6. 负载均衡算法</a></li>
-</ul>
-</li>
-<li><a href="#3-%E5%88%86%E5%B8%83%E5%BC%8F%E7%BC%93%E5%AD%98%E9%9B%86%E7%BE%A4%E7%9A%84%E4%BC%B8%E7%BC%A9%E6%80%A7%E8%AE%BE%E8%AE%A1">3. 分布式缓存集群的伸缩性设计</a></li>
-<li><a href="#4-%E6%95%B0%E6%8D%AE%E5%AD%98%E5%82%A8%E6%9C%8D%E5%8A%A1%E5%99%A8%E9%9B%86%E7%BE%A4%E7%9A%84%E4%BC%B8%E7%BC%A9%E6%80%A7%E8%AE%BE%E8%AE%A1">4. 数据存储服务器集群的伸缩性设计</a>
-<ul>
-<li><a href="#41-%E5%85%B3%E7%B3%BB%E5%9E%8B%E6%95%B0%E6%8D%AE%E5%BA%93%E7%9A%84%E4%BC%B8%E7%BC%A9%E6%80%A7%E8%AE%BE%E8%AE%A1">4.1. 关系型数据库的伸缩性设计</a></li>
-<li><a href="#42-nosql-%E6%95%B0%E6%8D%AE%E5%BA%93%E7%9A%84%E4%BC%B8%E7%BC%A9%E6%80%A7%E8%AE%BE%E8%AE%A1">4.2. NoSql 数据库的伸缩性设计</a></li>
-</ul>
-</li>
-<li><a href="#5-%E8%B5%84%E6%96%99">5. 资料</a></li>
-</ul>
-<!-- /TOC -->
-<h2 id="1-网站架构的伸缩性设计"><a class="markdownIt-Anchor" href="#1-网站架构的伸缩性设计"></a> 1. 网站架构的伸缩性设计</h2>
-<h3 id="11-不同功能进行物理分离实现伸缩"><a class="markdownIt-Anchor" href="#11-不同功能进行物理分离实现伸缩"></a> 1.1. 不同功能进行物理分离实现伸缩</h3>
-<p>纵向分离（分层后分离）：将业务处理流程上的不同部分分离部署，实现系统伸缩性。</p>
-<p>横向分离（业务分割后分离）：将不同的业务模块分离部署，实现系统伸缩性。</p>
-<h3 id="12-单一功能通过集群规模实现伸缩"><a class="markdownIt-Anchor" href="#12-单一功能通过集群规模实现伸缩"></a> 1.2. 单一功能通过集群规模实现伸缩</h3>
-<p>将不同功能分离部署可以实现一定程度的伸缩性，但是随着网站的访问量逐步增加，即使分离到最小粒度的独立部署，单一的服务器也不能满足业务规模的要求。因此必须使用服务器集群，即将相同服务部署在多态服务器上构成一个集群整体对外提供服务。</p>
-<h2 id="2-应用服务器集群的伸缩性设计"><a class="markdownIt-Anchor" href="#2-应用服务器集群的伸缩性设计"></a> 2. 应用服务器集群的伸缩性设计</h2>
-<h3 id="21-http-重定向负载均衡"><a class="markdownIt-Anchor" href="#21-http-重定向负载均衡"></a> 2.1. HTTP 重定向负载均衡</h3>
-<div align="center">
-<img src="http://dunwu.test.upcdn.net/cs/architecture/负载均衡-HTTP重定向.png" width="500"/>
-</div>
-<p>利用 HTTP 重定向协议实现负载均衡。</p>
-<p>这种负载均衡方案的优点是比较简单。缺点是浏览器需要两次请求服务器才能完成一次访问，性能较差：重定向服务器自身的处理能力有可能成为瓶颈，整个集群的伸缩性规模有限；使用 HTTP 302 响应码重定向，可能使搜索引擎判断为 SEO 作弊，降低搜索排名。</p>
-<h3 id="22-dns-域名解析负载均衡"><a class="markdownIt-Anchor" href="#22-dns-域名解析负载均衡"></a> 2.2. DNS 域名解析负载均衡</h3>
-<div align="center">
-<img src="http://dunwu.test.upcdn.net/cs/architecture/负载均衡-DNS域名解析.png" width="500"/>
-</div>
-<p>利用 DNS 处理域名解析请求的同时进行负载均衡处理的一种方案。</p>
-<p>在 DNS 服务器中配置多个 A 记录，如：</p>
-<figure class="highlight accesslog"><table><tr><td class="code"><pre><span class="line"><span class="number">114.100.40.1</span> www.mysite.com</span><br><span class="line"><span class="number">114.100.40.2</span> www.mysite.com</span><br><span class="line"><span class="number">114.100.40.3</span> www.mysite.com</span><br></pre></td></tr></table></figure>
-<p>每次域名解析请求都会根据负载均衡算法计算一个不同的 IP 地址返回，这样 A 记录中配置的多个服务器就构成一个集群，并可以实现负载均衡。</p>
-<p>DNS 域名解析负载均衡的优点：</p>
-<ul>
-<li>将负载均衡的工作转交给了 DNS，省掉了网站管理维护的麻烦。</li>
-<li>同时，许多 DNS 服务器还支持基于地理位置的域名解析，即将域名解析成距离用户地理最近的一个服务器地址，这样可以加快用户访问速度，改善性能。</li>
-</ul>
-<p>DNS 域名解析负载均衡的缺点：</p>
-<ul>
-<li>DNS 是多级解析，每一级 DNS 都可能缓存 A 记录，当某台服务器下线后，即使修改了 DNS 的 A 记录，要使其生效也需要较长时间。这段时间，依然会域名解析到已经下线的服务器，导致用户访问失败。</li>
-<li>DNS 的负载均衡的控制权在域名服务商那里，网站无法对其做更多改善和更强大的管理。</li>
-</ul>
-<h3 id="23-反向代理负载均衡"><a class="markdownIt-Anchor" href="#23-反向代理负载均衡"></a> 2.3. 反向代理负载均衡</h3>
-<div align="center">
-<img src="http://dunwu.test.upcdn.net/cs/architecture/负载均衡-反向代理.png" width="500"/>
-</div>
-<p>大多数反向代理服务器同时提供反向代理和负载均衡的功能。</p>
-<p>反向代理服务器的优点是部署简单。缺点是反向代理服务器时所有请求和响应的中转站，其性能可能会成为瓶颈。</p>
-<h3 id="24-ip-负载均衡"><a class="markdownIt-Anchor" href="#24-ip-负载均衡"></a> 2.4. IP 负载均衡</h3>
-<div align="center">
-<img src="http://dunwu.test.upcdn.net/cs/architecture/负载均衡-IP层.png" width="500"/>
-</div>
-<p>在网络层通过修改请求目标地址进行负载均衡。负载均衡服务器（网关服务器）在操作系统内核获取网络数据包，根据负载均衡算法计算得到一台真实 Web 服务器 10.0.0.1，然后将目的 IP 地址修改为 10.0.0.1，不需要通过用户进程。真实 Web 服务器处理完成后，响应数据包回到负载均衡服务器，负载均衡服务器再将数据包原地址修改为自身的 IP 地址（114.100.80.10）发送给浏览器。</p>
-<p>IP 负载均衡在内核完成数据分发，所以处理性能优于反向代理负载均衡。但是因为所有请求响应都要经过负载均衡服务器，集群的最大响应数据吞吐量受制于负载均衡服务器网卡带宽。</p>
-<h3 id="25-数据链路层负载均衡"><a class="markdownIt-Anchor" href="#25-数据链路层负载均衡"></a> 2.5. 数据链路层负载均衡</h3>
-<div align="center">
-<img src="http://dunwu.test.upcdn.net/cs/architecture/负载均衡-数据链路层.png" width="500"/>
-</div>
-<p>数据链路层负载均衡是指在通信协议的数据链路层修改 mac 地址进行负载均衡。</p>
-<p>这种方式又称作三角传输方式，负载均衡数据分发过程中不修改 IP 地址，只修改目的 mac 地址，通过配置真实物理服务器集群所有机器虚拟 IP 和负载均衡服务器 IP 地址一致，从而达到不修改数据包的源地址和目的地址就可以进行数据分发的目的，由于实际处理请求的真实物理服务器 IP 和数据请求目的 IP 一致，不需要通过负载均衡服务器进行地址转换，可将响应数据包直接返回给用户浏览器，避免负载均衡服务器网卡带宽成为瓶颈。这种负载方式又称作直接路由方式。</p>
-<p>在 Linux 平台上最好的链路层负载均衡开源产品是 LVS(Linux Virtual Server)。</p>
-<h3 id="26-负载均衡算法"><a class="markdownIt-Anchor" href="#26-负载均衡算法"></a> 2.6. 负载均衡算法</h3>
-<p>负载均衡服务器的实现可以分为两个部分：</p>
-<ol>
-<li>根据负载均衡算法和 Web 服务器列表计算得到集群中一台 Web 服务器的地址。</li>
-<li>将请求数据发送到该地址对应的 Web 服务器上。</li>
-</ol>
-<p>负载均衡算法通常有以下几种：</p>
-<ul>
-<li><strong>轮询（Round Robin）</strong> - 所有请求被依次分发到每台应用服务器上，即每台服务器需要处理的请求数据都相同，适合于所有服务器硬件都相同的场景。</li>
-<li><strong>加权轮询（Weighted Round Robin）</strong> - 根据服务器硬件性能情况，在轮询的基础上，按照配置权重将请求分发到每个服务器，高性能服务器能分配更多请求。</li>
-<li><strong>随机（Random）</strong> - 请求被随机分配到各个应用服务器，在许多场合下，这种方案都很简单实用，因为好的随机数本身就很平均，即使应用服务器硬件配置不同，也可以使用加权随机算法。</li>
-<li><strong>最少连接（Least Connection）</strong> - 记录每个应用服务器正在处理的连接数，将新到的请求分发到最少连接的服务器上，应该说，这是最符合负载均衡定义的算法。</li>
-<li><strong>源地址 Hash（Source Hash）</strong> - 根据请求来源的 IP 地址进行 Hash 计算，得到应用服务器，这样来自同一个 IP 地址的请求总在同一个服务器上处理，该请求的上下文信息可以存储在这台服务器上，在一个会话周期内重复使用，从而实现会话粘滞。</li>
-</ul>
-<h2 id="3-分布式缓存集群的伸缩性设计"><a class="markdownIt-Anchor" href="#3-分布式缓存集群的伸缩性设计"></a> 3. 分布式缓存集群的伸缩性设计</h2>
-<p>一致性 HASH 算法</p>
-<h2 id="4-数据存储服务器集群的伸缩性设计"><a class="markdownIt-Anchor" href="#4-数据存储服务器集群的伸缩性设计"></a> 4. 数据存储服务器集群的伸缩性设计</h2>
-<h3 id="41-关系型数据库的伸缩性设计"><a class="markdownIt-Anchor" href="#41-关系型数据库的伸缩性设计"></a> 4.1. 关系型数据库的伸缩性设计</h3>
-<ul>
-<li><strong>主从复制</strong> - 主流关系型数据库一般都支持主从复制。</li>
-<li><strong>分库</strong> - 根据业务对数据库进行分割。制约条件是跨库的表不能进行 Join 操作。</li>
-<li><strong>分表</strong> - 使用数据库分片中间件，如 Cobar 等。</li>
-</ul>
-<h3 id="42-nosql-数据库的伸缩性设计"><a class="markdownIt-Anchor" href="#42-nosql-数据库的伸缩性设计"></a> 4.2. NoSql 数据库的伸缩性设计</h3>
-<p>一般而言，Nosql 不支持 SQL 和 ACID，但是强化了对于高可用和伸缩性的支持。</p>
 <h2 id="5-资料"><a class="markdownIt-Anchor" href="#5-资料"></a> 5. 资料</h2>
 <ul>
 <li><a href="https://item.jd.com/11322972.html" target="_blank" rel="noopener">大型网站技术架构</a></li>
@@ -1436,7 +980,7 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="https://dunwu.github.io/blog/blog/design/architecture/%E7%BD%91%E7%AB%99%E7%9A%84%E5%8F%AF%E6%89%A9%E5%B1%95%E6%9E%B6%E6%9E%84/">
+    <link itemprop="mainEntityOfPage" href="https://dunwu.github.io/blog/blog/design/architecture/%E7%BD%91%E7%AB%99%E7%9A%84%E9%AB%98%E5%8F%AF%E7%94%A8%E6%9E%B6%E6%9E%84/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/blog/images/avatar.gif">
@@ -1450,7 +994,256 @@
       <header class="post-header">
         <h2 class="post-title" itemprop="name headline">
           
-            <a href="/blog/design/architecture/%E7%BD%91%E7%AB%99%E7%9A%84%E5%8F%AF%E6%89%A9%E5%B1%95%E6%9E%B6%E6%9E%84/" class="post-title-link" itemprop="url">网站的可扩展架构</a>
+            <a href="/blog/design/architecture/%E7%BD%91%E7%AB%99%E7%9A%84%E9%AB%98%E5%8F%AF%E7%94%A8%E6%9E%B6%E6%9E%84/" class="post-title-link" itemprop="url">网站的高可用架构</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2018-07-05 15:11:00" itemprop="dateCreated datePublished" datetime="2018-07-05T15:11:00+08:00">2018-07-05</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2019-08-21 13:20:31" itemprop="dateModified" datetime="2019-08-21T13:20:31+08:00">2019-08-21</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/blog/categories/design/" itemprop="url" rel="index">
+                    <span itemprop="name">design</span>
+                  </a>
+                </span>
+                  ，
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/blog/categories/design/architecture/" itemprop="url" rel="index">
+                    <span itemprop="name">architecture</span>
+                  </a>
+                </span>
+            </span>
+
+          
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="fa fa-comment-o"></i>
+      </span>
+      <span class="post-meta-item-text">Disqus：</span>
+    
+    <a title="disqus" href="/blog/design/architecture/%E7%BD%91%E7%AB%99%E7%9A%84%E9%AB%98%E5%8F%AF%E7%94%A8%E6%9E%B6%E6%9E%84/#comments" itemprop="discussionUrl">
+      <span class="post-comments-count disqus-comment-count" data-disqus-identifier="design/architecture/网站的高可用架构/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  <br>
+            <span class="post-meta-item" title="本文字数">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-file-word-o"></i>
+              </span>
+                <span class="post-meta-item-text">本文字数：</span>
+              <span>3.2k</span>
+            </span>
+            <span class="post-meta-item" title="阅读时长">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-clock-o"></i>
+              </span>
+                <span class="post-meta-item-text">阅读时长 &asymp;</span>
+              <span>3 分钟</span>
+            </span>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h1 id="网站的高可用架构"><a class="markdownIt-Anchor" href="#网站的高可用架构"></a> 网站的高可用架构</h1>
+<blockquote>
+<p>📓 本文已归档到：「<a href="https://github.com/dunwu/blog" target="_blank" rel="noopener">blog</a>」</p>
+</blockquote>
+<!-- TOC depthFrom:2 depthTo:3 -->
+<ul>
+<li><a href="#1-%E7%BD%91%E7%AB%99%E5%8F%AF%E7%94%A8%E6%80%A7%E7%9A%84%E5%BA%A6%E9%87%8F">1. 网站可用性的度量</a></li>
+<li><a href="#2-%E9%AB%98%E5%8F%AF%E7%94%A8%E7%9A%84%E7%BD%91%E7%AB%99%E6%9E%B6%E6%9E%84">2. 高可用的网站架构</a></li>
+<li><a href="#3-%E9%AB%98%E5%8F%AF%E7%94%A8%E7%9A%84%E5%BA%94%E7%94%A8">3. 高可用的应用</a>
+<ul>
+<li><a href="#31-%E9%80%9A%E8%BF%87%E8%B4%9F%E8%BD%BD%E5%9D%87%E8%A1%A1%E8%BF%9B%E8%A1%8C%E6%97%A0%E7%8A%B6%E6%80%81%E6%9C%8D%E5%8A%A1%E7%9A%84%E5%A4%B1%E6%95%88%E8%BD%AC%E7%A7%BB">3.1. 通过负载均衡进行无状态服务的失效转移</a></li>
+<li><a href="#32-%E5%BA%94%E7%94%A8%E6%9C%8D%E5%8A%A1%E5%99%A8%E9%9B%86%E7%BE%A4%E7%9A%84-session-%E7%AE%A1%E7%90%86">3.2. 应用服务器集群的 Session 管理</a></li>
+</ul>
+</li>
+<li><a href="#4-%E9%AB%98%E5%8F%AF%E7%94%A8%E7%9A%84%E6%9C%8D%E5%8A%A1">4. 高可用的服务</a></li>
+<li><a href="#5-%E9%AB%98%E5%8F%AF%E7%94%A8%E7%9A%84%E6%95%B0%E6%8D%AE">5. 高可用的数据</a>
+<ul>
+<li><a href="#51-cap-%E5%8E%9F%E7%90%86">5.1. CAP 原理</a></li>
+<li><a href="#52-%E6%95%B0%E6%8D%AE%E5%A4%87%E4%BB%BD">5.2. 数据备份</a></li>
+<li><a href="#53-%E5%A4%B1%E6%95%88%E8%BD%AC%E7%A7%BB">5.3. 失效转移</a></li>
+</ul>
+</li>
+<li><a href="#6-%E9%AB%98%E5%8F%AF%E7%94%A8%E7%BD%91%E7%AB%99%E7%9A%84%E8%BD%AF%E4%BB%B6%E8%B4%A8%E9%87%8F%E4%BF%9D%E8%AF%81">6. 高可用网站的软件质量保证</a></li>
+<li><a href="#7-%E7%BD%91%E7%AB%99%E7%9B%91%E6%8E%A7">7. 网站监控</a></li>
+<li><a href="#8-%E8%B5%84%E6%96%99">8. 资料</a></li>
+</ul>
+<!-- /TOC -->
+<h2 id="1-网站可用性的度量"><a class="markdownIt-Anchor" href="#1-网站可用性的度量"></a> 1. 网站可用性的度量</h2>
+<p>网站不可用也被称作网站故障，业界通常用多个 9 来衡量网站的可用性。如 QQ 的可用性为 4 个 9，即 99.99% 可用。</p>
+<figure class="highlight angelscript"><table><tr><td class="code"><pre><span class="line">网站不可用时间 = 故障修复时间点 - 故障发现时间点</span><br><span class="line">网站年度可用性指标 = (<span class="number">1</span> - 网站不可用时间/年度总时间) * <span class="number">100</span>%</span><br></pre></td></tr></table></figure>
+<h2 id="2-高可用的网站架构"><a class="markdownIt-Anchor" href="#2-高可用的网站架构"></a> 2. 高可用的网站架构</h2>
+<p>大型网站的分层架构及服务器的分布式部署使得位于不同层次的服务器具有不同的可用性特点。关闭服务或服务器宕机时产生的影响也不相同，高可用的解决方案也差异甚大。</p>
+<h2 id="3-高可用的应用"><a class="markdownIt-Anchor" href="#3-高可用的应用"></a> 3. 高可用的应用</h2>
+<h3 id="31-通过负载均衡进行无状态服务的失效转移"><a class="markdownIt-Anchor" href="#31-通过负载均衡进行无状态服务的失效转移"></a> 3.1. 通过负载均衡进行无状态服务的失效转移</h3>
+<p>应用层主要处理网站应用的业务逻辑，一个显著的特点是应用的 <strong>无状态</strong> 性。</p>
+<p>所谓的 <strong>无状态</strong> 的应用是指应用服务器不保存业务的上下文信息，而仅根据每次请求提交的数据进行相应的业务逻辑处理，多个服务实例之间完全对等，请求提交到任意服务器，处理结果都是完全一样的。</p>
+<p>负载均衡，顾名思义，主要使用在业务量和数据量较高的情况下，当单台服务器不足以承担所有的负载压力时，通过负载均衡手段，将流量和数据分摊到一个集群组成的多台服务器上，以提高整体的负载处理能力。</p>
+<h3 id="32-应用服务器集群的-session-管理"><a class="markdownIt-Anchor" href="#32-应用服务器集群的-session-管理"></a> 3.2. 应用服务器集群的 Session 管理</h3>
+<p>应用服务器的高可用架构设计主要基于服务无状态这一特性。事实上，业务总是有状态的，如购物车记录用户的购买信息；用户的登录状态；最新发布的消息等等。</p>
+<p>Web 应用中将这些多次请求修改使用的上下文对象称作会话。单机情况下，Session 可由部署在服务器上的 Web 容器管理。</p>
+<p>而在集群环境下，Session 管理有以下手段：</p>
+<h4 id="session-复制"><a class="markdownIt-Anchor" href="#session-复制"></a> Session 复制</h4>
+<p>Session 复制是指应用服务器开发 Web 容器的 Session 复制功能，在集群中的几台服务器之间同步 Session 对象。</p>
+<p>这种方案很简单，但当集群规模较大时，集群服务间需要大量的通信来进行 Session 复制。</p>
+<h4 id="session-绑定"><a class="markdownIt-Anchor" href="#session-绑定"></a> Session 绑定</h4>
+<p>可以利用负载均衡的源地址 Hash 算法实现，总是将来源于同一 IP 的请求分发到同一台服务器上。这样在整个会话期间，用户所有的请求都在同一台服务器上处理，即 Session 绑定到某台特定服务器上。这种方法又被称作会话粘滞。</p>
+<p>但是这种策略不符合高可用的需求，因为一旦某台服务器宕机，那么该机器上的 Session 也就不复存在了。</p>
+<h4 id="利用-cookie-记录-session"><a class="markdownIt-Anchor" href="#利用-cookie-记录-session"></a> 利用 Cookie 记录 Session</h4>
+<p>可以将 Session 记录在客户端（浏览器 Cookie），每次请求服务器时，将 Session 放在请求中发送给服务器，服务器处理完请求后再将修改过的 Session 响应给客户端。</p>
+<p>这种策略的缺点是：Cookie 有大小限制，能记录的信息有限；每次请求响应都需要传输 Cookie，影响性能；如果用户关闭 Cookie，访问就不能工作。</p>
+<h4 id="session-服务器"><a class="markdownIt-Anchor" href="#session-服务器"></a> Session 服务器</h4>
+<p>利用独立部署的 Session 服务器（集群）统一管理 Session，应用服务器每次读写 Session 时，都访问 Session 服务器。</p>
+<p>实现 Session 服务器的一种简单方法时：利用分布式缓存、数据库等，在此基础上进行包装，使其符合 Session 的存储和访问要求。</p>
+<h2 id="4-高可用的服务"><a class="markdownIt-Anchor" href="#4-高可用的服务"></a> 4. 高可用的服务</h2>
+<p>高可用的服务策略：</p>
+<ul>
+<li><strong>分级管理</strong> - 将服务根据业务重要性进行分级管理，并在服务部署上进行隔离。</li>
+<li><strong>超时设置</strong> - 由于服务器宕机、线程死锁等原因，可能导致应用程序对服务端的调用失去响应。所以有必要引入超时机制，一旦调用超时，服务化框架抛出异常，应用程序根据服务调度策略，选择重试或请求转移到其他机器上。</li>
+<li><strong>异步调用</strong> - 对于需要即时响应的业务，应用在调用服务时可以通过消息队列等异步方式完成，避免长时间等待服务响应结果。</li>
+<li><strong>服务降级</strong> - 网站访问高峰期，服务可能因为大量并发调用而性能下降，严重时可能会导致宕机。为了保证核心功能的正常运行，需要对服务进行降级。降级有两种手段：拒绝服务和关闭服务。</li>
+<li><strong>幂等性设计</strong> - 为了避免服务重复调用，可以通过设置编号的方式进行服务调用有效性校验，有效的操作才能继续执行。</li>
+</ul>
+<h2 id="5-高可用的数据"><a class="markdownIt-Anchor" href="#5-高可用的数据"></a> 5. 高可用的数据</h2>
+<h3 id="51-cap-原理"><a class="markdownIt-Anchor" href="#51-cap-原理"></a> 5.1. CAP 原理</h3>
+<p>分布式系统不可能同时满足一致性（C：Consistency）、可用性（A：Availability）和分区容忍性（P：Partition Tolerance），最多只能同时满足其中两项。</p>
+<div align="center">
+<img src="http://dunwu.test.upcdn.net/cs/distributed/architecture/分布式理论-CAP.jpg" width="450"/>
+</div>
+<h4 id="可用性"><a class="markdownIt-Anchor" href="#可用性"></a> 可用性</h4>
+<p>可用性指分布式系统在面对各种异常时可以提供正常服务的能力，可以用系统可用时间占总时间的比值来衡量，4 个 9 的可用性表示系统 99.99% 的时间是可用的。</p>
+<p>在可用性条件下，系统提供的服务一直处于可用的状态，对于用户的每一个操作请求总是能够在有限的时间内返回结果。</p>
+<h4 id="分区容忍性"><a class="markdownIt-Anchor" href="#分区容忍性"></a> 分区容忍性</h4>
+<p>网络分区指分布式系统中的节点被划分为多个区域，每个区域内部可以通信，但是区域之间无法通信。</p>
+<p>在分区容忍性条件下，分布式系统在遇到任何网络分区故障的时候，仍然需要能对外提供一致性和可用性的服务，除非是整个网络环境都发生了故障。</p>
+<h4 id="一致性"><a class="markdownIt-Anchor" href="#一致性"></a> 一致性</h4>
+<p>一致性指的是多个数据副本是否能保持一致的特性。</p>
+<p>在一致性的条件下，系统在执行数据更新操作之后能够从一致性状态转移到另一个一致性状态。</p>
+<p>数据一致性又可以分为以下几点：</p>
+<ul>
+<li>强一致性 - 数据更新操作结果和操作响应总是一致的，即操作响应通知更新失败，那么数据一定没有被更新，而不是处于不确定状态。</li>
+<li>最终一致性 - 即物理存储的数据可能是不一致的，终端用户访问到的数据可能也是不一致的，但系统经过一段时间的自我修复和修正，数据最终会达到一致。</li>
+</ul>
+<h4 id="权衡"><a class="markdownIt-Anchor" href="#权衡"></a> 权衡</h4>
+<p>在分布式系统中，分区容忍性必不可少，因为需要总是假设网络是不可靠的。因此，CAP 理论实际在是要在可用性和一致性之间做权衡。</p>
+<p>可用性和一致性往往是冲突的，很难都使它们同时满足。在多个节点之间进行数据同步时，</p>
+<ul>
+<li>为了保证一致性（CP），就需要让所有节点下线成为不可用的状态，等待同步完成；</li>
+<li>为了保证可用性（AP），在同步过程中允许读取所有节点的数据，但是数据可能不一致。</li>
+</ul>
+<h3 id="52-数据备份"><a class="markdownIt-Anchor" href="#52-数据备份"></a> 5.2. 数据备份</h3>
+<ul>
+<li>冷备份：定期将数据复制到某种存储介质。</li>
+<li>热备份
+<ul>
+<li>异步热备方式 - 异步方式是指多份数据副本的写入操作异步完成，应用程序收到数据服务系统的写操作成功响应时，只写成功了一份，存储系统将会异步地写其他副本。</li>
+<li>同步热备方式 - 同步方式是指多份数据副本的写入操作同步完成，即应用程序收到数据服务系统的写成功响应时，多份数据都已经写操作成功。但是当应用程序收到数据写操作失败的响应式，可能有部分副本或者全部副本都已经写入成功了（因为网络或者系统故障，无法返回操作成功的响应）。</li>
+</ul>
+</li>
+</ul>
+<h3 id="53-失效转移"><a class="markdownIt-Anchor" href="#53-失效转移"></a> 5.3. 失效转移</h3>
+<h4 id="失效确认"><a class="markdownIt-Anchor" href="#失效确认"></a> 失效确认</h4>
+<div align="center">
+<img src="http://dunwu.test.upcdn.net/cs/architecture/check-fail.png" width="500" />
+</div>
+<p>判断服务器宕机的手段有两种：心跳检测和访问失败报告。</p>
+<p>对于应用程序的访问失败报告，控制中心还需要再一次发送心跳检测进行确认，以免错误判断服务器宕机。因为一旦进行数据访问的失效转移，意味着数据存储多份副本不一致，需要进行后续一系列的复杂动作。</p>
+<h4 id="访问转移"><a class="markdownIt-Anchor" href="#访问转移"></a> 访问转移</h4>
+<p>确认某台数据服务器宕机后，就需要将数据读写访问重新路由到其他服务器上。对于完全对等存储的服务器，当其中一台宕机后，应用程序根据配置直接切换到对等服务器上。如果存储不对等，就需要重新计算路由，选择存储服务器。</p>
+<h4 id="数据恢复"><a class="markdownIt-Anchor" href="#数据恢复"></a> 数据恢复</h4>
+<p>因为某台服务器宕机，所以数据存储的副本数目会减少，必须将副本的数目恢复到系统设定的值，否则，再有服务器宕机时，就可能出现无法访问转移，数据永久丢失的情况。因此系统需要从健康的服务器复制数据，将数据副本数目恢复到设定值。</p>
+<h2 id="6-高可用网站的软件质量保证"><a class="markdownIt-Anchor" href="#6-高可用网站的软件质量保证"></a> 6. 高可用网站的软件质量保证</h2>
+<p>高可用网站的软件质量保证的手段：</p>
+<ul>
+<li>自动化发布</li>
+<li>自动化测试</li>
+<li>预发布验证</li>
+<li>代码控制</li>
+<li>灰度发布</li>
+</ul>
+<h2 id="7-网站监控"><a class="markdownIt-Anchor" href="#7-网站监控"></a> 7. 网站监控</h2>
+<ul>
+<li>监控数据采集
+<ul>
+<li>用户行为日志收集</li>
+<li>服务器性能监控</li>
+<li>运行数据报告</li>
+</ul>
+</li>
+<li>监控管理
+<ul>
+<li>系统报警</li>
+<li>失效转移</li>
+<li>自动优雅降级</li>
+</ul>
+</li>
+</ul>
+<h2 id="8-资料"><a class="markdownIt-Anchor" href="#8-资料"></a> 8. 资料</h2>
+<ul>
+<li><a href="https://item.jd.com/11322972.html" target="_blank" rel="noopener">大型网站技术架构</a></li>
+</ul>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+        
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://dunwu.github.io/blog/blog/design/architecture/%E7%BD%91%E7%AB%99%E7%9A%84%E4%BC%B8%E7%BC%A9%E6%80%A7%E6%9E%B6%E6%9E%84/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/blog/images/avatar.gif">
+      <meta itemprop="name" content="Zhang Peng">
+      <meta itemprop="description" content="Dunwu's Blog">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Dunwu">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/blog/design/architecture/%E7%BD%91%E7%AB%99%E7%9A%84%E4%BC%B8%E7%BC%A9%E6%80%A7%E6%9E%B6%E6%9E%84/" class="post-title-link" itemprop="url">网站的伸缩性架构</a>
         </h2>
 
         <div class="post-meta">
@@ -1496,8 +1289,8 @@
       </span>
       <span class="post-meta-item-text">Disqus：</span>
     
-    <a title="disqus" href="/blog/design/architecture/%E7%BD%91%E7%AB%99%E7%9A%84%E5%8F%AF%E6%89%A9%E5%B1%95%E6%9E%B6%E6%9E%84/#comments" itemprop="discussionUrl">
-      <span class="post-comments-count disqus-comment-count" data-disqus-identifier="design/architecture/网站的可扩展架构/" itemprop="commentCount"></span>
+    <a title="disqus" href="/blog/design/architecture/%E7%BD%91%E7%AB%99%E7%9A%84%E4%BC%B8%E7%BC%A9%E6%80%A7%E6%9E%B6%E6%9E%84/#comments" itemprop="discussionUrl">
+      <span class="post-comments-count disqus-comment-count" data-disqus-identifier="design/architecture/网站的伸缩性架构/" itemprop="commentCount"></span>
     </a>
   </span>
   
@@ -1507,14 +1300,14 @@
                 <i class="fa fa-file-word-o"></i>
               </span>
                 <span class="post-meta-item-text">本文字数：</span>
-              <span>1.4k</span>
+              <span>2.5k</span>
             </span>
             <span class="post-meta-item" title="阅读时长">
               <span class="post-meta-item-icon">
                 <i class="fa fa-clock-o"></i>
               </span>
                 <span class="post-meta-item-text">阅读时长 &asymp;</span>
-              <span>1 分钟</span>
+              <span>2 分钟</span>
             </span>
 
         </div>
@@ -1526,213 +1319,114 @@
     <div class="post-body" itemprop="articleBody">
 
       
-          <h1 id="网站的可扩展架构"><a class="markdownIt-Anchor" href="#网站的可扩展架构"></a> 网站的可扩展架构</h1>
+          <h1 id="网站的伸缩性架构"><a class="markdownIt-Anchor" href="#网站的伸缩性架构"></a> 网站的伸缩性架构</h1>
 <blockquote>
 <p>📓 本文已归档到：「<a href="https://github.com/dunwu/blog" target="_blank" rel="noopener">blog</a>」</p>
 </blockquote>
 <!-- TOC depthFrom:2 depthTo:3 -->
 <ul>
-<li><a href="#1-%E6%9E%84%E5%BB%BA%E5%8F%AF%E6%89%A9%E5%B1%95%E7%9A%84%E7%BD%91%E7%AB%99%E6%9E%B6%E6%9E%84">1. 构建可扩展的网站架构</a></li>
-<li><a href="#2-%E5%88%A9%E7%94%A8%E5%88%86%E5%B8%83%E5%BC%8F%E6%B6%88%E6%81%AF%E9%98%9F%E5%88%97%E9%99%8D%E4%BD%8E%E7%B3%BB%E7%BB%9F%E8%80%A6%E5%90%88%E6%80%A7">2. 利用分布式消息队列降低系统耦合性</a>
+<li><a href="#1-%E7%BD%91%E7%AB%99%E6%9E%B6%E6%9E%84%E7%9A%84%E4%BC%B8%E7%BC%A9%E6%80%A7%E8%AE%BE%E8%AE%A1">1. 网站架构的伸缩性设计</a>
 <ul>
-<li><a href="#21-%E4%BA%8B%E4%BB%B6%E9%A9%B1%E5%8A%A8%E6%9E%B6%E6%9E%84">2.1. 事件驱动架构</a></li>
-<li><a href="#22-%E5%88%86%E5%B8%83%E5%BC%8F%E6%B6%88%E6%81%AF%E9%98%9F%E5%88%97">2.2. 分布式消息队列</a></li>
+<li><a href="#11-%E4%B8%8D%E5%90%8C%E5%8A%9F%E8%83%BD%E8%BF%9B%E8%A1%8C%E7%89%A9%E7%90%86%E5%88%86%E7%A6%BB%E5%AE%9E%E7%8E%B0%E4%BC%B8%E7%BC%A9">1.1. 不同功能进行物理分离实现伸缩</a></li>
+<li><a href="#12-%E5%8D%95%E4%B8%80%E5%8A%9F%E8%83%BD%E9%80%9A%E8%BF%87%E9%9B%86%E7%BE%A4%E8%A7%84%E6%A8%A1%E5%AE%9E%E7%8E%B0%E4%BC%B8%E7%BC%A9">1.2. 单一功能通过集群规模实现伸缩</a></li>
 </ul>
 </li>
-<li><a href="#3-%E5%88%A9%E7%94%A8%E5%88%86%E5%B8%83%E5%BC%8F%E6%9C%8D%E5%8A%A1%E6%89%93%E9%80%A0%E5%8F%AF%E5%A4%8D%E7%94%A8%E7%9A%84%E4%B8%9A%E5%8A%A1%E5%B9%B3%E5%8F%B0">3. 利用分布式服务打造可复用的业务平台</a></li>
-<li><a href="#4-%E5%8F%AF%E6%89%A9%E5%B1%95%E7%9A%84%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84">4. 可扩展的数据结构</a></li>
+<li><a href="#2-%E5%BA%94%E7%94%A8%E6%9C%8D%E5%8A%A1%E5%99%A8%E9%9B%86%E7%BE%A4%E7%9A%84%E4%BC%B8%E7%BC%A9%E6%80%A7%E8%AE%BE%E8%AE%A1">2. 应用服务器集群的伸缩性设计</a>
+<ul>
+<li><a href="#21-http-%E9%87%8D%E5%AE%9A%E5%90%91%E8%B4%9F%E8%BD%BD%E5%9D%87%E8%A1%A1">2.1. HTTP 重定向负载均衡</a></li>
+<li><a href="#22-dns-%E5%9F%9F%E5%90%8D%E8%A7%A3%E6%9E%90%E8%B4%9F%E8%BD%BD%E5%9D%87%E8%A1%A1">2.2. DNS 域名解析负载均衡</a></li>
+<li><a href="#23-%E5%8F%8D%E5%90%91%E4%BB%A3%E7%90%86%E8%B4%9F%E8%BD%BD%E5%9D%87%E8%A1%A1">2.3. 反向代理负载均衡</a></li>
+<li><a href="#24-ip-%E8%B4%9F%E8%BD%BD%E5%9D%87%E8%A1%A1">2.4. IP 负载均衡</a></li>
+<li><a href="#25-%E6%95%B0%E6%8D%AE%E9%93%BE%E8%B7%AF%E5%B1%82%E8%B4%9F%E8%BD%BD%E5%9D%87%E8%A1%A1">2.5. 数据链路层负载均衡</a></li>
+<li><a href="#26-%E8%B4%9F%E8%BD%BD%E5%9D%87%E8%A1%A1%E7%AE%97%E6%B3%95">2.6. 负载均衡算法</a></li>
+</ul>
+</li>
+<li><a href="#3-%E5%88%86%E5%B8%83%E5%BC%8F%E7%BC%93%E5%AD%98%E9%9B%86%E7%BE%A4%E7%9A%84%E4%BC%B8%E7%BC%A9%E6%80%A7%E8%AE%BE%E8%AE%A1">3. 分布式缓存集群的伸缩性设计</a></li>
+<li><a href="#4-%E6%95%B0%E6%8D%AE%E5%AD%98%E5%82%A8%E6%9C%8D%E5%8A%A1%E5%99%A8%E9%9B%86%E7%BE%A4%E7%9A%84%E4%BC%B8%E7%BC%A9%E6%80%A7%E8%AE%BE%E8%AE%A1">4. 数据存储服务器集群的伸缩性设计</a>
+<ul>
+<li><a href="#41-%E5%85%B3%E7%B3%BB%E5%9E%8B%E6%95%B0%E6%8D%AE%E5%BA%93%E7%9A%84%E4%BC%B8%E7%BC%A9%E6%80%A7%E8%AE%BE%E8%AE%A1">4.1. 关系型数据库的伸缩性设计</a></li>
+<li><a href="#42-nosql-%E6%95%B0%E6%8D%AE%E5%BA%93%E7%9A%84%E4%BC%B8%E7%BC%A9%E6%80%A7%E8%AE%BE%E8%AE%A1">4.2. NoSql 数据库的伸缩性设计</a></li>
+</ul>
+</li>
 <li><a href="#5-%E8%B5%84%E6%96%99">5. 资料</a></li>
 </ul>
 <!-- /TOC -->
-<p><strong>扩展性（Extensibility）</strong> - 指对现有系统影响最小的情况下，系统功能可持续扩展或提升的能力。表现在系统基础设施稳定不需要经常变更，应用之间较少依赖和耦合，对需求变更可以敏捷响应。它是系统架构设计层面的开闭原则（对扩展开放、对修改关闭），架构设计考虑未来功能扩展，当系统增加新功能时，不需要对现有系统的结构和代码进行修改。</p>
-<p><strong>伸缩性（Scalability）</strong> - 指系统能够通过增加减少自身资源规模的方式增减自己计算处理事务的能力。如果这种增减是成比例的，就被称作线性伸缩性。在网站架构中 ，通常指利用集群的方式增加服务器数量、提高系统的整体事务吞吐能力。</p>
-<h2 id="1-构建可扩展的网站架构"><a class="markdownIt-Anchor" href="#1-构建可扩展的网站架构"></a> 1. 构建可扩展的网站架构</h2>
-<p>低耦合的系统更容易扩展、复用。</p>
-<p>设计网站可扩展架构的核心思想是模块化，并在此基础上，降低模块间的耦合性，提高模块的复用性。</p>
-<p>分层和分割不仅可以进行架构伸缩，也是模块化设计的重要手段，利用分层和分割的方式将软件分割为若干个低耦合的独立的组件模块，这些组件模块以消息传递及依赖调用的方式聚合成一个完整的系统。</p>
-<p>在大型网站中，这些模块通过分布式部署的方式，独立的模块部署在独立的服务器上，从物理上分离模块间的耦合关系，进一步降低耦合性提高复用性。</p>
-<h2 id="2-利用分布式消息队列降低系统耦合性"><a class="markdownIt-Anchor" href="#2-利用分布式消息队列降低系统耦合性"></a> 2. 利用分布式消息队列降低系统耦合性</h2>
-<h3 id="21-事件驱动架构"><a class="markdownIt-Anchor" href="#21-事件驱动架构"></a> 2.1. 事件驱动架构</h3>
-<p>事件驱动架构通过在低耦合的模块间传输事件消息，以保持模块的松散耦合，并借助事件消息的通信完成模块间合作。典型的事件驱动架构就是操作系统中常见的生产者消费者模式。在大型网站中，最常见的实现手段就是分布式消息队列。</p>
-<h3 id="22-分布式消息队列"><a class="markdownIt-Anchor" href="#22-分布式消息队列"></a> 2.2. 分布式消息队列</h3>
-<p>消息生产者应用程序通过远程访问接口将消息推送给消息队列服务器，消息队列服务器将消息写入本地内存队列后立即返回成功响应给消息生产者。消息队列服务器根据消息订阅列表查找订阅该消息的消息消费者应用程序，将消息队列中的消息按照先进先出（FIFO）的原则将消息通过远程通信接口发送给消息消费者程序。</p>
+<h2 id="1-网站架构的伸缩性设计"><a class="markdownIt-Anchor" href="#1-网站架构的伸缩性设计"></a> 1. 网站架构的伸缩性设计</h2>
+<h3 id="11-不同功能进行物理分离实现伸缩"><a class="markdownIt-Anchor" href="#11-不同功能进行物理分离实现伸缩"></a> 1.1. 不同功能进行物理分离实现伸缩</h3>
+<p>纵向分离（分层后分离）：将业务处理流程上的不同部分分离部署，实现系统伸缩性。</p>
+<p>横向分离（业务分割后分离）：将不同的业务模块分离部署，实现系统伸缩性。</p>
+<h3 id="12-单一功能通过集群规模实现伸缩"><a class="markdownIt-Anchor" href="#12-单一功能通过集群规模实现伸缩"></a> 1.2. 单一功能通过集群规模实现伸缩</h3>
+<p>将不同功能分离部署可以实现一定程度的伸缩性，但是随着网站的访问量逐步增加，即使分离到最小粒度的独立部署，单一的服务器也不能满足业务规模的要求。因此必须使用服务器集群，即将相同服务部署在多态服务器上构成一个集群整体对外提供服务。</p>
+<h2 id="2-应用服务器集群的伸缩性设计"><a class="markdownIt-Anchor" href="#2-应用服务器集群的伸缩性设计"></a> 2. 应用服务器集群的伸缩性设计</h2>
+<h3 id="21-http-重定向负载均衡"><a class="markdownIt-Anchor" href="#21-http-重定向负载均衡"></a> 2.1. HTTP 重定向负载均衡</h3>
 <div align="center">
-<img src="http://dunwu.test.upcdn.net/cs/architecture/分布式消息队列架构原理.png" />
+<img src="http://dunwu.test.upcdn.net/cs/architecture/负载均衡-HTTP重定向.png" width="500"/>
 </div>
-<p>在伸缩性方面，由于消息队列服务器上的数据可以看作是即时处理的，因此类似于无状态的服务器，伸缩性设计比较简单。将新服务器加入分布式消息队列集群中，通知生产者服务器更改消息队列服务器列表即可。</p>
-<p>在可用性方面，为了避免消费者进程处理缓慢，分布式消息队列服务器内存空间不足造成的问题，如果内存队列已满，会将消息写入磁盘，消息推送模块在将内存队列消息处理完成以后，将磁盘内容加载到内存队列继续处理。</p>
-<h2 id="3-利用分布式服务打造可复用的业务平台"><a class="markdownIt-Anchor" href="#3-利用分布式服务打造可复用的业务平台"></a> 3. 利用分布式服务打造可复用的业务平台</h2>
-<p>分布式服务则通过接口分解系统耦合性，不同子系统通过相同的接口描述进行服务调用。</p>
-<p>大型网站分布式服务的需求与特点：</p>
+<p>利用 HTTP 重定向协议实现负载均衡。</p>
+<p>这种负载均衡方案的优点是比较简单。缺点是浏览器需要两次请求服务器才能完成一次访问，性能较差：重定向服务器自身的处理能力有可能成为瓶颈，整个集群的伸缩性规模有限；使用 HTTP 302 响应码重定向，可能使搜索引擎判断为 SEO 作弊，降低搜索排名。</p>
+<h3 id="22-dns-域名解析负载均衡"><a class="markdownIt-Anchor" href="#22-dns-域名解析负载均衡"></a> 2.2. DNS 域名解析负载均衡</h3>
+<div align="center">
+<img src="http://dunwu.test.upcdn.net/cs/architecture/负载均衡-DNS域名解析.png" width="500"/>
+</div>
+<p>利用 DNS 处理域名解析请求的同时进行负载均衡处理的一种方案。</p>
+<p>在 DNS 服务器中配置多个 A 记录，如：</p>
+<figure class="highlight accesslog"><table><tr><td class="code"><pre><span class="line"><span class="number">114.100.40.1</span> www.mysite.com</span><br><span class="line"><span class="number">114.100.40.2</span> www.mysite.com</span><br><span class="line"><span class="number">114.100.40.3</span> www.mysite.com</span><br></pre></td></tr></table></figure>
+<p>每次域名解析请求都会根据负载均衡算法计算一个不同的 IP 地址返回，这样 A 记录中配置的多个服务器就构成一个集群，并可以实现负载均衡。</p>
+<p>DNS 域名解析负载均衡的优点：</p>
 <ul>
-<li>负载均衡</li>
-<li>失效转移</li>
-<li>高效的远程通信</li>
-<li>整合异构系统</li>
-<li>对应用最少侵入</li>
-<li>版本管理</li>
-<li>实时监控</li>
+<li>将负载均衡的工作转交给了 DNS，省掉了网站管理维护的麻烦。</li>
+<li>同时，许多 DNS 服务器还支持基于地理位置的域名解析，即将域名解析成距离用户地理最近的一个服务器地址，这样可以加快用户访问速度，改善性能。</li>
 </ul>
-<h2 id="4-可扩展的数据结构"><a class="markdownIt-Anchor" href="#4-可扩展的数据结构"></a> 4. 可扩展的数据结构</h2>
-<p>传统的关系型数据库为了保证关系运算的正确性，在设计数据库表结构的时候，就需要指定表的 schema ——字段名称，数据类型等，并要遵循特定的设计范式。这些规范带来一个问题：难以面对需求变更带来的挑战，所以有人通过预先设计一些冗余字段来应对。</p>
-<p>许多 NoSql 数据库使用 ColumnFamily 设计来设计可扩展的数据结构。</p>
+<p>DNS 域名解析负载均衡的缺点：</p>
+<ul>
+<li>DNS 是多级解析，每一级 DNS 都可能缓存 A 记录，当某台服务器下线后，即使修改了 DNS 的 A 记录，要使其生效也需要较长时间。这段时间，依然会域名解析到已经下线的服务器，导致用户访问失败。</li>
+<li>DNS 的负载均衡的控制权在域名服务商那里，网站无法对其做更多改善和更强大的管理。</li>
+</ul>
+<h3 id="23-反向代理负载均衡"><a class="markdownIt-Anchor" href="#23-反向代理负载均衡"></a> 2.3. 反向代理负载均衡</h3>
+<div align="center">
+<img src="http://dunwu.test.upcdn.net/cs/architecture/负载均衡-反向代理.png" width="500"/>
+</div>
+<p>大多数反向代理服务器同时提供反向代理和负载均衡的功能。</p>
+<p>反向代理服务器的优点是部署简单。缺点是反向代理服务器时所有请求和响应的中转站，其性能可能会成为瓶颈。</p>
+<h3 id="24-ip-负载均衡"><a class="markdownIt-Anchor" href="#24-ip-负载均衡"></a> 2.4. IP 负载均衡</h3>
+<div align="center">
+<img src="http://dunwu.test.upcdn.net/cs/architecture/负载均衡-IP层.png" width="500"/>
+</div>
+<p>在网络层通过修改请求目标地址进行负载均衡。负载均衡服务器（网关服务器）在操作系统内核获取网络数据包，根据负载均衡算法计算得到一台真实 Web 服务器 10.0.0.1，然后将目的 IP 地址修改为 10.0.0.1，不需要通过用户进程。真实 Web 服务器处理完成后，响应数据包回到负载均衡服务器，负载均衡服务器再将数据包原地址修改为自身的 IP 地址（114.100.80.10）发送给浏览器。</p>
+<p>IP 负载均衡在内核完成数据分发，所以处理性能优于反向代理负载均衡。但是因为所有请求响应都要经过负载均衡服务器，集群的最大响应数据吞吐量受制于负载均衡服务器网卡带宽。</p>
+<h3 id="25-数据链路层负载均衡"><a class="markdownIt-Anchor" href="#25-数据链路层负载均衡"></a> 2.5. 数据链路层负载均衡</h3>
+<div align="center">
+<img src="http://dunwu.test.upcdn.net/cs/architecture/负载均衡-数据链路层.png" width="500"/>
+</div>
+<p>数据链路层负载均衡是指在通信协议的数据链路层修改 mac 地址进行负载均衡。</p>
+<p>这种方式又称作三角传输方式，负载均衡数据分发过程中不修改 IP 地址，只修改目的 mac 地址，通过配置真实物理服务器集群所有机器虚拟 IP 和负载均衡服务器 IP 地址一致，从而达到不修改数据包的源地址和目的地址就可以进行数据分发的目的，由于实际处理请求的真实物理服务器 IP 和数据请求目的 IP 一致，不需要通过负载均衡服务器进行地址转换，可将响应数据包直接返回给用户浏览器，避免负载均衡服务器网卡带宽成为瓶颈。这种负载方式又称作直接路由方式。</p>
+<p>在 Linux 平台上最好的链路层负载均衡开源产品是 LVS(Linux Virtual Server)。</p>
+<h3 id="26-负载均衡算法"><a class="markdownIt-Anchor" href="#26-负载均衡算法"></a> 2.6. 负载均衡算法</h3>
+<p>负载均衡服务器的实现可以分为两个部分：</p>
+<ol>
+<li>根据负载均衡算法和 Web 服务器列表计算得到集群中一台 Web 服务器的地址。</li>
+<li>将请求数据发送到该地址对应的 Web 服务器上。</li>
+</ol>
+<p>负载均衡算法通常有以下几种：</p>
+<ul>
+<li><strong>轮询（Round Robin）</strong> - 所有请求被依次分发到每台应用服务器上，即每台服务器需要处理的请求数据都相同，适合于所有服务器硬件都相同的场景。</li>
+<li><strong>加权轮询（Weighted Round Robin）</strong> - 根据服务器硬件性能情况，在轮询的基础上，按照配置权重将请求分发到每个服务器，高性能服务器能分配更多请求。</li>
+<li><strong>随机（Random）</strong> - 请求被随机分配到各个应用服务器，在许多场合下，这种方案都很简单实用，因为好的随机数本身就很平均，即使应用服务器硬件配置不同，也可以使用加权随机算法。</li>
+<li><strong>最少连接（Least Connection）</strong> - 记录每个应用服务器正在处理的连接数，将新到的请求分发到最少连接的服务器上，应该说，这是最符合负载均衡定义的算法。</li>
+<li><strong>源地址 Hash（Source Hash）</strong> - 根据请求来源的 IP 地址进行 Hash 计算，得到应用服务器，这样来自同一个 IP 地址的请求总在同一个服务器上处理，该请求的上下文信息可以存储在这台服务器上，在一个会话周期内重复使用，从而实现会话粘滞。</li>
+</ul>
+<h2 id="3-分布式缓存集群的伸缩性设计"><a class="markdownIt-Anchor" href="#3-分布式缓存集群的伸缩性设计"></a> 3. 分布式缓存集群的伸缩性设计</h2>
+<p>一致性 HASH 算法</p>
+<h2 id="4-数据存储服务器集群的伸缩性设计"><a class="markdownIt-Anchor" href="#4-数据存储服务器集群的伸缩性设计"></a> 4. 数据存储服务器集群的伸缩性设计</h2>
+<h3 id="41-关系型数据库的伸缩性设计"><a class="markdownIt-Anchor" href="#41-关系型数据库的伸缩性设计"></a> 4.1. 关系型数据库的伸缩性设计</h3>
+<ul>
+<li><strong>主从复制</strong> - 主流关系型数据库一般都支持主从复制。</li>
+<li><strong>分库</strong> - 根据业务对数据库进行分割。制约条件是跨库的表不能进行 Join 操作。</li>
+<li><strong>分表</strong> - 使用数据库分片中间件，如 Cobar 等。</li>
+</ul>
+<h3 id="42-nosql-数据库的伸缩性设计"><a class="markdownIt-Anchor" href="#42-nosql-数据库的伸缩性设计"></a> 4.2. NoSql 数据库的伸缩性设计</h3>
+<p>一般而言，Nosql 不支持 SQL 和 ACID，但是强化了对于高可用和伸缩性的支持。</p>
 <h2 id="5-资料"><a class="markdownIt-Anchor" href="#5-资料"></a> 5. 资料</h2>
-<ul>
-<li><a href="https://item.jd.com/11322972.html" target="_blank" rel="noopener">大型网站技术架构</a></li>
-</ul>
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-        
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="https://dunwu.github.io/blog/blog/design/architecture/%E7%BD%91%E7%AB%99%E5%85%B8%E5%9E%8B%E6%95%85%E9%9A%9C/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/blog/images/avatar.gif">
-      <meta itemprop="name" content="Zhang Peng">
-      <meta itemprop="description" content="Dunwu's Blog">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Dunwu">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/blog/design/architecture/%E7%BD%91%E7%AB%99%E5%85%B8%E5%9E%8B%E6%95%85%E9%9A%9C/" class="post-title-link" itemprop="url">网站典型故障</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-
-              <time title="创建时间：2018-07-05 15:11:00" itemprop="dateCreated datePublished" datetime="2018-07-05T15:11:00+08:00">2018-07-05</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-calendar-check-o"></i>
-                </span>
-                <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2019-05-08 18:07:49" itemprop="dateModified" datetime="2019-05-08T18:07:49+08:00">2019-05-08</time>
-              </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/blog/categories/design/" itemprop="url" rel="index">
-                    <span itemprop="name">design</span>
-                  </a>
-                </span>
-                  ，
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/blog/categories/design/architecture/" itemprop="url" rel="index">
-                    <span itemprop="name">architecture</span>
-                  </a>
-                </span>
-            </span>
-
-          
-  
-  <span class="post-meta-item">
-    
-      <span class="post-meta-item-icon">
-        <i class="fa fa-comment-o"></i>
-      </span>
-      <span class="post-meta-item-text">Disqus：</span>
-    
-    <a title="disqus" href="/blog/design/architecture/%E7%BD%91%E7%AB%99%E5%85%B8%E5%9E%8B%E6%95%85%E9%9A%9C/#comments" itemprop="discussionUrl">
-      <span class="post-comments-count disqus-comment-count" data-disqus-identifier="design/architecture/网站典型故障/" itemprop="commentCount"></span>
-    </a>
-  </span>
-  
-  <br>
-            <span class="post-meta-item" title="本文字数">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-file-word-o"></i>
-              </span>
-                <span class="post-meta-item-text">本文字数：</span>
-              <span>786</span>
-            </span>
-            <span class="post-meta-item" title="阅读时长">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-clock-o"></i>
-              </span>
-                <span class="post-meta-item-text">阅读时长 &asymp;</span>
-              <span>1 分钟</span>
-            </span>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h1 id="网站典型故障"><a class="markdownIt-Anchor" href="#网站典型故障"></a> 网站典型故障</h1>
-<blockquote>
-<p>📓 本文已归档到：「<a href="https://github.com/dunwu/blog" target="_blank" rel="noopener">blog</a>」</p>
-</blockquote>
-<!-- TOC depthFrom:2 depthTo:3 -->
-<ul>
-<li><a href="#1-%E6%B5%B7%E9%87%8F%E6%97%A5%E5%BF%97%E8%80%97%E5%B0%BD%E7%A3%81%E7%9B%98%E7%A9%BA%E9%97%B4%E5%BC%95%E5%8F%91%E7%9A%84%E6%95%85%E9%9A%9C">1. 海量日志耗尽磁盘空间引发的故障</a></li>
-<li><a href="#2-%E9%AB%98%E5%B9%B6%E5%8F%91%E8%AE%BF%E9%97%AE%E6%95%B0%E6%8D%AE%E5%BA%93%E5%BC%95%E5%8F%91%E7%9A%84%E6%95%85%E9%9A%9C">2. 高并发访问数据库引发的故障</a></li>
-<li><a href="#3-%E9%AB%98%E5%B9%B6%E5%8F%91%E6%83%85%E5%86%B5%E4%B8%8B%E9%94%81%E5%BC%95%E5%8F%91%E7%9A%84%E6%95%85%E9%9A%9C">3. 高并发情况下锁引发的故障</a></li>
-<li><a href="#4-%E7%BC%93%E5%AD%98%E5%BC%95%E5%8F%91%E7%9A%84%E6%95%85%E9%9A%9C">4. 缓存引发的故障</a></li>
-<li><a href="#5-%E5%BA%94%E7%94%A8%E5%90%AF%E5%8A%A8%E4%B8%8D%E5%90%8C%E6%AD%A5%E5%BC%95%E5%8F%91%E7%9A%84%E6%95%85%E9%9A%9C">5. 应用启动不同步引发的故障</a></li>
-<li><a href="#6-%E5%A4%A7%E6%96%87%E4%BB%B6%E8%AF%BB%E5%86%99%E7%8B%AC%E5%8D%A0%E7%A3%81%E7%9B%98%E5%BC%95%E5%8F%91%E7%9A%84%E6%95%85%E9%9A%9C">6. 大文件读写独占磁盘引发的故障</a></li>
-<li><a href="#7-%E8%B5%84%E6%96%99">7. 资料</a></li>
-</ul>
-<!-- /TOC -->
-<h2 id="1-海量日志耗尽磁盘空间引发的故障"><a class="markdownIt-Anchor" href="#1-海量日志耗尽磁盘空间引发的故障"></a> 1. 海量日志耗尽磁盘空间引发的故障</h2>
-<p>现象：应用发布后，硬盘空间低于警戒值，服务器宕机。<br />
-分析：应用部署在服务器上，不断打印日志，但不定期清理日志，导致磁盘空间最终被耗尽。<br />
-总结：</p>
-<ul>
-<li>应用自身的日志和第三方组件日志应分别配置。</li>
-<li>日志输出级别不要设置太低，导致打印很多无关痛痒的信息。</li>
-</ul>
-<h2 id="2-高并发访问数据库引发的故障"><a class="markdownIt-Anchor" href="#2-高并发访问数据库引发的故障"></a> 2. 高并发访问数据库引发的故障</h2>
-<p>现象：数据库负载居高不下。<br />
-分析：某条 sql 执行频率非常高，追查发现，被网站首页调用。<br />
-总结：首页不应该访问数据库。</p>
-<h2 id="3-高并发情况下锁引发的故障"><a class="markdownIt-Anchor" href="#3-高并发情况下锁引发的故障"></a> 3. 高并发情况下锁引发的故障</h2>
-<p>现象：应用不定时地因为响应超时而报警，但是很快又超时接触，恢复正常。<br />
-分析：某个单例对象中多处使用了 synchronized，由于 this 对象只有一个，所有的并发请求都要排队获得者唯一的一把锁。<br />
-总结：使用锁操作要谨慎。</p>
-<h2 id="4-缓存引发的故障"><a class="markdownIt-Anchor" href="#4-缓存引发的故障"></a> 4. 缓存引发的故障</h2>
-<p>现象：没有新应用发布，但是数据库突然负载飙升，并很快失去响应。<br />
-分析：缓存服务器管理失当。<br />
-总结：当网站架构对缓存依赖性很强时，应该重视对缓存服务的管理。</p>
-<h2 id="5-应用启动不同步引发的故障"><a class="markdownIt-Anchor" href="#5-应用启动不同步引发的故障"></a> 5. 应用启动不同步引发的故障</h2>
-<p>现象：某应用发布后，服务器立即崩溃。<br />
-分析：后台服务还没准备好，前台应用就开始接受请求，导致故障。<br />
-总结：发布脚本中不断用 curl 命令访问后台应用特定页面，直到收到 OK，再启动前台应用。</p>
-<h2 id="6-大文件读写独占磁盘引发的故障"><a class="markdownIt-Anchor" href="#6-大文件读写独占磁盘引发的故障"></a> 6. 大文件读写独占磁盘引发的故障</h2>
-<p>现象：上传图片非常慢。<br />
-分析：文件存储最有可能出错的地方是存储服务器。检查发现，大部分文件大小比较小，少数几个文件非常大，读写大文件比较耗时，在这个读写时间内，磁盘基本被大文件操作独占，导致其他用户的文件操作缓慢。<br />
-总结：文件存储下需要根据不同文件类型和用途进行管理。</p>
-<h2 id="7-资料"><a class="markdownIt-Anchor" href="#7-资料"></a> 7. 资料</h2>
 <ul>
 <li><a href="https://item.jd.com/11322972.html" target="_blank" rel="noopener">大型网站技术架构</a></li>
 </ul>
@@ -1936,6 +1630,169 @@
 <h2 id="资料"><a class="markdownIt-Anchor" href="#资料"></a> 资料</h2>
 <ul>
 <li><a href="https://www.zhihu.com/question/22764869/answer/31277656" target="_blank" rel="noopener">https://www.zhihu.com/question/22764869/answer/31277656</a></li>
+</ul>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+        
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://dunwu.github.io/blog/blog/design/architecture/%E7%BD%91%E7%AB%99%E7%9A%84%E5%8F%AF%E6%89%A9%E5%B1%95%E6%9E%B6%E6%9E%84/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/blog/images/avatar.gif">
+      <meta itemprop="name" content="Zhang Peng">
+      <meta itemprop="description" content="Dunwu's Blog">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Dunwu">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/blog/design/architecture/%E7%BD%91%E7%AB%99%E7%9A%84%E5%8F%AF%E6%89%A9%E5%B1%95%E6%9E%B6%E6%9E%84/" class="post-title-link" itemprop="url">网站的可扩展架构</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2018-07-05 15:11:00" itemprop="dateCreated datePublished" datetime="2018-07-05T15:11:00+08:00">2018-07-05</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2019-08-21 13:20:28" itemprop="dateModified" datetime="2019-08-21T13:20:28+08:00">2019-08-21</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/blog/categories/design/" itemprop="url" rel="index">
+                    <span itemprop="name">design</span>
+                  </a>
+                </span>
+                  ，
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/blog/categories/design/architecture/" itemprop="url" rel="index">
+                    <span itemprop="name">architecture</span>
+                  </a>
+                </span>
+            </span>
+
+          
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="fa fa-comment-o"></i>
+      </span>
+      <span class="post-meta-item-text">Disqus：</span>
+    
+    <a title="disqus" href="/blog/design/architecture/%E7%BD%91%E7%AB%99%E7%9A%84%E5%8F%AF%E6%89%A9%E5%B1%95%E6%9E%B6%E6%9E%84/#comments" itemprop="discussionUrl">
+      <span class="post-comments-count disqus-comment-count" data-disqus-identifier="design/architecture/网站的可扩展架构/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  <br>
+            <span class="post-meta-item" title="本文字数">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-file-word-o"></i>
+              </span>
+                <span class="post-meta-item-text">本文字数：</span>
+              <span>1.4k</span>
+            </span>
+            <span class="post-meta-item" title="阅读时长">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-clock-o"></i>
+              </span>
+                <span class="post-meta-item-text">阅读时长 &asymp;</span>
+              <span>1 分钟</span>
+            </span>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h1 id="网站的可扩展架构"><a class="markdownIt-Anchor" href="#网站的可扩展架构"></a> 网站的可扩展架构</h1>
+<blockquote>
+<p>📓 本文已归档到：「<a href="https://github.com/dunwu/blog" target="_blank" rel="noopener">blog</a>」</p>
+</blockquote>
+<!-- TOC depthFrom:2 depthTo:3 -->
+<ul>
+<li><a href="#1-%E6%9E%84%E5%BB%BA%E5%8F%AF%E6%89%A9%E5%B1%95%E7%9A%84%E7%BD%91%E7%AB%99%E6%9E%B6%E6%9E%84">1. 构建可扩展的网站架构</a></li>
+<li><a href="#2-%E5%88%A9%E7%94%A8%E5%88%86%E5%B8%83%E5%BC%8F%E6%B6%88%E6%81%AF%E9%98%9F%E5%88%97%E9%99%8D%E4%BD%8E%E7%B3%BB%E7%BB%9F%E8%80%A6%E5%90%88%E6%80%A7">2. 利用分布式消息队列降低系统耦合性</a>
+<ul>
+<li><a href="#21-%E4%BA%8B%E4%BB%B6%E9%A9%B1%E5%8A%A8%E6%9E%B6%E6%9E%84">2.1. 事件驱动架构</a></li>
+<li><a href="#22-%E5%88%86%E5%B8%83%E5%BC%8F%E6%B6%88%E6%81%AF%E9%98%9F%E5%88%97">2.2. 分布式消息队列</a></li>
+</ul>
+</li>
+<li><a href="#3-%E5%88%A9%E7%94%A8%E5%88%86%E5%B8%83%E5%BC%8F%E6%9C%8D%E5%8A%A1%E6%89%93%E9%80%A0%E5%8F%AF%E5%A4%8D%E7%94%A8%E7%9A%84%E4%B8%9A%E5%8A%A1%E5%B9%B3%E5%8F%B0">3. 利用分布式服务打造可复用的业务平台</a></li>
+<li><a href="#4-%E5%8F%AF%E6%89%A9%E5%B1%95%E7%9A%84%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84">4. 可扩展的数据结构</a></li>
+<li><a href="#5-%E8%B5%84%E6%96%99">5. 资料</a></li>
+</ul>
+<!-- /TOC -->
+<p><strong>扩展性（Extensibility）</strong> - 指对现有系统影响最小的情况下，系统功能可持续扩展或提升的能力。表现在系统基础设施稳定不需要经常变更，应用之间较少依赖和耦合，对需求变更可以敏捷响应。它是系统架构设计层面的开闭原则（对扩展开放、对修改关闭），架构设计考虑未来功能扩展，当系统增加新功能时，不需要对现有系统的结构和代码进行修改。</p>
+<p><strong>伸缩性（Scalability）</strong> - 指系统能够通过增加减少自身资源规模的方式增减自己计算处理事务的能力。如果这种增减是成比例的，就被称作线性伸缩性。在网站架构中 ，通常指利用集群的方式增加服务器数量、提高系统的整体事务吞吐能力。</p>
+<h2 id="1-构建可扩展的网站架构"><a class="markdownIt-Anchor" href="#1-构建可扩展的网站架构"></a> 1. 构建可扩展的网站架构</h2>
+<p>低耦合的系统更容易扩展、复用。</p>
+<p>设计网站可扩展架构的核心思想是模块化，并在此基础上，降低模块间的耦合性，提高模块的复用性。</p>
+<p>分层和分割不仅可以进行架构伸缩，也是模块化设计的重要手段，利用分层和分割的方式将软件分割为若干个低耦合的独立的组件模块，这些组件模块以消息传递及依赖调用的方式聚合成一个完整的系统。</p>
+<p>在大型网站中，这些模块通过分布式部署的方式，独立的模块部署在独立的服务器上，从物理上分离模块间的耦合关系，进一步降低耦合性提高复用性。</p>
+<h2 id="2-利用分布式消息队列降低系统耦合性"><a class="markdownIt-Anchor" href="#2-利用分布式消息队列降低系统耦合性"></a> 2. 利用分布式消息队列降低系统耦合性</h2>
+<h3 id="21-事件驱动架构"><a class="markdownIt-Anchor" href="#21-事件驱动架构"></a> 2.1. 事件驱动架构</h3>
+<p>事件驱动架构通过在低耦合的模块间传输事件消息，以保持模块的松散耦合，并借助事件消息的通信完成模块间合作。典型的事件驱动架构就是操作系统中常见的生产者消费者模式。在大型网站中，最常见的实现手段就是分布式消息队列。</p>
+<h3 id="22-分布式消息队列"><a class="markdownIt-Anchor" href="#22-分布式消息队列"></a> 2.2. 分布式消息队列</h3>
+<p>消息生产者应用程序通过远程访问接口将消息推送给消息队列服务器，消息队列服务器将消息写入本地内存队列后立即返回成功响应给消息生产者。消息队列服务器根据消息订阅列表查找订阅该消息的消息消费者应用程序，将消息队列中的消息按照先进先出（FIFO）的原则将消息通过远程通信接口发送给消息消费者程序。</p>
+<div align="center">
+<img src="http://dunwu.test.upcdn.net/cs/architecture/分布式消息队列架构原理.png" />
+</div>
+<p>在伸缩性方面，由于消息队列服务器上的数据可以看作是即时处理的，因此类似于无状态的服务器，伸缩性设计比较简单。将新服务器加入分布式消息队列集群中，通知生产者服务器更改消息队列服务器列表即可。</p>
+<p>在可用性方面，为了避免消费者进程处理缓慢，分布式消息队列服务器内存空间不足造成的问题，如果内存队列已满，会将消息写入磁盘，消息推送模块在将内存队列消息处理完成以后，将磁盘内容加载到内存队列继续处理。</p>
+<h2 id="3-利用分布式服务打造可复用的业务平台"><a class="markdownIt-Anchor" href="#3-利用分布式服务打造可复用的业务平台"></a> 3. 利用分布式服务打造可复用的业务平台</h2>
+<p>分布式服务则通过接口分解系统耦合性，不同子系统通过相同的接口描述进行服务调用。</p>
+<p>大型网站分布式服务的需求与特点：</p>
+<ul>
+<li>负载均衡</li>
+<li>失效转移</li>
+<li>高效的远程通信</li>
+<li>整合异构系统</li>
+<li>对应用最少侵入</li>
+<li>版本管理</li>
+<li>实时监控</li>
+</ul>
+<h2 id="4-可扩展的数据结构"><a class="markdownIt-Anchor" href="#4-可扩展的数据结构"></a> 4. 可扩展的数据结构</h2>
+<p>传统的关系型数据库为了保证关系运算的正确性，在设计数据库表结构的时候，就需要指定表的 schema ——字段名称，数据类型等，并要遵循特定的设计范式。这些规范带来一个问题：难以面对需求变更带来的挑战，所以有人通过预先设计一些冗余字段来应对。</p>
+<p>许多 NoSql 数据库使用 ColumnFamily 设计来设计可扩展的数据结构。</p>
+<h2 id="5-资料"><a class="markdownIt-Anchor" href="#5-资料"></a> 5. 资料</h2>
+<ul>
+<li><a href="https://item.jd.com/11322972.html" target="_blank" rel="noopener">大型网站技术架构</a></li>
 </ul>
 
       
@@ -2299,7 +2156,7 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="https://dunwu.github.io/blog/blog/programming/python/">
+    <link itemprop="mainEntityOfPage" href="https://dunwu.github.io/blog/blog/coding/python/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/blog/images/avatar.gif">
@@ -2313,7 +2170,7 @@
       <header class="post-header">
         <h2 class="post-title" itemprop="name headline">
           
-            <a href="/blog/programming/python/" class="post-title-link" itemprop="url">一篇文章让你彻底掌握 python 语言</a>
+            <a href="/blog/coding/python/" class="post-title-link" itemprop="url">一篇文章让你彻底掌握 Python</a>
         </h2>
 
         <div class="post-meta">
@@ -2330,7 +2187,7 @@
                   <i class="fa fa-calendar-check-o"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2019-05-08 18:07:53" itemprop="dateModified" datetime="2019-05-08T18:07:53+08:00">2019-05-08</time>
+                <time title="修改时间：2019-11-21 21:50:59" itemprop="dateModified" datetime="2019-11-21T21:50:59+08:00">2019-11-21</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -2338,8 +2195,8 @@
               </span>
               <span class="post-meta-item-text">分类于</span>
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/blog/categories/programming/" itemprop="url" rel="index">
-                    <span itemprop="name">programming</span>
+                  <a href="/blog/categories/%E7%BC%96%E7%A8%8B/" itemprop="url" rel="index">
+                    <span itemprop="name">编程</span>
                   </a>
                 </span>
             </span>
@@ -2353,8 +2210,8 @@
       </span>
       <span class="post-meta-item-text">Disqus：</span>
     
-    <a title="disqus" href="/blog/programming/python/#comments" itemprop="discussionUrl">
-      <span class="post-comments-count disqus-comment-count" data-disqus-identifier="programming/python/" itemprop="commentCount"></span>
+    <a title="disqus" href="/blog/coding/python/#comments" itemprop="discussionUrl">
+      <span class="post-comments-count disqus-comment-count" data-disqus-identifier="coding/python/" itemprop="commentCount"></span>
     </a>
   </span>
   
@@ -2383,72 +2240,9 @@
     <div class="post-body" itemprop="articleBody">
 
       
-          <h1 id="一篇文章让你彻底掌握-python-语言"><a class="markdownIt-Anchor" href="#一篇文章让你彻底掌握-python-语言"></a> 一篇文章让你彻底掌握 python 语言</h1>
-<blockquote>
+          <blockquote>
 <p>📓 本文已归档到：「<a href="https://github.com/dunwu/blog" target="_blank" rel="noopener">blog</a>」</p>
 </blockquote>
-<!-- TOC depthFrom:2 depthTo:3 -->
-<ul>
-<li><a href="#%E8%A7%A3%E9%87%8A%E5%99%A8">解释器</a></li>
-<li><a href="#%E6%B3%A8%E9%87%8A">注释</a></li>
-<li><a href="#%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B">数据类型</a></li>
-<li><a href="#%E6%93%8D%E4%BD%9C%E7%AC%A6">操作符</a>
-<ul>
-<li><a href="#%E7%AE%97%E6%9C%AF%E8%BF%90%E7%AE%97%E7%AC%A6">算术运算符</a></li>
-<li><a href="#%E6%AF%94%E8%BE%83%E8%BF%90%E7%AE%97%E7%AC%A6">比较运算符</a></li>
-<li><a href="#%E8%B5%8B%E5%80%BC%E8%BF%90%E7%AE%97%E7%AC%A6">赋值运算符</a></li>
-<li><a href="#%E4%BD%8D%E8%BF%90%E7%AE%97%E7%AC%A6">位运算符</a></li>
-<li><a href="#%E9%80%BB%E8%BE%91%E8%BF%90%E7%AE%97%E7%AC%A6">逻辑运算符</a></li>
-<li><a href="#%E6%88%90%E5%91%98%E8%BF%90%E7%AE%97%E7%AC%A6">成员运算符</a></li>
-<li><a href="#%E8%BA%AB%E4%BB%BD%E8%BF%90%E7%AE%97%E7%AC%A6">身份运算符</a></li>
-<li><a href="#%E8%BF%90%E7%AE%97%E7%AC%A6%E4%BC%98%E5%85%88%E7%BA%A7">运算符优先级</a></li>
-</ul>
-</li>
-<li><a href="#%E6%8E%A7%E5%88%B6%E8%AF%AD%E5%8F%A5">控制语句</a>
-<ul>
-<li><a href="#%E6%9D%A1%E4%BB%B6%E8%AF%AD%E5%8F%A5">条件语句</a></li>
-<li><a href="#%E5%BE%AA%E7%8E%AF%E8%AF%AD%E5%8F%A5">循环语句</a></li>
-</ul>
-</li>
-<li><a href="#%E5%87%BD%E6%95%B0">函数</a>
-<ul>
-<li><a href="#%E5%87%BD%E6%95%B0%E5%8F%98%E9%87%8F%E4%BD%9C%E7%94%A8%E5%9F%9F">函数变量作用域</a></li>
-<li><a href="#%E5%85%B3%E9%94%AE%E5%AD%97%E5%8F%82%E6%95%B0">关键字参数</a></li>
-<li><a href="#%E5%8F%AF%E5%8F%98%E5%8F%82%E6%95%B0%E5%88%97%E8%A1%A8">可变参数列表</a></li>
-<li><a href="#%E8%BF%94%E5%9B%9E%E5%80%BC">返回值</a></li>
-</ul>
-</li>
-<li><a href="#%E5%BC%82%E5%B8%B8">异常</a>
-<ul>
-<li><a href="#%E5%BC%82%E5%B8%B8%E5%A4%84%E7%90%86">异常处理</a></li>
-<li><a href="#%E6%8A%9B%E5%87%BA%E5%BC%82%E5%B8%B8">抛出异常</a></li>
-<li><a href="#%E8%87%AA%E5%AE%9A%E4%B9%89%E5%BC%82%E5%B8%B8">自定义异常</a></li>
-</ul>
-</li>
-<li><a href="#%E9%9D%A2%E5%90%91%E5%AF%B9%E8%B1%A1">面向对象</a>
-<ul>
-<li><a href="#%E9%9D%A2%E5%90%91%E5%AF%B9%E8%B1%A1%E6%8A%80%E6%9C%AF%E7%AE%80%E4%BB%8B">面向对象技术简介</a></li>
-<li><a href="#%E7%B1%BB%E5%AE%9A%E4%B9%89">类定义</a></li>
-<li><a href="#%E7%B1%BB%E5%AF%B9%E8%B1%A1">类对象</a></li>
-<li><a href="#%E7%B1%BB%E7%9A%84%E6%96%B9%E6%B3%95">类的方法</a></li>
-<li><a href="#%E7%BB%A7%E6%89%BF">继承</a></li>
-<li><a href="#%E5%A4%9A%E7%BB%A7%E6%89%BF">多继承</a></li>
-<li><a href="#%E6%96%B9%E6%B3%95%E9%87%8D%E5%86%99">方法重写</a></li>
-<li><a href="#%E7%B1%BB%E5%B1%9E%E6%80%A7%E4%B8%8E%E6%96%B9%E6%B3%95">类属性与方法</a></li>
-</ul>
-</li>
-<li><a href="#%E6%A0%87%E5%87%86%E5%BA%93%E6%A6%82%E8%A7%88">标准库概览</a>
-<ul>
-<li><a href="#%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F%E6%8E%A5%E5%8F%A3">操作系统接口</a></li>
-<li><a href="#%E6%96%87%E4%BB%B6%E9%80%9A%E9%85%8D%E7%AC%A6">文件通配符</a></li>
-<li><a href="#%E5%91%BD%E4%BB%A4%E8%A1%8C%E5%8F%82%E6%95%B0">命令行参数</a></li>
-<li><a href="#%E9%94%99%E8%AF%AF%E8%BE%93%E5%87%BA%E9%87%8D%E5%AE%9A%E5%90%91%E5%92%8C%E7%A8%8B%E5%BA%8F%E7%BB%88%E6%AD%A2">错误输出重定向和程序终止</a></li>
-<li><a href="#%E5%AD%97%E7%AC%A6%E4%B8%B2%E6%AD%A3%E5%88%99%E5%8C%B9%E9%85%8D">字符串正则匹配</a></li>
-<li><a href="#%E6%95%B0%E5%AD%A6">数学</a></li>
-</ul>
-</li>
-</ul>
-<!-- /TOC -->
 <h1 id="python-编程"><a class="markdownIt-Anchor" href="#python-编程"></a> Python 编程</h1>
 <h2 id="解释器"><a class="markdownIt-Anchor" href="#解释器"></a> 解释器</h2>
 <p>Linux/Unix 的系统上，Python 解释器通常被安装在 <code>/usr/local/bin/python3.4</code> 这样的有效路径（目录）里。</p>
@@ -3036,7 +2830,7 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="https://dunwu.github.io/blog/blog/programming/programming-guide/">
+    <link itemprop="mainEntityOfPage" href="https://dunwu.github.io/blog/blog/coding/programming-guide/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/blog/images/avatar.gif">
@@ -3050,7 +2844,7 @@
       <header class="post-header">
         <h2 class="post-title" itemprop="name headline">
           
-            <a href="/blog/programming/programming-guide/" class="post-title-link" itemprop="url">如何学习一门编程语言</a>
+            <a href="/blog/coding/programming-guide/" class="post-title-link" itemprop="url">如何学习一门编程语言</a>
         </h2>
 
         <div class="post-meta">
@@ -3067,7 +2861,7 @@
                   <i class="fa fa-calendar-check-o"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2019-08-21 13:20:29" itemprop="dateModified" datetime="2019-08-21T13:20:29+08:00">2019-08-21</time>
+                <time title="修改时间：2019-11-21 21:49:35" itemprop="dateModified" datetime="2019-11-21T21:49:35+08:00">2019-11-21</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -3075,8 +2869,8 @@
               </span>
               <span class="post-meta-item-text">分类于</span>
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/blog/categories/programming/" itemprop="url" rel="index">
-                    <span itemprop="name">programming</span>
+                  <a href="/blog/categories/%E7%BC%96%E7%A8%8B/" itemprop="url" rel="index">
+                    <span itemprop="name">编程</span>
                   </a>
                 </span>
             </span>
@@ -3090,8 +2884,8 @@
       </span>
       <span class="post-meta-item-text">Disqus：</span>
     
-    <a title="disqus" href="/blog/programming/programming-guide/#comments" itemprop="discussionUrl">
-      <span class="post-comments-count disqus-comment-count" data-disqus-identifier="programming/programming-guide/" itemprop="commentCount"></span>
+    <a title="disqus" href="/blog/coding/programming-guide/#comments" itemprop="discussionUrl">
+      <span class="post-comments-count disqus-comment-count" data-disqus-identifier="coding/programming-guide/" itemprop="commentCount"></span>
     </a>
   </span>
   
@@ -3101,7 +2895,7 @@
                 <i class="fa fa-file-word-o"></i>
               </span>
                 <span class="post-meta-item-text">本文字数：</span>
-              <span>2.7k</span>
+              <span>2.6k</span>
             </span>
             <span class="post-meta-item" title="阅读时长">
               <span class="post-meta-item-icon">
@@ -3120,31 +2914,9 @@
     <div class="post-body" itemprop="articleBody">
 
       
-          <h1 id="如何学习一门编程语言"><a class="markdownIt-Anchor" href="#如何学习一门编程语言"></a> 如何学习一门编程语言</h1>
-<blockquote>
+          <blockquote>
 <p>📓 本文已归档到：「<a href="https://github.com/dunwu/blog" target="_blank" rel="noopener">blog</a>」</p>
 </blockquote>
-<!-- TOC depthFrom:2 depthTo:3 -->
-<ul>
-<li><a href="#%E5%89%8D%E8%A8%80">前言</a></li>
-<li><a href="#%E5%AD%A6%E4%B9%A0%E7%BC%96%E7%A8%8B%E8%AF%AD%E8%A8%80%E7%9A%84%E6%AD%A5%E9%AA%A4">学习编程语言的步骤</a>
-<ul>
-<li><a href="#%E5%9F%BA%E6%9C%AC%E8%AF%AD%E6%B3%95">基本语法</a></li>
-<li><a href="#%E6%95%B0%E7%BB%84%E6%9E%9A%E4%B8%BE%E9%9B%86%E5%90%88">数组、枚举、集合</a></li>
-<li><a href="#%E5%B8%B8%E7%94%A8%E7%B1%BB">常用类</a></li>
-<li><a href="#%E8%AF%AD%E8%A8%80%E7%89%B9%E6%80%A7">语言特性</a></li>
-<li><a href="#%E4%BB%A3%E7%A0%81%E7%BB%84%E7%BB%87%E6%A8%A1%E5%9D%97%E5%8A%A0%E8%BD%BD%E5%BA%93%E7%AE%A1%E7%90%86">代码组织、模块加载、库管理</a></li>
-<li><a href="#%E5%AE%B9%E9%94%99%E5%A4%84%E7%90%86">容错处理</a></li>
-<li><a href="#%E8%BE%93%E5%85%A5%E8%BE%93%E5%87%BA%E5%92%8C%E6%96%87%E4%BB%B6%E5%A4%84%E7%90%86">输入输出和文件处理</a></li>
-<li><a href="#%E5%9B%9E%E8%B0%83%E6%9C%BA%E5%88%B6">回调机制</a></li>
-<li><a href="#%E5%BA%8F%E5%88%97%E5%8C%96%E5%92%8C%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96">序列化和反序列化</a></li>
-<li><a href="#%E8%BF%9B%E9%98%B6%E7%89%B9%E6%80%A7">进阶特性</a></li>
-<li><a href="#%E5%BA%93%E5%92%8C%E6%A1%86%E6%9E%B6">库和框架</a></li>
-</ul>
-</li>
-<li><a href="#%E5%B0%8F%E7%BB%93">小结</a></li>
-</ul>
-<!-- /TOC -->
 <h2 id="前言"><a class="markdownIt-Anchor" href="#前言"></a> 前言</h2>
 <p>很多人喜欢争论什么什么编程语言好，我认为这个话题如果不限定应用范围，就毫无意义。</p>
 <p>每种编程语言必然有其优点和缺点，这也决定了它有适合的应用场景和不适合的应用场景。现代软件行业，想一门编程语言包打天下是不现实的。这中现状也造成了一种现象，一个程序员往往要掌握多种编程语言。</p>
@@ -3323,7 +3095,7 @@
       <div class="site-state-item site-state-tags">
             <a href="/blog/tags/">
           
-        <span class="site-state-item-count">32</span>
+        <span class="site-state-item-count">30</span>
         <span class="site-state-item-name">标签</span></a>
       </div>
   </nav>
@@ -3368,12 +3140,12 @@
     <span class="post-meta-item-icon">
       <i class="fa fa-area-chart"></i>
     </span>
-    <span title="站点总字数">318k</span>
+    <span title="站点总字数">334k</span>
     <span class="post-meta-divider">|</span>
     <span class="post-meta-item-icon">
       <i class="fa fa-coffee"></i>
     </span>
-    <span title="站点阅读时长">4:49</span>
+    <span title="站点阅读时长">5:04</span>
 </div>
 
         

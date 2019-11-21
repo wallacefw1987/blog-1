@@ -153,7 +153,7 @@
   </li>
         <li class="menu-item menu-item-tags">
 
-    <a href="/blog/tags/" rel="section"><i class="fa fa-fw fa-tags"></i>标签<span class="badge">32</span></a>
+    <a href="/blog/tags/" rel="section"><i class="fa fa-fw fa-tags"></i>标签<span class="badge">30</span></a>
 
   </li>
         <li class="menu-item menu-item-categories">
@@ -820,7 +820,7 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="https://dunwu.github.io/blog/blog/method/software-engineering/">
+    <link itemprop="mainEntityOfPage" href="https://dunwu.github.io/blog/blog/efficiency/software-engineering/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/blog/images/avatar.gif">
@@ -834,7 +834,7 @@
       <header class="post-header">
         <h2 class="post-title" itemprop="name headline">
           
-            <a href="/blog/method/software-engineering/" class="post-title-link" itemprop="url">软件工程与项目管理</a>
+            <a href="/blog/efficiency/software-engineering/" class="post-title-link" itemprop="url">软件工程与项目管理</a>
         </h2>
 
         <div class="post-meta">
@@ -851,7 +851,7 @@
                   <i class="fa fa-calendar-check-o"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2019-08-21 13:20:27" itemprop="dateModified" datetime="2019-08-21T13:20:27+08:00">2019-08-21</time>
+                <time title="修改时间：2019-11-21 21:48:03" itemprop="dateModified" datetime="2019-11-21T21:48:03+08:00">2019-11-21</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -859,14 +859,8 @@
               </span>
               <span class="post-meta-item-text">分类于</span>
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/blog/categories/method/" itemprop="url" rel="index">
-                    <span itemprop="name">method</span>
-                  </a>
-                </span>
-                  ，
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/blog/categories/method/%E8%BD%AF%E4%BB%B6%E5%B7%A5%E7%A8%8B/" itemprop="url" rel="index">
-                    <span itemprop="name">软件工程</span>
+                  <a href="/blog/categories/%E6%95%88%E7%8E%87%E6%8F%90%E5%8D%87/" itemprop="url" rel="index">
+                    <span itemprop="name">效率提升</span>
                   </a>
                 </span>
             </span>
@@ -880,8 +874,8 @@
       </span>
       <span class="post-meta-item-text">Disqus：</span>
     
-    <a title="disqus" href="/blog/method/software-engineering/#comments" itemprop="discussionUrl">
-      <span class="post-comments-count disqus-comment-count" data-disqus-identifier="method/software-engineering/" itemprop="commentCount"></span>
+    <a title="disqus" href="/blog/efficiency/software-engineering/#comments" itemprop="discussionUrl">
+      <span class="post-comments-count disqus-comment-count" data-disqus-identifier="efficiency/software-engineering/" itemprop="commentCount"></span>
     </a>
   </span>
   
@@ -891,7 +885,7 @@
                 <i class="fa fa-file-word-o"></i>
               </span>
                 <span class="post-meta-item-text">本文字数：</span>
-              <span>4.2k</span>
+              <span>4.1k</span>
             </span>
             <span class="post-meta-item" title="阅读时长">
               <span class="post-meta-item-icon">
@@ -910,41 +904,10 @@
     <div class="post-body" itemprop="articleBody">
 
       
-          <h1 id="软件工程与项目管理"><a class="markdownIt-Anchor" href="#软件工程与项目管理"></a> 软件工程与项目管理</h1>
-<blockquote>
+          <blockquote>
 <p>📓 本文已归档到：「<a href="https://github.com/dunwu/blog" target="_blank" rel="noopener">blog</a>」</p>
-</blockquote>
-<blockquote>
 <p>软件工程是一门研究用工程化方法构建和维护有效的、实用的和高质量的软件的学科。它涉及程序设计语言、数据库、软件开发工具、系统平台、标准、设计模式等方面。</p>
 </blockquote>
-<!-- TOC depthFrom:2 depthTo:3 -->
-<ul>
-<li><a href="#%E8%BD%AF%E4%BB%B6%E5%B7%A5%E7%A8%8B%E7%9A%84%E7%9B%AE%E6%A0%87">软件工程的目标</a></li>
-<li><a href="#%E8%BD%AF%E4%BB%B6%E5%B7%A5%E7%A8%8B%E7%9A%84%E5%8E%9F%E7%90%86">软件工程的原理</a></li>
-<li><a href="#%E8%BD%AF%E4%BB%B6%E5%B7%A5%E7%A8%8B%E7%9A%84%E6%96%B9%E6%B3%95">软件工程的方法</a></li>
-<li><a href="#%E8%BD%AF%E4%BB%B6%E9%9C%80%E6%B1%82">软件需求</a>
-<ul>
-<li><a href="#%E8%BD%AF%E4%BB%B6%E9%9C%80%E6%B1%82%E8%AF%B4%E6%98%8E%E4%B9%A6-srs-">软件需求说明书（ SRS ）</a></li>
-</ul>
-</li>
-<li><a href="#%E8%BD%AF%E4%BB%B6%E7%94%9F%E5%91%BD%E5%91%A8%E6%9C%9F">软件生命周期</a></li>
-<li><a href="#%E8%BD%AF%E4%BB%B6%E7%94%9F%E5%91%BD%E5%91%A8%E6%9C%9F%E6%A8%A1%E5%9E%8B">软件生命周期模型</a>
-<ul>
-<li><a href="#%E7%80%91%E5%B8%83%E6%A8%A1%E5%9E%8B">瀑布模型</a></li>
-<li><a href="#%E8%9E%BA%E6%97%8B%E6%A8%A1%E5%9E%8B">螺旋模型</a></li>
-</ul>
-</li>
-<li><a href="#%E8%BD%AF%E4%BB%B6%E5%B7%A5%E7%A8%8B%E6%9C%AF%E8%AF%AD">软件工程术语</a></li>
-<li><a href="#%E6%9B%B4%E5%A4%9A%E5%86%85%E5%AE%B9">更多内容</a>
-<ul>
-<li><a href="#%E4%B9%A6">书</a></li>
-<li><a href="#%E6%96%87%E7%AB%A0">文章</a></li>
-<li><a href="#%E5%B7%A5%E5%85%B7">工具</a></li>
-<li><a href="#%E6%96%87%E6%A1%A3%E6%A8%A1%E6%9D%BF">文档模板</a></li>
-</ul>
-</li>
-</ul>
-<!-- /TOC -->
 <h2 id="软件工程的目标"><a class="markdownIt-Anchor" href="#软件工程的目标"></a> 软件工程的目标</h2>
 <p>软件工程的目标是：在给定成本、进度的前提下，开发出具有适用性、有效性、可修改性、可靠性、可理解性、可维护性、可重用性、可移植性、可追踪性、可互操作性和满足用户需求的软件产品。</p>
 <ol>
@@ -1082,25 +1045,31 @@
 <li><strong>人月</strong> - 软件开发的工作量单位。如 200 人月，10 个人开发，那算来就是花 20 个月就可完工。</li>
 <li><strong>基线</strong> - 基线是项目储存库中每个工件版本在特定时期的一个“快照”。它提供一个正式标准，随后的工作基于此标准，并且只有经过授权后才能变更这个标准。建立一个初始基线后，以后每次对其进行的变更都将记录为一个差值，直到建成下一个基线。</li>
 </ul>
-<h2 id="更多内容"><a class="markdownIt-Anchor" href="#更多内容"></a> 更多内容</h2>
-<h3 id="书"><a class="markdownIt-Anchor" href="#书"></a> 书</h3>
+<h2 id="资源"><a class="markdownIt-Anchor" href="#资源"></a> 资源</h2>
+<ul>
+<li><strong>书籍</strong>
 <ul>
 <li><a href="https://book.douban.com/subject/2230248/" target="_blank" rel="noopener">人月神话</a></li>
 <li><a href="https://book.douban.com/subject/1477390/" target="_blank" rel="noopener">代码大全</a></li>
 </ul>
-<h3 id="文章"><a class="markdownIt-Anchor" href="#文章"></a> 文章</h3>
+</li>
+<li><strong>文章</strong>
 <ul>
 <li><a href="https://juejin.im/post/5a4991e151882574d23cafbf" target="_blank" rel="noopener">使用甘特图做项目管理</a></li>
 <li><a href="https://juejin.im/post/5c1f6a1e6fb9a04a03793573" target="_blank" rel="noopener">使用燃尽图监控项目整体进度</a></li>
 </ul>
-<h3 id="工具"><a class="markdownIt-Anchor" href="#工具"></a> 工具</h3>
+</li>
+<li><strong>工具</strong>
 <ul>
 <li><a href="https://my.oschina.net/editorial-story/blog/1559395" target="_blank" rel="noopener">10 大开源免费的项目管理软件推荐</a></li>
 <li><a href="http://www.ruanyifeng.com/blog/2017/08/issue.html" target="_blank" rel="noopener">http://www.ruanyifeng.com/blog/2017/08/issue.html</a></li>
 </ul>
-<h3 id="文档模板"><a class="markdownIt-Anchor" href="#文档模板"></a> 文档模板</h3>
+</li>
+<li><strong>文档模板</strong>
 <ul>
 <li><a href="https://pan.baidu.com/s/1sXTOs1PSDyw9P2zWtzbsmw" target="_blank" rel="noopener">软件工程文档标准模板百度网盘下载</a> - 下载密码：uu1f</li>
+</ul>
+</li>
 </ul>
 
       
@@ -1121,7 +1090,7 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="https://dunwu.github.io/blog/blog/tools/gitbook/">
+    <link itemprop="mainEntityOfPage" href="https://dunwu.github.io/blog/blog/coding/shell/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/blog/images/avatar.gif">
@@ -1135,7 +1104,7 @@
       <header class="post-header">
         <h2 class="post-title" itemprop="name headline">
           
-            <a href="/blog/tools/gitbook/" class="post-title-link" itemprop="url">使用 Gitbook 打造你的电子书</a>
+            <a href="/blog/coding/shell/" class="post-title-link" itemprop="url">一篇文章让你彻底掌握 Shell</a>
         </h2>
 
         <div class="post-meta">
@@ -1145,14 +1114,14 @@
               </span>
               <span class="post-meta-item-text">发表于</span>
 
-              <time title="创建时间：2017-09-04 08:59:00" itemprop="dateCreated datePublished" datetime="2017-09-04T08:59:00+08:00">2017-09-04</time>
+              <time title="创建时间：2017-11-17 18:16:00" itemprop="dateCreated datePublished" datetime="2017-11-17T18:16:00+08:00">2017-11-17</time>
             </span>
               <span class="post-meta-item">
                 <span class="post-meta-item-icon">
                   <i class="fa fa-calendar-check-o"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2019-11-21 21:13:04" itemprop="dateModified" datetime="2019-11-21T21:13:04+08:00">2019-11-21</time>
+                <time title="修改时间：2019-11-21 22:01:50" itemprop="dateModified" datetime="2019-11-21T22:01:50+08:00">2019-11-21</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -1160,8 +1129,8 @@
               </span>
               <span class="post-meta-item-text">分类于</span>
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/blog/categories/%E5%B7%A5%E5%85%B7/" itemprop="url" rel="index">
-                    <span itemprop="name">工具</span>
+                  <a href="/blog/categories/%E7%BC%96%E7%A8%8B/" itemprop="url" rel="index">
+                    <span itemprop="name">编程</span>
                   </a>
                 </span>
             </span>
@@ -1175,8 +1144,8 @@
       </span>
       <span class="post-meta-item-text">Disqus：</span>
     
-    <a title="disqus" href="/blog/tools/gitbook/#comments" itemprop="discussionUrl">
-      <span class="post-comments-count disqus-comment-count" data-disqus-identifier="tools/gitbook/" itemprop="commentCount"></span>
+    <a title="disqus" href="/blog/coding/shell/#comments" itemprop="discussionUrl">
+      <span class="post-comments-count disqus-comment-count" data-disqus-identifier="coding/shell/" itemprop="commentCount"></span>
     </a>
   </span>
   
@@ -1186,14 +1155,14 @@
                 <i class="fa fa-file-word-o"></i>
               </span>
                 <span class="post-meta-item-text">本文字数：</span>
-              <span>8.8k</span>
+              <span>26k</span>
             </span>
             <span class="post-meta-item" title="阅读时长">
               <span class="post-meta-item-icon">
                 <i class="fa fa-clock-o"></i>
               </span>
                 <span class="post-meta-item-text">阅读时长 &asymp;</span>
-              <span>8 分钟</span>
+              <span>24 分钟</span>
             </span>
 
         </div>
@@ -1205,290 +1174,195 @@
     <div class="post-body" itemprop="articleBody">
 
       
-          <h1 id="使用-gitbook-打造你的电子书"><a class="markdownIt-Anchor" href="#使用-gitbook-打造你的电子书"></a> 使用 Gitbook 打造你的电子书</h1>
-<blockquote>
-<p>本文详细讲解了 Gitbook 生成电子书的完整过程，内容包括：安装、命令、配置、文档结构、生成电子书、部署。</p>
-<p>限于篇幅，本文不介绍任何 Gitbook 定制化页面的内容。</p>
-<p>想看看 Gitbook 在线电子书效果，请猛戳这里：<a href="https://dunwu.gitbooks.io/gitbook-notes" target="_blank" rel="noopener">gitbook-notes</a></p>
-<p>📓 本文已归档到：「<a href="https://github.com/dunwu/blog" target="_blank" rel="noopener">blog</a>」</p>
+          <blockquote>
+<p>由于 bash 是 Linux 标准默认的 shell 解释器，可以说 bash 是 shell 编程的基础。</p>
+<p>本文主要介绍 bash 的语法，对于 linux 指令不做任何介绍。</p>
+<p>📓 本文已归档到：「<a href="https://github.com/dunwu/blog" target="_blank" rel="noopener">blog</a>」<br />
+🔁 本文的源码已归档到 <a href="https://github.com/dunwu/linux-tutorial/tree/master/codes/shell/demos" target="_blank" rel="noopener">linux-tutorial</a></p>
 </blockquote>
-<!-- TOC depthFrom:2 depthTo:2 -->
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">███████╗██╗  ██╗███████╗██╗     ██╗</span><br><span class="line">██╔════╝██║  ██║██╔════╝██║     ██║</span><br><span class="line">███████╗███████║█████╗  ██║     ██║</span><br><span class="line">╚════██║██╔══██║██╔══╝  ██║     ██║</span><br><span class="line">███████║██║  ██║███████╗███████╗███████╗</span><br></pre></td></tr></table></figure>
+<h2 id="1-简介"><a class="markdownIt-Anchor" href="#1-简介"></a> 1. 简介</h2>
+<h3 id="11-什么是-shell"><a class="markdownIt-Anchor" href="#11-什么是-shell"></a> 1.1. 什么是 shell</h3>
 <ul>
-<li><a href="#%E6%A6%82%E8%BF%B0">概述</a></li>
-<li><a href="#gitbook-%E5%AE%89%E8%A3%85">GitBook 安装</a></li>
-<li><a href="#gitbook-%E5%91%BD%E4%BB%A4">GitBook 命令</a></li>
-<li><a href="#gitbook-%E7%9B%AE%E5%BD%95%E7%BB%93%E6%9E%84">Gitbook 目录结构</a></li>
-<li><a href="#gitbook-%E9%85%8D%E7%BD%AE">Gitbook 配置</a></li>
-<li><a href="#%E7%94%9F%E6%88%90%E7%94%B5%E5%AD%90%E4%B9%A6">生成电子书</a></li>
-<li><a href="#gitbook-%E9%83%A8%E7%BD%B2">Gitbook 部署</a></li>
-<li><a href="#%E5%8F%82%E8%80%83%E8%B5%84%E6%96%99">参考资料</a></li>
+<li>Shell 是一个用 C 语言编写的程序，它是用户使用 Linux 的桥梁。</li>
+<li>Shell 既是一种命令语言，又是一种程序设计语言。</li>
+<li>Shell 是指一种应用程序，这个应用程序提供了一个界面，用户通过这个界面访问 Linux 内核的服务。</li>
 </ul>
-<!-- /TOC -->
-<h2 id="概述"><a class="markdownIt-Anchor" href="#概述"></a> 概述</h2>
-<p>GitBook 是使用 GitHub / Git 和 Markdown（或 AsciiDoc）构建漂亮书籍的命令行工具（和 Node.js 库）。</p>
-<p>GitBook 可以将您的内容作为网站（可定制和可扩展）或电子书（PDF，ePub 或 Mobi）输出。</p>
-<p><a href="https://www.gitbook.com/" target="_blank" rel="noopener">GitBook.com</a> 是使用 GitBook 格式创建和托管图书的在线平台。它提供托管，协作功能和易于使用的编辑器。</p>
-<div align="center"><img src="https://camo.githubusercontent.com/c1b6c55fca8e171120ce1fd73afcee699cc2a98f/68747470733a2f2f7261772e6769746875622e636f6d2f476974626f6f6b494f2f676974626f6f6b2f6d61737465722f707265766965772e706e67"/></div>
-<h2 id="gitbook-安装"><a class="markdownIt-Anchor" href="#gitbook-安装"></a> GitBook 安装</h2>
-<h3 id="本地安装"><a class="markdownIt-Anchor" href="#本地安装"></a> 本地安装</h3>
-<h4 id="环境要求"><a class="markdownIt-Anchor" href="#环境要求"></a> 环境要求</h4>
-<p>安装 GitBook 是很简单的。您的系统只需要满足这两个要求：</p>
+<p>Ken Thompson 的 sh 是第一种 Unix Shell，Windows Explorer 是一个典型的图形界面 Shell。</p>
+<h3 id="12-什么是-shell-脚本"><a class="markdownIt-Anchor" href="#12-什么是-shell-脚本"></a> 1.2. 什么是 shell 脚本</h3>
+<p>Shell 脚本（shell script），是一种为 shell 编写的脚本程序，一般文件后缀为 <code>.sh</code>。</p>
+<p>业界所说的 shell 通常都是指 shell 脚本，但 shell 和 shell script 是两个不同的概念。</p>
+<h3 id="13-shell-环境"><a class="markdownIt-Anchor" href="#13-shell-环境"></a> 1.3. Shell 环境</h3>
+<p>Shell 编程跟 java、php 编程一样，只要有一个能编写代码的文本编辑器和一个能解释执行的脚本解释器就可以了。</p>
+<p>Shell 的解释器种类众多，常见的有：</p>
 <ul>
-<li>NodeJS（推荐使用 v4.0.0 及以上版本）</li>
-<li>Windows，Linux，Unix 或 Mac OS X</li>
+<li><a href="https://www.gnu.org/software/bash/" target="_blank" rel="noopener">sh</a> - 即 Bourne Shell。sh 是 Unix 标准默认的 shell。</li>
+<li><a href="https://www.gnu.org/software/bash/" target="_blank" rel="noopener">bash</a> - 即 Bourne Again Shell。bash 是 Linux 标准默认的 shell。</li>
+<li><a href="https://fishshell.com/" target="_blank" rel="noopener">fish</a> - 智能和用户友好的命令行 shell。</li>
+<li><a href="http://xiki.org/" target="_blank" rel="noopener">xiki</a> - 使 shell 控制台更友好，更强大。</li>
+<li><a href="http://www.zsh.org/" target="_blank" rel="noopener">zsh</a> - 功能强大的 shell 与脚本语言。</li>
 </ul>
-<h4 id="通过-npm-安装"><a class="markdownIt-Anchor" href="#通过-npm-安装"></a> 通过 NPM 安装</h4>
-<p>安装 GitBook 的最好办法是通过 <strong>NPM</strong>。在终端提示符下，只需运行以下命令即可安装 GitBook：</p>
-<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ npm install gitbook-cli -g</span><br></pre></td></tr></table></figure>
-<p><code>gitbook-cli</code> 是 GitBook 的一个命令行工具。它将自动安装所需版本的 GitBook 来构建一本书。</p>
-<p>执行下面的命令，查看 GitBook 版本，以验证安装成功。</p>
-<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ gitbook -V</span><br></pre></td></tr></table></figure>
-<h4 id="安装历史版本"><a class="markdownIt-Anchor" href="#安装历史版本"></a> 安装历史版本</h4>
-<p><code>gitbook-cli</code> 可以轻松下载并安装其他版本的 GitBook 来测试您的书籍：</p>
-<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ gitbook fetch beta</span><br></pre></td></tr></table></figure>
-<p>使用 <code>gitbook ls-remote</code> 会列举可以下载的版本。</p>
-<h3 id="创建一本书"><a class="markdownIt-Anchor" href="#创建一本书"></a> 创建一本书</h3>
-<h4 id="初始化"><a class="markdownIt-Anchor" href="#初始化"></a> 初始化</h4>
-<p>GitBook 可以设置一个样板书：</p>
-<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ gitbook init</span><br></pre></td></tr></table></figure>
-<p>如果您希望将书籍创建到一个新目录中，可以通过运行 <code>gitbook init ./directory</code> 这样做。</p>
-<h4 id="构建"><a class="markdownIt-Anchor" href="#构建"></a> 构建</h4>
-<p>使用下面的命令，会在项目的目录下生成一个 <code>_book</code> 目录，里面的内容为静态站点的资源文件：</p>
-<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ gitbook build</span><br></pre></td></tr></table></figure>
-<h5 id="debugging"><a class="markdownIt-Anchor" href="#debugging"></a> Debugging</h5>
-<p>您可以使用选项 <code>--log=debug</code> 和 <code>--debug</code> 来获取更好的错误消息（使用堆栈跟踪）。例如：</p>
-<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ gitbook build ./ --<span class="built_in">log</span>=debug --debug</span><br></pre></td></tr></table></figure>
-<h4 id="启动服务"><a class="markdownIt-Anchor" href="#启动服务"></a> 启动服务</h4>
-<p>使用下列命令会运行一个 web 服务, 通过 <code>http://localhost:4000/</code> 可以预览书籍</p>
-<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ gitbook serve</span><br></pre></td></tr></table></figure>
-<h2 id="gitbook-命令"><a class="markdownIt-Anchor" href="#gitbook-命令"></a> GitBook 命令</h2>
-<p>这里主要介绍一下 GitBook 的命令行工具 <code>gitbook-cli</code> 的一些命令, 首先说明两点:</p>
+<h4 id="指定脚本解释器"><a class="markdownIt-Anchor" href="#指定脚本解释器"></a> 指定脚本解释器</h4>
+<p>在 shell 脚本，<code>#!</code> 告诉系统其后路径所指定的程序即是解释此脚本文件的 Shell 解释器。<code>#!</code> 被称作<a href="https://zh.wikipedia.org/wiki/Shebang" target="_blank" rel="noopener">shebang（也称为 Hashbang ）</a>。</p>
+<p>所以，你应该会在 shell 中，见到诸如以下的注释：</p>
 <ul>
-<li><code>gitbook-cli</code> 和 <code>gitbook</code> 是两个软件</li>
-<li><code>gitbook-cli</code> 会将下载的 gitbook 的不同版本放到 <code>\~/.gitbook</code>中, 可以通过设置<code>GITBOOK_DIR</code>环境变量来指定另外的文件夹</li>
+<li>指定 sh 解释器</li>
 </ul>
-<p><strong>列出 gitbook 所有的命令</strong></p>
-<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">gitbook <span class="built_in">help</span></span><br></pre></td></tr></table></figure>
-<p><strong>输出 <code>gitbook-cli</code> 的帮助信息</strong></p>
-<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">gitbook --<span class="built_in">help</span></span><br></pre></td></tr></table></figure>
-<p><strong>生成静态网页</strong></p>
-<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">gitbook build</span><br></pre></td></tr></table></figure>
-<p><strong>生成静态网页并运行服务器</strong></p>
-<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">gitbook serve</span><br></pre></td></tr></table></figure>
-<p><strong>生成时指定 gitbook 的版本, 本地没有会先下载</strong></p>
-<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">gitbook build --gitbook=2.0.1</span><br></pre></td></tr></table></figure>
-<p><strong>列出本地所有的 gitbook 版本</strong></p>
-<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">gitbook ls</span><br></pre></td></tr></table></figure>
-<p><strong>列出远程可用的 gitbook 版本</strong></p>
-<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">gitbook ls-remote</span><br></pre></td></tr></table></figure>
-<p><strong>安装对应的 gitbook 版本</strong></p>
-<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">gitbook fetch 标签/版本号</span><br></pre></td></tr></table></figure>
-<p><strong>更新到 gitbook 的最新版本</strong></p>
-<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">gitbook update</span><br></pre></td></tr></table></figure>
-<p><strong>卸载对应的 gitbook 版本</strong></p>
-<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">gitbook uninstall 2.0.1</span><br></pre></td></tr></table></figure>
-<p><strong>指定 log 的级别</strong></p>
-<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">gitbook build --<span class="built_in">log</span>=debug</span><br></pre></td></tr></table></figure>
-<p><strong>输出错误信息</strong></p>
-<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">gitbook builid --debug</span><br></pre></td></tr></table></figure>
-<h2 id="gitbook-目录结构"><a class="markdownIt-Anchor" href="#gitbook-目录结构"></a> Gitbook 目录结构</h2>
-<h3 id="gitbook-项目结构"><a class="markdownIt-Anchor" href="#gitbook-项目结构"></a> GitBook 项目结构</h3>
-<p>GitBook 使用简单的目录结构。在 <a href="https://toolchain.gitbook.com/pages.html" target="_blank" rel="noopener">SUMMARY</a> （即 <code>SUMMARY.md</code> 文件）中列出的所有 Markdown / Asciidoc 文件将被转换为 HTML。多语言书籍结构略有不同。</p>
-<p>一个基本的 GitBook 电子书结构通常如下：</p>
-<figure class="highlight dos"><table><tr><td class="code"><pre><span class="line">.</span><br><span class="line">├── book.json</span><br><span class="line">├── README.<span class="built_in">md</span></span><br><span class="line">├── SUMMARY.<span class="built_in">md</span></span><br><span class="line">├── chapter-<span class="number">1</span>/</span><br><span class="line">|   ├── README.<span class="built_in">md</span></span><br><span class="line">|   └── something.<span class="built_in">md</span></span><br><span class="line">└── chapter-<span class="number">2</span>/</span><br><span class="line">    ├── README.<span class="built_in">md</span></span><br><span class="line">    └── something.<span class="built_in">md</span></span><br></pre></td></tr></table></figure>
-<p>GitBook 特殊文件的功能：</p>
-<table>
-<thead>
-<tr>
-<th>文件</th>
-<th>描述</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td><code>book.json</code></td>
-<td>配置数据 (<strong>optional</strong>)</td>
-</tr>
-<tr>
-<td><code>README.md</code></td>
-<td>电子书的前言或简介 (<strong>required</strong>)</td>
-</tr>
-<tr>
-<td><code>SUMMARY.md</code></td>
-<td>电子书目录 (<strong>optional</strong>)</td>
-</tr>
-<tr>
-<td><code>GLOSSARY.md</code></td>
-<td>词汇/注释术语列表 (<strong>optional</strong>)</td>
-</tr>
-</tbody>
-</table>
-<h4 id="静态文件和图片"><a class="markdownIt-Anchor" href="#静态文件和图片"></a> 静态文件和图片</h4>
-<p>静态文件是在 <code>SUMMARY.md</code> 中未列出的文件。除非被忽略，否则所有静态文件都将复制到输出路径。</p>
-<h4 id="忽略文件和文件夹"><a class="markdownIt-Anchor" href="#忽略文件和文件夹"></a> 忽略文件和文件夹</h4>
-<p>GitBook 将读取 <code>.gitignore</code>，<code>.bookignore</code> 和 <code>.ignore</code> 文件，以获取要过滤的文件和文件夹。这些文件中的格式遵循 <code>.gitignore</code> 的规则：</p>
-<figure class="highlight cmake"><table><tr><td class="code"><pre><span class="line"><span class="comment"># This is a comment</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># Ignore the file test.md</span></span><br><span class="line"><span class="keyword">test</span>.md</span><br><span class="line"></span><br><span class="line"><span class="comment"># Ignore everything in the directory "bin"</span></span><br><span class="line">bin/*</span><br></pre></td></tr></table></figure>
-<h4 id="项目与子目录集成"><a class="markdownIt-Anchor" href="#项目与子目录集成"></a> 项目与子目录集成</h4>
-<p>对于软件项目，您可以使用子目录（如 <code>docs/</code> ）来存储项目文档的图书。您可以配置根选项来指示 GitBook 可以找到该图书文件的文件夹：</p>
-<figure class="highlight reasonml"><table><tr><td class="code"><pre><span class="line">.</span><br><span class="line">├── book.json</span><br><span class="line">└── docs/</span><br><span class="line">    ├── <span class="module-access"><span class="module"><span class="identifier">README</span>.</span></span>md</span><br><span class="line">    └── <span class="module-access"><span class="module"><span class="identifier">SUMMARY</span>.</span></span>md</span><br></pre></td></tr></table></figure>
-<p>在 <code>book.json</code> 中配置以下内容：</p>
-<figure class="highlight json"><table><tr><td class="code"><pre><span class="line">&#123;</span><br><span class="line">  <span class="attr">"root"</span>: <span class="string">"./docs"</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<h3 id="summary"><a class="markdownIt-Anchor" href="#summary"></a> Summary</h3>
-<p>GitBook 使用 <code>SUMMARY.md</code> 文件来定义本书的章节和子章节的结构。 <code>SUMMARY.md</code> 文件用于生成本书的目录。</p>
-<p><code>SUMMARY.md</code> 的格式是一个链接列表。链接的标题将作为章节的标题，链接的目标是该章节文件的路径。</p>
-<p>向父章节添加嵌套列表将创建子章节。</p>
-<p><strong>简单示例：</strong></p>
-<figure class="highlight markdown"><table><tr><td class="code"><pre><span class="line"><span class="section"># Summary</span></span><br><span class="line"></span><br><span class="line"><span class="bullet">* </span>[<span class="string">Part I</span>](<span class="link">part1/README.md</span>)</span><br><span class="line"><span class="bullet">    * </span>[<span class="string">Writing is nice</span>](<span class="link">part1/writing.md</span>)</span><br><span class="line"><span class="bullet">    * </span>[<span class="string">GitBook is nice</span>](<span class="link">part1/gitbook.md</span>)</span><br><span class="line"><span class="bullet">* </span>[<span class="string">Part II</span>](<span class="link">part2/README.md</span>)</span><br><span class="line"><span class="bullet">    * </span>[<span class="string">We love feedback</span>](<span class="link">part2/feedback_please.md</span>)</span><br><span class="line"><span class="bullet">    * </span>[<span class="string">Better tools for authors</span>](<span class="link">part2/better_tools.md</span>)</span><br></pre></td></tr></table></figure>
-<p>每章都有一个专用页面（<code>part#/README.md</code>），并分为子章节。</p>
-<p><strong>锚点</strong></p>
-<p>目录中的章节可以使用锚点指向文件的特定部分。</p>
-<figure class="highlight markdown"><table><tr><td class="code"><pre><span class="line"><span class="section"># Summary</span></span><br><span class="line"></span><br><span class="line"><span class="section">### Part I</span></span><br><span class="line"></span><br><span class="line"><span class="bullet">* </span>[<span class="string">Part I</span>](<span class="link">part1/README.md</span>)</span><br><span class="line"><span class="bullet">    * </span>[<span class="string">Writing is nice</span>](<span class="link">part1/README.md#writing</span>)</span><br><span class="line"><span class="bullet">    * </span>[<span class="string">GitBook is nice</span>](<span class="link">part1/README.md#gitbook</span>)</span><br><span class="line"><span class="bullet">* </span>[<span class="string">Part II</span>](<span class="link">part2/README.md</span>)</span><br><span class="line"><span class="bullet">    * </span>[<span class="string">We love feedback</span>](<span class="link">part2/README.md#feedback</span>)</span><br><span class="line"><span class="bullet">    * </span>[<span class="string">Better tools for authors</span>](<span class="link">part2/README.md#tools</span>)</span><br></pre></td></tr></table></figure>
-<p><strong>部分</strong></p>
-<p>目录可以分为以标题或水平线 <code>----</code> 分隔的部分：</p>
-<figure class="highlight markdown"><table><tr><td class="code"><pre><span class="line"><span class="section"># Summary</span></span><br><span class="line"></span><br><span class="line"><span class="section">### Part I</span></span><br><span class="line"></span><br><span class="line"><span class="bullet">* </span>[<span class="string">Writing is nice</span>](<span class="link">part1/writing.md</span>)</span><br><span class="line"><span class="bullet">* </span>[<span class="string">GitBook is nice</span>](<span class="link">part1/gitbook.md</span>)</span><br><span class="line"></span><br><span class="line"><span class="section">### Part II</span></span><br><span class="line"></span><br><span class="line"><span class="bullet">* </span>[<span class="string">We love feedback</span>](<span class="link">part2/feedback_please.md</span>)</span><br><span class="line"><span class="bullet">* </span>[<span class="string">Better tools for authors</span>](<span class="link">part2/better_tools.md</span>)</span><br><span class="line"></span><br><span class="line">----</span><br><span class="line"></span><br><span class="line"><span class="bullet">* </span>[<span class="string">Last part without title</span>](<span class="link">part3/title.md</span>)</span><br></pre></td></tr></table></figure>
-<p>Parts 只是章节组，没有专用页面，但根据主题，它将在导航中显示。</p>
-<h4 id="页面"><a class="markdownIt-Anchor" href="#页面"></a> 页面</h4>
-<p><strong>Markdown 语法</strong></p>
-<p>默认情况下，GitBook 的大多数文件都使用 Markdown 语法。 GitBook 推荐使用这种语法。所使用的语法类似于 <a href="https://guides.github.com/features/mastering-markdown/" target="_blank" rel="noopener">GitHub Flavored Markdown syntax</a> 。</p>
-<p>此外，你还可以选择 <a href="https://toolchain.gitbook.com/syntax/asciidoc.html" target="_blank" rel="noopener">AsciiDoc 语法</a>。</p>
-<p><strong>页面内容示例：</strong></p>
-<figure class="highlight mipsasm"><table><tr><td class="code"><pre><span class="line"><span class="comment"># Title of the chapter</span></span><br><span class="line"></span><br><span class="line">This is a great introduction.</span><br><span class="line"></span><br><span class="line"><span class="comment">## Section 1</span></span><br><span class="line"></span><br><span class="line">Markdown will <span class="keyword">dictates </span>_most_ of your **<span class="keyword">book's </span>structure**</span><br><span class="line"></span><br><span class="line"><span class="comment">## Section 2</span></span><br><span class="line"></span><br><span class="line">...</span><br></pre></td></tr></table></figure>
-<p><strong>页面前言</strong></p>
-<p>页面可以包含一个可选的前言。它可以用于定义页面的描述。前面的事情必须是文件中的第一件事，必须采取在三虚线之间设置的有效 YAML 的形式。这是一个基本的例子：</p>
-<figure class="highlight yaml"><table><tr><td class="code"><pre><span class="line"><span class="meta">---</span></span><br><span class="line"><span class="attr">description:</span> <span class="string">This</span> <span class="string">is</span> <span class="string">a</span> <span class="string">short</span> <span class="string">description</span> <span class="string">of</span> <span class="string">my</span> <span class="string">page</span></span><br><span class="line"><span class="meta">---</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># The content of my page</span></span><br><span class="line"><span class="string">...</span></span><br></pre></td></tr></table></figure>
-<h3 id="glossary"><a class="markdownIt-Anchor" href="#glossary"></a> Glossary</h3>
-<p>允许您指定要显示为注释的术语及其各自的定义。根据这些术语，GitBook 将自动构建索引并突出显示这些术语。</p>
-<p><code>GLOSSARY.md</code> 的格式是 <code>h2</code> 标题的列表，以及描述段落：</p>
-<figure class="highlight applescript"><table><tr><td class="code"><pre><span class="line"><span class="comment">## Term</span></span><br><span class="line">Definition <span class="keyword">for</span> this term</span><br><span class="line"></span><br><span class="line"><span class="comment">## Another term</span></span><br><span class="line">With <span class="keyword">it</span>'s definition, this can <span class="keyword">contain</span> bold <span class="built_in">text</span></span><br><span class="line"><span class="keyword">and</span> all other kinds <span class="keyword">of</span> inline markup ...</span><br></pre></td></tr></table></figure>
-<h2 id="gitbook-配置"><a class="markdownIt-Anchor" href="#gitbook-配置"></a> Gitbook 配置</h2>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="meta">#!/bin/sh</span></span><br></pre></td></tr></table></figure>
+<ul>
+<li>指定 bash 解释器</li>
+</ul>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="meta">#!/bin/bash</span></span><br></pre></td></tr></table></figure>
 <blockquote>
-<p>GitBook 允许您使用灵活的配置自定义您的电子书。</p>
-<p>这些选项在 <code>book.json</code> 文件中指定。对于不熟悉 JSON 语法的作者，您可以使用 <a href="http://jsonlint.com/" target="_blank" rel="noopener">JSONlint</a> 等工具验证语法。</p>
+<p><strong>注意</strong></p>
+<p>上面的指定解释器的方式是比较常见的，但有时候，你可能也会看到下面的方式：</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="meta">#!/usr/bin/env bash</span></span><br></pre></td></tr></table></figure>
+<p>这样做的好处是，系统会自动在 <code>PATH</code> 环境变量中查找你指定的程序（本例中的<code>bash</code>）。相比第一种写法，你应该尽量用这种写法，因为程序的路径是不确定的。这样写还有一个好处，操作系统的<code>PATH</code>变量有可能被配置为指向程序的另一个版本。比如，安装完新版本的<code>bash</code>，我们可能将其路径添加到<code>PATH</code>中，来“隐藏”老版本。如果直接用<code>#!/bin/bash</code>，那么系统会选择老版本的<code>bash</code>来执行脚本，如果用<code>#!/usr/bin/env bash</code>，则会使用新版本。</p>
 </blockquote>
-<h3 id="常规设置"><a class="markdownIt-Anchor" href="#常规设置"></a> 常规设置</h3>
-<table>
-<thead>
-<tr>
-<th>变量</th>
-<th>描述</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td><code>root</code></td>
-<td>包含所有图书文件的根文件夹的路径，除了 <code>book.json</code></td>
-</tr>
-<tr>
-<td><code>structure</code></td>
-<td>指定自述文件，摘要，词汇表等的路径，参考 <a href="#structure">Structure paragraph</a>.</td>
-</tr>
-<tr>
-<td><code>title</code></td>
-<td>您的书名，默认值是从 README 中提取出来的。在 <a href="http://GitBook.com" target="_blank" rel="noopener">GitBook.com</a> 上，这个字段是预填的。</td>
-</tr>
-<tr>
-<td><code>description</code></td>
-<td>您的书籍的描述，默认值是从 README 中提取出来的。在 <a href="http://GitBook.com" target="_blank" rel="noopener">GitBook.com</a> 上，这个字段是预填的。</td>
-</tr>
-<tr>
-<td><code>author</code></td>
-<td>作者名。在 <a href="http://GitBook.com" target="_blank" rel="noopener">GitBook.com</a> 上，这个字段是预填的。</td>
-</tr>
-<tr>
-<td><code>isbn</code></td>
-<td>国际标准书号 ISBN</td>
-</tr>
-<tr>
-<td><code>language</code></td>
-<td>本书的语言类型 —— <a href="https://en.wikipedia.org/wiki/List_of_ISO_639-1_codes" target="_blank" rel="noopener">ISO code</a> 。默认值是 <code>en</code></td>
-</tr>
-<tr>
-<td><code>direction</code></td>
-<td>文本阅读顺序。可以是 <code>rtl</code> （从右向左）或 <code>ltr</code> （从左向右），默认值依赖于 <code>language</code> 的值。</td>
-</tr>
-<tr>
-<td><code>gitbook</code></td>
-<td>应该使用的 GitBook 版本。使用 <a href="http://semver.org/" target="_blank" rel="noopener">SemVer</a> 规范，并接受类似于 <code>“&gt; = 3.0.0”</code> 的条件。</td>
-</tr>
-</tbody>
-</table>
-<p>author</p>
-<p>作者姓名，在 <a href="http://GitBook.com" target="_blank" rel="noopener">GitBook.com</a> 上，这个字段是预先填写的。</p>
-<p>例：</p>
-<figure class="highlight"><table><tr><td class="code"><pre><span class="line">"author" : "victor zhang"</span><br></pre></td></tr></table></figure>
-<p>description</p>
-<p>电子书的描述，默认值是从 README 中提取出来的。在 <a href="http://GitBook.com" target="_blank" rel="noopener">GitBook.com</a> 上，这个字段是预先填写的。</p>
-<p>例：</p>
-<figure class="highlight"><table><tr><td class="code"><pre><span class="line">"description" : "Gitbook 教程"</span><br></pre></td></tr></table></figure>
-<p>direction</p>
-<p>文本的方向。可以是 rtl 或 ltr，默认值取决于语言的值。</p>
-<p>例：</p>
-<figure class="highlight"><table><tr><td class="code"><pre><span class="line">"direction" : "ltr"</span><br></pre></td></tr></table></figure>
-<p>gitbook</p>
-<p>应该使用的 GitBook 版本。使用 SemVer 规范，接受类似于 &gt;=3.0.0 的条件。</p>
-<p>例：</p>
-<figure class="highlight"><table><tr><td class="code"><pre><span class="line">"gitbook" : "3.0.0",</span><br><span class="line">"gitbook" : "&gt;=3.0.0"</span><br></pre></td></tr></table></figure>
-<p>language</p>
-<p>Gitbook 使用的语言, 版本 2.6.4 中可选的语言如下：</p>
-<figure class="highlight vim"><table><tr><td class="code"><pre><span class="line"><span class="keyword">en</span>, <span class="keyword">ar</span>, <span class="keyword">bn</span>, <span class="keyword">cs</span>, de, <span class="keyword">en</span>, es, fa, fi, fr, he, it, ja, ko, <span class="keyword">no</span>, pl, <span class="keyword">pt</span>, ro, <span class="keyword">ru</span>, <span class="keyword">sv</span>, uk, <span class="keyword">vi</span>, zh-hans, zh-tw</span><br></pre></td></tr></table></figure>
-<p>例：</p>
-<figure class="highlight"><table><tr><td class="code"><pre><span class="line">"language" : "zh-hans",</span><br></pre></td></tr></table></figure>
-<p>links</p>
-<p>在左侧导航栏添加链接信息</p>
-<p>例：</p>
-<figure class="highlight"><table><tr><td class="code"><pre><span class="line">"links" : &#123;</span><br><span class="line">    "sidebar" : &#123;</span><br><span class="line">        "Home" : "https://github.com/dunwu/gitbook-notes"</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>root</p>
-<p>包含所有图书文件的根文件夹的路径， book.json 文件除外。</p>
-<p>例：</p>
-<figure class="highlight"><table><tr><td class="code"><pre><span class="line">"root" : "./docs",</span><br></pre></td></tr></table></figure>
-<p>structure</p>
-<p>指定 Readme、Summary、Glossary 和 Languages 对应的文件名。</p>
-<p>styles</p>
-<p>自定义页面样式， 默认情况下各 generator 对应的 css 文件</p>
-<p>例：</p>
-<figure class="highlight"><table><tr><td class="code"><pre><span class="line">"styles": &#123;</span><br><span class="line">    "website": "styles/website.css",</span><br><span class="line">    "ebook": "styles/ebook.css",</span><br><span class="line">    "pdf": "styles/pdf.css",</span><br><span class="line">    "mobi": "styles/mobi.css",</span><br><span class="line">    "epub": "styles/epub.css"</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>例如要使 <code>h1</code>、<code>h2</code> 标签有下边框， 可以在 <code>website.css</code> 中设置</p>
-<figure class="highlight css"><table><tr><td class="code"><pre><span class="line"><span class="selector-tag">h1</span>,</span><br><span class="line"><span class="selector-tag">h2</span> &#123;</span><br><span class="line">  <span class="attribute">border-bottom</span>: <span class="number">1px</span> solid <span class="number">#efeaea</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>title</p>
-<p>电子书的书名，默认值是从 README 中提取出来的。在 <a href="http://GitBook.com" target="_blank" rel="noopener">GitBook.com</a> 上，这个字段是预先填写的。</p>
-<p>例：</p>
-<figure class="highlight"><table><tr><td class="code"><pre><span class="line">"title" : "gitbook-notes",</span><br></pre></td></tr></table></figure>
-<h3 id="plugins"><a class="markdownIt-Anchor" href="#plugins"></a> plugins</h3>
-<p>插件及其配置在 <code>book.json</code> 中指定。有关详细信息。</p>
-<p>自 3.0.0 版本开始，GitBook 可以使用主题。有关详细信息，请参阅 <a href="https://toolchain.gitbook.com/themes/" target="_blank" rel="noopener">the theming section</a> 。</p>
-<table>
-<thead>
-<tr>
-<th>变量</th>
-<th>描述</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td><code>plugins</code></td>
-<td>要加载的插件列表</td>
-</tr>
-<tr>
-<td><code>pluginsConfig</code></td>
-<td>插件的配置</td>
-</tr>
-</tbody>
-</table>
-<h4 id="添加插件"><a class="markdownIt-Anchor" href="#添加插件"></a> 添加插件</h4>
-<figure class="highlight"><table><tr><td class="code"><pre><span class="line">"plugins": [</span><br><span class="line">    <span class="string">"splitter"</span></span><br><span class="line">]</span><br></pre></td></tr></table></figure>
-<p>添加新插件之后需要运行 <code>gitbook install</code> 来安装新的插件</p>
-<h3 id="去除自带插件"><a class="markdownIt-Anchor" href="#去除自带插件"></a> 去除自带插件</h3>
-<p>Gitbook 默认带有 5 个插件：</p>
+<h3 id="14-模式"><a class="markdownIt-Anchor" href="#14-模式"></a> 1.4. 模式</h3>
+<p>shell 有交互和非交互两种模式。</p>
+<h4 id="交互模式"><a class="markdownIt-Anchor" href="#交互模式"></a> 交互模式</h4>
+<blockquote>
+<p>简单来说，你可以将 shell 的交互模式理解为执行命令行。</p>
+</blockquote>
+<p>看到形如下面的东西，说明 shell 处于交互模式下：</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">user@host:~$</span><br></pre></td></tr></table></figure>
+<p>接着，便可以输入一系列 Linux 命令，比如 <code>ls</code>，<code>grep</code>，<code>cd</code>，<code>mkdir</code>，<code>rm</code> 等等。</p>
+<h4 id="非交互模式"><a class="markdownIt-Anchor" href="#非交互模式"></a> 非交互模式</h4>
+<blockquote>
+<p>简单来说，你可以将 shell 的非交互模式理解为执行 shell 脚本。</p>
+</blockquote>
+<p>在非交互模式下，shell 从文件或者管道中读取命令并执行。</p>
+<p>当 shell 解释器执行完文件中的最后一个命令，shell 进程终止，并回到父进程。</p>
+<p>可以使用下面的命令让 shell 以非交互模式运行：</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">sh /path/to/script.sh</span><br><span class="line">bash /path/to/script.sh</span><br><span class="line"><span class="built_in">source</span> /path/to/script.sh</span><br><span class="line">./path/to/script.sh</span><br></pre></td></tr></table></figure>
+<p>上面的例子中，<code>script.sh</code>是一个包含 shell 解释器可以识别并执行的命令的普通文本文件，<code>sh</code>和<code>bash</code>是 shell 解释器程序。你可以使用任何喜欢的编辑器创建<code>script.sh</code>（vim，nano，Sublime Text, Atom 等等）。</p>
+<p>其中，<code>source /path/to/script.sh</code> 和 <code>./path/to/script.sh</code> 是等价的。</p>
+<p>除此之外，你还可以通过<code>chmod</code>命令给文件添加可执行的权限，来直接执行脚本文件：</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">chmod +x /path/to/script.sh <span class="comment">#使脚本具有执行权限</span></span><br><span class="line">/path/to/test.sh</span><br></pre></td></tr></table></figure>
+<p>这种方式要求脚本文件的第一行必须指明运行该脚本的程序，比如：</p>
+<p><strong>⌨️ 『示例源码』</strong></p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="meta">#!/usr/bin/env bash</span></span><br><span class="line"><span class="built_in">echo</span> <span class="string">"Hello, world!"</span></span><br></pre></td></tr></table></figure>
+<p>上面的例子中，我们使用了一个很有用的命令<code>echo</code>来输出字符串到屏幕上。</p>
+<h2 id="2-基本语法"><a class="markdownIt-Anchor" href="#2-基本语法"></a> 2. 基本语法</h2>
+<h3 id="21-解释器"><a class="markdownIt-Anchor" href="#21-解释器"></a> 2.1. 解释器</h3>
+<p>前面虽然两次提到了<code>#!</code> ，但是本着重要的事情说三遍的精神，这里再强调一遍：</p>
+<p>在 shell 脚本，<code>#!</code> 告诉系统其后路径所指定的程序即是解释此脚本文件的 Shell 解释器。<code>#!</code> 被称作<a href="https://zh.wikipedia.org/wiki/Shebang" target="_blank" rel="noopener">shebang（也称为 Hashbang ）</a>。</p>
+<p><code>#!</code> 决定了脚本可以像一个独立的可执行文件一样执行，而不用在终端之前输入<code>sh</code>, <code>bash</code>, <code>python</code>, <code>php</code>等。</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="comment"># 以下两种方式都可以指定 shell 解释器为 bash，第二种方式更好</span></span><br><span class="line"><span class="meta">#!/bin/bash</span></span><br><span class="line"><span class="meta">#!/usr/bin/env bash</span></span><br></pre></td></tr></table></figure>
+<h3 id="22-注释"><a class="markdownIt-Anchor" href="#22-注释"></a> 2.2. 注释</h3>
+<p>注释可以说明你的代码是什么作用，以及为什么这样写。</p>
+<p>shell 语法中，注释是特殊的语句，会被 shell 解释器忽略。</p>
 <ul>
-<li>highlight</li>
-<li>search</li>
-<li>sharing</li>
-<li>font-settings</li>
-<li>livereload</li>
+<li>单行注释 - 以 <code>#</code> 开头，到行尾结束。</li>
+<li>多行注释 - 以 <code>:&lt;&lt;EOF</code> 开头，到 <code>EOF</code> 结束。</li>
 </ul>
-<figure class="highlight"><table><tr><td class="code"><pre><span class="line">"plugins": [</span><br><span class="line">    <span class="string">"-search"</span></span><br><span class="line">]</span><br></pre></td></tr></table></figure>
-<h3 id="structure"><a class="markdownIt-Anchor" href="#structure"></a> structure</h3>
-<p>除了 <code>root</code> 属性之外，您可以指定 Readme，Summary，Glossary 和 Languages 的名称（而不是使用默认名称，如 <a href="http://README.md" target="_blank" rel="noopener">README.md</a>）。这些文件必须在项目的根目录下（或 <code>root</code> 的根目录，如果你在 <code>book.json</code> 中配置了 <code>root</code> 属性）。不接受的路径，如：<code>dir / MY_README.md</code>。</p>
+<p><strong>⌨️ 『示例源码』</strong></p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="comment">#--------------------------------------------</span></span><br><span class="line"><span class="comment"># shell 注释示例</span></span><br><span class="line"><span class="comment"># author：zp</span></span><br><span class="line"><span class="comment">#--------------------------------------------</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># echo '这是单行注释'</span></span><br><span class="line"></span><br><span class="line"><span class="comment">########## 这是分割线 ##########</span></span><br><span class="line"></span><br><span class="line">:&lt;&lt;EOF</span><br><span class="line"><span class="built_in">echo</span> <span class="string">'这是多行注释'</span></span><br><span class="line"><span class="built_in">echo</span> <span class="string">'这是多行注释'</span></span><br><span class="line"><span class="built_in">echo</span> <span class="string">'这是多行注释'</span></span><br><span class="line">EOF</span><br></pre></td></tr></table></figure>
+<h3 id="23-echo"><a class="markdownIt-Anchor" href="#23-echo"></a> 2.3. echo</h3>
+<p>echo 用于字符串的输出。</p>
+<p>输出普通字符串：</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="built_in">echo</span> <span class="string">"hello, world"</span></span><br><span class="line"><span class="comment"># Output: hello, world</span></span><br></pre></td></tr></table></figure>
+<p>输出含变量的字符串：</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="built_in">echo</span> <span class="string">"hello, \"zp\""</span></span><br><span class="line"><span class="comment"># Output: hello, "zp"</span></span><br></pre></td></tr></table></figure>
+<p>输出含变量的字符串：</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">name=zp</span><br><span class="line"><span class="built_in">echo</span> <span class="string">"hello, \"<span class="variable">$&#123;name&#125;</span>\""</span></span><br><span class="line"><span class="comment"># Output: hello, "zp"</span></span><br></pre></td></tr></table></figure>
+<p>输出含换行符的字符串：</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="comment"># 输出含换行符的字符串</span></span><br><span class="line"><span class="built_in">echo</span> <span class="string">"YES\nNO"</span></span><br><span class="line"><span class="comment">#  Output: YES\nNO</span></span><br><span class="line"></span><br><span class="line"><span class="built_in">echo</span> -e <span class="string">"YES\nNO"</span> <span class="comment"># -e 开启转义</span></span><br><span class="line"><span class="comment">#  Output:</span></span><br><span class="line"><span class="comment">#  YES</span></span><br><span class="line"><span class="comment">#  NO</span></span><br></pre></td></tr></table></figure>
+<p>输出含不换行符的字符串：</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="built_in">echo</span> <span class="string">"YES"</span></span><br><span class="line"><span class="built_in">echo</span> <span class="string">"NO"</span></span><br><span class="line"><span class="comment">#  Output:</span></span><br><span class="line"><span class="comment">#  YES</span></span><br><span class="line"><span class="comment">#  NO</span></span><br><span class="line"></span><br><span class="line"><span class="built_in">echo</span> -e <span class="string">"YES\c"</span> <span class="comment"># -e 开启转义 \c 不换行</span></span><br><span class="line"><span class="built_in">echo</span> <span class="string">"NO"</span></span><br><span class="line"><span class="comment">#  Output:</span></span><br><span class="line"><span class="comment">#  YESNO</span></span><br></pre></td></tr></table></figure>
+<p>输出重定向至文件</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="built_in">echo</span> <span class="string">"test"</span> &gt; test.txt</span><br></pre></td></tr></table></figure>
+<p>输出执行结果</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="built_in">echo</span> `<span class="built_in">pwd</span>`</span><br><span class="line"><span class="comment">#  Output:(当前目录路径)</span></span><br></pre></td></tr></table></figure>
+<p><strong>⌨️ 『示例源码』</strong></p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="meta">#!/usr/bin/env bash</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 输出普通字符串</span></span><br><span class="line"><span class="built_in">echo</span> <span class="string">"hello, world"</span></span><br><span class="line"><span class="comment">#  Output: hello, world</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 输出含变量的字符串</span></span><br><span class="line"><span class="built_in">echo</span> <span class="string">"hello, \"zp\""</span></span><br><span class="line"><span class="comment">#  Output: hello, "zp"</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 输出含变量的字符串</span></span><br><span class="line">name=zp</span><br><span class="line"><span class="built_in">echo</span> <span class="string">"hello, \"<span class="variable">$&#123;name&#125;</span>\""</span></span><br><span class="line"><span class="comment">#  Output: hello, "zp"</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 输出含换行符的字符串</span></span><br><span class="line"><span class="built_in">echo</span> <span class="string">"YES\nNO"</span></span><br><span class="line"><span class="comment">#  Output: YES\nNO</span></span><br><span class="line"><span class="built_in">echo</span> -e <span class="string">"YES\nNO"</span> <span class="comment"># -e 开启转义</span></span><br><span class="line"><span class="comment">#  Output:</span></span><br><span class="line"><span class="comment">#  YES</span></span><br><span class="line"><span class="comment">#  NO</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 输出含不换行符的字符串</span></span><br><span class="line"><span class="built_in">echo</span> <span class="string">"YES"</span></span><br><span class="line"><span class="built_in">echo</span> <span class="string">"NO"</span></span><br><span class="line"><span class="comment">#  Output:</span></span><br><span class="line"><span class="comment">#  YES</span></span><br><span class="line"><span class="comment">#  NO</span></span><br><span class="line"></span><br><span class="line"><span class="built_in">echo</span> -e <span class="string">"YES\c"</span> <span class="comment"># -e 开启转义 \c 不换行</span></span><br><span class="line"><span class="built_in">echo</span> <span class="string">"NO"</span></span><br><span class="line"><span class="comment">#  Output:</span></span><br><span class="line"><span class="comment">#  YESNO</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 输出内容定向至文件</span></span><br><span class="line"><span class="built_in">echo</span> <span class="string">"test"</span> &gt; test.txt</span><br><span class="line"></span><br><span class="line"><span class="comment"># 输出执行结果</span></span><br><span class="line"><span class="built_in">echo</span> `<span class="built_in">pwd</span>`</span><br><span class="line"><span class="comment">#  Output:(当前目录路径)</span></span><br></pre></td></tr></table></figure>
+<h3 id="24-printf"><a class="markdownIt-Anchor" href="#24-printf"></a> 2.4. printf</h3>
+<p>printf 用于格式化输出字符串。</p>
+<p>默认，printf 不会像 echo 一样自动添加换行符，如果需要换行可以手动添加 <code>\n</code>。</p>
+<p><strong>⌨️ 『示例源码』</strong></p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="comment"># 单引号</span></span><br><span class="line"><span class="built_in">printf</span> <span class="string">'%d %s\n'</span> 1 <span class="string">"abc"</span></span><br><span class="line"><span class="comment">#  Output:1 abc</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 双引号</span></span><br><span class="line"><span class="built_in">printf</span> <span class="string">"%d %s\n"</span> 1 <span class="string">"abc"</span></span><br><span class="line"><span class="comment">#  Output:1 abc</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 无引号</span></span><br><span class="line"><span class="built_in">printf</span> %s abcdef</span><br><span class="line"><span class="comment">#  Output: abcdef(并不会换行)</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 格式只指定了一个参数，但多出的参数仍然会按照该格式输出</span></span><br><span class="line"><span class="built_in">printf</span> <span class="string">"%s\n"</span> abc def</span><br><span class="line"><span class="comment">#  Output:</span></span><br><span class="line"><span class="comment">#  abc</span></span><br><span class="line"><span class="comment">#  def</span></span><br><span class="line"></span><br><span class="line"><span class="built_in">printf</span> <span class="string">"%s %s %s\n"</span> a b c d e f g h i j</span><br><span class="line"><span class="comment">#  Output:</span></span><br><span class="line"><span class="comment">#  a b c</span></span><br><span class="line"><span class="comment">#  d e f</span></span><br><span class="line"><span class="comment">#  g h i</span></span><br><span class="line"><span class="comment">#  j</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 如果没有参数，那么 %s 用 NULL 代替，%d 用 0 代替</span></span><br><span class="line"><span class="built_in">printf</span> <span class="string">"%s and %d \n"</span></span><br><span class="line"><span class="comment">#  Output:</span></span><br><span class="line"><span class="comment">#   and 0</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 格式化输出</span></span><br><span class="line"><span class="built_in">printf</span> <span class="string">"%-10s %-8s %-4s\n"</span> 姓名 性别 体重kg</span><br><span class="line"><span class="built_in">printf</span> <span class="string">"%-10s %-8s %-4.2f\n"</span> 郭靖 男 66.1234</span><br><span class="line"><span class="built_in">printf</span> <span class="string">"%-10s %-8s %-4.2f\n"</span> 杨过 男 48.6543</span><br><span class="line"><span class="built_in">printf</span> <span class="string">"%-10s %-8s %-4.2f\n"</span> 郭芙 女 47.9876</span><br><span class="line"><span class="comment">#  Output:</span></span><br><span class="line"><span class="comment">#  姓名     性别   体重kg</span></span><br><span class="line"><span class="comment">#  郭靖     男      66.12</span></span><br><span class="line"><span class="comment">#  杨过     男      48.65</span></span><br><span class="line"><span class="comment">#  郭芙     女      47.99</span></span><br></pre></td></tr></table></figure>
+<h4 id="printf-的转义符"><a class="markdownIt-Anchor" href="#printf-的转义符"></a> printf 的转义符</h4>
+<table>
+<thead>
+<tr>
+<th>序列</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>\a</code></td>
+<td>警告字符，通常为 ASCII 的 BEL 字符</td>
+</tr>
+<tr>
+<td><code>\b</code></td>
+<td>后退</td>
+</tr>
+<tr>
+<td><code>\c</code></td>
+<td>抑制（不显示）输出结果中任何结尾的换行字符（只在%b 格式指示符控制下的参数字符串中有效），而且，任何留在参数里的字符、任何接下来的参数以及任何留在格式字符串中的字符，都被忽略</td>
+</tr>
+<tr>
+<td><code>\f</code></td>
+<td>换页（formfeed）</td>
+</tr>
+<tr>
+<td><code>\n</code></td>
+<td>换行</td>
+</tr>
+<tr>
+<td><code>\r</code></td>
+<td>回车（Carriage return）</td>
+</tr>
+<tr>
+<td><code>\t</code></td>
+<td>水平制表符</td>
+</tr>
+<tr>
+<td><code>\v</code></td>
+<td>垂直制表符</td>
+</tr>
+<tr>
+<td><code>\\</code></td>
+<td>一个字面上的反斜杠字符</td>
+</tr>
+<tr>
+<td><code>\ddd</code></td>
+<td>表示 1 到 3 位数八进制值的字符。仅在格式字符串中有效</td>
+</tr>
+<tr>
+<td><code>\0ddd</code></td>
+<td>表示 1 到 3 位的八进制值字符</td>
+</tr>
+</tbody>
+</table>
+<h2 id="3-变量"><a class="markdownIt-Anchor" href="#3-变量"></a> 3. 变量</h2>
+<p>跟许多程序设计语言一样，你可以在 bash 中创建变量。</p>
+<p>Bash 中没有数据类型，bash 中的变量可以保存一个数字、一个字符、一个字符串等等。同时无需提前声明变量，给变量赋值会直接创建变量。</p>
+<h3 id="31-变量命名原则"><a class="markdownIt-Anchor" href="#31-变量命名原则"></a> 3.1. 变量命名原则</h3>
+<ul>
+<li>命名只能使用英文字母，数字和下划线，首个字符不能以数字开头。</li>
+<li>中间不能有空格，可以使用下划线（_）。</li>
+<li>不能使用标点符号。</li>
+<li>不能使用 bash 里的关键字（可用 help 命令查看保留关键字）。</li>
+</ul>
+<h3 id="32-声明变量"><a class="markdownIt-Anchor" href="#32-声明变量"></a> 3.2. 声明变量</h3>
+<p>访问变量的语法形式为：<code>${var}</code> 和 <code>$var</code> 。</p>
+<p>变量名外面的花括号是可选的，加不加都行，加花括号是为了帮助解释器识别变量的边界，所以推荐加花括号。</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">word=<span class="string">"hello"</span></span><br><span class="line"><span class="built_in">echo</span> <span class="variable">$&#123;word&#125;</span></span><br><span class="line"><span class="comment"># Output: hello</span></span><br></pre></td></tr></table></figure>
+<h3 id="33-只读变量"><a class="markdownIt-Anchor" href="#33-只读变量"></a> 3.3. 只读变量</h3>
+<p>使用 readonly 命令可以将变量定义为只读变量，只读变量的值不能被改变。</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">rword=<span class="string">"hello"</span></span><br><span class="line"><span class="built_in">echo</span> <span class="variable">$&#123;rword&#125;</span></span><br><span class="line"><span class="built_in">readonly</span> rword</span><br><span class="line"><span class="comment"># rword="bye"  # 如果放开注释，执行时会报错</span></span><br></pre></td></tr></table></figure>
+<h3 id="34-删除变量"><a class="markdownIt-Anchor" href="#34-删除变量"></a> 3.4. 删除变量</h3>
+<p>使用 unset 命令可以删除变量。变量被删除后不能再次使用。unset 命令不能删除只读变量。</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">dword=<span class="string">"hello"</span>  <span class="comment"># 声明变量</span></span><br><span class="line"><span class="built_in">echo</span> <span class="variable">$&#123;dword&#125;</span>  <span class="comment"># 输出变量值</span></span><br><span class="line"><span class="comment"># Output: hello</span></span><br><span class="line"></span><br><span class="line"><span class="built_in">unset</span> dword    <span class="comment"># 删除变量</span></span><br><span class="line"><span class="built_in">echo</span> <span class="variable">$&#123;dword&#125;</span></span><br><span class="line"><span class="comment"># Output: （空）</span></span><br></pre></td></tr></table></figure>
+<h3 id="35-变量类型"><a class="markdownIt-Anchor" href="#35-变量类型"></a> 3.5. 变量类型</h3>
+<ul>
+<li><strong>局部变量</strong> - 局部变量是仅在某个脚本内部有效的变量。它们不能被其他的程序和脚本访问。</li>
+<li><strong>环境变量</strong> - 环境变量是对当前 shell 会话内所有的程序或脚本都可见的变量。创建它们跟创建局部变量类似，但使用的是 <code>export</code> 关键字，shell 脚本也可以定义环境变量。</li>
+</ul>
+<p>常见的环境变量：</p>
 <table>
 <thead>
 <tr>
@@ -1498,155 +1372,719 @@
 </thead>
 <tbody>
 <tr>
-<td><code>structure.readme</code></td>
-<td>Readme 文件名（默认值是 <code>README.md</code> ）</td>
+<td><code>$HOME</code></td>
+<td>当前用户的用户目录</td>
 </tr>
 <tr>
-<td><code>structure.summary</code></td>
-<td>Summary 文件名（默认值是 <code>SUMMARY.md</code> ）</td>
+<td><code>$PATH</code></td>
+<td>用分号分隔的目录列表，shell 会到这些目录中查找命令</td>
 </tr>
 <tr>
-<td><code>structure.glossary</code></td>
-<td>Glossary 文件名（默认值是 <code>GLOSSARY.md</code> ）</td>
+<td><code>$PWD</code></td>
+<td>当前工作目录</td>
 </tr>
 <tr>
-<td><code>structure.languages</code></td>
-<td>Languages 文件名（默认值是 <code>LANGS.md</code> ）</td>
+<td><code>$RANDOM</code></td>
+<td>0 到 32767 之间的整数</td>
+</tr>
+<tr>
+<td><code>$UID</code></td>
+<td>数值类型，当前用户的用户 ID</td>
+</tr>
+<tr>
+<td><code>$PS1</code></td>
+<td>主要系统输入提示符</td>
+</tr>
+<tr>
+<td><code>$PS2</code></td>
+<td>次要系统输入提示符</td>
 </tr>
 </tbody>
 </table>
-<h3 id="pdf"><a class="markdownIt-Anchor" href="#pdf"></a> pdf</h3>
-<p>可以使用 <code>book.json</code> 中的一组选项来定制 PDF 输出：</p>
+<p><a href="http://tldp.org/LDP/Bash-Beginners-Guide/html/sect_03_02.html###sect_03_02_04" target="_blank" rel="noopener">这里</a> 有一张更全面的 Bash 环境变量列表。</p>
+<p><strong>⌨️ 『示例源码』</strong></p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="meta">#!/usr/bin/env bash</span></span><br><span class="line"></span><br><span class="line"><span class="comment">################### 声明变量 ###################</span></span><br><span class="line">name=<span class="string">"world"</span></span><br><span class="line"><span class="built_in">echo</span> <span class="string">"hello <span class="variable">$&#123;name&#125;</span>"</span></span><br><span class="line"><span class="comment"># Output: hello world</span></span><br><span class="line"></span><br><span class="line"><span class="comment">################### 输出变量 ###################</span></span><br><span class="line">folder=$(<span class="built_in">pwd</span>)</span><br><span class="line"><span class="built_in">echo</span> <span class="string">"current path: <span class="variable">$&#123;folder&#125;</span>"</span></span><br><span class="line"></span><br><span class="line"><span class="comment">################### 只读变量 ###################</span></span><br><span class="line">rword=<span class="string">"hello"</span></span><br><span class="line"><span class="built_in">echo</span> <span class="variable">$&#123;rword&#125;</span></span><br><span class="line"><span class="comment"># Output: hello</span></span><br><span class="line"><span class="built_in">readonly</span> rword</span><br><span class="line"><span class="comment"># rword="bye"  # 如果放开注释，执行时会报错</span></span><br><span class="line"></span><br><span class="line"><span class="comment">################### 删除变量 ###################</span></span><br><span class="line">dword=<span class="string">"hello"</span> <span class="comment"># 声明变量</span></span><br><span class="line"><span class="built_in">echo</span> <span class="variable">$&#123;dword&#125;</span> <span class="comment"># 输出变量值</span></span><br><span class="line"><span class="comment"># Output: hello</span></span><br><span class="line"></span><br><span class="line"><span class="built_in">unset</span> dword <span class="comment"># 删除变量</span></span><br><span class="line"><span class="built_in">echo</span> <span class="variable">$&#123;dword&#125;</span></span><br><span class="line"><span class="comment"># Output: （空）</span></span><br><span class="line"></span><br><span class="line"><span class="comment">################### 系统变量 ###################</span></span><br><span class="line"><span class="built_in">echo</span> <span class="string">"UID:<span class="variable">$UID</span>"</span></span><br><span class="line"><span class="built_in">echo</span> LOGNAME:<span class="variable">$LOGNAME</span></span><br><span class="line"><span class="built_in">echo</span> User:<span class="variable">$USER</span></span><br><span class="line"><span class="built_in">echo</span> HOME:<span class="variable">$HOME</span></span><br><span class="line"><span class="built_in">echo</span> PATH:<span class="variable">$PATH</span></span><br><span class="line"><span class="built_in">echo</span> HOSTNAME:<span class="variable">$HOSTNAME</span></span><br><span class="line"><span class="built_in">echo</span> SHELL:<span class="variable">$SHELL</span></span><br><span class="line"><span class="built_in">echo</span> LANG:<span class="variable">$LANG</span></span><br><span class="line"></span><br><span class="line"><span class="comment">################### 自定义变量 ###################</span></span><br><span class="line">days=10</span><br><span class="line">user=<span class="string">"admin"</span></span><br><span class="line"><span class="built_in">echo</span> <span class="string">"<span class="variable">$user</span> logged in <span class="variable">$days</span> days age"</span></span><br><span class="line">days=5</span><br><span class="line">user=<span class="string">"root"</span></span><br><span class="line"><span class="built_in">echo</span> <span class="string">"<span class="variable">$user</span> logged in <span class="variable">$days</span> days age"</span></span><br><span class="line"><span class="comment"># Output:</span></span><br><span class="line"><span class="comment"># admin logged in 10 days age</span></span><br><span class="line"><span class="comment"># root logged in 5 days age</span></span><br><span class="line"></span><br><span class="line"><span class="comment">################### 从变量读取列表 ###################</span></span><br><span class="line">colors=<span class="string">"Red Yellow Blue"</span></span><br><span class="line">colors=<span class="variable">$colors</span><span class="string">" White Black"</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">for</span> color <span class="keyword">in</span> <span class="variable">$colors</span></span><br><span class="line"><span class="keyword">do</span></span><br><span class="line">	<span class="built_in">echo</span> <span class="string">" <span class="variable">$color</span>"</span></span><br><span class="line"><span class="keyword">done</span></span><br></pre></td></tr></table></figure>
+<h2 id="4-字符串"><a class="markdownIt-Anchor" href="#4-字符串"></a> 4. 字符串</h2>
+<h3 id="41-单引号和双引号"><a class="markdownIt-Anchor" href="#41-单引号和双引号"></a> 4.1. 单引号和双引号</h3>
+<p>shell 字符串可以用单引号 <code>''</code>，也可以用双引号 <code>“”</code>，也可以不用引号。</p>
+<ul>
+<li>单引号的特点
+<ul>
+<li>单引号里不识别变量</li>
+<li>单引号里不能出现单独的单引号（使用转义符也不行），但可成对出现，作为字符串拼接使用。</li>
+</ul>
+</li>
+<li>双引号的特点
+<ul>
+<li>双引号里识别变量</li>
+<li>双引号里可以出现转义字符</li>
+</ul>
+</li>
+</ul>
+<p>综上，推荐使用双引号。</p>
+<h3 id="42-拼接字符串"><a class="markdownIt-Anchor" href="#42-拼接字符串"></a> 4.2. 拼接字符串</h3>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="comment"># 使用单引号拼接</span></span><br><span class="line">name1=<span class="string">'white'</span></span><br><span class="line">str1=<span class="string">'hello, '</span><span class="variable">$&#123;name1&#125;</span><span class="string">''</span></span><br><span class="line">str2=<span class="string">'hello, $&#123;name1&#125;'</span></span><br><span class="line"><span class="built_in">echo</span> <span class="variable">$&#123;str1&#125;</span>_<span class="variable">$&#123;str2&#125;</span></span><br><span class="line"><span class="comment"># Output:</span></span><br><span class="line"><span class="comment"># hello, white_hello, $&#123;name1&#125;</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 使用双引号拼接</span></span><br><span class="line">name2=<span class="string">"black"</span></span><br><span class="line">str3=<span class="string">"hello, "</span><span class="variable">$&#123;name2&#125;</span><span class="string">""</span></span><br><span class="line">str4=<span class="string">"hello, <span class="variable">$&#123;name2&#125;</span>"</span></span><br><span class="line"><span class="built_in">echo</span> <span class="variable">$&#123;str3&#125;</span>_<span class="variable">$&#123;str4&#125;</span></span><br><span class="line"><span class="comment"># Output:</span></span><br><span class="line"><span class="comment"># hello, black_hello, black</span></span><br></pre></td></tr></table></figure>
+<h3 id="43-获取字符串长度"><a class="markdownIt-Anchor" href="#43-获取字符串长度"></a> 4.3. 获取字符串长度</h3>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">text=<span class="string">"12345"</span></span><br><span class="line"><span class="built_in">echo</span> <span class="variable">$&#123;#text&#125;</span></span><br><span class="line"><span class="comment"># Output:</span></span><br><span class="line"><span class="comment"># 5</span></span><br></pre></td></tr></table></figure>
+<h3 id="44-截取子字符串"><a class="markdownIt-Anchor" href="#44-截取子字符串"></a> 4.4. 截取子字符串</h3>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">text=<span class="string">"12345"</span></span><br><span class="line"><span class="built_in">echo</span> <span class="variable">$&#123;text:2:2&#125;</span></span><br><span class="line"><span class="comment"># Output:</span></span><br><span class="line"><span class="comment"># 34</span></span><br></pre></td></tr></table></figure>
+<p>从第 3 个字符开始，截取 2 个字符</p>
+<h3 id="45-查找子字符串"><a class="markdownIt-Anchor" href="#45-查找子字符串"></a> 4.5. 查找子字符串</h3>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="meta">#!/usr/bin/env bash</span></span><br><span class="line"></span><br><span class="line">text=<span class="string">"hello"</span></span><br><span class="line"><span class="built_in">echo</span> `expr index <span class="string">"<span class="variable">$&#123;text&#125;</span>"</span> ll`</span><br><span class="line"></span><br><span class="line"><span class="comment"># Execute: ./str-demo5.sh</span></span><br><span class="line"><span class="comment"># Output:</span></span><br><span class="line"><span class="comment"># 3</span></span><br></pre></td></tr></table></figure>
+<p>查找 <code>ll</code> 子字符在 <code>hello</code> 字符串中的起始位置。</p>
+<p><strong>⌨️ 『示例源码』</strong></p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="meta">#!/usr/bin/env bash</span></span><br><span class="line"></span><br><span class="line"><span class="comment">################### 使用单引号拼接字符串 ###################</span></span><br><span class="line">name1=<span class="string">'white'</span></span><br><span class="line">str1=<span class="string">'hello, '</span><span class="variable">$&#123;name1&#125;</span><span class="string">''</span></span><br><span class="line">str2=<span class="string">'hello, $&#123;name1&#125;'</span></span><br><span class="line"><span class="built_in">echo</span> <span class="variable">$&#123;str1&#125;</span>_<span class="variable">$&#123;str2&#125;</span></span><br><span class="line"><span class="comment"># Output:</span></span><br><span class="line"><span class="comment"># hello, white_hello, $&#123;name1&#125;</span></span><br><span class="line"></span><br><span class="line"><span class="comment">################### 使用双引号拼接字符串 ###################</span></span><br><span class="line">name2=<span class="string">"black"</span></span><br><span class="line">str3=<span class="string">"hello, "</span><span class="variable">$&#123;name2&#125;</span><span class="string">""</span></span><br><span class="line">str4=<span class="string">"hello, <span class="variable">$&#123;name2&#125;</span>"</span></span><br><span class="line"><span class="built_in">echo</span> <span class="variable">$&#123;str3&#125;</span>_<span class="variable">$&#123;str4&#125;</span></span><br><span class="line"><span class="comment"># Output:</span></span><br><span class="line"><span class="comment"># hello, black_hello, black</span></span><br><span class="line"></span><br><span class="line"><span class="comment">################### 获取字符串长度 ###################</span></span><br><span class="line">text=<span class="string">"12345"</span></span><br><span class="line"><span class="built_in">echo</span> <span class="string">"<span class="variable">$&#123;text&#125;</span> length is: <span class="variable">$&#123;#text&#125;</span>"</span></span><br><span class="line"><span class="comment"># Output:</span></span><br><span class="line"><span class="comment"># 12345 length is: 5</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 获取子字符串</span></span><br><span class="line">text=<span class="string">"12345"</span></span><br><span class="line"><span class="built_in">echo</span> <span class="variable">$&#123;text:2:2&#125;</span></span><br><span class="line"><span class="comment"># Output:</span></span><br><span class="line"><span class="comment"># 34</span></span><br><span class="line"></span><br><span class="line"><span class="comment">################### 查找子字符串 ###################</span></span><br><span class="line">text=<span class="string">"hello"</span></span><br><span class="line"><span class="built_in">echo</span> `expr index <span class="string">"<span class="variable">$&#123;text&#125;</span>"</span> ll`</span><br><span class="line"><span class="comment"># Output:</span></span><br><span class="line"><span class="comment"># 3</span></span><br><span class="line"></span><br><span class="line"><span class="comment">################### 判断字符串中是否包含子字符串 ###################</span></span><br><span class="line">result=$(<span class="built_in">echo</span> <span class="string">"<span class="variable">$&#123;str&#125;</span>"</span> | grep <span class="string">"feature/"</span>)</span><br><span class="line"><span class="keyword">if</span> [[ <span class="string">"<span class="variable">$result</span>"</span> != <span class="string">""</span> ]]; <span class="keyword">then</span></span><br><span class="line">	<span class="built_in">echo</span> <span class="string">"feature/ 是 <span class="variable">$&#123;str&#125;</span> 的子字符串"</span></span><br><span class="line"><span class="keyword">else</span></span><br><span class="line">	<span class="built_in">echo</span> <span class="string">"feature/ 不是 <span class="variable">$&#123;str&#125;</span> 的子字符串"</span></span><br><span class="line"><span class="keyword">fi</span></span><br><span class="line"></span><br><span class="line"><span class="comment">################### 截取关键字左边内容 ###################</span></span><br><span class="line">full_branch=<span class="string">"feature/1.0.0"</span></span><br><span class="line">branch=`<span class="built_in">echo</span> <span class="variable">$&#123;full_branch#feature/&#125;</span>`</span><br><span class="line"><span class="built_in">echo</span> <span class="string">"branch is <span class="variable">$&#123;branch&#125;</span>"</span></span><br><span class="line"></span><br><span class="line"><span class="comment">################### 截取关键字右边内容 ###################</span></span><br><span class="line">full_version=<span class="string">"0.0.1-SNAPSHOT"</span></span><br><span class="line">version=`<span class="built_in">echo</span> <span class="variable">$&#123;full_version%-SNAPSHOT&#125;</span>`</span><br><span class="line"><span class="built_in">echo</span> <span class="string">"version is <span class="variable">$&#123;version&#125;</span>"</span></span><br><span class="line"></span><br><span class="line"><span class="comment">################### 字符串分割成数组 ###################</span></span><br><span class="line">str=<span class="string">"0.0.0.1"</span></span><br><span class="line">OLD_IFS=<span class="string">"<span class="variable">$IFS</span>"</span></span><br><span class="line">IFS=<span class="string">"."</span></span><br><span class="line">array=( <span class="variable">$&#123;str&#125;</span> )</span><br><span class="line">IFS=<span class="string">"<span class="variable">$OLD_IFS</span>"</span></span><br><span class="line">size=<span class="variable">$&#123;#array[*]&#125;</span></span><br><span class="line">lastIndex=`expr <span class="variable">$&#123;size&#125;</span> - 1`</span><br><span class="line"><span class="built_in">echo</span> <span class="string">"数组长度：<span class="variable">$&#123;size&#125;</span>"</span></span><br><span class="line"><span class="built_in">echo</span> <span class="string">"最后一个数组元素：<span class="variable">$&#123;array[$&#123;lastIndex&#125;</span>]&#125;"</span></span><br><span class="line"><span class="keyword">for</span> item <span class="keyword">in</span> <span class="variable">$&#123;array[@]&#125;</span></span><br><span class="line"><span class="keyword">do</span></span><br><span class="line">	<span class="built_in">echo</span> <span class="string">"<span class="variable">$item</span>"</span></span><br><span class="line"><span class="keyword">done</span></span><br><span class="line"></span><br><span class="line"><span class="comment">################### 判断字符串是否为空 ###################</span></span><br><span class="line"><span class="comment">#-n 判断长度是否非零</span></span><br><span class="line"><span class="comment">#-z 判断长度是否为零</span></span><br><span class="line"></span><br><span class="line">str=testing</span><br><span class="line">str2=<span class="string">''</span></span><br><span class="line"><span class="keyword">if</span> [[ -n <span class="string">"<span class="variable">$str</span>"</span> ]]</span><br><span class="line"><span class="keyword">then</span></span><br><span class="line">	<span class="built_in">echo</span> <span class="string">"The string <span class="variable">$str</span> is not empty"</span></span><br><span class="line"><span class="keyword">else</span></span><br><span class="line">	<span class="built_in">echo</span> <span class="string">"The string <span class="variable">$str</span> is empty"</span></span><br><span class="line"><span class="keyword">fi</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span> [[ -n <span class="string">"<span class="variable">$str2</span>"</span> ]]</span><br><span class="line"><span class="keyword">then</span></span><br><span class="line">	<span class="built_in">echo</span> <span class="string">"The string <span class="variable">$str2</span> is not empty"</span></span><br><span class="line"><span class="keyword">else</span></span><br><span class="line">	<span class="built_in">echo</span> <span class="string">"The string <span class="variable">$str2</span> is empty"</span></span><br><span class="line"><span class="keyword">fi</span></span><br><span class="line"></span><br><span class="line"><span class="comment">#	Output:</span></span><br><span class="line"><span class="comment">#	The string testing is not empty</span></span><br><span class="line"><span class="comment">#	The string  is empty</span></span><br><span class="line"></span><br><span class="line"><span class="comment">################### 字符串比较 ###################</span></span><br><span class="line">str=hello</span><br><span class="line">str2=world</span><br><span class="line"><span class="keyword">if</span> [[ <span class="variable">$str</span> = <span class="string">"hello"</span> ]]; <span class="keyword">then</span></span><br><span class="line">	<span class="built_in">echo</span> <span class="string">"str equals hello"</span></span><br><span class="line"><span class="keyword">else</span></span><br><span class="line">	<span class="built_in">echo</span> <span class="string">"str not equals hello"</span></span><br><span class="line"><span class="keyword">fi</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span> [[ <span class="variable">$str2</span> = <span class="string">"hello"</span> ]]; <span class="keyword">then</span></span><br><span class="line">	<span class="built_in">echo</span> <span class="string">"str2 equals hello"</span></span><br><span class="line"><span class="keyword">else</span></span><br><span class="line">	<span class="built_in">echo</span> <span class="string">"str2 not equals hello"</span></span><br><span class="line"><span class="keyword">fi</span></span><br></pre></td></tr></table></figure>
+<h2 id="5-数组"><a class="markdownIt-Anchor" href="#5-数组"></a> 5. 数组</h2>
+<p>bash 只支持一维数组。</p>
+<p>数组下标从 0 开始，下标可以是整数或算术表达式，其值应大于或等于 0。</p>
+<h3 id="51-创建数组"><a class="markdownIt-Anchor" href="#51-创建数组"></a> 5.1. 创建数组</h3>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="comment"># 创建数组的不同方式</span></span><br><span class="line">nums=([2]=2 [0]=0 [1]=1)</span><br><span class="line">colors=(red yellow <span class="string">"dark blue"</span>)</span><br></pre></td></tr></table></figure>
+<h3 id="52-访问数组元素"><a class="markdownIt-Anchor" href="#52-访问数组元素"></a> 5.2. 访问数组元素</h3>
+<ul>
+<li><strong>访问数组的单个元素：</strong></li>
+</ul>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="built_in">echo</span> <span class="variable">$&#123;nums[1]&#125;</span></span><br><span class="line"><span class="comment"># Output: 1</span></span><br></pre></td></tr></table></figure>
+<ul>
+<li><strong>访问数组的所有元素：</strong></li>
+</ul>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="built_in">echo</span> <span class="variable">$&#123;colors[*]&#125;</span></span><br><span class="line"><span class="comment"># Output: red yellow dark blue</span></span><br><span class="line"></span><br><span class="line"><span class="built_in">echo</span> <span class="variable">$&#123;colors[@]&#125;</span></span><br><span class="line"><span class="comment"># Output: red yellow dark blue</span></span><br></pre></td></tr></table></figure>
+<p>上面两行有很重要（也很微妙）的区别：</p>
+<p>为了将数组中每个元素单独一行输出，我们用 <code>printf</code> 命令：</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="built_in">printf</span> <span class="string">"+ %s\n"</span> <span class="variable">$&#123;colors[*]&#125;</span></span><br><span class="line"><span class="comment"># Output:</span></span><br><span class="line"><span class="comment"># + red</span></span><br><span class="line"><span class="comment"># + yellow</span></span><br><span class="line"><span class="comment"># + dark</span></span><br><span class="line"><span class="comment"># + blue</span></span><br></pre></td></tr></table></figure>
+<p>为什么<code>dark</code>和<code>blue</code>各占了一行？尝试用引号包起来：</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="built_in">printf</span> <span class="string">"+ %s\n"</span> <span class="string">"<span class="variable">$&#123;colors[*]&#125;</span>"</span></span><br><span class="line"><span class="comment"># Output:</span></span><br><span class="line"><span class="comment"># + red yellow dark blue</span></span><br></pre></td></tr></table></figure>
+<p>现在所有的元素都在一行输出 —— 这不是我们想要的！让我们试试<code>${colors[@]}</code></p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="built_in">printf</span> <span class="string">"+ %s\n"</span> <span class="string">"<span class="variable">$&#123;colors[@]&#125;</span>"</span></span><br><span class="line"><span class="comment"># Output:</span></span><br><span class="line"><span class="comment"># + red</span></span><br><span class="line"><span class="comment"># + yellow</span></span><br><span class="line"><span class="comment"># + dark blue</span></span><br></pre></td></tr></table></figure>
+<p>在引号内，<code>${colors[@]}</code>将数组中的每个元素扩展为一个单独的参数；数组元素中的空格得以保留。</p>
+<ul>
+<li><strong>访问数组的部分元素：</strong></li>
+</ul>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="built_in">echo</span> <span class="variable">$&#123;nums[@]:0:2&#125;</span></span><br><span class="line"><span class="comment"># Output:</span></span><br><span class="line"><span class="comment"># 0 1</span></span><br></pre></td></tr></table></figure>
+<p>在上面的例子中，<code>${array[@]}</code> 扩展为整个数组，<code>:0:2</code>取出了数组中从 0 开始，长度为 2 的元素。</p>
+<h3 id="53-访问数组长度"><a class="markdownIt-Anchor" href="#53-访问数组长度"></a> 5.3. 访问数组长度</h3>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="built_in">echo</span> <span class="variable">$&#123;#nums[*]&#125;</span></span><br><span class="line"><span class="comment"># Output:</span></span><br><span class="line"><span class="comment"># 3</span></span><br></pre></td></tr></table></figure>
+<h3 id="54-向数组中添加元素"><a class="markdownIt-Anchor" href="#54-向数组中添加元素"></a> 5.4. 向数组中添加元素</h3>
+<p>向数组中添加元素也非常简单：</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">colors=(white <span class="string">"<span class="variable">$&#123;colors[@]&#125;</span>"</span> green black)</span><br><span class="line"><span class="built_in">echo</span> <span class="variable">$&#123;colors[@]&#125;</span></span><br><span class="line"><span class="comment"># Output:</span></span><br><span class="line"><span class="comment"># white red yellow dark blue green black</span></span><br></pre></td></tr></table></figure>
+<p>上面的例子中，<code>${colors[@]}</code> 扩展为整个数组，并被置换到复合赋值语句中，接着，对数组<code>colors</code>的赋值覆盖了它原来的值。</p>
+<h3 id="55-从数组中删除元素"><a class="markdownIt-Anchor" href="#55-从数组中删除元素"></a> 5.5. 从数组中删除元素</h3>
+<p>用<code>unset</code>命令来从数组中删除一个元素：</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="built_in">unset</span> nums[0]</span><br><span class="line"><span class="built_in">echo</span> <span class="variable">$&#123;nums[@]&#125;</span></span><br><span class="line"><span class="comment"># Output:</span></span><br><span class="line"><span class="comment"># 1 2</span></span><br></pre></td></tr></table></figure>
+<p><strong>⌨️ 『示例源码』</strong></p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="meta">#!/usr/bin/env bash</span></span><br><span class="line"></span><br><span class="line"><span class="comment">################### 创建数组 ###################</span></span><br><span class="line">nums=( [ 2 ] = 2 [ 0 ] = 0 [ 1 ] = 1 )</span><br><span class="line">colors=( red yellow <span class="string">"dark blue"</span> )</span><br><span class="line"></span><br><span class="line"><span class="comment">################### 访问数组的单个元素 ###################</span></span><br><span class="line"><span class="built_in">echo</span> <span class="variable">$&#123;nums[1]&#125;</span></span><br><span class="line"><span class="comment"># Output: 1</span></span><br><span class="line"></span><br><span class="line"><span class="comment">################### 访问数组的所有元素 ###################</span></span><br><span class="line"><span class="built_in">echo</span> <span class="variable">$&#123;colors[*]&#125;</span></span><br><span class="line"><span class="comment"># Output: red yellow dark blue</span></span><br><span class="line"></span><br><span class="line"><span class="built_in">echo</span> <span class="variable">$&#123;colors[@]&#125;</span></span><br><span class="line"><span class="comment"># Output: red yellow dark blue</span></span><br><span class="line"></span><br><span class="line"><span class="built_in">printf</span> <span class="string">"+ %s\n"</span> <span class="variable">$&#123;colors[*]&#125;</span></span><br><span class="line"><span class="comment"># Output:</span></span><br><span class="line"><span class="comment"># + red</span></span><br><span class="line"><span class="comment"># + yellow</span></span><br><span class="line"><span class="comment"># + dark</span></span><br><span class="line"><span class="comment"># + blue</span></span><br><span class="line"></span><br><span class="line"><span class="built_in">printf</span> <span class="string">"+ %s\n"</span> <span class="string">"<span class="variable">$&#123;colors[*]&#125;</span>"</span></span><br><span class="line"><span class="comment"># Output:</span></span><br><span class="line"><span class="comment"># + red yellow dark blue</span></span><br><span class="line"></span><br><span class="line"><span class="built_in">printf</span> <span class="string">"+ %s\n"</span> <span class="string">"<span class="variable">$&#123;colors[@]&#125;</span>"</span></span><br><span class="line"><span class="comment"># Output:</span></span><br><span class="line"><span class="comment"># + red</span></span><br><span class="line"><span class="comment"># + yellow</span></span><br><span class="line"><span class="comment"># + dark blue</span></span><br><span class="line"></span><br><span class="line"><span class="comment">################### 访问数组的部分元素 ###################</span></span><br><span class="line"><span class="built_in">echo</span> <span class="variable">$&#123;nums[@]:0:2&#125;</span></span><br><span class="line"><span class="comment"># Output:</span></span><br><span class="line"><span class="comment"># 0 1</span></span><br><span class="line"></span><br><span class="line"><span class="comment">################### 获取数组长度 ###################</span></span><br><span class="line"><span class="built_in">echo</span> <span class="variable">$&#123;#nums[*]&#125;</span></span><br><span class="line"><span class="comment"># Output:</span></span><br><span class="line"><span class="comment"># 3</span></span><br><span class="line"></span><br><span class="line"><span class="comment">################### 向数组中添加元素 ###################</span></span><br><span class="line">colors=( white <span class="string">"<span class="variable">$&#123;colors[@]&#125;</span>"</span> green black )</span><br><span class="line"><span class="built_in">echo</span> <span class="variable">$&#123;colors[@]&#125;</span></span><br><span class="line"><span class="comment"># Output:</span></span><br><span class="line"><span class="comment"># white red yellow dark blue green black</span></span><br><span class="line"></span><br><span class="line"><span class="comment">################### 从数组中删除元素 ###################</span></span><br><span class="line"><span class="built_in">unset</span> nums[ 0 ]</span><br><span class="line"><span class="built_in">echo</span> <span class="variable">$&#123;nums[@]&#125;</span></span><br><span class="line"><span class="comment"># Output:</span></span><br><span class="line"><span class="comment"># 1 2</span></span><br></pre></td></tr></table></figure>
+<h2 id="6-运算符"><a class="markdownIt-Anchor" href="#6-运算符"></a> 6. 运算符</h2>
+<h3 id="61-算术运算符"><a class="markdownIt-Anchor" href="#61-算术运算符"></a> 6.1. 算术运算符</h3>
+<p>下表列出了常用的算术运算符，假定变量 x 为 10，变量 y 为 20：</p>
 <table>
 <thead>
 <tr>
-<th>Variable</th>
+<th>运算符</th>
+<th>说明</th>
+<th>举例</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>+</td>
+<td>加法</td>
+<td><code>expr $x + $y</code> 结果为 30。</td>
+</tr>
+<tr>
+<td>-</td>
+<td>减法</td>
+<td><code>expr $x - $y</code> 结果为 -10。</td>
+</tr>
+<tr>
+<td>*</td>
+<td>乘法</td>
+<td><code>expr $x * $y</code> 结果为 200。</td>
+</tr>
+<tr>
+<td>/</td>
+<td>除法</td>
+<td><code>expr $y / $x</code> 结果为 2。</td>
+</tr>
+<tr>
+<td>%</td>
+<td>取余</td>
+<td><code>expr $y % $x</code> 结果为 0。</td>
+</tr>
+<tr>
+<td>=</td>
+<td>赋值</td>
+<td><code>x=$y</code> 将把变量 y 的值赋给 x。</td>
+</tr>
+<tr>
+<td>==</td>
+<td>相等。用于比较两个数字，相同则返回 true。</td>
+<td><code>[ $x == $y ]</code> 返回 false。</td>
+</tr>
+<tr>
+<td>!=</td>
+<td>不相等。用于比较两个数字，不相同则返回 true。</td>
+<td><code>[ $x != $y ]</code> 返回 true。</td>
+</tr>
+</tbody>
+</table>
+<p>**注意：**条件表达式要放在方括号之间，并且要有空格，例如: <code>[$x==$y]</code> 是错误的，必须写成 <code>[ $x == $y ]</code>。</p>
+<p><strong>⌨️ 『示例源码』</strong></p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">x=10</span><br><span class="line">y=20</span><br><span class="line"></span><br><span class="line"><span class="built_in">echo</span> <span class="string">"x=<span class="variable">$&#123;x&#125;</span>, y=<span class="variable">$&#123;y&#125;</span>"</span></span><br><span class="line"></span><br><span class="line">val=`expr <span class="variable">$&#123;x&#125;</span> + <span class="variable">$&#123;y&#125;</span>`</span><br><span class="line"><span class="built_in">echo</span> <span class="string">"<span class="variable">$&#123;x&#125;</span> + <span class="variable">$&#123;y&#125;</span> = <span class="variable">$val</span>"</span></span><br><span class="line"></span><br><span class="line">val=`expr <span class="variable">$&#123;x&#125;</span> - <span class="variable">$&#123;y&#125;</span>`</span><br><span class="line"><span class="built_in">echo</span> <span class="string">"<span class="variable">$&#123;x&#125;</span> - <span class="variable">$&#123;y&#125;</span> = <span class="variable">$val</span>"</span></span><br><span class="line"></span><br><span class="line">val=`expr <span class="variable">$&#123;x&#125;</span> \* <span class="variable">$&#123;y&#125;</span>`</span><br><span class="line"><span class="built_in">echo</span> <span class="string">"<span class="variable">$&#123;x&#125;</span> * <span class="variable">$&#123;y&#125;</span> = <span class="variable">$val</span>"</span></span><br><span class="line"></span><br><span class="line">val=`expr <span class="variable">$&#123;y&#125;</span> / <span class="variable">$&#123;x&#125;</span>`</span><br><span class="line"><span class="built_in">echo</span> <span class="string">"<span class="variable">$&#123;y&#125;</span> / <span class="variable">$&#123;x&#125;</span> = <span class="variable">$val</span>"</span></span><br><span class="line"></span><br><span class="line">val=`expr <span class="variable">$&#123;y&#125;</span> % <span class="variable">$&#123;x&#125;</span>`</span><br><span class="line"><span class="built_in">echo</span> <span class="string">"<span class="variable">$&#123;y&#125;</span> % <span class="variable">$&#123;x&#125;</span> = <span class="variable">$val</span>"</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span> [[ <span class="variable">$&#123;x&#125;</span> == <span class="variable">$&#123;y&#125;</span> ]]</span><br><span class="line"><span class="keyword">then</span></span><br><span class="line">  <span class="built_in">echo</span> <span class="string">"<span class="variable">$&#123;x&#125;</span> = <span class="variable">$&#123;y&#125;</span>"</span></span><br><span class="line"><span class="keyword">fi</span></span><br><span class="line"><span class="keyword">if</span> [[ <span class="variable">$&#123;x&#125;</span> != <span class="variable">$&#123;y&#125;</span> ]]</span><br><span class="line"><span class="keyword">then</span></span><br><span class="line">  <span class="built_in">echo</span> <span class="string">"<span class="variable">$&#123;x&#125;</span> != <span class="variable">$&#123;y&#125;</span>"</span></span><br><span class="line"><span class="keyword">fi</span></span><br><span class="line"></span><br><span class="line"><span class="comment">#  Output:</span></span><br><span class="line"><span class="comment">#  x=10, y=20</span></span><br><span class="line"><span class="comment">#  10 + 20 = 30</span></span><br><span class="line"><span class="comment">#  10 - 20 = -10</span></span><br><span class="line"><span class="comment">#  10 * 20 = 200</span></span><br><span class="line"><span class="comment">#  20 / 10 = 2</span></span><br><span class="line"><span class="comment">#  20 % 10 = 0</span></span><br><span class="line"><span class="comment">#  10 != 20</span></span><br></pre></td></tr></table></figure>
+<h3 id="62-关系运算符"><a class="markdownIt-Anchor" href="#62-关系运算符"></a> 6.2. 关系运算符</h3>
+<p>关系运算符只支持数字，不支持字符串，除非字符串的值是数字。</p>
+<p>下表列出了常用的关系运算符，假定变量 x 为 10，变量 y 为 20：</p>
+<table>
+<thead>
+<tr>
+<th>运算符</th>
+<th>说明</th>
+<th>举例</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>-eq</code></td>
+<td>检测两个数是否相等，相等返回 true。</td>
+<td><code>[ $a -eq $b ]</code>返回 false。</td>
+</tr>
+<tr>
+<td><code>-ne</code></td>
+<td>检测两个数是否相等，不相等返回 true。</td>
+<td><code>[ $a -ne $b ]</code> 返回 true。</td>
+</tr>
+<tr>
+<td><code>-gt</code></td>
+<td>检测左边的数是否大于右边的，如果是，则返回 true。</td>
+<td><code>[ $a -gt $b ]</code> 返回 false。</td>
+</tr>
+<tr>
+<td><code>-lt</code></td>
+<td>检测左边的数是否小于右边的，如果是，则返回 true。</td>
+<td><code>[ $a -lt $b ]</code> 返回 true。</td>
+</tr>
+<tr>
+<td><code>-ge</code></td>
+<td>检测左边的数是否大于等于右边的，如果是，则返回 true。</td>
+<td><code>[ $a -ge $b ]</code> 返回 false。</td>
+</tr>
+<tr>
+<td><code>-le</code></td>
+<td>检测左边的数是否小于等于右边的，如果是，则返回 true。</td>
+<td><code>[ $a -le $b ]</code>返回 true。</td>
+</tr>
+</tbody>
+</table>
+<p><strong>⌨️ 『示例源码』</strong></p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">x=10</span><br><span class="line">y=20</span><br><span class="line"></span><br><span class="line"><span class="built_in">echo</span> <span class="string">"x=<span class="variable">$&#123;x&#125;</span>, y=<span class="variable">$&#123;y&#125;</span>"</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span> [[ <span class="variable">$&#123;x&#125;</span> -eq <span class="variable">$&#123;y&#125;</span> ]]; <span class="keyword">then</span></span><br><span class="line">   <span class="built_in">echo</span> <span class="string">"<span class="variable">$&#123;x&#125;</span> -eq <span class="variable">$&#123;y&#125;</span> : x 等于 y"</span></span><br><span class="line"><span class="keyword">else</span></span><br><span class="line">   <span class="built_in">echo</span> <span class="string">"<span class="variable">$&#123;x&#125;</span> -eq <span class="variable">$&#123;y&#125;</span>: x 不等于 y"</span></span><br><span class="line"><span class="keyword">fi</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span> [[ <span class="variable">$&#123;x&#125;</span> -ne <span class="variable">$&#123;y&#125;</span> ]]; <span class="keyword">then</span></span><br><span class="line">   <span class="built_in">echo</span> <span class="string">"<span class="variable">$&#123;x&#125;</span> -ne <span class="variable">$&#123;y&#125;</span>: x 不等于 y"</span></span><br><span class="line"><span class="keyword">else</span></span><br><span class="line">   <span class="built_in">echo</span> <span class="string">"<span class="variable">$&#123;x&#125;</span> -ne <span class="variable">$&#123;y&#125;</span>: x 等于 y"</span></span><br><span class="line"><span class="keyword">fi</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span> [[ <span class="variable">$&#123;x&#125;</span> -gt <span class="variable">$&#123;y&#125;</span> ]]; <span class="keyword">then</span></span><br><span class="line">   <span class="built_in">echo</span> <span class="string">"<span class="variable">$&#123;x&#125;</span> -gt <span class="variable">$&#123;y&#125;</span>: x 大于 y"</span></span><br><span class="line"><span class="keyword">else</span></span><br><span class="line">   <span class="built_in">echo</span> <span class="string">"<span class="variable">$&#123;x&#125;</span> -gt <span class="variable">$&#123;y&#125;</span>: x 不大于 y"</span></span><br><span class="line"><span class="keyword">fi</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span> [[ <span class="variable">$&#123;x&#125;</span> -lt <span class="variable">$&#123;y&#125;</span> ]]; <span class="keyword">then</span></span><br><span class="line">   <span class="built_in">echo</span> <span class="string">"<span class="variable">$&#123;x&#125;</span> -lt <span class="variable">$&#123;y&#125;</span>: x 小于 y"</span></span><br><span class="line"><span class="keyword">else</span></span><br><span class="line">   <span class="built_in">echo</span> <span class="string">"<span class="variable">$&#123;x&#125;</span> -lt <span class="variable">$&#123;y&#125;</span>: x 不小于 y"</span></span><br><span class="line"><span class="keyword">fi</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span> [[ <span class="variable">$&#123;x&#125;</span> -ge <span class="variable">$&#123;y&#125;</span> ]]; <span class="keyword">then</span></span><br><span class="line">   <span class="built_in">echo</span> <span class="string">"<span class="variable">$&#123;x&#125;</span> -ge <span class="variable">$&#123;y&#125;</span>: x 大于或等于 y"</span></span><br><span class="line"><span class="keyword">else</span></span><br><span class="line">   <span class="built_in">echo</span> <span class="string">"<span class="variable">$&#123;x&#125;</span> -ge <span class="variable">$&#123;y&#125;</span>: x 小于 y"</span></span><br><span class="line"><span class="keyword">fi</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span> [[ <span class="variable">$&#123;x&#125;</span> -le <span class="variable">$&#123;y&#125;</span> ]]; <span class="keyword">then</span></span><br><span class="line">   <span class="built_in">echo</span> <span class="string">"<span class="variable">$&#123;x&#125;</span> -le <span class="variable">$&#123;y&#125;</span>: x 小于或等于 y"</span></span><br><span class="line"><span class="keyword">else</span></span><br><span class="line">   <span class="built_in">echo</span> <span class="string">"<span class="variable">$&#123;x&#125;</span> -le <span class="variable">$&#123;y&#125;</span>: x 大于 y"</span></span><br><span class="line"><span class="keyword">fi</span></span><br><span class="line"></span><br><span class="line"><span class="comment">#  Output:</span></span><br><span class="line"><span class="comment">#  x=10, y=20</span></span><br><span class="line"><span class="comment">#  10 -eq 20: x 不等于 y</span></span><br><span class="line"><span class="comment">#  10 -ne 20: x 不等于 y</span></span><br><span class="line"><span class="comment">#  10 -gt 20: x 不大于 y</span></span><br><span class="line"><span class="comment">#  10 -lt 20: x 小于 y</span></span><br><span class="line"><span class="comment">#  10 -ge 20: x 小于 y</span></span><br><span class="line"><span class="comment">#  10 -le 20: x 小于或等于 y</span></span><br></pre></td></tr></table></figure>
+<h3 id="63-布尔运算符"><a class="markdownIt-Anchor" href="#63-布尔运算符"></a> 6.3. 布尔运算符</h3>
+<p>下表列出了常用的布尔运算符，假定变量 x 为 10，变量 y 为 20：</p>
+<table>
+<thead>
+<tr>
+<th>运算符</th>
+<th>说明</th>
+<th>举例</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>!</code></td>
+<td>非运算，表达式为 true 则返回 false，否则返回 true。</td>
+<td><code>[ ! false ]</code> 返回 true。</td>
+</tr>
+<tr>
+<td><code>-o</code></td>
+<td>或运算，有一个表达式为 true 则返回 true。</td>
+<td><code>[ $a -lt 20 -o $b -gt 100 ]</code> 返回 true。</td>
+</tr>
+<tr>
+<td><code>-a</code></td>
+<td>与运算，两个表达式都为 true 才返回 true。</td>
+<td><code>[ $a -lt 20 -a $b -gt 100 ]</code> 返回 false。</td>
+</tr>
+</tbody>
+</table>
+<p><strong>⌨️ 『示例源码』</strong></p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">x=10</span><br><span class="line">y=20</span><br><span class="line"></span><br><span class="line"><span class="built_in">echo</span> <span class="string">"x=<span class="variable">$&#123;x&#125;</span>, y=<span class="variable">$&#123;y&#125;</span>"</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span> [[ <span class="variable">$&#123;x&#125;</span> != <span class="variable">$&#123;y&#125;</span> ]]; <span class="keyword">then</span></span><br><span class="line">   <span class="built_in">echo</span> <span class="string">"<span class="variable">$&#123;x&#125;</span> != <span class="variable">$&#123;y&#125;</span> : x 不等于 y"</span></span><br><span class="line"><span class="keyword">else</span></span><br><span class="line">   <span class="built_in">echo</span> <span class="string">"<span class="variable">$&#123;x&#125;</span> != <span class="variable">$&#123;y&#125;</span>: x 等于 y"</span></span><br><span class="line"><span class="keyword">fi</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span> [[ <span class="variable">$&#123;x&#125;</span> -lt 100 &amp;&amp; <span class="variable">$&#123;y&#125;</span> -gt 15 ]]; <span class="keyword">then</span></span><br><span class="line">   <span class="built_in">echo</span> <span class="string">"<span class="variable">$&#123;x&#125;</span> 小于 100 且 <span class="variable">$&#123;y&#125;</span> 大于 15 : 返回 true"</span></span><br><span class="line"><span class="keyword">else</span></span><br><span class="line">   <span class="built_in">echo</span> <span class="string">"<span class="variable">$&#123;x&#125;</span> 小于 100 且 <span class="variable">$&#123;y&#125;</span> 大于 15 : 返回 false"</span></span><br><span class="line"><span class="keyword">fi</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span> [[ <span class="variable">$&#123;x&#125;</span> -lt 100 || <span class="variable">$&#123;y&#125;</span> -gt 100 ]]; <span class="keyword">then</span></span><br><span class="line">   <span class="built_in">echo</span> <span class="string">"<span class="variable">$&#123;x&#125;</span> 小于 100 或 <span class="variable">$&#123;y&#125;</span> 大于 100 : 返回 true"</span></span><br><span class="line"><span class="keyword">else</span></span><br><span class="line">   <span class="built_in">echo</span> <span class="string">"<span class="variable">$&#123;x&#125;</span> 小于 100 或 <span class="variable">$&#123;y&#125;</span> 大于 100 : 返回 false"</span></span><br><span class="line"><span class="keyword">fi</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span> [[ <span class="variable">$&#123;x&#125;</span> -lt 5 || <span class="variable">$&#123;y&#125;</span> -gt 100 ]]; <span class="keyword">then</span></span><br><span class="line">   <span class="built_in">echo</span> <span class="string">"<span class="variable">$&#123;x&#125;</span> 小于 5 或 <span class="variable">$&#123;y&#125;</span> 大于 100 : 返回 true"</span></span><br><span class="line"><span class="keyword">else</span></span><br><span class="line">   <span class="built_in">echo</span> <span class="string">"<span class="variable">$&#123;x&#125;</span> 小于 5 或 <span class="variable">$&#123;y&#125;</span> 大于 100 : 返回 false"</span></span><br><span class="line"><span class="keyword">fi</span></span><br><span class="line"></span><br><span class="line"><span class="comment">#  Output:</span></span><br><span class="line"><span class="comment">#  x=10, y=20</span></span><br><span class="line"><span class="comment">#  10 != 20 : x 不等于 y</span></span><br><span class="line"><span class="comment">#  10 小于 100 且 20 大于 15 : 返回 true</span></span><br><span class="line"><span class="comment">#  10 小于 100 或 20 大于 100 : 返回 true</span></span><br><span class="line"><span class="comment">#  10 小于 5 或 20 大于 100 : 返回 false</span></span><br></pre></td></tr></table></figure>
+<h3 id="64-逻辑运算符"><a class="markdownIt-Anchor" href="#64-逻辑运算符"></a> 6.4. 逻辑运算符</h3>
+<p>以下介绍 Shell 的逻辑运算符，假定变量 x 为 10，变量 y 为 20:</p>
+<table>
+<thead>
+<tr>
+<th>运算符</th>
+<th>说明</th>
+<th>举例</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>&amp;&amp;</code></td>
+<td>逻辑的 AND</td>
+<td><code>[[ ${x} -lt 100 &amp;&amp; ${y} -gt 100 ]]</code> 返回 false</td>
+</tr>
+<tr>
+<td><code>||</code></td>
+<td>逻辑的 OR</td>
+<td><code>[[ ${x} -lt 100 || ${y} -gt 100 ]]</code> 返回 true</td>
+</tr>
+</tbody>
+</table>
+<p><strong>⌨️ 『示例源码』</strong></p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">x=10</span><br><span class="line">y=20</span><br><span class="line"></span><br><span class="line"><span class="built_in">echo</span> <span class="string">"x=<span class="variable">$&#123;x&#125;</span>, y=<span class="variable">$&#123;y&#125;</span>"</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span> [[ <span class="variable">$&#123;x&#125;</span> -lt 100 &amp;&amp; <span class="variable">$&#123;y&#125;</span> -gt 100 ]]</span><br><span class="line"><span class="keyword">then</span></span><br><span class="line">   <span class="built_in">echo</span> <span class="string">"<span class="variable">$&#123;x&#125;</span> -lt 100 &amp;&amp; <span class="variable">$&#123;y&#125;</span> -gt 100 返回 true"</span></span><br><span class="line"><span class="keyword">else</span></span><br><span class="line">   <span class="built_in">echo</span> <span class="string">"<span class="variable">$&#123;x&#125;</span> -lt 100 &amp;&amp; <span class="variable">$&#123;y&#125;</span> -gt 100 返回 false"</span></span><br><span class="line"><span class="keyword">fi</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span> [[ <span class="variable">$&#123;x&#125;</span> -lt 100 || <span class="variable">$&#123;y&#125;</span> -gt 100 ]]</span><br><span class="line"><span class="keyword">then</span></span><br><span class="line">   <span class="built_in">echo</span> <span class="string">"<span class="variable">$&#123;x&#125;</span> -lt 100 || <span class="variable">$&#123;y&#125;</span> -gt 100 返回 true"</span></span><br><span class="line"><span class="keyword">else</span></span><br><span class="line">   <span class="built_in">echo</span> <span class="string">"<span class="variable">$&#123;x&#125;</span> -lt 100 || <span class="variable">$&#123;y&#125;</span> -gt 100 返回 false"</span></span><br><span class="line"><span class="keyword">fi</span></span><br><span class="line"></span><br><span class="line"><span class="comment">#  Output:</span></span><br><span class="line"><span class="comment">#  x=10, y=20</span></span><br><span class="line"><span class="comment">#  10 -lt 100 &amp;&amp; 20 -gt 100 返回 false</span></span><br><span class="line"><span class="comment">#  10 -lt 100 || 20 -gt 100 返回 true</span></span><br></pre></td></tr></table></figure>
+<h3 id="65-字符串运算符"><a class="markdownIt-Anchor" href="#65-字符串运算符"></a> 6.5. 字符串运算符</h3>
+<p>下表列出了常用的字符串运算符，假定变量 a 为 “abc”，变量 b 为 “efg”：</p>
+<table>
+<thead>
+<tr>
+<th>运算符</th>
+<th>说明</th>
+<th>举例</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>=</code></td>
+<td>检测两个字符串是否相等，相等返回 true。</td>
+<td><code>[ $a = $b ]</code> 返回 false。</td>
+</tr>
+<tr>
+<td><code>!=</code></td>
+<td>检测两个字符串是否相等，不相等返回 true。</td>
+<td><code>[ $a != $b ]</code> 返回 true。</td>
+</tr>
+<tr>
+<td><code>-z</code></td>
+<td>检测字符串长度是否为 0，为 0 返回 true。</td>
+<td><code>[ -z $a ]</code> 返回 false。</td>
+</tr>
+<tr>
+<td><code>-n</code></td>
+<td>检测字符串长度是否为 0，不为 0 返回 true。</td>
+<td><code>[ -n $a ]</code> 返回 true。</td>
+</tr>
+<tr>
+<td><code>str</code></td>
+<td>检测字符串是否为空，不为空返回 true。</td>
+<td><code>[ $a ]</code> 返回 true。</td>
+</tr>
+</tbody>
+</table>
+<p><strong>⌨️ 『示例源码』</strong></p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">x=<span class="string">"abc"</span></span><br><span class="line">y=<span class="string">"xyz"</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="built_in">echo</span> <span class="string">"x=<span class="variable">$&#123;x&#125;</span>, y=<span class="variable">$&#123;y&#125;</span>"</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span> [[ <span class="variable">$&#123;x&#125;</span> = <span class="variable">$&#123;y&#125;</span> ]]; <span class="keyword">then</span></span><br><span class="line">   <span class="built_in">echo</span> <span class="string">"<span class="variable">$&#123;x&#125;</span> = <span class="variable">$&#123;y&#125;</span> : x 等于 y"</span></span><br><span class="line"><span class="keyword">else</span></span><br><span class="line">   <span class="built_in">echo</span> <span class="string">"<span class="variable">$&#123;x&#125;</span> = <span class="variable">$&#123;y&#125;</span>: x 不等于 y"</span></span><br><span class="line"><span class="keyword">fi</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span> [[ <span class="variable">$&#123;x&#125;</span> != <span class="variable">$&#123;y&#125;</span> ]]; <span class="keyword">then</span></span><br><span class="line">   <span class="built_in">echo</span> <span class="string">"<span class="variable">$&#123;x&#125;</span> != <span class="variable">$&#123;y&#125;</span> : x 不等于 y"</span></span><br><span class="line"><span class="keyword">else</span></span><br><span class="line">   <span class="built_in">echo</span> <span class="string">"<span class="variable">$&#123;x&#125;</span> != <span class="variable">$&#123;y&#125;</span>: x 等于 y"</span></span><br><span class="line"><span class="keyword">fi</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span> [[ -z <span class="variable">$&#123;x&#125;</span> ]]; <span class="keyword">then</span></span><br><span class="line">   <span class="built_in">echo</span> <span class="string">"-z <span class="variable">$&#123;x&#125;</span> : 字符串长度为 0"</span></span><br><span class="line"><span class="keyword">else</span></span><br><span class="line">   <span class="built_in">echo</span> <span class="string">"-z <span class="variable">$&#123;x&#125;</span> : 字符串长度不为 0"</span></span><br><span class="line"><span class="keyword">fi</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span> [[ -n <span class="string">"<span class="variable">$&#123;x&#125;</span>"</span> ]]; <span class="keyword">then</span></span><br><span class="line">   <span class="built_in">echo</span> <span class="string">"-n <span class="variable">$&#123;x&#125;</span> : 字符串长度不为 0"</span></span><br><span class="line"><span class="keyword">else</span></span><br><span class="line">   <span class="built_in">echo</span> <span class="string">"-n <span class="variable">$&#123;x&#125;</span> : 字符串长度为 0"</span></span><br><span class="line"><span class="keyword">fi</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span> [[ <span class="variable">$&#123;x&#125;</span> ]]; <span class="keyword">then</span></span><br><span class="line">   <span class="built_in">echo</span> <span class="string">"<span class="variable">$&#123;x&#125;</span> : 字符串不为空"</span></span><br><span class="line"><span class="keyword">else</span></span><br><span class="line">   <span class="built_in">echo</span> <span class="string">"<span class="variable">$&#123;x&#125;</span> : 字符串为空"</span></span><br><span class="line"><span class="keyword">fi</span></span><br><span class="line"></span><br><span class="line"><span class="comment">#  Output:</span></span><br><span class="line"><span class="comment">#  x=abc, y=xyz</span></span><br><span class="line"><span class="comment">#  abc = xyz: x 不等于 y</span></span><br><span class="line"><span class="comment">#  abc != xyz : x 不等于 y</span></span><br><span class="line"><span class="comment">#  -z abc : 字符串长度不为 0</span></span><br><span class="line"><span class="comment">#  -n abc : 字符串长度不为 0</span></span><br><span class="line"><span class="comment">#  abc : 字符串不为空</span></span><br></pre></td></tr></table></figure>
+<h3 id="66-文件测试运算符"><a class="markdownIt-Anchor" href="#66-文件测试运算符"></a> 6.6. 文件测试运算符</h3>
+<p>文件测试运算符用于检测 Unix 文件的各种属性。</p>
+<p>属性检测描述如下：</p>
+<table>
+<thead>
+<tr>
+<th>操作符</th>
+<th>说明</th>
+<th>举例</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>-b file</td>
+<td>检测文件是否是块设备文件，如果是，则返回 true。</td>
+<td><code>[ -b $file ]</code> 返回 false。</td>
+</tr>
+<tr>
+<td>-c file</td>
+<td>检测文件是否是字符设备文件，如果是，则返回 true。</td>
+<td><code>[ -c $file ]</code> 返回 false。</td>
+</tr>
+<tr>
+<td>-d file</td>
+<td>检测文件是否是目录，如果是，则返回 true。</td>
+<td><code>[ -d $file ]</code> 返回 false。</td>
+</tr>
+<tr>
+<td>-f file</td>
+<td>检测文件是否是普通文件（既不是目录，也不是设备文件），如果是，则返回 true。</td>
+<td><code>[ -f $file ]</code> 返回 true。</td>
+</tr>
+<tr>
+<td>-g file</td>
+<td>检测文件是否设置了 SGID 位，如果是，则返回 true。</td>
+<td><code>[ -g $file ]</code> 返回 false。</td>
+</tr>
+<tr>
+<td>-k file</td>
+<td>检测文件是否设置了粘着位(Sticky Bit)，如果是，则返回 true。</td>
+<td><code>[ -k $file ]</code>返回 false。</td>
+</tr>
+<tr>
+<td>-p file</td>
+<td>检测文件是否是有名管道，如果是，则返回 true。</td>
+<td><code>[ -p $file ]</code> 返回 false。</td>
+</tr>
+<tr>
+<td>-u file</td>
+<td>检测文件是否设置了 SUID 位，如果是，则返回 true。</td>
+<td><code>[ -u $file ]</code> 返回 false。</td>
+</tr>
+<tr>
+<td>-r file</td>
+<td>检测文件是否可读，如果是，则返回 true。</td>
+<td><code>[ -r $file ]</code> 返回 true。</td>
+</tr>
+<tr>
+<td>-w file</td>
+<td>检测文件是否可写，如果是，则返回 true。</td>
+<td><code>[ -w $file ]</code> 返回 true。</td>
+</tr>
+<tr>
+<td>-x file</td>
+<td>检测文件是否可执行，如果是，则返回 true。</td>
+<td><code>[ -x $file ]</code> 返回 true。</td>
+</tr>
+<tr>
+<td>-s file</td>
+<td>检测文件是否为空（文件大小是否大于 0），不为空返回 true。</td>
+<td><code>[ -s $file ]</code> 返回 true。</td>
+</tr>
+<tr>
+<td>-e file</td>
+<td>检测文件（包括目录）是否存在，如果是，则返回 true。</td>
+<td><code>[ -e $file ]</code> 返回 true。</td>
+</tr>
+</tbody>
+</table>
+<p><strong>⌨️ 『示例源码』</strong></p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">file=<span class="string">"/etc/hosts"</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span> [[ -r <span class="variable">$&#123;file&#125;</span> ]]; <span class="keyword">then</span></span><br><span class="line">   <span class="built_in">echo</span> <span class="string">"<span class="variable">$&#123;file&#125;</span> 文件可读"</span></span><br><span class="line"><span class="keyword">else</span></span><br><span class="line">   <span class="built_in">echo</span> <span class="string">"<span class="variable">$&#123;file&#125;</span> 文件不可读"</span></span><br><span class="line"><span class="keyword">fi</span></span><br><span class="line"><span class="keyword">if</span> [[ -w <span class="variable">$&#123;file&#125;</span> ]]; <span class="keyword">then</span></span><br><span class="line">   <span class="built_in">echo</span> <span class="string">"<span class="variable">$&#123;file&#125;</span> 文件可写"</span></span><br><span class="line"><span class="keyword">else</span></span><br><span class="line">   <span class="built_in">echo</span> <span class="string">"<span class="variable">$&#123;file&#125;</span> 文件不可写"</span></span><br><span class="line"><span class="keyword">fi</span></span><br><span class="line"><span class="keyword">if</span> [[ -x <span class="variable">$&#123;file&#125;</span> ]]; <span class="keyword">then</span></span><br><span class="line">   <span class="built_in">echo</span> <span class="string">"<span class="variable">$&#123;file&#125;</span> 文件可执行"</span></span><br><span class="line"><span class="keyword">else</span></span><br><span class="line">   <span class="built_in">echo</span> <span class="string">"<span class="variable">$&#123;file&#125;</span> 文件不可执行"</span></span><br><span class="line"><span class="keyword">fi</span></span><br><span class="line"><span class="keyword">if</span> [[ -f <span class="variable">$&#123;file&#125;</span> ]]; <span class="keyword">then</span></span><br><span class="line">   <span class="built_in">echo</span> <span class="string">"<span class="variable">$&#123;file&#125;</span> 文件为普通文件"</span></span><br><span class="line"><span class="keyword">else</span></span><br><span class="line">   <span class="built_in">echo</span> <span class="string">"<span class="variable">$&#123;file&#125;</span> 文件为特殊文件"</span></span><br><span class="line"><span class="keyword">fi</span></span><br><span class="line"><span class="keyword">if</span> [[ -d <span class="variable">$&#123;file&#125;</span> ]]; <span class="keyword">then</span></span><br><span class="line">   <span class="built_in">echo</span> <span class="string">"<span class="variable">$&#123;file&#125;</span> 文件是个目录"</span></span><br><span class="line"><span class="keyword">else</span></span><br><span class="line">   <span class="built_in">echo</span> <span class="string">"<span class="variable">$&#123;file&#125;</span> 文件不是个目录"</span></span><br><span class="line"><span class="keyword">fi</span></span><br><span class="line"><span class="keyword">if</span> [[ -s <span class="variable">$&#123;file&#125;</span> ]]; <span class="keyword">then</span></span><br><span class="line">   <span class="built_in">echo</span> <span class="string">"<span class="variable">$&#123;file&#125;</span> 文件不为空"</span></span><br><span class="line"><span class="keyword">else</span></span><br><span class="line">   <span class="built_in">echo</span> <span class="string">"<span class="variable">$&#123;file&#125;</span> 文件为空"</span></span><br><span class="line"><span class="keyword">fi</span></span><br><span class="line"><span class="keyword">if</span> [[ -e <span class="variable">$&#123;file&#125;</span> ]]; <span class="keyword">then</span></span><br><span class="line">   <span class="built_in">echo</span> <span class="string">"<span class="variable">$&#123;file&#125;</span> 文件存在"</span></span><br><span class="line"><span class="keyword">else</span></span><br><span class="line">   <span class="built_in">echo</span> <span class="string">"<span class="variable">$&#123;file&#125;</span> 文件不存在"</span></span><br><span class="line"><span class="keyword">fi</span></span><br><span class="line"></span><br><span class="line"><span class="comment">#  Output:(根据文件的实际情况，输出结果可能不同)</span></span><br><span class="line"><span class="comment">#  /etc/hosts 文件可读</span></span><br><span class="line"><span class="comment">#  /etc/hosts 文件可写</span></span><br><span class="line"><span class="comment">#  /etc/hosts 文件不可执行</span></span><br><span class="line"><span class="comment">#  /etc/hosts 文件为普通文件</span></span><br><span class="line"><span class="comment">#  /etc/hosts 文件不是个目录</span></span><br><span class="line"><span class="comment">#  /etc/hosts 文件不为空</span></span><br><span class="line"><span class="comment">#  /etc/hosts 文件存在</span></span><br></pre></td></tr></table></figure>
+<h2 id="7-控制语句"><a class="markdownIt-Anchor" href="#7-控制语句"></a> 7. 控制语句</h2>
+<h3 id="71-条件语句"><a class="markdownIt-Anchor" href="#71-条件语句"></a> 7.1. 条件语句</h3>
+<p>跟其它程序设计语言一样，Bash 中的条件语句让我们可以决定一个操作是否被执行。结果取决于一个包在<code>[[ ]]</code>里的表达式。</p>
+<p>由<code>[[ ]]</code>（<code>sh</code>中是<code>[ ]</code>）包起来的表达式被称作 <strong>检测命令</strong> 或 <strong>基元</strong>。这些表达式帮助我们检测一个条件的结果。这里可以找到有关<a href="http://serverfault.com/a/52050" target="_blank" rel="noopener">bash 中单双中括号区别</a>的答案。</p>
+<p>共有两个不同的条件表达式：<code>if</code>和<code>case</code>。</p>
+<h4 id="if"><a class="markdownIt-Anchor" href="#if"></a> <code>if</code></h4>
+<p>（1）<code>if</code> 语句</p>
+<p><code>if</code>在使用上跟其它语言相同。如果中括号里的表达式为真，那么<code>then</code>和<code>fi</code>之间的代码会被执行。<code>fi</code>标志着条件代码块的结束。</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="comment"># 写成一行</span></span><br><span class="line"><span class="keyword">if</span> [[ 1 -eq 1 ]]; <span class="keyword">then</span> <span class="built_in">echo</span> <span class="string">"1 -eq 1 result is: true"</span>; <span class="keyword">fi</span></span><br><span class="line"><span class="comment"># Output: 1 -eq 1 result is: true</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 写成多行</span></span><br><span class="line"><span class="keyword">if</span> [[ <span class="string">"abc"</span> -eq <span class="string">"abc"</span> ]]</span><br><span class="line"><span class="keyword">then</span></span><br><span class="line">  <span class="built_in">echo</span> <span class="string">""</span>abc<span class="string">" -eq "</span>abc<span class="string">" result is: true"</span></span><br><span class="line"><span class="keyword">fi</span></span><br><span class="line"><span class="comment"># Output: abc -eq abc result is: true</span></span><br></pre></td></tr></table></figure>
+<p>（2）<code>if else</code> 语句</p>
+<p>同样，我们可以使用<code>if..else</code>语句，例如：</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="keyword">if</span> [[ 2 -ne 1 ]]; <span class="keyword">then</span></span><br><span class="line">  <span class="built_in">echo</span> <span class="string">"true"</span></span><br><span class="line"><span class="keyword">else</span></span><br><span class="line">  <span class="built_in">echo</span> <span class="string">"false"</span></span><br><span class="line"><span class="keyword">fi</span></span><br><span class="line"><span class="comment"># Output: true</span></span><br></pre></td></tr></table></figure>
+<p>（3）<code>if elif else</code> 语句</p>
+<p>有些时候，<code>if..else</code>不能满足我们的要求。别忘了<code>if..elif..else</code>，使用起来也很方便。</p>
+<p><strong>⌨️ 『示例源码』</strong></p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">x=10</span><br><span class="line">y=20</span><br><span class="line"><span class="keyword">if</span> [[ <span class="variable">$&#123;x&#125;</span> &gt; <span class="variable">$&#123;y&#125;</span> ]]; <span class="keyword">then</span></span><br><span class="line">   <span class="built_in">echo</span> <span class="string">"<span class="variable">$&#123;x&#125;</span> &gt; <span class="variable">$&#123;y&#125;</span>"</span></span><br><span class="line"><span class="keyword">elif</span> [[ <span class="variable">$&#123;x&#125;</span> &lt; <span class="variable">$&#123;y&#125;</span> ]]; <span class="keyword">then</span></span><br><span class="line">   <span class="built_in">echo</span> <span class="string">"<span class="variable">$&#123;x&#125;</span> &lt; <span class="variable">$&#123;y&#125;</span>"</span></span><br><span class="line"><span class="keyword">else</span></span><br><span class="line">   <span class="built_in">echo</span> <span class="string">"<span class="variable">$&#123;x&#125;</span> = <span class="variable">$&#123;y&#125;</span>"</span></span><br><span class="line"><span class="keyword">fi</span></span><br><span class="line"><span class="comment"># Output: 10 &lt; 20</span></span><br></pre></td></tr></table></figure>
+<h4 id="case"><a class="markdownIt-Anchor" href="#case"></a> <code>case</code></h4>
+<p>如果你需要面对很多情况，分别要采取不同的措施，那么使用<code>case</code>会比嵌套的<code>if</code>更有用。使用<code>case</code>来解决复杂的条件判断，看起来像下面这样：</p>
+<p><strong>⌨️ 『示例源码』</strong></p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="built_in">exec</span></span><br><span class="line"><span class="keyword">case</span> <span class="variable">$&#123;oper&#125;</span> <span class="keyword">in</span></span><br><span class="line">  <span class="string">"+"</span>)</span><br><span class="line">    val=`expr <span class="variable">$&#123;x&#125;</span> + <span class="variable">$&#123;y&#125;</span>`</span><br><span class="line">    <span class="built_in">echo</span> <span class="string">"<span class="variable">$&#123;x&#125;</span> + <span class="variable">$&#123;y&#125;</span> = <span class="variable">$&#123;val&#125;</span>"</span></span><br><span class="line">  ;;</span><br><span class="line">  <span class="string">"-"</span>)</span><br><span class="line">    val=`expr <span class="variable">$&#123;x&#125;</span> - <span class="variable">$&#123;y&#125;</span>`</span><br><span class="line">    <span class="built_in">echo</span> <span class="string">"<span class="variable">$&#123;x&#125;</span> - <span class="variable">$&#123;y&#125;</span> = <span class="variable">$&#123;val&#125;</span>"</span></span><br><span class="line">  ;;</span><br><span class="line">  <span class="string">"*"</span>)</span><br><span class="line">    val=`expr <span class="variable">$&#123;x&#125;</span> \* <span class="variable">$&#123;y&#125;</span>`</span><br><span class="line">    <span class="built_in">echo</span> <span class="string">"<span class="variable">$&#123;x&#125;</span> * <span class="variable">$&#123;y&#125;</span> = <span class="variable">$&#123;val&#125;</span>"</span></span><br><span class="line">  ;;</span><br><span class="line">  <span class="string">"/"</span>)</span><br><span class="line">    val=`expr <span class="variable">$&#123;x&#125;</span> / <span class="variable">$&#123;y&#125;</span>`</span><br><span class="line">    <span class="built_in">echo</span> <span class="string">"<span class="variable">$&#123;x&#125;</span> / <span class="variable">$&#123;y&#125;</span> = <span class="variable">$&#123;val&#125;</span>"</span></span><br><span class="line">  ;;</span><br><span class="line">  *)</span><br><span class="line">    <span class="built_in">echo</span> <span class="string">"Unknown oper!"</span></span><br><span class="line">  ;;</span><br><span class="line"><span class="keyword">esac</span></span><br></pre></td></tr></table></figure>
+<p>每种情况都是匹配了某个模式的表达式。<code>|</code>用来分割多个模式，<code>)</code>用来结束一个模式序列。第一个匹配上的模式对应的命令将会被执行。<code>*</code>代表任何不匹配以上给定模式的模式。命令块儿之间要用<code>;;</code>分隔。</p>
+<h3 id="72-循环语句"><a class="markdownIt-Anchor" href="#72-循环语句"></a> 7.2. 循环语句</h3>
+<p>循环其实不足为奇。跟其它程序设计语言一样，bash 中的循环也是只要控制条件为真就一直迭代执行的代码块。</p>
+<p>Bash 中有四种循环：<code>for</code>，<code>while</code>，<code>until</code>和<code>select</code>。</p>
+<h4 id="for循环"><a class="markdownIt-Anchor" href="#for循环"></a> <code>for</code>循环</h4>
+<p><code>for</code>与它在 C 语言中的姊妹非常像。看起来是这样：</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="keyword">for</span> arg <span class="keyword">in</span> elem1 elem2 ... elemN</span><br><span class="line"><span class="keyword">do</span></span><br><span class="line">  <span class="comment">### 语句</span></span><br><span class="line"><span class="keyword">done</span></span><br></pre></td></tr></table></figure>
+<p>在每次循环的过程中，<code>arg</code>依次被赋值为从<code>elem1</code>到<code>elemN</code>。这些值还可以是通配符或者<a href="https://github.com/denysdovhan/bash-handbook/blob/master/translations/zh-CN/README.md#%E5%A4%A7%E6%8B%AC%E5%8F%B7%E6%89%A9%E5%B1%95" target="_blank" rel="noopener">大括号扩展</a>。</p>
+<p>当然，我们还可以把<code>for</code>循环写在一行，但这要求<code>do</code>之前要有一个分号，就像下面这样：</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="keyword">for</span> i <span class="keyword">in</span> &#123;1..5&#125;; <span class="keyword">do</span> <span class="built_in">echo</span> <span class="variable">$i</span>; <span class="keyword">done</span></span><br></pre></td></tr></table></figure>
+<p>还有，如果你觉得<code>for..in..do</code>对你来说有点奇怪，那么你也可以像 C 语言那样使用<code>for</code>，比如：</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="keyword">for</span> (( i = 0; i &lt; 10; i++ )); <span class="keyword">do</span></span><br><span class="line">  <span class="built_in">echo</span> <span class="variable">$i</span></span><br><span class="line"><span class="keyword">done</span></span><br></pre></td></tr></table></figure>
+<p>当我们想对一个目录下的所有文件做同样的操作时，<code>for</code>就很方便了。举个例子，如果我们想把所有的<code>.bash</code>文件移动到<code>script</code>文件夹中，并给它们可执行权限，我们的脚本可以这样写：</p>
+<p><strong>⌨️ 『示例源码』</strong></p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">DIR=/home/zp</span><br><span class="line"><span class="keyword">for</span> FILE <span class="keyword">in</span> <span class="variable">$&#123;DIR&#125;</span>/*.sh; <span class="keyword">do</span></span><br><span class="line">  mv <span class="string">"<span class="variable">$FILE</span>"</span> <span class="string">"<span class="variable">$&#123;DIR&#125;</span>/scripts"</span></span><br><span class="line"><span class="keyword">done</span></span><br><span class="line"><span class="comment"># 将 /home/zp 目录下所有 sh 文件拷贝到 /home/zp/scripts</span></span><br></pre></td></tr></table></figure>
+<h4 id="while循环"><a class="markdownIt-Anchor" href="#while循环"></a> <code>while</code>循环</h4>
+<p><code>while</code>循环检测一个条件，只要这个条件为 <em>真</em>，就执行一段命令。被检测的条件跟<code>if..then</code>中使用的<a href="https://github.com/denysdovhan/bash-handbook/blob/master/translations/zh-CN/README.md#%E5%9F%BA%E5%85%83%E5%92%8C%E7%BB%84%E5%90%88%E8%A1%A8%E8%BE%BE%E5%BC%8F" target="_blank" rel="noopener">基元</a>并无二异。因此一个<code>while</code>循环看起来会是这样：</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="keyword">while</span> [[ condition ]]</span><br><span class="line"><span class="keyword">do</span></span><br><span class="line">  <span class="comment">### 语句</span></span><br><span class="line"><span class="keyword">done</span></span><br></pre></td></tr></table></figure>
+<p>跟<code>for</code>循环一样，如果我们把<code>do</code>和被检测的条件写到一行，那么必须要在<code>do</code>之前加一个分号。</p>
+<p><strong>⌨️ 『示例源码』</strong></p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="comment">### 0到9之间每个数的平方</span></span><br><span class="line">x=0</span><br><span class="line"><span class="keyword">while</span> [[ <span class="variable">$&#123;x&#125;</span> -lt 10 ]]; <span class="keyword">do</span></span><br><span class="line">  <span class="built_in">echo</span> $((x * x))</span><br><span class="line">  x=$((x + 1))</span><br><span class="line"><span class="keyword">done</span></span><br><span class="line"><span class="comment">#  Output:</span></span><br><span class="line"><span class="comment">#  0</span></span><br><span class="line"><span class="comment">#  1</span></span><br><span class="line"><span class="comment">#  4</span></span><br><span class="line"><span class="comment">#  9</span></span><br><span class="line"><span class="comment">#  16</span></span><br><span class="line"><span class="comment">#  25</span></span><br><span class="line"><span class="comment">#  36</span></span><br><span class="line"><span class="comment">#  49</span></span><br><span class="line"><span class="comment">#  64</span></span><br><span class="line"><span class="comment">#  81</span></span><br></pre></td></tr></table></figure>
+<h4 id="until循环"><a class="markdownIt-Anchor" href="#until循环"></a> <code>until</code>循环</h4>
+<p><code>until</code>循环跟<code>while</code>循环正好相反。它跟<code>while</code>一样也需要检测一个测试条件，但不同的是，只要该条件为 <em>假</em> 就一直执行循环：</p>
+<p><strong>⌨️ 『示例源码』</strong></p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">x=0</span><br><span class="line">until [[ <span class="variable">$&#123;x&#125;</span> -ge 5 ]]; <span class="keyword">do</span></span><br><span class="line">  <span class="built_in">echo</span> <span class="variable">$&#123;x&#125;</span></span><br><span class="line">  x=`expr <span class="variable">$&#123;x&#125;</span> + 1`</span><br><span class="line"><span class="keyword">done</span></span><br><span class="line"><span class="comment">#  Output:</span></span><br><span class="line"><span class="comment">#  0</span></span><br><span class="line"><span class="comment">#  1</span></span><br><span class="line"><span class="comment">#  2</span></span><br><span class="line"><span class="comment">#  3</span></span><br><span class="line"><span class="comment">#  4</span></span><br></pre></td></tr></table></figure>
+<h4 id="select循环"><a class="markdownIt-Anchor" href="#select循环"></a> <code>select</code>循环</h4>
+<p><code>select</code>循环帮助我们组织一个用户菜单。它的语法几乎跟<code>for</code>循环一致：</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">select answer <span class="keyword">in</span> elem1 elem2 ... elemN</span><br><span class="line"><span class="keyword">do</span></span><br><span class="line">  <span class="comment">### 语句</span></span><br><span class="line"><span class="keyword">done</span></span><br></pre></td></tr></table></figure>
+<p><code>select</code>会打印<code>elem1..elemN</code>以及它们的序列号到屏幕上，之后会提示用户输入。通常看到的是<code>$?</code>（<code>PS3</code>变量）。用户的选择结果会被保存到<code>answer</code>中。如果<code>answer</code>是一个在<code>1..N</code>之间的数字，那么<code>语句</code>会被执行，紧接着会进行下一次迭代 —— 如果不想这样的话我们可以使用<code>break</code>语句。</p>
+<p><strong>⌨️ 『示例源码』</strong></p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="meta">#!/usr/bin/env bash</span></span><br><span class="line"></span><br><span class="line">PS3=<span class="string">"Choose the package manager: "</span></span><br><span class="line">select ITEM <span class="keyword">in</span> bower npm gem pip</span><br><span class="line"><span class="keyword">do</span></span><br><span class="line"><span class="built_in">echo</span> -n <span class="string">"Enter the package name: "</span> &amp;&amp; <span class="built_in">read</span> PACKAGE</span><br><span class="line"><span class="keyword">case</span> <span class="variable">$&#123;ITEM&#125;</span> <span class="keyword">in</span></span><br><span class="line">  bower) bower install <span class="variable">$&#123;PACKAGE&#125;</span> ;;</span><br><span class="line">  npm) npm install <span class="variable">$&#123;PACKAGE&#125;</span> ;;</span><br><span class="line">  gem) gem install <span class="variable">$&#123;PACKAGE&#125;</span> ;;</span><br><span class="line">  pip) pip install <span class="variable">$&#123;PACKAGE&#125;</span> ;;</span><br><span class="line"><span class="keyword">esac</span></span><br><span class="line"><span class="built_in">break</span> <span class="comment"># 避免无限循环</span></span><br><span class="line"><span class="keyword">done</span></span><br></pre></td></tr></table></figure>
+<p>这个例子，先询问用户他想使用什么包管理器。接着，又询问了想安装什么包，最后执行安装操作。</p>
+<p>运行这个脚本，会得到如下输出：</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ ./my_script</span><br><span class="line">1) bower</span><br><span class="line">2) npm</span><br><span class="line">3) gem</span><br><span class="line">4) pip</span><br><span class="line">Choose the package manager: 2</span><br><span class="line">Enter the package name: gitbook-cli</span><br></pre></td></tr></table></figure>
+<h4 id="break-和-continue"><a class="markdownIt-Anchor" href="#break-和-continue"></a> <code>break</code> 和 <code>continue</code></h4>
+<p>如果想提前结束一个循环或跳过某次循环执行，可以使用 shell 的<code>break</code>和<code>continue</code>语句来实现。它们可以在任何循环中使用。</p>
+<blockquote>
+<p><code>break</code>语句用来提前结束当前循环。</p>
+<p><code>continue</code>语句用来跳过某次迭代。</p>
+</blockquote>
+<p><strong>⌨️ 『示例源码』</strong></p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="comment"># 查找 10 以内第一个能整除 2 和 3 的正整数</span></span><br><span class="line">i=1</span><br><span class="line"><span class="keyword">while</span> [[ <span class="variable">$&#123;i&#125;</span> -lt 10 ]]; <span class="keyword">do</span></span><br><span class="line">  <span class="keyword">if</span> [[ $((i % 3)) -eq 0 ]] &amp;&amp; [[ $((i % 2)) -eq 0 ]]; <span class="keyword">then</span></span><br><span class="line">    <span class="built_in">echo</span> <span class="variable">$&#123;i&#125;</span></span><br><span class="line">    <span class="built_in">break</span>;</span><br><span class="line">  <span class="keyword">fi</span></span><br><span class="line">  i=`expr <span class="variable">$&#123;i&#125;</span> + 1`</span><br><span class="line"><span class="keyword">done</span></span><br><span class="line"><span class="comment"># Output: 6</span></span><br></pre></td></tr></table></figure>
+<p><strong>⌨️ 『示例源码』</strong></p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="comment"># 打印10以内的奇数</span></span><br><span class="line"><span class="keyword">for</span> (( i = 0; i &lt; 10; i ++ )); <span class="keyword">do</span></span><br><span class="line">  <span class="keyword">if</span> [[ $((i % 2)) -eq 0 ]]; <span class="keyword">then</span></span><br><span class="line">    <span class="built_in">continue</span>;</span><br><span class="line">  <span class="keyword">fi</span></span><br><span class="line">  <span class="built_in">echo</span> <span class="variable">$&#123;i&#125;</span></span><br><span class="line"><span class="keyword">done</span></span><br><span class="line"><span class="comment">#  Output:</span></span><br><span class="line"><span class="comment">#  1</span></span><br><span class="line"><span class="comment">#  3</span></span><br><span class="line"><span class="comment">#  5</span></span><br><span class="line"><span class="comment">#  7</span></span><br><span class="line"><span class="comment">#  9</span></span><br></pre></td></tr></table></figure>
+<h2 id="8-函数"><a class="markdownIt-Anchor" href="#8-函数"></a> 8. 函数</h2>
+<p>bash 函数定义语法如下：</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">[ <span class="keyword">function</span> ] funname [()] &#123;</span><br><span class="line">    action;</span><br><span class="line">    [<span class="built_in">return</span> int;]</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>💡 说明：</p>
+<ol>
+<li>函数定义时，<code>function</code> 关键字可有可无。</li>
+<li>函数返回值 - return 返回函数返回值，返回值类型只能为整数（0-255）。如果不加 return 语句，shell 默认将以最后一条命令的运行结果，作为函数返回值。</li>
+<li>函数返回值在调用该函数后通过 <code>$?</code> 来获得。</li>
+<li>所有函数在使用前必须定义。这意味着必须将函数放在脚本开始部分，直至 shell 解释器首次发现它时，才可以使用。调用函数仅使用其函数名即可。</li>
+</ol>
+</blockquote>
+<p><strong>⌨️ 『示例源码』</strong></p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="meta">#!/usr/bin/env bash</span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="title">calc</span></span>()&#123;</span><br><span class="line">  PS3=<span class="string">"choose the oper: "</span></span><br><span class="line">  select oper <span class="keyword">in</span> + - \* / <span class="comment"># 生成操作符选择菜单</span></span><br><span class="line">  <span class="keyword">do</span></span><br><span class="line">  <span class="built_in">echo</span> -n <span class="string">"enter first num: "</span> &amp;&amp; <span class="built_in">read</span> x <span class="comment"># 读取输入参数</span></span><br><span class="line">  <span class="built_in">echo</span> -n <span class="string">"enter second num: "</span> &amp;&amp; <span class="built_in">read</span> y <span class="comment"># 读取输入参数</span></span><br><span class="line">  <span class="built_in">exec</span></span><br><span class="line">  <span class="keyword">case</span> <span class="variable">$&#123;oper&#125;</span> <span class="keyword">in</span></span><br><span class="line">    <span class="string">"+"</span>)</span><br><span class="line">      <span class="built_in">return</span> $((<span class="variable">$&#123;x&#125;</span> + <span class="variable">$&#123;y&#125;</span>))</span><br><span class="line">    ;;</span><br><span class="line">    <span class="string">"-"</span>)</span><br><span class="line">      <span class="built_in">return</span> $((<span class="variable">$&#123;x&#125;</span> - <span class="variable">$&#123;y&#125;</span>))</span><br><span class="line">    ;;</span><br><span class="line">    <span class="string">"*"</span>)</span><br><span class="line">      <span class="built_in">return</span> $((<span class="variable">$&#123;x&#125;</span> * <span class="variable">$&#123;y&#125;</span>))</span><br><span class="line">    ;;</span><br><span class="line">    <span class="string">"/"</span>)</span><br><span class="line">      <span class="built_in">return</span> $((<span class="variable">$&#123;x&#125;</span> / <span class="variable">$&#123;y&#125;</span>))</span><br><span class="line">    ;;</span><br><span class="line">    *)</span><br><span class="line">      <span class="built_in">echo</span> <span class="string">"<span class="variable">$&#123;oper&#125;</span> is not support!"</span></span><br><span class="line">      <span class="built_in">return</span> 0</span><br><span class="line">    ;;</span><br><span class="line">  <span class="keyword">esac</span></span><br><span class="line">  <span class="built_in">break</span></span><br><span class="line">  <span class="keyword">done</span></span><br><span class="line">&#125;</span><br><span class="line">calc</span><br><span class="line"><span class="built_in">echo</span> <span class="string">"the result is: $?"</span> <span class="comment"># $? 获取 calc 函数返回值</span></span><br></pre></td></tr></table></figure>
+<p>执行结果：</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ ./<span class="keyword">function</span>-demo.sh</span><br><span class="line">1) +</span><br><span class="line">2) -</span><br><span class="line">3) *</span><br><span class="line">4) /</span><br><span class="line">choose the oper: 3</span><br><span class="line">enter first num: 10</span><br><span class="line">enter second num: 10</span><br><span class="line">the result is: 100</span><br></pre></td></tr></table></figure>
+<h3 id="81-位置参数"><a class="markdownIt-Anchor" href="#81-位置参数"></a> 8.1. 位置参数</h3>
+<p><strong>位置参数</strong>是在调用一个函数并传给它参数时创建的变量。</p>
+<p>位置参数变量表：</p>
+<table>
+<thead>
+<tr>
+<th>变量</th>
+<th>描述</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>$0</code></td>
+<td>脚本名称</td>
+</tr>
+<tr>
+<td><code>$1 … $9</code></td>
+<td>第 1 个到第 9 个参数列表</td>
+</tr>
+<tr>
+<td><code>${10} … ${N}</code></td>
+<td>第 10 个到 N 个参数列表</td>
+</tr>
+<tr>
+<td><code>$*</code> or <code>$@</code></td>
+<td>除了<code>$0</code>外的所有位置参数</td>
+</tr>
+<tr>
+<td><code>$#</code></td>
+<td>不包括<code>$0</code>在内的位置参数的个数</td>
+</tr>
+<tr>
+<td><code>$FUNCNAME</code></td>
+<td>函数名称（仅在函数内部有值）</td>
+</tr>
+</tbody>
+</table>
+<p><strong>⌨️ 『示例源码』</strong></p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="meta">#!/usr/bin/env bash</span></span><br><span class="line"></span><br><span class="line">x=0</span><br><span class="line"><span class="keyword">if</span> [[ -n <span class="variable">$1</span> ]]; <span class="keyword">then</span></span><br><span class="line">  <span class="built_in">echo</span> <span class="string">"第一个参数为：<span class="variable">$1</span>"</span></span><br><span class="line">  x=<span class="variable">$1</span></span><br><span class="line"><span class="keyword">else</span></span><br><span class="line">  <span class="built_in">echo</span> <span class="string">"第一个参数为空"</span></span><br><span class="line"><span class="keyword">fi</span></span><br><span class="line"></span><br><span class="line">y=0</span><br><span class="line"><span class="keyword">if</span> [[ -n <span class="variable">$2</span> ]]; <span class="keyword">then</span></span><br><span class="line">  <span class="built_in">echo</span> <span class="string">"第二个参数为：<span class="variable">$2</span>"</span></span><br><span class="line">  y=<span class="variable">$2</span></span><br><span class="line"><span class="keyword">else</span></span><br><span class="line">  <span class="built_in">echo</span> <span class="string">"第二个参数为空"</span></span><br><span class="line"><span class="keyword">fi</span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="title">paramsFunction</span></span>()&#123;</span><br><span class="line">  <span class="built_in">echo</span> <span class="string">"函数第一个入参：<span class="variable">$1</span>"</span></span><br><span class="line">  <span class="built_in">echo</span> <span class="string">"函数第二个入参：<span class="variable">$2</span>"</span></span><br><span class="line">&#125;</span><br><span class="line">paramsFunction <span class="variable">$&#123;x&#125;</span> <span class="variable">$&#123;y&#125;</span></span><br></pre></td></tr></table></figure>
+<p>执行结果：</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ ./<span class="keyword">function</span>-demo2.sh</span><br><span class="line">第一个参数为空</span><br><span class="line">第二个参数为空</span><br><span class="line">函数第一个入参：0</span><br><span class="line">函数第二个入参：0</span><br><span class="line"></span><br><span class="line">$ ./<span class="keyword">function</span>-demo2.sh 10 20</span><br><span class="line">第一个参数为：10</span><br><span class="line">第二个参数为：20</span><br><span class="line">函数第一个入参：10</span><br><span class="line">函数第二个入参：20</span><br></pre></td></tr></table></figure>
+<p>执行 <code>./variable-demo4.sh hello world</code> ，然后在脚本中通过 <code>$1</code>、<code>$2</code> … 读取第 1 个参数、第 2 个参数。。。</p>
+<h3 id="82-函数处理参数"><a class="markdownIt-Anchor" href="#82-函数处理参数"></a> 8.2. 函数处理参数</h3>
+<p>另外，还有几个特殊字符用来处理参数：</p>
+<table>
+<thead>
+<tr>
+<th>参数处理</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>$#</code></td>
+<td>返回参数个数</td>
+</tr>
+<tr>
+<td><code>$*</code></td>
+<td>返回所有参数</td>
+</tr>
+<tr>
+<td><code>$$</code></td>
+<td>脚本运行的当前进程 ID 号</td>
+</tr>
+<tr>
+<td><code>$!</code></td>
+<td>后台运行的最后一个进程的 ID 号</td>
+</tr>
+<tr>
+<td><code>$@</code></td>
+<td>返回所有参数</td>
+</tr>
+<tr>
+<td><code>$-</code></td>
+<td>返回 Shell 使用的当前选项，与 set 命令功能相同。</td>
+</tr>
+<tr>
+<td><code>$?</code></td>
+<td>函数返回值</td>
+</tr>
+</tbody>
+</table>
+<p><strong>⌨️ 『示例源码』</strong></p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="title">runner</span></span>() &#123;</span><br><span class="line">  <span class="built_in">return</span> 0</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">name=zp</span><br><span class="line"><span class="function"><span class="title">paramsFunction</span></span>()&#123;</span><br><span class="line">  <span class="built_in">echo</span> <span class="string">"函数第一个入参：<span class="variable">$1</span>"</span></span><br><span class="line">  <span class="built_in">echo</span> <span class="string">"函数第二个入参：<span class="variable">$2</span>"</span></span><br><span class="line">  <span class="built_in">echo</span> <span class="string">"传递到脚本的参数个数：<span class="variable">$#</span>"</span></span><br><span class="line">  <span class="built_in">echo</span> <span class="string">"所有参数："</span></span><br><span class="line">  <span class="built_in">printf</span> <span class="string">"+ %s\n"</span> <span class="string">"$*"</span></span><br><span class="line">  <span class="built_in">echo</span> <span class="string">"脚本运行的当前进程 ID 号：$$"</span></span><br><span class="line">  <span class="built_in">echo</span> <span class="string">"后台运行的最后一个进程的 ID 号：$!"</span></span><br><span class="line">  <span class="built_in">echo</span> <span class="string">"所有参数："</span></span><br><span class="line">  <span class="built_in">printf</span> <span class="string">"+ %s\n"</span> <span class="string">"<span class="variable">$@</span>"</span></span><br><span class="line">  <span class="built_in">echo</span> <span class="string">"Shell 使用的当前选项：$-"</span></span><br><span class="line">  runner</span><br><span class="line">  <span class="built_in">echo</span> <span class="string">"runner 函数的返回值：$?"</span></span><br><span class="line">&#125;</span><br><span class="line">paramsFunction 1 <span class="string">"abc"</span> <span class="string">"hello, \"zp\""</span></span><br><span class="line"><span class="comment">#  Output:</span></span><br><span class="line"><span class="comment">#  函数第一个入参：1</span></span><br><span class="line"><span class="comment">#  函数第二个入参：abc</span></span><br><span class="line"><span class="comment">#  传递到脚本的参数个数：3</span></span><br><span class="line"><span class="comment">#  所有参数：</span></span><br><span class="line"><span class="comment">#  + 1 abc hello, "zp"</span></span><br><span class="line"><span class="comment">#  脚本运行的当前进程 ID 号：26400</span></span><br><span class="line"><span class="comment">#  后台运行的最后一个进程的 ID 号：</span></span><br><span class="line"><span class="comment">#  所有参数：</span></span><br><span class="line"><span class="comment">#  + 1</span></span><br><span class="line"><span class="comment">#  + abc</span></span><br><span class="line"><span class="comment">#  + hello, "zp"</span></span><br><span class="line"><span class="comment">#  Shell 使用的当前选项：hB</span></span><br><span class="line"><span class="comment">#  runner 函数的返回值：0</span></span><br></pre></td></tr></table></figure>
+<h2 id="9-shell-扩展"><a class="markdownIt-Anchor" href="#9-shell-扩展"></a> 9. Shell 扩展</h2>
+<p><em>扩展</em> 发生在一行命令被分成一个个的 <em>记号（tokens）</em> 之后。换言之，扩展是一种执行数学运算的机制，还可以用来保存命令的执行结果，等等。</p>
+<p>感兴趣的话可以阅读<a href="https://www.gnu.org/software/bash/manual/bash.html###Shell-Expansions" target="_blank" rel="noopener">关于 shell 扩展的更多细节</a>。</p>
+<h4 id="大括号扩展"><a class="markdownIt-Anchor" href="#大括号扩展"></a> 大括号扩展</h4>
+<p>大括号扩展让生成任意的字符串成为可能。它跟 <em>文件名扩展</em> 很类似，举个例子：</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="built_in">echo</span> beg&#123;i,a,u&#125;n <span class="comment">### begin began begun</span></span><br></pre></td></tr></table></figure>
+<p>大括号扩展还可以用来创建一个可被循环迭代的区间。</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="built_in">echo</span> &#123;0..5&#125; <span class="comment">### 0 1 2 3 4 5</span></span><br><span class="line"><span class="built_in">echo</span> &#123;00..8..2&#125; <span class="comment">### 00 02 04 06 08</span></span><br></pre></td></tr></table></figure>
+<h4 id="命令置换"><a class="markdownIt-Anchor" href="#命令置换"></a> 命令置换</h4>
+<p>命令置换允许我们对一个命令求值，并将其值置换到另一个命令或者变量赋值表达式中。当一个命令被``或<code>$()</code>包围时，命令置换将会执行。举个例子：</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">now=`date +%T`</span><br><span class="line"><span class="comment">### or</span></span><br><span class="line">now=$(date +%T)</span><br><span class="line"></span><br><span class="line"><span class="built_in">echo</span> <span class="variable">$now</span> <span class="comment">### 19:08:26</span></span><br></pre></td></tr></table></figure>
+<h4 id="算数扩展"><a class="markdownIt-Anchor" href="#算数扩展"></a> 算数扩展</h4>
+<p>在 bash 中，执行算数运算是非常方便的。算数表达式必须包在<code>$(( ))</code>中。算数扩展的格式为：</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">result=$(( ((10 + 5*3) - 7) / 2 ))</span><br><span class="line"><span class="built_in">echo</span> <span class="variable">$result</span> <span class="comment">### 9</span></span><br></pre></td></tr></table></figure>
+<p>在算数表达式中，使用变量无需带上<code>$</code>前缀：</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">x=4</span><br><span class="line">y=7</span><br><span class="line"><span class="built_in">echo</span> $(( x + y ))     <span class="comment">### 11</span></span><br><span class="line"><span class="built_in">echo</span> $(( ++x + y++ )) <span class="comment">### 12</span></span><br><span class="line"><span class="built_in">echo</span> $(( x + y ))     <span class="comment">### 13</span></span><br></pre></td></tr></table></figure>
+<h4 id="单引号和双引号"><a class="markdownIt-Anchor" href="#单引号和双引号"></a> 单引号和双引号</h4>
+<p>单引号和双引号之间有很重要的区别。在双引号中，变量引用或者命令置换是会被展开的。在单引号中是不会的。举个例子：</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="built_in">echo</span> <span class="string">"Your home: <span class="variable">$HOME</span>"</span> <span class="comment">### Your home: /Users/&lt;username&gt;</span></span><br><span class="line"><span class="built_in">echo</span> <span class="string">'Your home: $HOME'</span> <span class="comment">### Your home: $HOME</span></span><br></pre></td></tr></table></figure>
+<p>当局部变量和环境变量包含空格时，它们在引号中的扩展要格外注意。随便举个例子，假如我们用<code>echo</code>来输出用户的输入：</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">INPUT=<span class="string">"A string  with   strange    whitespace."</span></span><br><span class="line"><span class="built_in">echo</span> <span class="variable">$INPUT</span>   <span class="comment">### A string with strange whitespace.</span></span><br><span class="line"><span class="built_in">echo</span> <span class="string">"<span class="variable">$INPUT</span>"</span> <span class="comment">### A string  with   strange    whitespace.</span></span><br></pre></td></tr></table></figure>
+<p>调用第一个<code>echo</code>时给了它 5 个单独的参数 —— <code>$INPUT</code> 被分成了单独的词，<code>echo</code>在每个词之间打印了一个空格。第二种情况，调用<code>echo</code>时只给了它一个参数（整个$INPUT 的值，包括其中的空格）。</p>
+<p>来看一个更严肃的例子：</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">FILE=<span class="string">"Favorite Things.txt"</span></span><br><span class="line">cat <span class="variable">$FILE</span>   <span class="comment">### 尝试输出两个文件: `Favorite` 和 `Things.txt`</span></span><br><span class="line">cat <span class="string">"<span class="variable">$FILE</span>"</span> <span class="comment">### 输出一个文件: `Favorite Things.txt`</span></span><br></pre></td></tr></table></figure>
+<p>尽管这个问题可以通过把 FILE 重命名成<code>Favorite-Things.txt</code>来解决，但是，假如这个值来自某个环境变量，来自一个位置参数，或者来自其它命令（<code>find</code>, <code>cat</code>, 等等）呢。因此，如果输入 <em>可能</em> 包含空格，务必要用引号把表达式包起来。</p>
+<h2 id="10-流和重定向"><a class="markdownIt-Anchor" href="#10-流和重定向"></a> 10. 流和重定向</h2>
+<p>Bash 有很强大的工具来处理程序之间的协同工作。使用流，我们能将一个程序的输出发送到另一个程序或文件，因此，我们能方便地记录日志或做一些其它我们想做的事。</p>
+<p>管道给了我们创建传送带的机会，控制程序的执行成为可能。</p>
+<p>学习如何使用这些强大的、高级的工具是非常非常重要的。</p>
+<h3 id="101-输入-输出流"><a class="markdownIt-Anchor" href="#101-输入-输出流"></a> 10.1. 输入、输出流</h3>
+<p>Bash 接收输入，并以字符序列或 <strong>字符流</strong> 的形式产生输出。这些流能被重定向到文件或另一个流中。</p>
+<p>有三个文件描述符：</p>
+<table>
+<thead>
+<tr>
+<th>代码</th>
+<th>描述符</th>
+<th>描述</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>0</code></td>
+<td><code>stdin</code></td>
+<td>标准输入</td>
+</tr>
+<tr>
+<td><code>1</code></td>
+<td><code>stdout</code></td>
+<td>标准输出</td>
+</tr>
+<tr>
+<td><code>2</code></td>
+<td><code>stderr</code></td>
+<td>标准错误输出</td>
+</tr>
+</tbody>
+</table>
+<h3 id="102-重定向"><a class="markdownIt-Anchor" href="#102-重定向"></a> 10.2. 重定向</h3>
+<p>重定向让我们可以控制一个命令的输入来自哪里，输出结果到什么地方。这些运算符在控制流的重定向时会被用到：</p>
+<table>
+<thead>
+<tr>
+<th>Operator</th>
 <th>Description</th>
 </tr>
 </thead>
 <tbody>
 <tr>
-<td><code>pdf.pageNumbers</code></td>
-<td>将页码添加到每个页面的底部（默认为 true）</td>
+<td><code>&gt;</code></td>
+<td>重定向输出</td>
 </tr>
 <tr>
-<td><code>pdf.fontSize</code></td>
-<td>基本字体大小（默认是 12）</td>
+<td><code>&amp;&gt;</code></td>
+<td>重定向输出和错误输出</td>
 </tr>
 <tr>
-<td><code>pdf.fontFamily</code></td>
-<td>基本字体样式（默认是 <code>Arial</code>）</td>
+<td><code>&amp;&gt;&gt;</code></td>
+<td>以附加的形式重定向输出和错误输出</td>
 </tr>
 <tr>
-<td><code>pdf.paperSize</code></td>
-<td>页面尺寸，选项有： <code>'a0', 'a1', 'a2', 'a3', 'a4', 'a5', 'a6', 'b0', 'b1', 'b2', 'b3', 'b4', 'b5', 'b6', 'legal', 'letter'</code> （默认值是 <code>a4</code>）</td>
+<td><code>&lt;</code></td>
+<td>重定向输入</td>
 </tr>
 <tr>
-<td><code>pdf.margin.top</code></td>
-<td>上边界（默认值是 56）</td>
+<td><code>&lt;&lt;</code></td>
+<td><a href="http://tldp.org/LDP/abs/html/here-docs.html" target="_blank" rel="noopener">Here 文档</a> 语法</td>
 </tr>
 <tr>
-<td><code>pdf.margin.bottom</code></td>
-<td>下边界（默认值是 56）</td>
-</tr>
-<tr>
-<td><code>pdf.margin.right</code></td>
-<td>右边界（默认值是 62）</td>
-</tr>
-<tr>
-<td><code>pdf.margin.left</code></td>
-<td>左边界（默认值是 62）</td>
+<td><code>&lt;&lt;&lt;</code></td>
+<td><a href="http://www.tldp.org/LDP/abs/html/x17837.html" target="_blank" rel="noopener">Here 字符串</a></td>
 </tr>
 </tbody>
 </table>
-<h2 id="生成电子书"><a class="markdownIt-Anchor" href="#生成电子书"></a> 生成电子书</h2>
-<p>GitBook 可以生成一个网站，但也可以输出内容作为电子书（ePub，Mobi，PDF）。</p>
-<figure class="highlight jboss-cli"><table><tr><td class="code"><pre><span class="line"><span class="comment"># Generate a PDF file</span></span><br><span class="line">$ gitbook pdf <span class="string">./</span> <span class="string">./mybook.pdf</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># Generate an ePub file</span></span><br><span class="line">$ gitbook epub <span class="string">./</span> <span class="string">./mybook.epub</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># Generate a Mobi file</span></span><br><span class="line">$ gitbook mobi <span class="string">./</span> <span class="string">./mybook.mobi</span></span><br></pre></td></tr></table></figure>
-<h3 id="安装-ebook-convert"><a class="markdownIt-Anchor" href="#安装-ebook-convert"></a> 安装 ebook-convert</h3>
-<p><code>ebook-convert</code> 可以用来生成电子书（epub，mobi，pdf）。</p>
-<h4 id="gnulinux"><a class="markdownIt-Anchor" href="#gnulinux"></a> GNU/Linux</h4>
-<p>安装 <a href="https://calibre-ebook.com/download" target="_blank" rel="noopener">Calibre application</a>.</p>
-<figure class="highlight sh"><table><tr><td class="code"><pre><span class="line">$ sudo aptitude install calibre</span><br></pre></td></tr></table></figure>
-<p>在一些 GNU / Linux 发行版中，节点被安装为 nodejs，您需要手动创建一个符号链接：</p>
-<figure class="highlight sh"><table><tr><td class="code"><pre><span class="line"><span class="variable">$sudo</span> ln -s /usr/bin/nodejs /usr/bin/node</span><br></pre></td></tr></table></figure>
-<h4 id="os-x"><a class="markdownIt-Anchor" href="#os-x"></a> OS X</h4>
-<p>下载 <a href="https://calibre-ebook.com/download" target="_blank" rel="noopener">Calibre application</a>。将 <code>calibre.app</code> 移动到应用程序文件夹后，创建一个符号链接到 <code>ebook-convert</code> 工具：</p>
-<figure class="highlight sh"><table><tr><td class="code"><pre><span class="line">$ sudo ln -s ~/Applications/calibre.app/Contents/MacOS/ebook-convert /usr/bin</span><br></pre></td></tr></table></figure>
-<p>您可以使用 $PATH 中的任何目录替换 <code>/usr/bin</code> 。</p>
-<h3 id="封面"><a class="markdownIt-Anchor" href="#封面"></a> 封面</h3>
-<p>封面用于所有电子书格式。您可以自己提供一个，也可以使用 <a href="https://plugins.gitbook.com/plugin/autocover" target="_blank" rel="noopener">autocover plugin</a> 生成一个。</p>
-<p>要提供封面，请将 <code>cover.jpg</code> 文件放在书本的根目录下。添加一个 <code>cover_small.jpg</code> 将指定一个较小版本的封面。封面应为 <code>JPEG</code> 文件。</p>
-<p>好的封面应该遵守以下准则：</p>
+<p>以下是一些使用重定向的例子：</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="comment">### ls的结果将会被写到list.txt中</span></span><br><span class="line">ls -l &gt; list.txt</span><br><span class="line"></span><br><span class="line"><span class="comment">### 将输出附加到list.txt中</span></span><br><span class="line">ls -a &gt;&gt; list.txt</span><br><span class="line"></span><br><span class="line"><span class="comment">### 所有的错误信息会被写到errors.txt中</span></span><br><span class="line">grep da * 2&gt; errors.txt</span><br><span class="line"></span><br><span class="line"><span class="comment">### 从errors.txt中读取输入</span></span><br><span class="line">less &lt; errors.txt</span><br></pre></td></tr></table></figure>
+<h3 id="103-devnull-文件"><a class="markdownIt-Anchor" href="#103-devnull-文件"></a> 10.3. <code>/dev/null</code> 文件</h3>
+<p>如果希望执行某个命令，但又不希望在屏幕上显示输出结果，那么可以将输出重定向到 /dev/null：</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ <span class="built_in">command</span> &gt; /dev/null</span><br></pre></td></tr></table></figure>
+<p>/dev/null 是一个特殊的文件，写入到它的内容都会被丢弃；如果尝试从该文件读取内容，那么什么也读不到。但是 /dev/null 文件非常有用，将命令的输出重定向到它，会起到&quot;禁止输出&quot;的效果。</p>
+<p>如果希望屏蔽 stdout 和 stderr，可以这样写：</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ <span class="built_in">command</span> &gt; /dev/null 2&gt;&amp;1</span><br></pre></td></tr></table></figure>
+<h2 id="11-debug"><a class="markdownIt-Anchor" href="#11-debug"></a> 11. Debug</h2>
+<p>shell 提供了用于 debug 脚本的工具。</p>
+<p>如果想采用 debug 模式运行某脚本，可以在其 shebang 中使用一个特殊的选项：</p>
+<figure class="highlight d"><table><tr><td class="code"><pre><span class="line"><span class="meta">#!/bin/bash options</span></span><br></pre></td></tr></table></figure>
+<p>options 是一些可以改变 shell 行为的选项。下表是一些可能对你有用的选项：</p>
+<table>
+<thead>
+<tr>
+<th>Short</th>
+<th>Name</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>-f</code></td>
+<td>noglob</td>
+<td>禁止文件名展开（globbing）</td>
+</tr>
+<tr>
+<td><code>-i</code></td>
+<td>interactive</td>
+<td>让脚本以 <em>交互</em> 模式运行</td>
+</tr>
+<tr>
+<td><code>-n</code></td>
+<td>noexec</td>
+<td>读取命令，但不执行（语法检查）</td>
+</tr>
+<tr>
+<td><code>-t</code></td>
+<td>—</td>
+<td>执行完第一条命令后退出</td>
+</tr>
+<tr>
+<td><code>-v</code></td>
+<td>verbose</td>
+<td>在执行每条命令前，向<code>stderr</code>输出该命令</td>
+</tr>
+<tr>
+<td><code>-x</code></td>
+<td>xtrace</td>
+<td>在执行每条命令前，向<code>stderr</code>输出该命令以及该命令的扩展参数</td>
+</tr>
+</tbody>
+</table>
+<p>举个例子，如果我们在脚本中指定了<code>-x</code>例如：</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="comment">#!/bin/bash -x</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">for</span> (( i = 0; i &lt; 3; i++ )); <span class="keyword">do</span></span><br><span class="line">  <span class="built_in">echo</span> <span class="variable">$i</span></span><br><span class="line"><span class="keyword">done</span></span><br></pre></td></tr></table></figure>
+<p>这会向<code>stdout</code>打印出变量的值和一些其它有用的信息：</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ ./my_script</span><br><span class="line">+ (( i = 0 ))</span><br><span class="line">+ (( i &lt; 3 ))</span><br><span class="line">+ <span class="built_in">echo</span> 0</span><br><span class="line">0</span><br><span class="line">+ (( i++  ))</span><br><span class="line">+ (( i &lt; 3 ))</span><br><span class="line">+ <span class="built_in">echo</span> 1</span><br><span class="line">1</span><br><span class="line">+ (( i++  ))</span><br><span class="line">+ (( i &lt; 3 ))</span><br><span class="line">+ <span class="built_in">echo</span> 2</span><br><span class="line">2</span><br><span class="line">+ (( i++  ))</span><br><span class="line">+ (( i &lt; 3 ))</span><br></pre></td></tr></table></figure>
+<p>有时我们值需要 debug 脚本的一部分。这种情况下，使用<code>set</code>命令会很方便。这个命令可以启用或禁用选项。使用<code>-</code>启用选项，<code>+</code>禁用选项：</p>
+<p><strong>⌨️ 『示例源码』</strong></p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="comment"># 开启 debug</span></span><br><span class="line"><span class="built_in">set</span> -x</span><br><span class="line"><span class="keyword">for</span> (( i = 0; i &lt; 3; i++ )); <span class="keyword">do</span></span><br><span class="line">  <span class="built_in">printf</span> <span class="variable">$&#123;i&#125;</span></span><br><span class="line"><span class="keyword">done</span></span><br><span class="line"><span class="comment"># 关闭 debug</span></span><br><span class="line"><span class="built_in">set</span> +x</span><br><span class="line"><span class="comment">#  Output:</span></span><br><span class="line"><span class="comment">#  + (( i = 0 ))</span></span><br><span class="line"><span class="comment">#  + (( i &lt; 3 ))</span></span><br><span class="line"><span class="comment">#  + printf 0</span></span><br><span class="line"><span class="comment">#  0+ (( i++  ))</span></span><br><span class="line"><span class="comment">#  + (( i &lt; 3 ))</span></span><br><span class="line"><span class="comment">#  + printf 1</span></span><br><span class="line"><span class="comment">#  1+ (( i++  ))</span></span><br><span class="line"><span class="comment">#  + (( i &lt; 3 ))</span></span><br><span class="line"><span class="comment">#  + printf 2</span></span><br><span class="line"><span class="comment">#  2+ (( i++  ))</span></span><br><span class="line"><span class="comment">#  + (( i &lt; 3 ))</span></span><br><span class="line"><span class="comment">#  + set +x</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">for</span> i <span class="keyword">in</span> &#123;1..5&#125;; <span class="keyword">do</span> <span class="built_in">printf</span> <span class="variable">$&#123;i&#125;</span>; <span class="keyword">done</span></span><br><span class="line"><span class="built_in">printf</span> <span class="string">"\n"</span></span><br><span class="line"><span class="comment">#  Output: 12345</span></span><br></pre></td></tr></table></figure>
+<h2 id="12-更多内容"><a class="markdownIt-Anchor" href="#12-更多内容"></a> 12. 更多内容</h2>
+<blockquote>
+<p>📓 本文已归档到：「<a href="https://github.com/dunwu/blog" target="_blank" rel="noopener">blog</a>」</p>
+</blockquote>
 <ul>
-<li><code>cover.jpg</code> 的尺寸为 1800x2360 像素，<code>cover_small.jpg</code> 为 200x262</li>
-<li>没有边界</li>
-<li>清晰可见的书名</li>
-<li>任何重要的文字应该在小版本中可见</li>
+<li><a href="https://github.com/alebcay/awesome-shell" target="_blank" rel="noopener">awesome-shell</a>，shell 资源列表</li>
+<li><a href="https://github.com/awesome-lists/awesome-bash" target="_blank" rel="noopener">awesome-bash</a>，bash 资源列表</li>
+<li><a href="https://github.com/denysdovhan/bash-handbook" target="_blank" rel="noopener">bash-handbook</a></li>
+<li><a href="https://github.com/vuuihc/bash-guide" target="_blank" rel="noopener">bash-guide</a> ，bash 基本用法指南</li>
+<li><a href="https://github.com/Bash-it/bash-it" target="_blank" rel="noopener">bash-it</a>，为你日常使用，开发以及维护 shell 脚本和自定义命令提供了一个可靠的框架</li>
+<li><a href="http://dotfiles.github.io/" target="_blank" rel="noopener">dotfiles.github.io</a>，上面有 bash 和其它 shell 的各种 dotfiles 集合以及 shell 框架的链接</li>
+<li><a href="http://www.runoob.com/linux/linux-shell.html" target="_blank" rel="noopener">Runoob Shell 教程</a></li>
+<li><a href="https://github.com/koalaman/shellcheck" target="_blank" rel="noopener">shellcheck</a> 一个静态 shell 脚本分析工具，本质上是 bash／sh／zsh 的 lint。</li>
 </ul>
-<h2 id="gitbook-部署"><a class="markdownIt-Anchor" href="#gitbook-部署"></a> Gitbook 部署</h2>
-<h3 id="托管到-gitbookcom"><a class="markdownIt-Anchor" href="#托管到-gitbookcom"></a> 托管到 <a href="http://gitbook.com" target="_blank" rel="noopener">gitbook.com</a></h3>
-<p><a href="https://www.gitbook.com/" target="_blank" rel="noopener">GitBook.com</a> 是使用 GitBook 格式创建和托管图书的在线平台。它提供托管，协作功能和易于使用的编辑器。</p>
-<p><strong>创建新书</strong></p>
-<p>如下图所示，根据个人需求，选择一个模板创建你的电子书。</p>
-<div align="center"><img src="https://raw.githubusercontent.com/dunwu/gitbook-notes/master/assets/images/gitbook-new-book.png"/></div>
-<p><strong>设置书的基本信息</strong></p>
-<div align="center"><img src="https://raw.githubusercontent.com/dunwu/gitbook-notes/master/assets/images/gitbook-settings.png"/></div>
-<p><strong>clone 到本地</strong></p>
-<p><a href="http://Gitbook.com" target="_blank" rel="noopener">Gitbook.com</a> 会为每本书创建一个 git 仓库。</p>
-<p>如下图所示，拷贝 git 地址，然后 <code>git clone</code> 到本地。</p>
-<div align="center"><img src="https://raw.githubusercontent.com/dunwu/gitbook-notes/master/assets/images/gitbook-clone.png"/></div>
-<p><strong>发布</strong></p>
-<p>在本地按照 Gitbook 规范编辑电子书，然后 <code>git push</code> 到 Gitbook 的远程仓库。</p>
-<p>默认访问地址是：<a href="https://xn--eqr924avxo.gitbooks.io/%E9%A1%B9%E7%9B%AE%E5%90%8D/content/" target="_blank" rel="noopener">https://用户名.gitbooks.io/项目名/content/</a></p>
-<p>例如：我的用户名为 dunwu，一个电子书项目名为 test，则访问路径是： <code>https://dunwu.gitbooks.io/test/content/</code></p>
-<p>当然，如果你有自己的域名，也可以设置 Domains 选项，来指定访问路径为你的域。</p>
-<h3 id="托管到-github"><a class="markdownIt-Anchor" href="#托管到-github"></a> 托管到 Github</h3>
-<p>如果你不希望使用 Gitbook 的仓库，而是想直接使用 Github 的仓库，也是可以的。</p>
-<p>首先，你需要绑定你的 Github 账号。最简单的方式当然就是登录 <a href="http://Gitbook.com" target="_blank" rel="noopener">Gitbook.com</a> 时使用 Github 账号登录方式了。否则，你也可以在 Account Settings 中的 Github 设置选项中去进行绑定。</p>
-<p>绑定了 Github 账号后，你可以在新建电子书时，选择从一个指定的 Github 仓库导入电子书项目。参考下图：</p>
-<div align="center"><img src="https://raw.githubusercontent.com/dunwu/gitbook-notes/master/assets/images/gitbook-new-book-with-github.png"/></div>
-<p>只要你指定的 Github 仓库中的文档内容符合 Gitbook 规范，Gitbook 就会自动根据你的每次更新去构建生成电子书网站。</p>
-<p>默认访问地址是：</p>
-<figure class="highlight jboss-cli"><table><tr><td class="code"><pre><span class="line">https:<span class="string">//Github</span>用户名<span class="string">.gitbooks.io/Github</span> 仓库<span class="string">/content/</span></span><br></pre></td></tr></table></figure>
-<p>例如：我的用户名为 dunwu，Github 仓库名为 gitbook-notes，则访问路径是：</p>
-<p><a href="https://dunwu.gitbooks.io/gitbook-notes/content/" target="_blank" rel="noopener">https://dunwu.gitbooks.io/gitbook-notes/content/</a></p>
-<h4 id="托管到-github-pages"><a class="markdownIt-Anchor" href="#托管到-github-pages"></a> 托管到 Github Pages</h4>
-<p>也许你以前也了解 Github 的一个功能： <a href="https://pages.github.com/" target="_blank" rel="noopener">GitHub Pages</a> 。它允许用户在 GitHub 仓库托管你的个人、组织或项目的静态页面（自动识别 html、css、javascript）。</p>
-<p><strong>建立 <a href="http://xxx.github.io" target="_blank" rel="noopener">xxx.github.io</a> 仓库</strong></p>
-<p>要使用这个特性，首先，你必须建立一个严格遵循以下命名要求的仓库：<code>Github账号名.github.io</code>举例，我的 Github 账号为 dunwu，则这个仓库应该叫 <code>dunwu.github.io</code>。通常，这个仓库被用来作为个人或组织的博客。</p>
-<p><strong>建立 gh-pages 分支</strong></p>
-<p>完成第 1 步后，在任意一个 Github 仓库中建立一个名为 <code>gh-pages</code> 的分支。只要 <code>gh-pages</code> 中的内容符合一个静态站点要求，就可以在如下地址中进行访问：<code>https://Github用户名.gitbooks.io/Github 仓库</code> 。例如：我的一个 Github 仓库名为 react-notes，则访问路径是：<code>https://dunwu.github.io/react-notes</code></p>
-<p><strong>自动化发布到 gh-pages</strong></p>
-<p>如果每次都手动 git push 到远程 gh-pages 分支，略有点麻烦。</p>
-<p>怎么实现自动化发布呢？</p>
-<p>有两种方法：</p>
-<p><strong>使用 gh-pages 插件</strong></p>
-<p>如果你了解 Nodejs，那么最简单的发布方式就是使用 <code>gh-pages</code> 插件。</p>
-<p>先在本地安装插件</p>
-<figure class="highlight coffeescript"><table><tr><td class="code"><pre><span class="line">$ <span class="built_in">npm</span> i -D gh-pages</span><br></pre></td></tr></table></figure>
-<p>然后，在 package.json 文件中添加脚本命令：</p>
-<p>如下：<code>-d</code> 命令参数后面是要发布的静态站点内容的目录</p>
-<figure class="highlight"><table><tr><td class="code"><pre><span class="line">"scripts": &#123;</span><br><span class="line">  "deploy": "gh-pages -d build"</span><br><span class="line">&#125;,</span><br></pre></td></tr></table></figure>
-<p><strong>脚本</strong></p>
-<p>写一个执行 git 命令的脚本就搞定了。</p>
-<p>下面的脚本无论是在 bat 或 sh 脚本中都可以执行。</p>
-<figure class="highlight properties"><table><tr><td class="code"><pre><span class="line"><span class="attr">cd</span> <span class="string">build</span></span><br><span class="line"><span class="attr">git</span> <span class="string">init</span></span><br><span class="line"><span class="attr">git</span> <span class="string">checkout -b gh-pages</span></span><br><span class="line"><span class="attr">git</span> <span class="string">add .</span></span><br><span class="line"><span class="attr">git</span> <span class="string">commit -am "Update"</span></span><br><span class="line"><span class="attr">git</span> <span class="string">push git@github.com:dunwu/gitbook-notes gh-pages --force"</span></span><br></pre></td></tr></table></figure>
-<h2 id="参考资料"><a class="markdownIt-Anchor" href="#参考资料"></a> 参考资料</h2>
-<h3 id="官方资源"><a class="markdownIt-Anchor" href="#官方资源"></a> 官方资源</h3>
-<ul>
-<li><a href="https://github.com/GitbookIO/gitbook" target="_blank" rel="noopener">Gitbook Github</a></li>
-<li><a href="https://www.gitbook.com/" target="_blank" rel="noopener">Gitbook 官网</a></li>
-<li><a href="https://toolchain.gitbook.com/" target="_blank" rel="noopener">Gitbook Toolchain 文档</a></li>
-<li><a href="https://help.gitbook.com/" target="_blank" rel="noopener">Gitbook 帮助中心</a></li>
-</ul>
-<h3 id="教程资源"><a class="markdownIt-Anchor" href="#教程资源"></a> 教程资源</h3>
-<ul>
-<li><a href="https://github.com/zhangjikai/gitbook-use" target="_blank" rel="noopener">gitbook-use</a> by zhangjikai</li>
-</ul>
-<h3 id="工具"><a class="markdownIt-Anchor" href="#工具"></a> 工具</h3>
-<ul>
-<li><a href="https://www.gitbook.com/editor" target="_blank" rel="noopener">Gitbook 编辑器</a></li>
-</ul>
+<p>最后，Stack Overflow 上 <a href="https://stackoverflow.com/questions/tagged/bash" target="_blank" rel="noopener">bash 标签下</a>有很多你可以学习的问题，当你遇到问题时，也是一个提问的好地方。</p>
 
       
     </div>
@@ -3246,7 +3684,7 @@
       <div class="site-state-item site-state-tags">
             <a href="/blog/tags/">
           
-        <span class="site-state-item-count">32</span>
+        <span class="site-state-item-count">30</span>
         <span class="site-state-item-name">标签</span></a>
       </div>
   </nav>
@@ -3291,12 +3729,12 @@
     <span class="post-meta-item-icon">
       <i class="fa fa-area-chart"></i>
     </span>
-    <span title="站点总字数">318k</span>
+    <span title="站点总字数">334k</span>
     <span class="post-meta-divider">|</span>
     <span class="post-meta-item-icon">
       <i class="fa fa-coffee"></i>
     </span>
-    <span title="站点阅读时长">4:49</span>
+    <span title="站点阅读时长">5:04</span>
 </div>
 
         
