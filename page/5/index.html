@@ -153,12 +153,12 @@
   </li>
         <li class="menu-item menu-item-tags">
 
-    <a href="/blog/tags/" rel="section"><i class="fa fa-fw fa-tags"></i>标签<span class="badge">34</span></a>
+    <a href="/blog/tags/" rel="section"><i class="fa fa-fw fa-tags"></i>标签<span class="badge">35</span></a>
 
   </li>
         <li class="menu-item menu-item-categories">
 
-    <a href="/blog/categories/" rel="section"><i class="fa fa-fw fa-th"></i>分类<span class="badge">11</span></a>
+    <a href="/blog/categories/" rel="section"><i class="fa fa-fw fa-th"></i>分类<span class="badge">12</span></a>
 
   </li>
         <li class="menu-item menu-item-archives">
@@ -423,6 +423,310 @@
 <li>例如：groupByKey、reduceByKey、sortByKey</li>
 </ul>
 </li>
+</ul>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+        
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://dunwu.github.io/blog/blog/bigdata/overview/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/blog/images/avatar.gif">
+      <meta itemprop="name" content="Zhang Peng">
+      <meta itemprop="description" content="Dunwu's Blog">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Dunwu">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/blog/bigdata/overview/" class="post-title-link" itemprop="url">大数据简介</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2018-09-03 00:00:00" itemprop="dateCreated datePublished" datetime="2018-09-03T00:00:00+08:00">2018-09-03</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2019-05-08 18:07:48" itemprop="dateModified" datetime="2019-05-08T18:07:48+08:00">2019-05-08</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/blog/categories/bigdata/" itemprop="url" rel="index">
+                    <span itemprop="name">bigdata</span>
+                  </a>
+                </span>
+            </span>
+
+          
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="fa fa-comment-o"></i>
+      </span>
+      <span class="post-meta-item-text">Disqus：</span>
+    
+    <a title="disqus" href="/blog/bigdata/overview/#comments" itemprop="discussionUrl">
+      <span class="post-comments-count disqus-comment-count" data-disqus-identifier="bigdata/overview/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  <br>
+            <span class="post-meta-item" title="本文字数">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-file-word-o"></i>
+              </span>
+                <span class="post-meta-item-text">本文字数：</span>
+              <span>2k</span>
+            </span>
+            <span class="post-meta-item" title="阅读时长">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-clock-o"></i>
+              </span>
+                <span class="post-meta-item-text">阅读时长 &asymp;</span>
+              <span>2 分钟</span>
+            </span>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h1 id="大数据简介"><a class="markdownIt-Anchor" href="#大数据简介"></a> 大数据简介</h1>
+<!-- TOC depthFrom:2 depthTo:3 -->
+<ul>
+<li><a href="#%E7%AE%80%E4%BB%8B">简介</a>
+<ul>
+<li><a href="#%E4%BB%80%E4%B9%88%E6%98%AF%E5%A4%A7%E6%95%B0%E6%8D%AE">什么是大数据</a></li>
+<li><a href="#%E5%BA%94%E7%94%A8%E5%9C%BA%E6%99%AF">应用场景</a></li>
+<li><a href="#hadoop-%E7%BC%96%E5%B9%B4%E5%8F%B2">Hadoop 编年史</a></li>
+</ul>
+</li>
+<li><a href="#%E6%8A%80%E6%9C%AF%E4%BD%93%E7%B3%BB">技术体系</a>
+<ul>
+<li><a href="#hdfs">HDFS</a></li>
+<li><a href="#mapreduce">MapReduce</a></li>
+<li><a href="#spark">Spark</a></li>
+<li><a href="#yarn">YARN</a></li>
+<li><a href="#hive">Hive</a></li>
+<li><a href="#hbase">HBase</a></li>
+<li><a href="#elasticsearch">ElasticSearch</a></li>
+</ul>
+</li>
+<li><a href="#%E6%9C%AF%E8%AF%AD">术语</a></li>
+<li><a href="#%E8%B5%84%E6%BA%90">资源</a></li>
+</ul>
+<!-- /TOC -->
+<h2 id="简介"><a class="markdownIt-Anchor" href="#简介"></a> 简介</h2>
+<h3 id="什么是大数据"><a class="markdownIt-Anchor" href="#什么是大数据"></a> 什么是大数据</h3>
+<p>大数据是指超出传统数据库工具收集、存储、管理和分析能力的数据集。与此同时，及时采集、存储、聚合、管理数据，以及对数据深度分析的新技术和新能力，正在快速增长，就像预测计算芯片增长速度的摩尔定律一样。</p>
+<ul>
+<li><strong>Volume</strong> - 数据规模巨大</li>
+<li><strong>Velocity</strong> - 生成和处理速度极快</li>
+<li><strong>Variety</strong> - 数据规模巨大</li>
+<li><strong>Value</strong> - 生成和处理速度极快</li>
+</ul>
+<h3 id="应用场景"><a class="markdownIt-Anchor" href="#应用场景"></a> 应用场景</h3>
+<p>基于大数据的数据仓库</p>
+<p>基于大数据的实时流处理</p>
+<h3 id="hadoop-编年史"><a class="markdownIt-Anchor" href="#hadoop-编年史"></a> Hadoop 编年史</h3>
+<table>
+<thead>
+<tr>
+<th style="text-align:left">时间</th>
+<th style="text-align:left">事件</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left">2003.01</td>
+<td style="text-align:left">Google发表了Google File System论文</td>
+</tr>
+<tr>
+<td style="text-align:left">2004.01</td>
+<td style="text-align:left">Google发表了MapReduce论文</td>
+</tr>
+<tr>
+<td style="text-align:left">2006.02</td>
+<td style="text-align:left">Apache Hadoop项目正式启动，并支持MapReduce和HDFS独立发展</td>
+</tr>
+<tr>
+<td style="text-align:left">2006.11</td>
+<td style="text-align:left">Google发表了Bigtable论文</td>
+</tr>
+<tr>
+<td style="text-align:left">2008.01</td>
+<td style="text-align:left">Hadoop成为Apache顶级项目</td>
+</tr>
+<tr>
+<td style="text-align:left">2009.03</td>
+<td style="text-align:left">Cloudera推出世界上首个Hadoop发行版——CDH，并完全开放源码</td>
+</tr>
+<tr>
+<td style="text-align:left">2012.03</td>
+<td style="text-align:left">HDFS NameNode HA加入Hadoop主版本</td>
+</tr>
+<tr>
+<td style="text-align:left">2014.02</td>
+<td style="text-align:left">Spark代替MapReduce成为Hadoop的缺省计算引擎，并成为Apache顶级项目</td>
+</tr>
+</tbody>
+</table>
+<h2 id="技术体系"><a class="markdownIt-Anchor" href="#技术体系"></a> 技术体系</h2>
+<h3 id="hdfs"><a class="markdownIt-Anchor" href="#hdfs"></a> HDFS</h3>
+<p><strong>概念</strong></p>
+<ul>
+<li>Hadoop 分布式文件系统（Hadoop Distributed File System）</li>
+<li>在开源大数据技术体系中，地位无可替代</li>
+</ul>
+<p><strong>特点</strong></p>
+<ul>
+<li>高容错：数据多副本，副本丢失后自动恢复</li>
+<li>高可用：NameNode HA，安全模式</li>
+<li>高扩展：10K 节点规模</li>
+<li>简单一致性模型：一次写入多次读取，支持追加，不允许修改</li>
+<li>流式数据访问：批量读而非随机读，关注吞吐量而非时间</li>
+<li>大规模数据集：典型文件大小 GB~TB 级，百万以上文件数量， PB 以上数据规模</li>
+<li>构建成本低且安全可靠：运行在大量的廉价商用机器上，硬件错误是常态，提供容错机制</li>
+</ul>
+<h3 id="mapreduce"><a class="markdownIt-Anchor" href="#mapreduce"></a> MapReduce</h3>
+<p><strong>概念</strong></p>
+<ul>
+<li>面向批处理的分布式计算框架</li>
+<li>编程模型：将 MapReduce 程序分为 Map、Reduce 两个阶段</li>
+</ul>
+<p><strong>核心思想</strong></p>
+<ul>
+<li>分而治之，分布式计算</li>
+<li>移动计算，而非移动数据</li>
+</ul>
+<p><strong>特点</strong></p>
+<ul>
+<li>高容错：任务失败，自动调度到其他节点重新执行</li>
+<li>高扩展：计算能力随着节点数增加，近似线性递增</li>
+<li>适用于海量数据的离线批处理</li>
+<li>降低了分布式编程的门槛</li>
+</ul>
+<h3 id="spark"><a class="markdownIt-Anchor" href="#spark"></a> Spark</h3>
+<p>高性能分布式通用计算引擎</p>
+<ul>
+<li>Spark Core - 基础计算框架（批处理、交互式分析）</li>
+<li>Spark SQL - SQL 引擎（海量结构化数据的高性能查询）</li>
+<li>Spark Streaming - 实时流处理（微批）</li>
+<li>Spark MLlib - 机器学习</li>
+<li>Spark GraphX - 图计算</li>
+</ul>
+<p>采用 Scala 语言开发</p>
+<p><strong>特点</strong></p>
+<ul>
+<li>计算高效 - 内存计算、Cache 缓存机制、DAG 引擎、多线程池模型</li>
+<li>通用易用 - 适用于批处理、交互式计算、流处理、机器学习、图计算等多种场景</li>
+<li>运行模式多样 - Local、Standalone、YARN/Mesos</li>
+</ul>
+<h3 id="yarn"><a class="markdownIt-Anchor" href="#yarn"></a> YARN</h3>
+<p><strong>概念</strong></p>
+<ul>
+<li>Yet Another Resource Negotiator，另一种资源管理器</li>
+<li>为了解决 Hadoop 1.x 中 MapReduce 的先天缺陷</li>
+<li>分布式通用资源管理系统</li>
+<li>负责集群资源的统一管理</li>
+<li>从 Hadoop 2.x 开始，YARN 成为 Hadoop 的核心组件</li>
+</ul>
+<p><strong>特点</strong></p>
+<ul>
+<li>专注于资源管理和作业调度</li>
+<li>通用 - 适用各种计算框架，如 - MapReduce、Spark</li>
+<li>高可用 - ResourceManager 高可用、HDFS 高可用</li>
+<li>高扩展</li>
+</ul>
+<h3 id="hive"><a class="markdownIt-Anchor" href="#hive"></a> Hive</h3>
+<p><strong>概念</strong></p>
+<ul>
+<li>Hadoop 数据仓库 - 企业决策支持</li>
+<li>SQL 引擎 - 对海量结构化数据进行高性能的 SQL 查询</li>
+<li>采用 HDFS 或 HBase 为数据存储</li>
+<li>采用 MapReduce 或 Spark 为计算框架</li>
+</ul>
+<p><strong>特点</strong></p>
+<ul>
+<li>提供类 SQL 查询语言</li>
+<li>支持命令行或 JDBC/ODBC</li>
+<li>提供灵活的扩展性</li>
+<li>提供复杂数据类型、扩展函数、脚本等</li>
+</ul>
+<h3 id="hbase"><a class="markdownIt-Anchor" href="#hbase"></a> HBase</h3>
+<p><strong>概念</strong></p>
+<ul>
+<li>Hadoop Database</li>
+<li>Google BigTable 的开源实现</li>
+<li>分布式 NoSQL 数据库</li>
+<li>列式存储 - 主要用于半结构化、非结构化数据</li>
+<li>采用 HDFS 为文件存储系统</li>
+</ul>
+<p><strong>特点</strong></p>
+<ul>
+<li>高性能 - 支持高并发写入和查询</li>
+<li>高可用 - HDFS 高可用、Region 高可用</li>
+<li>高扩展 - 数据自动切分和分布，可动态扩容，无需停机</li>
+<li>海量存储 - 单表可容纳数十亿行，上百万列</li>
+</ul>
+<h3 id="elasticsearch"><a class="markdownIt-Anchor" href="#elasticsearch"></a> ElasticSearch</h3>
+<ul>
+<li>开源的分布式全文检索引擎</li>
+<li>基于 Lucene 实现全文数据的快速存储、搜索和分析</li>
+<li>处理大规模数据 - PB 级以上</li>
+<li>具有较强的扩展性，集群规模可达上百台</li>
+<li>首选的分布式搜索引擎</li>
+</ul>
+<h2 id="术语"><a class="markdownIt-Anchor" href="#术语"></a> 术语</h2>
+<p><strong>数据仓库（Data Warehouse）</strong> - 数据仓库，是为企业所有级别的决策制定过程，提供所有类型数据支持的战略集合。它是单个数据存储，出于分析性报告和决策支持目的而创建。 为需要业务智能的企业，提供指导业务流程改进、监视时间、成本、质量以及控制。</p>
+<h2 id="资源"><a class="markdownIt-Anchor" href="#资源"></a> 资源</h2>
+<ul>
+<li><a href="https://github.com/onurakpolat/awesome-bigdata" target="_blank" rel="noopener">awesome-bigdata</a></li>
+<li><a href="http://hadoop.apache.org/" target="_blank" rel="noopener">Hadoop</a></li>
+<li><a href="http://hbase.apache.org/" target="_blank" rel="noopener">HBase</a></li>
+<li><a href="http://hive.apache.org/" target="_blank" rel="noopener">Hive</a></li>
+<li><a href="http://impala.apache.org/" target="_blank" rel="noopener">Impala</a></li>
+<li><a href="http://flume.apache.org/" target="_blank" rel="noopener">Flume</a></li>
+<li><a href="http://kafka.apache.org/" target="_blank" rel="noopener">Kafka</a></li>
+<li><a href="http://spark.apache.org/" target="_blank" rel="noopener">Spark</a></li>
+<li><a href="http://sqoop.apache.org/" target="_blank" rel="noopener">Sqoop</a></li>
+<li><a href="https://www.elastic.co/guide/index.html" target="_blank" rel="noopener">ElasticSearch</a></li>
 </ul>
 
       
@@ -1262,310 +1566,6 @@ Map 任务结束前，将多个临时文件合并（Merge）为一个 Map 输出
 <li>提交作业</li>
 <li>查看作业</li>
 <li>终止作业</li>
-</ul>
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-        
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="https://dunwu.github.io/blog/blog/bigdata/overview/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/blog/images/avatar.gif">
-      <meta itemprop="name" content="Zhang Peng">
-      <meta itemprop="description" content="Dunwu's Blog">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Dunwu">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/blog/bigdata/overview/" class="post-title-link" itemprop="url">大数据简介</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-
-              <time title="创建时间：2018-09-03 00:00:00" itemprop="dateCreated datePublished" datetime="2018-09-03T00:00:00+08:00">2018-09-03</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-calendar-check-o"></i>
-                </span>
-                <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2019-05-08 18:07:48" itemprop="dateModified" datetime="2019-05-08T18:07:48+08:00">2019-05-08</time>
-              </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/blog/categories/bigdata/" itemprop="url" rel="index">
-                    <span itemprop="name">bigdata</span>
-                  </a>
-                </span>
-            </span>
-
-          
-  
-  <span class="post-meta-item">
-    
-      <span class="post-meta-item-icon">
-        <i class="fa fa-comment-o"></i>
-      </span>
-      <span class="post-meta-item-text">Disqus：</span>
-    
-    <a title="disqus" href="/blog/bigdata/overview/#comments" itemprop="discussionUrl">
-      <span class="post-comments-count disqus-comment-count" data-disqus-identifier="bigdata/overview/" itemprop="commentCount"></span>
-    </a>
-  </span>
-  
-  <br>
-            <span class="post-meta-item" title="本文字数">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-file-word-o"></i>
-              </span>
-                <span class="post-meta-item-text">本文字数：</span>
-              <span>2k</span>
-            </span>
-            <span class="post-meta-item" title="阅读时长">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-clock-o"></i>
-              </span>
-                <span class="post-meta-item-text">阅读时长 &asymp;</span>
-              <span>2 分钟</span>
-            </span>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h1 id="大数据简介"><a class="markdownIt-Anchor" href="#大数据简介"></a> 大数据简介</h1>
-<!-- TOC depthFrom:2 depthTo:3 -->
-<ul>
-<li><a href="#%E7%AE%80%E4%BB%8B">简介</a>
-<ul>
-<li><a href="#%E4%BB%80%E4%B9%88%E6%98%AF%E5%A4%A7%E6%95%B0%E6%8D%AE">什么是大数据</a></li>
-<li><a href="#%E5%BA%94%E7%94%A8%E5%9C%BA%E6%99%AF">应用场景</a></li>
-<li><a href="#hadoop-%E7%BC%96%E5%B9%B4%E5%8F%B2">Hadoop 编年史</a></li>
-</ul>
-</li>
-<li><a href="#%E6%8A%80%E6%9C%AF%E4%BD%93%E7%B3%BB">技术体系</a>
-<ul>
-<li><a href="#hdfs">HDFS</a></li>
-<li><a href="#mapreduce">MapReduce</a></li>
-<li><a href="#spark">Spark</a></li>
-<li><a href="#yarn">YARN</a></li>
-<li><a href="#hive">Hive</a></li>
-<li><a href="#hbase">HBase</a></li>
-<li><a href="#elasticsearch">ElasticSearch</a></li>
-</ul>
-</li>
-<li><a href="#%E6%9C%AF%E8%AF%AD">术语</a></li>
-<li><a href="#%E8%B5%84%E6%BA%90">资源</a></li>
-</ul>
-<!-- /TOC -->
-<h2 id="简介"><a class="markdownIt-Anchor" href="#简介"></a> 简介</h2>
-<h3 id="什么是大数据"><a class="markdownIt-Anchor" href="#什么是大数据"></a> 什么是大数据</h3>
-<p>大数据是指超出传统数据库工具收集、存储、管理和分析能力的数据集。与此同时，及时采集、存储、聚合、管理数据，以及对数据深度分析的新技术和新能力，正在快速增长，就像预测计算芯片增长速度的摩尔定律一样。</p>
-<ul>
-<li><strong>Volume</strong> - 数据规模巨大</li>
-<li><strong>Velocity</strong> - 生成和处理速度极快</li>
-<li><strong>Variety</strong> - 数据规模巨大</li>
-<li><strong>Value</strong> - 生成和处理速度极快</li>
-</ul>
-<h3 id="应用场景"><a class="markdownIt-Anchor" href="#应用场景"></a> 应用场景</h3>
-<p>基于大数据的数据仓库</p>
-<p>基于大数据的实时流处理</p>
-<h3 id="hadoop-编年史"><a class="markdownIt-Anchor" href="#hadoop-编年史"></a> Hadoop 编年史</h3>
-<table>
-<thead>
-<tr>
-<th style="text-align:left">时间</th>
-<th style="text-align:left">事件</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td style="text-align:left">2003.01</td>
-<td style="text-align:left">Google发表了Google File System论文</td>
-</tr>
-<tr>
-<td style="text-align:left">2004.01</td>
-<td style="text-align:left">Google发表了MapReduce论文</td>
-</tr>
-<tr>
-<td style="text-align:left">2006.02</td>
-<td style="text-align:left">Apache Hadoop项目正式启动，并支持MapReduce和HDFS独立发展</td>
-</tr>
-<tr>
-<td style="text-align:left">2006.11</td>
-<td style="text-align:left">Google发表了Bigtable论文</td>
-</tr>
-<tr>
-<td style="text-align:left">2008.01</td>
-<td style="text-align:left">Hadoop成为Apache顶级项目</td>
-</tr>
-<tr>
-<td style="text-align:left">2009.03</td>
-<td style="text-align:left">Cloudera推出世界上首个Hadoop发行版——CDH，并完全开放源码</td>
-</tr>
-<tr>
-<td style="text-align:left">2012.03</td>
-<td style="text-align:left">HDFS NameNode HA加入Hadoop主版本</td>
-</tr>
-<tr>
-<td style="text-align:left">2014.02</td>
-<td style="text-align:left">Spark代替MapReduce成为Hadoop的缺省计算引擎，并成为Apache顶级项目</td>
-</tr>
-</tbody>
-</table>
-<h2 id="技术体系"><a class="markdownIt-Anchor" href="#技术体系"></a> 技术体系</h2>
-<h3 id="hdfs"><a class="markdownIt-Anchor" href="#hdfs"></a> HDFS</h3>
-<p><strong>概念</strong></p>
-<ul>
-<li>Hadoop 分布式文件系统（Hadoop Distributed File System）</li>
-<li>在开源大数据技术体系中，地位无可替代</li>
-</ul>
-<p><strong>特点</strong></p>
-<ul>
-<li>高容错：数据多副本，副本丢失后自动恢复</li>
-<li>高可用：NameNode HA，安全模式</li>
-<li>高扩展：10K 节点规模</li>
-<li>简单一致性模型：一次写入多次读取，支持追加，不允许修改</li>
-<li>流式数据访问：批量读而非随机读，关注吞吐量而非时间</li>
-<li>大规模数据集：典型文件大小 GB~TB 级，百万以上文件数量， PB 以上数据规模</li>
-<li>构建成本低且安全可靠：运行在大量的廉价商用机器上，硬件错误是常态，提供容错机制</li>
-</ul>
-<h3 id="mapreduce"><a class="markdownIt-Anchor" href="#mapreduce"></a> MapReduce</h3>
-<p><strong>概念</strong></p>
-<ul>
-<li>面向批处理的分布式计算框架</li>
-<li>编程模型：将 MapReduce 程序分为 Map、Reduce 两个阶段</li>
-</ul>
-<p><strong>核心思想</strong></p>
-<ul>
-<li>分而治之，分布式计算</li>
-<li>移动计算，而非移动数据</li>
-</ul>
-<p><strong>特点</strong></p>
-<ul>
-<li>高容错：任务失败，自动调度到其他节点重新执行</li>
-<li>高扩展：计算能力随着节点数增加，近似线性递增</li>
-<li>适用于海量数据的离线批处理</li>
-<li>降低了分布式编程的门槛</li>
-</ul>
-<h3 id="spark"><a class="markdownIt-Anchor" href="#spark"></a> Spark</h3>
-<p>高性能分布式通用计算引擎</p>
-<ul>
-<li>Spark Core - 基础计算框架（批处理、交互式分析）</li>
-<li>Spark SQL - SQL 引擎（海量结构化数据的高性能查询）</li>
-<li>Spark Streaming - 实时流处理（微批）</li>
-<li>Spark MLlib - 机器学习</li>
-<li>Spark GraphX - 图计算</li>
-</ul>
-<p>采用 Scala 语言开发</p>
-<p><strong>特点</strong></p>
-<ul>
-<li>计算高效 - 内存计算、Cache 缓存机制、DAG 引擎、多线程池模型</li>
-<li>通用易用 - 适用于批处理、交互式计算、流处理、机器学习、图计算等多种场景</li>
-<li>运行模式多样 - Local、Standalone、YARN/Mesos</li>
-</ul>
-<h3 id="yarn"><a class="markdownIt-Anchor" href="#yarn"></a> YARN</h3>
-<p><strong>概念</strong></p>
-<ul>
-<li>Yet Another Resource Negotiator，另一种资源管理器</li>
-<li>为了解决 Hadoop 1.x 中 MapReduce 的先天缺陷</li>
-<li>分布式通用资源管理系统</li>
-<li>负责集群资源的统一管理</li>
-<li>从 Hadoop 2.x 开始，YARN 成为 Hadoop 的核心组件</li>
-</ul>
-<p><strong>特点</strong></p>
-<ul>
-<li>专注于资源管理和作业调度</li>
-<li>通用 - 适用各种计算框架，如 - MapReduce、Spark</li>
-<li>高可用 - ResourceManager 高可用、HDFS 高可用</li>
-<li>高扩展</li>
-</ul>
-<h3 id="hive"><a class="markdownIt-Anchor" href="#hive"></a> Hive</h3>
-<p><strong>概念</strong></p>
-<ul>
-<li>Hadoop 数据仓库 - 企业决策支持</li>
-<li>SQL 引擎 - 对海量结构化数据进行高性能的 SQL 查询</li>
-<li>采用 HDFS 或 HBase 为数据存储</li>
-<li>采用 MapReduce 或 Spark 为计算框架</li>
-</ul>
-<p><strong>特点</strong></p>
-<ul>
-<li>提供类 SQL 查询语言</li>
-<li>支持命令行或 JDBC/ODBC</li>
-<li>提供灵活的扩展性</li>
-<li>提供复杂数据类型、扩展函数、脚本等</li>
-</ul>
-<h3 id="hbase"><a class="markdownIt-Anchor" href="#hbase"></a> HBase</h3>
-<p><strong>概念</strong></p>
-<ul>
-<li>Hadoop Database</li>
-<li>Google BigTable 的开源实现</li>
-<li>分布式 NoSQL 数据库</li>
-<li>列式存储 - 主要用于半结构化、非结构化数据</li>
-<li>采用 HDFS 为文件存储系统</li>
-</ul>
-<p><strong>特点</strong></p>
-<ul>
-<li>高性能 - 支持高并发写入和查询</li>
-<li>高可用 - HDFS 高可用、Region 高可用</li>
-<li>高扩展 - 数据自动切分和分布，可动态扩容，无需停机</li>
-<li>海量存储 - 单表可容纳数十亿行，上百万列</li>
-</ul>
-<h3 id="elasticsearch"><a class="markdownIt-Anchor" href="#elasticsearch"></a> ElasticSearch</h3>
-<ul>
-<li>开源的分布式全文检索引擎</li>
-<li>基于 Lucene 实现全文数据的快速存储、搜索和分析</li>
-<li>处理大规模数据 - PB 级以上</li>
-<li>具有较强的扩展性，集群规模可达上百台</li>
-<li>首选的分布式搜索引擎</li>
-</ul>
-<h2 id="术语"><a class="markdownIt-Anchor" href="#术语"></a> 术语</h2>
-<p><strong>数据仓库（Data Warehouse）</strong> - 数据仓库，是为企业所有级别的决策制定过程，提供所有类型数据支持的战略集合。它是单个数据存储，出于分析性报告和决策支持目的而创建。 为需要业务智能的企业，提供指导业务流程改进、监视时间、成本、质量以及控制。</p>
-<h2 id="资源"><a class="markdownIt-Anchor" href="#资源"></a> 资源</h2>
-<ul>
-<li><a href="https://github.com/onurakpolat/awesome-bigdata" target="_blank" rel="noopener">awesome-bigdata</a></li>
-<li><a href="http://hadoop.apache.org/" target="_blank" rel="noopener">Hadoop</a></li>
-<li><a href="http://hbase.apache.org/" target="_blank" rel="noopener">HBase</a></li>
-<li><a href="http://hive.apache.org/" target="_blank" rel="noopener">Hive</a></li>
-<li><a href="http://impala.apache.org/" target="_blank" rel="noopener">Impala</a></li>
-<li><a href="http://flume.apache.org/" target="_blank" rel="noopener">Flume</a></li>
-<li><a href="http://kafka.apache.org/" target="_blank" rel="noopener">Kafka</a></li>
-<li><a href="http://spark.apache.org/" target="_blank" rel="noopener">Spark</a></li>
-<li><a href="http://sqoop.apache.org/" target="_blank" rel="noopener">Sqoop</a></li>
-<li><a href="https://www.elastic.co/guide/index.html" target="_blank" rel="noopener">ElasticSearch</a></li>
 </ul>
 
       
@@ -3319,7 +3319,7 @@ Map 任务结束前，将多个临时文件合并（Merge）为一个 Map 输出
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="https://dunwu.github.io/blog/blog/design/architecture/%E7%BD%91%E7%AB%99%E7%9A%84%E9%AB%98%E6%80%A7%E8%83%BD%E6%9E%B6%E6%9E%84/">
+    <link itemprop="mainEntityOfPage" href="https://dunwu.github.io/blog/blog/design/architecture/%E7%BD%91%E7%AB%99%E7%9A%84%E5%8F%AF%E6%89%A9%E5%B1%95%E6%9E%B6%E6%9E%84/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/blog/images/avatar.gif">
@@ -3333,7 +3333,7 @@ Map 任务结束前，将多个临时文件合并（Merge）为一个 Map 输出
       <header class="post-header">
         <h2 class="post-title" itemprop="name headline">
           
-            <a href="/blog/design/architecture/%E7%BD%91%E7%AB%99%E7%9A%84%E9%AB%98%E6%80%A7%E8%83%BD%E6%9E%B6%E6%9E%84/" class="post-title-link" itemprop="url">网站的高性能架构</a>
+            <a href="/blog/design/architecture/%E7%BD%91%E7%AB%99%E7%9A%84%E5%8F%AF%E6%89%A9%E5%B1%95%E6%9E%B6%E6%9E%84/" class="post-title-link" itemprop="url">网站的可扩展架构</a>
         </h2>
 
         <div class="post-meta">
@@ -3350,7 +3350,7 @@ Map 任务结束前，将多个临时文件合并（Merge）为一个 Map 输出
                   <i class="fa fa-calendar-check-o"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2019-08-21 13:20:31" itemprop="dateModified" datetime="2019-08-21T13:20:31+08:00">2019-08-21</time>
+                <time title="修改时间：2019-08-21 13:20:28" itemprop="dateModified" datetime="2019-08-21T13:20:28+08:00">2019-08-21</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -3379,8 +3379,8 @@ Map 任务结束前，将多个临时文件合并（Merge）为一个 Map 输出
       </span>
       <span class="post-meta-item-text">Disqus：</span>
     
-    <a title="disqus" href="/blog/design/architecture/%E7%BD%91%E7%AB%99%E7%9A%84%E9%AB%98%E6%80%A7%E8%83%BD%E6%9E%B6%E6%9E%84/#comments" itemprop="discussionUrl">
-      <span class="post-comments-count disqus-comment-count" data-disqus-identifier="design/architecture/网站的高性能架构/" itemprop="commentCount"></span>
+    <a title="disqus" href="/blog/design/architecture/%E7%BD%91%E7%AB%99%E7%9A%84%E5%8F%AF%E6%89%A9%E5%B1%95%E6%9E%B6%E6%9E%84/#comments" itemprop="discussionUrl">
+      <span class="post-comments-count disqus-comment-count" data-disqus-identifier="design/architecture/网站的可扩展架构/" itemprop="commentCount"></span>
     </a>
   </span>
   
@@ -3390,14 +3390,14 @@ Map 任务结束前，将多个临时文件合并（Merge）为一个 Map 输出
                 <i class="fa fa-file-word-o"></i>
               </span>
                 <span class="post-meta-item-text">本文字数：</span>
-              <span>2.8k</span>
+              <span>1.4k</span>
             </span>
             <span class="post-meta-item" title="阅读时长">
               <span class="post-meta-item-icon">
                 <i class="fa fa-clock-o"></i>
               </span>
                 <span class="post-meta-item-text">阅读时长 &asymp;</span>
-              <span>3 分钟</span>
+              <span>1 分钟</span>
             </span>
 
         </div>
@@ -3409,152 +3409,56 @@ Map 任务结束前，将多个临时文件合并（Merge）为一个 Map 输出
     <div class="post-body" itemprop="articleBody">
 
       
-          <h1 id="网站的高性能架构"><a class="markdownIt-Anchor" href="#网站的高性能架构"></a> 网站的高性能架构</h1>
+          <h1 id="网站的可扩展架构"><a class="markdownIt-Anchor" href="#网站的可扩展架构"></a> 网站的可扩展架构</h1>
 <blockquote>
 <p>📓 本文已归档到：「<a href="https://github.com/dunwu/blog" target="_blank" rel="noopener">blog</a>」</p>
 </blockquote>
 <!-- TOC depthFrom:2 depthTo:3 -->
 <ul>
-<li><a href="#1-%E6%80%A7%E8%83%BD%E6%B5%8B%E8%AF%95">1. 性能测试</a>
+<li><a href="#1-%E6%9E%84%E5%BB%BA%E5%8F%AF%E6%89%A9%E5%B1%95%E7%9A%84%E7%BD%91%E7%AB%99%E6%9E%B6%E6%9E%84">1. 构建可扩展的网站架构</a></li>
+<li><a href="#2-%E5%88%A9%E7%94%A8%E5%88%86%E5%B8%83%E5%BC%8F%E6%B6%88%E6%81%AF%E9%98%9F%E5%88%97%E9%99%8D%E4%BD%8E%E7%B3%BB%E7%BB%9F%E8%80%A6%E5%90%88%E6%80%A7">2. 利用分布式消息队列降低系统耦合性</a>
 <ul>
-<li><a href="#11-%E6%80%A7%E8%83%BD%E6%8C%87%E6%A0%87">1.1. 性能指标</a></li>
-<li><a href="#12-%E6%80%A7%E8%83%BD%E6%B5%8B%E8%AF%95%E6%96%B9%E6%B3%95">1.2. 性能测试方法</a></li>
-<li><a href="#13-%E6%80%A7%E8%83%BD%E6%B5%8B%E8%AF%95%E6%8A%A5%E5%91%8A">1.3. 性能测试报告</a></li>
-<li><a href="#14-%E6%80%A7%E8%83%BD%E4%BC%98%E5%8C%96%E7%AD%96%E7%95%A5">1.4. 性能优化策略</a></li>
+<li><a href="#21-%E4%BA%8B%E4%BB%B6%E9%A9%B1%E5%8A%A8%E6%9E%B6%E6%9E%84">2.1. 事件驱动架构</a></li>
+<li><a href="#22-%E5%88%86%E5%B8%83%E5%BC%8F%E6%B6%88%E6%81%AF%E9%98%9F%E5%88%97">2.2. 分布式消息队列</a></li>
 </ul>
 </li>
-<li><a href="#2-%E5%89%8D%E7%AB%AF%E6%80%A7%E8%83%BD%E4%BC%98%E5%8C%96">2. 前端性能优化</a>
-<ul>
-<li><a href="#21-%E6%B5%8F%E8%A7%88%E5%99%A8%E8%AE%BF%E9%97%AE%E4%BC%98%E5%8C%96">2.1. 浏览器访问优化</a></li>
-<li><a href="#22-cdn">2.2. CDN</a></li>
-<li><a href="#23-%E5%8F%8D%E5%90%91%E4%BB%A3%E7%90%86">2.3. 反向代理</a></li>
-</ul>
-</li>
-<li><a href="#3-%E5%BA%94%E7%94%A8%E6%9C%8D%E5%8A%A1%E6%80%A7%E8%83%BD%E4%BC%98%E5%8C%96">3. 应用服务性能优化</a>
-<ul>
-<li><a href="#31-%E5%88%86%E5%B8%83%E5%BC%8F%E7%BC%93%E5%AD%98">3.1. 分布式缓存</a></li>
-<li><a href="#32-%E5%BC%82%E6%AD%A5%E6%93%8D%E4%BD%9C">3.2. 异步操作</a></li>
-<li><a href="#33-%E4%BD%BF%E7%94%A8%E9%9B%86%E7%BE%A4">3.3. 使用集群</a></li>
-<li><a href="#34-%E4%BB%A3%E7%A0%81%E4%BC%98%E5%8C%96">3.4. 代码优化</a></li>
-</ul>
-</li>
-<li><a href="#4-%E5%AD%98%E5%82%A8%E6%80%A7%E8%83%BD%E4%BC%98%E5%8C%96">4. 存储性能优化</a>
-<ul>
-<li><a href="#41-%E6%9C%BA%E6%A2%B0%E9%94%AE%E7%9B%98%E5%92%8C%E5%9B%BA%E6%80%81%E7%A1%AC%E7%9B%98">4.1. 机械键盘和固态硬盘</a></li>
-<li><a href="#42-b%E6%95%B0%E5%92%8C-lsm-%E6%A0%91">4.2. B+数和 LSM 树</a></li>
-<li><a href="#43-raid-%E5%92%8C-hdfs">4.3. RAID 和 HDFS</a></li>
-</ul>
-</li>
+<li><a href="#3-%E5%88%A9%E7%94%A8%E5%88%86%E5%B8%83%E5%BC%8F%E6%9C%8D%E5%8A%A1%E6%89%93%E9%80%A0%E5%8F%AF%E5%A4%8D%E7%94%A8%E7%9A%84%E4%B8%9A%E5%8A%A1%E5%B9%B3%E5%8F%B0">3. 利用分布式服务打造可复用的业务平台</a></li>
+<li><a href="#4-%E5%8F%AF%E6%89%A9%E5%B1%95%E7%9A%84%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84">4. 可扩展的数据结构</a></li>
 <li><a href="#5-%E8%B5%84%E6%96%99">5. 资料</a></li>
 </ul>
 <!-- /TOC -->
-<h2 id="1-性能测试"><a class="markdownIt-Anchor" href="#1-性能测试"></a> 1. 性能测试</h2>
-<h3 id="11-性能指标"><a class="markdownIt-Anchor" href="#11-性能指标"></a> 1.1. 性能指标</h3>
-<p>网站性能测试的主要指标有：</p>
-<ul>
-<li><strong>响应时间</strong> - 响应时间(RT)是指从客户端发一个请求开始计时，到客户端接收到从服务器端返回的响应结果结束所经历的时间，响应时间由请求发送时间、网络传输时间和服务器处理时间三部分组成。</li>
-<li><strong>并发数</strong> - 系统同时处理的请求、事务数。</li>
-<li><strong>吞吐量</strong> - TPS(每秒事务数)、HPS(每秒 HTTP 请求数)、QPS(每秒查询数)。</li>
-<li><strong>性能计数器</strong> - 系统负载、对象与线程数、内存使用、CPU 使用、磁盘与网络 IO 等。这些指标也是系统监控的重要参数。</li>
-</ul>
-<h3 id="12-性能测试方法"><a class="markdownIt-Anchor" href="#12-性能测试方法"></a> 1.2. 性能测试方法</h3>
-<ul>
-<li>性能测试</li>
-<li>负载测试</li>
-<li>压力测试</li>
-<li>稳定性测试</li>
-</ul>
-<h3 id="13-性能测试报告"><a class="markdownIt-Anchor" href="#13-性能测试报告"></a> 1.3. 性能测试报告</h3>
-<p>性能测试报告示例：</p>
+<p><strong>扩展性（Extensibility）</strong> - 指对现有系统影响最小的情况下，系统功能可持续扩展或提升的能力。表现在系统基础设施稳定不需要经常变更，应用之间较少依赖和耦合，对需求变更可以敏捷响应。它是系统架构设计层面的开闭原则（对扩展开放、对修改关闭），架构设计考虑未来功能扩展，当系统增加新功能时，不需要对现有系统的结构和代码进行修改。</p>
+<p><strong>伸缩性（Scalability）</strong> - 指系统能够通过增加减少自身资源规模的方式增减自己计算处理事务的能力。如果这种增减是成比例的，就被称作线性伸缩性。在网站架构中 ，通常指利用集群的方式增加服务器数量、提高系统的整体事务吞吐能力。</p>
+<h2 id="1-构建可扩展的网站架构"><a class="markdownIt-Anchor" href="#1-构建可扩展的网站架构"></a> 1. 构建可扩展的网站架构</h2>
+<p>低耦合的系统更容易扩展、复用。</p>
+<p>设计网站可扩展架构的核心思想是模块化，并在此基础上，降低模块间的耦合性，提高模块的复用性。</p>
+<p>分层和分割不仅可以进行架构伸缩，也是模块化设计的重要手段，利用分层和分割的方式将软件分割为若干个低耦合的独立的组件模块，这些组件模块以消息传递及依赖调用的方式聚合成一个完整的系统。</p>
+<p>在大型网站中，这些模块通过分布式部署的方式，独立的模块部署在独立的服务器上，从物理上分离模块间的耦合关系，进一步降低耦合性提高复用性。</p>
+<h2 id="2-利用分布式消息队列降低系统耦合性"><a class="markdownIt-Anchor" href="#2-利用分布式消息队列降低系统耦合性"></a> 2. 利用分布式消息队列降低系统耦合性</h2>
+<h3 id="21-事件驱动架构"><a class="markdownIt-Anchor" href="#21-事件驱动架构"></a> 2.1. 事件驱动架构</h3>
+<p>事件驱动架构通过在低耦合的模块间传输事件消息，以保持模块的松散耦合，并借助事件消息的通信完成模块间合作。典型的事件驱动架构就是操作系统中常见的生产者消费者模式。在大型网站中，最常见的实现手段就是分布式消息队列。</p>
+<h3 id="22-分布式消息队列"><a class="markdownIt-Anchor" href="#22-分布式消息队列"></a> 2.2. 分布式消息队列</h3>
+<p>消息生产者应用程序通过远程访问接口将消息推送给消息队列服务器，消息队列服务器将消息写入本地内存队列后立即返回成功响应给消息生产者。消息队列服务器根据消息订阅列表查找订阅该消息的消息消费者应用程序，将消息队列中的消息按照先进先出（FIFO）的原则将消息通过远程通信接口发送给消息消费者程序。</p>
 <div align="center">
-<img src="https://upload-images.jianshu.io/upload_images/3101171-3d533a36f42608a1.png" />
+<img src="http://dunwu.test.upcdn.net/cs/architecture/分布式消息队列架构原理.png" />
 </div>
-<h3 id="14-性能优化策略"><a class="markdownIt-Anchor" href="#14-性能优化策略"></a> 1.4. 性能优化策略</h3>
-<ol>
-<li><strong>性能分析</strong> - 如果请求响应慢，存在性能问题。需要对请求经历的各个环节逐一分析，排查可能出现性能瓶颈的地方，定位问题。检查监控数据，分析影响性能的主要因素：内存、磁盘、网络、CPU，可能是代码或架构设计不合理，又或者是系统资源确实不足。</li>
-<li><strong>性能优化</strong> - 性能优化根据网站分层架构，大致可分为前端性能优化、应用服务性能优化、存储服务性能优化。</li>
-</ol>
-<h2 id="2-前端性能优化"><a class="markdownIt-Anchor" href="#2-前端性能优化"></a> 2. 前端性能优化</h2>
-<h3 id="21-浏览器访问优化"><a class="markdownIt-Anchor" href="#21-浏览器访问优化"></a> 2.1. 浏览器访问优化</h3>
-<ol>
-<li><strong>减少 HTTP 请求</strong> - HTTP 请求需要建立通信链路，进行数据传输，开销高昂，所以减少 HTTP 请求数可以有效提高访问性能。减少 HTTP 的主要手段是合并 Css、JavaScript、图片。</li>
-<li><strong>使用浏览器缓存</strong> - 因为静态资源文件更新频率低，可以缓存浏览器中以提高性能。设置 HTTP 头中的 Cache-Control 和 Expires 属性，可以设定浏览器缓存。</li>
-<li><strong>启用压缩</strong> - 在服务器端压缩静态资源文件，在浏览器端解压缩，可以有效减少传输的数据量。由于文本文件压缩率可达 80% 以上，所以可以对静态资源，如 Html、Css、JavaScrip 进行压缩。</li>
-<li><strong>CSS 放在页面最上面，JavaScript 放在页面最下面</strong> - 浏览器会在下载完全部的 Css 后才对整个页面进行渲染，所以最好的做法是将 Css 放在页面最上面，让浏览器尽快下载 Css；JavaScript 则相反，浏览器加载 JavaScript 后立即执行，可能会阻塞整个页面，造成页面显示缓慢，因此 JavaScript 最好放在页面最下面。</li>
-<li><strong>减少 Cookie 传输</strong> - Cookie 包含在 HTTP 每次的请求和响应中，太大的 Cookie 会严重影响数据传输。</li>
-</ol>
-<h3 id="22-cdn"><a class="markdownIt-Anchor" href="#22-cdn"></a> 2.2. CDN</h3>
-<p>CDN 一般缓存的是静态资源。</p>
-<p>CDN 的本质仍然是一个缓存，而且将数据缓存在离用户最近的地方，使用户已最快速度获取数据，即所谓网络访问第一跳。</p>
-<div align="center">
-<img src="http://dunwu.test.upcdn.net/cs/architecture/cdn.png" width="640" />
-</div>
-<h3 id="23-反向代理"><a class="markdownIt-Anchor" href="#23-反向代理"></a> 2.3. 反向代理</h3>
-<p>传统代理服务器位于浏览器一侧，代理浏览器将 HTTP 请求发送到互联网上，而反向代理服务器位于网站机房一侧，代理网站服务器接收 HTTP 请求。</p>
-<div align="center">
-<img src="http://dunwu.test.upcdn.net/cs/architecture/reverse-proxy.jpg" width="640" />
-</div>
-<p>反向代理服务器可以配置缓存功能加速 Web 请求，当用户第一次访问静态内容时，静态内容就会被缓存在反向代理服务器上。</p>
-<p>反向代理还可以实现负载均衡，通过负载均衡构建的集群可以提高系统总体处理能力。</p>
-<p>因为所有请求都必须先经过反向代理服务器，所以可以屏蔽一些攻击 IP，达到保护网站安全的作用。</p>
-<h2 id="3-应用服务性能优化"><a class="markdownIt-Anchor" href="#3-应用服务性能优化"></a> 3. 应用服务性能优化</h2>
-<h3 id="31-分布式缓存"><a class="markdownIt-Anchor" href="#31-分布式缓存"></a> 3.1. 分布式缓存</h3>
-<p>网站性能优化第一定律：优先考虑使用缓存优化性能。</p>
-<h4 id="缓存原理"><a class="markdownIt-Anchor" href="#缓存原理"></a> 缓存原理</h4>
-<p>缓存指将数据存储在相对较高访问速度的存储介质中，以供系统处理。一方面缓存访问速度快，可以减少数据访问的时间，另一方面如果缓存的数据是经过计算处理得到的，那么被缓存的数据无需重复计算即可直接使用，因此缓存还起到减少计算时间的作用。</p>
-<p>缓存的本质是一个内存 HASH 表。</p>
-<p>缓存主要用来存放那些读写比很高、很少变化的数据，如商品的类目信息，热门词的搜索列表信息、热门商品信息等。</p>
-<h4 id="合理使用缓存"><a class="markdownIt-Anchor" href="#合理使用缓存"></a> 合理使用缓存</h4>
-<p>缓存数据的选择：</p>
+<p>在伸缩性方面，由于消息队列服务器上的数据可以看作是即时处理的，因此类似于无状态的服务器，伸缩性设计比较简单。将新服务器加入分布式消息队列集群中，通知生产者服务器更改消息队列服务器列表即可。</p>
+<p>在可用性方面，为了避免消费者进程处理缓慢，分布式消息队列服务器内存空间不足造成的问题，如果内存队列已满，会将消息写入磁盘，消息推送模块在将内存队列消息处理完成以后，将磁盘内容加载到内存队列继续处理。</p>
+<h2 id="3-利用分布式服务打造可复用的业务平台"><a class="markdownIt-Anchor" href="#3-利用分布式服务打造可复用的业务平台"></a> 3. 利用分布式服务打造可复用的业务平台</h2>
+<p>分布式服务则通过接口分解系统耦合性，不同子系统通过相同的接口描述进行服务调用。</p>
+<p>大型网站分布式服务的需求与特点：</p>
 <ul>
-<li>不要存储频繁修改的数据</li>
-<li>不要存储非热点数据</li>
+<li>负载均衡</li>
+<li>失效转移</li>
+<li>高效的远程通信</li>
+<li>整合异构系统</li>
+<li>对应用最少侵入</li>
+<li>版本管理</li>
+<li>实时监控</li>
 </ul>
-<p>数据不一致和脏读：</p>
-<ul>
-<li>缓存有有效期，所以存在一定时间的数据不一致和脏读问题。如果不能接受，可以考虑使用数据更新立即更新缓存策略</li>
-</ul>
-<p>需要考虑缓存问题：缓存雪崩、缓存穿透、缓存预热</p>
-<h3 id="32-异步操作"><a class="markdownIt-Anchor" href="#32-异步操作"></a> 3.2. 异步操作</h3>
-<p>异步处理一般是通过分布式消息队列的方式。</p>
-<p>异步处理可以解决一下问题：</p>
-<ul>
-<li>异步处理</li>
-<li>应用解耦</li>
-<li>流量削锋</li>
-<li>日志处理</li>
-<li>消息通讯</li>
-</ul>
-<h3 id="33-使用集群"><a class="markdownIt-Anchor" href="#33-使用集群"></a> 3.3. 使用集群</h3>
-<p>在高并发场景下，使用负载均衡技术为一个应用构建一个由多台服务器组成的服务器集群，将并发访问请求分发到多台服务器上处理，避免单一服务器因负载压力过大而响应缓慢，使用户请求具有更好的响应延迟特性。</p>
-<h3 id="34-代码优化"><a class="markdownIt-Anchor" href="#34-代码优化"></a> 3.4. 代码优化</h3>
-<h4 id="多线程"><a class="markdownIt-Anchor" href="#多线程"></a> 多线程</h4>
-<p>从资源利用的角度看，使用多线程的原因主要有两个：IO 阻塞和多 CPU。</p>
-<p>线程数并非越多越好，那么启动多少线程合适呢？</p>
-<p>有个参考公式：</p>
-<figure class="highlight fix"><table><tr><td class="code"><pre><span class="line"><span class="attr">启动线程数 </span>=<span class="string"> (任务执行时间 / (任务执行时间 - IO 等待时间)) * CPU 内核数</span></span><br></pre></td></tr></table></figure>
-<p>最佳启动线程数和 CPU 内核数成正比，和 IO 阻塞时间成反比。如果任务都是 CPU 计算型任务，那么线程数最多不要超过 CPU 内核数，因为启动再多线程，CPU 也来不及调度；相反如果是任务需要等待磁盘操作，网络响应，那么多启动线程有助于任务并罚赌，提高系统吞吐量。</p>
-<h5 id="线程安全问题"><a class="markdownIt-Anchor" href="#线程安全问题"></a> 线程安全问题</h5>
-<ul>
-<li>将对象设计为无状态对象</li>
-<li>使用局部对象</li>
-<li>并发访问资源时使用锁</li>
-</ul>
-<h4 id="资源复用"><a class="markdownIt-Anchor" href="#资源复用"></a> 资源复用</h4>
-<p>应该尽量减少那些开销很大的系统资源的创建和销毁，如数据库连接、网络通信连接、线程、复杂对象等。从编程角度，资源复用主要有两种模式：单例模式和对象池。</p>
-<h4 id="数据结构"><a class="markdownIt-Anchor" href="#数据结构"></a> 数据结构</h4>
-<p>根据具体场景，选择合适的数据结构。</p>
-<h4 id="垃圾回收"><a class="markdownIt-Anchor" href="#垃圾回收"></a> 垃圾回收</h4>
-<p>如果 Web 应用运行在 JVM 等具有垃圾回收功能的环境中，那么垃圾回收可能会对系统的性能特性产生巨大影响。立即垃圾回收机制有助于程序优化和参数调优，以及编写内存安全的代码。</p>
-<h2 id="4-存储性能优化"><a class="markdownIt-Anchor" href="#4-存储性能优化"></a> 4. 存储性能优化</h2>
-<h3 id="41-机械键盘和固态硬盘"><a class="markdownIt-Anchor" href="#41-机械键盘和固态硬盘"></a> 4.1. 机械键盘和固态硬盘</h3>
-<p>考虑使用固态硬盘替代机械键盘，因为它的读写速度更快。</p>
-<h3 id="42-b数和-lsm-树"><a class="markdownIt-Anchor" href="#42-b数和-lsm-树"></a> 4.2. B+数和 LSM 树</h3>
-<p>传统关系数据库的数据库索引一般都使用两级索引的 B+ 树结构，树的层次最多三层。因此可能需要 5 次磁盘访问才能更新一条记录（三次磁盘访问获得数据索引及行 ID，然后再进行一次数据文件读操作及一次数据文件写操作）。</p>
-<p>由于磁盘访问是随机的，传统机械键盘在数据随机访问时性能较差，每次数据访问都需要多次访问磁盘影响数据访问性能。</p>
-<p>许多 Nosql 数据库中的索引采用 LSM 树作为主要数据结构。LSM 树可视为一个 N 阶合并树。数据写操作都在内存中进行。在 LSM 树上进行一次数据更新不需要磁盘访问，速度远快于 B+ 树。</p>
-<h3 id="43-raid-和-hdfs"><a class="markdownIt-Anchor" href="#43-raid-和-hdfs"></a> 4.3. RAID 和 HDFS</h3>
-<p>HDFS(分布式文件系统) 更被大型网站所青睐。它可以配合 MapReduce 并发计算任务框架进行大数据处理，可以在整个集群上并发访问所有磁盘，无需 RAID 支持。</p>
+<h2 id="4-可扩展的数据结构"><a class="markdownIt-Anchor" href="#4-可扩展的数据结构"></a> 4. 可扩展的数据结构</h2>
+<p>传统的关系型数据库为了保证关系运算的正确性，在设计数据库表结构的时候，就需要指定表的 schema ——字段名称，数据类型等，并要遵循特定的设计范式。这些规范带来一个问题：难以面对需求变更带来的挑战，所以有人通过预先设计一些冗余字段来应对。</p>
+<p>许多 NoSql 数据库使用 ColumnFamily 设计来设计可扩展的数据结构。</p>
 <h2 id="5-资料"><a class="markdownIt-Anchor" href="#5-资料"></a> 5. 资料</h2>
 <ul>
 <li><a href="https://item.jd.com/11322972.html" target="_blank" rel="noopener">大型网站技术架构</a></li>
@@ -3631,13 +3535,13 @@ Map 任务结束前，将多个临时文件合并（Merge）为一个 Map 输出
       <div class="site-state-item site-state-categories">
             <a href="/blog/categories/">
           
-        <span class="site-state-item-count">11</span>
+        <span class="site-state-item-count">12</span>
         <span class="site-state-item-name">分类</span></a>
       </div>
       <div class="site-state-item site-state-tags">
             <a href="/blog/tags/">
           
-        <span class="site-state-item-count">34</span>
+        <span class="site-state-item-count">35</span>
         <span class="site-state-item-name">标签</span></a>
       </div>
   </nav>

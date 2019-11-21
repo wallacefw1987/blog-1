@@ -52,13 +52,13 @@
   };
 </script>
 
-  <meta name="description" content="代码坏味道之变革的障碍  📓 本文已归档到：「blog」 翻译自：https:&#x2F;&#x2F;sourcemaking.com&#x2F;refactoring&#x2F;smells&#x2F;change-preventers   变革的障碍(Change Preventers)这组坏味道意味着：当你需要改变一处代码时，却发现不得不改变其他的地方。这使得程序开发变得复杂、代价高昂。    发散式变化 平行继承体系 霰弹式修改 扩展">
-<meta name="keywords" content="design,refactor,code-smell">
+  <meta name="description" content="📓 本文已归档到：「blog」 翻译自：https:&#x2F;&#x2F;sourcemaking.com&#x2F;refactoring&#x2F;smells&#x2F;change-preventers 变革的障碍(Change Preventers)这组坏味道意味着：当你需要改变一处代码时，却发现不得不改变其他的地方。这使得程序开发变得复杂、代价高昂。   发散式变化  发散式变化(Divergent Change) 类似于 霰弹">
+<meta name="keywords" content="设计,重构,代码坏味道">
 <meta property="og:type" content="article">
 <meta property="og:title" content="代码坏味道之变革的障碍">
 <meta property="og:url" content="https:&#x2F;&#x2F;dunwu.github.io&#x2F;blog&#x2F;design&#x2F;refactor&#x2F;%E4%BB%A3%E7%A0%81%E5%9D%8F%E5%91%B3%E9%81%93%E4%B9%8B%E5%8F%98%E9%9D%A9%E7%9A%84%E9%9A%9C%E7%A2%8D&#x2F;index.html">
 <meta property="og:site_name" content="Dunwu">
-<meta property="og:description" content="代码坏味道之变革的障碍  📓 本文已归档到：「blog」 翻译自：https:&#x2F;&#x2F;sourcemaking.com&#x2F;refactoring&#x2F;smells&#x2F;change-preventers   变革的障碍(Change Preventers)这组坏味道意味着：当你需要改变一处代码时，却发现不得不改变其他的地方。这使得程序开发变得复杂、代价高昂。    发散式变化 平行继承体系 霰弹式修改 扩展">
+<meta property="og:description" content="📓 本文已归档到：「blog」 翻译自：https:&#x2F;&#x2F;sourcemaking.com&#x2F;refactoring&#x2F;smells&#x2F;change-preventers 变革的障碍(Change Preventers)这组坏味道意味着：当你需要改变一处代码时，却发现不得不改变其他的地方。这使得程序开发变得复杂、代价高昂。   发散式变化  发散式变化(Divergent Change) 类似于 霰弹">
 <meta property="og:locale" content="zh-CN">
 <meta property="og:image" content="http:&#x2F;&#x2F;dunwu.test.upcdn.net&#x2F;cs&#x2F;design&#x2F;refactor&#x2F;divergent-change-1.png">
 <meta property="og:image" content="http:&#x2F;&#x2F;dunwu.test.upcdn.net&#x2F;cs&#x2F;design&#x2F;refactor&#x2F;extract-class-before.png">
@@ -77,7 +77,7 @@
 <meta property="og:image" content="http:&#x2F;&#x2F;dunwu.test.upcdn.net&#x2F;cs&#x2F;design&#x2F;refactor&#x2F;move-field-after.png">
 <meta property="og:image" content="http:&#x2F;&#x2F;dunwu.test.upcdn.net&#x2F;cs&#x2F;design&#x2F;refactor&#x2F;inline-class-before.png">
 <meta property="og:image" content="http:&#x2F;&#x2F;dunwu.test.upcdn.net&#x2F;cs&#x2F;design&#x2F;refactor&#x2F;inline-class-after.png">
-<meta property="og:updated_time" content="2019-08-21T05:20:29.633Z">
+<meta property="og:updated_time" content="2019-11-21T13:01:19.775Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:image" content="http:&#x2F;&#x2F;dunwu.test.upcdn.net&#x2F;cs&#x2F;design&#x2F;refactor&#x2F;divergent-change-1.png">
 
@@ -173,12 +173,12 @@
   </li>
         <li class="menu-item menu-item-tags">
 
-    <a href="/blog/tags/" rel="section"><i class="fa fa-fw fa-tags"></i>标签<span class="badge">34</span></a>
+    <a href="/blog/tags/" rel="section"><i class="fa fa-fw fa-tags"></i>标签<span class="badge">35</span></a>
 
   </li>
         <li class="menu-item menu-item-categories">
 
-    <a href="/blog/categories/" rel="section"><i class="fa fa-fw fa-th"></i>分类<span class="badge">11</span></a>
+    <a href="/blog/categories/" rel="section"><i class="fa fa-fw fa-th"></i>分类<span class="badge">12</span></a>
 
   </li>
         <li class="menu-item menu-item-archives">
@@ -271,7 +271,7 @@
                   <i class="fa fa-calendar-check-o"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2019-08-21 13:20:29" itemprop="dateModified" datetime="2019-08-21T13:20:29+08:00">2019-08-21</time>
+                <time title="修改时间：2019-11-21 21:01:19" itemprop="dateModified" datetime="2019-11-21T21:01:19+08:00">2019-11-21</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -279,14 +279,14 @@
               </span>
               <span class="post-meta-item-text">分类于</span>
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/blog/categories/design/" itemprop="url" rel="index">
-                    <span itemprop="name">design</span>
+                  <a href="/blog/categories/%E8%AE%BE%E8%AE%A1/" itemprop="url" rel="index">
+                    <span itemprop="name">设计</span>
                   </a>
                 </span>
                   ，
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/blog/categories/design/refactor/" itemprop="url" rel="index">
-                    <span itemprop="name">refactor</span>
+                  <a href="/blog/categories/%E8%AE%BE%E8%AE%A1/%E9%87%8D%E6%9E%84/" itemprop="url" rel="index">
+                    <span itemprop="name">重构</span>
                   </a>
                 </span>
             </span>
@@ -330,23 +330,11 @@
     <div class="post-body" itemprop="articleBody">
 
       
-        <h1 id="代码坏味道之变革的障碍"><a class="markdownIt-Anchor" href="#代码坏味道之变革的障碍"></a> 代码坏味道之变革的障碍</h1>
-<blockquote>
+        <blockquote>
 <p>📓 本文已归档到：「<a href="https://github.com/dunwu/blog" target="_blank" rel="noopener">blog</a>」</p>
 <p>翻译自：<a href="https://sourcemaking.com/refactoring/smells/change-preventers" target="_blank" rel="noopener">https://sourcemaking.com/refactoring/smells/change-preventers</a></p>
-</blockquote>
-<blockquote>
 <p><strong>变革的障碍(Change Preventers)这组坏味道意味着：当你需要改变一处代码时，却发现不得不改变其他的地方。这使得程序开发变得复杂、代价高昂。</strong></p>
 </blockquote>
-<!-- TOC depthFrom:2 depthTo:2 -->
-<ul>
-<li><a href="#%E5%8F%91%E6%95%A3%E5%BC%8F%E5%8F%98%E5%8C%96">发散式变化</a></li>
-<li><a href="#%E5%B9%B3%E8%A1%8C%E7%BB%A7%E6%89%BF%E4%BD%93%E7%B3%BB">平行继承体系</a></li>
-<li><a href="#%E9%9C%B0%E5%BC%B9%E5%BC%8F%E4%BF%AE%E6%94%B9">霰弹式修改</a></li>
-<li><a href="#%E6%89%A9%E5%B1%95%E9%98%85%E8%AF%BB">扩展阅读</a></li>
-<li><a href="#%E5%8F%82%E8%80%83%E8%B5%84%E6%96%99">参考资料</a></li>
-</ul>
-<!-- /TOC -->
 <h2 id="发散式变化"><a class="markdownIt-Anchor" href="#发散式变化"></a> 发散式变化</h2>
 <blockquote>
 <p><code>发散式变化(Divergent Change)</code> 类似于 <code>霰弹式修改(Shotgun Surgery)</code> ，但实际上完全不同。<code>发散式变化(Divergent Change)</code> 是指一个类受多种变化的影响。<code>霰弹式修改(Shotgun Surgery)</code> 是指多种变化引发多个类相应的修改。</p>
@@ -494,25 +482,25 @@
 
       <footer class="post-footer">
           <div class="post-tags">
-              <a href="/blog/tags/design/" rel="tag"># design</a>
-              <a href="/blog/tags/refactor/" rel="tag"># refactor</a>
-              <a href="/blog/tags/code-smell/" rel="tag"># code-smell</a>
+              <a href="/blog/tags/%E8%AE%BE%E8%AE%A1/" rel="tag"># 设计</a>
+              <a href="/blog/tags/%E9%87%8D%E6%9E%84/" rel="tag"># 重构</a>
+              <a href="/blog/tags/%E4%BB%A3%E7%A0%81%E5%9D%8F%E5%91%B3%E9%81%93/" rel="tag"># 代码坏味道</a>
           </div>
 
         
 
           <div class="post-nav">
             <div class="post-nav-next post-nav-item">
-                <a href="/blog/design/refactor/%E4%BB%A3%E7%A0%81%E7%9A%84%E5%9D%8F%E5%91%B3%E9%81%93%E5%92%8C%E9%87%8D%E6%9E%84/" rel="next" title="代码的坏味道和重构">
-                  <i class="fa fa-chevron-left"></i> 代码的坏味道和重构
+                <a href="/blog/bigdata/Flume/" rel="next" title="Flume">
+                  <i class="fa fa-chevron-left"></i> Flume
                 </a>
             </div>
 
             <span class="post-nav-divider"></span>
 
             <div class="post-nav-prev post-nav-item">
-                <a href="/blog/design/refactor/%E4%BB%A3%E7%A0%81%E5%9D%8F%E5%91%B3%E9%81%93%E4%B9%8B%E9%9D%9E%E5%BF%85%E8%A6%81%E7%9A%84/" rel="prev" title="代码坏味道之非必要的">
-                  代码坏味道之非必要的 <i class="fa fa-chevron-right"></i>
+                <a href="/blog/design/architecture/%E8%B4%9F%E8%BD%BD%E5%9D%87%E8%A1%A1/" rel="prev" title="负载均衡">
+                  负载均衡 <i class="fa fa-chevron-right"></i>
                 </a>
             </div>
           </div>
@@ -559,7 +547,7 @@
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
-          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#代码坏味道之变革的障碍"><span class="nav-text"> 代码坏味道之变革的障碍</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#发散式变化"><span class="nav-text"> 发散式变化</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#特征"><span class="nav-text"> 特征</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#问题原因"><span class="nav-text"> 问题原因</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#解决办法"><span class="nav-text"> 解决办法</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#收益"><span class="nav-text"> 收益</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#重构方法说明"><span class="nav-text"> 重构方法说明</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#提炼类extract-class"><span class="nav-text"> 提炼类(Extract Class)</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#平行继承体系"><span class="nav-text"> 平行继承体系</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#特征-2"><span class="nav-text"> 特征</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#问题原因-2"><span class="nav-text"> 问题原因</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#解决方法"><span class="nav-text"> 解决方法</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#收益-2"><span class="nav-text"> 收益</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#何时忽略"><span class="nav-text"> 何时忽略</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#重构方法说明-2"><span class="nav-text"> 重构方法说明</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#搬移函数move-method"><span class="nav-text"> 搬移函数(Move Method)</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#搬移字段move-field"><span class="nav-text"> 搬移字段(Move Field)</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#霰弹式修改"><span class="nav-text"> 霰弹式修改</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#特征-3"><span class="nav-text"> 特征</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#问题原因-3"><span class="nav-text"> 问题原因</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#解决方法-2"><span class="nav-text"> 解决方法</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#收益-3"><span class="nav-text"> 收益</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#重构方法说明-3"><span class="nav-text"> 重构方法说明</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#搬移函数move-method-2"><span class="nav-text"> 搬移函数(Move Method)</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#搬移字段move-field-2"><span class="nav-text"> 搬移字段(Move Field)</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#将类内联化inline-class"><span class="nav-text"> 将类内联化(Inline Class)</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#扩展阅读"><span class="nav-text"> 扩展阅读</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#参考资料"><span class="nav-text"> 参考资料</span></a></li></ol></li></ol></div>
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#发散式变化"><span class="nav-text"> 发散式变化</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#特征"><span class="nav-text"> 特征</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#问题原因"><span class="nav-text"> 问题原因</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#解决办法"><span class="nav-text"> 解决办法</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#收益"><span class="nav-text"> 收益</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#重构方法说明"><span class="nav-text"> 重构方法说明</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#提炼类extract-class"><span class="nav-text"> 提炼类(Extract Class)</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#平行继承体系"><span class="nav-text"> 平行继承体系</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#特征-2"><span class="nav-text"> 特征</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#问题原因-2"><span class="nav-text"> 问题原因</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#解决方法"><span class="nav-text"> 解决方法</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#收益-2"><span class="nav-text"> 收益</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#何时忽略"><span class="nav-text"> 何时忽略</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#重构方法说明-2"><span class="nav-text"> 重构方法说明</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#搬移函数move-method"><span class="nav-text"> 搬移函数(Move Method)</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#搬移字段move-field"><span class="nav-text"> 搬移字段(Move Field)</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#霰弹式修改"><span class="nav-text"> 霰弹式修改</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#特征-3"><span class="nav-text"> 特征</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#问题原因-3"><span class="nav-text"> 问题原因</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#解决方法-2"><span class="nav-text"> 解决方法</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#收益-3"><span class="nav-text"> 收益</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#重构方法说明-3"><span class="nav-text"> 重构方法说明</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#搬移函数move-method-2"><span class="nav-text"> 搬移函数(Move Method)</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#搬移字段move-field-2"><span class="nav-text"> 搬移字段(Move Field)</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#将类内联化inline-class"><span class="nav-text"> 将类内联化(Inline Class)</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#扩展阅读"><span class="nav-text"> 扩展阅读</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#参考资料"><span class="nav-text"> 参考资料</span></a></li></ol></div>
       </div>
       <!--/noindex-->
 
@@ -582,13 +570,13 @@
       <div class="site-state-item site-state-categories">
             <a href="/blog/categories/">
           
-        <span class="site-state-item-count">11</span>
+        <span class="site-state-item-count">12</span>
         <span class="site-state-item-name">分类</span></a>
       </div>
       <div class="site-state-item site-state-tags">
             <a href="/blog/tags/">
           
-        <span class="site-state-item-count">34</span>
+        <span class="site-state-item-count">35</span>
         <span class="site-state-item-name">标签</span></a>
       </div>
   </nav>

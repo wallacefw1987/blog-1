@@ -52,13 +52,13 @@
   };
 </script>
 
-  <meta name="description" content="代码坏味道之非必要的  📓 本文已归档到：「blog」 翻译自：https:&#x2F;&#x2F;sourcemaking.com&#x2F;refactoring&#x2F;smells&#x2F;dispensables   非必要的(Dispensables)这组坏味道意味着：这样的代码可有可无，它的存在反而影响整体代码的整洁和可读性。    冗余类 夸夸其谈未来性 纯稚的数据类 过多的注释 重复代码 扩展阅读 参考资料    冗余类">
-<meta name="keywords" content="design,refactor,code-smell">
+  <meta name="description" content="📓 本文已归档到：「blog」 翻译自：https:&#x2F;&#x2F;sourcemaking.com&#x2F;refactoring&#x2F;smells&#x2F;dispensables 非必要的(Dispensables)这组坏味道意味着：这样的代码可有可无，它的存在反而影响整体代码的整洁和可读性。   冗余类  冗余类(Lazy Class) 理解和维护总是费时费力的。如果一个类不值得你花费精力，它就应该被删除。    问">
+<meta name="keywords" content="设计,重构,代码坏味道">
 <meta property="og:type" content="article">
 <meta property="og:title" content="代码坏味道之非必要的">
 <meta property="og:url" content="https:&#x2F;&#x2F;dunwu.github.io&#x2F;blog&#x2F;design&#x2F;refactor&#x2F;%E4%BB%A3%E7%A0%81%E5%9D%8F%E5%91%B3%E9%81%93%E4%B9%8B%E9%9D%9E%E5%BF%85%E8%A6%81%E7%9A%84&#x2F;index.html">
 <meta property="og:site_name" content="Dunwu">
-<meta property="og:description" content="代码坏味道之非必要的  📓 本文已归档到：「blog」 翻译自：https:&#x2F;&#x2F;sourcemaking.com&#x2F;refactoring&#x2F;smells&#x2F;dispensables   非必要的(Dispensables)这组坏味道意味着：这样的代码可有可无，它的存在反而影响整体代码的整洁和可读性。    冗余类 夸夸其谈未来性 纯稚的数据类 过多的注释 重复代码 扩展阅读 参考资料    冗余类">
+<meta property="og:description" content="📓 本文已归档到：「blog」 翻译自：https:&#x2F;&#x2F;sourcemaking.com&#x2F;refactoring&#x2F;smells&#x2F;dispensables 非必要的(Dispensables)这组坏味道意味着：这样的代码可有可无，它的存在反而影响整体代码的整洁和可读性。   冗余类  冗余类(Lazy Class) 理解和维护总是费时费力的。如果一个类不值得你花费精力，它就应该被删除。    问">
 <meta property="og:locale" content="zh-CN">
 <meta property="og:image" content="http:&#x2F;&#x2F;dunwu.test.upcdn.net&#x2F;cs&#x2F;design&#x2F;refactor&#x2F;lazy-class-1.png">
 <meta property="og:image" content="http:&#x2F;&#x2F;dunwu.test.upcdn.net&#x2F;cs&#x2F;design&#x2F;refactor&#x2F;lazy-class-2.png">
@@ -95,7 +95,7 @@
 <meta property="og:image" content="http:&#x2F;&#x2F;dunwu.test.upcdn.net&#x2F;cs&#x2F;design&#x2F;refactor&#x2F;extract-superclass-after.png">
 <meta property="og:image" content="http:&#x2F;&#x2F;dunwu.test.upcdn.net&#x2F;cs&#x2F;design&#x2F;refactor&#x2F;extract-class-before.png">
 <meta property="og:image" content="http:&#x2F;&#x2F;dunwu.test.upcdn.net&#x2F;cs&#x2F;design&#x2F;refactor&#x2F;extract-class-after.png">
-<meta property="og:updated_time" content="2019-08-21T05:20:31.651Z">
+<meta property="og:updated_time" content="2019-11-21T13:01:19.768Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:image" content="http:&#x2F;&#x2F;dunwu.test.upcdn.net&#x2F;cs&#x2F;design&#x2F;refactor&#x2F;lazy-class-1.png">
 
@@ -191,12 +191,12 @@
   </li>
         <li class="menu-item menu-item-tags">
 
-    <a href="/blog/tags/" rel="section"><i class="fa fa-fw fa-tags"></i>标签<span class="badge">34</span></a>
+    <a href="/blog/tags/" rel="section"><i class="fa fa-fw fa-tags"></i>标签<span class="badge">35</span></a>
 
   </li>
         <li class="menu-item menu-item-categories">
 
-    <a href="/blog/categories/" rel="section"><i class="fa fa-fw fa-th"></i>分类<span class="badge">11</span></a>
+    <a href="/blog/categories/" rel="section"><i class="fa fa-fw fa-th"></i>分类<span class="badge">12</span></a>
 
   </li>
         <li class="menu-item menu-item-archives">
@@ -289,7 +289,7 @@
                   <i class="fa fa-calendar-check-o"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2019-08-21 13:20:31" itemprop="dateModified" datetime="2019-08-21T13:20:31+08:00">2019-08-21</time>
+                <time title="修改时间：2019-11-21 21:01:19" itemprop="dateModified" datetime="2019-11-21T21:01:19+08:00">2019-11-21</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -297,14 +297,14 @@
               </span>
               <span class="post-meta-item-text">分类于</span>
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/blog/categories/design/" itemprop="url" rel="index">
-                    <span itemprop="name">design</span>
+                  <a href="/blog/categories/%E8%AE%BE%E8%AE%A1/" itemprop="url" rel="index">
+                    <span itemprop="name">设计</span>
                   </a>
                 </span>
                   ，
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/blog/categories/design/refactor/" itemprop="url" rel="index">
-                    <span itemprop="name">refactor</span>
+                  <a href="/blog/categories/%E8%AE%BE%E8%AE%A1/%E9%87%8D%E6%9E%84/" itemprop="url" rel="index">
+                    <span itemprop="name">重构</span>
                   </a>
                 </span>
             </span>
@@ -348,25 +348,11 @@
     <div class="post-body" itemprop="articleBody">
 
       
-        <h1 id="代码坏味道之非必要的"><a class="markdownIt-Anchor" href="#代码坏味道之非必要的"></a> 代码坏味道之非必要的</h1>
-<blockquote>
+        <blockquote>
 <p>📓 本文已归档到：「<a href="https://github.com/dunwu/blog" target="_blank" rel="noopener">blog</a>」</p>
 <p>翻译自：<a href="https://sourcemaking.com/refactoring/smells/dispensables" target="_blank" rel="noopener">https://sourcemaking.com/refactoring/smells/dispensables</a></p>
-</blockquote>
-<blockquote>
 <p><strong>非必要的(Dispensables)这组坏味道意味着：这样的代码可有可无，它的存在反而影响整体代码的整洁和可读性。</strong></p>
 </blockquote>
-<!-- TOC depthFrom:2 depthTo:2 -->
-<ul>
-<li><a href="#%E5%86%97%E4%BD%99%E7%B1%BB">冗余类</a></li>
-<li><a href="#%E5%A4%B8%E5%A4%B8%E5%85%B6%E8%B0%88%E6%9C%AA%E6%9D%A5%E6%80%A7">夸夸其谈未来性</a></li>
-<li><a href="#%E7%BA%AF%E7%A8%9A%E7%9A%84%E6%95%B0%E6%8D%AE%E7%B1%BB">纯稚的数据类</a></li>
-<li><a href="#%E8%BF%87%E5%A4%9A%E7%9A%84%E6%B3%A8%E9%87%8A">过多的注释</a></li>
-<li><a href="#%E9%87%8D%E5%A4%8D%E4%BB%A3%E7%A0%81">重复代码</a></li>
-<li><a href="#%E6%89%A9%E5%B1%95%E9%98%85%E8%AF%BB">扩展阅读</a></li>
-<li><a href="#%E5%8F%82%E8%80%83%E8%B5%84%E6%96%99">参考资料</a></li>
-</ul>
-<!-- /TOC -->
 <h2 id="冗余类"><a class="markdownIt-Anchor" href="#冗余类"></a> 冗余类</h2>
 <blockquote>
 <p>冗余类(Lazy Class)</p>
@@ -734,25 +720,25 @@
 
       <footer class="post-footer">
           <div class="post-tags">
-              <a href="/blog/tags/design/" rel="tag"># design</a>
-              <a href="/blog/tags/refactor/" rel="tag"># refactor</a>
-              <a href="/blog/tags/code-smell/" rel="tag"># code-smell</a>
+              <a href="/blog/tags/%E8%AE%BE%E8%AE%A1/" rel="tag"># 设计</a>
+              <a href="/blog/tags/%E9%87%8D%E6%9E%84/" rel="tag"># 重构</a>
+              <a href="/blog/tags/%E4%BB%A3%E7%A0%81%E5%9D%8F%E5%91%B3%E9%81%93/" rel="tag"># 代码坏味道</a>
           </div>
 
         
 
           <div class="post-nav">
             <div class="post-nav-next post-nav-item">
-                <a href="/blog/design/refactor/%E4%BB%A3%E7%A0%81%E5%9D%8F%E5%91%B3%E9%81%93%E4%B9%8B%E5%8F%98%E9%9D%A9%E7%9A%84%E9%9A%9C%E7%A2%8D/" rel="next" title="代码坏味道之变革的障碍">
-                  <i class="fa fa-chevron-left"></i> 代码坏味道之变革的障碍
+                <a href="/blog/design/architecture/%E5%88%86%E5%B8%83%E5%BC%8F%E5%8E%9F%E7%90%86/" rel="next" title="分布式原理">
+                  <i class="fa fa-chevron-left"></i> 分布式原理
                 </a>
             </div>
 
             <span class="post-nav-divider"></span>
 
             <div class="post-nav-prev post-nav-item">
-                <a href="/blog/design/architecture/%E8%B4%9F%E8%BD%BD%E5%9D%87%E8%A1%A1/" rel="prev" title="负载均衡">
-                  负载均衡 <i class="fa fa-chevron-right"></i>
+                <a href="/blog/design/refactor/%E4%BB%A3%E7%A0%81%E7%9A%84%E5%9D%8F%E5%91%B3%E9%81%93%E5%92%8C%E9%87%8D%E6%9E%84/" rel="prev" title="代码的坏味道和重构">
+                  代码的坏味道和重构 <i class="fa fa-chevron-right"></i>
                 </a>
             </div>
           </div>
@@ -799,7 +785,7 @@
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
-          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#代码坏味道之非必要的"><span class="nav-text"> 代码坏味道之非必要的</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#冗余类"><span class="nav-text"> 冗余类</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#问题原因"><span class="nav-text"> 问题原因</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#解决方法"><span class="nav-text"> 解决方法</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#收益"><span class="nav-text"> 收益</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#何时忽略"><span class="nav-text"> 何时忽略</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#重构方法说明"><span class="nav-text"> 重构方法说明</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#将类内联化inline-class"><span class="nav-text"> 将类内联化(Inline Class)</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#折叠继承体系collapse-hierarchy"><span class="nav-text"> 折叠继承体系(Collapse Hierarchy)</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#夸夸其谈未来性"><span class="nav-text"> 夸夸其谈未来性</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#问题原因-2"><span class="nav-text"> 问题原因</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#解决方法-2"><span class="nav-text"> 解决方法</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#收益-2"><span class="nav-text"> 收益</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#何时忽略-2"><span class="nav-text"> 何时忽略</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#重构方法说明-2"><span class="nav-text"> 重构方法说明</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#折叠继承体系collapse-hierarchy-2"><span class="nav-text"> 折叠继承体系(Collapse Hierarchy)</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#将类内联化inline-class-2"><span class="nav-text"> 将类内联化(Inline Class)</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#内联函数inline-method"><span class="nav-text"> 内联函数(Inline Method)</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#移除参数remove-parameter"><span class="nav-text"> 移除参数(Remove Parameter)</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#纯稚的数据类"><span class="nav-text"> 纯稚的数据类</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#问题原因-3"><span class="nav-text"> 问题原因</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#解决方法-3"><span class="nav-text"> 解决方法</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#收益-3"><span class="nav-text"> 收益</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#重构方法说明-3"><span class="nav-text"> 重构方法说明</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#封装字段encapsulated-field"><span class="nav-text"> 封装字段(Encapsulated Field)</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#封装集合encapsulated-collection"><span class="nav-text"> 封装集合(Encapsulated Collection)</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#搬移函数move-method"><span class="nav-text"> 搬移函数(Move Method)</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#提炼函数extract-method"><span class="nav-text"> 提炼函数(Extract Method)</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#移除设置函数remove-setting-method"><span class="nav-text"> 移除设置函数(Remove Setting Method)</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#隐藏函数hide-method"><span class="nav-text"> 隐藏函数(Hide Method)</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#过多的注释"><span class="nav-text"> 过多的注释</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#问题原因-4"><span class="nav-text"> 问题原因</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#解决方法-4"><span class="nav-text"> 解决方法</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#收益-4"><span class="nav-text"> 收益</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#何时忽略-3"><span class="nav-text"> 何时忽略</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#重构方法说明-4"><span class="nav-text"> 重构方法说明</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#提炼变量extract-variable"><span class="nav-text"> 提炼变量(Extract Variable)</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#提炼函数extract-method-2"><span class="nav-text"> 提炼函数(Extract Method)</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#函数改名rename-method"><span class="nav-text"> 函数改名(Rename Method)</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#引入断言introduce-assertion"><span class="nav-text"> 引入断言(Introduce Assertion)</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#重复代码"><span class="nav-text"> 重复代码</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#问题原因-5"><span class="nav-text"> 问题原因</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#解决方法-5"><span class="nav-text"> 解决方法</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#收益-5"><span class="nav-text"> 收益</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#重构方法说明-5"><span class="nav-text"> 重构方法说明</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#提炼函数extract-method-3"><span class="nav-text"> 提炼函数(Extract Method)</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#函数上移pull-up-method"><span class="nav-text"> 函数上移(Pull Up Method)</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#构造函数本体上移pull-up-constructor-body"><span class="nav-text"> 构造函数本体上移(Pull Up Constructor Body)</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#塑造模板函数form-template-method"><span class="nav-text"> 塑造模板函数(Form Template Method)</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#替换算法substitute-algorithm"><span class="nav-text"> 替换算法(Substitute Algorithm)</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#提炼超类extract-superclass"><span class="nav-text"> 提炼超类(Extract Superclass)</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#提炼类extract-class"><span class="nav-text"> 提炼类(Extract Class)</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#合并条件表达式consolidate-conditional-expression"><span class="nav-text"> 合并条件表达式(Consolidate Conditional Expression)</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#合并重复的条件片段consolidate-duplicate-conditional-fragments"><span class="nav-text"> 合并重复的条件片段(Consolidate Duplicate Conditional Fragments)</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#扩展阅读"><span class="nav-text"> 扩展阅读</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#参考资料"><span class="nav-text"> 参考资料</span></a></li></ol></li></ol></div>
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#冗余类"><span class="nav-text"> 冗余类</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#问题原因"><span class="nav-text"> 问题原因</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#解决方法"><span class="nav-text"> 解决方法</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#收益"><span class="nav-text"> 收益</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#何时忽略"><span class="nav-text"> 何时忽略</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#重构方法说明"><span class="nav-text"> 重构方法说明</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#将类内联化inline-class"><span class="nav-text"> 将类内联化(Inline Class)</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#折叠继承体系collapse-hierarchy"><span class="nav-text"> 折叠继承体系(Collapse Hierarchy)</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#夸夸其谈未来性"><span class="nav-text"> 夸夸其谈未来性</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#问题原因-2"><span class="nav-text"> 问题原因</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#解决方法-2"><span class="nav-text"> 解决方法</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#收益-2"><span class="nav-text"> 收益</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#何时忽略-2"><span class="nav-text"> 何时忽略</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#重构方法说明-2"><span class="nav-text"> 重构方法说明</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#折叠继承体系collapse-hierarchy-2"><span class="nav-text"> 折叠继承体系(Collapse Hierarchy)</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#将类内联化inline-class-2"><span class="nav-text"> 将类内联化(Inline Class)</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#内联函数inline-method"><span class="nav-text"> 内联函数(Inline Method)</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#移除参数remove-parameter"><span class="nav-text"> 移除参数(Remove Parameter)</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#纯稚的数据类"><span class="nav-text"> 纯稚的数据类</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#问题原因-3"><span class="nav-text"> 问题原因</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#解决方法-3"><span class="nav-text"> 解决方法</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#收益-3"><span class="nav-text"> 收益</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#重构方法说明-3"><span class="nav-text"> 重构方法说明</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#封装字段encapsulated-field"><span class="nav-text"> 封装字段(Encapsulated Field)</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#封装集合encapsulated-collection"><span class="nav-text"> 封装集合(Encapsulated Collection)</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#搬移函数move-method"><span class="nav-text"> 搬移函数(Move Method)</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#提炼函数extract-method"><span class="nav-text"> 提炼函数(Extract Method)</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#移除设置函数remove-setting-method"><span class="nav-text"> 移除设置函数(Remove Setting Method)</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#隐藏函数hide-method"><span class="nav-text"> 隐藏函数(Hide Method)</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#过多的注释"><span class="nav-text"> 过多的注释</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#问题原因-4"><span class="nav-text"> 问题原因</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#解决方法-4"><span class="nav-text"> 解决方法</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#收益-4"><span class="nav-text"> 收益</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#何时忽略-3"><span class="nav-text"> 何时忽略</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#重构方法说明-4"><span class="nav-text"> 重构方法说明</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#提炼变量extract-variable"><span class="nav-text"> 提炼变量(Extract Variable)</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#提炼函数extract-method-2"><span class="nav-text"> 提炼函数(Extract Method)</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#函数改名rename-method"><span class="nav-text"> 函数改名(Rename Method)</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#引入断言introduce-assertion"><span class="nav-text"> 引入断言(Introduce Assertion)</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#重复代码"><span class="nav-text"> 重复代码</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#问题原因-5"><span class="nav-text"> 问题原因</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#解决方法-5"><span class="nav-text"> 解决方法</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#收益-5"><span class="nav-text"> 收益</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#重构方法说明-5"><span class="nav-text"> 重构方法说明</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#提炼函数extract-method-3"><span class="nav-text"> 提炼函数(Extract Method)</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#函数上移pull-up-method"><span class="nav-text"> 函数上移(Pull Up Method)</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#构造函数本体上移pull-up-constructor-body"><span class="nav-text"> 构造函数本体上移(Pull Up Constructor Body)</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#塑造模板函数form-template-method"><span class="nav-text"> 塑造模板函数(Form Template Method)</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#替换算法substitute-algorithm"><span class="nav-text"> 替换算法(Substitute Algorithm)</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#提炼超类extract-superclass"><span class="nav-text"> 提炼超类(Extract Superclass)</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#提炼类extract-class"><span class="nav-text"> 提炼类(Extract Class)</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#合并条件表达式consolidate-conditional-expression"><span class="nav-text"> 合并条件表达式(Consolidate Conditional Expression)</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#合并重复的条件片段consolidate-duplicate-conditional-fragments"><span class="nav-text"> 合并重复的条件片段(Consolidate Duplicate Conditional Fragments)</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#扩展阅读"><span class="nav-text"> 扩展阅读</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#参考资料"><span class="nav-text"> 参考资料</span></a></li></ol></div>
       </div>
       <!--/noindex-->
 
@@ -822,13 +808,13 @@
       <div class="site-state-item site-state-categories">
             <a href="/blog/categories/">
           
-        <span class="site-state-item-count">11</span>
+        <span class="site-state-item-count">12</span>
         <span class="site-state-item-name">分类</span></a>
       </div>
       <div class="site-state-item site-state-tags">
             <a href="/blog/tags/">
           
-        <span class="site-state-item-count">34</span>
+        <span class="site-state-item-count">35</span>
         <span class="site-state-item-name">标签</span></a>
       </div>
   </nav>
