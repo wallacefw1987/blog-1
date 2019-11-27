@@ -53,7 +53,7 @@
 </script>
 
   <meta name="description" content="分布式技术面试题   1. 分布式缓存  1.1. Redis 有什么数据类型？分别用于什么场景？ 1.2. Redis 的主从复制是如何实现的？ 1.3. Redis 的 key 是如何寻址的？ 1.4. Redis 的集群模式是如何实现的？ 1.5. Redis 如何实现分布式锁？ZooKeeper 如何实现分布式锁？比较二者优劣？ 1.6. Redis 的持久化方式？有什么优缺点？持久化实">
-<meta name="keywords" content="design,architecture,distributed,interview">
+<meta name="keywords" content="设计,架构,分布式,面试">
 <meta property="og:type" content="article">
 <meta property="og:title" content="分布式技术面试题">
 <meta property="og:url" content="https:&#x2F;&#x2F;dunwu.github.io&#x2F;blog&#x2F;design&#x2F;architecture&#x2F;%E5%88%86%E5%B8%83%E5%BC%8F%E6%8A%80%E6%9C%AF%E9%9D%A2%E8%AF%95%E9%A2%98&#x2F;index.html">
@@ -69,7 +69,7 @@
 <meta property="og:image" content="http:&#x2F;&#x2F;dunwu.test.upcdn.net&#x2F;cs&#x2F;distributed&#x2F;rpc&#x2F;zookeeper&#x2F;zookeeper-service.png">
 <meta property="og:image" content="https:&#x2F;&#x2F;camo.githubusercontent.com&#x2F;5f7331d15c79fba29474c5be6e9e86db465637c3&#x2F;687474703a2f2f7374617469632e6f736368696e612e6e65742f75706c6f6164732f73706163652f323031332f303932312f3137343033325f313872625f3139303539312e706e67">
 <meta property="og:image" content="http:&#x2F;&#x2F;misc.linkedkeeper.com&#x2F;misc&#x2F;img&#x2F;blog&#x2F;201804&#x2F;linkedkeeper0_9c2ed2ed-6156-40f7-ad08-20af067047ca.jpg">
-<meta property="og:updated_time" content="2019-08-21T05:20:27.895Z">
+<meta property="og:updated_time" content="2019-11-27T08:35:30.872Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:image" content="http:&#x2F;&#x2F;upload-images.jianshu.io&#x2F;upload_images&#x2F;3101171-23145c8b554a0f2f.jpg">
 
@@ -165,7 +165,7 @@
   </li>
         <li class="menu-item menu-item-tags">
 
-    <a href="/blog/tags/" rel="section"><i class="fa fa-fw fa-tags"></i>标签<span class="badge">30</span></a>
+    <a href="/blog/tags/" rel="section"><i class="fa fa-fw fa-tags"></i>标签<span class="badge">38</span></a>
 
   </li>
         <li class="menu-item menu-item-categories">
@@ -175,7 +175,7 @@
   </li>
         <li class="menu-item menu-item-archives">
 
-    <a href="/blog/archives/" rel="section"><i class="fa fa-fw fa-archive"></i>归档<span class="badge">67</span></a>
+    <a href="/blog/archives/" rel="section"><i class="fa fa-fw fa-archive"></i>归档<span class="badge">71</span></a>
 
   </li>
       <li class="menu-item menu-item-search">
@@ -263,7 +263,7 @@
                   <i class="fa fa-calendar-check-o"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2019-08-21 13:20:27" itemprop="dateModified" datetime="2019-08-21T13:20:27+08:00">2019-08-21</time>
+                <time title="修改时间：2019-11-27 16:35:30" itemprop="dateModified" datetime="2019-11-27T16:35:30+08:00">2019-11-27</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -271,14 +271,14 @@
               </span>
               <span class="post-meta-item-text">分类于</span>
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/blog/categories/design/" itemprop="url" rel="index">
-                    <span itemprop="name">design</span>
+                  <a href="/blog/categories/%E8%AE%BE%E8%AE%A1/" itemprop="url" rel="index">
+                    <span itemprop="name">设计</span>
                   </a>
                 </span>
                   ，
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/blog/categories/design/architecture/" itemprop="url" rel="index">
-                    <span itemprop="name">architecture</span>
+                  <a href="/blog/categories/%E8%AE%BE%E8%AE%A1/%E6%9E%B6%E6%9E%84/" itemprop="url" rel="index">
+                    <span itemprop="name">架构</span>
                   </a>
                 </span>
             </span>
@@ -800,10 +800,10 @@
 
       <footer class="post-footer">
           <div class="post-tags">
-              <a href="/blog/tags/design/" rel="tag"># design</a>
-              <a href="/blog/tags/architecture/" rel="tag"># architecture</a>
-              <a href="/blog/tags/distributed/" rel="tag"># distributed</a>
-              <a href="/blog/tags/interview/" rel="tag"># interview</a>
+              <a href="/blog/tags/%E8%AE%BE%E8%AE%A1/" rel="tag"># 设计</a>
+              <a href="/blog/tags/%E6%9E%B6%E6%9E%84/" rel="tag"># 架构</a>
+              <a href="/blog/tags/%E5%88%86%E5%B8%83%E5%BC%8F/" rel="tag"># 分布式</a>
+              <a href="/blog/tags/%E9%9D%A2%E8%AF%95/" rel="tag"># 面试</a>
           </div>
 
         
@@ -879,7 +879,7 @@
       <div class="site-state-item site-state-posts">
           <a href="/blog/archives/">
         
-          <span class="site-state-item-count">67</span>
+          <span class="site-state-item-count">71</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
@@ -892,7 +892,7 @@
       <div class="site-state-item site-state-tags">
             <a href="/blog/tags/">
           
-        <span class="site-state-item-count">30</span>
+        <span class="site-state-item-count">38</span>
         <span class="site-state-item-name">标签</span></a>
       </div>
   </nav>
@@ -937,12 +937,12 @@
     <span class="post-meta-item-icon">
       <i class="fa fa-area-chart"></i>
     </span>
-    <span title="站点总字数">334k</span>
+    <span title="站点总字数">354k</span>
     <span class="post-meta-divider">|</span>
     <span class="post-meta-item-icon">
       <i class="fa fa-coffee"></i>
     </span>
-    <span title="站点阅读时长">5:04</span>
+    <span title="站点阅读时长">5:22</span>
 </div>
 
         

@@ -52,23 +52,23 @@
   };
 </script>
 
-  <meta name="description" content="分布式架构  📓 本文已归档到：「blog」    分布式架构的演进 分布式架构的问题 分布式架构的关键技术  消息队列 服务化 服务总线   分布式架构的通信模式  request&#x2F;response 模式（同步模式） Callback（异步模式） Future 模式 Oneway 模式 Reliable 模式   资料    分布式架构的演进  分布式架构的问题  当服务越来越多时，服务 U">
-<meta name="keywords" content="design,architecture,distributed">
+  <meta name="description" content="分布式架构  📓 本文已归档到：「blog」   1. 分布式架构的问题  当服务越来越多时，服务 URL 配置管理变得非常困难，F5 硬件负载均衡器的单点压力也越来越大。 当进一步发展，服务间依赖关系变得错踪复杂，甚至分不清哪个应用要在哪个应用之前启动，架构师都不能完整的描述应用的架构关系。 接着，服务的调用量越来越大，服务的容量问题就暴露出来，这个服务需要多少机器支撑？什么时候该加机器？">
+<meta name="keywords" content="设计,架构,分布式">
 <meta property="og:type" content="article">
 <meta property="og:title" content="分布式架构">
 <meta property="og:url" content="https:&#x2F;&#x2F;dunwu.github.io&#x2F;blog&#x2F;design&#x2F;architecture&#x2F;%E5%88%86%E5%B8%83%E5%BC%8F%E6%9E%B6%E6%9E%84&#x2F;index.html">
 <meta property="og:site_name" content="Dunwu">
-<meta property="og:description" content="分布式架构  📓 本文已归档到：「blog」    分布式架构的演进 分布式架构的问题 分布式架构的关键技术  消息队列 服务化 服务总线   分布式架构的通信模式  request&#x2F;response 模式（同步模式） Callback（异步模式） Future 模式 Oneway 模式 Reliable 模式   资料    分布式架构的演进  分布式架构的问题  当服务越来越多时，服务 U">
+<meta property="og:description" content="分布式架构  📓 本文已归档到：「blog」   1. 分布式架构的问题  当服务越来越多时，服务 URL 配置管理变得非常困难，F5 硬件负载均衡器的单点压力也越来越大。 当进一步发展，服务间依赖关系变得错踪复杂，甚至分不清哪个应用要在哪个应用之前启动，架构师都不能完整的描述应用的架构关系。 接着，服务的调用量越来越大，服务的容量问题就暴露出来，这个服务需要多少机器支撑？什么时候该加机器？">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:image" content="http:&#x2F;&#x2F;dunwu.test.upcdn.net&#x2F;cs&#x2F;distributed&#x2F;architecture&#x2F;分布式架构-消息队列框架.jpg">
-<meta property="og:image" content="http:&#x2F;&#x2F;dunwu.test.upcdn.net&#x2F;cs&#x2F;distributed&#x2F;architecture&#x2F;分布式架构-消息队列原理.jpg">
-<meta property="og:image" content="http:&#x2F;&#x2F;dunwu.test.upcdn.net&#x2F;cs&#x2F;distributed&#x2F;architecture&#x2F;分布式架构-服务化框架.jpg">
-<meta property="og:image" content="http:&#x2F;&#x2F;dunwu.test.upcdn.net&#x2F;cs&#x2F;distributed&#x2F;architecture&#x2F;分布式架构-服务化原理.jpg">
-<meta property="og:image" content="http:&#x2F;&#x2F;dunwu.test.upcdn.net&#x2F;cs&#x2F;distributed&#x2F;architecture&#x2F;分布式架构-服务总线框架.jpg">
-<meta property="og:image" content="http:&#x2F;&#x2F;dunwu.test.upcdn.net&#x2F;cs&#x2F;distributed&#x2F;architecture&#x2F;分布式架构-服务总线原理.jpg">
-<meta property="og:updated_time" content="2019-08-21T05:20:28.682Z">
+<meta property="og:image" content="http:&#x2F;&#x2F;dunwu.test.upcdn.net&#x2F;cs&#x2F;java&#x2F;javaweb&#x2F;distributed&#x2F;architecture&#x2F;分布式架构-消息队列框架.jpg!zp">
+<meta property="og:image" content="http:&#x2F;&#x2F;dunwu.test.upcdn.net&#x2F;cs&#x2F;java&#x2F;javaweb&#x2F;distributed&#x2F;architecture&#x2F;分布式架构-消息队列原理.jpg!zp">
+<meta property="og:image" content="http:&#x2F;&#x2F;dunwu.test.upcdn.net&#x2F;cs&#x2F;java&#x2F;javaweb&#x2F;distributed&#x2F;architecture&#x2F;分布式架构-服务化框架.jpg!zp">
+<meta property="og:image" content="http:&#x2F;&#x2F;dunwu.test.upcdn.net&#x2F;cs&#x2F;java&#x2F;javaweb&#x2F;distributed&#x2F;architecture&#x2F;分布式架构-服务化原理.jpg!zp">
+<meta property="og:image" content="http:&#x2F;&#x2F;dunwu.test.upcdn.net&#x2F;cs&#x2F;java&#x2F;javaweb&#x2F;distributed&#x2F;architecture&#x2F;分布式架构-服务总线框架.jpg!zp">
+<meta property="og:image" content="http:&#x2F;&#x2F;dunwu.test.upcdn.net&#x2F;cs&#x2F;java&#x2F;javaweb&#x2F;distributed&#x2F;architecture&#x2F;分布式架构-服务总线原理.jpg!zp">
+<meta property="og:updated_time" content="2019-11-27T07:29:01.828Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:image" content="http:&#x2F;&#x2F;dunwu.test.upcdn.net&#x2F;cs&#x2F;distributed&#x2F;architecture&#x2F;分布式架构-消息队列框架.jpg">
+<meta name="twitter:image" content="http:&#x2F;&#x2F;dunwu.test.upcdn.net&#x2F;cs&#x2F;java&#x2F;javaweb&#x2F;distributed&#x2F;architecture&#x2F;分布式架构-消息队列框架.jpg!zp">
 
 <link rel="canonical" href="https://dunwu.github.io/blog/design/architecture/%E5%88%86%E5%B8%83%E5%BC%8F%E6%9E%B6%E6%9E%84/">
 
@@ -162,7 +162,7 @@
   </li>
         <li class="menu-item menu-item-tags">
 
-    <a href="/blog/tags/" rel="section"><i class="fa fa-fw fa-tags"></i>标签<span class="badge">30</span></a>
+    <a href="/blog/tags/" rel="section"><i class="fa fa-fw fa-tags"></i>标签<span class="badge">38</span></a>
 
   </li>
         <li class="menu-item menu-item-categories">
@@ -172,7 +172,7 @@
   </li>
         <li class="menu-item menu-item-archives">
 
-    <a href="/blog/archives/" rel="section"><i class="fa fa-fw fa-archive"></i>归档<span class="badge">67</span></a>
+    <a href="/blog/archives/" rel="section"><i class="fa fa-fw fa-archive"></i>归档<span class="badge">71</span></a>
 
   </li>
       <li class="menu-item menu-item-search">
@@ -260,7 +260,7 @@
                   <i class="fa fa-calendar-check-o"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2019-08-21 13:20:28" itemprop="dateModified" datetime="2019-08-21T13:20:28+08:00">2019-08-21</time>
+                <time title="修改时间：2019-11-27 15:29:01" itemprop="dateModified" datetime="2019-11-27T15:29:01+08:00">2019-11-27</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -268,14 +268,14 @@
               </span>
               <span class="post-meta-item-text">分类于</span>
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/blog/categories/design/" itemprop="url" rel="index">
-                    <span itemprop="name">design</span>
+                  <a href="/blog/categories/%E8%AE%BE%E8%AE%A1/" itemprop="url" rel="index">
+                    <span itemprop="name">设计</span>
                   </a>
                 </span>
                   ，
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/blog/categories/design/architecture/" itemprop="url" rel="index">
-                    <span itemprop="name">architecture</span>
+                  <a href="/blog/categories/%E8%AE%BE%E8%AE%A1/%E6%9E%B6%E6%9E%84/" itemprop="url" rel="index">
+                    <span itemprop="name">架构</span>
                   </a>
                 </span>
             </span>
@@ -300,7 +300,7 @@
                 <i class="fa fa-file-word-o"></i>
               </span>
                 <span class="post-meta-item-text">本文字数：</span>
-              <span>1.3k</span>
+              <span>1.2k</span>
             </span>
             <span class="post-meta-item" title="阅读时长">
               <span class="post-meta-item-icon">
@@ -323,31 +323,7 @@
 <blockquote>
 <p>📓 本文已归档到：「<a href="https://github.com/dunwu/blog" target="_blank" rel="noopener">blog</a>」</p>
 </blockquote>
-<!-- TOC depthFrom:2 depthTo:3 -->
-<ul>
-<li><a href="#%E5%88%86%E5%B8%83%E5%BC%8F%E6%9E%B6%E6%9E%84%E7%9A%84%E6%BC%94%E8%BF%9B">分布式架构的演进</a></li>
-<li><a href="#%E5%88%86%E5%B8%83%E5%BC%8F%E6%9E%B6%E6%9E%84%E7%9A%84%E9%97%AE%E9%A2%98">分布式架构的问题</a></li>
-<li><a href="#%E5%88%86%E5%B8%83%E5%BC%8F%E6%9E%B6%E6%9E%84%E7%9A%84%E5%85%B3%E9%94%AE%E6%8A%80%E6%9C%AF">分布式架构的关键技术</a>
-<ul>
-<li><a href="#%E6%B6%88%E6%81%AF%E9%98%9F%E5%88%97">消息队列</a></li>
-<li><a href="#%E6%9C%8D%E5%8A%A1%E5%8C%96">服务化</a></li>
-<li><a href="#%E6%9C%8D%E5%8A%A1%E6%80%BB%E7%BA%BF">服务总线</a></li>
-</ul>
-</li>
-<li><a href="#%E5%88%86%E5%B8%83%E5%BC%8F%E6%9E%B6%E6%9E%84%E7%9A%84%E9%80%9A%E4%BF%A1%E6%A8%A1%E5%BC%8F">分布式架构的通信模式</a>
-<ul>
-<li><a href="#requestresponse-%E6%A8%A1%E5%BC%8F%E5%90%8C%E6%AD%A5%E6%A8%A1%E5%BC%8F">request/response 模式（同步模式）</a></li>
-<li><a href="#callback%E5%BC%82%E6%AD%A5%E6%A8%A1%E5%BC%8F">Callback（异步模式）</a></li>
-<li><a href="#future-%E6%A8%A1%E5%BC%8F">Future 模式</a></li>
-<li><a href="#oneway-%E6%A8%A1%E5%BC%8F">Oneway 模式</a></li>
-<li><a href="#reliable-%E6%A8%A1%E5%BC%8F">Reliable 模式</a></li>
-</ul>
-</li>
-<li><a href="#%E8%B5%84%E6%96%99">资料</a></li>
-</ul>
-<!-- /TOC -->
-<h2 id="分布式架构的演进"><a class="markdownIt-Anchor" href="#分布式架构的演进"></a> 分布式架构的演进</h2>
-<h2 id="分布式架构的问题"><a class="markdownIt-Anchor" href="#分布式架构的问题"></a> 分布式架构的问题</h2>
+<h2 id="1-分布式架构的问题"><a class="markdownIt-Anchor" href="#1-分布式架构的问题"></a> 1. 分布式架构的问题</h2>
 <ul>
 <li>当服务越来越多时，服务 URL 配置管理变得非常困难，F5 硬件负载均衡器的单点压力也越来越大。</li>
 <li>当进一步发展，服务间依赖关系变得错踪复杂，甚至分不清哪个应用要在哪个应用之前启动，架构师都不能完整的描述应用的架构关系。</li>
@@ -356,58 +332,58 @@
 <li>一个服务有多个业务消费者，如何确保服务质量？</li>
 <li>随着服务的不停升级，总有些意想不到的事发生，比如 cache 写错了导致内存溢出，故障不可避免，每次核心服务一挂，影响一大片，人心慌慌，如何控制故障的影响面？服务是否可以功能降级？或者资源劣化？</li>
 </ul>
-<h2 id="分布式架构的关键技术"><a class="markdownIt-Anchor" href="#分布式架构的关键技术"></a> 分布式架构的关键技术</h2>
-<h3 id="消息队列"><a class="markdownIt-Anchor" href="#消息队列"></a> 消息队列</h3>
+<h2 id="2-分布式架构的关键技术"><a class="markdownIt-Anchor" href="#2-分布式架构的关键技术"></a> 2. 分布式架构的关键技术</h2>
+<h3 id="21-消息队列"><a class="markdownIt-Anchor" href="#21-消息队列"></a> 2.1. 消息队列</h3>
 <p>消息队列通过消息对象分解系统耦合性，不同子系统处理同一个消息。</p>
-<h4 id="消息队列框架"><a class="markdownIt-Anchor" href="#消息队列框架"></a> 消息队列框架</h4>
+<h4 id="211-消息队列框架"><a class="markdownIt-Anchor" href="#211-消息队列框架"></a> 2.1.1. 消息队列框架</h4>
 <div align="center">
-<img src="http://dunwu.test.upcdn.net/cs/distributed/architecture/分布式架构-消息队列框架.jpg" width="600"/>
+<img src="http://dunwu.test.upcdn.net/cs/java/javaweb/distributed/architecture/分布式架构-消息队列框架.jpg!zp" width="600"/>
 </div>
-<h4 id="消息队列原理"><a class="markdownIt-Anchor" href="#消息队列原理"></a> 消息队列原理</h4>
+<h4 id="212-消息队列原理"><a class="markdownIt-Anchor" href="#212-消息队列原理"></a> 2.1.2. 消息队列原理</h4>
 <div align="center">
-<img src="http://dunwu.test.upcdn.net/cs/distributed/architecture/分布式架构-消息队列原理.jpg" width="600"/>
+<img src="http://dunwu.test.upcdn.net/cs/java/javaweb/distributed/architecture/分布式架构-消息队列原理.jpg!zp" width="600"/>
 </div>
-<h3 id="服务化"><a class="markdownIt-Anchor" href="#服务化"></a> 服务化</h3>
+<h3 id="22-服务化"><a class="markdownIt-Anchor" href="#22-服务化"></a> 2.2. 服务化</h3>
 <p>服务框架通过接口分解系统耦合性，不同子系统通过相同的接口描述进行服务启用。</p>
 <p>服务框架是一个点对点模型。</p>
 <p>服务框架面向同构系统。</p>
 <p>适合：移动应用、互联网应用、外部系统。</p>
-<h4 id="服务化框架"><a class="markdownIt-Anchor" href="#服务化框架"></a> 服务化框架</h4>
+<h4 id="221-服务化框架"><a class="markdownIt-Anchor" href="#221-服务化框架"></a> 2.2.1. 服务化框架</h4>
 <div align="center">
-<img src="http://dunwu.test.upcdn.net/cs/distributed/architecture/分布式架构-服务化框架.jpg" width="600"/>
+<img src="http://dunwu.test.upcdn.net/cs/java/javaweb/distributed/architecture/分布式架构-服务化框架.jpg!zp" width="600"/>
 </div>
-<h4 id="服务化原理"><a class="markdownIt-Anchor" href="#服务化原理"></a> 服务化原理</h4>
+<h4 id="222-服务化原理"><a class="markdownIt-Anchor" href="#222-服务化原理"></a> 2.2.2. 服务化原理</h4>
 <div align="center">
-<img src="http://dunwu.test.upcdn.net/cs/distributed/architecture/分布式架构-服务化原理.jpg" width="600"/>
+<img src="http://dunwu.test.upcdn.net/cs/java/javaweb/distributed/architecture/分布式架构-服务化原理.jpg!zp" width="600"/>
 </div>
-<h4 id="服务治理"><a class="markdownIt-Anchor" href="#服务治理"></a> 服务治理</h4>
+<h4 id="223-服务治理"><a class="markdownIt-Anchor" href="#223-服务治理"></a> 2.2.3. 服务治理</h4>
 <p>服务治理是服务框架/服务总线的核心功能。所谓服务治理，是指服务的提供方和消费方达成一致的约定，保证服务的高质量。服务治理功能可以解决将某些特定流量引入某一批机器，以及限制某些非法消费者的恶意访问，并在提供者处理量达到一定程度是，拒绝接受新的访问。</p>
 <p>当前比较流行的服务治理框架：Dubbo。</p>
-<h3 id="服务总线"><a class="markdownIt-Anchor" href="#服务总线"></a> 服务总线</h3>
+<h3 id="23-服务总线"><a class="markdownIt-Anchor" href="#23-服务总线"></a> 2.3. 服务总线</h3>
 <p>服务总线同服务框架一样，均是通过接口分解系统耦合性，不同子系统通过相同的接口描述进行服务启用。</p>
 <p>服务总线是一个总线式的模型。</p>
 <p>服务总线面向同构、异构系统。</p>
 <p>适合：内部系统。</p>
-<h4 id="服务总线框架"><a class="markdownIt-Anchor" href="#服务总线框架"></a> 服务总线框架</h4>
+<h4 id="231-服务总线框架"><a class="markdownIt-Anchor" href="#231-服务总线框架"></a> 2.3.1. 服务总线框架</h4>
 <div align="center">
-<img src="http://dunwu.test.upcdn.net/cs/distributed/architecture/分布式架构-服务总线框架.jpg" width="600"/>
+<img src="http://dunwu.test.upcdn.net/cs/java/javaweb/distributed/architecture/分布式架构-服务总线框架.jpg!zp" width="600"/>
 </div>
-<h4 id="服务总线原理"><a class="markdownIt-Anchor" href="#服务总线原理"></a> 服务总线原理</h4>
+<h4 id="232-服务总线原理"><a class="markdownIt-Anchor" href="#232-服务总线原理"></a> 2.3.2. 服务总线原理</h4>
 <div align="center">
-<img src="http://dunwu.test.upcdn.net/cs/distributed/architecture/分布式架构-服务总线原理.jpg" width="600"/>
+<img src="http://dunwu.test.upcdn.net/cs/java/javaweb/distributed/architecture/分布式架构-服务总线原理.jpg!zp" width="600"/>
 </div>
-<h2 id="分布式架构的通信模式"><a class="markdownIt-Anchor" href="#分布式架构的通信模式"></a> 分布式架构的通信模式</h2>
-<h3 id="requestresponse-模式同步模式"><a class="markdownIt-Anchor" href="#requestresponse-模式同步模式"></a> request/response 模式（同步模式）</h3>
+<h2 id="3-分布式架构的通信模式"><a class="markdownIt-Anchor" href="#3-分布式架构的通信模式"></a> 3. 分布式架构的通信模式</h2>
+<h3 id="31-requestresponse-模式同步模式"><a class="markdownIt-Anchor" href="#31-requestresponse-模式同步模式"></a> 3.1. request/response 模式（同步模式）</h3>
 <p>客户端发起请求一直阻塞到服务端返回请求为止。</p>
-<h3 id="callback异步模式"><a class="markdownIt-Anchor" href="#callback异步模式"></a> Callback（异步模式）</h3>
+<h3 id="32-callback异步模式"><a class="markdownIt-Anchor" href="#32-callback异步模式"></a> 3.2. Callback（异步模式）</h3>
 <p>客户端发送一个 RPC 请求给服务器，服务端处理后再发送一个消息给消息发送端提供的 callback 端点，此类情况非常合适以下场景：A 组件发送 RPC 请求给 B，B 处理完成后，需要通知 A 组件做后续处理。</p>
-<h3 id="future-模式"><a class="markdownIt-Anchor" href="#future-模式"></a> Future 模式</h3>
+<h3 id="33-future-模式"><a class="markdownIt-Anchor" href="#33-future-模式"></a> 3.3. Future 模式</h3>
 <p>客户端发送完请求后，继续做自己的事情，返回一个包含消息结果的 Future 对象。客户端需要使用返回结果时，使用 Future 对象的.get(),如果此时没有结果返回的话，会一直阻塞到有结果返回为止。</p>
-<h3 id="oneway-模式"><a class="markdownIt-Anchor" href="#oneway-模式"></a> Oneway 模式</h3>
+<h3 id="34-oneway-模式"><a class="markdownIt-Anchor" href="#34-oneway-模式"></a> 3.4. Oneway 模式</h3>
 <p>客户端调用完继续执行，不管接收端是否成功。</p>
-<h3 id="reliable-模式"><a class="markdownIt-Anchor" href="#reliable-模式"></a> Reliable 模式</h3>
+<h3 id="35-reliable-模式"><a class="markdownIt-Anchor" href="#35-reliable-模式"></a> 3.5. Reliable 模式</h3>
 <p>为保证通信可靠，将借助于消息中心来实现消息的可靠送达，请求将做持久化存储，在接收方在线时做送达，并由消息中心保证异常重试。</p>
-<h2 id="资料"><a class="markdownIt-Anchor" href="#资料"></a> 资料</h2>
+<h2 id="4-参考资料"><a class="markdownIt-Anchor" href="#4-参考资料"></a> 4. 参考资料</h2>
 <ul>
 <li><a href="https://www.zhihu.com/question/22764869/answer/31277656" target="_blank" rel="noopener">https://www.zhihu.com/question/22764869/answer/31277656</a></li>
 </ul>
@@ -437,25 +413,25 @@
 
       <footer class="post-footer">
           <div class="post-tags">
-              <a href="/blog/tags/design/" rel="tag"># design</a>
-              <a href="/blog/tags/architecture/" rel="tag"># architecture</a>
-              <a href="/blog/tags/distributed/" rel="tag"># distributed</a>
+              <a href="/blog/tags/%E8%AE%BE%E8%AE%A1/" rel="tag"># 设计</a>
+              <a href="/blog/tags/%E6%9E%B6%E6%9E%84/" rel="tag"># 架构</a>
+              <a href="/blog/tags/%E5%88%86%E5%B8%83%E5%BC%8F/" rel="tag"># 分布式</a>
           </div>
 
         
 
           <div class="post-nav">
             <div class="post-nav-next post-nav-item">
-                <a href="/blog/design/architecture/%E7%BD%91%E7%AB%99%E7%9A%84%E5%8F%AF%E6%89%A9%E5%B1%95%E6%9E%B6%E6%9E%84/" rel="next" title="网站的可扩展架构">
-                  <i class="fa fa-chevron-left"></i> 网站的可扩展架构
+                <a href="/blog/design/architecture/%E7%BD%91%E7%AB%99%E7%9A%84%E4%BC%B8%E7%BC%A9%E6%80%A7%E6%9E%B6%E6%9E%84/" rel="next" title="网站的伸缩性架构">
+                  <i class="fa fa-chevron-left"></i> 网站的伸缩性架构
                 </a>
             </div>
 
             <span class="post-nav-divider"></span>
 
             <div class="post-nav-prev post-nav-item">
-                <a href="/blog/design/architecture/%E7%BD%91%E7%AB%99%E7%9A%84%E4%BC%B8%E7%BC%A9%E6%80%A7%E6%9E%B6%E6%9E%84/" rel="prev" title="网站的伸缩性架构">
-                  网站的伸缩性架构 <i class="fa fa-chevron-right"></i>
+                <a href="/blog/design/architecture/%E5%A4%A7%E5%9E%8B%E7%BD%91%E7%AB%99%E6%9E%B6%E6%9E%84%E6%A6%82%E8%BF%B0/" rel="prev" title="大型网站架构概述">
+                  大型网站架构概述 <i class="fa fa-chevron-right"></i>
                 </a>
             </div>
           </div>
@@ -502,7 +478,7 @@
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
-          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#分布式架构"><span class="nav-text"> 分布式架构</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#分布式架构的演进"><span class="nav-text"> 分布式架构的演进</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#分布式架构的问题"><span class="nav-text"> 分布式架构的问题</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#分布式架构的关键技术"><span class="nav-text"> 分布式架构的关键技术</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#消息队列"><span class="nav-text"> 消息队列</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#消息队列框架"><span class="nav-text"> 消息队列框架</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#消息队列原理"><span class="nav-text"> 消息队列原理</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#服务化"><span class="nav-text"> 服务化</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#服务化框架"><span class="nav-text"> 服务化框架</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#服务化原理"><span class="nav-text"> 服务化原理</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#服务治理"><span class="nav-text"> 服务治理</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#服务总线"><span class="nav-text"> 服务总线</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#服务总线框架"><span class="nav-text"> 服务总线框架</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#服务总线原理"><span class="nav-text"> 服务总线原理</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#分布式架构的通信模式"><span class="nav-text"> 分布式架构的通信模式</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#requestresponse-模式同步模式"><span class="nav-text"> request/response 模式（同步模式）</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#callback异步模式"><span class="nav-text"> Callback（异步模式）</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#future-模式"><span class="nav-text"> Future 模式</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#oneway-模式"><span class="nav-text"> Oneway 模式</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#reliable-模式"><span class="nav-text"> Reliable 模式</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#资料"><span class="nav-text"> 资料</span></a></li></ol></li></ol></div>
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#分布式架构"><span class="nav-text"> 分布式架构</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#1-分布式架构的问题"><span class="nav-text"> 1. 分布式架构的问题</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-分布式架构的关键技术"><span class="nav-text"> 2. 分布式架构的关键技术</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#21-消息队列"><span class="nav-text"> 2.1. 消息队列</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#211-消息队列框架"><span class="nav-text"> 2.1.1. 消息队列框架</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#212-消息队列原理"><span class="nav-text"> 2.1.2. 消息队列原理</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#22-服务化"><span class="nav-text"> 2.2. 服务化</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#221-服务化框架"><span class="nav-text"> 2.2.1. 服务化框架</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#222-服务化原理"><span class="nav-text"> 2.2.2. 服务化原理</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#223-服务治理"><span class="nav-text"> 2.2.3. 服务治理</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#23-服务总线"><span class="nav-text"> 2.3. 服务总线</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#231-服务总线框架"><span class="nav-text"> 2.3.1. 服务总线框架</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#232-服务总线原理"><span class="nav-text"> 2.3.2. 服务总线原理</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#3-分布式架构的通信模式"><span class="nav-text"> 3. 分布式架构的通信模式</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#31-requestresponse-模式同步模式"><span class="nav-text"> 3.1. request/response 模式（同步模式）</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#32-callback异步模式"><span class="nav-text"> 3.2. Callback（异步模式）</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#33-future-模式"><span class="nav-text"> 3.3. Future 模式</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#34-oneway-模式"><span class="nav-text"> 3.4. Oneway 模式</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#35-reliable-模式"><span class="nav-text"> 3.5. Reliable 模式</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#4-参考资料"><span class="nav-text"> 4. 参考资料</span></a></li></ol></li></ol></div>
       </div>
       <!--/noindex-->
 
@@ -518,7 +494,7 @@
       <div class="site-state-item site-state-posts">
           <a href="/blog/archives/">
         
-          <span class="site-state-item-count">67</span>
+          <span class="site-state-item-count">71</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
@@ -531,7 +507,7 @@
       <div class="site-state-item site-state-tags">
             <a href="/blog/tags/">
           
-        <span class="site-state-item-count">30</span>
+        <span class="site-state-item-count">38</span>
         <span class="site-state-item-name">标签</span></a>
       </div>
   </nav>
@@ -576,12 +552,12 @@
     <span class="post-meta-item-icon">
       <i class="fa fa-area-chart"></i>
     </span>
-    <span title="站点总字数">334k</span>
+    <span title="站点总字数">354k</span>
     <span class="post-meta-divider">|</span>
     <span class="post-meta-item-icon">
       <i class="fa fa-coffee"></i>
     </span>
-    <span title="站点阅读时长">5:04</span>
+    <span title="站点阅读时长">5:22</span>
 </div>
 
         

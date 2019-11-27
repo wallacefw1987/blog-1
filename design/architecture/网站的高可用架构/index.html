@@ -53,18 +53,18 @@
 </script>
 
   <meta name="description" content="网站的高可用架构  📓 本文已归档到：「blog」    1. 网站可用性的度量 2. 高可用的网站架构 3. 高可用的应用  3.1. 通过负载均衡进行无状态服务的失效转移 3.2. 应用服务器集群的 Session 管理   4. 高可用的服务 5. 高可用的数据  5.1. CAP 原理 5.2. 数据备份 5.3. 失效转移   6. 高可用网站的软件质量保证 7. 网站监控 8. 资">
-<meta name="keywords" content="design,architecture">
+<meta name="keywords" content="设计,架构">
 <meta property="og:type" content="article">
 <meta property="og:title" content="网站的高可用架构">
 <meta property="og:url" content="https:&#x2F;&#x2F;dunwu.github.io&#x2F;blog&#x2F;design&#x2F;architecture&#x2F;%E7%BD%91%E7%AB%99%E7%9A%84%E9%AB%98%E5%8F%AF%E7%94%A8%E6%9E%B6%E6%9E%84&#x2F;index.html">
 <meta property="og:site_name" content="Dunwu">
 <meta property="og:description" content="网站的高可用架构  📓 本文已归档到：「blog」    1. 网站可用性的度量 2. 高可用的网站架构 3. 高可用的应用  3.1. 通过负载均衡进行无状态服务的失效转移 3.2. 应用服务器集群的 Session 管理   4. 高可用的服务 5. 高可用的数据  5.1. CAP 原理 5.2. 数据备份 5.3. 失效转移   6. 高可用网站的软件质量保证 7. 网站监控 8. 资">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:image" content="http:&#x2F;&#x2F;dunwu.test.upcdn.net&#x2F;cs&#x2F;distributed&#x2F;architecture&#x2F;分布式理论-CAP.jpg">
-<meta property="og:image" content="http:&#x2F;&#x2F;dunwu.test.upcdn.net&#x2F;cs&#x2F;architecture&#x2F;check-fail.png">
-<meta property="og:updated_time" content="2019-08-21T05:20:31.202Z">
+<meta property="og:image" content="http:&#x2F;&#x2F;dunwu.test.upcdn.net&#x2F;cs&#x2F;java&#x2F;javaweb&#x2F;distributed&#x2F;architecture&#x2F;分布式理论-CAP.jpg!zp">
+<meta property="og:image" content="http:&#x2F;&#x2F;dunwu.test.upcdn.net&#x2F;cs&#x2F;java&#x2F;javaweb&#x2F;architecture&#x2F;check-fail.png!zp">
+<meta property="og:updated_time" content="2019-11-27T08:36:22.664Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:image" content="http:&#x2F;&#x2F;dunwu.test.upcdn.net&#x2F;cs&#x2F;distributed&#x2F;architecture&#x2F;分布式理论-CAP.jpg">
+<meta name="twitter:image" content="http:&#x2F;&#x2F;dunwu.test.upcdn.net&#x2F;cs&#x2F;java&#x2F;javaweb&#x2F;distributed&#x2F;architecture&#x2F;分布式理论-CAP.jpg!zp">
 
 <link rel="canonical" href="https://dunwu.github.io/blog/design/architecture/%E7%BD%91%E7%AB%99%E7%9A%84%E9%AB%98%E5%8F%AF%E7%94%A8%E6%9E%B6%E6%9E%84/">
 
@@ -158,7 +158,7 @@
   </li>
         <li class="menu-item menu-item-tags">
 
-    <a href="/blog/tags/" rel="section"><i class="fa fa-fw fa-tags"></i>标签<span class="badge">30</span></a>
+    <a href="/blog/tags/" rel="section"><i class="fa fa-fw fa-tags"></i>标签<span class="badge">38</span></a>
 
   </li>
         <li class="menu-item menu-item-categories">
@@ -168,7 +168,7 @@
   </li>
         <li class="menu-item menu-item-archives">
 
-    <a href="/blog/archives/" rel="section"><i class="fa fa-fw fa-archive"></i>归档<span class="badge">67</span></a>
+    <a href="/blog/archives/" rel="section"><i class="fa fa-fw fa-archive"></i>归档<span class="badge">71</span></a>
 
   </li>
       <li class="menu-item menu-item-search">
@@ -256,7 +256,7 @@
                   <i class="fa fa-calendar-check-o"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2019-08-21 13:20:31" itemprop="dateModified" datetime="2019-08-21T13:20:31+08:00">2019-08-21</time>
+                <time title="修改时间：2019-11-27 16:36:22" itemprop="dateModified" datetime="2019-11-27T16:36:22+08:00">2019-11-27</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -264,14 +264,14 @@
               </span>
               <span class="post-meta-item-text">分类于</span>
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/blog/categories/design/" itemprop="url" rel="index">
-                    <span itemprop="name">design</span>
+                  <a href="/blog/categories/%E8%AE%BE%E8%AE%A1/" itemprop="url" rel="index">
+                    <span itemprop="name">设计</span>
                   </a>
                 </span>
                   ，
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/blog/categories/design/architecture/" itemprop="url" rel="index">
-                    <span itemprop="name">architecture</span>
+                  <a href="/blog/categories/%E8%AE%BE%E8%AE%A1/%E6%9E%B6%E6%9E%84/" itemprop="url" rel="index">
+                    <span itemprop="name">架构</span>
                   </a>
                 </span>
             </span>
@@ -356,16 +356,16 @@
 <p>应用服务器的高可用架构设计主要基于服务无状态这一特性。事实上，业务总是有状态的，如购物车记录用户的购买信息；用户的登录状态；最新发布的消息等等。</p>
 <p>Web 应用中将这些多次请求修改使用的上下文对象称作会话。单机情况下，Session 可由部署在服务器上的 Web 容器管理。</p>
 <p>而在集群环境下，Session 管理有以下手段：</p>
-<h4 id="session-复制"><a class="markdownIt-Anchor" href="#session-复制"></a> Session 复制</h4>
+<h4 id="321-session-复制"><a class="markdownIt-Anchor" href="#321-session-复制"></a> 3.2.1. Session 复制</h4>
 <p>Session 复制是指应用服务器开发 Web 容器的 Session 复制功能，在集群中的几台服务器之间同步 Session 对象。</p>
 <p>这种方案很简单，但当集群规模较大时，集群服务间需要大量的通信来进行 Session 复制。</p>
-<h4 id="session-绑定"><a class="markdownIt-Anchor" href="#session-绑定"></a> Session 绑定</h4>
+<h4 id="322-session-绑定"><a class="markdownIt-Anchor" href="#322-session-绑定"></a> 3.2.2. Session 绑定</h4>
 <p>可以利用负载均衡的源地址 Hash 算法实现，总是将来源于同一 IP 的请求分发到同一台服务器上。这样在整个会话期间，用户所有的请求都在同一台服务器上处理，即 Session 绑定到某台特定服务器上。这种方法又被称作会话粘滞。</p>
 <p>但是这种策略不符合高可用的需求，因为一旦某台服务器宕机，那么该机器上的 Session 也就不复存在了。</p>
-<h4 id="利用-cookie-记录-session"><a class="markdownIt-Anchor" href="#利用-cookie-记录-session"></a> 利用 Cookie 记录 Session</h4>
+<h4 id="323-利用-cookie-记录-session"><a class="markdownIt-Anchor" href="#323-利用-cookie-记录-session"></a> 3.2.3. 利用 Cookie 记录 Session</h4>
 <p>可以将 Session 记录在客户端（浏览器 Cookie），每次请求服务器时，将 Session 放在请求中发送给服务器，服务器处理完请求后再将修改过的 Session 响应给客户端。</p>
 <p>这种策略的缺点是：Cookie 有大小限制，能记录的信息有限；每次请求响应都需要传输 Cookie，影响性能；如果用户关闭 Cookie，访问就不能工作。</p>
-<h4 id="session-服务器"><a class="markdownIt-Anchor" href="#session-服务器"></a> Session 服务器</h4>
+<h4 id="324-session-服务器"><a class="markdownIt-Anchor" href="#324-session-服务器"></a> 3.2.4. Session 服务器</h4>
 <p>利用独立部署的 Session 服务器（集群）统一管理 Session，应用服务器每次读写 Session 时，都访问 Session 服务器。</p>
 <p>实现 Session 服务器的一种简单方法时：利用分布式缓存、数据库等，在此基础上进行包装，使其符合 Session 的存储和访问要求。</p>
 <h2 id="4-高可用的服务"><a class="markdownIt-Anchor" href="#4-高可用的服务"></a> 4. 高可用的服务</h2>
@@ -381,15 +381,15 @@
 <h3 id="51-cap-原理"><a class="markdownIt-Anchor" href="#51-cap-原理"></a> 5.1. CAP 原理</h3>
 <p>分布式系统不可能同时满足一致性（C：Consistency）、可用性（A：Availability）和分区容忍性（P：Partition Tolerance），最多只能同时满足其中两项。</p>
 <div align="center">
-<img src="http://dunwu.test.upcdn.net/cs/distributed/architecture/分布式理论-CAP.jpg" width="450"/>
+<img src="http://dunwu.test.upcdn.net/cs/java/javaweb/distributed/architecture/分布式理论-CAP.jpg!zp" width="450"/>
 </div>
-<h4 id="可用性"><a class="markdownIt-Anchor" href="#可用性"></a> 可用性</h4>
+<h4 id="511-可用性"><a class="markdownIt-Anchor" href="#511-可用性"></a> 5.1.1. 可用性</h4>
 <p>可用性指分布式系统在面对各种异常时可以提供正常服务的能力，可以用系统可用时间占总时间的比值来衡量，4 个 9 的可用性表示系统 99.99% 的时间是可用的。</p>
 <p>在可用性条件下，系统提供的服务一直处于可用的状态，对于用户的每一个操作请求总是能够在有限的时间内返回结果。</p>
-<h4 id="分区容忍性"><a class="markdownIt-Anchor" href="#分区容忍性"></a> 分区容忍性</h4>
+<h4 id="512-分区容忍性"><a class="markdownIt-Anchor" href="#512-分区容忍性"></a> 5.1.2. 分区容忍性</h4>
 <p>网络分区指分布式系统中的节点被划分为多个区域，每个区域内部可以通信，但是区域之间无法通信。</p>
 <p>在分区容忍性条件下，分布式系统在遇到任何网络分区故障的时候，仍然需要能对外提供一致性和可用性的服务，除非是整个网络环境都发生了故障。</p>
-<h4 id="一致性"><a class="markdownIt-Anchor" href="#一致性"></a> 一致性</h4>
+<h4 id="513-一致性"><a class="markdownIt-Anchor" href="#513-一致性"></a> 5.1.3. 一致性</h4>
 <p>一致性指的是多个数据副本是否能保持一致的特性。</p>
 <p>在一致性的条件下，系统在执行数据更新操作之后能够从一致性状态转移到另一个一致性状态。</p>
 <p>数据一致性又可以分为以下几点：</p>
@@ -397,7 +397,7 @@
 <li>强一致性 - 数据更新操作结果和操作响应总是一致的，即操作响应通知更新失败，那么数据一定没有被更新，而不是处于不确定状态。</li>
 <li>最终一致性 - 即物理存储的数据可能是不一致的，终端用户访问到的数据可能也是不一致的，但系统经过一段时间的自我修复和修正，数据最终会达到一致。</li>
 </ul>
-<h4 id="权衡"><a class="markdownIt-Anchor" href="#权衡"></a> 权衡</h4>
+<h4 id="514-权衡"><a class="markdownIt-Anchor" href="#514-权衡"></a> 5.1.4. 权衡</h4>
 <p>在分布式系统中，分区容忍性必不可少，因为需要总是假设网络是不可靠的。因此，CAP 理论实际在是要在可用性和一致性之间做权衡。</p>
 <p>可用性和一致性往往是冲突的，很难都使它们同时满足。在多个节点之间进行数据同步时，</p>
 <ul>
@@ -415,15 +415,15 @@
 </li>
 </ul>
 <h3 id="53-失效转移"><a class="markdownIt-Anchor" href="#53-失效转移"></a> 5.3. 失效转移</h3>
-<h4 id="失效确认"><a class="markdownIt-Anchor" href="#失效确认"></a> 失效确认</h4>
+<h4 id="531-失效确认"><a class="markdownIt-Anchor" href="#531-失效确认"></a> 5.3.1. 失效确认</h4>
 <div align="center">
-<img src="http://dunwu.test.upcdn.net/cs/architecture/check-fail.png" width="500" />
+<img src="http://dunwu.test.upcdn.net/cs/java/javaweb/architecture/check-fail.png!zp" width="500" />
 </div>
 <p>判断服务器宕机的手段有两种：心跳检测和访问失败报告。</p>
 <p>对于应用程序的访问失败报告，控制中心还需要再一次发送心跳检测进行确认，以免错误判断服务器宕机。因为一旦进行数据访问的失效转移，意味着数据存储多份副本不一致，需要进行后续一系列的复杂动作。</p>
-<h4 id="访问转移"><a class="markdownIt-Anchor" href="#访问转移"></a> 访问转移</h4>
+<h4 id="532-访问转移"><a class="markdownIt-Anchor" href="#532-访问转移"></a> 5.3.2. 访问转移</h4>
 <p>确认某台数据服务器宕机后，就需要将数据读写访问重新路由到其他服务器上。对于完全对等存储的服务器，当其中一台宕机后，应用程序根据配置直接切换到对等服务器上。如果存储不对等，就需要重新计算路由，选择存储服务器。</p>
-<h4 id="数据恢复"><a class="markdownIt-Anchor" href="#数据恢复"></a> 数据恢复</h4>
+<h4 id="533-数据恢复"><a class="markdownIt-Anchor" href="#533-数据恢复"></a> 5.3.3. 数据恢复</h4>
 <p>因为某台服务器宕机，所以数据存储的副本数目会减少，必须将副本的数目恢复到系统设定的值，否则，再有服务器宕机时，就可能出现无法访问转移，数据永久丢失的情况。因此系统需要从健康的服务器复制数据，将数据副本数目恢复到设定值。</p>
 <h2 id="6-高可用网站的软件质量保证"><a class="markdownIt-Anchor" href="#6-高可用网站的软件质量保证"></a> 6. 高可用网站的软件质量保证</h2>
 <p>高可用网站的软件质量保证的手段：</p>
@@ -481,24 +481,24 @@
 
       <footer class="post-footer">
           <div class="post-tags">
-              <a href="/blog/tags/design/" rel="tag"># design</a>
-              <a href="/blog/tags/architecture/" rel="tag"># architecture</a>
+              <a href="/blog/tags/%E8%AE%BE%E8%AE%A1/" rel="tag"># 设计</a>
+              <a href="/blog/tags/%E6%9E%B6%E6%9E%84/" rel="tag"># 架构</a>
           </div>
 
         
 
           <div class="post-nav">
             <div class="post-nav-next post-nav-item">
-                <a href="/blog/design/architecture/%E7%BD%91%E7%AB%99%E7%9A%84%E4%BC%B8%E7%BC%A9%E6%80%A7%E6%9E%B6%E6%9E%84/" rel="next" title="网站的伸缩性架构">
-                  <i class="fa fa-chevron-left"></i> 网站的伸缩性架构
+                <a href="/blog/design/architecture/%E7%BD%91%E7%AB%99%E7%9A%84%E5%AE%89%E5%85%A8%E6%9E%B6%E6%9E%84/" rel="next" title="网站的安全架构">
+                  <i class="fa fa-chevron-left"></i> 网站的安全架构
                 </a>
             </div>
 
             <span class="post-nav-divider"></span>
 
             <div class="post-nav-prev post-nav-item">
-                <a href="/blog/design/architecture/%E7%BD%91%E7%AB%99%E7%9A%84%E5%AE%89%E5%85%A8%E6%9E%B6%E6%9E%84/" rel="prev" title="网站的安全架构">
-                  网站的安全架构 <i class="fa fa-chevron-right"></i>
+                <a href="/blog/design/architecture/%E7%BD%91%E7%AB%99%E7%9A%84%E4%BC%B8%E7%BC%A9%E6%80%A7%E6%9E%B6%E6%9E%84/" rel="prev" title="网站的伸缩性架构">
+                  网站的伸缩性架构 <i class="fa fa-chevron-right"></i>
                 </a>
             </div>
           </div>
@@ -545,7 +545,7 @@
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
-          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#网站的高可用架构"><span class="nav-text"> 网站的高可用架构</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#1-网站可用性的度量"><span class="nav-text"> 1. 网站可用性的度量</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-高可用的网站架构"><span class="nav-text"> 2. 高可用的网站架构</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#3-高可用的应用"><span class="nav-text"> 3. 高可用的应用</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#31-通过负载均衡进行无状态服务的失效转移"><span class="nav-text"> 3.1. 通过负载均衡进行无状态服务的失效转移</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#32-应用服务器集群的-session-管理"><span class="nav-text"> 3.2. 应用服务器集群的 Session 管理</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#session-复制"><span class="nav-text"> Session 复制</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#session-绑定"><span class="nav-text"> Session 绑定</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#利用-cookie-记录-session"><span class="nav-text"> 利用 Cookie 记录 Session</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#session-服务器"><span class="nav-text"> Session 服务器</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#4-高可用的服务"><span class="nav-text"> 4. 高可用的服务</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#5-高可用的数据"><span class="nav-text"> 5. 高可用的数据</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#51-cap-原理"><span class="nav-text"> 5.1. CAP 原理</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#可用性"><span class="nav-text"> 可用性</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#分区容忍性"><span class="nav-text"> 分区容忍性</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#一致性"><span class="nav-text"> 一致性</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#权衡"><span class="nav-text"> 权衡</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#52-数据备份"><span class="nav-text"> 5.2. 数据备份</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#53-失效转移"><span class="nav-text"> 5.3. 失效转移</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#失效确认"><span class="nav-text"> 失效确认</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#访问转移"><span class="nav-text"> 访问转移</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#数据恢复"><span class="nav-text"> 数据恢复</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#6-高可用网站的软件质量保证"><span class="nav-text"> 6. 高可用网站的软件质量保证</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#7-网站监控"><span class="nav-text"> 7. 网站监控</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#8-资料"><span class="nav-text"> 8. 资料</span></a></li></ol></li></ol></div>
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#网站的高可用架构"><span class="nav-text"> 网站的高可用架构</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#1-网站可用性的度量"><span class="nav-text"> 1. 网站可用性的度量</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-高可用的网站架构"><span class="nav-text"> 2. 高可用的网站架构</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#3-高可用的应用"><span class="nav-text"> 3. 高可用的应用</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#31-通过负载均衡进行无状态服务的失效转移"><span class="nav-text"> 3.1. 通过负载均衡进行无状态服务的失效转移</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#32-应用服务器集群的-session-管理"><span class="nav-text"> 3.2. 应用服务器集群的 Session 管理</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#321-session-复制"><span class="nav-text"> 3.2.1. Session 复制</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#322-session-绑定"><span class="nav-text"> 3.2.2. Session 绑定</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#323-利用-cookie-记录-session"><span class="nav-text"> 3.2.3. 利用 Cookie 记录 Session</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#324-session-服务器"><span class="nav-text"> 3.2.4. Session 服务器</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#4-高可用的服务"><span class="nav-text"> 4. 高可用的服务</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#5-高可用的数据"><span class="nav-text"> 5. 高可用的数据</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#51-cap-原理"><span class="nav-text"> 5.1. CAP 原理</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#511-可用性"><span class="nav-text"> 5.1.1. 可用性</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#512-分区容忍性"><span class="nav-text"> 5.1.2. 分区容忍性</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#513-一致性"><span class="nav-text"> 5.1.3. 一致性</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#514-权衡"><span class="nav-text"> 5.1.4. 权衡</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#52-数据备份"><span class="nav-text"> 5.2. 数据备份</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#53-失效转移"><span class="nav-text"> 5.3. 失效转移</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#531-失效确认"><span class="nav-text"> 5.3.1. 失效确认</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#532-访问转移"><span class="nav-text"> 5.3.2. 访问转移</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#533-数据恢复"><span class="nav-text"> 5.3.3. 数据恢复</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#6-高可用网站的软件质量保证"><span class="nav-text"> 6. 高可用网站的软件质量保证</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#7-网站监控"><span class="nav-text"> 7. 网站监控</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#8-资料"><span class="nav-text"> 8. 资料</span></a></li></ol></li></ol></div>
       </div>
       <!--/noindex-->
 
@@ -561,7 +561,7 @@
       <div class="site-state-item site-state-posts">
           <a href="/blog/archives/">
         
-          <span class="site-state-item-count">67</span>
+          <span class="site-state-item-count">71</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
@@ -574,7 +574,7 @@
       <div class="site-state-item site-state-tags">
             <a href="/blog/tags/">
           
-        <span class="site-state-item-count">30</span>
+        <span class="site-state-item-count">38</span>
         <span class="site-state-item-name">标签</span></a>
       </div>
   </nav>
@@ -619,12 +619,12 @@
     <span class="post-meta-item-icon">
       <i class="fa fa-area-chart"></i>
     </span>
-    <span title="站点总字数">334k</span>
+    <span title="站点总字数">354k</span>
     <span class="post-meta-divider">|</span>
     <span class="post-meta-item-icon">
       <i class="fa fa-coffee"></i>
     </span>
-    <span title="站点阅读时长">5:04</span>
+    <span title="站点阅读时长">5:22</span>
 </div>
 
         
