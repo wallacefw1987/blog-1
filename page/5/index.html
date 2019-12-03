@@ -153,7 +153,7 @@
   </li>
         <li class="menu-item menu-item-tags">
 
-    <a href="/blog/tags/" rel="section"><i class="fa fa-fw fa-tags"></i>标签<span class="badge">38</span></a>
+    <a href="/blog/tags/" rel="section"><i class="fa fa-fw fa-tags"></i>标签<span class="badge">40</span></a>
 
   </li>
         <li class="menu-item menu-item-categories">
@@ -163,7 +163,7 @@
   </li>
         <li class="menu-item menu-item-archives">
 
-    <a href="/blog/archives/" rel="section"><i class="fa fa-fw fa-archive"></i>归档<span class="badge">71</span></a>
+    <a href="/blog/archives/" rel="section"><i class="fa fa-fw fa-archive"></i>归档<span class="badge">68</span></a>
 
   </li>
       <li class="menu-item menu-item-search">
@@ -221,7 +221,7 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="https://dunwu.github.io/blog/blog/design/refactor/%E4%BB%A3%E7%A0%81%E5%9D%8F%E5%91%B3%E9%81%93%E4%B9%8B%E9%9D%9E%E5%BF%85%E8%A6%81%E7%9A%84/">
+    <link itemprop="mainEntityOfPage" href="https://dunwu.github.io/blog/blog/design/refactor/%E4%BB%A3%E7%A0%81%E5%9D%8F%E5%91%B3%E9%81%93%E4%B9%8B%E6%BB%A5%E7%94%A8%E9%9D%A2%E5%90%91%E5%AF%B9%E8%B1%A1/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/blog/images/avatar.gif">
@@ -235,7 +235,7 @@
       <header class="post-header">
         <h2 class="post-title" itemprop="name headline">
           
-            <a href="/blog/design/refactor/%E4%BB%A3%E7%A0%81%E5%9D%8F%E5%91%B3%E9%81%93%E4%B9%8B%E9%9D%9E%E5%BF%85%E8%A6%81%E7%9A%84/" class="post-title-link" itemprop="url">代码坏味道之非必要的</a>
+            <a href="/blog/design/refactor/%E4%BB%A3%E7%A0%81%E5%9D%8F%E5%91%B3%E9%81%93%E4%B9%8B%E6%BB%A5%E7%94%A8%E9%9D%A2%E5%90%91%E5%AF%B9%E8%B1%A1/" class="post-title-link" itemprop="url">代码坏味道之滥用面向对象</a>
         </h2>
 
         <div class="post-meta">
@@ -281,8 +281,8 @@
       </span>
       <span class="post-meta-item-text">Disqus：</span>
     
-    <a title="disqus" href="/blog/design/refactor/%E4%BB%A3%E7%A0%81%E5%9D%8F%E5%91%B3%E9%81%93%E4%B9%8B%E9%9D%9E%E5%BF%85%E8%A6%81%E7%9A%84/#comments" itemprop="discussionUrl">
-      <span class="post-comments-count disqus-comment-count" data-disqus-identifier="design/refactor/代码坏味道之非必要的/" itemprop="commentCount"></span>
+    <a title="disqus" href="/blog/design/refactor/%E4%BB%A3%E7%A0%81%E5%9D%8F%E5%91%B3%E9%81%93%E4%B9%8B%E6%BB%A5%E7%94%A8%E9%9D%A2%E5%90%91%E5%AF%B9%E8%B1%A1/#comments" itemprop="discussionUrl">
+      <span class="post-comments-count disqus-comment-count" data-disqus-identifier="design/refactor/代码坏味道之滥用面向对象/" itemprop="commentCount"></span>
     </a>
   </span>
   
@@ -292,14 +292,14 @@
                 <i class="fa fa-file-word-o"></i>
               </span>
                 <span class="post-meta-item-text">本文字数：</span>
-              <span>8.5k</span>
+              <span>6.5k</span>
             </span>
             <span class="post-meta-item" title="阅读时长">
               <span class="post-meta-item-icon">
                 <i class="fa fa-clock-o"></i>
               </span>
                 <span class="post-meta-item-text">阅读时长 &asymp;</span>
-              <span>8 分钟</span>
+              <span>6 分钟</span>
             </span>
 
         </div>
@@ -313,152 +313,37 @@
       
           <blockquote>
 <p>📓 本文已归档到：「<a href="https://github.com/dunwu/blog" target="_blank" rel="noopener">blog</a>」</p>
-<p>翻译自：<a href="https://sourcemaking.com/refactoring/smells/dispensables" target="_blank" rel="noopener">https://sourcemaking.com/refactoring/smells/dispensables</a></p>
-<p><strong>非必要的(Dispensables)这组坏味道意味着：这样的代码可有可无，它的存在反而影响整体代码的整洁和可读性。</strong></p>
+<p>翻译自：<a href="https://sourcemaking.com/refactoring/smells/oo-abusers" target="_blank" rel="noopener">https://sourcemaking.com/refactoring/smells/oo-abusers</a></p>
+<p><strong>滥用面向对象(Object-Orientation Abusers)这组坏味道意味着：代码部分或完全地违背了面向对象编程原则。</strong></p>
 </blockquote>
-<h2 id="冗余类"><a class="markdownIt-Anchor" href="#冗余类"></a> 冗余类</h2>
+<h2 id="switch-声明"><a class="markdownIt-Anchor" href="#switch-声明"></a> Switch 声明</h2>
 <blockquote>
-<p>冗余类(Lazy Class)</p>
-<p>理解和维护总是费时费力的。如果一个类不值得你花费精力，它就应该被删除。</p>
+<p>Switch 声明(Switch Statements)</p>
+<p>你有一个复杂的 <code>switch</code> 语句或 <code>if</code> 序列语句。</p>
 </blockquote>
-<div align="center"><img src="http://dunwu.test.upcdn.net/cs/design/refactor/lazy-class-1.png"/></div>
+<div align="center"><img src="http://dunwu.test.upcdn.net/cs/design/refactor/switch-statements-1.png"/></div>
 <h3 id="问题原因"><a class="markdownIt-Anchor" href="#问题原因"></a> 问题原因</h3>
-<p>也许一个类的初始设计是一个功能完全的类，然而随着代码的变迁，变得没什么用了。<br />
-又或者类起初的设计是为了支持未来的功能扩展，然而却一直未派上用场。</p>
+<p>面向对象程序的一个最明显特征就是：少用 <code>switch</code> 和 <code>case</code> 语句。从本质上说，<code>switch</code> 语句的问题在于重复（<code>if</code> 序列也同样如此）。你常会发现 <code>switch</code> 语句散布于不同地点。如果要为它添加一个新的 <code>case</code> 子句，就必须找到所有 <code>switch</code> 语句并修改它们。面向对象中的多态概念可为此带来优雅的解决办法。</p>
+<p>大多数时候，一看到 <code>switch</code> 语句，就应该考虑以多态来替换它。</p>
 <h3 id="解决方法"><a class="markdownIt-Anchor" href="#解决方法"></a> 解决方法</h3>
 <ul>
-<li>没什么用的类可以运用 <code>将类内联化(Inline Class)</code> 来干掉。</li>
-</ul>
-<div align="center"><img src="http://dunwu.test.upcdn.net/cs/design/refactor/lazy-class-2.png"/></div>
-<ul>
-<li>如果子类用处不大，试试 <code>折叠继承体系(Collapse Hierarchy)</code> 。</li>
+<li>问题是多态该出现在哪？switch 语句常常根据类型码进行选择，你要的是“与该类型码相关的函数或类”，所以应该运用 <code>提炼函数(Extract Method)</code> 将 <code>switch</code> 语句提炼到一个独立函数中，再以 <code>搬移函数(Move Method)</code> 将它搬移到需要多态性的那个类里。</li>
+<li>如果你的 <code>switch</code> 是基于类型码来识别分支，这时可以运用 <code>以子类取代类型码(Replace Type Code with Subclass)</code> 或 <code>以状态/策略模式取代类型码(Replace Type Code with State/Strategy)</code> 。</li>
+<li>一旦完成这样的继承结构后，就可以运用 <code>以多态取代条件表达式(Replace Conditional with Polymorphism)</code> 了。</li>
+<li>如果条件分支并不多并且它们使用不同参数调用相同的函数，多态就没必要了。在这种情况下，你可以运用 <code>以明确函数取代参数(Replace Parameter with Explicit Methods)</code> 。</li>
+<li>如果你的选择条件之一是 null，可以运用 <code>引入 Null 对象(Introduce Null Object)</code> 。</li>
 </ul>
 <h3 id="收益"><a class="markdownIt-Anchor" href="#收益"></a> 收益</h3>
 <ul>
-<li>减少代码量</li>
-<li>易于维护</li>
+<li>提升代码组织性。</li>
 </ul>
+<div align="center"><img src="http://dunwu.test.upcdn.net/cs/design/refactor/switch-statements-2.png"/></div>
 <h3 id="何时忽略"><a class="markdownIt-Anchor" href="#何时忽略"></a> 何时忽略</h3>
 <ul>
-<li>有时，创建冗余类是为了描述未来开发的意图。在这种情况下，尝试在代码中保持清晰和简单之间的平衡。</li>
+<li>如果一个 <code>switch</code> 操作只是执行简单的行为，就没有重构的必要了。</li>
+<li><code>switch</code> 常被工厂设计模式族（<code>工厂方法模式(Factory Method)</code>和<code>抽象工厂模式(Abstract Factory)</code>）所使用，这种情况下也没必要重构。</li>
 </ul>
 <h3 id="重构方法说明"><a class="markdownIt-Anchor" href="#重构方法说明"></a> 重构方法说明</h3>
-<h4 id="将类内联化inline-class"><a class="markdownIt-Anchor" href="#将类内联化inline-class"></a> 将类内联化(Inline Class)</h4>
-<p><strong>问题</strong></p>
-<p>某个类没有做太多事情。</p>
-<div align="center"><img src="http://dunwu.test.upcdn.net/cs/design/refactor/inline-class-before.png"/></div>
-<p><strong>解决</strong></p>
-<p>将这个类的所有特性搬移到另一个类中，然后移除原类。</p>
-<div align="center"><img src="http://dunwu.test.upcdn.net/cs/design/refactor/inline-class-after.png"/></div>
-<h4 id="折叠继承体系collapse-hierarchy"><a class="markdownIt-Anchor" href="#折叠继承体系collapse-hierarchy"></a> 折叠继承体系(Collapse Hierarchy)</h4>
-<p><strong>问题</strong></p>
-<p>超类和子类之间无太大区别。</p>
-<div align="center"><img src="http://dunwu.test.upcdn.net/cs/design/refactor/collapse-hierarchy-before.png"/></div>
-<p><strong>解决</strong></p>
-<p>将它们合为一体。</p>
-<div align="center"><img src="http://dunwu.test.upcdn.net/cs/design/refactor/collapse-hierarchy-after.png"/></div>
-<h2 id="夸夸其谈未来性"><a class="markdownIt-Anchor" href="#夸夸其谈未来性"></a> 夸夸其谈未来性</h2>
-<blockquote>
-<p>夸夸其谈未来性(Speculative Generality)</p>
-<p>存在未被使用的类、函数、字段或参数。</p>
-</blockquote>
-<div align="center"><img src="http://dunwu.test.upcdn.net/cs/design/refactor/speculative-generality-1.png"/></div>
-<h3 id="问题原因-2"><a class="markdownIt-Anchor" href="#问题原因-2"></a> 问题原因</h3>
-<p>有时，代码仅仅为了支持未来的特性而产生，然而却一直未实现。结果，代码变得难以理解和维护。</p>
-<h3 id="解决方法-2"><a class="markdownIt-Anchor" href="#解决方法-2"></a> 解决方法</h3>
-<ul>
-<li>如果你的某个抽象类其实没有太大作用，请运用 <code>折叠继承体系(Collapse Hierarch)</code> 。</li>
-</ul>
-<div align="center"><img src="http://dunwu.test.upcdn.net/cs/design/refactor/speculative-generality-2.png"/></div>
-<ul>
-<li>不必要的委托可运用 <code>将类内联化(Inline Class)</code> 消除。</li>
-<li>无用的函数可运用 <code>内联函数(Inline Method)</code> 消除。</li>
-<li>函数中有无用的参数应该运用 <code>移除参数(Remove Parameter)</code> 消除。</li>
-<li>无用字段可以直接删除。</li>
-</ul>
-<h3 id="收益-2"><a class="markdownIt-Anchor" href="#收益-2"></a> 收益</h3>
-<ul>
-<li>减少代码量。</li>
-<li>更易维护。</li>
-</ul>
-<h3 id="何时忽略-2"><a class="markdownIt-Anchor" href="#何时忽略-2"></a> 何时忽略</h3>
-<ul>
-<li>如果你在一个框架上工作，创建框架本身没有使用的功能是非常合理的，只要框架的用户需要这个功能。</li>
-<li>删除元素之前，请确保它们不在单元测试中使用。如果测试需要从类中获取某些内部信息或执行特殊的测试相关操作，就会发生这种情况。</li>
-</ul>
-<h3 id="重构方法说明-2"><a class="markdownIt-Anchor" href="#重构方法说明-2"></a> 重构方法说明</h3>
-<h4 id="折叠继承体系collapse-hierarchy-2"><a class="markdownIt-Anchor" href="#折叠继承体系collapse-hierarchy-2"></a> 折叠继承体系(Collapse Hierarchy)</h4>
-<p><strong>问题</strong></p>
-<p>超类和子类之间无太大区别。</p>
-<div align="center"><img src="http://dunwu.test.upcdn.net/cs/design/refactor/collapse-hierarchy-before.png"/></div>
-<p><strong>解决</strong></p>
-<p>将它们合为一体。</p>
-<div align="center"><img src="http://dunwu.test.upcdn.net/cs/design/refactor/collapse-hierarchy-after.png"/></div>
-<h4 id="将类内联化inline-class-2"><a class="markdownIt-Anchor" href="#将类内联化inline-class-2"></a> 将类内联化(Inline Class)</h4>
-<p><strong>问题</strong></p>
-<p>某个类没有做太多事情。</p>
-<div align="center"><img src="http://dunwu.test.upcdn.net/cs/design/refactor/inline-class-before.png"/></div>
-<p><strong>解决</strong></p>
-<p>将这个类的所有特性搬移到另一个类中，然后移除原类。</p>
-<div align="center"><img src="http://dunwu.test.upcdn.net/cs/design/refactor/inline-class-after.png"/></div>
-<h4 id="内联函数inline-method"><a class="markdownIt-Anchor" href="#内联函数inline-method"></a> 内联函数(Inline Method)</h4>
-<p><strong>问题</strong></p>
-<p>一个函数的本体比函数名更清楚易懂。</p>
-<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">PizzaDelivery</span> </span>&#123;</span><br><span class="line">  <span class="comment">//...</span></span><br><span class="line">  <span class="function"><span class="keyword">int</span> <span class="title">getRating</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    <span class="keyword">return</span> moreThanFiveLateDeliveries() ? <span class="number">2</span> : <span class="number">1</span>;</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="function"><span class="keyword">boolean</span> <span class="title">moreThanFiveLateDeliveries</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    <span class="keyword">return</span> numberOfLateDeliveries &gt; <span class="number">5</span>;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p><strong>解决</strong></p>
-<p>在函数调用点插入函数本体，然后移除该函数。</p>
-<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">PizzaDelivery</span> </span>&#123;</span><br><span class="line">  <span class="comment">//...</span></span><br><span class="line">  <span class="function"><span class="keyword">int</span> <span class="title">getRating</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    <span class="keyword">return</span> numberOfLateDeliveries &gt; <span class="number">5</span> ? <span class="number">2</span> : <span class="number">1</span>;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<h4 id="移除参数remove-parameter"><a class="markdownIt-Anchor" href="#移除参数remove-parameter"></a> 移除参数(Remove Parameter)</h4>
-<p><strong>问题</strong></p>
-<p>函数本体不再需要某个参数。</p>
-<div align="center"><img src="http://dunwu.test.upcdn.net/cs/design/refactor/remove-parameter-before.png"/></div>
-<p><strong>解决</strong></p>
-<p>将该参数去除。</p>
-<div align="center"><img src="http://dunwu.test.upcdn.net/cs/design/refactor/remove-parameter-after.png"/></div>
-<h2 id="纯稚的数据类"><a class="markdownIt-Anchor" href="#纯稚的数据类"></a> 纯稚的数据类</h2>
-<blockquote>
-<p><code>纯稚的数据类(Data Class)</code> 指的是只包含字段和访问它们的 getter 和 setter 函数的类。这些仅仅是供其他类使用的数据容器。这些类不包含任何附加功能，并且不能对自己拥有的数据进行独立操作。</p>
-</blockquote>
-<div align="center"><img src="http://dunwu.test.upcdn.net/cs/design/refactor/data-class-1.png"/></div>
-<h3 id="问题原因-3"><a class="markdownIt-Anchor" href="#问题原因-3"></a> 问题原因</h3>
-<p>当一个新创建的类只包含几个公共字段（甚至可能几个 getters / setters）是很正常的。但是对象的真正力量在于它们可以包含作用于数据的行为类型或操作。</p>
-<h3 id="解决方法-3"><a class="markdownIt-Anchor" href="#解决方法-3"></a> 解决方法</h3>
-<ul>
-<li>如果一个类有公共字段，你应该运用 <code>封装字段(Encapsulated Field)</code> 来隐藏字段的直接访问方式。</li>
-<li>如果这些类含容器类的字段，你应该检查它们是不是得到了恰当的封装；如果没有，就运用 <code>封装集合(Encapsulated Collection)</code> 把它们封装起来。</li>
-<li>找出这些 getter/setter 函数被其他类运用的地点。尝试以 <code>搬移函数(Move Method)</code> 把那些调用行为搬移到 <code>纯稚的数据类(Data Class)</code> 来。如果无法搬移这个函数，就运用 <code>提炼函数(Extract Method)</code> 产生一个可搬移的函数。</li>
-</ul>
-<div align="center"><img src="http://dunwu.test.upcdn.net/cs/design/refactor/data-class-2.png"/></div>
-<ul>
-<li>在类已经充满了深思熟虑的函数之后，你可能想要摆脱旧的数据访问方法，以提供适应面较广的类数据访问接口。为此，可以运用 <code>移除设置函数(Remove Setting Method)</code> 和 <code>隐藏函数(Hide Method)</code> 。</li>
-</ul>
-<h3 id="收益-3"><a class="markdownIt-Anchor" href="#收益-3"></a> 收益</h3>
-<ul>
-<li>提高代码的可读性和组织性。特定数据的操作现在被集中在一个地方，而不是在分散在代码各处。</li>
-<li>帮助你发现客户端代码的重复处。</li>
-</ul>
-<h3 id="重构方法说明-3"><a class="markdownIt-Anchor" href="#重构方法说明-3"></a> 重构方法说明</h3>
-<h4 id="封装字段encapsulated-field"><a class="markdownIt-Anchor" href="#封装字段encapsulated-field"></a> 封装字段(Encapsulated Field)</h4>
-<p><strong>问题</strong></p>
-<p>你的类中存在 public 字段。</p>
-<figure class="highlight angelscript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="symbol">Person</span> &#123;</span><br><span class="line">  <span class="keyword">public</span> String name;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p><strong>解决</strong></p>
-<p>将它声明为 private，并提供相应的访问函数。</p>
-<figure class="highlight arduino"><table><tr><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Person</span> &#123;</span></span><br><span class="line">  <span class="keyword">private</span> <span class="keyword">String</span> name;</span><br><span class="line"></span><br><span class="line">  <span class="function"><span class="keyword">public</span> <span class="keyword">String</span> <span class="title">getName</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    <span class="keyword">return</span> name;</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">setName</span><span class="params">(<span class="keyword">String</span> arg)</span> </span>&#123;</span><br><span class="line">    name = arg;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<h4 id="封装集合encapsulated-collection"><a class="markdownIt-Anchor" href="#封装集合encapsulated-collection"></a> 封装集合(Encapsulated Collection)</h4>
-<p><strong>问题</strong></p>
-<p>有个函数返回一个集合。</p>
-<div align="center"><img src="http://dunwu.test.upcdn.net/cs/design/refactor/encapsulate-collection-before.png"/></div>
-<p><strong>解决</strong></p>
-<p>让该函数返回该集合的一个只读副本，并在这个类中提供添加、移除集合元素的函数。</p>
-<div align="center"><img src="http://dunwu.test.upcdn.net/cs/design/refactor/encapsulate-collection-after.png"/></div>
-<h4 id="搬移函数move-method"><a class="markdownIt-Anchor" href="#搬移函数move-method"></a> 搬移函数(Move Method)</h4>
-<p><strong>问题</strong></p>
-<p>你的程序中，有个函数与其所驻类之外的另一个类进行更多交流：调用后者，或被后者调用。</p>
-<div align="center"><img src="http://dunwu.test.upcdn.net/cs/design/refactor/move-method-before.png"/></div>
-<p><strong>解决</strong></p>
-<p>在该函数最常引用的类中建立一个有着类似行为的新函数。将旧函数变成一个单纯的委托函数，或是旧函数完全移除。</p>
-<div align="center"><img src="http://dunwu.test.upcdn.net/cs/design/refactor/move-method-after.png"/></div>
 <h4 id="提炼函数extract-method"><a class="markdownIt-Anchor" href="#提炼函数extract-method"></a> 提炼函数(Extract Method)</h4>
 <p><strong>问题</strong></p>
 <p>你有一段代码可以组织在一起。</p>
@@ -466,162 +351,69 @@
 <p><strong>解决</strong></p>
 <p>移动这段代码到一个新的函数中，使用函数的调用来替代老代码。</p>
 <figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">printOwing</span><span class="params">()</span> </span>&#123;</span><br><span class="line">  printBanner();</span><br><span class="line">  printDetails(getOutstanding());</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">printDetails</span><span class="params">(<span class="keyword">double</span> outstanding)</span> </span>&#123;</span><br><span class="line">  System.out.println(<span class="string">"name: "</span> + name);</span><br><span class="line">  System.out.println(<span class="string">"amount: "</span> + outstanding);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<h4 id="移除设置函数remove-setting-method"><a class="markdownIt-Anchor" href="#移除设置函数remove-setting-method"></a> 移除设置函数(Remove Setting Method)</h4>
+<h4 id="搬移函数move-method"><a class="markdownIt-Anchor" href="#搬移函数move-method"></a> 搬移函数(Move Method)</h4>
 <p><strong>问题</strong></p>
-<p>类中的某个字段应该在对象创建时被设值，然后就不再改变。</p>
-<div align="center"><img src="http://dunwu.test.upcdn.net/cs/design/refactor/remove-setting-method-before.png"/></div>
+<p>你的程序中，有个函数与其所驻类之外的另一个类进行更多交流：调用后者，或被后者调用。</p>
+<div align="center"><img src="http://dunwu.test.upcdn.net/cs/design/refactor/move-method-before.png"/></div>
 <p><strong>解决</strong></p>
-<p>去掉该字段的所有设值函数。</p>
-<div align="center"><img src="http://dunwu.test.upcdn.net/cs/design/refactor/remove-setting-method-after.png"/></div>
-<h4 id="隐藏函数hide-method"><a class="markdownIt-Anchor" href="#隐藏函数hide-method"></a> 隐藏函数(Hide Method)</h4>
+<p>在该函数最常引用的类中建立一个有着类似行为的新函数。将旧函数变成一个单纯的委托函数，或是旧函数完全移除。</p>
+<div align="center"><img src="http://dunwu.test.upcdn.net/cs/design/refactor/move-method-after.png"/></div>
+<h4 id="以子类取代类型码replace-type-code-with-subclass"><a class="markdownIt-Anchor" href="#以子类取代类型码replace-type-code-with-subclass"></a> 以子类取代类型码(Replace Type Code with Subclass)</h4>
 <p><strong>问题</strong></p>
-<p>有一个函数，从来没有被其他任何类用到。</p>
-<div align="center"><img src="http://dunwu.test.upcdn.net/cs/design/refactor/hide-method-before.png"/></div>
+<p>你有一个不可变的类型码，它会影响类的行为。</p>
+<div align="center"><img src="http://dunwu.test.upcdn.net/cs/design/refactor/replace-type-code-with-subclasses-before.png"/></div>
 <p><strong>解决</strong></p>
-<p>将这个函数修改为 private。</p>
-<div align="center"><img src="http://dunwu.test.upcdn.net/cs/design/refactor/hide-method-after.png"/></div>
-<h2 id="过多的注释"><a class="markdownIt-Anchor" href="#过多的注释"></a> 过多的注释</h2>
+<p>以子类取代这个类型码。</p>
+<div align="center"><img src="http://dunwu.test.upcdn.net/cs/design/refactor/replace-type-code-with-subclasses-after.png"/></div>
+<h4 id="以状态策略模式取代类型码replace-type-code-with-statestrategy"><a class="markdownIt-Anchor" href="#以状态策略模式取代类型码replace-type-code-with-statestrategy"></a> 以状态/策略模式取代类型码(Replace Type Code with State/Strategy)</h4>
+<p><strong>问题</strong></p>
+<p>你有一个类型码，它会影响类的行为，但你无法通过继承消除它。</p>
+<div align="center"><img src="http://dunwu.test.upcdn.net/cs/design/refactor/replace-type-code-with-state-strategy-before.png"/></div>
+<p><strong>解决</strong></p>
+<p>以状态对象取代类型码。</p>
+<div align="center"><img src="http://dunwu.test.upcdn.net/cs/design/refactor/replace-type-code-with-state-strategy-after.png"/></div>
+<h4 id="以多态取代条件表达式replace-conditional-with-polymorphism"><a class="markdownIt-Anchor" href="#以多态取代条件表达式replace-conditional-with-polymorphism"></a> 以多态取代条件表达式(Replace Conditional with Polymorphism)</h4>
+<p><strong>问题</strong></p>
+<p>你手上有个条件表达式，它根据对象类型的不同而选择不同的行为。</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Bird</span> </span>&#123;</span><br><span class="line">  <span class="comment">//...</span></span><br><span class="line">  <span class="function"><span class="keyword">double</span> <span class="title">getSpeed</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    <span class="keyword">switch</span> (type) &#123;</span><br><span class="line">      <span class="keyword">case</span> EUROPEAN:</span><br><span class="line">        <span class="keyword">return</span> getBaseSpeed();</span><br><span class="line">      <span class="keyword">case</span> AFRICAN:</span><br><span class="line">        <span class="keyword">return</span> getBaseSpeed() - getLoadFactor() * numberOfCoconuts;</span><br><span class="line">      <span class="keyword">case</span> NORWEGIAN_BLUE:</span><br><span class="line">        <span class="keyword">return</span> (isNailed) ? <span class="number">0</span> : getBaseSpeed(voltage);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">throw</span> <span class="keyword">new</span> RuntimeException(<span class="string">"Should be unreachable"</span>);</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p><strong>解决</strong></p>
+<p>将这个条件表达式的每个分支放进一个子类内的覆写函数中，然后将原始函数声明为抽象函数。</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">abstract</span> <span class="class"><span class="keyword">class</span> <span class="title">Bird</span> </span>&#123;</span><br><span class="line">  <span class="comment">//...</span></span><br><span class="line">  <span class="function"><span class="keyword">abstract</span> <span class="keyword">double</span> <span class="title">getSpeed</span><span class="params">()</span></span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">European</span> <span class="keyword">extends</span> <span class="title">Bird</span> </span>&#123;</span><br><span class="line">  <span class="function"><span class="keyword">double</span> <span class="title">getSpeed</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    <span class="keyword">return</span> getBaseSpeed();</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">African</span> <span class="keyword">extends</span> <span class="title">Bird</span> </span>&#123;</span><br><span class="line">  <span class="function"><span class="keyword">double</span> <span class="title">getSpeed</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    <span class="keyword">return</span> getBaseSpeed() - getLoadFactor() * numberOfCoconuts;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">NorwegianBlue</span> <span class="keyword">extends</span> <span class="title">Bird</span> </span>&#123;</span><br><span class="line">  <span class="function"><span class="keyword">double</span> <span class="title">getSpeed</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    <span class="keyword">return</span> (isNailed) ? <span class="number">0</span> : getBaseSpeed(voltage);</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// Somewhere in client code</span></span><br><span class="line">speed = bird.getSpeed();</span><br></pre></td></tr></table></figure>
+<h4 id="以明确函数取代参数replace-parameter-with-explicit-methods"><a class="markdownIt-Anchor" href="#以明确函数取代参数replace-parameter-with-explicit-methods"></a> 以明确函数取代参数(Replace Parameter with Explicit Methods)</h4>
+<p><strong>问题</strong></p>
+<p>你有一个函数，其中完全取决于参数值而采取不同的行为。</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">setValue</span><span class="params">(String name, <span class="keyword">int</span> value)</span> </span>&#123;</span><br><span class="line">  <span class="keyword">if</span> (name.equals(<span class="string">"height"</span>)) &#123;</span><br><span class="line">    height = value;</span><br><span class="line">    <span class="keyword">return</span>;</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="keyword">if</span> (name.equals(<span class="string">"width"</span>)) &#123;</span><br><span class="line">    width = value;</span><br><span class="line">    <span class="keyword">return</span>;</span><br><span class="line">  &#125;</span><br><span class="line">  Assert.shouldNeverReachHere();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p><strong>解决</strong></p>
+<p>针对该参数的每一个可能值，建立一个独立函数。</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">setHeight</span><span class="params">(<span class="keyword">int</span> arg)</span> </span>&#123;</span><br><span class="line">  height = arg;</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">setWidth</span><span class="params">(<span class="keyword">int</span> arg)</span> </span>&#123;</span><br><span class="line">  width = arg;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h4 id="引入-null-对象introduce-null-object"><a class="markdownIt-Anchor" href="#引入-null-对象introduce-null-object"></a> 引入 Null 对象(Introduce Null Object)</h4>
+<p><strong>问题</strong></p>
+<p>你需要再三检查某对象是否为 null。</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">if</span> (customer == <span class="keyword">null</span>) &#123;</span><br><span class="line">  plan = BillingPlan.basic();</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">else</span> &#123;</span><br><span class="line">  plan = customer.getPlan();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p><strong>解决</strong></p>
+<p>将 null 值替换为 null 对象。</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">NullCustomer</span> <span class="keyword">extends</span> <span class="title">Customer</span> </span>&#123;</span><br><span class="line">  <span class="function">Plan <span class="title">getPlan</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="keyword">new</span> NullPlan();</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="comment">// Some other NULL functionality.</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// Replace null values with Null-object.</span></span><br><span class="line">customer = (order.customer != <span class="keyword">null</span>) ? order.customer : <span class="keyword">new</span> NullCustomer();</span><br><span class="line"></span><br><span class="line"><span class="comment">// Use Null-object as if it's normal subclass.</span></span><br><span class="line">plan = customer.getPlan();</span><br></pre></td></tr></table></figure>
+<h2 id="临时字段"><a class="markdownIt-Anchor" href="#临时字段"></a> 临时字段</h2>
 <blockquote>
-<p>过多的注释(Comments)</p>
-<p>注释本身并不是坏事。但是常常有这样的情况：一段代码中出现长长的注释，而它之所以存在，是因为代码很糟糕。</p>
+<p>临时字段(Temporary Field)的值只在特定环境下有意义，离开这个环境，它们就什么也不是了。</p>
 </blockquote>
-<div align="center"><img src="http://dunwu.test.upcdn.net/cs/design/refactor/comments-1.png"/></div>
-<h3 id="问题原因-4"><a class="markdownIt-Anchor" href="#问题原因-4"></a> 问题原因</h3>
-<p>注释的作者意识到自己的代码不直观或不明显，所以想使用注释来说明自己的意图。这种情况下，注释就像是烂代码的除臭剂。</p>
-<blockquote>
-<p>最好的注释是为函数或类起一个恰当的名字。</p>
-</blockquote>
-<p>如果你觉得一个代码片段没有注释就无法理解，请先尝试重构，试着让所有注释都变得多余。</p>
-<h3 id="解决方法-4"><a class="markdownIt-Anchor" href="#解决方法-4"></a> 解决方法</h3>
+<div align="center"><img src="http://dunwu.test.upcdn.net/cs/design/refactor/temporary-field-1.png"/></div>
+<h3 id="问题原因-2"><a class="markdownIt-Anchor" href="#问题原因-2"></a> 问题原因</h3>
+<p>有时你会看到这样的对象：其内某个实例变量仅为某种特定情况而设。这样的代码让人不易理解，因为你通常认为对象在所有时候都需要它的所有变量。在变量未被使用的情况下猜测当初设置目的，会让你发疯。<br />
+通常，临时字段是在某一算法需要大量输入时而创建。因此，为了避免函数有过多参数，程序员决定在类中创建这些数据的临时字段。这些临时字段仅仅在算法中使用，其他时候却毫无用处。<br />
+这种代码不好理解。你期望查看对象字段的数据，但是出于某种原因，它们总是为空。</p>
+<h3 id="解决方法-2"><a class="markdownIt-Anchor" href="#解决方法-2"></a> 解决方法</h3>
 <ul>
-<li>如果一个注释是为了解释一个复杂的表达式，可以运用 <code>提炼变量(Extract Variable)</code> 将表达式切分为易理解的子表达式。</li>
-<li>如果你需要通过注释来解释一段代码做了什么，请试试 <code>提炼函数(Extract Method)</code> 。</li>
-<li>如果函数已经被提炼，但仍需要注释函数做了什么，试试运用 <code>函数改名(Rename Method)</code> 来为函数起一个可以自解释的名字。</li>
-<li>如果需要对系统某状态进行断言，请运用 <code>引入断言(Introduce Assertion)</code> 。</li>
+<li>可以通过 <code>提炼类(Extract Class)</code> 将临时字段和操作它们的所有代码提炼到一个单独的类中。此外，你可以运用 <code>以函数对象取代函数(Replace Method with Method Object)</code> 来实现同样的目的。</li>
+<li><code>引入 Null 对象(Introduce Null Object)</code> 在“变量不合法”的情况下创建一个 null 对象，从而避免写出条件表达式。</li>
 </ul>
-<h3 id="收益-4"><a class="markdownIt-Anchor" href="#收益-4"></a> 收益</h3>
+<div align="center"><img src="http://dunwu.test.upcdn.net/cs/design/refactor/temporary-field-2.png"/></div>
+<h3 id="收益-2"><a class="markdownIt-Anchor" href="#收益-2"></a> 收益</h3>
 <ul>
-<li>代码变得更直观和明显。</li>
+<li>更好的代码清晰度和组织性。</li>
 </ul>
-<h3 id="何时忽略-3"><a class="markdownIt-Anchor" href="#何时忽略-3"></a> 何时忽略</h3>
-<p>注释有时候很有用：</p>
-<ul>
-<li>当解释为什么某事物要以特殊方式实现时。</li>
-<li>当解释某种复杂算法时。</li>
-<li>当你实在不知可以做些什么时。</li>
-</ul>
-<h3 id="重构方法说明-4"><a class="markdownIt-Anchor" href="#重构方法说明-4"></a> 重构方法说明</h3>
-<h4 id="提炼变量extract-variable"><a class="markdownIt-Anchor" href="#提炼变量extract-variable"></a> 提炼变量(Extract Variable)</h4>
-<p><strong>问题</strong></p>
-<p>你有个难以理解的表达式。</p>
-<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">renderBanner</span><span class="params">()</span> </span>&#123;</span><br><span class="line">  <span class="keyword">if</span> ((platform.toUpperCase().indexOf(<span class="string">"MAC"</span>) &gt; -<span class="number">1</span>) &amp;&amp;</span><br><span class="line">       (browser.toUpperCase().indexOf(<span class="string">"IE"</span>) &gt; -<span class="number">1</span>) &amp;&amp;</span><br><span class="line">        wasInitialized() &amp;&amp; resize &gt; <span class="number">0</span> )</span><br><span class="line">  &#123;</span><br><span class="line">    <span class="comment">// do something</span></span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p><strong>解决</strong></p>
-<p>将表达式的结果或它的子表达式的结果用不言自明的变量来替代。</p>
-<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">renderBanner</span><span class="params">()</span> </span>&#123;</span><br><span class="line">  <span class="keyword">final</span> <span class="keyword">boolean</span> isMacOs = platform.toUpperCase().indexOf(<span class="string">"MAC"</span>) &gt; -<span class="number">1</span>;</span><br><span class="line">  <span class="keyword">final</span> <span class="keyword">boolean</span> isIE = browser.toUpperCase().indexOf(<span class="string">"IE"</span>) &gt; -<span class="number">1</span>;</span><br><span class="line">  <span class="keyword">final</span> <span class="keyword">boolean</span> wasResized = resize &gt; <span class="number">0</span>;</span><br><span class="line"></span><br><span class="line">  <span class="keyword">if</span> (isMacOs &amp;&amp; isIE &amp;&amp; wasInitialized() &amp;&amp; wasResized) &#123;</span><br><span class="line">    <span class="comment">// do something</span></span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<h4 id="提炼函数extract-method-2"><a class="markdownIt-Anchor" href="#提炼函数extract-method-2"></a> 提炼函数(Extract Method)</h4>
-<p><strong>问题</strong></p>
-<p>你有一段代码可以组织在一起。</p>
-<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">printOwing</span><span class="params">()</span> </span>&#123;</span><br><span class="line">  printBanner();</span><br><span class="line"></span><br><span class="line">  <span class="comment">//print details</span></span><br><span class="line">  System.out.println(<span class="string">"name: "</span> + name);</span><br><span class="line">  System.out.println(<span class="string">"amount: "</span> + getOutstanding());</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p><strong>解决</strong></p>
-<p>移动这段代码到一个新的函数中，使用函数的调用来替代老代码。</p>
-<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">printOwing</span><span class="params">()</span> </span>&#123;</span><br><span class="line">  printBanner();</span><br><span class="line">  printDetails(getOutstanding());</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">printDetails</span><span class="params">(<span class="keyword">double</span> outstanding)</span> </span>&#123;</span><br><span class="line">  System.out.println(<span class="string">"name: "</span> + name);</span><br><span class="line">  System.out.println(<span class="string">"amount: "</span> + outstanding);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<h4 id="函数改名rename-method"><a class="markdownIt-Anchor" href="#函数改名rename-method"></a> 函数改名(Rename Method)</h4>
-<p><strong>问题</strong></p>
-<p>函数的名称未能恰当的揭示函数的用途。</p>
-<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Person</span> </span>&#123;</span><br><span class="line">  <span class="function"><span class="keyword">public</span> String <span class="title">getsnm</span><span class="params">()</span></span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p><strong>解决</strong></p>
-<p>修改函数名。</p>
-<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Person</span> </span>&#123;</span><br><span class="line">  <span class="function"><span class="keyword">public</span> String <span class="title">getSecondName</span><span class="params">()</span></span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<h4 id="引入断言introduce-assertion"><a class="markdownIt-Anchor" href="#引入断言introduce-assertion"></a> 引入断言(Introduce Assertion)</h4>
-<p><strong>问题</strong></p>
-<p>某一段代码需要对程序状态做出某种假设。</p>
-<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">double</span> <span class="title">getExpenseLimit</span><span class="params">()</span> </span>&#123;</span><br><span class="line">  <span class="comment">// should have either expense limit or a primary project</span></span><br><span class="line">  <span class="keyword">return</span> (expenseLimit != NULL_EXPENSE) ?</span><br><span class="line">    expenseLimit:</span><br><span class="line">    primaryProject.getMemberExpenseLimit();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p><strong>解决</strong></p>
-<p>以断言明确表现这种假设。</p>
-<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">double</span> <span class="title">getExpenseLimit</span><span class="params">()</span> </span>&#123;</span><br><span class="line">  Assert.isTrue(expenseLimit != NULL_EXPENSE || primaryProject != <span class="keyword">null</span>);</span><br><span class="line"></span><br><span class="line">  <span class="keyword">return</span> (expenseLimit != NULL_EXPENSE) ?</span><br><span class="line">    expenseLimit:</span><br><span class="line">    primaryProject.getMemberExpenseLimit();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p><em>注：请不要滥用断言。不要使用它来检查”应该为真“的条件，只能使用它来检查“一定必须为真”的条件。实际上，断言更多是用于自我检测代码的一种手段。在产品真正交付时，往往都会消除所有断言。</em></p>
-<h2 id="重复代码"><a class="markdownIt-Anchor" href="#重复代码"></a> 重复代码</h2>
-<blockquote>
-<p>重复代码(Duplicate Code)</p>
-<p>重复代码堪称为代码坏味道之首。消除重复代码总是有利无害的。</p>
-</blockquote>
-<div align="center"><img src="http://dunwu.test.upcdn.net/cs/design/refactor/duplicate-code-1.png"/></div>
-<h3 id="问题原因-5"><a class="markdownIt-Anchor" href="#问题原因-5"></a> 问题原因</h3>
-<p>重复代码通常发生在多个程序员同时在同一程序的不同部分上工作时。由于他们正在处理不同的任务，他们可能不知道他们的同事已经写了类似的代码。</p>
-<p>还有一种更隐晦的重复，特定部分的代码看上去不同但实际在做同一件事。这种重复代码往往难以找到和消除。</p>
-<p>有时重复是有目的性的。当急于满足 deadline，并且现有代码对于要交付的任务是“几乎正确的”时，新手程序员可能无法抵抗复制和粘贴相关代码的诱惑。在某些情况下，程序员只是太懒惰。</p>
-<h3 id="解决方法-5"><a class="markdownIt-Anchor" href="#解决方法-5"></a> 解决方法</h3>
-<ul>
-<li>同一个类的两个函数含有相同的表达式，这时可以采用 <code>提炼函数(Extract Method)</code> 提炼出重复的代码，然后让这两个地点都调用被提炼出来的那段代码。</li>
-</ul>
-<div align="center"><img src="http://dunwu.test.upcdn.net/cs/design/refactor/duplicate-code-2.png"/></div>
-<ul>
-<li>如果两个互为兄弟的子类含有重复代码：
-<ul>
-<li>首先对两个类都运用 <code>提炼函数(Extract Method)</code> ，然后对被提炼出来的函数运用 <code>函数上移(Pull Up Method)</code> ，将它推入超类。</li>
-<li>如果重复代码在构造函数中，运用 <code>构造函数本体上移(Pull Up Constructor Body)</code> 。</li>
-<li>如果重复代码只是相似但不是完全相同，运用 <code>塑造模板函数(Form Template Method)</code> 获得一个 <strong>模板方法模式(Template Method)</strong> 。</li>
-<li>如果有些函数以不同的算法做相同的事，你可以选择其中较清晰地一个，并运用 <code>替换算法(Substitute Algorithm)</code> 将其他函数的算法替换掉。</li>
-</ul>
-</li>
-<li>如果两个毫不相关的类中有重复代码：
-<ul>
-<li>请尝试运用 <code>提炼超类(Extract Superclass)</code> ，以便为维护所有先前功能的这些类创建一个超类。</li>
-<li>如果创建超类十分困难，可以在一个类中运用 <code>提炼类(Extract Class)</code> ，并在另一个类中使用这个新的组件。</li>
-</ul>
-</li>
-<li>如果存在大量的条件表达式，并且它们执行完全相同的代码（仅仅是它们的条件不同），可以运用 <code>合并条件表达式(Consolidate Conditional Expression)</code> 将这些操作合并为单个条件，并运用 <code>提炼函数(Extract Method)</code> 将该条件放入一个名字容易理解的独立函数中。</li>
-<li>如果条件表达式的所有分支都有部分相同的代码片段：可以运用 <code>合并重复的条件片段(Consolidate Duplicate Conditional Fragments)</code> 将它们都存在的代码片段置于条件表达式外部。</li>
-</ul>
-<h3 id="收益-5"><a class="markdownIt-Anchor" href="#收益-5"></a> 收益</h3>
-<ul>
-<li>合并重复代码会简化代码的结构，并减少代码量。</li>
-<li>代码更简化、更易维护。</li>
-</ul>
-<h3 id="重构方法说明-5"><a class="markdownIt-Anchor" href="#重构方法说明-5"></a> 重构方法说明</h3>
-<h4 id="提炼函数extract-method-3"><a class="markdownIt-Anchor" href="#提炼函数extract-method-3"></a> 提炼函数(Extract Method)</h4>
-<p><strong>问题</strong></p>
-<p>你有一段代码可以组织在一起。</p>
-<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">printOwing</span><span class="params">()</span> </span>&#123;</span><br><span class="line">  printBanner();</span><br><span class="line"></span><br><span class="line">  <span class="comment">//print details</span></span><br><span class="line">  System.out.println(<span class="string">"name: "</span> + name);</span><br><span class="line">  System.out.println(<span class="string">"amount: "</span> + getOutstanding());</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p><strong>解决</strong></p>
-<p>移动这段代码到一个新的函数中，使用函数的调用来替代老代码。</p>
-<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">printOwing</span><span class="params">()</span> </span>&#123;</span><br><span class="line">  printBanner();</span><br><span class="line">  printDetails(getOutstanding());</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">printDetails</span><span class="params">(<span class="keyword">double</span> outstanding)</span> </span>&#123;</span><br><span class="line">  System.out.println(<span class="string">"name: "</span> + name);</span><br><span class="line">  System.out.println(<span class="string">"amount: "</span> + outstanding);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<h4 id="函数上移pull-up-method"><a class="markdownIt-Anchor" href="#函数上移pull-up-method"></a> 函数上移(Pull Up Method)</h4>
-<p><strong>问题</strong></p>
-<p>有些函数，在各个子类中产生完全相同的结果。</p>
-<div align="center"><img src="http://dunwu.test.upcdn.net/cs/design/refactor/pull-up-method-before.png"/></div>
-<p><strong>解决</strong></p>
-<p>将该函数移至超类。</p>
-<div align="center"><img src="http://dunwu.test.upcdn.net/cs/design/refactor/pull-up-method-after.png"/></div>
-<h4 id="构造函数本体上移pull-up-constructor-body"><a class="markdownIt-Anchor" href="#构造函数本体上移pull-up-constructor-body"></a> 构造函数本体上移(Pull Up Constructor Body)</h4>
-<p><strong>问题</strong></p>
-<p>你在各个子类中拥有一些构造函数，它们的本体几乎完全一致。</p>
-<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Manager</span> <span class="keyword">extends</span> <span class="title">Employee</span> </span>&#123;</span><br><span class="line">  <span class="function"><span class="keyword">public</span> <span class="title">Manager</span><span class="params">(String name, String id, <span class="keyword">int</span> grade)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">this</span>.name = name;</span><br><span class="line">    <span class="keyword">this</span>.id = id;</span><br><span class="line">    <span class="keyword">this</span>.grade = grade;</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="comment">//...</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p><strong>解决</strong></p>
-<p>在超类中新建一个构造函数，并在子类构造函数中调用它。</p>
-<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Manager</span> <span class="keyword">extends</span> <span class="title">Employee</span> </span>&#123;</span><br><span class="line">  <span class="function"><span class="keyword">public</span> <span class="title">Manager</span><span class="params">(String name, String id, <span class="keyword">int</span> grade)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">super</span>(name, id);</span><br><span class="line">    <span class="keyword">this</span>.grade = grade;</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="comment">//...</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<h4 id="塑造模板函数form-template-method"><a class="markdownIt-Anchor" href="#塑造模板函数form-template-method"></a> 塑造模板函数(Form Template Method)</h4>
-<p><strong>问题</strong></p>
-<p>你有一些子类，其中相应的某些函数以相同的顺序执行类似的操作，但各个操作的细节上有所不同。</p>
-<div align="center"><img src="http://dunwu.test.upcdn.net/cs/design/refactor/form-template-method-before.png"/></div>
-<p><strong>解决</strong></p>
-<p>将这些操作分别放进独立函数中，并保持它们都有相同的签名，于是原函数也就变得相同了。然后将原函数上移至超类。</p>
-<div align="center"><img src="http://dunwu.test.upcdn.net/cs/design/refactor/form-template-method-after.png"/></div>
-<p><em>注：这里只提到具体做法，建议了解一下模板方法设计模式。</em></p>
-<h4 id="替换算法substitute-algorithm"><a class="markdownIt-Anchor" href="#替换算法substitute-algorithm"></a> 替换算法(Substitute Algorithm)</h4>
-<p><strong>问题</strong></p>
-<p>你想要把某个算法替换为另一个更清晰的算法。</p>
-<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="function">String <span class="title">foundPerson</span><span class="params">(String[] people)</span></span>&#123;</span><br><span class="line">  <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; people.length; i++) &#123;</span><br><span class="line">    <span class="keyword">if</span> (people[i].equals(<span class="string">"Don"</span>))&#123;</span><br><span class="line">      <span class="keyword">return</span> <span class="string">"Don"</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">if</span> (people[i].equals(<span class="string">"John"</span>))&#123;</span><br><span class="line">      <span class="keyword">return</span> <span class="string">"John"</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">if</span> (people[i].equals(<span class="string">"Kent"</span>))&#123;</span><br><span class="line">      <span class="keyword">return</span> <span class="string">"Kent"</span>;</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="keyword">return</span> <span class="string">""</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p><strong>解决</strong></p>
-<p>将函数本体替换为另一个算法。</p>
-<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="function">String <span class="title">foundPerson</span><span class="params">(String[] people)</span></span>&#123;</span><br><span class="line">  List candidates =</span><br><span class="line">    Arrays.asList(<span class="keyword">new</span> String[] &#123;<span class="string">"Don"</span>, <span class="string">"John"</span>, <span class="string">"Kent"</span>&#125;);</span><br><span class="line">  <span class="keyword">for</span> (<span class="keyword">int</span> i=<span class="number">0</span>; i &lt; people.length; i++) &#123;</span><br><span class="line">    <span class="keyword">if</span> (candidates.contains(people[i])) &#123;</span><br><span class="line">      <span class="keyword">return</span> people[i];</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="keyword">return</span> <span class="string">""</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<h4 id="提炼超类extract-superclass"><a class="markdownIt-Anchor" href="#提炼超类extract-superclass"></a> 提炼超类(Extract Superclass)</h4>
-<p><strong>问题</strong></p>
-<p>两个类有相似特性。</p>
-<div align="center"><img src="http://dunwu.test.upcdn.net/cs/design/refactor/extract-superclass-before.png"/></div>
-<p><strong>解决</strong></p>
-<p>为这两个类建立一个超类，将相同特性移至超类。</p>
-<div align="center"><img src="http://dunwu.test.upcdn.net/cs/design/refactor/extract-superclass-after.png"/></div>
+<div align="center"><img src="http://dunwu.test.upcdn.net/cs/design/refactor/temporary-field-3.png"/></div>
+<h3 id="重构方法说明-2"><a class="markdownIt-Anchor" href="#重构方法说明-2"></a> 重构方法说明</h3>
 <h4 id="提炼类extract-class"><a class="markdownIt-Anchor" href="#提炼类extract-class"></a> 提炼类(Extract Class)</h4>
 <p><strong>问题</strong></p>
 <p>某个类做了不止一件事。</p>
@@ -629,20 +421,119 @@
 <p><strong>解决</strong></p>
 <p>建立一个新类，将相关的字段和函数从旧类搬移到新类。</p>
 <div align="center"><img src="http://dunwu.test.upcdn.net/cs/design/refactor/extract-class-after.png"/></div>
-<h4 id="合并条件表达式consolidate-conditional-expression"><a class="markdownIt-Anchor" href="#合并条件表达式consolidate-conditional-expression"></a> 合并条件表达式(Consolidate Conditional Expression)</h4>
+<h4 id="以函数对象取代函数replace-method-with-method-object"><a class="markdownIt-Anchor" href="#以函数对象取代函数replace-method-with-method-object"></a> 以函数对象取代函数(Replace Method with Method Object)</h4>
 <p><strong>问题</strong></p>
-<p>你有一系列条件分支，都得到相同结果。</p>
-<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">double</span> <span class="title">disabilityAmount</span><span class="params">()</span> </span>&#123;</span><br><span class="line">  <span class="keyword">if</span> (seniority &lt; <span class="number">2</span>) &#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="keyword">if</span> (monthsDisabled &gt; <span class="number">12</span>) &#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="keyword">if</span> (isPartTime) &#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="comment">// compute the disability amount</span></span><br><span class="line">  <span class="comment">//...</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>你有一个过长函数，它的局部变量交织在一起，以致于你无法应用提炼函数(Extract Method) 。</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Order</span> </span>&#123;</span><br><span class="line">  <span class="comment">//...</span></span><br><span class="line">  <span class="function"><span class="keyword">public</span> <span class="keyword">double</span> <span class="title">price</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    <span class="keyword">double</span> primaryBasePrice;</span><br><span class="line">    <span class="keyword">double</span> secondaryBasePrice;</span><br><span class="line">    <span class="keyword">double</span> tertiaryBasePrice;</span><br><span class="line">    <span class="comment">// long computation.</span></span><br><span class="line">    <span class="comment">//...</span></span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <p><strong>解决</strong></p>
-<p>将这些条件分支合并为一个条件，并将这个条件提炼为一个独立函数。</p>
-<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">double</span> <span class="title">disabilityAmount</span><span class="params">()</span> </span>&#123;</span><br><span class="line">  <span class="keyword">if</span> (isNotEligableForDisability()) &#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="comment">// compute the disability amount</span></span><br><span class="line">  <span class="comment">//...</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<h4 id="合并重复的条件片段consolidate-duplicate-conditional-fragments"><a class="markdownIt-Anchor" href="#合并重复的条件片段consolidate-duplicate-conditional-fragments"></a> 合并重复的条件片段(Consolidate Duplicate Conditional Fragments)</h4>
+<p>将函数移到一个独立的类中，使得局部变量成了这个类的字段。然后，你可以将函数分割成这个类中的多个函数。</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Order</span> </span>&#123;</span><br><span class="line">  <span class="comment">//...</span></span><br><span class="line">  <span class="function"><span class="keyword">public</span> <span class="keyword">double</span> <span class="title">price</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="keyword">new</span> PriceCalculator(<span class="keyword">this</span>).compute();</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">PriceCalculator</span> </span>&#123;</span><br><span class="line">  <span class="keyword">private</span> <span class="keyword">double</span> primaryBasePrice;</span><br><span class="line">  <span class="keyword">private</span> <span class="keyword">double</span> secondaryBasePrice;</span><br><span class="line">  <span class="keyword">private</span> <span class="keyword">double</span> tertiaryBasePrice;</span><br><span class="line"></span><br><span class="line">  <span class="function"><span class="keyword">public</span> <span class="title">PriceCalculator</span><span class="params">(Order order)</span> </span>&#123;</span><br><span class="line">    <span class="comment">// copy relevant information from order object.</span></span><br><span class="line">    <span class="comment">//...</span></span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="function"><span class="keyword">public</span> <span class="keyword">double</span> <span class="title">compute</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    <span class="comment">// long computation.</span></span><br><span class="line">    <span class="comment">//...</span></span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h4 id="引入-null-对象introduce-null-object-2"><a class="markdownIt-Anchor" href="#引入-null-对象introduce-null-object-2"></a> 引入 Null 对象(Introduce Null Object)</h4>
 <p><strong>问题</strong></p>
-<p>在条件表达式的每个分支上有着相同的一段代码。</p>
-<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">if</span> (isSpecialDeal()) &#123;</span><br><span class="line">  total = price * <span class="number">0.95</span>;</span><br><span class="line">  send();</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">else</span> &#123;</span><br><span class="line">  total = price * <span class="number">0.98</span>;</span><br><span class="line">  send();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>你需要再三检查某对象是否为 null。</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">if</span> (customer == <span class="keyword">null</span>) &#123;</span><br><span class="line">  plan = BillingPlan.basic();</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">else</span> &#123;</span><br><span class="line">  plan = customer.getPlan();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <p><strong>解决</strong></p>
-<p>将这段重复代码搬移到条件表达式之外。</p>
-<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">if</span> (isSpecialDeal()) &#123;</span><br><span class="line">  total = price * <span class="number">0.95</span>;</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">else</span> &#123;</span><br><span class="line">  total = price * <span class="number">0.98</span>;</span><br><span class="line">&#125;</span><br><span class="line">send();</span><br></pre></td></tr></table></figure>
+<p>将 null 值替换为 null 对象。</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">NullCustomer</span> <span class="keyword">extends</span> <span class="title">Customer</span> </span>&#123;</span><br><span class="line">  <span class="function">Plan <span class="title">getPlan</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="keyword">new</span> NullPlan();</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="comment">// Some other NULL functionality.</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// Replace null values with Null-object.</span></span><br><span class="line">customer = (order.customer != <span class="keyword">null</span>) ? order.customer : <span class="keyword">new</span> NullCustomer();</span><br><span class="line"></span><br><span class="line"><span class="comment">// Use Null-object as if it's normal subclass.</span></span><br><span class="line">plan = customer.getPlan();</span><br></pre></td></tr></table></figure>
+<h2 id="异曲同工的类"><a class="markdownIt-Anchor" href="#异曲同工的类"></a> 异曲同工的类</h2>
+<blockquote>
+<p>异曲同工的类(Alternative Classes with Different Interfaces)</p>
+<p>两个类中有着不同的函数，却在做着同一件事。</p>
+</blockquote>
+<div align="center"><img src="http://dunwu.test.upcdn.net/cs/design/refactor/alternative-classes-with-different-interfaces-1.png"/></div>
+<h3 id="问题原因-3"><a class="markdownIt-Anchor" href="#问题原因-3"></a> 问题原因</h3>
+<p>这种情况往往是因为：创建这个类的程序员并不知道已经有实现这个功能的类存在了。</p>
+<h3 id="解决方法-3"><a class="markdownIt-Anchor" href="#解决方法-3"></a> 解决方法</h3>
+<ul>
+<li>如果两个函数做同一件事，却有着不同的签名，请运用 <code>函数改名(Rename Method)</code> 根据它们的用途重新命名。</li>
+<li>运用 <code>搬移函数(Move Method)</code> 、 <code>添加参数(Add Parameter)</code> 和 <code>令函数携带参数(Parameterize Method)</code> 来使得方法的名称和实现一致。</li>
+<li>如果两个类仅有部分功能是重复的，尝试运用 <code>提炼超类(Extract Superclass)</code> 。这种情况下，已存在的类就成了超类。</li>
+<li>当最终选择并运用某种方法来重构后，也许你就能删除其中一个类了。</li>
+</ul>
+<h3 id="收益-3"><a class="markdownIt-Anchor" href="#收益-3"></a> 收益</h3>
+<ul>
+<li>消除了不必要的重复代码，为代码瘦身了。</li>
+<li>代码更易读（不再需要猜测为什么要有两个功能相同的类）。</li>
+</ul>
+<div align="center"><img src="http://dunwu.test.upcdn.net/cs/design/refactor/alternative-classes-with-different-interfaces-2.png"/></div>
+<h3 id="何时忽略-2"><a class="markdownIt-Anchor" href="#何时忽略-2"></a> 何时忽略</h3>
+<ul>
+<li>有时合并类是不可能的，或者是如此困难以至于没有意义。例如：两个功能相似的类存在于不同的 lib 库中。</li>
+</ul>
+<h3 id="重构方法说明-3"><a class="markdownIt-Anchor" href="#重构方法说明-3"></a> 重构方法说明</h3>
+<h4 id="函数改名rename-method"><a class="markdownIt-Anchor" href="#函数改名rename-method"></a> 函数改名(Rename Method)</h4>
+<p><strong>问题</strong></p>
+<p>函数的名称未能恰当的揭示函数的用途。</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Person</span> </span>&#123;</span><br><span class="line">  <span class="function"><span class="keyword">public</span> String <span class="title">getsnm</span><span class="params">()</span></span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p><strong>解决</strong></p>
+<p>修改函数名。</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Person</span> </span>&#123;</span><br><span class="line">  <span class="function"><span class="keyword">public</span> String <span class="title">getSecondName</span><span class="params">()</span></span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h4 id="搬移函数move-method-2"><a class="markdownIt-Anchor" href="#搬移函数move-method-2"></a> 搬移函数(Move Method)</h4>
+<p><strong>问题</strong></p>
+<p>你的程序中，有个函数与其所驻类之外的另一个类进行更多交流：调用后者，或被后者调用。</p>
+<div align="center"><img src="http://dunwu.test.upcdn.net/cs/design/refactor/move-method-before.png"/></div>
+<p><strong>解决</strong></p>
+<p>在该函数最常引用的类中建立一个有着类似行为的新函数。将旧函数变成一个单纯的委托函数，或是旧函数完全移除。</p>
+<div align="center"><img src="http://dunwu.test.upcdn.net/cs/design/refactor/move-method-after.png"/></div>
+<h4 id="添加参数add-parameter"><a class="markdownIt-Anchor" href="#添加参数add-parameter"></a> 添加参数(Add Parameter)</h4>
+<p><strong>问题</strong><br />
+某个函数需要从调用端得到更多信息。</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Customer</span> </span>&#123;</span><br><span class="line">  <span class="function"><span class="keyword">public</span> Contact <span class="title">getContact</span><span class="params">()</span></span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p><strong>解决</strong><br />
+为此函数添加一个对象函数，让改对象带进函数所需信息。</p>
+<figure class="highlight routeros"><table><tr><td class="code"><pre><span class="line">class<span class="built_in"> Customer </span>&#123;</span><br><span class="line">  public Contact getContact(Date date);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h4 id="令函数携带参数parameterize-method"><a class="markdownIt-Anchor" href="#令函数携带参数parameterize-method"></a> 令函数携带参数(Parameterize Method)</h4>
+<p><strong>问题</strong></p>
+<p>若干函数做了类似的工作，但在函数本体中却包含了不同的值。</p>
+<div align="center"><img src="http://dunwu.test.upcdn.net/cs/design/refactor/parameterize-method-before.png"/></div>
+**解决**
+<p>建立单一函数，以参数表达哪些不同的值。</p>
+<div align="center"><img src="http://dunwu.test.upcdn.net/cs/design/refactor/parameterize-method-after.png"/></div>
+<h4 id="提炼超类extract-superclass"><a class="markdownIt-Anchor" href="#提炼超类extract-superclass"></a> 提炼超类(Extract Superclass)</h4>
+<p><strong>问题</strong></p>
+<p>两个类有相似特性。</p>
+<div align="center"><img src="http://dunwu.test.upcdn.net/cs/design/refactor/extract-superclass-before.png"/></div>
+<p><strong>解决</strong></p>
+<p>为这两个类建立一个超类，将相同特性移至超类。</p>
+<div align="center"><img src="http://dunwu.test.upcdn.net/cs/design/refactor/extract-superclass-after.png"/></div>
+<h2 id="被拒绝的馈赠"><a class="markdownIt-Anchor" href="#被拒绝的馈赠"></a> 被拒绝的馈赠</h2>
+<blockquote>
+<p>被拒绝的馈赠(Refused Bequest)</p>
+<p>子类仅仅使用父类中的部分方法和属性。其他来自父类的馈赠成为了累赘。</p>
+</blockquote>
+<div align="center"><img src="http://dunwu.test.upcdn.net/cs/design/refactor/refused-bequest-1.png"/></div>
+<h3 id="问题原因-4"><a class="markdownIt-Anchor" href="#问题原因-4"></a> 问题原因</h3>
+<p>有些人仅仅是想重用超类中的部分代码而创建了子类。但实际上超类和子类完全不同。</p>
+<h3 id="解决方法-4"><a class="markdownIt-Anchor" href="#解决方法-4"></a> 解决方法</h3>
+<ul>
+<li>如果继承没有意义并且子类和父类之间确实没有共同点，可以运用 <code>以委托取代继承(Replace Inheritance with Delegation)</code> 消除继承。</li>
+<li>如果继承是适当的，则去除子类中不需要的字段和方法。运用 <code>提炼超类(Extract Superclass)</code> 将所有超类中对于子类有用的字段和函数提取出来，置入一个新的超类中，然后让两个类都继承自它。</li>
+</ul>
+<div align="center"><img src="http://dunwu.test.upcdn.net/cs/design/refactor/refused-bequest-2.png"/></div>
+<h3 id="收益-4"><a class="markdownIt-Anchor" href="#收益-4"></a> 收益</h3>
+<ul>
+<li>提高代码的清晰度和组织性。</li>
+</ul>
+<div align="center"><img src="http://dunwu.test.upcdn.net/cs/design/refactor/refused-bequest-3.png"/></div>
+<h3 id="重构方法说明-4"><a class="markdownIt-Anchor" href="#重构方法说明-4"></a> 重构方法说明</h3>
+<h4 id="以委托取代继承replace-inheritance-with-delegation"><a class="markdownIt-Anchor" href="#以委托取代继承replace-inheritance-with-delegation"></a> 以委托取代继承(Replace Inheritance with Delegation)</h4>
+<p><strong>问题</strong></p>
+<p>某个子类只使用超类接口中的一部分，或是根本不需要继承而来的数据。</p>
+<div align="center"><img src="http://dunwu.test.upcdn.net/cs/design/refactor/replace-inheritance-with-delegation-before.png"/></div>
+<p><strong>解决</strong></p>
+<ol>
+<li>在子类中新建一个字段用以保存超类；</li>
+<li>调整子类函数，令它改而委托超类；</li>
+<li>然后去掉两者之间的继承关系。</li>
+</ol>
+<div align="center"><img src="http://dunwu.test.upcdn.net/cs/design/refactor/replace-inheritance-with-delegation-after.png"/></div>
+<h4 id="提炼超类extract-superclass-2"><a class="markdownIt-Anchor" href="#提炼超类extract-superclass-2"></a> 提炼超类(Extract Superclass)</h4>
+<p><strong>问题</strong></p>
+<p>两个类有相似特性。</p>
+<div align="center"><img src="http://dunwu.test.upcdn.net/cs/design/refactor/extract-superclass-before.png"/></div>
+<p><strong>解决</strong></p>
+<p>为这两个类建立一个超类，将相同特性移至超类。</p>
+<div align="center"><img src="http://dunwu.test.upcdn.net/cs/design/refactor/extract-superclass-after.png"/></div>
 <h2 id="扩展阅读"><a class="markdownIt-Anchor" href="#扩展阅读"></a> 扩展阅读</h2>
 <ul>
 <li><a href="https://github.com/dunwu/blog/blob/master/source/_posts/design/refactor/" target="_blank" rel="noopener">代码的坏味道和重构</a></li>
@@ -1098,6 +989,185 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://dunwu.github.io/blog/blog/bigdata/Flume/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/blog/images/avatar.gif">
+      <meta itemprop="name" content="Zhang Peng">
+      <meta itemprop="description" content="Dunwu's Blog">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Dunwu">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/blog/bigdata/Flume/" class="post-title-link" itemprop="url">Flume</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2018-09-04 00:00:00" itemprop="dateCreated datePublished" datetime="2018-09-04T00:00:00+08:00">2018-09-04</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2019-05-08 18:07:48" itemprop="dateModified" datetime="2019-05-08T18:07:48+08:00">2019-05-08</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/blog/categories/bigdata/" itemprop="url" rel="index">
+                    <span itemprop="name">bigdata</span>
+                  </a>
+                </span>
+            </span>
+
+          
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="fa fa-comment-o"></i>
+      </span>
+      <span class="post-meta-item-text">Disqus：</span>
+    
+    <a title="disqus" href="/blog/bigdata/Flume/#comments" itemprop="discussionUrl">
+      <span class="post-comments-count disqus-comment-count" data-disqus-identifier="bigdata/Flume/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  <br>
+            <span class="post-meta-item" title="本文字数">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-file-word-o"></i>
+              </span>
+                <span class="post-meta-item-text">本文字数：</span>
+              <span>1.1k</span>
+            </span>
+            <span class="post-meta-item" title="阅读时长">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-clock-o"></i>
+              </span>
+                <span class="post-meta-item-text">阅读时长 &asymp;</span>
+              <span>1 分钟</span>
+            </span>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h1 id="flume"><a class="markdownIt-Anchor" href="#flume"></a> Flume</h1>
+<blockquote>
+<p><strong>Sqoop 是一个主要在 Hadoop 和关系数据库之间进行批量数据迁移的工具。</strong></p>
+</blockquote>
+<!-- TOC depthFrom:2 depthTo:3 -->
+<ul>
+<li><a href="#flume-%E7%AE%80%E4%BB%8B">Flume 简介</a>
+<ul>
+<li><a href="#%E4%BB%80%E4%B9%88%E6%98%AF-flume-">什么是 Flume ？</a></li>
+<li><a href="#%E5%BA%94%E7%94%A8%E5%9C%BA%E6%99%AF">应用场景</a></li>
+</ul>
+</li>
+<li><a href="#flume-%E5%8E%9F%E7%90%86">Flume 原理</a>
+<ul>
+<li><a href="#flume-%E5%9F%BA%E6%9C%AC%E6%A6%82%E5%BF%B5">Flume 基本概念</a></li>
+<li><a href="#flume-%E5%9F%BA%E6%9C%AC%E7%BB%84%E4%BB%B6">Flume 基本组件</a></li>
+<li><a href="#flume-%E6%95%B0%E6%8D%AE%E6%B5%81">Flume 数据流</a></li>
+</ul>
+</li>
+<li><a href="#%E8%B5%84%E6%BA%90">资源</a></li>
+</ul>
+<!-- /TOC -->
+<h2 id="flume-简介"><a class="markdownIt-Anchor" href="#flume-简介"></a> Flume 简介</h2>
+<h3 id="什么是-flume"><a class="markdownIt-Anchor" href="#什么是-flume"></a> 什么是 Flume ？</h3>
+<p>Flume 是一个分布式海量数据采集、聚合和传输系统。</p>
+<p>特点</p>
+<ul>
+<li>基于事件的海量数据采集</li>
+<li>数据流模型：Source -&gt; Channel -&gt; Sink</li>
+<li>事务机制：支持重读重写，保证消息传递的可靠性</li>
+<li>内置丰富插件：轻松与各种外部系统集成</li>
+<li>高可用：Agent 主备切换</li>
+<li>Java 实现：开源，优秀的系统设计</li>
+</ul>
+<h3 id="应用场景"><a class="markdownIt-Anchor" href="#应用场景"></a> 应用场景</h3>
+<h2 id="flume-原理"><a class="markdownIt-Anchor" href="#flume-原理"></a> Flume 原理</h2>
+<h3 id="flume-基本概念"><a class="markdownIt-Anchor" href="#flume-基本概念"></a> Flume 基本概念</h3>
+<ul>
+<li>Event：事件，最小数据传输单元，由 Header 和 Body 组成。</li>
+<li>Agent：代理，JVM 进程，最小运行单元，由 Source、Channel、Sink 三个基本组件构成，负责将外部数据源产生的数据以 Event 的形式传输到目的地
+<ul>
+<li>Source：负责对接各种外部数据源，将采集到的数据封装成 Event，然后写入 Channel</li>
+<li>Channel：Event 暂存容器，负责保存 Source 发送的 Event，直至被 Sink 成功读取</li>
+<li>Sink：负责从 Channel 读取 Event，然后将其写入外部存储，或传输给下一阶段的 Agent</li>
+<li>映射关系：1 个 Source -&gt; 多个 Channel，1 个 Channel -&gt; 多个 Sink，1 个 Sink -&gt; 1 个 Channel</li>
+</ul>
+</li>
+</ul>
+<h3 id="flume-基本组件"><a class="markdownIt-Anchor" href="#flume-基本组件"></a> Flume 基本组件</h3>
+<h4 id="source-组件"><a class="markdownIt-Anchor" href="#source-组件"></a> Source 组件</h4>
+<ul>
+<li>对接各种外部数据源，将采集到的数据封装成 Event，然后写入 Channel</li>
+<li>一个 Source 可向多个 Channel 发送 Event</li>
+<li>Flume 内置类型丰富的 Source，同时用户可自定义 Source</li>
+</ul>
+<h4 id="channel-组件"><a class="markdownIt-Anchor" href="#channel-组件"></a> Channel 组件</h4>
+<ul>
+<li>Event 中转暂存区，存储 Source 采集但未被 Sink 读取的 Event</li>
+<li>为了平衡 Source 采集、Sink 读取的速度，可视为 Flume 内部的消息队列</li>
+<li>线程安全并具有事务性，支持 Source 写失败重写和 Sink 读失败重读</li>
+</ul>
+<h4 id="sink-组件"><a class="markdownIt-Anchor" href="#sink-组件"></a> Sink 组件</h4>
+<ul>
+<li>从 Channel 读取 Event，将其写入外部存储，或传输到下一阶段的 Agent</li>
+<li>一个 Sink 只能从一个 Channel 中读取 Event</li>
+<li>Sink 成功读取 Event 后，向 Channel 提交事务，Event 被删除，否则 Channel 会等待 Sink 重新读取</li>
+</ul>
+<h3 id="flume-数据流"><a class="markdownIt-Anchor" href="#flume-数据流"></a> Flume 数据流</h3>
+<p>单层架构</p>
+<p>优点：架构简单，使用方便，占用资源较少<br />
+缺点<br />
+如果采集的数据源或Agent较多，将Event写入到HDFS会产生很多小文件<br />
+外部存储升级维护或发生故障，需对采集层的所有Agent做处理，人力成本较高，系统稳定性较差<br />
+系统安全性较差<br />
+数据源管理较混乱</p>
+<h2 id="资源"><a class="markdownIt-Anchor" href="#资源"></a> 资源</h2>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+        
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="zh-CN">
     <link itemprop="mainEntityOfPage" href="https://dunwu.github.io/blog/blog/bigdata/Sqoop/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -1278,7 +1348,7 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="https://dunwu.github.io/blog/blog/bigdata/Flume/">
+    <link itemprop="mainEntityOfPage" href="https://dunwu.github.io/blog/blog/bigdata/Spark/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/blog/images/avatar.gif">
@@ -1292,186 +1362,7 @@
       <header class="post-header">
         <h2 class="post-title" itemprop="name headline">
           
-            <a href="/blog/bigdata/Flume/" class="post-title-link" itemprop="url">Flume</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-
-              <time title="创建时间：2018-09-04 00:00:00" itemprop="dateCreated datePublished" datetime="2018-09-04T00:00:00+08:00">2018-09-04</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-calendar-check-o"></i>
-                </span>
-                <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2019-05-08 18:07:48" itemprop="dateModified" datetime="2019-05-08T18:07:48+08:00">2019-05-08</time>
-              </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/blog/categories/bigdata/" itemprop="url" rel="index">
-                    <span itemprop="name">bigdata</span>
-                  </a>
-                </span>
-            </span>
-
-          
-  
-  <span class="post-meta-item">
-    
-      <span class="post-meta-item-icon">
-        <i class="fa fa-comment-o"></i>
-      </span>
-      <span class="post-meta-item-text">Disqus：</span>
-    
-    <a title="disqus" href="/blog/bigdata/Flume/#comments" itemprop="discussionUrl">
-      <span class="post-comments-count disqus-comment-count" data-disqus-identifier="bigdata/Flume/" itemprop="commentCount"></span>
-    </a>
-  </span>
-  
-  <br>
-            <span class="post-meta-item" title="本文字数">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-file-word-o"></i>
-              </span>
-                <span class="post-meta-item-text">本文字数：</span>
-              <span>1.1k</span>
-            </span>
-            <span class="post-meta-item" title="阅读时长">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-clock-o"></i>
-              </span>
-                <span class="post-meta-item-text">阅读时长 &asymp;</span>
-              <span>1 分钟</span>
-            </span>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h1 id="flume"><a class="markdownIt-Anchor" href="#flume"></a> Flume</h1>
-<blockquote>
-<p><strong>Sqoop 是一个主要在 Hadoop 和关系数据库之间进行批量数据迁移的工具。</strong></p>
-</blockquote>
-<!-- TOC depthFrom:2 depthTo:3 -->
-<ul>
-<li><a href="#flume-%E7%AE%80%E4%BB%8B">Flume 简介</a>
-<ul>
-<li><a href="#%E4%BB%80%E4%B9%88%E6%98%AF-flume-">什么是 Flume ？</a></li>
-<li><a href="#%E5%BA%94%E7%94%A8%E5%9C%BA%E6%99%AF">应用场景</a></li>
-</ul>
-</li>
-<li><a href="#flume-%E5%8E%9F%E7%90%86">Flume 原理</a>
-<ul>
-<li><a href="#flume-%E5%9F%BA%E6%9C%AC%E6%A6%82%E5%BF%B5">Flume 基本概念</a></li>
-<li><a href="#flume-%E5%9F%BA%E6%9C%AC%E7%BB%84%E4%BB%B6">Flume 基本组件</a></li>
-<li><a href="#flume-%E6%95%B0%E6%8D%AE%E6%B5%81">Flume 数据流</a></li>
-</ul>
-</li>
-<li><a href="#%E8%B5%84%E6%BA%90">资源</a></li>
-</ul>
-<!-- /TOC -->
-<h2 id="flume-简介"><a class="markdownIt-Anchor" href="#flume-简介"></a> Flume 简介</h2>
-<h3 id="什么是-flume"><a class="markdownIt-Anchor" href="#什么是-flume"></a> 什么是 Flume ？</h3>
-<p>Flume 是一个分布式海量数据采集、聚合和传输系统。</p>
-<p>特点</p>
-<ul>
-<li>基于事件的海量数据采集</li>
-<li>数据流模型：Source -&gt; Channel -&gt; Sink</li>
-<li>事务机制：支持重读重写，保证消息传递的可靠性</li>
-<li>内置丰富插件：轻松与各种外部系统集成</li>
-<li>高可用：Agent 主备切换</li>
-<li>Java 实现：开源，优秀的系统设计</li>
-</ul>
-<h3 id="应用场景"><a class="markdownIt-Anchor" href="#应用场景"></a> 应用场景</h3>
-<h2 id="flume-原理"><a class="markdownIt-Anchor" href="#flume-原理"></a> Flume 原理</h2>
-<h3 id="flume-基本概念"><a class="markdownIt-Anchor" href="#flume-基本概念"></a> Flume 基本概念</h3>
-<ul>
-<li>Event：事件，最小数据传输单元，由 Header 和 Body 组成。</li>
-<li>Agent：代理，JVM 进程，最小运行单元，由 Source、Channel、Sink 三个基本组件构成，负责将外部数据源产生的数据以 Event 的形式传输到目的地
-<ul>
-<li>Source：负责对接各种外部数据源，将采集到的数据封装成 Event，然后写入 Channel</li>
-<li>Channel：Event 暂存容器，负责保存 Source 发送的 Event，直至被 Sink 成功读取</li>
-<li>Sink：负责从 Channel 读取 Event，然后将其写入外部存储，或传输给下一阶段的 Agent</li>
-<li>映射关系：1 个 Source -&gt; 多个 Channel，1 个 Channel -&gt; 多个 Sink，1 个 Sink -&gt; 1 个 Channel</li>
-</ul>
-</li>
-</ul>
-<h3 id="flume-基本组件"><a class="markdownIt-Anchor" href="#flume-基本组件"></a> Flume 基本组件</h3>
-<h4 id="source-组件"><a class="markdownIt-Anchor" href="#source-组件"></a> Source 组件</h4>
-<ul>
-<li>对接各种外部数据源，将采集到的数据封装成 Event，然后写入 Channel</li>
-<li>一个 Source 可向多个 Channel 发送 Event</li>
-<li>Flume 内置类型丰富的 Source，同时用户可自定义 Source</li>
-</ul>
-<h4 id="channel-组件"><a class="markdownIt-Anchor" href="#channel-组件"></a> Channel 组件</h4>
-<ul>
-<li>Event 中转暂存区，存储 Source 采集但未被 Sink 读取的 Event</li>
-<li>为了平衡 Source 采集、Sink 读取的速度，可视为 Flume 内部的消息队列</li>
-<li>线程安全并具有事务性，支持 Source 写失败重写和 Sink 读失败重读</li>
-</ul>
-<h4 id="sink-组件"><a class="markdownIt-Anchor" href="#sink-组件"></a> Sink 组件</h4>
-<ul>
-<li>从 Channel 读取 Event，将其写入外部存储，或传输到下一阶段的 Agent</li>
-<li>一个 Sink 只能从一个 Channel 中读取 Event</li>
-<li>Sink 成功读取 Event 后，向 Channel 提交事务，Event 被删除，否则 Channel 会等待 Sink 重新读取</li>
-</ul>
-<h3 id="flume-数据流"><a class="markdownIt-Anchor" href="#flume-数据流"></a> Flume 数据流</h3>
-<p>单层架构</p>
-<p>优点：架构简单，使用方便，占用资源较少<br />
-缺点<br />
-如果采集的数据源或Agent较多，将Event写入到HDFS会产生很多小文件<br />
-外部存储升级维护或发生故障，需对采集层的所有Agent做处理，人力成本较高，系统稳定性较差<br />
-系统安全性较差<br />
-数据源管理较混乱</p>
-<h2 id="资源"><a class="markdownIt-Anchor" href="#资源"></a> 资源</h2>
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-        
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="https://dunwu.github.io/blog/blog/bigdata/MapReduce/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/blog/images/avatar.gif">
-      <meta itemprop="name" content="Zhang Peng">
-      <meta itemprop="description" content="Dunwu's Blog">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Dunwu">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/blog/bigdata/MapReduce/" class="post-title-link" itemprop="url">MapReduce</a>
+            <a href="/blog/bigdata/Spark/" class="post-title-link" itemprop="url">Spark</a>
         </h2>
 
         <div class="post-meta">
@@ -1511,8 +1402,8 @@
       </span>
       <span class="post-meta-item-text">Disqus：</span>
     
-    <a title="disqus" href="/blog/bigdata/MapReduce/#comments" itemprop="discussionUrl">
-      <span class="post-comments-count disqus-comment-count" data-disqus-identifier="bigdata/MapReduce/" itemprop="commentCount"></span>
+    <a title="disqus" href="/blog/bigdata/Spark/#comments" itemprop="discussionUrl">
+      <span class="post-comments-count disqus-comment-count" data-disqus-identifier="bigdata/Spark/" itemprop="commentCount"></span>
     </a>
   </span>
   
@@ -1522,7 +1413,229 @@
                 <i class="fa fa-file-word-o"></i>
               </span>
                 <span class="post-meta-item-text">本文字数：</span>
-              <span>1.8k</span>
+              <span>1.2k</span>
+            </span>
+            <span class="post-meta-item" title="阅读时长">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-clock-o"></i>
+              </span>
+                <span class="post-meta-item-text">阅读时长 &asymp;</span>
+              <span>1 分钟</span>
+            </span>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h1 id="spark"><a class="markdownIt-Anchor" href="#spark"></a> Spark</h1>
+<!-- TOC depthFrom:2 depthTo:3 -->
+<ul>
+<li><a href="#spark-%E7%AE%80%E4%BB%8B">Spark 简介</a>
+<ul>
+<li><a href="#spark-%E6%A6%82%E5%BF%B5">Spark 概念</a></li>
+<li><a href="#spark-%E7%89%B9%E7%82%B9">Spark 特点</a></li>
+</ul>
+</li>
+<li><a href="#spark-%E5%8E%9F%E7%90%86">Spark 原理</a>
+<ul>
+<li><a href="#%E7%BC%96%E7%A8%8B%E6%A8%A1%E5%9E%8B">编程模型</a></li>
+</ul>
+</li>
+</ul>
+<!-- /TOC -->
+<h2 id="spark-简介"><a class="markdownIt-Anchor" href="#spark-简介"></a> Spark 简介</h2>
+<h3 id="spark-概念"><a class="markdownIt-Anchor" href="#spark-概念"></a> Spark 概念</h3>
+<ul>
+<li>大规模分布式通用计算引擎
+<ul>
+<li>Spark Core：核心计算框架</li>
+<li>Spark SQL：结构化数据查询</li>
+<li>Spark Streaming：实时流处理</li>
+<li>Spark MLib：机器学习</li>
+<li>Spark GraphX：图计算</li>
+</ul>
+</li>
+<li>具有高吞吐、低延时、通用易扩展、高容错等特点</li>
+<li>采用 Scala 语言开发</li>
+<li>提供多种运行模式</li>
+</ul>
+<h3 id="spark-特点"><a class="markdownIt-Anchor" href="#spark-特点"></a> Spark 特点</h3>
+<ul>
+<li>计算高效
+<ul>
+<li>利用内存计算、Cache 缓存机制，支持迭代计算和数据共享，减少数据读取的 IO 开销</li>
+<li>利用 DAG 引擎，减少中间计算结果写入 HDFS 的开销</li>
+<li>利用多线程池模型，减少任务启动开销，避免 Shuffle 中不必要的排序和磁盘 IO 操作</li>
+</ul>
+</li>
+<li>通用易用
+<ul>
+<li>适用于批处理、流处理、交互式计算、机器学习算法等场景</li>
+<li>提供了丰富的开发 API，支持 Scala、Java、Python、R 等</li>
+</ul>
+</li>
+<li>运行模式多样
+<ul>
+<li>Local 模式</li>
+<li>Standalone 模式</li>
+<li>YARN/Mesos 模式</li>
+</ul>
+</li>
+<li>计算高效
+<ul>
+<li>利用内存计算、Cache 缓存机制，支持迭代计算和数据共享，减少数据读取的 IO 开销</li>
+<li>利用 DAG 引擎，减少中间计算结果写入 HDFS 的开销</li>
+<li>利用多线程池模型，减少任务启动开销，避免 Shuffle 中不必要的排序和磁盘 IO 操作</li>
+</ul>
+</li>
+<li>通用易用
+<ul>
+<li>适用于批处理、流处理、交互式计算、机器学习等场景</li>
+<li>提供了丰富的开发 API，支持 Scala、Java、Python、R 等</li>
+</ul>
+</li>
+</ul>
+<h2 id="spark-原理"><a class="markdownIt-Anchor" href="#spark-原理"></a> Spark 原理</h2>
+<h3 id="编程模型"><a class="markdownIt-Anchor" href="#编程模型"></a> 编程模型</h3>
+<h4 id="rdd"><a class="markdownIt-Anchor" href="#rdd"></a> RDD</h4>
+<ul>
+<li>弹性分布式数据集（Resilient Distributed Datesets）
+<ul>
+<li>分布在集群中的只读对象集合</li>
+<li>由多个 Partition 组成</li>
+<li>通过转换操作构造</li>
+<li>失效后自动重构（弹性）</li>
+<li>存储在内存或磁盘中</li>
+</ul>
+</li>
+<li>Spark 基于 RDD 进行计算</li>
+</ul>
+<h4 id="rdd-操作operator"><a class="markdownIt-Anchor" href="#rdd-操作operator"></a> RDD 操作（Operator）</h4>
+<ul>
+<li>Transformation（转换）
+<ul>
+<li>将 Scala 集合或 Hadoop 输入数据构造成一个新 RDD</li>
+<li>通过已有的 RDD 产生新 RDD</li>
+<li>惰性执行：只记录转换关系，不触发计算</li>
+<li>例如：map、filter、flatmap、union、distinct、sortbykey</li>
+</ul>
+</li>
+<li>Action（动作）
+<ul>
+<li>通过 RDD 计算得到一个值或一组值</li>
+<li>真正触发计算</li>
+<li>例如：first、count、collect、foreach、saveAsTextFile</li>
+</ul>
+</li>
+</ul>
+<h4 id="rdd-依赖dependency"><a class="markdownIt-Anchor" href="#rdd-依赖dependency"></a> RDD 依赖（Dependency）</h4>
+<ul>
+<li>窄依赖（Narrow Dependency）
+<ul>
+<li>父 RDD 中的分区最多只能被一个子 RDD 的一个分区使用</li>
+<li>子 RDD 如果有部分分区数据丢失或损坏，只需从对应的父 RDD 重新计算恢复</li>
+<li>例如：map、filter、union</li>
+</ul>
+</li>
+<li>宽依赖（Shuffle/Wide Dependency ）
+<ul>
+<li>子 RDD 分区依赖父 RDD 的所有分区</li>
+<li>子 RDD 如果部分或全部分区数据丢失或损坏，必须从所有父 RDD 分区重新计算</li>
+<li>相对于窄依赖，宽依赖付出的代价要高很多，尽量避免使用</li>
+<li>例如：groupByKey、reduceByKey、sortByKey</li>
+</ul>
+</li>
+</ul>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+        
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://dunwu.github.io/blog/blog/bigdata/overview/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/blog/images/avatar.gif">
+      <meta itemprop="name" content="Zhang Peng">
+      <meta itemprop="description" content="Dunwu's Blog">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Dunwu">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/blog/bigdata/overview/" class="post-title-link" itemprop="url">大数据简介</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2018-09-03 00:00:00" itemprop="dateCreated datePublished" datetime="2018-09-03T00:00:00+08:00">2018-09-03</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2019-05-08 18:07:48" itemprop="dateModified" datetime="2019-05-08T18:07:48+08:00">2019-05-08</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/blog/categories/bigdata/" itemprop="url" rel="index">
+                    <span itemprop="name">bigdata</span>
+                  </a>
+                </span>
+            </span>
+
+          
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="fa fa-comment-o"></i>
+      </span>
+      <span class="post-meta-item-text">Disqus：</span>
+    
+    <a title="disqus" href="/blog/bigdata/overview/#comments" itemprop="discussionUrl">
+      <span class="post-comments-count disqus-comment-count" data-disqus-identifier="bigdata/overview/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  <br>
+            <span class="post-meta-item" title="本文字数">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-file-word-o"></i>
+              </span>
+                <span class="post-meta-item-text">本文字数：</span>
+              <span>2k</span>
             </span>
             <span class="post-meta-item" title="阅读时长">
               <span class="post-meta-item-icon">
@@ -1541,155 +1654,206 @@
     <div class="post-body" itemprop="articleBody">
 
       
-          <h1 id="mapreduce"><a class="markdownIt-Anchor" href="#mapreduce"></a> MapReduce</h1>
+          <h1 id="大数据简介"><a class="markdownIt-Anchor" href="#大数据简介"></a> 大数据简介</h1>
 <!-- TOC depthFrom:2 depthTo:3 -->
 <ul>
-<li><a href="#mapreduce-%E7%AE%80%E4%BB%8B">MapReduce 简介</a>
+<li><a href="#%E7%AE%80%E4%BB%8B">简介</a>
 <ul>
-<li><a href="#%E6%A6%82%E5%BF%B5">概念</a></li>
-<li><a href="#%E6%80%9D%E6%83%B3">思想</a></li>
-<li><a href="#%E7%89%B9%E7%82%B9">特点</a></li>
-<li><a href="#%E9%80%82%E7%94%A8%E5%9C%BA%E6%99%AF">适用场景</a></li>
-<li><a href="#%E4%B8%8D%E9%80%82%E7%94%A8%E5%9C%BA%E6%99%AF">不适用场景</a></li>
+<li><a href="#%E4%BB%80%E4%B9%88%E6%98%AF%E5%A4%A7%E6%95%B0%E6%8D%AE">什么是大数据</a></li>
+<li><a href="#%E5%BA%94%E7%94%A8%E5%9C%BA%E6%99%AF">应用场景</a></li>
+<li><a href="#hadoop-%E7%BC%96%E5%B9%B4%E5%8F%B2">Hadoop 编年史</a></li>
 </ul>
 </li>
-<li><a href="#mapreduce-%E5%8E%9F%E7%90%86">MapReduce 原理</a>
+<li><a href="#%E6%8A%80%E6%9C%AF%E4%BD%93%E7%B3%BB">技术体系</a>
 <ul>
-<li><a href="#job--task%E4%BD%9C%E4%B8%9A%E4%B8%8E%E4%BB%BB%E5%8A%A1">Job &amp; Task（作业与任务）</a></li>
-<li><a href="#split%E5%88%87%E7%89%87">Split（切片）</a></li>
-<li><a href="#map-%E9%98%B6%E6%AE%B5%E6%98%A0%E5%B0%84">Map 阶段（映射）</a></li>
-<li><a href="#reduce-%E9%98%B6%E6%AE%B5%E5%8C%96%E7%AE%80">Reduce 阶段（化简）</a></li>
-<li><a href="#shuffle-%E9%98%B6%E6%AE%B5%E6%B4%97%E7%89%8C">Shuffle 阶段（洗牌）</a></li>
+<li><a href="#hdfs">HDFS</a></li>
+<li><a href="#mapreduce">MapReduce</a></li>
+<li><a href="#spark">Spark</a></li>
+<li><a href="#yarn">YARN</a></li>
+<li><a href="#hive">Hive</a></li>
+<li><a href="#hbase">HBase</a></li>
+<li><a href="#elasticsearch">ElasticSearch</a></li>
 </ul>
 </li>
-<li><a href="#shuffle-%E8%AF%A6%E8%A7%A3">Shuffle 详解</a>
-<ul>
-<li><a href="#map-%E7%AB%AF">Map 端</a></li>
-<li><a href="#reduce-%E7%AB%AF">Reduce 端</a></li>
-</ul>
-</li>
-<li><a href="#%E4%BD%9C%E4%B8%9A%E8%BF%90%E8%A1%8C%E6%A8%A1%E5%BC%8F">作业运行模式</a>
-<ul>
-<li><a href="#jobtrackertasktracker-%E6%A8%A1%E5%BC%8Fhadoop-1x">JobTracker/TaskTracker 模式（Hadoop 1.X）</a></li>
-<li><a href="#yarn-%E6%A8%A1%E5%BC%8Fhadoop-2x">YARN 模式（Hadoop 2.X）</a></li>
-</ul>
-</li>
+<li><a href="#%E6%9C%AF%E8%AF%AD">术语</a></li>
+<li><a href="#%E8%B5%84%E6%BA%90">资源</a></li>
 </ul>
 <!-- /TOC -->
-<h2 id="mapreduce-简介"><a class="markdownIt-Anchor" href="#mapreduce-简介"></a> MapReduce 简介</h2>
-<h3 id="概念"><a class="markdownIt-Anchor" href="#概念"></a> 概念</h3>
-<p>MapReduce 是一个面向批处理的分布式计算框架。</p>
-<p>编程模型：MapReduce 程序被分为 Map（映射）阶段和 Reduce（化简）阶段。</p>
-<h3 id="思想"><a class="markdownIt-Anchor" href="#思想"></a> 思想</h3>
-<p>分而治之，并行计算<br />
-移动计算，而非移动数据</p>
-<h3 id="特点"><a class="markdownIt-Anchor" href="#特点"></a> 特点</h3>
+<h2 id="简介"><a class="markdownIt-Anchor" href="#简介"></a> 简介</h2>
+<h3 id="什么是大数据"><a class="markdownIt-Anchor" href="#什么是大数据"></a> 什么是大数据</h3>
+<p>大数据是指超出传统数据库工具收集、存储、管理和分析能力的数据集。与此同时，及时采集、存储、聚合、管理数据，以及对数据深度分析的新技术和新能力，正在快速增长，就像预测计算芯片增长速度的摩尔定律一样。</p>
 <ul>
-<li>计算跟着数据走</li>
-<li>良好的扩展性：计算能力随着节点数增加，近似线性递增</li>
-<li>高容错</li>
-<li>状态监控</li>
-<li>适合海量数据的离线批处理</li>
+<li><strong>Volume</strong> - 数据规模巨大</li>
+<li><strong>Velocity</strong> - 生成和处理速度极快</li>
+<li><strong>Variety</strong> - 数据规模巨大</li>
+<li><strong>Value</strong> - 生成和处理速度极快</li>
+</ul>
+<h3 id="应用场景"><a class="markdownIt-Anchor" href="#应用场景"></a> 应用场景</h3>
+<p>基于大数据的数据仓库</p>
+<p>基于大数据的实时流处理</p>
+<h3 id="hadoop-编年史"><a class="markdownIt-Anchor" href="#hadoop-编年史"></a> Hadoop 编年史</h3>
+<table>
+<thead>
+<tr>
+<th style="text-align:left">时间</th>
+<th style="text-align:left">事件</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left">2003.01</td>
+<td style="text-align:left">Google发表了Google File System论文</td>
+</tr>
+<tr>
+<td style="text-align:left">2004.01</td>
+<td style="text-align:left">Google发表了MapReduce论文</td>
+</tr>
+<tr>
+<td style="text-align:left">2006.02</td>
+<td style="text-align:left">Apache Hadoop项目正式启动，并支持MapReduce和HDFS独立发展</td>
+</tr>
+<tr>
+<td style="text-align:left">2006.11</td>
+<td style="text-align:left">Google发表了Bigtable论文</td>
+</tr>
+<tr>
+<td style="text-align:left">2008.01</td>
+<td style="text-align:left">Hadoop成为Apache顶级项目</td>
+</tr>
+<tr>
+<td style="text-align:left">2009.03</td>
+<td style="text-align:left">Cloudera推出世界上首个Hadoop发行版——CDH，并完全开放源码</td>
+</tr>
+<tr>
+<td style="text-align:left">2012.03</td>
+<td style="text-align:left">HDFS NameNode HA加入Hadoop主版本</td>
+</tr>
+<tr>
+<td style="text-align:left">2014.02</td>
+<td style="text-align:left">Spark代替MapReduce成为Hadoop的缺省计算引擎，并成为Apache顶级项目</td>
+</tr>
+</tbody>
+</table>
+<h2 id="技术体系"><a class="markdownIt-Anchor" href="#技术体系"></a> 技术体系</h2>
+<h3 id="hdfs"><a class="markdownIt-Anchor" href="#hdfs"></a> HDFS</h3>
+<p><strong>概念</strong></p>
+<ul>
+<li>Hadoop 分布式文件系统（Hadoop Distributed File System）</li>
+<li>在开源大数据技术体系中，地位无可替代</li>
+</ul>
+<p><strong>特点</strong></p>
+<ul>
+<li>高容错：数据多副本，副本丢失后自动恢复</li>
+<li>高可用：NameNode HA，安全模式</li>
+<li>高扩展：10K 节点规模</li>
+<li>简单一致性模型：一次写入多次读取，支持追加，不允许修改</li>
+<li>流式数据访问：批量读而非随机读，关注吞吐量而非时间</li>
+<li>大规模数据集：典型文件大小 GB~TB 级，百万以上文件数量， PB 以上数据规模</li>
+<li>构建成本低且安全可靠：运行在大量的廉价商用机器上，硬件错误是常态，提供容错机制</li>
+</ul>
+<h3 id="mapreduce"><a class="markdownIt-Anchor" href="#mapreduce"></a> MapReduce</h3>
+<p><strong>概念</strong></p>
+<ul>
+<li>面向批处理的分布式计算框架</li>
+<li>编程模型：将 MapReduce 程序分为 Map、Reduce 两个阶段</li>
+</ul>
+<p><strong>核心思想</strong></p>
+<ul>
+<li>分而治之，分布式计算</li>
+<li>移动计算，而非移动数据</li>
+</ul>
+<p><strong>特点</strong></p>
+<ul>
+<li>高容错：任务失败，自动调度到其他节点重新执行</li>
+<li>高扩展：计算能力随着节点数增加，近似线性递增</li>
+<li>适用于海量数据的离线批处理</li>
 <li>降低了分布式编程的门槛</li>
 </ul>
-<h3 id="适用场景"><a class="markdownIt-Anchor" href="#适用场景"></a> 适用场景</h3>
+<h3 id="spark"><a class="markdownIt-Anchor" href="#spark"></a> Spark</h3>
+<p>高性能分布式通用计算引擎</p>
 <ul>
-<li>数据统计，如：网站的 PV、UV 统计</li>
-<li>搜索引擎构建索引</li>
-<li>海量数据查询</li>
+<li>Spark Core - 基础计算框架（批处理、交互式分析）</li>
+<li>Spark SQL - SQL 引擎（海量结构化数据的高性能查询）</li>
+<li>Spark Streaming - 实时流处理（微批）</li>
+<li>Spark MLlib - 机器学习</li>
+<li>Spark GraphX - 图计算</li>
 </ul>
-<h3 id="不适用场景"><a class="markdownIt-Anchor" href="#不适用场景"></a> 不适用场景</h3>
+<p>采用 Scala 语言开发</p>
+<p><strong>特点</strong></p>
 <ul>
-<li>OLAP
-<ul>
-<li>要求毫秒或秒级返回结果</li>
+<li>计算高效 - 内存计算、Cache 缓存机制、DAG 引擎、多线程池模型</li>
+<li>通用易用 - 适用于批处理、交互式计算、流处理、机器学习、图计算等多种场景</li>
+<li>运行模式多样 - Local、Standalone、YARN/Mesos</li>
 </ul>
-</li>
-<li>流计算
+<h3 id="yarn"><a class="markdownIt-Anchor" href="#yarn"></a> YARN</h3>
+<p><strong>概念</strong></p>
 <ul>
-<li>流计算的输入数据集是动态的，而 MapReduce 是静态的</li>
+<li>Yet Another Resource Negotiator，另一种资源管理器</li>
+<li>为了解决 Hadoop 1.x 中 MapReduce 的先天缺陷</li>
+<li>分布式通用资源管理系统</li>
+<li>负责集群资源的统一管理</li>
+<li>从 Hadoop 2.x 开始，YARN 成为 Hadoop 的核心组件</li>
 </ul>
-</li>
-<li>DAG 计算
+<p><strong>特点</strong></p>
 <ul>
-<li>多个作业存在依赖关系，后一个的输入是前一个的输出，构成有向无环图 DAG</li>
-<li>每个 MapReduce 作业的输出结果都会落盘，造成大量磁盘 IO，导致性能非常低下</li>
+<li>专注于资源管理和作业调度</li>
+<li>通用 - 适用各种计算框架，如 - MapReduce、Spark</li>
+<li>高可用 - ResourceManager 高可用、HDFS 高可用</li>
+<li>高扩展</li>
 </ul>
-</li>
-</ul>
-<h2 id="mapreduce-原理"><a class="markdownIt-Anchor" href="#mapreduce-原理"></a> MapReduce 原理</h2>
-<h3 id="job-task作业与任务"><a class="markdownIt-Anchor" href="#job-task作业与任务"></a> Job &amp; Task（作业与任务）</h3>
+<h3 id="hive"><a class="markdownIt-Anchor" href="#hive"></a> Hive</h3>
+<p><strong>概念</strong></p>
 <ul>
-<li>作业是客户端请求执行的一个工作单元
-<ul>
-<li>包括输入数据、MapReduce 程序、配置信息</li>
+<li>Hadoop 数据仓库 - 企业决策支持</li>
+<li>SQL 引擎 - 对海量结构化数据进行高性能的 SQL 查询</li>
+<li>采用 HDFS 或 HBase 为数据存储</li>
+<li>采用 MapReduce 或 Spark 为计算框架</li>
 </ul>
-</li>
-<li>任务是将作业分解后得到的细分工作单元
+<p><strong>特点</strong></p>
 <ul>
-<li>分为 Map 任务和 Reduce 任务</li>
+<li>提供类 SQL 查询语言</li>
+<li>支持命令行或 JDBC/ODBC</li>
+<li>提供灵活的扩展性</li>
+<li>提供复杂数据类型、扩展函数、脚本等</li>
 </ul>
-</li>
-</ul>
-<h3 id="split切片"><a class="markdownIt-Anchor" href="#split切片"></a> Split（切片）</h3>
+<h3 id="hbase"><a class="markdownIt-Anchor" href="#hbase"></a> HBase</h3>
+<p><strong>概念</strong></p>
 <ul>
-<li>输入数据被划分成等长的小数据块，称为输入切片（Input Split），简称切片</li>
-<li>Split 是逻辑概念，仅包含元数据信息，如：数据的起始位置、长度、所在节点等</li>
-<li>每个 Split 交给一个 Map 任务处理，Split 的数量决定 Map 任务的数量</li>
-<li>Split 的划分方式由程序设定，Split 与 HDFS Block 没有严格的对应关系</li>
-<li>Split 的大小默认等于 Block 大小</li>
-<li>Split 越小，负载越均衡，但集群的开销越大</li>
+<li>Hadoop Database</li>
+<li>Google BigTable 的开源实现</li>
+<li>分布式 NoSQL 数据库</li>
+<li>列式存储 - 主要用于半结构化、非结构化数据</li>
+<li>采用 HDFS 为文件存储系统</li>
 </ul>
-<h3 id="map-阶段映射"><a class="markdownIt-Anchor" href="#map-阶段映射"></a> Map 阶段（映射）</h3>
+<p><strong>特点</strong></p>
 <ul>
-<li>由若干 Map 任务组成，任务数量由 Split 数量决定</li>
-<li>输入：Split 切片（key-value），输出：中间计算结果（key-value）</li>
+<li>高性能 - 支持高并发写入和查询</li>
+<li>高可用 - HDFS 高可用、Region 高可用</li>
+<li>高扩展 - 数据自动切分和分布，可动态扩容，无需停机</li>
+<li>海量存储 - 单表可容纳数十亿行，上百万列</li>
 </ul>
-<h3 id="reduce-阶段化简"><a class="markdownIt-Anchor" href="#reduce-阶段化简"></a> Reduce 阶段（化简）</h3>
+<h3 id="elasticsearch"><a class="markdownIt-Anchor" href="#elasticsearch"></a> ElasticSearch</h3>
 <ul>
-<li>由若干 Reduce 任务组成，任务数量由程序指定</li>
-<li>输入：Map 阶段输出的中间结果（key-value），输出：最终结果（key-value）</li>
+<li>开源的分布式全文检索引擎</li>
+<li>基于 Lucene 实现全文数据的快速存储、搜索和分析</li>
+<li>处理大规模数据 - PB 级以上</li>
+<li>具有较强的扩展性，集群规模可达上百台</li>
+<li>首选的分布式搜索引擎</li>
 </ul>
-<h3 id="shuffle-阶段洗牌"><a class="markdownIt-Anchor" href="#shuffle-阶段洗牌"></a> Shuffle 阶段（洗牌）</h3>
+<h2 id="术语"><a class="markdownIt-Anchor" href="#术语"></a> 术语</h2>
+<p><strong>数据仓库（Data Warehouse）</strong> - 数据仓库，是为企业所有级别的决策制定过程，提供所有类型数据支持的战略集合。它是单个数据存储，出于分析性报告和决策支持目的而创建。 为需要业务智能的企业，提供指导业务流程改进、监视时间、成本、质量以及控制。</p>
+<h2 id="资源"><a class="markdownIt-Anchor" href="#资源"></a> 资源</h2>
 <ul>
-<li>Map、Reduce 阶段的中间环节，负责执行 Partition（分区）、Sort（排序）、Spill（溢写）、Merge（合并）、抓取（Fetch）等工作</li>
-<li>Partition 决定了 Map 任务输出的每条数据放入哪个分区，交给哪个 Reduce 任务处理</li>
-<li>Reduce 任务的数量决定了 Partition 数量</li>
-<li>Partition 编号 = Reduce 任务编号 =“key hashcode % reduce task number”</li>
-<li>避免和减少 Shuffle 是 MapReduce 程序调优的重点</li>
-</ul>
-<h2 id="shuffle-详解"><a class="markdownIt-Anchor" href="#shuffle-详解"></a> Shuffle 详解</h2>
-<h3 id="map-端"><a class="markdownIt-Anchor" href="#map-端"></a> Map 端</h3>
-<p>Map 任务将中间结果写入专用内存缓冲区 Buffer（默认 100M），同时进行 Partition 和 Sort（先按“key hashcode % reduce task number”对数据进行分区，分区内再按 key 排序）<br />
-当 Buffer 的数据量达到阈值（默认 80%）时，将数据溢写（Spill）到磁盘的一个临时文件中，文件内数据先分区后排序<br />
-Map 任务结束前，将多个临时文件合并（Merge）为一个 Map 输出文件，文件内数据先分区后排序</p>
-<h3 id="reduce-端"><a class="markdownIt-Anchor" href="#reduce-端"></a> Reduce 端</h3>
-<p>Reduce 任务从多个 Map 输出文件中主动抓取（Fetch）属于自己的分区数据，先写入 Buffer，数据量达到阈值后，溢写到磁盘的一个临时文件中<br />
-数据抓取完成后，将多个临时文件合并为一个 Reduce 输入文件，文件内数据按 key 排序</p>
-<h2 id="作业运行模式"><a class="markdownIt-Anchor" href="#作业运行模式"></a> 作业运行模式</h2>
-<h3 id="jobtrackertasktracker-模式hadoop-1x"><a class="markdownIt-Anchor" href="#jobtrackertasktracker-模式hadoop-1x"></a> JobTracker/TaskTracker 模式（Hadoop 1.X）</h3>
-<p><strong>JobTracker 节点（Master）</strong></p>
-<ul>
-<li>调度任务在 TaskTracker 上运行</li>
-<li>若任务失败，指定新 TaskTracker 重新运行</li>
-</ul>
-<p><strong>TaskTracker 节点（Slave）</strong></p>
-<ul>
-<li>执行任务，发送进度报告</li>
-</ul>
-<p><strong>存在的问题</strong></p>
-<ul>
-<li>JobTracker 存在单点故障</li>
-<li>JobTracker 负载太重（上限 4000 节点）</li>
-<li>JobTracker 缺少对资源的全面管理</li>
-<li>TaskTracker 对资源的描述过于简单</li>
-<li>源码很难理解</li>
-</ul>
-<h3 id="yarn-模式hadoop-2x"><a class="markdownIt-Anchor" href="#yarn-模式hadoop-2x"></a> YARN 模式（Hadoop 2.X）</h3>
-<ul>
-<li>提交作业</li>
-<li>查看作业</li>
-<li>终止作业</li>
+<li><a href="https://github.com/onurakpolat/awesome-bigdata" target="_blank" rel="noopener">awesome-bigdata</a></li>
+<li><a href="http://hadoop.apache.org/" target="_blank" rel="noopener">Hadoop</a></li>
+<li><a href="http://hbase.apache.org/" target="_blank" rel="noopener">HBase</a></li>
+<li><a href="http://hive.apache.org/" target="_blank" rel="noopener">Hive</a></li>
+<li><a href="http://impala.apache.org/" target="_blank" rel="noopener">Impala</a></li>
+<li><a href="http://flume.apache.org/" target="_blank" rel="noopener">Flume</a></li>
+<li><a href="http://kafka.apache.org/" target="_blank" rel="noopener">Kafka</a></li>
+<li><a href="http://spark.apache.org/" target="_blank" rel="noopener">Spark</a></li>
+<li><a href="http://sqoop.apache.org/" target="_blank" rel="noopener">Sqoop</a></li>
+<li><a href="https://www.elastic.co/guide/index.html" target="_blank" rel="noopener">ElasticSearch</a></li>
 </ul>
 
       
@@ -2296,7 +2460,7 @@ Map 任务结束前，将多个临时文件合并（Merge）为一个 Map 输出
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="https://dunwu.github.io/blog/blog/bigdata/overview/">
+    <link itemprop="mainEntityOfPage" href="https://dunwu.github.io/blog/blog/bigdata/MapReduce/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/blog/images/avatar.gif">
@@ -2310,7 +2474,7 @@ Map 任务结束前，将多个临时文件合并（Merge）为一个 Map 输出
       <header class="post-header">
         <h2 class="post-title" itemprop="name headline">
           
-            <a href="/blog/bigdata/overview/" class="post-title-link" itemprop="url">大数据简介</a>
+            <a href="/blog/bigdata/MapReduce/" class="post-title-link" itemprop="url">MapReduce</a>
         </h2>
 
         <div class="post-meta">
@@ -2350,8 +2514,8 @@ Map 任务结束前，将多个临时文件合并（Merge）为一个 Map 输出
       </span>
       <span class="post-meta-item-text">Disqus：</span>
     
-    <a title="disqus" href="/blog/bigdata/overview/#comments" itemprop="discussionUrl">
-      <span class="post-comments-count disqus-comment-count" data-disqus-identifier="bigdata/overview/" itemprop="commentCount"></span>
+    <a title="disqus" href="/blog/bigdata/MapReduce/#comments" itemprop="discussionUrl">
+      <span class="post-comments-count disqus-comment-count" data-disqus-identifier="bigdata/MapReduce/" itemprop="commentCount"></span>
     </a>
   </span>
   
@@ -2361,7 +2525,7 @@ Map 任务结束前，将多个临时文件合并（Merge）为一个 Map 输出
                 <i class="fa fa-file-word-o"></i>
               </span>
                 <span class="post-meta-item-text">本文字数：</span>
-              <span>2k</span>
+              <span>1.8k</span>
             </span>
             <span class="post-meta-item" title="阅读时长">
               <span class="post-meta-item-icon">
@@ -2380,428 +2544,155 @@ Map 任务结束前，将多个临时文件合并（Merge）为一个 Map 输出
     <div class="post-body" itemprop="articleBody">
 
       
-          <h1 id="大数据简介"><a class="markdownIt-Anchor" href="#大数据简介"></a> 大数据简介</h1>
+          <h1 id="mapreduce"><a class="markdownIt-Anchor" href="#mapreduce"></a> MapReduce</h1>
 <!-- TOC depthFrom:2 depthTo:3 -->
 <ul>
-<li><a href="#%E7%AE%80%E4%BB%8B">简介</a>
+<li><a href="#mapreduce-%E7%AE%80%E4%BB%8B">MapReduce 简介</a>
 <ul>
-<li><a href="#%E4%BB%80%E4%B9%88%E6%98%AF%E5%A4%A7%E6%95%B0%E6%8D%AE">什么是大数据</a></li>
-<li><a href="#%E5%BA%94%E7%94%A8%E5%9C%BA%E6%99%AF">应用场景</a></li>
-<li><a href="#hadoop-%E7%BC%96%E5%B9%B4%E5%8F%B2">Hadoop 编年史</a></li>
+<li><a href="#%E6%A6%82%E5%BF%B5">概念</a></li>
+<li><a href="#%E6%80%9D%E6%83%B3">思想</a></li>
+<li><a href="#%E7%89%B9%E7%82%B9">特点</a></li>
+<li><a href="#%E9%80%82%E7%94%A8%E5%9C%BA%E6%99%AF">适用场景</a></li>
+<li><a href="#%E4%B8%8D%E9%80%82%E7%94%A8%E5%9C%BA%E6%99%AF">不适用场景</a></li>
 </ul>
 </li>
-<li><a href="#%E6%8A%80%E6%9C%AF%E4%BD%93%E7%B3%BB">技术体系</a>
+<li><a href="#mapreduce-%E5%8E%9F%E7%90%86">MapReduce 原理</a>
 <ul>
-<li><a href="#hdfs">HDFS</a></li>
-<li><a href="#mapreduce">MapReduce</a></li>
-<li><a href="#spark">Spark</a></li>
-<li><a href="#yarn">YARN</a></li>
-<li><a href="#hive">Hive</a></li>
-<li><a href="#hbase">HBase</a></li>
-<li><a href="#elasticsearch">ElasticSearch</a></li>
+<li><a href="#job--task%E4%BD%9C%E4%B8%9A%E4%B8%8E%E4%BB%BB%E5%8A%A1">Job &amp; Task（作业与任务）</a></li>
+<li><a href="#split%E5%88%87%E7%89%87">Split（切片）</a></li>
+<li><a href="#map-%E9%98%B6%E6%AE%B5%E6%98%A0%E5%B0%84">Map 阶段（映射）</a></li>
+<li><a href="#reduce-%E9%98%B6%E6%AE%B5%E5%8C%96%E7%AE%80">Reduce 阶段（化简）</a></li>
+<li><a href="#shuffle-%E9%98%B6%E6%AE%B5%E6%B4%97%E7%89%8C">Shuffle 阶段（洗牌）</a></li>
 </ul>
 </li>
-<li><a href="#%E6%9C%AF%E8%AF%AD">术语</a></li>
-<li><a href="#%E8%B5%84%E6%BA%90">资源</a></li>
+<li><a href="#shuffle-%E8%AF%A6%E8%A7%A3">Shuffle 详解</a>
+<ul>
+<li><a href="#map-%E7%AB%AF">Map 端</a></li>
+<li><a href="#reduce-%E7%AB%AF">Reduce 端</a></li>
+</ul>
+</li>
+<li><a href="#%E4%BD%9C%E4%B8%9A%E8%BF%90%E8%A1%8C%E6%A8%A1%E5%BC%8F">作业运行模式</a>
+<ul>
+<li><a href="#jobtrackertasktracker-%E6%A8%A1%E5%BC%8Fhadoop-1x">JobTracker/TaskTracker 模式（Hadoop 1.X）</a></li>
+<li><a href="#yarn-%E6%A8%A1%E5%BC%8Fhadoop-2x">YARN 模式（Hadoop 2.X）</a></li>
+</ul>
+</li>
 </ul>
 <!-- /TOC -->
-<h2 id="简介"><a class="markdownIt-Anchor" href="#简介"></a> 简介</h2>
-<h3 id="什么是大数据"><a class="markdownIt-Anchor" href="#什么是大数据"></a> 什么是大数据</h3>
-<p>大数据是指超出传统数据库工具收集、存储、管理和分析能力的数据集。与此同时，及时采集、存储、聚合、管理数据，以及对数据深度分析的新技术和新能力，正在快速增长，就像预测计算芯片增长速度的摩尔定律一样。</p>
+<h2 id="mapreduce-简介"><a class="markdownIt-Anchor" href="#mapreduce-简介"></a> MapReduce 简介</h2>
+<h3 id="概念"><a class="markdownIt-Anchor" href="#概念"></a> 概念</h3>
+<p>MapReduce 是一个面向批处理的分布式计算框架。</p>
+<p>编程模型：MapReduce 程序被分为 Map（映射）阶段和 Reduce（化简）阶段。</p>
+<h3 id="思想"><a class="markdownIt-Anchor" href="#思想"></a> 思想</h3>
+<p>分而治之，并行计算<br />
+移动计算，而非移动数据</p>
+<h3 id="特点"><a class="markdownIt-Anchor" href="#特点"></a> 特点</h3>
 <ul>
-<li><strong>Volume</strong> - 数据规模巨大</li>
-<li><strong>Velocity</strong> - 生成和处理速度极快</li>
-<li><strong>Variety</strong> - 数据规模巨大</li>
-<li><strong>Value</strong> - 生成和处理速度极快</li>
-</ul>
-<h3 id="应用场景"><a class="markdownIt-Anchor" href="#应用场景"></a> 应用场景</h3>
-<p>基于大数据的数据仓库</p>
-<p>基于大数据的实时流处理</p>
-<h3 id="hadoop-编年史"><a class="markdownIt-Anchor" href="#hadoop-编年史"></a> Hadoop 编年史</h3>
-<table>
-<thead>
-<tr>
-<th style="text-align:left">时间</th>
-<th style="text-align:left">事件</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td style="text-align:left">2003.01</td>
-<td style="text-align:left">Google发表了Google File System论文</td>
-</tr>
-<tr>
-<td style="text-align:left">2004.01</td>
-<td style="text-align:left">Google发表了MapReduce论文</td>
-</tr>
-<tr>
-<td style="text-align:left">2006.02</td>
-<td style="text-align:left">Apache Hadoop项目正式启动，并支持MapReduce和HDFS独立发展</td>
-</tr>
-<tr>
-<td style="text-align:left">2006.11</td>
-<td style="text-align:left">Google发表了Bigtable论文</td>
-</tr>
-<tr>
-<td style="text-align:left">2008.01</td>
-<td style="text-align:left">Hadoop成为Apache顶级项目</td>
-</tr>
-<tr>
-<td style="text-align:left">2009.03</td>
-<td style="text-align:left">Cloudera推出世界上首个Hadoop发行版——CDH，并完全开放源码</td>
-</tr>
-<tr>
-<td style="text-align:left">2012.03</td>
-<td style="text-align:left">HDFS NameNode HA加入Hadoop主版本</td>
-</tr>
-<tr>
-<td style="text-align:left">2014.02</td>
-<td style="text-align:left">Spark代替MapReduce成为Hadoop的缺省计算引擎，并成为Apache顶级项目</td>
-</tr>
-</tbody>
-</table>
-<h2 id="技术体系"><a class="markdownIt-Anchor" href="#技术体系"></a> 技术体系</h2>
-<h3 id="hdfs"><a class="markdownIt-Anchor" href="#hdfs"></a> HDFS</h3>
-<p><strong>概念</strong></p>
-<ul>
-<li>Hadoop 分布式文件系统（Hadoop Distributed File System）</li>
-<li>在开源大数据技术体系中，地位无可替代</li>
-</ul>
-<p><strong>特点</strong></p>
-<ul>
-<li>高容错：数据多副本，副本丢失后自动恢复</li>
-<li>高可用：NameNode HA，安全模式</li>
-<li>高扩展：10K 节点规模</li>
-<li>简单一致性模型：一次写入多次读取，支持追加，不允许修改</li>
-<li>流式数据访问：批量读而非随机读，关注吞吐量而非时间</li>
-<li>大规模数据集：典型文件大小 GB~TB 级，百万以上文件数量， PB 以上数据规模</li>
-<li>构建成本低且安全可靠：运行在大量的廉价商用机器上，硬件错误是常态，提供容错机制</li>
-</ul>
-<h3 id="mapreduce"><a class="markdownIt-Anchor" href="#mapreduce"></a> MapReduce</h3>
-<p><strong>概念</strong></p>
-<ul>
-<li>面向批处理的分布式计算框架</li>
-<li>编程模型：将 MapReduce 程序分为 Map、Reduce 两个阶段</li>
-</ul>
-<p><strong>核心思想</strong></p>
-<ul>
-<li>分而治之，分布式计算</li>
-<li>移动计算，而非移动数据</li>
-</ul>
-<p><strong>特点</strong></p>
-<ul>
-<li>高容错：任务失败，自动调度到其他节点重新执行</li>
-<li>高扩展：计算能力随着节点数增加，近似线性递增</li>
-<li>适用于海量数据的离线批处理</li>
+<li>计算跟着数据走</li>
+<li>良好的扩展性：计算能力随着节点数增加，近似线性递增</li>
+<li>高容错</li>
+<li>状态监控</li>
+<li>适合海量数据的离线批处理</li>
 <li>降低了分布式编程的门槛</li>
 </ul>
-<h3 id="spark"><a class="markdownIt-Anchor" href="#spark"></a> Spark</h3>
-<p>高性能分布式通用计算引擎</p>
+<h3 id="适用场景"><a class="markdownIt-Anchor" href="#适用场景"></a> 适用场景</h3>
 <ul>
-<li>Spark Core - 基础计算框架（批处理、交互式分析）</li>
-<li>Spark SQL - SQL 引擎（海量结构化数据的高性能查询）</li>
-<li>Spark Streaming - 实时流处理（微批）</li>
-<li>Spark MLlib - 机器学习</li>
-<li>Spark GraphX - 图计算</li>
+<li>数据统计，如：网站的 PV、UV 统计</li>
+<li>搜索引擎构建索引</li>
+<li>海量数据查询</li>
 </ul>
-<p>采用 Scala 语言开发</p>
-<p><strong>特点</strong></p>
+<h3 id="不适用场景"><a class="markdownIt-Anchor" href="#不适用场景"></a> 不适用场景</h3>
 <ul>
-<li>计算高效 - 内存计算、Cache 缓存机制、DAG 引擎、多线程池模型</li>
-<li>通用易用 - 适用于批处理、交互式计算、流处理、机器学习、图计算等多种场景</li>
-<li>运行模式多样 - Local、Standalone、YARN/Mesos</li>
-</ul>
-<h3 id="yarn"><a class="markdownIt-Anchor" href="#yarn"></a> YARN</h3>
-<p><strong>概念</strong></p>
+<li>OLAP
 <ul>
-<li>Yet Another Resource Negotiator，另一种资源管理器</li>
-<li>为了解决 Hadoop 1.x 中 MapReduce 的先天缺陷</li>
-<li>分布式通用资源管理系统</li>
-<li>负责集群资源的统一管理</li>
-<li>从 Hadoop 2.x 开始，YARN 成为 Hadoop 的核心组件</li>
-</ul>
-<p><strong>特点</strong></p>
-<ul>
-<li>专注于资源管理和作业调度</li>
-<li>通用 - 适用各种计算框架，如 - MapReduce、Spark</li>
-<li>高可用 - ResourceManager 高可用、HDFS 高可用</li>
-<li>高扩展</li>
-</ul>
-<h3 id="hive"><a class="markdownIt-Anchor" href="#hive"></a> Hive</h3>
-<p><strong>概念</strong></p>
-<ul>
-<li>Hadoop 数据仓库 - 企业决策支持</li>
-<li>SQL 引擎 - 对海量结构化数据进行高性能的 SQL 查询</li>
-<li>采用 HDFS 或 HBase 为数据存储</li>
-<li>采用 MapReduce 或 Spark 为计算框架</li>
-</ul>
-<p><strong>特点</strong></p>
-<ul>
-<li>提供类 SQL 查询语言</li>
-<li>支持命令行或 JDBC/ODBC</li>
-<li>提供灵活的扩展性</li>
-<li>提供复杂数据类型、扩展函数、脚本等</li>
-</ul>
-<h3 id="hbase"><a class="markdownIt-Anchor" href="#hbase"></a> HBase</h3>
-<p><strong>概念</strong></p>
-<ul>
-<li>Hadoop Database</li>
-<li>Google BigTable 的开源实现</li>
-<li>分布式 NoSQL 数据库</li>
-<li>列式存储 - 主要用于半结构化、非结构化数据</li>
-<li>采用 HDFS 为文件存储系统</li>
-</ul>
-<p><strong>特点</strong></p>
-<ul>
-<li>高性能 - 支持高并发写入和查询</li>
-<li>高可用 - HDFS 高可用、Region 高可用</li>
-<li>高扩展 - 数据自动切分和分布，可动态扩容，无需停机</li>
-<li>海量存储 - 单表可容纳数十亿行，上百万列</li>
-</ul>
-<h3 id="elasticsearch"><a class="markdownIt-Anchor" href="#elasticsearch"></a> ElasticSearch</h3>
-<ul>
-<li>开源的分布式全文检索引擎</li>
-<li>基于 Lucene 实现全文数据的快速存储、搜索和分析</li>
-<li>处理大规模数据 - PB 级以上</li>
-<li>具有较强的扩展性，集群规模可达上百台</li>
-<li>首选的分布式搜索引擎</li>
-</ul>
-<h2 id="术语"><a class="markdownIt-Anchor" href="#术语"></a> 术语</h2>
-<p><strong>数据仓库（Data Warehouse）</strong> - 数据仓库，是为企业所有级别的决策制定过程，提供所有类型数据支持的战略集合。它是单个数据存储，出于分析性报告和决策支持目的而创建。 为需要业务智能的企业，提供指导业务流程改进、监视时间、成本、质量以及控制。</p>
-<h2 id="资源"><a class="markdownIt-Anchor" href="#资源"></a> 资源</h2>
-<ul>
-<li><a href="https://github.com/onurakpolat/awesome-bigdata" target="_blank" rel="noopener">awesome-bigdata</a></li>
-<li><a href="http://hadoop.apache.org/" target="_blank" rel="noopener">Hadoop</a></li>
-<li><a href="http://hbase.apache.org/" target="_blank" rel="noopener">HBase</a></li>
-<li><a href="http://hive.apache.org/" target="_blank" rel="noopener">Hive</a></li>
-<li><a href="http://impala.apache.org/" target="_blank" rel="noopener">Impala</a></li>
-<li><a href="http://flume.apache.org/" target="_blank" rel="noopener">Flume</a></li>
-<li><a href="http://kafka.apache.org/" target="_blank" rel="noopener">Kafka</a></li>
-<li><a href="http://spark.apache.org/" target="_blank" rel="noopener">Spark</a></li>
-<li><a href="http://sqoop.apache.org/" target="_blank" rel="noopener">Sqoop</a></li>
-<li><a href="https://www.elastic.co/guide/index.html" target="_blank" rel="noopener">ElasticSearch</a></li>
-</ul>
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-        
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="https://dunwu.github.io/blog/blog/bigdata/Spark/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/blog/images/avatar.gif">
-      <meta itemprop="name" content="Zhang Peng">
-      <meta itemprop="description" content="Dunwu's Blog">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Dunwu">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/blog/bigdata/Spark/" class="post-title-link" itemprop="url">Spark</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-
-              <time title="创建时间：2018-09-03 00:00:00" itemprop="dateCreated datePublished" datetime="2018-09-03T00:00:00+08:00">2018-09-03</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-calendar-check-o"></i>
-                </span>
-                <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2019-05-08 18:07:48" itemprop="dateModified" datetime="2019-05-08T18:07:48+08:00">2019-05-08</time>
-              </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/blog/categories/bigdata/" itemprop="url" rel="index">
-                    <span itemprop="name">bigdata</span>
-                  </a>
-                </span>
-            </span>
-
-          
-  
-  <span class="post-meta-item">
-    
-      <span class="post-meta-item-icon">
-        <i class="fa fa-comment-o"></i>
-      </span>
-      <span class="post-meta-item-text">Disqus：</span>
-    
-    <a title="disqus" href="/blog/bigdata/Spark/#comments" itemprop="discussionUrl">
-      <span class="post-comments-count disqus-comment-count" data-disqus-identifier="bigdata/Spark/" itemprop="commentCount"></span>
-    </a>
-  </span>
-  
-  <br>
-            <span class="post-meta-item" title="本文字数">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-file-word-o"></i>
-              </span>
-                <span class="post-meta-item-text">本文字数：</span>
-              <span>1.2k</span>
-            </span>
-            <span class="post-meta-item" title="阅读时长">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-clock-o"></i>
-              </span>
-                <span class="post-meta-item-text">阅读时长 &asymp;</span>
-              <span>1 分钟</span>
-            </span>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h1 id="spark"><a class="markdownIt-Anchor" href="#spark"></a> Spark</h1>
-<!-- TOC depthFrom:2 depthTo:3 -->
-<ul>
-<li><a href="#spark-%E7%AE%80%E4%BB%8B">Spark 简介</a>
-<ul>
-<li><a href="#spark-%E6%A6%82%E5%BF%B5">Spark 概念</a></li>
-<li><a href="#spark-%E7%89%B9%E7%82%B9">Spark 特点</a></li>
+<li>要求毫秒或秒级返回结果</li>
 </ul>
 </li>
-<li><a href="#spark-%E5%8E%9F%E7%90%86">Spark 原理</a>
+<li>流计算
 <ul>
-<li><a href="#%E7%BC%96%E7%A8%8B%E6%A8%A1%E5%9E%8B">编程模型</a></li>
+<li>流计算的输入数据集是动态的，而 MapReduce 是静态的</li>
+</ul>
+</li>
+<li>DAG 计算
+<ul>
+<li>多个作业存在依赖关系，后一个的输入是前一个的输出，构成有向无环图 DAG</li>
+<li>每个 MapReduce 作业的输出结果都会落盘，造成大量磁盘 IO，导致性能非常低下</li>
 </ul>
 </li>
 </ul>
-<!-- /TOC -->
-<h2 id="spark-简介"><a class="markdownIt-Anchor" href="#spark-简介"></a> Spark 简介</h2>
-<h3 id="spark-概念"><a class="markdownIt-Anchor" href="#spark-概念"></a> Spark 概念</h3>
+<h2 id="mapreduce-原理"><a class="markdownIt-Anchor" href="#mapreduce-原理"></a> MapReduce 原理</h2>
+<h3 id="job-task作业与任务"><a class="markdownIt-Anchor" href="#job-task作业与任务"></a> Job &amp; Task（作业与任务）</h3>
 <ul>
-<li>大规模分布式通用计算引擎
+<li>作业是客户端请求执行的一个工作单元
 <ul>
-<li>Spark Core：核心计算框架</li>
-<li>Spark SQL：结构化数据查询</li>
-<li>Spark Streaming：实时流处理</li>
-<li>Spark MLib：机器学习</li>
-<li>Spark GraphX：图计算</li>
+<li>包括输入数据、MapReduce 程序、配置信息</li>
 </ul>
 </li>
-<li>具有高吞吐、低延时、通用易扩展、高容错等特点</li>
-<li>采用 Scala 语言开发</li>
-<li>提供多种运行模式</li>
-</ul>
-<h3 id="spark-特点"><a class="markdownIt-Anchor" href="#spark-特点"></a> Spark 特点</h3>
+<li>任务是将作业分解后得到的细分工作单元
 <ul>
-<li>计算高效
-<ul>
-<li>利用内存计算、Cache 缓存机制，支持迭代计算和数据共享，减少数据读取的 IO 开销</li>
-<li>利用 DAG 引擎，减少中间计算结果写入 HDFS 的开销</li>
-<li>利用多线程池模型，减少任务启动开销，避免 Shuffle 中不必要的排序和磁盘 IO 操作</li>
-</ul>
-</li>
-<li>通用易用
-<ul>
-<li>适用于批处理、流处理、交互式计算、机器学习算法等场景</li>
-<li>提供了丰富的开发 API，支持 Scala、Java、Python、R 等</li>
-</ul>
-</li>
-<li>运行模式多样
-<ul>
-<li>Local 模式</li>
-<li>Standalone 模式</li>
-<li>YARN/Mesos 模式</li>
-</ul>
-</li>
-<li>计算高效
-<ul>
-<li>利用内存计算、Cache 缓存机制，支持迭代计算和数据共享，减少数据读取的 IO 开销</li>
-<li>利用 DAG 引擎，减少中间计算结果写入 HDFS 的开销</li>
-<li>利用多线程池模型，减少任务启动开销，避免 Shuffle 中不必要的排序和磁盘 IO 操作</li>
-</ul>
-</li>
-<li>通用易用
-<ul>
-<li>适用于批处理、流处理、交互式计算、机器学习等场景</li>
-<li>提供了丰富的开发 API，支持 Scala、Java、Python、R 等</li>
+<li>分为 Map 任务和 Reduce 任务</li>
 </ul>
 </li>
 </ul>
-<h2 id="spark-原理"><a class="markdownIt-Anchor" href="#spark-原理"></a> Spark 原理</h2>
-<h3 id="编程模型"><a class="markdownIt-Anchor" href="#编程模型"></a> 编程模型</h3>
-<h4 id="rdd"><a class="markdownIt-Anchor" href="#rdd"></a> RDD</h4>
+<h3 id="split切片"><a class="markdownIt-Anchor" href="#split切片"></a> Split（切片）</h3>
 <ul>
-<li>弹性分布式数据集（Resilient Distributed Datesets）
-<ul>
-<li>分布在集群中的只读对象集合</li>
-<li>由多个 Partition 组成</li>
-<li>通过转换操作构造</li>
-<li>失效后自动重构（弹性）</li>
-<li>存储在内存或磁盘中</li>
+<li>输入数据被划分成等长的小数据块，称为输入切片（Input Split），简称切片</li>
+<li>Split 是逻辑概念，仅包含元数据信息，如：数据的起始位置、长度、所在节点等</li>
+<li>每个 Split 交给一个 Map 任务处理，Split 的数量决定 Map 任务的数量</li>
+<li>Split 的划分方式由程序设定，Split 与 HDFS Block 没有严格的对应关系</li>
+<li>Split 的大小默认等于 Block 大小</li>
+<li>Split 越小，负载越均衡，但集群的开销越大</li>
 </ul>
-</li>
-<li>Spark 基于 RDD 进行计算</li>
-</ul>
-<h4 id="rdd-操作operator"><a class="markdownIt-Anchor" href="#rdd-操作operator"></a> RDD 操作（Operator）</h4>
+<h3 id="map-阶段映射"><a class="markdownIt-Anchor" href="#map-阶段映射"></a> Map 阶段（映射）</h3>
 <ul>
-<li>Transformation（转换）
-<ul>
-<li>将 Scala 集合或 Hadoop 输入数据构造成一个新 RDD</li>
-<li>通过已有的 RDD 产生新 RDD</li>
-<li>惰性执行：只记录转换关系，不触发计算</li>
-<li>例如：map、filter、flatmap、union、distinct、sortbykey</li>
+<li>由若干 Map 任务组成，任务数量由 Split 数量决定</li>
+<li>输入：Split 切片（key-value），输出：中间计算结果（key-value）</li>
 </ul>
-</li>
-<li>Action（动作）
+<h3 id="reduce-阶段化简"><a class="markdownIt-Anchor" href="#reduce-阶段化简"></a> Reduce 阶段（化简）</h3>
 <ul>
-<li>通过 RDD 计算得到一个值或一组值</li>
-<li>真正触发计算</li>
-<li>例如：first、count、collect、foreach、saveAsTextFile</li>
+<li>由若干 Reduce 任务组成，任务数量由程序指定</li>
+<li>输入：Map 阶段输出的中间结果（key-value），输出：最终结果（key-value）</li>
 </ul>
-</li>
-</ul>
-<h4 id="rdd-依赖dependency"><a class="markdownIt-Anchor" href="#rdd-依赖dependency"></a> RDD 依赖（Dependency）</h4>
+<h3 id="shuffle-阶段洗牌"><a class="markdownIt-Anchor" href="#shuffle-阶段洗牌"></a> Shuffle 阶段（洗牌）</h3>
 <ul>
-<li>窄依赖（Narrow Dependency）
-<ul>
-<li>父 RDD 中的分区最多只能被一个子 RDD 的一个分区使用</li>
-<li>子 RDD 如果有部分分区数据丢失或损坏，只需从对应的父 RDD 重新计算恢复</li>
-<li>例如：map、filter、union</li>
+<li>Map、Reduce 阶段的中间环节，负责执行 Partition（分区）、Sort（排序）、Spill（溢写）、Merge（合并）、抓取（Fetch）等工作</li>
+<li>Partition 决定了 Map 任务输出的每条数据放入哪个分区，交给哪个 Reduce 任务处理</li>
+<li>Reduce 任务的数量决定了 Partition 数量</li>
+<li>Partition 编号 = Reduce 任务编号 =“key hashcode % reduce task number”</li>
+<li>避免和减少 Shuffle 是 MapReduce 程序调优的重点</li>
 </ul>
-</li>
-<li>宽依赖（Shuffle/Wide Dependency ）
+<h2 id="shuffle-详解"><a class="markdownIt-Anchor" href="#shuffle-详解"></a> Shuffle 详解</h2>
+<h3 id="map-端"><a class="markdownIt-Anchor" href="#map-端"></a> Map 端</h3>
+<p>Map 任务将中间结果写入专用内存缓冲区 Buffer（默认 100M），同时进行 Partition 和 Sort（先按“key hashcode % reduce task number”对数据进行分区，分区内再按 key 排序）<br />
+当 Buffer 的数据量达到阈值（默认 80%）时，将数据溢写（Spill）到磁盘的一个临时文件中，文件内数据先分区后排序<br />
+Map 任务结束前，将多个临时文件合并（Merge）为一个 Map 输出文件，文件内数据先分区后排序</p>
+<h3 id="reduce-端"><a class="markdownIt-Anchor" href="#reduce-端"></a> Reduce 端</h3>
+<p>Reduce 任务从多个 Map 输出文件中主动抓取（Fetch）属于自己的分区数据，先写入 Buffer，数据量达到阈值后，溢写到磁盘的一个临时文件中<br />
+数据抓取完成后，将多个临时文件合并为一个 Reduce 输入文件，文件内数据按 key 排序</p>
+<h2 id="作业运行模式"><a class="markdownIt-Anchor" href="#作业运行模式"></a> 作业运行模式</h2>
+<h3 id="jobtrackertasktracker-模式hadoop-1x"><a class="markdownIt-Anchor" href="#jobtrackertasktracker-模式hadoop-1x"></a> JobTracker/TaskTracker 模式（Hadoop 1.X）</h3>
+<p><strong>JobTracker 节点（Master）</strong></p>
 <ul>
-<li>子 RDD 分区依赖父 RDD 的所有分区</li>
-<li>子 RDD 如果部分或全部分区数据丢失或损坏，必须从所有父 RDD 分区重新计算</li>
-<li>相对于窄依赖，宽依赖付出的代价要高很多，尽量避免使用</li>
-<li>例如：groupByKey、reduceByKey、sortByKey</li>
+<li>调度任务在 TaskTracker 上运行</li>
+<li>若任务失败，指定新 TaskTracker 重新运行</li>
 </ul>
-</li>
+<p><strong>TaskTracker 节点（Slave）</strong></p>
+<ul>
+<li>执行任务，发送进度报告</li>
+</ul>
+<p><strong>存在的问题</strong></p>
+<ul>
+<li>JobTracker 存在单点故障</li>
+<li>JobTracker 负载太重（上限 4000 节点）</li>
+<li>JobTracker 缺少对资源的全面管理</li>
+<li>TaskTracker 对资源的描述过于简单</li>
+<li>源码很难理解</li>
+</ul>
+<h3 id="yarn-模式hadoop-2x"><a class="markdownIt-Anchor" href="#yarn-模式hadoop-2x"></a> YARN 模式（Hadoop 2.X）</h3>
+<ul>
+<li>提交作业</li>
+<li>查看作业</li>
+<li>终止作业</li>
 </ul>
 
       
@@ -3389,7 +3280,7 @@ Map 任务结束前，将多个临时文件合并（Merge）为一个 Map 输出
       <div class="site-state-item site-state-posts">
           <a href="/blog/archives/">
         
-          <span class="site-state-item-count">71</span>
+          <span class="site-state-item-count">68</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
@@ -3402,7 +3293,7 @@ Map 任务结束前，将多个临时文件合并（Merge）为一个 Map 输出
       <div class="site-state-item site-state-tags">
             <a href="/blog/tags/">
           
-        <span class="site-state-item-count">38</span>
+        <span class="site-state-item-count">40</span>
         <span class="site-state-item-name">标签</span></a>
       </div>
   </nav>
@@ -3447,12 +3338,12 @@ Map 任务结束前，将多个临时文件合并（Merge）为一个 Map 输出
     <span class="post-meta-item-icon">
       <i class="fa fa-area-chart"></i>
     </span>
-    <span title="站点总字数">354k</span>
+    <span title="站点总字数">351k</span>
     <span class="post-meta-divider">|</span>
     <span class="post-meta-item-icon">
       <i class="fa fa-coffee"></i>
     </span>
-    <span title="站点阅读时长">5:22</span>
+    <span title="站点阅读时长">5:19</span>
 </div>
 
         

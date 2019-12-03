@@ -61,10 +61,10 @@
 <meta property="og:description" content="分布式会话基本原理  由于 Http 是一种无状态的协议，服务器单单从网络连接上无从知道客户身份。 会话跟踪是 Web 程序中常用的技术，用来跟踪用户的整个会话。常用会话跟踪技术是 Cookie 与 Session。   1. 简介  1.1. 什么是 Cookie Cookie 实际上是存储在用户浏览器上的文本信息，并保留了各种跟踪的信息。 Cookie 工作步骤：  客户端请求服务器，如果服">
 <meta property="og:locale" content="zh-CN">
 <meta property="og:image" content="https:&#x2F;&#x2F;user-gold-cdn.xitu.io&#x2F;2019&#x2F;5&#x2F;13&#x2F;16aafb5d90f398e2?imageView2&#x2F;0&#x2F;w&#x2F;1280&#x2F;h&#x2F;960&#x2F;format&#x2F;webp&#x2F;ignore-error&#x2F;1">
-<meta property="og:image" content="http:&#x2F;&#x2F;dunwu.test.upcdn.net&#x2F;cs&#x2F;java&#x2F;javaweb&#x2F;distributed&#x2F;architecture&#x2F;MultiNode-StickySessions.jpg!zp">
-<meta property="og:image" content="http:&#x2F;&#x2F;dunwu.test.upcdn.net&#x2F;cs&#x2F;java&#x2F;javaweb&#x2F;distributed&#x2F;architecture&#x2F;MultiNode-SessionReplication.jpg!zp">
-<meta property="og:image" content="http:&#x2F;&#x2F;dunwu.test.upcdn.net&#x2F;cs&#x2F;java&#x2F;javaweb&#x2F;distributed&#x2F;architecture&#x2F;MultiNode-SpringSession.jpg!zp">
-<meta property="og:updated_time" content="2019-11-27T07:58:13.542Z">
+<meta property="og:image" content="http:&#x2F;&#x2F;dunwu.test.upcdn.net&#x2F;cs&#x2F;design&#x2F;architecture&#x2F;MultiNode-StickySessions.jpg!zp">
+<meta property="og:image" content="http:&#x2F;&#x2F;dunwu.test.upcdn.net&#x2F;cs&#x2F;design&#x2F;architecture&#x2F;MultiNode-SessionReplication.jpg!zp">
+<meta property="og:image" content="http:&#x2F;&#x2F;dunwu.test.upcdn.net&#x2F;cs&#x2F;design&#x2F;architecture&#x2F;MultiNode-SpringSession.jpg!zp">
+<meta property="og:updated_time" content="2019-12-03T08:27:36.766Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:image" content="https:&#x2F;&#x2F;user-gold-cdn.xitu.io&#x2F;2019&#x2F;5&#x2F;13&#x2F;16aafb5d90f398e2?imageView2&#x2F;0&#x2F;w&#x2F;1280&#x2F;h&#x2F;960&#x2F;format&#x2F;webp&#x2F;ignore-error&#x2F;1">
 
@@ -160,7 +160,7 @@
   </li>
         <li class="menu-item menu-item-tags">
 
-    <a href="/blog/tags/" rel="section"><i class="fa fa-fw fa-tags"></i>标签<span class="badge">38</span></a>
+    <a href="/blog/tags/" rel="section"><i class="fa fa-fw fa-tags"></i>标签<span class="badge">40</span></a>
 
   </li>
         <li class="menu-item menu-item-categories">
@@ -170,7 +170,7 @@
   </li>
         <li class="menu-item menu-item-archives">
 
-    <a href="/blog/archives/" rel="section"><i class="fa fa-fw fa-archive"></i>归档<span class="badge">71</span></a>
+    <a href="/blog/archives/" rel="section"><i class="fa fa-fw fa-archive"></i>归档<span class="badge">68</span></a>
 
   </li>
       <li class="menu-item menu-item-search">
@@ -258,7 +258,7 @@
                   <i class="fa fa-calendar-check-o"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2019-11-27 15:58:13" itemprop="dateModified" datetime="2019-11-27T15:58:13+08:00">2019-11-27</time>
+                <time title="修改时间：2019-12-03 16:27:36" itemprop="dateModified" datetime="2019-12-03T16:27:36+08:00">2019-12-03</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -378,7 +378,7 @@
 <p>缺点：当服务器节点宕机时，将丢失该服务器节点上的所有 Session。</p>
 </blockquote>
 <div align="center">
-<img src="http://dunwu.test.upcdn.net/cs/java/javaweb/distributed/architecture/MultiNode-StickySessions.jpg!zp" />
+<img src="http://dunwu.test.upcdn.net/cs/design/architecture/MultiNode-StickySessions.jpg!zp" />
 </div>
 <h3 id="22-session-复制共享"><a class="markdownIt-Anchor" href="#22-session-复制共享"></a> 2.2. session 复制共享</h3>
 <blockquote>
@@ -386,7 +386,7 @@
 <p>缺点：占用过多内存；同步过程占用网络带宽以及服务器处理器时间。</p>
 </blockquote>
 <div align="center">
-<img src="http://dunwu.test.upcdn.net/cs/java/javaweb/distributed/architecture/MultiNode-SessionReplication.jpg!zp" />
+<img src="http://dunwu.test.upcdn.net/cs/design/architecture/MultiNode-SessionReplication.jpg!zp" />
 </div>
 <h3 id="23-基于缓存的-session-共享"><a class="markdownIt-Anchor" href="#23-基于缓存的-session-共享"></a> 2.3. 基于缓存的 session 共享</h3>
 <blockquote>
@@ -394,7 +394,7 @@
 <p>缺点：需要去实现存取 Session 的代码。</p>
 </blockquote>
 <div align="center">
-<img src="http://dunwu.test.upcdn.net/cs/java/javaweb/distributed/architecture/MultiNode-SpringSession.jpg!zp" />
+<img src="http://dunwu.test.upcdn.net/cs/design/architecture/MultiNode-SpringSession.jpg!zp" />
 </div>
 <h2 id="3-具体实现"><a class="markdownIt-Anchor" href="#3-具体实现"></a> 3. 具体实现</h2>
 <h3 id="31-jwt-token"><a class="markdownIt-Anchor" href="#31-jwt-token"></a> 3.1. JWT Token</h3>
@@ -460,16 +460,16 @@
 
           <div class="post-nav">
             <div class="post-nav-next post-nav-item">
-                <a href="/blog/design/theory/distributed-lock-theory/" rel="next" title="分布式锁基本原理">
-                  <i class="fa fa-chevron-left"></i> 分布式锁基本原理
+                <a href="/blog/communication/network-interview/" rel="next" title="网络通信知识点面经">
+                  <i class="fa fa-chevron-left"></i> 网络通信知识点面经
                 </a>
             </div>
 
             <span class="post-nav-divider"></span>
 
             <div class="post-nav-prev post-nav-item">
-                <a href="/blog/design/theory/distributed-transaction-theory/" rel="prev" title="分布式事务基本原理">
-                  分布式事务基本原理 <i class="fa fa-chevron-right"></i>
+                <a href="/blog/design/theory/distributed-lock-theory/" rel="prev" title="分布式锁基本原理">
+                  分布式锁基本原理 <i class="fa fa-chevron-right"></i>
                 </a>
             </div>
           </div>
@@ -532,7 +532,7 @@
       <div class="site-state-item site-state-posts">
           <a href="/blog/archives/">
         
-          <span class="site-state-item-count">71</span>
+          <span class="site-state-item-count">68</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
@@ -545,7 +545,7 @@
       <div class="site-state-item site-state-tags">
             <a href="/blog/tags/">
           
-        <span class="site-state-item-count">38</span>
+        <span class="site-state-item-count">40</span>
         <span class="site-state-item-name">标签</span></a>
       </div>
   </nav>
@@ -590,12 +590,12 @@
     <span class="post-meta-item-icon">
       <i class="fa fa-area-chart"></i>
     </span>
-    <span title="站点总字数">354k</span>
+    <span title="站点总字数">351k</span>
     <span class="post-meta-divider">|</span>
     <span class="post-meta-item-icon">
       <i class="fa fa-coffee"></i>
     </span>
-    <span title="站点阅读时长">5:22</span>
+    <span title="站点阅读时长">5:19</span>
 </div>
 
         

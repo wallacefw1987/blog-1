@@ -52,22 +52,22 @@
   };
 </script>
 
-  <meta name="description" content="网站的高性能架构  📓 本文已归档到：「blog」    1. 性能测试  1.1. 性能指标 1.2. 性能测试方法 1.3. 性能测试报告 1.4. 性能优化策略   2. 前端性能优化  2.1. 浏览器访问优化 2.2. CDN 2.3. 反向代理   3. 应用服务性能优化  3.1. 分布式缓存 3.2. 异步操作 3.3. 使用集群 3.4. 代码优化   4. 存储性能优化">
-<meta name="keywords" content="设计,架构">
+  <meta name="description" content="高性能架构  1. 性能测试  性能测试是性能优化的前提和基础，也是性能优化结果的检查和度量标准。不同视角下的性能有不同标准，也有不同的优化手段。   1.1. 性能指标 性能测试的主要指标有：  响应时间 - 响应时间(RT)是指从客户端发一个请求开始计时，到客户端接收到从服务器端返回的响应结果结束所经历的时间，响应时间由请求发送时间、网络传输时间和服务器处理时间三部分组成。 并发数 - 系统">
+<meta name="keywords" content="设计,架构,性能">
 <meta property="og:type" content="article">
-<meta property="og:title" content="网站的高性能架构">
-<meta property="og:url" content="https:&#x2F;&#x2F;dunwu.github.io&#x2F;blog&#x2F;design&#x2F;architecture&#x2F;%E7%BD%91%E7%AB%99%E7%9A%84%E9%AB%98%E6%80%A7%E8%83%BD%E6%9E%B6%E6%9E%84&#x2F;index.html">
+<meta property="og:title" content="高性能架构">
+<meta property="og:url" content="https:&#x2F;&#x2F;dunwu.github.io&#x2F;blog&#x2F;design&#x2F;architecture&#x2F;high-performance-architecture&#x2F;index.html">
 <meta property="og:site_name" content="Dunwu">
-<meta property="og:description" content="网站的高性能架构  📓 本文已归档到：「blog」    1. 性能测试  1.1. 性能指标 1.2. 性能测试方法 1.3. 性能测试报告 1.4. 性能优化策略   2. 前端性能优化  2.1. 浏览器访问优化 2.2. CDN 2.3. 反向代理   3. 应用服务性能优化  3.1. 分布式缓存 3.2. 异步操作 3.3. 使用集群 3.4. 代码优化   4. 存储性能优化">
+<meta property="og:description" content="高性能架构  1. 性能测试  性能测试是性能优化的前提和基础，也是性能优化结果的检查和度量标准。不同视角下的性能有不同标准，也有不同的优化手段。   1.1. 性能指标 性能测试的主要指标有：  响应时间 - 响应时间(RT)是指从客户端发一个请求开始计时，到客户端接收到从服务器端返回的响应结果结束所经历的时间，响应时间由请求发送时间、网络传输时间和服务器处理时间三部分组成。 并发数 - 系统">
 <meta property="og:locale" content="zh-CN">
 <meta property="og:image" content="https:&#x2F;&#x2F;upload-images.jianshu.io&#x2F;upload_images&#x2F;3101171-3d533a36f42608a1.png">
 <meta property="og:image" content="http:&#x2F;&#x2F;dunwu.test.upcdn.net&#x2F;cs&#x2F;java&#x2F;javaweb&#x2F;architecture&#x2F;cdn.png!zp">
 <meta property="og:image" content="http:&#x2F;&#x2F;dunwu.test.upcdn.net&#x2F;cs&#x2F;java&#x2F;javaweb&#x2F;architecture&#x2F;reverse-proxy.jpg!zp">
-<meta property="og:updated_time" content="2019-11-27T08:36:22.671Z">
+<meta property="og:updated_time" content="2019-12-03T08:31:45.354Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:image" content="https:&#x2F;&#x2F;upload-images.jianshu.io&#x2F;upload_images&#x2F;3101171-3d533a36f42608a1.png">
 
-<link rel="canonical" href="https://dunwu.github.io/blog/design/architecture/%E7%BD%91%E7%AB%99%E7%9A%84%E9%AB%98%E6%80%A7%E8%83%BD%E6%9E%B6%E6%9E%84/">
+<link rel="canonical" href="https://dunwu.github.io/blog/design/architecture/high-performance-architecture/">
 
 
 <script id="page-configurations">
@@ -81,7 +81,7 @@
   };
 </script>
 
-  <title>网站的高性能架构 | Dunwu</title>
+  <title>高性能架构 | Dunwu</title>
   
 
 
@@ -159,7 +159,7 @@
   </li>
         <li class="menu-item menu-item-tags">
 
-    <a href="/blog/tags/" rel="section"><i class="fa fa-fw fa-tags"></i>标签<span class="badge">38</span></a>
+    <a href="/blog/tags/" rel="section"><i class="fa fa-fw fa-tags"></i>标签<span class="badge">40</span></a>
 
   </li>
         <li class="menu-item menu-item-categories">
@@ -169,7 +169,7 @@
   </li>
         <li class="menu-item menu-item-archives">
 
-    <a href="/blog/archives/" rel="section"><i class="fa fa-fw fa-archive"></i>归档<span class="badge">71</span></a>
+    <a href="/blog/archives/" rel="section"><i class="fa fa-fw fa-archive"></i>归档<span class="badge">68</span></a>
 
   </li>
       <li class="menu-item menu-item-search">
@@ -227,7 +227,7 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block " lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="https://dunwu.github.io/blog/blog/design/architecture/%E7%BD%91%E7%AB%99%E7%9A%84%E9%AB%98%E6%80%A7%E8%83%BD%E6%9E%B6%E6%9E%84/">
+    <link itemprop="mainEntityOfPage" href="https://dunwu.github.io/blog/blog/design/architecture/high-performance-architecture/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/blog/images/avatar.gif">
@@ -240,7 +240,7 @@
     </span>
       <header class="post-header">
         <h2 class="post-title" itemprop="name headline">
-          网站的高性能架构<a href="https://github.com/dunwu/blog/blob/master/source/_posts/design/architecture/%E7%BD%91%E7%AB%99%E7%9A%84%E9%AB%98%E6%80%A7%E8%83%BD%E6%9E%B6%E6%9E%84.md" class="post-edit-link" title="编辑" rel="noopener" target="_blank"><i class="fa fa-pencil"></i></a>
+          高性能架构<a href="https://github.com/dunwu/blog/blob/master/source/_posts/design/architecture/high-performance-architecture.md" class="post-edit-link" title="编辑" rel="noopener" target="_blank"><i class="fa fa-pencil"></i></a>
         </h2>
 
         <div class="post-meta">
@@ -257,7 +257,7 @@
                   <i class="fa fa-calendar-check-o"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2019-11-27 16:36:22" itemprop="dateModified" datetime="2019-11-27T16:36:22+08:00">2019-11-27</time>
+                <time title="修改时间：2019-12-03 16:31:45" itemprop="dateModified" datetime="2019-12-03T16:31:45+08:00">2019-12-03</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -286,8 +286,8 @@
       </span>
       <span class="post-meta-item-text">Disqus：</span>
     
-    <a title="disqus" href="/blog/design/architecture/%E7%BD%91%E7%AB%99%E7%9A%84%E9%AB%98%E6%80%A7%E8%83%BD%E6%9E%B6%E6%9E%84/#comments" itemprop="discussionUrl">
-      <span class="post-comments-count disqus-comment-count" data-disqus-identifier="design/architecture/网站的高性能架构/" itemprop="commentCount"></span>
+    <a title="disqus" href="/blog/design/architecture/high-performance-architecture/#comments" itemprop="discussionUrl">
+      <span class="post-comments-count disqus-comment-count" data-disqus-identifier="design/architecture/high-performance-architecture/" itemprop="commentCount"></span>
     </a>
   </span>
   
@@ -297,7 +297,7 @@
                 <i class="fa fa-file-word-o"></i>
               </span>
                 <span class="post-meta-item-text">本文字数：</span>
-              <span>2.8k</span>
+              <span>3.2k</span>
             </span>
             <span class="post-meta-item" title="阅读时长">
               <span class="post-meta-item-icon">
@@ -316,52 +316,17 @@
     <div class="post-body" itemprop="articleBody">
 
       
-        <h1 id="网站的高性能架构"><a class="markdownIt-Anchor" href="#网站的高性能架构"></a> 网站的高性能架构</h1>
-<blockquote>
-<p>📓 本文已归档到：「<a href="https://github.com/dunwu/blog" target="_blank" rel="noopener">blog</a>」</p>
-</blockquote>
-<!-- TOC depthFrom:2 depthTo:3 -->
-<ul>
-<li><a href="#1-%E6%80%A7%E8%83%BD%E6%B5%8B%E8%AF%95">1. 性能测试</a>
-<ul>
-<li><a href="#11-%E6%80%A7%E8%83%BD%E6%8C%87%E6%A0%87">1.1. 性能指标</a></li>
-<li><a href="#12-%E6%80%A7%E8%83%BD%E6%B5%8B%E8%AF%95%E6%96%B9%E6%B3%95">1.2. 性能测试方法</a></li>
-<li><a href="#13-%E6%80%A7%E8%83%BD%E6%B5%8B%E8%AF%95%E6%8A%A5%E5%91%8A">1.3. 性能测试报告</a></li>
-<li><a href="#14-%E6%80%A7%E8%83%BD%E4%BC%98%E5%8C%96%E7%AD%96%E7%95%A5">1.4. 性能优化策略</a></li>
-</ul>
-</li>
-<li><a href="#2-%E5%89%8D%E7%AB%AF%E6%80%A7%E8%83%BD%E4%BC%98%E5%8C%96">2. 前端性能优化</a>
-<ul>
-<li><a href="#21-%E6%B5%8F%E8%A7%88%E5%99%A8%E8%AE%BF%E9%97%AE%E4%BC%98%E5%8C%96">2.1. 浏览器访问优化</a></li>
-<li><a href="#22-cdn">2.2. CDN</a></li>
-<li><a href="#23-%E5%8F%8D%E5%90%91%E4%BB%A3%E7%90%86">2.3. 反向代理</a></li>
-</ul>
-</li>
-<li><a href="#3-%E5%BA%94%E7%94%A8%E6%9C%8D%E5%8A%A1%E6%80%A7%E8%83%BD%E4%BC%98%E5%8C%96">3. 应用服务性能优化</a>
-<ul>
-<li><a href="#31-%E5%88%86%E5%B8%83%E5%BC%8F%E7%BC%93%E5%AD%98">3.1. 分布式缓存</a></li>
-<li><a href="#32-%E5%BC%82%E6%AD%A5%E6%93%8D%E4%BD%9C">3.2. 异步操作</a></li>
-<li><a href="#33-%E4%BD%BF%E7%94%A8%E9%9B%86%E7%BE%A4">3.3. 使用集群</a></li>
-<li><a href="#34-%E4%BB%A3%E7%A0%81%E4%BC%98%E5%8C%96">3.4. 代码优化</a></li>
-</ul>
-</li>
-<li><a href="#4-%E5%AD%98%E5%82%A8%E6%80%A7%E8%83%BD%E4%BC%98%E5%8C%96">4. 存储性能优化</a>
-<ul>
-<li><a href="#41-%E6%9C%BA%E6%A2%B0%E9%94%AE%E7%9B%98%E5%92%8C%E5%9B%BA%E6%80%81%E7%A1%AC%E7%9B%98">4.1. 机械键盘和固态硬盘</a></li>
-<li><a href="#42-b%E6%95%B0%E5%92%8C-lsm-%E6%A0%91">4.2. B+数和 LSM 树</a></li>
-<li><a href="#43-raid-%E5%92%8C-hdfs">4.3. RAID 和 HDFS</a></li>
-</ul>
-</li>
-<li><a href="#5-%E8%B5%84%E6%96%99">5. 资料</a></li>
-</ul>
-<!-- /TOC -->
+        <h1 id="高性能架构"><a class="markdownIt-Anchor" href="#高性能架构"></a> 高性能架构</h1>
 <h2 id="1-性能测试"><a class="markdownIt-Anchor" href="#1-性能测试"></a> 1. 性能测试</h2>
+<blockquote>
+<p>性能测试是性能优化的前提和基础，也是性能优化结果的检查和度量标准。不同视角下的性能有不同标准，也有不同的优化手段。</p>
+</blockquote>
 <h3 id="11-性能指标"><a class="markdownIt-Anchor" href="#11-性能指标"></a> 1.1. 性能指标</h3>
-<p>网站性能测试的主要指标有：</p>
+<p>性能测试的主要指标有：</p>
 <ul>
 <li><strong>响应时间</strong> - 响应时间(RT)是指从客户端发一个请求开始计时，到客户端接收到从服务器端返回的响应结果结束所经历的时间，响应时间由请求发送时间、网络传输时间和服务器处理时间三部分组成。</li>
-<li><strong>并发数</strong> - 系统同时处理的请求、事务数。</li>
-<li><strong>吞吐量</strong> - TPS(每秒事务数)、HPS(每秒 HTTP 请求数)、QPS(每秒查询数)。</li>
+<li><strong>并发数</strong> - 系统能同时处理的请求、事务数。</li>
+<li><strong>吞吐量</strong> - <strong><code>TPS(每秒事务数)</code></strong>、<strong><code>HPS(每秒 HTTP 请求数)</code></strong>、<strong><code>QPS(每秒查询数)</code></strong>。</li>
 <li><strong>性能计数器</strong> - 系统负载、对象与线程数、内存使用、CPU 使用、磁盘与网络 IO 等。这些指标也是系统监控的重要参数。</li>
 </ul>
 <h3 id="12-性能测试方法"><a class="markdownIt-Anchor" href="#12-性能测试方法"></a> 1.2. 性能测试方法</h3>
@@ -385,7 +350,7 @@
 <h3 id="21-浏览器访问优化"><a class="markdownIt-Anchor" href="#21-浏览器访问优化"></a> 2.1. 浏览器访问优化</h3>
 <ol>
 <li><strong>减少 HTTP 请求</strong> - HTTP 请求需要建立通信链路，进行数据传输，开销高昂，所以减少 HTTP 请求数可以有效提高访问性能。减少 HTTP 的主要手段是合并 Css、JavaScript、图片。</li>
-<li><strong>使用浏览器缓存</strong> - 因为静态资源文件更新频率低，可以缓存浏览器中以提高性能。设置 HTTP 头中的 Cache-Control 和 Expires 属性，可以设定浏览器缓存。</li>
+<li><strong>使用浏览器缓存</strong> - 因为静态资源文件更新频率低，可以缓存浏览器中以提高性能。设置 HTTP 头中的 <code>Cache-Control</code> 和 <code>Expires</code> 属性，可设定浏览器缓存。</li>
 <li><strong>启用压缩</strong> - 在服务器端压缩静态资源文件，在浏览器端解压缩，可以有效减少传输的数据量。由于文本文件压缩率可达 80% 以上，所以可以对静态资源，如 Html、Css、JavaScrip 进行压缩。</li>
 <li><strong>CSS 放在页面最上面，JavaScript 放在页面最下面</strong> - 浏览器会在下载完全部的 Css 后才对整个页面进行渲染，所以最好的做法是将 Css 放在页面最上面，让浏览器尽快下载 Css；JavaScript 则相反，浏览器加载 JavaScript 后立即执行，可能会阻塞整个页面，造成页面显示缓慢，因此 JavaScript 最好放在页面最下面。</li>
 <li><strong>减少 Cookie 传输</strong> - Cookie 包含在 HTTP 每次的请求和响应中，太大的 Cookie 会严重影响数据传输。</li>
@@ -406,7 +371,9 @@
 <p>因为所有请求都必须先经过反向代理服务器，所以可以屏蔽一些攻击 IP，达到保护网站安全的作用。</p>
 <h2 id="3-应用服务性能优化"><a class="markdownIt-Anchor" href="#3-应用服务性能优化"></a> 3. 应用服务性能优化</h2>
 <h3 id="31-分布式缓存"><a class="markdownIt-Anchor" href="#31-分布式缓存"></a> 3.1. 分布式缓存</h3>
+<blockquote>
 <p>网站性能优化第一定律：优先考虑使用缓存优化性能。</p>
+</blockquote>
 <h4 id="311-缓存原理"><a class="markdownIt-Anchor" href="#311-缓存原理"></a> 3.1.1. 缓存原理</h4>
 <p>缓存指将数据存储在相对较高访问速度的存储介质中，以供系统处理。一方面缓存访问速度快，可以减少数据访问的时间，另一方面如果缓存的数据是经过计算处理得到的，那么被缓存的数据无需重复计算即可直接使用，因此缓存还起到减少计算时间的作用。</p>
 <p>缓存的本质是一个内存 HASH 表。</p>
@@ -416,15 +383,18 @@
 <ul>
 <li>不要存储频繁修改的数据</li>
 <li>不要存储非热点数据</li>
+<li>数据不一致与脏读：缓存有有效期，所以存在一定时间的数据不一致和脏读问题。如果不能接受，可以考虑使用数据更新立即更新缓存策略</li>
 </ul>
-<p>数据不一致和脏读：</p>
+<p>需要考虑的缓存问题：</p>
 <ul>
-<li>缓存有有效期，所以存在一定时间的数据不一致和脏读问题。如果不能接受，可以考虑使用数据更新立即更新缓存策略</li>
+<li><strong>缓存雪崩</strong> - 当缓存服务崩溃时，数据库会因为不能承受过大的压力而宕机。</li>
+<li><strong>缓存预热</strong> - 对于一些明确的热点数据、元数据，如地名、类目信息等，可以在启动时加载到缓存进行预热。</li>
+<li><strong>缓存穿透</strong> - 如果因不恰当的业务或恶意攻击持续高并发地请求某个不存在的数据，由于缓存中没有该数据，就会导致请求都落在数据库上，导致数据库最终崩溃。一个简单的策略是将不存在的数据也缓存起来（即缓存 null 值）。</li>
 </ul>
-<p>需要考虑缓存问题：缓存雪崩、缓存穿透、缓存预热</p>
 <h3 id="32-异步操作"><a class="markdownIt-Anchor" href="#32-异步操作"></a> 3.2. 异步操作</h3>
+<p>异步处理不仅可以减少系统服务间的耦合度，提高扩展性，事实上，它还可以提高系统的性能。异步处理可以有效减少响应等待时间，从而提高响应速度。</p>
 <p>异步处理一般是通过分布式消息队列的方式。</p>
-<p>异步处理可以解决一下问题：</p>
+<p>异步处理可以解决以下问题：</p>
 <ul>
 <li>异步处理</li>
 <li>应用解耦</li>
@@ -440,12 +410,18 @@
 <p>线程数并非越多越好，那么启动多少线程合适呢？</p>
 <p>有个参考公式：</p>
 <figure class="highlight fix"><table><tr><td class="code"><pre><span class="line"><span class="attr">启动线程数 </span>=<span class="string"> (任务执行时间 / (任务执行时间 - IO 等待时间)) * CPU 内核数</span></span><br></pre></td></tr></table></figure>
-<p>最佳启动线程数和 CPU 内核数成正比，和 IO 阻塞时间成反比。如果任务都是 CPU 计算型任务，那么线程数最多不要超过 CPU 内核数，因为启动再多线程，CPU 也来不及调度；相反如果是任务需要等待磁盘操作，网络响应，那么多启动线程有助于任务并罚赌，提高系统吞吐量。</p>
-<h5 id="线程安全问题"><a class="markdownIt-Anchor" href="#线程安全问题"></a> 线程安全问题</h5>
+<p>最佳启动线程数和 CPU 内核数成正比，和 IO 阻塞时间成反比。</p>
 <ul>
-<li>将对象设计为无状态对象</li>
-<li>使用局部对象</li>
-<li>并发访问资源时使用锁</li>
+<li>如果任务都是 CPU 计算型任务，那么线程数最多不要超过 CPU 内核数，因为启动再多线程，CPU 也来不及调度；</li>
+<li>相反，如果是任务需要等待磁盘操作，网络响应，那么多启动线程有助于任务并罚赌，提高系统吞吐量。</li>
+</ul>
+<h5 id="线程安全问题"><a class="markdownIt-Anchor" href="#线程安全问题"></a> 线程安全问题</h5>
+<p>线程安全问题时指多个线程并发访问某个资源，导致数据混乱。</p>
+<p>解决手段有：</p>
+<ul>
+<li><strong>将对象设计为无状态对象</strong> - 典型应用：Servlet 就是无状态对象，可以被服务器多线程并发调用处理用户请求。</li>
+<li><strong>使用局部对象</strong></li>
+<li><strong>并发访问资源时使用锁</strong> - 但是引入锁会产生性能开销，应尽量使用轻量级的锁。</li>
 </ul>
 <h4 id="342-资源复用"><a class="markdownIt-Anchor" href="#342-资源复用"></a> 3.4.2. 资源复用</h4>
 <p>应该尽量减少那些开销很大的系统资源的创建和销毁，如数据库连接、网络通信连接、线程、复杂对象等。从编程角度，资源复用主要有两种模式：单例模式和对象池。</p>
@@ -457,14 +433,17 @@
 <h3 id="41-机械键盘和固态硬盘"><a class="markdownIt-Anchor" href="#41-机械键盘和固态硬盘"></a> 4.1. 机械键盘和固态硬盘</h3>
 <p>考虑使用固态硬盘替代机械键盘，因为它的读写速度更快。</p>
 <h3 id="42-b数和-lsm-树"><a class="markdownIt-Anchor" href="#42-b数和-lsm-树"></a> 4.2. B+数和 LSM 树</h3>
-<p>传统关系数据库的数据库索引一般都使用两级索引的 B+ 树结构，树的层次最多三层。因此可能需要 5 次磁盘访问才能更新一条记录（三次磁盘访问获得数据索引及行 ID，然后再进行一次数据文件读操作及一次数据文件写操作）。</p>
+<p>传统关系数据库的数据库索引一般都使用两级索引的 <strong>B+ 树</strong> 结构，树的层次最多三层。因此可能需要 5 次磁盘访问才能更新一条记录（三次磁盘访问获得数据索引及行 ID，然后再进行一次数据文件读操作及一次数据文件写操作）。</p>
 <p>由于磁盘访问是随机的，传统机械键盘在数据随机访问时性能较差，每次数据访问都需要多次访问磁盘影响数据访问性能。</p>
-<p>许多 Nosql 数据库中的索引采用 LSM 树作为主要数据结构。LSM 树可视为一个 N 阶合并树。数据写操作都在内存中进行。在 LSM 树上进行一次数据更新不需要磁盘访问，速度远快于 B+ 树。</p>
+<p>许多 Nosql 数据库中的索引采用 <strong>LSM 树</strong> 作为主要数据结构。LSM 树可视为一个 N 阶合并树。数据写操作都在内存中进行。在 <strong>LSM 树上进行一次数据更新不需要磁盘访问，速度远快于 B+ 树</strong>。</p>
 <h3 id="43-raid-和-hdfs"><a class="markdownIt-Anchor" href="#43-raid-和-hdfs"></a> 4.3. RAID 和 HDFS</h3>
-<p>HDFS(分布式文件系统) 更被大型网站所青睐。它可以配合 MapReduce 并发计算任务框架进行大数据处理，可以在整个集群上并发访问所有磁盘，无需 RAID 支持。</p>
-<h2 id="5-资料"><a class="markdownIt-Anchor" href="#5-资料"></a> 5. 资料</h2>
+<p>RAID 是 Redundant Array of Independent Disks 的缩写，中文简称为独立冗余磁盘阵列。</p>
+<p>RAID 是一种把多块独立的硬盘（物理硬盘）按不同的方式组合起来形成一个硬盘组（逻辑硬盘），从而提供比单个硬盘更高的存储性能和提供数据备份技术。</p>
+<p>HDFS(分布式文件系统) 更被大型网站所青睐。它可以配合 <code>MapReduce</code> 并发计算任务框架进行大数据处理，可以在整个集群上并发访问所有磁盘，无需 RAID 支持。</p>
+<p>HDFS 对数据存储空间的管理以数据块（Block）为单位，默认为 64 MB。所以，HDFS 更适合存储较大的文件。</p>
+<h2 id="5-参考资料"><a class="markdownIt-Anchor" href="#5-参考资料"></a> 5. 参考资料</h2>
 <ul>
-<li><a href="https://item.jd.com/11322972.html" target="_blank" rel="noopener">大型网站技术架构</a></li>
+<li><a href="https://item.jd.com/11322972.html" target="_blank" rel="noopener">大型网站技术架构：核心原理与案例分析</a></li>
 </ul>
 
     </div>
@@ -481,7 +460,7 @@
   </li>
   <li class="post-copyright-link">
     <strong>本文链接：</strong>
-    <a href="https://dunwu.github.io/blog/design/architecture/%E7%BD%91%E7%AB%99%E7%9A%84%E9%AB%98%E6%80%A7%E8%83%BD%E6%9E%B6%E6%9E%84/" title="网站的高性能架构">https://dunwu.github.io/blog/design/architecture/%E7%BD%91%E7%AB%99%E7%9A%84%E9%AB%98%E6%80%A7%E8%83%BD%E6%9E%B6%E6%9E%84/</a>
+    <a href="https://dunwu.github.io/blog/design/architecture/high-performance-architecture/" title="高性能架构">https://dunwu.github.io/blog/design/architecture/high-performance-architecture/</a>
   </li>
   <li class="post-copyright-license">
     <strong>版权声明： </strong>本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh" rel="noopener" target="_blank"><i class="fa fa-fw fa-creative-commons"></i>BY-NC-SA</a> 许可协议。转载请注明出处！
@@ -494,22 +473,23 @@
           <div class="post-tags">
               <a href="/blog/tags/%E8%AE%BE%E8%AE%A1/" rel="tag"># 设计</a>
               <a href="/blog/tags/%E6%9E%B6%E6%9E%84/" rel="tag"># 架构</a>
+              <a href="/blog/tags/%E6%80%A7%E8%83%BD/" rel="tag"># 性能</a>
           </div>
 
         
 
           <div class="post-nav">
             <div class="post-nav-next post-nav-item">
-                <a href="/blog/design/architecture/%E5%A4%A7%E5%9E%8B%E5%88%86%E5%B8%83%E5%BC%8F%E7%BD%91%E7%AB%99%E6%9E%B6%E6%9E%84/" rel="next" title="大型分布式网站架构">
-                  <i class="fa fa-chevron-left"></i> 大型分布式网站架构
+                <a href="/blog/design/architecture/scalable-architecture/" rel="next" title="伸缩性架构">
+                  <i class="fa fa-chevron-left"></i> 伸缩性架构
                 </a>
             </div>
 
             <span class="post-nav-divider"></span>
 
             <div class="post-nav-prev post-nav-item">
-                <a href="/blog/design/architecture/%E7%BD%91%E7%AB%99%E5%85%B8%E5%9E%8B%E6%95%85%E9%9A%9C/" rel="prev" title="网站典型故障">
-                  网站典型故障 <i class="fa fa-chevron-right"></i>
+                <a href="/blog/design/theory/load-balance-theory/" rel="prev" title="负载均衡基本原理">
+                  负载均衡基本原理 <i class="fa fa-chevron-right"></i>
                 </a>
             </div>
           </div>
@@ -556,7 +536,7 @@
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
-          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#网站的高性能架构"><span class="nav-text"> 网站的高性能架构</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#1-性能测试"><span class="nav-text"> 1. 性能测试</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#11-性能指标"><span class="nav-text"> 1.1. 性能指标</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#12-性能测试方法"><span class="nav-text"> 1.2. 性能测试方法</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#13-性能测试报告"><span class="nav-text"> 1.3. 性能测试报告</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#14-性能优化策略"><span class="nav-text"> 1.4. 性能优化策略</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-前端性能优化"><span class="nav-text"> 2. 前端性能优化</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#21-浏览器访问优化"><span class="nav-text"> 2.1. 浏览器访问优化</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#22-cdn"><span class="nav-text"> 2.2. CDN</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#23-反向代理"><span class="nav-text"> 2.3. 反向代理</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#3-应用服务性能优化"><span class="nav-text"> 3. 应用服务性能优化</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#31-分布式缓存"><span class="nav-text"> 3.1. 分布式缓存</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#311-缓存原理"><span class="nav-text"> 3.1.1. 缓存原理</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#312-合理使用缓存"><span class="nav-text"> 3.1.2. 合理使用缓存</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#32-异步操作"><span class="nav-text"> 3.2. 异步操作</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#33-使用集群"><span class="nav-text"> 3.3. 使用集群</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#34-代码优化"><span class="nav-text"> 3.4. 代码优化</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#341-多线程"><span class="nav-text"> 3.4.1. 多线程</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#342-资源复用"><span class="nav-text"> 3.4.2. 资源复用</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#343-数据结构"><span class="nav-text"> 3.4.3. 数据结构</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#344-垃圾回收"><span class="nav-text"> 3.4.4. 垃圾回收</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#4-存储性能优化"><span class="nav-text"> 4. 存储性能优化</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#41-机械键盘和固态硬盘"><span class="nav-text"> 4.1. 机械键盘和固态硬盘</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#42-b数和-lsm-树"><span class="nav-text"> 4.2. B+数和 LSM 树</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#43-raid-和-hdfs"><span class="nav-text"> 4.3. RAID 和 HDFS</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#5-资料"><span class="nav-text"> 5. 资料</span></a></li></ol></li></ol></div>
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#高性能架构"><span class="nav-text"> 高性能架构</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#1-性能测试"><span class="nav-text"> 1. 性能测试</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#11-性能指标"><span class="nav-text"> 1.1. 性能指标</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#12-性能测试方法"><span class="nav-text"> 1.2. 性能测试方法</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#13-性能测试报告"><span class="nav-text"> 1.3. 性能测试报告</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#14-性能优化策略"><span class="nav-text"> 1.4. 性能优化策略</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-前端性能优化"><span class="nav-text"> 2. 前端性能优化</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#21-浏览器访问优化"><span class="nav-text"> 2.1. 浏览器访问优化</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#22-cdn"><span class="nav-text"> 2.2. CDN</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#23-反向代理"><span class="nav-text"> 2.3. 反向代理</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#3-应用服务性能优化"><span class="nav-text"> 3. 应用服务性能优化</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#31-分布式缓存"><span class="nav-text"> 3.1. 分布式缓存</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#311-缓存原理"><span class="nav-text"> 3.1.1. 缓存原理</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#312-合理使用缓存"><span class="nav-text"> 3.1.2. 合理使用缓存</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#32-异步操作"><span class="nav-text"> 3.2. 异步操作</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#33-使用集群"><span class="nav-text"> 3.3. 使用集群</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#34-代码优化"><span class="nav-text"> 3.4. 代码优化</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#341-多线程"><span class="nav-text"> 3.4.1. 多线程</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#342-资源复用"><span class="nav-text"> 3.4.2. 资源复用</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#343-数据结构"><span class="nav-text"> 3.4.3. 数据结构</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#344-垃圾回收"><span class="nav-text"> 3.4.4. 垃圾回收</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#4-存储性能优化"><span class="nav-text"> 4. 存储性能优化</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#41-机械键盘和固态硬盘"><span class="nav-text"> 4.1. 机械键盘和固态硬盘</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#42-b数和-lsm-树"><span class="nav-text"> 4.2. B+数和 LSM 树</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#43-raid-和-hdfs"><span class="nav-text"> 4.3. RAID 和 HDFS</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#5-参考资料"><span class="nav-text"> 5. 参考资料</span></a></li></ol></li></ol></div>
       </div>
       <!--/noindex-->
 
@@ -572,7 +552,7 @@
       <div class="site-state-item site-state-posts">
           <a href="/blog/archives/">
         
-          <span class="site-state-item-count">71</span>
+          <span class="site-state-item-count">68</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
@@ -585,7 +565,7 @@
       <div class="site-state-item site-state-tags">
             <a href="/blog/tags/">
           
-        <span class="site-state-item-count">38</span>
+        <span class="site-state-item-count">40</span>
         <span class="site-state-item-name">标签</span></a>
       </div>
   </nav>
@@ -630,12 +610,12 @@
     <span class="post-meta-item-icon">
       <i class="fa fa-area-chart"></i>
     </span>
-    <span title="站点总字数">354k</span>
+    <span title="站点总字数">351k</span>
     <span class="post-meta-divider">|</span>
     <span class="post-meta-item-icon">
       <i class="fa fa-coffee"></i>
     </span>
-    <span title="站点阅读时长">5:22</span>
+    <span title="站点阅读时长">5:19</span>
 </div>
 
         
@@ -707,9 +687,9 @@
       DISQUS.reset({
         reload: true,
         config: {page: {
-            url: "https://dunwu.github.io/blog/design/architecture/%E7%BD%91%E7%AB%99%E7%9A%84%E9%AB%98%E6%80%A7%E8%83%BD%E6%9E%B6%E6%9E%84/",
-            identifier: "design/architecture/网站的高性能架构/",
-            title: "网站的高性能架构"
+            url: "https://dunwu.github.io/blog/design/architecture/high-performance-architecture/",
+            identifier: "design/architecture/high-performance-architecture/",
+            title: "高性能架构"
           }
         }
       });

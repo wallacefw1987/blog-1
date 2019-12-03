@@ -52,18 +52,18 @@
   };
 </script>
 
-  <meta name="description" content="网站的安全架构  📓 本文已归档到：「blog」 关键词：XSS、CSRF、SQL 注入、DoS、消息摘要、加密算法、证书    1. 网站安全的攻与防  1.1. 跨站脚本攻击（XSS） 1.2. 跨站请求伪造（CSRF） 1.3. SQL 注入攻击 1.4. 拒绝服务攻击（DoS）   2. 加密技术及密钥安全管理  2.1. 消息摘要 2.2. 加密算法 2.3. 证书   3. 资料">
-<meta name="keywords" content="设计,架构">
+  <meta name="description" content="安全性架构  关键词：XSS、CSRF、SQL 注入、DoS、消息摘要、加密算法、证书   1. 网站安全的攻与防 互联网环境鱼龙混杂，网站被攻击是常见现象，所以了解一些常见的网站攻击手段十分必要。下面列举比较常见的 4 种攻击手段：  1.1. 跨站脚本攻击（XSS）  1.1.1. 概念 跨站脚本攻击（Cross-Site Scripting, XSS），是一种网站应用程序的安全漏洞攻击，是">
+<meta name="keywords" content="设计,架构,安全">
 <meta property="og:type" content="article">
-<meta property="og:title" content="网站的安全架构">
-<meta property="og:url" content="https:&#x2F;&#x2F;dunwu.github.io&#x2F;blog&#x2F;design&#x2F;architecture&#x2F;%E7%BD%91%E7%AB%99%E7%9A%84%E5%AE%89%E5%85%A8%E6%9E%B6%E6%9E%84&#x2F;index.html">
+<meta property="og:title" content="安全性架构">
+<meta property="og:url" content="https:&#x2F;&#x2F;dunwu.github.io&#x2F;blog&#x2F;design&#x2F;architecture&#x2F;secure-architecture&#x2F;index.html">
 <meta property="og:site_name" content="Dunwu">
-<meta property="og:description" content="网站的安全架构  📓 本文已归档到：「blog」 关键词：XSS、CSRF、SQL 注入、DoS、消息摘要、加密算法、证书    1. 网站安全的攻与防  1.1. 跨站脚本攻击（XSS） 1.2. 跨站请求伪造（CSRF） 1.3. SQL 注入攻击 1.4. 拒绝服务攻击（DoS）   2. 加密技术及密钥安全管理  2.1. 消息摘要 2.2. 加密算法 2.3. 证书   3. 资料">
+<meta property="og:description" content="安全性架构  关键词：XSS、CSRF、SQL 注入、DoS、消息摘要、加密算法、证书   1. 网站安全的攻与防 互联网环境鱼龙混杂，网站被攻击是常见现象，所以了解一些常见的网站攻击手段十分必要。下面列举比较常见的 4 种攻击手段：  1.1. 跨站脚本攻击（XSS）  1.1.1. 概念 跨站脚本攻击（Cross-Site Scripting, XSS），是一种网站应用程序的安全漏洞攻击，是">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:updated_time" content="2019-11-27T08:36:22.643Z">
+<meta property="og:updated_time" content="2019-12-03T07:27:49.247Z">
 <meta name="twitter:card" content="summary">
 
-<link rel="canonical" href="https://dunwu.github.io/blog/design/architecture/%E7%BD%91%E7%AB%99%E7%9A%84%E5%AE%89%E5%85%A8%E6%9E%B6%E6%9E%84/">
+<link rel="canonical" href="https://dunwu.github.io/blog/design/architecture/secure-architecture/">
 
 
 <script id="page-configurations">
@@ -77,7 +77,7 @@
   };
 </script>
 
-  <title>网站的安全架构 | Dunwu</title>
+  <title>安全性架构 | Dunwu</title>
   
 
 
@@ -155,7 +155,7 @@
   </li>
         <li class="menu-item menu-item-tags">
 
-    <a href="/blog/tags/" rel="section"><i class="fa fa-fw fa-tags"></i>标签<span class="badge">38</span></a>
+    <a href="/blog/tags/" rel="section"><i class="fa fa-fw fa-tags"></i>标签<span class="badge">40</span></a>
 
   </li>
         <li class="menu-item menu-item-categories">
@@ -165,7 +165,7 @@
   </li>
         <li class="menu-item menu-item-archives">
 
-    <a href="/blog/archives/" rel="section"><i class="fa fa-fw fa-archive"></i>归档<span class="badge">71</span></a>
+    <a href="/blog/archives/" rel="section"><i class="fa fa-fw fa-archive"></i>归档<span class="badge">68</span></a>
 
   </li>
       <li class="menu-item menu-item-search">
@@ -223,7 +223,7 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block " lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="https://dunwu.github.io/blog/blog/design/architecture/%E7%BD%91%E7%AB%99%E7%9A%84%E5%AE%89%E5%85%A8%E6%9E%B6%E6%9E%84/">
+    <link itemprop="mainEntityOfPage" href="https://dunwu.github.io/blog/blog/design/architecture/secure-architecture/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/blog/images/avatar.gif">
@@ -236,7 +236,7 @@
     </span>
       <header class="post-header">
         <h2 class="post-title" itemprop="name headline">
-          网站的安全架构<a href="https://github.com/dunwu/blog/blob/master/source/_posts/design/architecture/%E7%BD%91%E7%AB%99%E7%9A%84%E5%AE%89%E5%85%A8%E6%9E%B6%E6%9E%84.md" class="post-edit-link" title="编辑" rel="noopener" target="_blank"><i class="fa fa-pencil"></i></a>
+          安全性架构<a href="https://github.com/dunwu/blog/blob/master/source/_posts/design/architecture/secure-architecture.md" class="post-edit-link" title="编辑" rel="noopener" target="_blank"><i class="fa fa-pencil"></i></a>
         </h2>
 
         <div class="post-meta">
@@ -253,7 +253,7 @@
                   <i class="fa fa-calendar-check-o"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2019-11-27 16:36:22" itemprop="dateModified" datetime="2019-11-27T16:36:22+08:00">2019-11-27</time>
+                <time title="修改时间：2019-12-03 15:27:49" itemprop="dateModified" datetime="2019-12-03T15:27:49+08:00">2019-12-03</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -282,8 +282,8 @@
       </span>
       <span class="post-meta-item-text">Disqus：</span>
     
-    <a title="disqus" href="/blog/design/architecture/%E7%BD%91%E7%AB%99%E7%9A%84%E5%AE%89%E5%85%A8%E6%9E%B6%E6%9E%84/#comments" itemprop="discussionUrl">
-      <span class="post-comments-count disqus-comment-count" data-disqus-identifier="design/architecture/网站的安全架构/" itemprop="commentCount"></span>
+    <a title="disqus" href="/blog/design/architecture/secure-architecture/#comments" itemprop="discussionUrl">
+      <span class="post-comments-count disqus-comment-count" data-disqus-identifier="design/architecture/secure-architecture/" itemprop="commentCount"></span>
     </a>
   </span>
   
@@ -293,14 +293,14 @@
                 <i class="fa fa-file-word-o"></i>
               </span>
                 <span class="post-meta-item-text">本文字数：</span>
-              <span>5.7k</span>
+              <span>6.7k</span>
             </span>
             <span class="post-meta-item" title="阅读时长">
               <span class="post-meta-item-icon">
                 <i class="fa fa-clock-o"></i>
               </span>
                 <span class="post-meta-item-text">阅读时长 &asymp;</span>
-              <span>5 分钟</span>
+              <span>6 分钟</span>
             </span>
 
         </div>
@@ -312,36 +312,15 @@
     <div class="post-body" itemprop="articleBody">
 
       
-        <h1 id="网站的安全架构"><a class="markdownIt-Anchor" href="#网站的安全架构"></a> 网站的安全架构</h1>
+        <h1 id="安全性架构"><a class="markdownIt-Anchor" href="#安全性架构"></a> 安全性架构</h1>
 <blockquote>
-<p>📓 本文已归档到：「<a href="https://github.com/dunwu/blog" target="_blank" rel="noopener">blog</a>」</p>
 <p>关键词：XSS、CSRF、SQL 注入、DoS、消息摘要、加密算法、证书</p>
 </blockquote>
-<!-- TOC depthFrom:2 depthTo:3 -->
-<ul>
-<li><a href="#1-%E7%BD%91%E7%AB%99%E5%AE%89%E5%85%A8%E7%9A%84%E6%94%BB%E4%B8%8E%E9%98%B2">1. 网站安全的攻与防</a>
-<ul>
-<li><a href="#11-%E8%B7%A8%E7%AB%99%E8%84%9A%E6%9C%AC%E6%94%BB%E5%87%BBxss">1.1. 跨站脚本攻击（XSS）</a></li>
-<li><a href="#12-%E8%B7%A8%E7%AB%99%E8%AF%B7%E6%B1%82%E4%BC%AA%E9%80%A0csrf">1.2. 跨站请求伪造（CSRF）</a></li>
-<li><a href="#13-sql-%E6%B3%A8%E5%85%A5%E6%94%BB%E5%87%BB">1.3. SQL 注入攻击</a></li>
-<li><a href="#14-%E6%8B%92%E7%BB%9D%E6%9C%8D%E5%8A%A1%E6%94%BB%E5%87%BBdos">1.4. 拒绝服务攻击（DoS）</a></li>
-</ul>
-</li>
-<li><a href="#2-%E5%8A%A0%E5%AF%86%E6%8A%80%E6%9C%AF%E5%8F%8A%E5%AF%86%E9%92%A5%E5%AE%89%E5%85%A8%E7%AE%A1%E7%90%86">2. 加密技术及密钥安全管理</a>
-<ul>
-<li><a href="#21-%E6%B6%88%E6%81%AF%E6%91%98%E8%A6%81">2.1. 消息摘要</a></li>
-<li><a href="#22-%E5%8A%A0%E5%AF%86%E7%AE%97%E6%B3%95">2.2. 加密算法</a></li>
-<li><a href="#23-%E8%AF%81%E4%B9%A6">2.3. 证书</a></li>
-</ul>
-</li>
-<li><a href="#3-%E8%B5%84%E6%96%99">3. 资料</a></li>
-</ul>
-<!-- /TOC -->
 <h2 id="1-网站安全的攻与防"><a class="markdownIt-Anchor" href="#1-网站安全的攻与防"></a> 1. 网站安全的攻与防</h2>
 <p>互联网环境鱼龙混杂，网站被攻击是常见现象，所以了解一些常见的网站攻击手段十分必要。下面列举比较常见的 4 种攻击手段：</p>
 <h3 id="11-跨站脚本攻击xss"><a class="markdownIt-Anchor" href="#11-跨站脚本攻击xss"></a> 1.1. 跨站脚本攻击（XSS）</h3>
 <h4 id="111-概念"><a class="markdownIt-Anchor" href="#111-概念"></a> 1.1.1. 概念</h4>
-<p>跨站脚本攻击（Cross-Site Scripting, XSS），是一种网站应用程序的安全漏洞攻击，是代码注入的一种。它允许恶意用户将代码注入到网页上，其他用户在观看网页时就会受到影响。这类攻击通常包含了 HTML 以及用户端脚本语言。</p>
+<p>跨站脚本攻击（Cross-Site Scripting, XSS），是一种网站应用程序的安全漏洞攻击，是代码注****入的一种。它允许恶意用户将代码注入到网页上，其他用户在观看网页时就会受到影响。这类攻击通常包含了 HTML 以及用户端脚本语言。</p>
 <p>XSS 攻击示例：</p>
 <p>假如有下面一个 textbox</p>
 <figure class="highlight html"><table><tr><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">input</span> <span class="attr">type</span>=<span class="string">"text"</span> <span class="attr">name</span>=<span class="string">"address1"</span> <span class="attr">value</span>=<span class="string">"value1from"</span> /&gt;</span></span><br></pre></td></tr></table></figure>
@@ -352,8 +331,8 @@
 <p>常用的 XSS 攻击手段和目的有：</p>
 <ul>
 <li>盗用 cookie，获取敏感信息。</li>
-<li>利用植入 Flash，通过 crossdomain 权限设置进一步获取更高权限；或者利用 Java 等得到类似的操作。</li>
-<li>利用 iframe、frame、XMLHttpRequest 或上述 Flash 等方式，以（被攻击）用户的身份执行一些管理动作，或执行一些一般的如发微博、加好友、发私信等操作。</li>
+<li>利用植入 Flash，通过 <code>crossdomain</code> 权限设置进一步获取更高权限；或者利用 Java 等得到类似的操作。</li>
+<li>利用 <code>iframe</code>、<code>frame</code>、<code>XMLHttpRequest</code> 或上述 Flash 等方式，以（被攻击）用户的身份执行一些管理动作，或执行一些一般的如发微博、加好友、发私信等操作。</li>
 <li>利用可被攻击的域受到其他域信任的特点，以受信任来源的身份请求一些平时不允许的操作，如进行不当的投票活动。</li>
 <li>在访问量极大的一些页面上的 XSS 可以攻击一些小型网站，实现 DDoS 攻击的效果。</li>
 </ul>
@@ -371,7 +350,7 @@
 </blockquote>
 <h3 id="12-跨站请求伪造csrf"><a class="markdownIt-Anchor" href="#12-跨站请求伪造csrf"></a> 1.2. 跨站请求伪造（CSRF）</h3>
 <h4 id="121-概念"><a class="markdownIt-Anchor" href="#121-概念"></a> 1.2.1. 概念</h4>
-<p>跨站请求伪造（Cross-site request forgery，CSRF），也被称为 one-click attack 或者 session riding，通常缩写为 CSRF 或者 XSRF。它 是一种挟制用户在当前已登录的 Web 应用程序上执行非本意的操作的攻击方法。和跨站脚本（XSS）相比，XSS 利用的是用户对指定网站的信任，CSRF 利用的是网站对用户网页浏览器的信任。</p>
+<p>跨站请求伪造（Cross-site request forgery，CSRF），也被称为 one-click attack 或者 session riding，通常缩写为 CSRF 或者 XSRF。它是一种挟持用户在当前已登录的 Web 应用程序上执行非本意的操作的攻击方法。和跨站脚本（XSS）相比，XSS 利用的是用户对指定网站的信任，CSRF 利用的是网站对用户网页浏览器的信任。</p>
 <h4 id="122-攻击手段和目的"><a class="markdownIt-Anchor" href="#122-攻击手段和目的"></a> 1.2.2. 攻击手段和目的</h4>
 <p>可以如此理解 CSRF：攻击者盗用了你的身份，以你的名义发送恶意请求。</p>
 <p>CSRF 能做的事太多：</p>
@@ -428,7 +407,7 @@
 <h4 id="133-应对手段"><a class="markdownIt-Anchor" href="#133-应对手段"></a> 1.3.3. 应对手段</h4>
 <ul>
 <li><strong>使用参数化查询</strong> - 建议使用数据库提供的参数化查询接口，参数化的语句使用参数而不是将用户输入变量嵌入到 SQL 语句中，即不要直接拼接 SQL 语句。例如使用 database/sql 里面的查询函数 <code>Prepare</code> 和 <code>Query</code> ，或者 <code>Exec(query string, args ...interface{})</code>。</li>
-<li><strong>单引号转换</strong> - 在组合 SQL 字符串时，先针对所传入的参数作字符取代（将单引号字符取代为连续 2 个单引号字符）。</li>
+<li><strong>单引号转换</strong> - 在组合 SQL 字符串时，先针对所传入的参数进行字符替换（将单引号字符替换为连续 2 个单引号字符）。</li>
 </ul>
 <blockquote>
 <p>👉 参考阅读：</p>
@@ -448,9 +427,9 @@
 </ul>
 <h4 id="142-应对手段"><a class="markdownIt-Anchor" href="#142-应对手段"></a> 1.4.2. 应对手段</h4>
 <ul>
-<li>防火墙 - 允许或拒绝特定通讯协议，端口或 IP 地址。当攻击从少数不正常的 IP 地址发出时，可以简单的使用拒绝规则阻止一切从攻击源 IP 发出的通信。</li>
-<li>路由器、交换机 - 具有速度限制和访问控制能力。</li>
-<li>流量清洗 - 通过采用抗 DDoS 软件处理，将正常流量和恶意流量区分开。</li>
+<li><strong>防火墙</strong> - 允许或拒绝特定通讯协议，端口或 IP 地址。当攻击从少数不正常的 IP 地址发出时，可以简单的使用拒绝规则阻止一切从攻击源 IP 发出的通信。</li>
+<li><strong>路由器、交换机</strong> - 具有速度限制和访问控制能力。</li>
+<li><strong>流量清洗</strong> - 通过采用抗 DDoS 软件处理，将正常流量和恶意流量区分开。</li>
 </ul>
 <blockquote>
 <p>👉 参考阅读：</p>
@@ -528,9 +507,41 @@
 <li><a href="http://www.ruanyifeng.com/blog/2014/02/ssl_tls.html" target="_blank" rel="noopener">SSL/TLS 协议运行机制的概述</a></li>
 </ul>
 </blockquote>
-<h2 id="3-资料"><a class="markdownIt-Anchor" href="#3-资料"></a> 3. 资料</h2>
+<h2 id="3-信息过滤与反垃圾"><a class="markdownIt-Anchor" href="#3-信息过滤与反垃圾"></a> 3. 信息过滤与反垃圾</h2>
+<p>在网络中，广告和垃圾信息屡见不鲜，泛滥成灾。</p>
+<p>常见的信息过滤与反垃圾手段有：</p>
+<h3 id="31-文本匹配"><a class="markdownIt-Anchor" href="#31-文本匹配"></a> 3.1. 文本匹配</h3>
+<p>解决敏感词过滤。系统维护一份敏感词清单，如果信息中含有敏感词，则自动进行过滤或拒绝信息。</p>
+<h3 id="32-黑名单"><a class="markdownIt-Anchor" href="#32-黑名单"></a> 3.2. 黑名单</h3>
+<p>黑名单就是将一些已经被识别出有违规行为的 IP、域名、邮箱等加入黑名单，拒绝其请求。</p>
+<p>黑名单可以通过 Hash 表来实现，方法简单，复杂度小，适于一般应用场景。</p>
+<p>但如果黑名单列表非常大时，Hash 表要占用很大的内存空间，这时就不再使用了。这种情况下，可以使用布隆过滤器来实现，即通过一个二进制列表和一组随机数映射函数来实现。</p>
+<h3 id="33-分类算法"><a class="markdownIt-Anchor" href="#33-分类算法"></a> 3.3. 分类算法</h3>
+<p>对于海量信息，难以通过人工去审核。对广告贴。</p>
+<p>垃圾邮件等内容的识别比较好的自动化方法就是采用分类算法。</p>
+<p>简单来说，即将批量已分类的样本输入分类算法进行训练，得到一个分类模型，然后利用分类算法结合分类模型去对信息进行识别。想了解具体做法，需要去理解机器学习相关知识。</p>
+<h2 id="4-风险控制"><a class="markdownIt-Anchor" href="#4-风险控制"></a> 4. 风险控制</h2>
+<p>网络给商务、金融领域带来极大便利的同时，也将风险带给了对网络安全一无所知的人们。由于交易双方信息的不对等，使得交易存在着风险，而当交易发生在网络上时，风险就更加难以控制了。</p>
+<h3 id="41-风险种类"><a class="markdownIt-Anchor" href="#41-风险种类"></a> 4.1. 风险种类</h3>
 <ul>
-<li><a href="https://item.jd.com/11322972.html" target="_blank" rel="noopener">大型网站技术架构</a></li>
+<li>账户风险 - 盗用账户、恶意注册账户等</li>
+<li>买家风险 - 虚假询盘、恶意拒收、恶意下单、黄牛党抢购热门商品等</li>
+<li>卖家风险 - 虚假发货、出售违禁品、侵权等</li>
+<li>交易风险 - 信用卡盗刷、交易欺诈、洗钱、套现、电信诈骗等</li>
+</ul>
+<h3 id="42-风险控制手段"><a class="markdownIt-Anchor" href="#42-风险控制手段"></a> 4.2. 风险控制手段</h3>
+<p>大型电商网站系统或金融系统都配备专业的风控团队进行风险控制。风险控制手段既包括人工审核也包括自动审核。</p>
+<p>自动风控的技术手段主要有规则引擎和统计模型。</p>
+<h3 id="43-规则引擎"><a class="markdownIt-Anchor" href="#43-规则引擎"></a> 4.3. 规则引擎</h3>
+<p>在交易中，买家、卖家的某些指标满足一定条件时，就会被认为存在风险。如：交易金额超过某个数值；用户来自黑名单；用户和上次登录的地址距离差距很大；用户在一定时间内频繁交易等等。</p>
+<p>如果以上这些条件都通过 if … else … 式样的代码去实现，代码维护、扩展会非常不便。因此，就有了规则引擎来处理这类问题。规则引擎是一种将业务规则和规则处理逻辑相分离的技术，业务规则由运营人员通过管理界面去编辑，实现无需修改代码，即可实时的使用新规则。</p>
+<h3 id="44-统计模型"><a class="markdownIt-Anchor" href="#44-统计模型"></a> 4.4. 统计模型</h3>
+<p>规则引擎虽然技术简单，但是随着规则不断增加，规模越来越大。可能会出现规则冲突，难以维护的情况，并且规则越多，性能也越差。</p>
+<p>为了解决这种问题，就有了统计模型。统计模型会使用分类算法或更复杂的机器学习算法进行智能统计。根据历史交易中的信息训练分类，然后将经过采集加工后的交易信息输入分类算法，得到交易风险值，然后基于此，做出预测。</p>
+<p>经过充分训练后的统计模型，准确率不低于规则引擎。但是，需要有领域专家、行业专家介入，建立合理的训练模型，并不断优化。</p>
+<h2 id="5-参考资料"><a class="markdownIt-Anchor" href="#5-参考资料"></a> 5. 参考资料</h2>
+<ul>
+<li><a href="https://item.jd.com/11322972.html" target="_blank" rel="noopener">大型网站技术架构：核心原理与案例分析</a></li>
 <li><a href="https://zh.wikipedia.org/wiki/%E8%B7%A8%E7%B6%B2%E7%AB%99%E6%8C%87%E4%BB%A4%E7%A2%BC" target="_blank" rel="noopener">Wiki 词条 - 跨站脚本</a></li>
 <li><a href="https://www.cnblogs.com/TankXiao/archive/2012/03/21/2337194.html" target="_blank" rel="noopener">Web 安全测试之 XSS</a></li>
 <li><a href="https://zh.wikipedia.org/wiki/%E8%B7%A8%E7%AB%99%E8%AF%B7%E6%B1%82%E4%BC%AA%E9%80%A0" target="_blank" rel="noopener">Wiki 词条 - 跨站请求伪造</a></li>
@@ -560,7 +571,7 @@
   </li>
   <li class="post-copyright-link">
     <strong>本文链接：</strong>
-    <a href="https://dunwu.github.io/blog/design/architecture/%E7%BD%91%E7%AB%99%E7%9A%84%E5%AE%89%E5%85%A8%E6%9E%B6%E6%9E%84/" title="网站的安全架构">https://dunwu.github.io/blog/design/architecture/%E7%BD%91%E7%AB%99%E7%9A%84%E5%AE%89%E5%85%A8%E6%9E%B6%E6%9E%84/</a>
+    <a href="https://dunwu.github.io/blog/design/architecture/secure-architecture/" title="安全性架构">https://dunwu.github.io/blog/design/architecture/secure-architecture/</a>
   </li>
   <li class="post-copyright-license">
     <strong>版权声明： </strong>本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh" rel="noopener" target="_blank"><i class="fa fa-fw fa-creative-commons"></i>BY-NC-SA</a> 许可协议。转载请注明出处！
@@ -573,22 +584,23 @@
           <div class="post-tags">
               <a href="/blog/tags/%E8%AE%BE%E8%AE%A1/" rel="tag"># 设计</a>
               <a href="/blog/tags/%E6%9E%B6%E6%9E%84/" rel="tag"># 架构</a>
+              <a href="/blog/tags/%E5%AE%89%E5%85%A8/" rel="tag"># 安全</a>
           </div>
 
         
 
           <div class="post-nav">
             <div class="post-nav-next post-nav-item">
-                <a href="/blog/design/architecture/%E7%BD%91%E7%AB%99%E7%9A%84%E5%8F%AF%E6%89%A9%E5%B1%95%E6%9E%B6%E6%9E%84/" rel="next" title="网站的可扩展架构">
-                  <i class="fa fa-chevron-left"></i> 网站的可扩展架构
+                <a href="/blog/design/architecture/system-architecture-overview/" rel="next" title="系统架构概述">
+                  <i class="fa fa-chevron-left"></i> 系统架构概述
                 </a>
             </div>
 
             <span class="post-nav-divider"></span>
 
             <div class="post-nav-prev post-nav-item">
-                <a href="/blog/design/architecture/%E7%BD%91%E7%AB%99%E7%9A%84%E9%AB%98%E5%8F%AF%E7%94%A8%E6%9E%B6%E6%9E%84/" rel="prev" title="网站的高可用架构">
-                  网站的高可用架构 <i class="fa fa-chevron-right"></i>
+                <a href="/blog/design/architecture/scalable-architecture/" rel="prev" title="伸缩性架构">
+                  伸缩性架构 <i class="fa fa-chevron-right"></i>
                 </a>
             </div>
           </div>
@@ -635,7 +647,7 @@
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
-          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#网站的安全架构"><span class="nav-text"> 网站的安全架构</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#1-网站安全的攻与防"><span class="nav-text"> 1. 网站安全的攻与防</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#11-跨站脚本攻击xss"><span class="nav-text"> 1.1. 跨站脚本攻击（XSS）</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#111-概念"><span class="nav-text"> 1.1.1. 概念</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#112-攻击手段和目的"><span class="nav-text"> 1.1.2. 攻击手段和目的</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#113-应对手段"><span class="nav-text"> 1.1.3. 应对手段</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#12-跨站请求伪造csrf"><span class="nav-text"> 1.2. 跨站请求伪造（CSRF）</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#121-概念"><span class="nav-text"> 1.2.1. 概念</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#122-攻击手段和目的"><span class="nav-text"> 1.2.2. 攻击手段和目的</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#123-应对手段"><span class="nav-text"> 1.2.3. 应对手段</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#13-sql-注入攻击"><span class="nav-text"> 1.3. SQL 注入攻击</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#131-概念"><span class="nav-text"> 1.3.1. 概念</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#132-攻击手段和目的"><span class="nav-text"> 1.3.2. 攻击手段和目的</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#133-应对手段"><span class="nav-text"> 1.3.3. 应对手段</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#14-拒绝服务攻击dos"><span class="nav-text"> 1.4. 拒绝服务攻击（DoS）</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#141-攻击方式"><span class="nav-text"> 1.4.1. 攻击方式</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#142-应对手段"><span class="nav-text"> 1.4.2. 应对手段</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-加密技术及密钥安全管理"><span class="nav-text"> 2. 加密技术及密钥安全管理</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#21-消息摘要"><span class="nav-text"> 2.1. 消息摘要</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#22-加密算法"><span class="nav-text"> 2.2. 加密算法</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#221-对称加密"><span class="nav-text"> 2.2.1. 对称加密</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#222-非对称加密"><span class="nav-text"> 2.2.2. 非对称加密</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#223-密钥安全管理"><span class="nav-text"> 2.2.3. 密钥安全管理</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#23-证书"><span class="nav-text"> 2.3. 证书</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#231-概念"><span class="nav-text"> 2.3.1. 概念</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#232-证书原理"><span class="nav-text"> 2.3.2. 证书原理</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#3-资料"><span class="nav-text"> 3. 资料</span></a></li></ol></li></ol></div>
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#安全性架构"><span class="nav-text"> 安全性架构</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#1-网站安全的攻与防"><span class="nav-text"> 1. 网站安全的攻与防</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#11-跨站脚本攻击xss"><span class="nav-text"> 1.1. 跨站脚本攻击（XSS）</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#111-概念"><span class="nav-text"> 1.1.1. 概念</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#112-攻击手段和目的"><span class="nav-text"> 1.1.2. 攻击手段和目的</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#113-应对手段"><span class="nav-text"> 1.1.3. 应对手段</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#12-跨站请求伪造csrf"><span class="nav-text"> 1.2. 跨站请求伪造（CSRF）</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#121-概念"><span class="nav-text"> 1.2.1. 概念</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#122-攻击手段和目的"><span class="nav-text"> 1.2.2. 攻击手段和目的</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#123-应对手段"><span class="nav-text"> 1.2.3. 应对手段</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#13-sql-注入攻击"><span class="nav-text"> 1.3. SQL 注入攻击</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#131-概念"><span class="nav-text"> 1.3.1. 概念</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#132-攻击手段和目的"><span class="nav-text"> 1.3.2. 攻击手段和目的</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#133-应对手段"><span class="nav-text"> 1.3.3. 应对手段</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#14-拒绝服务攻击dos"><span class="nav-text"> 1.4. 拒绝服务攻击（DoS）</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#141-攻击方式"><span class="nav-text"> 1.4.1. 攻击方式</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#142-应对手段"><span class="nav-text"> 1.4.2. 应对手段</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-加密技术及密钥安全管理"><span class="nav-text"> 2. 加密技术及密钥安全管理</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#21-消息摘要"><span class="nav-text"> 2.1. 消息摘要</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#22-加密算法"><span class="nav-text"> 2.2. 加密算法</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#221-对称加密"><span class="nav-text"> 2.2.1. 对称加密</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#222-非对称加密"><span class="nav-text"> 2.2.2. 非对称加密</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#223-密钥安全管理"><span class="nav-text"> 2.2.3. 密钥安全管理</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#23-证书"><span class="nav-text"> 2.3. 证书</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#231-概念"><span class="nav-text"> 2.3.1. 概念</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#232-证书原理"><span class="nav-text"> 2.3.2. 证书原理</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#3-信息过滤与反垃圾"><span class="nav-text"> 3. 信息过滤与反垃圾</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#31-文本匹配"><span class="nav-text"> 3.1. 文本匹配</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#32-黑名单"><span class="nav-text"> 3.2. 黑名单</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#33-分类算法"><span class="nav-text"> 3.3. 分类算法</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#4-风险控制"><span class="nav-text"> 4. 风险控制</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#41-风险种类"><span class="nav-text"> 4.1. 风险种类</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#42-风险控制手段"><span class="nav-text"> 4.2. 风险控制手段</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#43-规则引擎"><span class="nav-text"> 4.3. 规则引擎</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#44-统计模型"><span class="nav-text"> 4.4. 统计模型</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#5-参考资料"><span class="nav-text"> 5. 参考资料</span></a></li></ol></li></ol></div>
       </div>
       <!--/noindex-->
 
@@ -651,7 +663,7 @@
       <div class="site-state-item site-state-posts">
           <a href="/blog/archives/">
         
-          <span class="site-state-item-count">71</span>
+          <span class="site-state-item-count">68</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
@@ -664,7 +676,7 @@
       <div class="site-state-item site-state-tags">
             <a href="/blog/tags/">
           
-        <span class="site-state-item-count">38</span>
+        <span class="site-state-item-count">40</span>
         <span class="site-state-item-name">标签</span></a>
       </div>
   </nav>
@@ -709,12 +721,12 @@
     <span class="post-meta-item-icon">
       <i class="fa fa-area-chart"></i>
     </span>
-    <span title="站点总字数">354k</span>
+    <span title="站点总字数">351k</span>
     <span class="post-meta-divider">|</span>
     <span class="post-meta-item-icon">
       <i class="fa fa-coffee"></i>
     </span>
-    <span title="站点阅读时长">5:22</span>
+    <span title="站点阅读时长">5:19</span>
 </div>
 
         
@@ -786,9 +798,9 @@
       DISQUS.reset({
         reload: true,
         config: {page: {
-            url: "https://dunwu.github.io/blog/design/architecture/%E7%BD%91%E7%AB%99%E7%9A%84%E5%AE%89%E5%85%A8%E6%9E%B6%E6%9E%84/",
-            identifier: "design/architecture/网站的安全架构/",
-            title: "网站的安全架构"
+            url: "https://dunwu.github.io/blog/design/architecture/secure-architecture/",
+            identifier: "design/architecture/secure-architecture/",
+            title: "安全性架构"
           }
         }
       });
