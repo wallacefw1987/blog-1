@@ -52,32 +52,32 @@
   };
 </script>
 
-  <meta name="description" content="分布式系统基本原理  1. 分布式术语  1.1. 异常  1.1.1. 服务器宕机 内存错误、服务器停电等都会导致服务器宕机，此时节点无法正常工作，称为不可用。 服务器宕机会导致节点失去所有内存信息，因此需要将内存信息保存到持久化介质上。  1.1.2. 网络异常 有一种特殊的网络异常称为——网络分区 ，即集群的所有节点被划分为多个区域，每个区域内部可以通信，但是区域之间无法通信。  1.1.">
+  <meta name="description" content="分布式系统基本原理   1. 分布式术语  1.1. 异常 1.2. 超时 1.3. 衡量指标   2. 数据分布  2.1. 哈希分布 2.2. 顺序分布 2.3. 负载均衡   3. 分布式理论  3.1. CAP 3.2. BASE   4. 分布式事务问题  4.1. 两阶段提交（2PC） 4.2. 补偿事务（TCC） 4.3. 本地消息表（异步确保） 4.4. MQ 事务消息   5.">
 <meta name="keywords" content="设计,系统原理,分布式">
 <meta property="og:type" content="article">
 <meta property="og:title" content="分布式系统基本原理">
 <meta property="og:url" content="https:&#x2F;&#x2F;dunwu.github.io&#x2F;blog&#x2F;design&#x2F;theory&#x2F;distributed-base-theory&#x2F;index.html">
 <meta property="og:site_name" content="Dunwu">
-<meta property="og:description" content="分布式系统基本原理  1. 分布式术语  1.1. 异常  1.1.1. 服务器宕机 内存错误、服务器停电等都会导致服务器宕机，此时节点无法正常工作，称为不可用。 服务器宕机会导致节点失去所有内存信息，因此需要将内存信息保存到持久化介质上。  1.1.2. 网络异常 有一种特殊的网络异常称为——网络分区 ，即集群的所有节点被划分为多个区域，每个区域内部可以通信，但是区域之间无法通信。  1.1.">
+<meta property="og:description" content="分布式系统基本原理   1. 分布式术语  1.1. 异常 1.2. 超时 1.3. 衡量指标   2. 数据分布  2.1. 哈希分布 2.2. 顺序分布 2.3. 负载均衡   3. 分布式理论  3.1. CAP 3.2. BASE   4. 分布式事务问题  4.1. 两阶段提交（2PC） 4.2. 补偿事务（TCC） 4.3. 本地消息表（异步确保） 4.4. MQ 事务消息   5.">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:image" content="http:&#x2F;&#x2F;dunwu.test.upcdn.net&#x2F;cs&#x2F;distributed&#x2F;architecture&#x2F;分布式理论-CAP.jpg">
+<meta property="og:image" content="http:&#x2F;&#x2F;dunwu.test.upcdn.net&#x2F;cs&#x2F;design&#x2F;architecture&#x2F;分布式理论-CAP.jpg">
 <meta property="og:image" content="http:&#x2F;&#x2F;dunwu.test.upcdn.net&#x2F;cs&#x2F;distributed&#x2F;architecture&#x2F;分布式理论-BASE.png">
-<meta property="og:image" content="http:&#x2F;&#x2F;dunwu.test.upcdn.net&#x2F;cs&#x2F;distributed&#x2F;architecture&#x2F;分布式事务两阶段提交-01.jpg">
-<meta property="og:image" content="http:&#x2F;&#x2F;dunwu.test.upcdn.net&#x2F;cs&#x2F;distributed&#x2F;architecture&#x2F;分布式事务两阶段提交-02.jpg">
-<meta property="og:image" content="http:&#x2F;&#x2F;dunwu.test.upcdn.net&#x2F;cs&#x2F;distributed&#x2F;architecture&#x2F;分布式事务本地消息.jpg">
-<meta property="og:image" content="http:&#x2F;&#x2F;dunwu.test.upcdn.net&#x2F;cs&#x2F;distributed&#x2F;architecture&#x2F;raft-candidate-01.gif">
-<meta property="og:image" content="http:&#x2F;&#x2F;dunwu.test.upcdn.net&#x2F;cs&#x2F;distributed&#x2F;architecture&#x2F;raft-candidate-02.gif">
-<meta property="og:image" content="http:&#x2F;&#x2F;dunwu.test.upcdn.net&#x2F;cs&#x2F;distributed&#x2F;architecture&#x2F;raft-candidate-03.gif">
-<meta property="og:image" content="http:&#x2F;&#x2F;dunwu.test.upcdn.net&#x2F;cs&#x2F;distributed&#x2F;architecture&#x2F;raft-candidate-04.gif">
-<meta property="og:image" content="http:&#x2F;&#x2F;dunwu.test.upcdn.net&#x2F;cs&#x2F;distributed&#x2F;architecture&#x2F;raft-multi-candidate-01.gif">
-<meta property="og:image" content="http:&#x2F;&#x2F;dunwu.test.upcdn.net&#x2F;cs&#x2F;distributed&#x2F;architecture&#x2F;raft-multi-candidate-02.gif">
-<meta property="og:image" content="http:&#x2F;&#x2F;dunwu.test.upcdn.net&#x2F;cs&#x2F;distributed&#x2F;architecture&#x2F;raft-sync-log-01.gif">
-<meta property="og:image" content="http:&#x2F;&#x2F;dunwu.test.upcdn.net&#x2F;cs&#x2F;distributed&#x2F;architecture&#x2F;raft-sync-log-02.gif">
-<meta property="og:image" content="http:&#x2F;&#x2F;dunwu.test.upcdn.net&#x2F;cs&#x2F;distributed&#x2F;architecture&#x2F;raft-sync-log-03.gif">
-<meta property="og:image" content="http:&#x2F;&#x2F;dunwu.test.upcdn.net&#x2F;cs&#x2F;distributed&#x2F;architecture&#x2F;raft-sync-log-04.gif">
-<meta property="og:updated_time" content="2019-11-27T08:33:49.929Z">
+<meta property="og:image" content="http:&#x2F;&#x2F;dunwu.test.upcdn.net&#x2F;cs&#x2F;design&#x2F;architecture&#x2F;分布式事务两阶段提交-01.jpg">
+<meta property="og:image" content="http:&#x2F;&#x2F;dunwu.test.upcdn.net&#x2F;cs&#x2F;design&#x2F;architecture&#x2F;分布式事务两阶段提交-02.jpg">
+<meta property="og:image" content="http:&#x2F;&#x2F;dunwu.test.upcdn.net&#x2F;cs&#x2F;design&#x2F;architecture&#x2F;分布式事务本地消息.jpg">
+<meta property="og:image" content="http:&#x2F;&#x2F;dunwu.test.upcdn.net&#x2F;cs&#x2F;design&#x2F;architecture&#x2F;raft-candidate-01.gif">
+<meta property="og:image" content="http:&#x2F;&#x2F;dunwu.test.upcdn.net&#x2F;cs&#x2F;design&#x2F;architecture&#x2F;raft-candidate-02.gif">
+<meta property="og:image" content="http:&#x2F;&#x2F;dunwu.test.upcdn.net&#x2F;cs&#x2F;design&#x2F;architecture&#x2F;raft-candidate-03.gif">
+<meta property="og:image" content="http:&#x2F;&#x2F;dunwu.test.upcdn.net&#x2F;cs&#x2F;design&#x2F;architecture&#x2F;raft-candidate-04.gif">
+<meta property="og:image" content="http:&#x2F;&#x2F;dunwu.test.upcdn.net&#x2F;cs&#x2F;design&#x2F;architecture&#x2F;raft-multi-candidate-01.gif">
+<meta property="og:image" content="http:&#x2F;&#x2F;dunwu.test.upcdn.net&#x2F;cs&#x2F;design&#x2F;architecture&#x2F;raft-multi-candidate-02.gif">
+<meta property="og:image" content="http:&#x2F;&#x2F;dunwu.test.upcdn.net&#x2F;cs&#x2F;design&#x2F;architecture&#x2F;raft-sync-log-01.gif">
+<meta property="og:image" content="http:&#x2F;&#x2F;dunwu.test.upcdn.net&#x2F;cs&#x2F;design&#x2F;architecture&#x2F;raft-sync-log-02.gif">
+<meta property="og:image" content="http:&#x2F;&#x2F;dunwu.test.upcdn.net&#x2F;cs&#x2F;design&#x2F;architecture&#x2F;raft-sync-log-03.gif">
+<meta property="og:image" content="http:&#x2F;&#x2F;dunwu.test.upcdn.net&#x2F;cs&#x2F;design&#x2F;architecture&#x2F;raft-sync-log-04.gif">
+<meta property="og:updated_time" content="2020-01-19T13:55:06.079Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:image" content="http:&#x2F;&#x2F;dunwu.test.upcdn.net&#x2F;cs&#x2F;distributed&#x2F;architecture&#x2F;分布式理论-CAP.jpg">
+<meta name="twitter:image" content="http:&#x2F;&#x2F;dunwu.test.upcdn.net&#x2F;cs&#x2F;design&#x2F;architecture&#x2F;分布式理论-CAP.jpg">
 
 <link rel="canonical" href="https://dunwu.github.io/blog/design/theory/distributed-base-theory/">
 
@@ -171,7 +171,7 @@
   </li>
         <li class="menu-item menu-item-tags">
 
-    <a href="/blog/tags/" rel="section"><i class="fa fa-fw fa-tags"></i>标签<span class="badge">40</span></a>
+    <a href="/blog/tags/" rel="section"><i class="fa fa-fw fa-tags"></i>标签<span class="badge">42</span></a>
 
   </li>
         <li class="menu-item menu-item-categories">
@@ -181,7 +181,7 @@
   </li>
         <li class="menu-item menu-item-archives">
 
-    <a href="/blog/archives/" rel="section"><i class="fa fa-fw fa-archive"></i>归档<span class="badge">68</span></a>
+    <a href="/blog/archives/" rel="section"><i class="fa fa-fw fa-archive"></i>归档<span class="badge">69</span></a>
 
   </li>
       <li class="menu-item menu-item-search">
@@ -269,7 +269,7 @@
                   <i class="fa fa-calendar-check-o"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2019-11-27 16:33:49" itemprop="dateModified" datetime="2019-11-27T16:33:49+08:00">2019-11-27</time>
+                <time title="修改时间：2020-01-19 21:55:06" itemprop="dateModified" datetime="2020-01-19T21:55:06+08:00">2020-01-19</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -329,21 +329,69 @@
 
       
         <h1 id="分布式系统基本原理"><a class="markdownIt-Anchor" href="#分布式系统基本原理"></a> 分布式系统基本原理</h1>
+<!-- TOC depthFrom:2 depthTo:3 -->
+<ul>
+<li><a href="#1-%E5%88%86%E5%B8%83%E5%BC%8F%E6%9C%AF%E8%AF%AD">1. 分布式术语</a>
+<ul>
+<li><a href="#11-%E5%BC%82%E5%B8%B8">1.1. 异常</a></li>
+<li><a href="#12-%E8%B6%85%E6%97%B6">1.2. 超时</a></li>
+<li><a href="#13-%E8%A1%A1%E9%87%8F%E6%8C%87%E6%A0%87">1.3. 衡量指标</a></li>
+</ul>
+</li>
+<li><a href="#2-%E6%95%B0%E6%8D%AE%E5%88%86%E5%B8%83">2. 数据分布</a>
+<ul>
+<li><a href="#21-%E5%93%88%E5%B8%8C%E5%88%86%E5%B8%83">2.1. 哈希分布</a></li>
+<li><a href="#22-%E9%A1%BA%E5%BA%8F%E5%88%86%E5%B8%83">2.2. 顺序分布</a></li>
+<li><a href="#23-%E8%B4%9F%E8%BD%BD%E5%9D%87%E8%A1%A1">2.3. 负载均衡</a></li>
+</ul>
+</li>
+<li><a href="#3-%E5%88%86%E5%B8%83%E5%BC%8F%E7%90%86%E8%AE%BA">3. 分布式理论</a>
+<ul>
+<li><a href="#31-cap">3.1. CAP</a></li>
+<li><a href="#32-base">3.2. BASE</a></li>
+</ul>
+</li>
+<li><a href="#4-%E5%88%86%E5%B8%83%E5%BC%8F%E4%BA%8B%E5%8A%A1%E9%97%AE%E9%A2%98">4. 分布式事务问题</a>
+<ul>
+<li><a href="#41-%E4%B8%A4%E9%98%B6%E6%AE%B5%E6%8F%90%E4%BA%A42pc">4.1. 两阶段提交（2PC）</a></li>
+<li><a href="#42-%E8%A1%A5%E5%81%BF%E4%BA%8B%E5%8A%A1tcc">4.2. 补偿事务（TCC）</a></li>
+<li><a href="#43-%E6%9C%AC%E5%9C%B0%E6%B6%88%E6%81%AF%E8%A1%A8%E5%BC%82%E6%AD%A5%E7%A1%AE%E4%BF%9D">4.3. 本地消息表（异步确保）</a></li>
+<li><a href="#44-mq-%E4%BA%8B%E5%8A%A1%E6%B6%88%E6%81%AF">4.4. MQ 事务消息</a></li>
+</ul>
+</li>
+<li><a href="#5-%E5%85%B1%E8%AF%86%E6%80%A7%E9%97%AE%E9%A2%98">5. 共识性问题</a>
+<ul>
+<li><a href="#51-paxos">5.1. Paxos</a></li>
+<li><a href="#52-raft">5.2. Raft</a></li>
+</ul>
+</li>
+<li><a href="#6-%E5%88%86%E5%B8%83%E5%BC%8F%E7%BC%93%E5%AD%98%E9%97%AE%E9%A2%98">6. 分布式缓存问题</a>
+<ul>
+<li><a href="#61-%E7%BC%93%E5%AD%98%E9%9B%AA%E5%B4%A9">6.1. 缓存雪崩</a></li>
+<li><a href="#62-%E7%BC%93%E5%AD%98%E7%A9%BF%E9%80%8F">6.2. 缓存穿透</a></li>
+<li><a href="#63-%E7%BC%93%E5%AD%98%E9%A2%84%E7%83%AD">6.3. 缓存预热</a></li>
+<li><a href="#64-%E7%BC%93%E5%AD%98%E6%9B%B4%E6%96%B0">6.4. 缓存更新</a></li>
+<li><a href="#65-%E7%BC%93%E5%AD%98%E9%99%8D%E7%BA%A7">6.5. 缓存降级</a></li>
+</ul>
+</li>
+<li><a href="#7-%E5%8F%82%E8%80%83%E8%B5%84%E6%96%99">7. 参考资料</a></li>
+</ul>
+<!-- /TOC -->
 <h2 id="1-分布式术语"><a class="markdownIt-Anchor" href="#1-分布式术语"></a> 1. 分布式术语</h2>
 <h3 id="11-异常"><a class="markdownIt-Anchor" href="#11-异常"></a> 1.1. 异常</h3>
-<h4 id="111-服务器宕机"><a class="markdownIt-Anchor" href="#111-服务器宕机"></a> 1.1.1. 服务器宕机</h4>
+<h4 id="服务器宕机"><a class="markdownIt-Anchor" href="#服务器宕机"></a> 服务器宕机</h4>
 <p>内存错误、服务器停电等都会导致服务器宕机，此时节点无法正常工作，称为不可用。</p>
 <p>服务器宕机会导致节点失去所有内存信息，因此需要将内存信息保存到持久化介质上。</p>
-<h4 id="112-网络异常"><a class="markdownIt-Anchor" href="#112-网络异常"></a> 1.1.2. 网络异常</h4>
+<h4 id="网络异常"><a class="markdownIt-Anchor" href="#网络异常"></a> 网络异常</h4>
 <p>有一种特殊的网络异常称为——<strong>网络分区</strong> ，即集群的所有节点被划分为多个区域，每个区域内部可以通信，但是区域之间无法通信。</p>
-<h4 id="113-磁盘故障"><a class="markdownIt-Anchor" href="#113-磁盘故障"></a> 1.1.3. 磁盘故障</h4>
+<h4 id="磁盘故障"><a class="markdownIt-Anchor" href="#磁盘故障"></a> 磁盘故障</h4>
 <p>磁盘故障是一种发生概率很高的异常。</p>
 <p>使用冗余机制，将数据存储到多台服务器。</p>
 <h3 id="12-超时"><a class="markdownIt-Anchor" href="#12-超时"></a> 1.2. 超时</h3>
 <p>在分布式系统中，一个请求除了成功和失败两种状态，还存在着超时状态。</p>
 <p>可以将服务器的操作设计为具有 <strong>幂等性</strong> ，即执行多次的结果与执行一次的结果相同。如果使用这种方式，当出现超时的时候，可以不断地重新请求直到成功。</p>
 <h3 id="13-衡量指标"><a class="markdownIt-Anchor" href="#13-衡量指标"></a> 1.3. 衡量指标</h3>
-<h4 id="131-性能"><a class="markdownIt-Anchor" href="#131-性能"></a> 1.3.1. 性能</h4>
+<h4 id="性能"><a class="markdownIt-Anchor" href="#性能"></a> 性能</h4>
 <p>常见的性能指标有：吞吐量、响应时间。</p>
 <p>其中，吞吐量指系统在某一段时间可以处理的请求总数，通常为每秒的读操作数或者写操作数；响应时间指从某个请求发出到接收到返回结果消耗的时间。</p>
 <p>这两个指标往往是矛盾的，追求高吞吐的系统，往往很难做到低响应时间，解释如下：</p>
@@ -355,11 +403,11 @@
 <p>但是在并发的系统中，由于一个请求在调用 I/O 资源的时候，需要进行等待。服务器端一般使用的是异步等待方式，即等待的请求被阻塞之后不需要一直占用 CPU 资源。这种方式能大大提高 CPU 资源的利用率，例如上面的例子中，单个请求在无并发的系统中响应时间为 10 ms，如果在并发的系统中，那么吞吐量将大于 100 req/s。因此为了追求高吞吐量，通常会提高并发程度。但是并发程度的增加，会导致请求的平均响应时间也增加，因为请求不能马上被处理，需要和其它请求一起进行并发处理，响应时间自然就会增高。</p>
 </li>
 </ul>
-<h4 id="132-可用性"><a class="markdownIt-Anchor" href="#132-可用性"></a> 1.3.2. 可用性</h4>
+<h4 id="可用性"><a class="markdownIt-Anchor" href="#可用性"></a> 可用性</h4>
 <p>可用性指系统在面对各种异常时可以提供正常服务的能力。可以用系统可用时间占总时间的比值来衡量，4 个 9 的可用性表示系统 99.99% 的时间是可用的。</p>
-<h4 id="133-一致性"><a class="markdownIt-Anchor" href="#133-一致性"></a> 1.3.3. 一致性</h4>
+<h4 id="一致性"><a class="markdownIt-Anchor" href="#一致性"></a> 一致性</h4>
 <p>可以从两个角度理解一致性：从客户端的角度，读写操作是否满足某种特性；从服务器的角度，多个数据副本之间是否一致。</p>
-<h4 id="134-可扩展性"><a class="markdownIt-Anchor" href="#134-可扩展性"></a> 1.3.4. 可扩展性</h4>
+<h4 id="可扩展性"><a class="markdownIt-Anchor" href="#可扩展性"></a> 可扩展性</h4>
 <p>指系统通过扩展集群服务器规模来提高性能的能力。理想的分布式系统需要实现“线性可扩展”，即随着集群规模的增加，系统的整体性能也会线性增加。</p>
 <h2 id="2-数据分布"><a class="markdownIt-Anchor" href="#2-数据分布"></a> 2. 数据分布</h2>
 <p>分布式存储系统的数据分布在多个节点中，常用的数据分布方式有哈希分布和顺序分布。</p>
@@ -384,19 +432,19 @@
 <h3 id="31-cap"><a class="markdownIt-Anchor" href="#31-cap"></a> 3.1. CAP</h3>
 <p>分布式系统不可能同时满足一致性（C：Consistency）、可用性（A：Availability）和分区容忍性（P：Partition Tolerance），最多只能同时满足其中两项。</p>
 <div align="center">
-<img src="http://dunwu.test.upcdn.net/cs/distributed/architecture/分布式理论-CAP.jpg" width="450"/>
+<img src="http://dunwu.test.upcdn.net/cs/design/architecture/分布式理论-CAP.jpg" width="450"/>
 </div>
-<h4 id="311-一致性"><a class="markdownIt-Anchor" href="#311-一致性"></a> 3.1.1. 一致性</h4>
+<h4 id="一致性-2"><a class="markdownIt-Anchor" href="#一致性-2"></a> 一致性</h4>
 <p>一致性指的是多个数据副本是否能保持一致的特性。</p>
 <p>在一致性的条件下，系统在执行数据更新操作之后能够从一致性状态转移到另一个一致性状态。</p>
 <p>对系统的一个数据更新成功之后，如果所有用户都能够读取到最新的值，该系统就被认为具有强一致性。</p>
-<h4 id="312-可用性"><a class="markdownIt-Anchor" href="#312-可用性"></a> 3.1.2. 可用性</h4>
+<h4 id="可用性-2"><a class="markdownIt-Anchor" href="#可用性-2"></a> 可用性</h4>
 <p>可用性指分布式系统在面对各种异常时可以提供正常服务的能力，可以用系统可用时间占总时间的比值来衡量，4 个 9 的可用性表示系统 99.99% 的时间是可用的。</p>
 <p>在可用性条件下，系统提供的服务一直处于可用的状态，对于用户的每一个操作请求总是能够在有限的时间内返回结果。</p>
-<h4 id="313-分区容忍性"><a class="markdownIt-Anchor" href="#313-分区容忍性"></a> 3.1.3. 分区容忍性</h4>
+<h4 id="分区容忍性"><a class="markdownIt-Anchor" href="#分区容忍性"></a> 分区容忍性</h4>
 <p>网络分区指分布式系统中的节点被划分为多个区域，每个区域内部可以通信，但是区域之间无法通信。</p>
 <p>在分区容忍性条件下，分布式系统在遇到任何网络分区故障的时候，仍然需要能对外提供一致性和可用性的服务，除非是整个网络环境都发生了故障。</p>
-<h4 id="314-权衡"><a class="markdownIt-Anchor" href="#314-权衡"></a> 3.1.4. 权衡</h4>
+<h4 id="权衡"><a class="markdownIt-Anchor" href="#权衡"></a> 权衡</h4>
 <p>在分布式系统中，分区容忍性必不可少，因为需要总是假设网络是不可靠的。因此，CAP 理论实际在是要在可用性和一致性之间做权衡。</p>
 <p>可用性和一致性往往是冲突的，很难都使它们同时满足。在多个节点之间进行数据同步时，</p>
 <ul>
@@ -409,12 +457,12 @@
 <div align="center">
 <img src="http://dunwu.test.upcdn.net/cs/distributed/architecture/分布式理论-BASE.png" />
 </div>
-<h4 id="321-基本可用"><a class="markdownIt-Anchor" href="#321-基本可用"></a> 3.2.1. 基本可用</h4>
+<h4 id="基本可用"><a class="markdownIt-Anchor" href="#基本可用"></a> 基本可用</h4>
 <p>指分布式系统在出现故障的时候，保证核心可用，允许损失部分可用性。</p>
 <p>例如，电商在做促销时，为了保证购物系统的稳定性，部分消费者可能会被引导到一个降级的页面。</p>
-<h4 id="322-软状态"><a class="markdownIt-Anchor" href="#322-软状态"></a> 3.2.2. 软状态</h4>
+<h4 id="软状态"><a class="markdownIt-Anchor" href="#软状态"></a> 软状态</h4>
 <p>指允许系统中的数据存在中间状态，并认为该中间状态不会影响系统整体可用性，即允许系统不同节点的数据副本之间进行同步的过程存在延时。</p>
-<h4 id="323-最终一致性"><a class="markdownIt-Anchor" href="#323-最终一致性"></a> 3.2.3. 最终一致性</h4>
+<h4 id="最终一致性"><a class="markdownIt-Anchor" href="#最终一致性"></a> 最终一致性</h4>
 <p>最终一致性强调的是系统中所有的数据副本，在经过一段时间的同步后，最终能达到一致的状态。</p>
 <p>ACID 要求强一致性，通常运用在传统的数据库系统上。而 BASE 要求最终一致性，通过牺牲强一致性来达到可用性，通常运用在大型分布式系统中。</p>
 <p>在实际的分布式场景中，不同业务单元和组件对一致性的要求是不同的，因此 ACID 和 BASE 往往会结合在一起使用。</p>
@@ -423,19 +471,19 @@
 <p>两阶段提交（Two-phase Commit，2PC）</p>
 <p>主要用于实现分布式事务，分布式事务指的是事务操作跨越多个节点，并且要求满足事务的 ACID 特性。</p>
 <p>通过引入协调者（Coordinator）来调度参与者的行为，并最终决定这些参与者是否要真正执行事务。</p>
-<h4 id="411-运行过程"><a class="markdownIt-Anchor" href="#411-运行过程"></a> 4.1.1. 运行过程</h4>
+<h4 id="运行过程"><a class="markdownIt-Anchor" href="#运行过程"></a> 运行过程</h4>
 <h5 id="准备阶段"><a class="markdownIt-Anchor" href="#准备阶段"></a> 准备阶段</h5>
 <p>协调者询问参与者事务是否执行成功，参与者发回事务执行结果。</p>
 <div align="center">
-<img src="http://dunwu.test.upcdn.net/cs/distributed/architecture/分布式事务两阶段提交-01.jpg" />
+<img src="http://dunwu.test.upcdn.net/cs/design/architecture/分布式事务两阶段提交-01.jpg" />
 </div>
 <h5 id="提交阶段"><a class="markdownIt-Anchor" href="#提交阶段"></a> 提交阶段</h5>
 <p>如果事务在每个参与者上都执行成功，事务协调者发送通知让参与者提交事务；否则，协调者发送通知让参与者回滚事务。</p>
 <div align="center">
-<img src="http://dunwu.test.upcdn.net/cs/distributed/architecture/分布式事务两阶段提交-02.jpg" />
+<img src="http://dunwu.test.upcdn.net/cs/design/architecture/分布式事务两阶段提交-02.jpg" />
 </div>
-需要注意的是，在准备阶段，参与者执行了事务，但是还未提交。只有在提交阶段接收到协调者发来的通知后，才进行提交或者回滚。
-<h4 id="412-问题"><a class="markdownIt-Anchor" href="#412-问题"></a> 4.1.2. 问题</h4>
+<p>需要注意的是，在准备阶段，参与者执行了事务，但是还未提交。只有在提交阶段接收到协调者发来的通知后，才进行提交或者回滚。</p>
+<h4 id="问题"><a class="markdownIt-Anchor" href="#问题"></a> 问题</h4>
 <h5 id="同步阻塞"><a class="markdownIt-Anchor" href="#同步阻塞"></a> 同步阻塞</h5>
 <p>所有事务参与者在等待其它参与者响应的时候都处于同步阻塞状态，无法进行其它操作。</p>
 <h5 id="单点问题"><a class="markdownIt-Anchor" href="#单点问题"></a> 单点问题</h5>
@@ -444,7 +492,7 @@
 <p>在阶段二，如果协调者只发送了部分 Commit 消息，此时网络发生异常，那么只有部分参与者接收到 Commit 消息，也就是说只有部分参与者提交了事务，使得系统数据不一致。</p>
 <h5 id="太过保守"><a class="markdownIt-Anchor" href="#太过保守"></a> 太过保守</h5>
 <p>任意一个节点失败就会导致整个事务失败，没有完善的容错机制。</p>
-<h4 id="413-pc-优缺点"><a class="markdownIt-Anchor" href="#413-pc-优缺点"></a> 4.1.3. PC 优缺点</h4>
+<h4 id="pc-优缺点"><a class="markdownIt-Anchor" href="#pc-优缺点"></a> PC 优缺点</h4>
 <p>优点：尽量保证了数据的强一致，适合对数据强一致要求很高的关键领域。（其实也不能 100%保证强一致）<br />
 缺点：实现复杂，牺牲了可用性，对性能影响较大，不适合高并发高性能场景。</p>
 <h3 id="42-补偿事务tcc"><a class="markdownIt-Anchor" href="#42-补偿事务tcc"></a> 4.2. 补偿事务（TCC）</h3>
@@ -460,7 +508,7 @@
 <li>在 Confirm 阶段，执行远程调用的转账的操作，转账成功进行解冻。</li>
 <li>如果第 2 步执行成功，那么转账成功，如果第二步执行失败，则调用远程冻结接口对应的解冻方法 (Cancel)。</li>
 </ol>
-<h4 id="421-tcc-优缺点"><a class="markdownIt-Anchor" href="#421-tcc-优缺点"></a> 4.2.1. TCC 优缺点</h4>
+<h4 id="tcc-优缺点"><a class="markdownIt-Anchor" href="#tcc-优缺点"></a> TCC 优缺点</h4>
 <ul>
 <li>优点：跟 2PC 比起来，实现以及流程相对简单了一些，但数据的一致性比 2PC 也要差一些。</li>
 <li>缺点：缺点还是比较明显的，在 2,3 步中都有可能失败。TCC 属于应用层的一种补偿方式，所以需要程序员在实现的时候多写很多补偿的代码，在一些场景中，一些业务流程可能用 TCC 不太好定义及处理。</li>
@@ -473,11 +521,11 @@
 <li>在分布式事务操作的另一方从消息队列中读取一个消息，并执行消息中的操作。</li>
 </ol>
 <div align="center">
-<img src="http://dunwu.test.upcdn.net/cs/distributed/architecture/分布式事务本地消息.jpg" />
+<img src="http://dunwu.test.upcdn.net/cs/design/architecture/分布式事务本地消息.jpg" />
 </div>
 <p>这种方案遵循 BASE 理论，采用的是最终一致性。</p>
 <p>本地消息表利用了本地事务来实现分布式事务，并且使用了消息队列来保证最终一致性。</p>
-<h4 id="431-本地消息表优缺点"><a class="markdownIt-Anchor" href="#431-本地消息表优缺点"></a> 4.3.1. 本地消息表优缺点</h4>
+<h4 id="本地消息表优缺点"><a class="markdownIt-Anchor" href="#本地消息表优缺点"></a> 本地消息表优缺点</h4>
 <ul>
 <li>优点：一种非常经典的实现，避免了分布式事务，实现了最终一致性。</li>
 <li>缺点：消息表会耦合到业务系统中，如果没有封装好的解决方案，会有很多杂活需要处理。</li>
@@ -491,7 +539,7 @@
 <li>通过第一阶段拿到的地址去访问消息，并修改状态。</li>
 </ol>
 <p>也就是说在业务方法内要想消息队列提交两次请求，一次发送消息和一次确认消息。如果确认消息发送失败了 RocketMQ 会定期扫描消息集群中的事务消息，这时候发现了 Prepared 消息，它会向消息发送者确认，所以生产方需要实现一个 check 接口，RocketMQ 会根据发送端设置的策略来决定是回滚还是继续发送确认消息。这样就保证了消息发送与本地事务同时成功或同时失败。</p>
-<h4 id="441-mq-事务消息优缺点"><a class="markdownIt-Anchor" href="#441-mq-事务消息优缺点"></a> 4.4.1. MQ 事务消息优缺点</h4>
+<h4 id="mq-事务消息优缺点"><a class="markdownIt-Anchor" href="#mq-事务消息优缺点"></a> MQ 事务消息优缺点</h4>
 <ul>
 <li>优点：实现了最终一致性，不需要依赖本地数据库事务。</li>
 <li>缺点：实现难度大，主流 MQ 不支持。</li>
@@ -521,15 +569,15 @@
 </ul>
 <p>基本过程包括 proposer 提出提案，先争取大多数 acceptor 的支持，超过一半支持时，则发送结案结果给所有人进行确认。一个潜在的问题是 proposer 在此过程中出现故障，可以通过超时机制来解决。极为凑巧的情况下，每次新的一轮提案的 proposer 都恰好故障，系统则永远无法达成一致（概率很小）。</p>
 <p>Paxos 能保证在超过 <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mn>1</mn><mi mathvariant="normal">/</mi><mn>2</mn></mrow><annotation encoding="application/x-tex">1/2</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord">1</span><span class="mord">/</span><span class="mord">2</span></span></span></span> 的正常节点存在时，系统能达成共识。</p>
-<h4 id="511-单个提案者多接收者"><a class="markdownIt-Anchor" href="#511-单个提案者多接收者"></a> 5.1.1. 单个提案者+多接收者</h4>
+<h4 id="单个提案者多接收者"><a class="markdownIt-Anchor" href="#单个提案者多接收者"></a> 单个提案者+多接收者</h4>
 <p>如果系统中限定只有某个特定节点是提案者，那么一致性肯定能达成（只有一个方案，要么达成，要么失败）。提案者只要收到了来自多数接收者的投票，即可认为通过，因为系统中不存在其他的提案。</p>
 <p>但一旦提案者故障，则系统无法工作。</p>
-<h4 id="512-多个提案者单个接收者"><a class="markdownIt-Anchor" href="#512-多个提案者单个接收者"></a> 5.1.2. 多个提案者+单个接收者</h4>
+<h4 id="多个提案者单个接收者"><a class="markdownIt-Anchor" href="#多个提案者单个接收者"></a> 多个提案者+单个接收者</h4>
 <p>限定某个节点作为接收者。这种情况下，共识也很容易达成，接收者收到多个提案，选第一个提案作为决议，拒绝掉后续的提案即可。</p>
 <p>缺陷也是容易发生单点故障，包括接收者故障或首个提案者节点故障。</p>
 <p>以上两种情形其实类似主从模式，虽然不那么可靠，但因为原理简单而被广泛采用。</p>
 <p>当提案者和接收者都推广到多个的情形，会出现一些挑战。</p>
-<h4 id="513-多个提案者多个接收者"><a class="markdownIt-Anchor" href="#513-多个提案者多个接收者"></a> 5.1.3. 多个提案者+多个接收者</h4>
+<h4 id="多个提案者多个接收者"><a class="markdownIt-Anchor" href="#多个提案者多个接收者"></a> 多个提案者+多个接收者</h4>
 <p>既然限定单提案者或单接收者都会出现故障，那么就得允许出现多个提案者和多个接收者。问题一下子变得复杂了。</p>
 <p>一种情况是同一时间片段（如一个提案周期）内只有一个提案者，这时可以退化到单提案者的情形。需要设计一种机制来保障提案者的正确产生，例如按照时间、序列、或者大家猜拳（出一个数字来比较）之类。考虑到分布式系统要处理的工作量很大，这个过程要尽量高效，满足这一条件的机制非常难设计。</p>
 <p>另一种情况是允许同一时间片段内可以出现多个提案者。那同一个节点可能收到多份提案，怎么对他们进行区分呢？这个时候采用只接受第一个提案而拒绝后续提案的方法也不适用。很自然的，提案需要带上不同的序号。节点需要根据提案序号来判断接受哪个。比如接受其中序号较大（往往意味着是接受新提出的，因为旧提案者故障概率更大）的提案。</p>
@@ -543,69 +591,69 @@
 <li><strong>同步 log</strong> - leader 会找到系统中 log 最新的记录，并强制所有的 follower 来刷新到这个记录；</li>
 </ul>
 <p><em>注：此处 log 并非是指日志消息，而是各种事件的发生记录。</em></p>
-<h4 id="521-单个-candidate-的竞选"><a class="markdownIt-Anchor" href="#521-单个-candidate-的竞选"></a> 5.2.1. 单个 Candidate 的竞选</h4>
+<h4 id="单个-candidate-的竞选"><a class="markdownIt-Anchor" href="#单个-candidate-的竞选"></a> 单个 Candidate 的竞选</h4>
 <p>有三种节点：Follower、Candidate 和 Leader。Leader 会周期性的发送心跳包给 Follower。每个 Follower 都设置了一个随机的竞选超时时间，一般为 150ms~300ms，如果在这个时间内没有收到 Leader 的心跳包，就会变成 Candidate，进入竞选阶段。</p>
 <ul>
 <li>下图表示一个分布式系统的最初阶段，此时只有 Follower，没有 Leader。Follower A 等待一个随机的竞选超时时间之后，没收到 Leader 发来的心跳包，因此进入竞选阶段。</li>
 </ul>
 <div align="center">
-<img src="http://dunwu.test.upcdn.net/cs/distributed/architecture/raft-candidate-01.gif" />
+<img src="http://dunwu.test.upcdn.net/cs/design/architecture/raft-candidate-01.gif" />
 </div>
 <ul>
 <li>此时 A 发送投票请求给其它所有节点。</li>
 </ul>
 <div align="center">
-<img src="http://dunwu.test.upcdn.net/cs/distributed/architecture/raft-candidate-02.gif" />
+<img src="http://dunwu.test.upcdn.net/cs/design/architecture/raft-candidate-02.gif" />
 </div>
 <ul>
 <li>其它节点会对请求进行回复，如果超过一半的节点回复了，那么该 Candidate 就会变成 Leader。</li>
 </ul>
 <div align="center">
-<img src="http://dunwu.test.upcdn.net/cs/distributed/architecture/raft-candidate-03.gif" />
+<img src="http://dunwu.test.upcdn.net/cs/design/architecture/raft-candidate-03.gif" />
 </div>
 <ul>
 <li>之后 Leader 会周期性地发送心跳包给 Follower，Follower 接收到心跳包，会重新开始计时。</li>
 </ul>
 <div align="center">
-<img src="http://dunwu.test.upcdn.net/cs/distributed/architecture/raft-candidate-04.gif" />
+<img src="http://dunwu.test.upcdn.net/cs/design/architecture/raft-candidate-04.gif" />
 </div>
-<h4 id="522-多个-candidate-竞选"><a class="markdownIt-Anchor" href="#522-多个-candidate-竞选"></a> 5.2.2. 多个 Candidate 竞选</h4>
+<h4 id="多个-candidate-竞选"><a class="markdownIt-Anchor" href="#多个-candidate-竞选"></a> 多个 Candidate 竞选</h4>
 <ul>
 <li>如果有多个 Follower 成为 Candidate，并且所获得票数相同，那么就需要重新开始投票，例如下图中 Candidate B 和 Candidate D 都获得两票，因此需要重新开始投票。</li>
 </ul>
 <div align="center">
-<img src="http://dunwu.test.upcdn.net/cs/distributed/architecture/raft-multi-candidate-01.gif" />
+<img src="http://dunwu.test.upcdn.net/cs/design/architecture/raft-multi-candidate-01.gif" />
 </div>
 <ul>
 <li>当重新开始投票时，由于每个节点设置的随机竞选超时时间不同，因此能下一次再次出现多个 Candidate 并获得同样票数的概率很低。</li>
 </ul>
 <div align="center">
-<img src="http://dunwu.test.upcdn.net/cs/distributed/architecture/raft-multi-candidate-02.gif" />
+<img src="http://dunwu.test.upcdn.net/cs/design/architecture/raft-multi-candidate-02.gif" />
 </div>
-<h4 id="523-同步日志"><a class="markdownIt-Anchor" href="#523-同步日志"></a> 5.2.3. 同步日志</h4>
+<h4 id="同步日志"><a class="markdownIt-Anchor" href="#同步日志"></a> 同步日志</h4>
 <ul>
 <li>来自客户端的修改都会被传入 Leader。注意该修改还未被提交，只是写入日志中。</li>
 </ul>
 <div align="center">
-<img src="http://dunwu.test.upcdn.net/cs/distributed/architecture/raft-sync-log-01.gif" />
+<img src="http://dunwu.test.upcdn.net/cs/design/architecture/raft-sync-log-01.gif" />
 </div>
 <ul>
 <li>Leader 会把修改复制到所有 Follower。</li>
 </ul>
 <div align="center">
-<img src="http://dunwu.test.upcdn.net/cs/distributed/architecture/raft-sync-log-02.gif" />
+<img src="http://dunwu.test.upcdn.net/cs/design/architecture/raft-sync-log-02.gif" />
 </div>
 <ul>
 <li>Leader 会等待大多数的 Follower 也进行了修改，然后才将修改提交。</li>
 </ul>
 <div align="center">
-<img src="http://dunwu.test.upcdn.net/cs/distributed/architecture/raft-sync-log-03.gif" />
+<img src="http://dunwu.test.upcdn.net/cs/design/architecture/raft-sync-log-03.gif" />
 </div>
 <ul>
 <li>此时 Leader 会通知的所有 Follower 让它们也提交修改，此时所有节点的值达成一致。</li>
 </ul>
 <div align="center">
-<img src="http://dunwu.test.upcdn.net/cs/distributed/architecture/raft-sync-log-04.gif" />
+<img src="http://dunwu.test.upcdn.net/cs/design/architecture/raft-sync-log-04.gif" />
 </div>
 <h2 id="6-分布式缓存问题"><a class="markdownIt-Anchor" href="#6-分布式缓存问题"></a> 6. 分布式缓存问题</h2>
 <h3 id="61-缓存雪崩"><a class="markdownIt-Anchor" href="#61-缓存雪崩"></a> 6.1. 缓存雪崩</h3>
@@ -643,7 +691,7 @@
 <h3 id="65-缓存降级"><a class="markdownIt-Anchor" href="#65-缓存降级"></a> 6.5. 缓存降级</h3>
 <p>当访问量剧增、服务出现问题（如响应时间慢或不响应）或非核心服务影响到核心流程的性能时，仍然需要保证服务还是可用的，即使是有损服务。系统可以根据一些关键数据进行自动降级，也可以配置开关实现人工降级。</p>
 <p>降级的最终目的是保证核心服务可用，即使是有损的。而且有些服务是无法降级的（如加入购物车、结算）。</p>
-<h2 id="7-参考资料"><a class="markdownIt-Anchor" href="#7-参考资料"></a> 7. 参考资料</h2>
+<h2 id="参考资料"><a class="markdownIt-Anchor" href="#参考资料"></a> 参考资料</h2>
 <ul>
 <li>杨传辉. 大规模分布式存储系统: 原理解析与架构实战[M]. 机械工业出版社, 2013.</li>
 <li><a href="https://www.gitbook.com/book/yeasy/blockchain_guide/details" target="_blank" rel="noopener">区块链技术指南</a></li>
@@ -743,7 +791,7 @@
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
-          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#分布式系统基本原理"><span class="nav-text"> 分布式系统基本原理</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#1-分布式术语"><span class="nav-text"> 1. 分布式术语</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#11-异常"><span class="nav-text"> 1.1. 异常</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#111-服务器宕机"><span class="nav-text"> 1.1.1. 服务器宕机</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#112-网络异常"><span class="nav-text"> 1.1.2. 网络异常</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#113-磁盘故障"><span class="nav-text"> 1.1.3. 磁盘故障</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#12-超时"><span class="nav-text"> 1.2. 超时</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#13-衡量指标"><span class="nav-text"> 1.3. 衡量指标</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#131-性能"><span class="nav-text"> 1.3.1. 性能</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#132-可用性"><span class="nav-text"> 1.3.2. 可用性</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#133-一致性"><span class="nav-text"> 1.3.3. 一致性</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#134-可扩展性"><span class="nav-text"> 1.3.4. 可扩展性</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-数据分布"><span class="nav-text"> 2. 数据分布</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#21-哈希分布"><span class="nav-text"> 2.1. 哈希分布</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#22-顺序分布"><span class="nav-text"> 2.2. 顺序分布</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#23-负载均衡"><span class="nav-text"> 2.3. 负载均衡</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#3-分布式理论"><span class="nav-text"> 3. 分布式理论</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#31-cap"><span class="nav-text"> 3.1. CAP</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#311-一致性"><span class="nav-text"> 3.1.1. 一致性</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#312-可用性"><span class="nav-text"> 3.1.2. 可用性</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#313-分区容忍性"><span class="nav-text"> 3.1.3. 分区容忍性</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#314-权衡"><span class="nav-text"> 3.1.4. 权衡</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#32-base"><span class="nav-text"> 3.2. BASE</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#321-基本可用"><span class="nav-text"> 3.2.1. 基本可用</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#322-软状态"><span class="nav-text"> 3.2.2. 软状态</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#323-最终一致性"><span class="nav-text"> 3.2.3. 最终一致性</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#4-分布式事务问题"><span class="nav-text"> 4. 分布式事务问题</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#41-两阶段提交2pc"><span class="nav-text"> 4.1. 两阶段提交（2PC）</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#411-运行过程"><span class="nav-text"> 4.1.1. 运行过程</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#412-问题"><span class="nav-text"> 4.1.2. 问题</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#413-pc-优缺点"><span class="nav-text"> 4.1.3. PC 优缺点</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#42-补偿事务tcc"><span class="nav-text"> 4.2. 补偿事务（TCC）</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#421-tcc-优缺点"><span class="nav-text"> 4.2.1. TCC 优缺点</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#43-本地消息表异步确保"><span class="nav-text"> 4.3. 本地消息表（异步确保）</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#431-本地消息表优缺点"><span class="nav-text"> 4.3.1. 本地消息表优缺点</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#44-mq-事务消息"><span class="nav-text"> 4.4. MQ 事务消息</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#441-mq-事务消息优缺点"><span class="nav-text"> 4.4.1. MQ 事务消息优缺点</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#5-共识性问题"><span class="nav-text"> 5. 共识性问题</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#51-paxos"><span class="nav-text"> 5.1. Paxos</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#511-单个提案者多接收者"><span class="nav-text"> 5.1.1. 单个提案者+多接收者</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#512-多个提案者单个接收者"><span class="nav-text"> 5.1.2. 多个提案者+单个接收者</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#513-多个提案者多个接收者"><span class="nav-text"> 5.1.3. 多个提案者+多个接收者</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#52-raft"><span class="nav-text"> 5.2. Raft</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#521-单个-candidate-的竞选"><span class="nav-text"> 5.2.1. 单个 Candidate 的竞选</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#522-多个-candidate-竞选"><span class="nav-text"> 5.2.2. 多个 Candidate 竞选</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#523-同步日志"><span class="nav-text"> 5.2.3. 同步日志</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#6-分布式缓存问题"><span class="nav-text"> 6. 分布式缓存问题</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#61-缓存雪崩"><span class="nav-text"> 6.1. 缓存雪崩</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#62-缓存穿透"><span class="nav-text"> 6.2. 缓存穿透</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#63-缓存预热"><span class="nav-text"> 6.3. 缓存预热</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#64-缓存更新"><span class="nav-text"> 6.4. 缓存更新</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#65-缓存降级"><span class="nav-text"> 6.5. 缓存降级</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#7-参考资料"><span class="nav-text"> 7. 参考资料</span></a></li></ol></li></ol></div>
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#分布式系统基本原理"><span class="nav-text"> 分布式系统基本原理</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#1-分布式术语"><span class="nav-text"> 1. 分布式术语</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#11-异常"><span class="nav-text"> 1.1. 异常</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#服务器宕机"><span class="nav-text"> 服务器宕机</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#网络异常"><span class="nav-text"> 网络异常</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#磁盘故障"><span class="nav-text"> 磁盘故障</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#12-超时"><span class="nav-text"> 1.2. 超时</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#13-衡量指标"><span class="nav-text"> 1.3. 衡量指标</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#性能"><span class="nav-text"> 性能</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#可用性"><span class="nav-text"> 可用性</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#一致性"><span class="nav-text"> 一致性</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#可扩展性"><span class="nav-text"> 可扩展性</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-数据分布"><span class="nav-text"> 2. 数据分布</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#21-哈希分布"><span class="nav-text"> 2.1. 哈希分布</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#22-顺序分布"><span class="nav-text"> 2.2. 顺序分布</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#23-负载均衡"><span class="nav-text"> 2.3. 负载均衡</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#3-分布式理论"><span class="nav-text"> 3. 分布式理论</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#31-cap"><span class="nav-text"> 3.1. CAP</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#一致性-2"><span class="nav-text"> 一致性</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#可用性-2"><span class="nav-text"> 可用性</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#分区容忍性"><span class="nav-text"> 分区容忍性</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#权衡"><span class="nav-text"> 权衡</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#32-base"><span class="nav-text"> 3.2. BASE</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#基本可用"><span class="nav-text"> 基本可用</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#软状态"><span class="nav-text"> 软状态</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#最终一致性"><span class="nav-text"> 最终一致性</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#4-分布式事务问题"><span class="nav-text"> 4. 分布式事务问题</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#41-两阶段提交2pc"><span class="nav-text"> 4.1. 两阶段提交（2PC）</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#运行过程"><span class="nav-text"> 运行过程</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#问题"><span class="nav-text"> 问题</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#pc-优缺点"><span class="nav-text"> PC 优缺点</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#42-补偿事务tcc"><span class="nav-text"> 4.2. 补偿事务（TCC）</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#tcc-优缺点"><span class="nav-text"> TCC 优缺点</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#43-本地消息表异步确保"><span class="nav-text"> 4.3. 本地消息表（异步确保）</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#本地消息表优缺点"><span class="nav-text"> 本地消息表优缺点</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#44-mq-事务消息"><span class="nav-text"> 4.4. MQ 事务消息</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#mq-事务消息优缺点"><span class="nav-text"> MQ 事务消息优缺点</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#5-共识性问题"><span class="nav-text"> 5. 共识性问题</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#51-paxos"><span class="nav-text"> 5.1. Paxos</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#单个提案者多接收者"><span class="nav-text"> 单个提案者+多接收者</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#多个提案者单个接收者"><span class="nav-text"> 多个提案者+单个接收者</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#多个提案者多个接收者"><span class="nav-text"> 多个提案者+多个接收者</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#52-raft"><span class="nav-text"> 5.2. Raft</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#单个-candidate-的竞选"><span class="nav-text"> 单个 Candidate 的竞选</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#多个-candidate-竞选"><span class="nav-text"> 多个 Candidate 竞选</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#同步日志"><span class="nav-text"> 同步日志</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#6-分布式缓存问题"><span class="nav-text"> 6. 分布式缓存问题</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#61-缓存雪崩"><span class="nav-text"> 6.1. 缓存雪崩</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#62-缓存穿透"><span class="nav-text"> 6.2. 缓存穿透</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#63-缓存预热"><span class="nav-text"> 6.3. 缓存预热</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#64-缓存更新"><span class="nav-text"> 6.4. 缓存更新</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#65-缓存降级"><span class="nav-text"> 6.5. 缓存降级</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#参考资料"><span class="nav-text"> 参考资料</span></a></li></ol></li></ol></div>
       </div>
       <!--/noindex-->
 
@@ -759,7 +807,7 @@
       <div class="site-state-item site-state-posts">
           <a href="/blog/archives/">
         
-          <span class="site-state-item-count">68</span>
+          <span class="site-state-item-count">69</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
@@ -772,7 +820,7 @@
       <div class="site-state-item site-state-tags">
             <a href="/blog/tags/">
           
-        <span class="site-state-item-count">40</span>
+        <span class="site-state-item-count">42</span>
         <span class="site-state-item-name">标签</span></a>
       </div>
   </nav>
@@ -808,7 +856,7 @@
 <div class="copyright">
   
   &copy; 2015 – 
-  <span itemprop="copyrightYear">2019</span>
+  <span itemprop="copyrightYear">2020</span>
   <span class="with-love">
     <i class="fa fa-paper-plane"></i>
   </span>
@@ -817,12 +865,12 @@
     <span class="post-meta-item-icon">
       <i class="fa fa-area-chart"></i>
     </span>
-    <span title="站点总字数">351k</span>
+    <span title="站点总字数">350k</span>
     <span class="post-meta-divider">|</span>
     <span class="post-meta-item-icon">
       <i class="fa fa-coffee"></i>
     </span>
-    <span title="站点阅读时长">5:19</span>
+    <span title="站点阅读时长">5:18</span>
 </div>
 
         

@@ -64,7 +64,7 @@
 <meta property="og:image" content="https:&#x2F;&#x2F;shardingsphere.apache.org&#x2F;document&#x2F;current&#x2F;img&#x2F;sharding&#x2F;snowflake_cn_v2.png">
 <meta property="og:image" content="https:&#x2F;&#x2F;user-gold-cdn.xitu.io&#x2F;2018&#x2F;9&#x2F;29&#x2F;16624909d2007c22?imageView2&#x2F;0&#x2F;w&#x2F;1280&#x2F;h&#x2F;960&#x2F;format&#x2F;webp&#x2F;ignore-error&#x2F;1">
 <meta property="og:image" content="https:&#x2F;&#x2F;awps-assets.meituan.net&#x2F;mit-x&#x2F;blog-images-bundle-2017&#x2F;5e4ff128.png">
-<meta property="og:updated_time" content="2019-11-27T07:56:46.134Z">
+<meta property="og:updated_time" content="2020-01-19T13:56:17.671Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:image" content="https:&#x2F;&#x2F;awps-assets.meituan.net&#x2F;mit-x&#x2F;blog-images-bundle-2017&#x2F;6d2c9ec8.png">
 
@@ -160,7 +160,7 @@
   </li>
         <li class="menu-item menu-item-tags">
 
-    <a href="/blog/tags/" rel="section"><i class="fa fa-fw fa-tags"></i>标签<span class="badge">40</span></a>
+    <a href="/blog/tags/" rel="section"><i class="fa fa-fw fa-tags"></i>标签<span class="badge">42</span></a>
 
   </li>
         <li class="menu-item menu-item-categories">
@@ -170,7 +170,7 @@
   </li>
         <li class="menu-item menu-item-archives">
 
-    <a href="/blog/archives/" rel="section"><i class="fa fa-fw fa-archive"></i>归档<span class="badge">68</span></a>
+    <a href="/blog/archives/" rel="section"><i class="fa fa-fw fa-archive"></i>归档<span class="badge">69</span></a>
 
   </li>
       <li class="menu-item menu-item-search">
@@ -258,7 +258,7 @@
                   <i class="fa fa-calendar-check-o"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2019-11-27 15:56:46" itemprop="dateModified" datetime="2019-11-27T15:56:46+08:00">2019-11-27</time>
+                <time title="修改时间：2020-01-19 21:56:17" itemprop="dateModified" datetime="2020-01-19T21:56:17+08:00">2020-01-19</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -298,7 +298,7 @@
                 <i class="fa fa-file-word-o"></i>
               </span>
                 <span class="post-meta-item-text">本文字数：</span>
-              <span>6.5k</span>
+              <span>6.7k</span>
             </span>
             <span class="post-meta-item" title="阅读时长">
               <span class="post-meta-item-icon">
@@ -323,6 +323,51 @@
 <p>数据分片后，不同数据节点生成全局唯一主键是非常棘手的问题。同一个逻辑表内的不同实际表之间的自增键由于无法互相感知而产生重复主键。 虽然可通过约束自增主键初始值和步长的方式避免碰撞，但需引入额外的运维规则，使解决方案缺乏完整性和可扩展性。</p>
 <p>为此，需要使用分布式 ID 来解决此问题。本文总结业界常用的分布式 ID 解决方案。</p>
 </blockquote>
+<!-- TOC depthFrom:2 depthTo:3 -->
+<ul>
+<li><a href="#1-%E7%AE%80%E4%BB%8B">1. 简介</a></li>
+<li><a href="#2-uuid">2. UUID</a>
+<ul>
+<li><a href="#21-uuid-%E7%9A%84%E4%BC%98%E7%82%B9">2.1. UUID 的优点</a></li>
+<li><a href="#22-uuid-%E7%9A%84%E7%BC%BA%E7%82%B9">2.2. UUID 的缺点</a></li>
+<li><a href="#23-%E9%80%82%E7%94%A8%E5%9C%BA%E6%99%AF">2.3. 适用场景</a></li>
+</ul>
+</li>
+<li><a href="#3-%E6%95%B0%E6%8D%AE%E5%BA%93%E8%87%AA%E5%A2%9E%E9%94%AE">3. 数据库自增键</a>
+<ul>
+<li><a href="#31-%E4%BC%98%E7%82%B9">3.1. 优点</a></li>
+<li><a href="#32-%E7%BC%BA%E7%82%B9">3.2. 缺点</a></li>
+<li><a href="#33-%E9%80%82%E7%94%A8%E5%9C%BA%E6%99%AF">3.3. 适用场景</a></li>
+<li><a href="#34-%E6%94%B9%E8%BF%9B">3.4. 改进</a></li>
+</ul>
+</li>
+<li><a href="#4-%E5%88%A9%E7%94%A8-redis-%E7%94%9F%E6%88%90%E9%94%AE">4. 利用 Redis 生成键</a>
+<ul>
+<li><a href="#41-%E4%BC%98%E7%82%B9">4.1. 优点</a></li>
+<li><a href="#42-%E7%BC%BA%E7%82%B9">4.2. 缺点</a></li>
+<li><a href="#43-%E9%80%82%E7%94%A8%E5%9C%BA%E6%99%AF">4.3. 适用场景</a></li>
+</ul>
+</li>
+<li><a href="#5-%E9%9B%AA%E8%8A%B1%E7%AE%97%E6%B3%95snowflake">5. 雪花算法（Snowflake）</a>
+<ul>
+<li><a href="#51-%E5%9F%BA%E6%9C%AC%E5%8E%9F%E7%90%86">5.1. 基本原理</a></li>
+<li><a href="#52-%E4%BC%98%E7%82%B9">5.2. 优点</a></li>
+<li><a href="#53-%E7%BC%BA%E7%82%B9">5.3. 缺点</a></li>
+<li><a href="#54-%E9%80%82%E7%94%A8%E5%9C%BA%E6%99%AF">5.4. 适用场景</a></li>
+<li><a href="#55-%E9%98%B2%E6%AD%A2%E6%97%B6%E9%92%9F%E5%9B%9E%E6%8B%A8">5.5. 防止时钟回拨</a></li>
+</ul>
+</li>
+<li><a href="#6-leaf">6. Leaf</a>
+<ul>
+<li><a href="#61-%E5%9F%BA%E6%9C%AC%E5%8E%9F%E7%90%86">6.1. 基本原理</a></li>
+<li><a href="#62-%E4%BC%98%E7%82%B9">6.2. 优点</a></li>
+<li><a href="#63-%E7%BC%BA%E7%82%B9">6.3. 缺点</a></li>
+<li><a href="#64-%E9%80%82%E7%94%A8%E5%9C%BA%E6%99%AF">6.4. 适用场景</a></li>
+</ul>
+</li>
+<li><a href="#7-%E5%8F%82%E8%80%83%E8%B5%84%E6%96%99">7. 参考资料</a></li>
+</ul>
+<!-- /TOC -->
 <h2 id="1-简介"><a class="markdownIt-Anchor" href="#1-简介"></a> 1. 简介</h2>
 <p>首先，分布式 ID 应该具备哪些特性呢？</p>
 <ol>
@@ -411,7 +456,7 @@
 <p>雪花算法（Snowflake）是由 Twitter 公布的分布式主键生成算法，<strong>它会生成一个 <code>64 bit</code> 的整数</strong>，可以保证不同进程主键的不重复性，以及相同进程主键的有序性。</p>
 <p>在同一个进程中，它首先是通过时间位保证不重复，如果时间相同则是通过序列位保证。 同时由于时间位是单调递增的，且各个服务器如果大体做了时间同步，那么生成的主键在分布式环境可以认为是总体有序的，这就保证了对索引字段的插入的高效性。</p>
 <h3 id="51-基本原理"><a class="markdownIt-Anchor" href="#51-基本原理"></a> 5.1. 基本原理</h3>
-<h4 id="511-键的组成"><a class="markdownIt-Anchor" href="#511-键的组成"></a> 5.1.1. 键的组成</h4>
+<h4 id="键的组成"><a class="markdownIt-Anchor" href="#键的组成"></a> 键的组成</h4>
 <p>使用<strong>雪花算法生成的主键，二进制表示形式包含 4 部分</strong>，从高位到低位分表为：1bit 符号位、41bit 时间戳位、10bit 工作进程位以及 12bit 序列号位。</p>
 <ul>
 <li><strong>符号位(1bit)</strong></li>
@@ -433,9 +478,9 @@
 <p>该序列是用来在同一个毫秒内生成不同的 ID。如果在这个毫秒内生成的数量超过 4096(2 的 12 次幂)，那么生成器会等待到下个毫秒继续生成。</p>
 <p>雪花算法主键的详细结构见下图：</p>
 <p><img src="https://shardingsphere.apache.org/document/current/img/sharding/snowflake_cn_v2.png" alt="雪花算法" /></p>
-<h4 id="512-时钟回拨"><a class="markdownIt-Anchor" href="#512-时钟回拨"></a> 5.1.2. 时钟回拨</h4>
+<h4 id="时钟回拨"><a class="markdownIt-Anchor" href="#时钟回拨"></a> 时钟回拨</h4>
 <p>服务器时钟回拨会导致产生重复序列，因此默认分布式主键生成器提供了一个最大容忍的时钟回拨毫秒数。 如果时钟回拨的时间超过最大容忍的毫秒数阈值，则程序报错；如果在可容忍的范围内，默认分布式主键生成器会等待时钟同步到最后一次主键生成的时间后再继续工作。 最大容忍的时钟回拨毫秒数的默认值为 0，可通过属性设置。</p>
-<h4 id="513-灵活定制"><a class="markdownIt-Anchor" href="#513-灵活定制"></a> 5.1.3. 灵活定制</h4>
+<h4 id="灵活定制"><a class="markdownIt-Anchor" href="#灵活定制"></a> 灵活定制</h4>
 <p>上面只是一个将 <code>64bit</code> 划分的标准，当然也不一定这么做，可以根据不同业务的具体场景来划分，比如下面给出一个业务场景：</p>
 <ul>
 <li>服务目前 QPS10 万，预计几年之内会发展到百万。</li>
@@ -604,7 +649,7 @@
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
-          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#分布式-id-基本原理"><span class="nav-text"> 分布式 ID 基本原理</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#1-简介"><span class="nav-text"> 1. 简介</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-uuid"><span class="nav-text"> 2. UUID</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#21-uuid-的优点"><span class="nav-text"> 2.1. UUID 的优点</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#22-uuid-的缺点"><span class="nav-text"> 2.2. UUID 的缺点</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#23-适用场景"><span class="nav-text"> 2.3. 适用场景</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#3-数据库自增键"><span class="nav-text"> 3. 数据库自增键</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#31-优点"><span class="nav-text"> 3.1. 优点</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#32-缺点"><span class="nav-text"> 3.2. 缺点</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#33-适用场景"><span class="nav-text"> 3.3. 适用场景</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#34-改进"><span class="nav-text"> 3.4. 改进</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#4-利用-redis-生成键"><span class="nav-text"> 4. 利用 Redis 生成键</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#41-优点"><span class="nav-text"> 4.1. 优点</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#42-缺点"><span class="nav-text"> 4.2. 缺点</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#43-适用场景"><span class="nav-text"> 4.3. 适用场景</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#5-雪花算法snowflake"><span class="nav-text"> 5. 雪花算法（Snowflake）</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#51-基本原理"><span class="nav-text"> 5.1. 基本原理</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#511-键的组成"><span class="nav-text"> 5.1.1. 键的组成</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#512-时钟回拨"><span class="nav-text"> 5.1.2. 时钟回拨</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#513-灵活定制"><span class="nav-text"> 5.1.3. 灵活定制</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#52-优点"><span class="nav-text"> 5.2. 优点</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#53-缺点"><span class="nav-text"> 5.3. 缺点</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#54-适用场景"><span class="nav-text"> 5.4. 适用场景</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#55-防止时钟回拨"><span class="nav-text"> 5.5. 防止时钟回拨</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#6-leaf"><span class="nav-text"> 6. Leaf</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#61-基本原理"><span class="nav-text"> 6.1. 基本原理</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#62-优点"><span class="nav-text"> 6.2. 优点</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#63-缺点"><span class="nav-text"> 6.3. 缺点</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#64-适用场景"><span class="nav-text"> 6.4. 适用场景</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#7-参考资料"><span class="nav-text"> 7. 参考资料</span></a></li></ol></li></ol></div>
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#分布式-id-基本原理"><span class="nav-text"> 分布式 ID 基本原理</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#1-简介"><span class="nav-text"> 1. 简介</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-uuid"><span class="nav-text"> 2. UUID</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#21-uuid-的优点"><span class="nav-text"> 2.1. UUID 的优点</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#22-uuid-的缺点"><span class="nav-text"> 2.2. UUID 的缺点</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#23-适用场景"><span class="nav-text"> 2.3. 适用场景</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#3-数据库自增键"><span class="nav-text"> 3. 数据库自增键</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#31-优点"><span class="nav-text"> 3.1. 优点</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#32-缺点"><span class="nav-text"> 3.2. 缺点</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#33-适用场景"><span class="nav-text"> 3.3. 适用场景</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#34-改进"><span class="nav-text"> 3.4. 改进</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#4-利用-redis-生成键"><span class="nav-text"> 4. 利用 Redis 生成键</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#41-优点"><span class="nav-text"> 4.1. 优点</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#42-缺点"><span class="nav-text"> 4.2. 缺点</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#43-适用场景"><span class="nav-text"> 4.3. 适用场景</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#5-雪花算法snowflake"><span class="nav-text"> 5. 雪花算法（Snowflake）</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#51-基本原理"><span class="nav-text"> 5.1. 基本原理</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#键的组成"><span class="nav-text"> 键的组成</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#时钟回拨"><span class="nav-text"> 时钟回拨</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#灵活定制"><span class="nav-text"> 灵活定制</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#52-优点"><span class="nav-text"> 5.2. 优点</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#53-缺点"><span class="nav-text"> 5.3. 缺点</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#54-适用场景"><span class="nav-text"> 5.4. 适用场景</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#55-防止时钟回拨"><span class="nav-text"> 5.5. 防止时钟回拨</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#6-leaf"><span class="nav-text"> 6. Leaf</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#61-基本原理"><span class="nav-text"> 6.1. 基本原理</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#62-优点"><span class="nav-text"> 6.2. 优点</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#63-缺点"><span class="nav-text"> 6.3. 缺点</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#64-适用场景"><span class="nav-text"> 6.4. 适用场景</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#7-参考资料"><span class="nav-text"> 7. 参考资料</span></a></li></ol></li></ol></div>
       </div>
       <!--/noindex-->
 
@@ -620,7 +665,7 @@
       <div class="site-state-item site-state-posts">
           <a href="/blog/archives/">
         
-          <span class="site-state-item-count">68</span>
+          <span class="site-state-item-count">69</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
@@ -633,7 +678,7 @@
       <div class="site-state-item site-state-tags">
             <a href="/blog/tags/">
           
-        <span class="site-state-item-count">40</span>
+        <span class="site-state-item-count">42</span>
         <span class="site-state-item-name">标签</span></a>
       </div>
   </nav>
@@ -669,7 +714,7 @@
 <div class="copyright">
   
   &copy; 2015 – 
-  <span itemprop="copyrightYear">2019</span>
+  <span itemprop="copyrightYear">2020</span>
   <span class="with-love">
     <i class="fa fa-paper-plane"></i>
   </span>
@@ -678,12 +723,12 @@
     <span class="post-meta-item-icon">
       <i class="fa fa-area-chart"></i>
     </span>
-    <span title="站点总字数">351k</span>
+    <span title="站点总字数">350k</span>
     <span class="post-meta-divider">|</span>
     <span class="post-meta-item-icon">
       <i class="fa fa-coffee"></i>
     </span>
-    <span title="站点阅读时长">5:19</span>
+    <span title="站点阅读时长">5:18</span>
 </div>
 
         

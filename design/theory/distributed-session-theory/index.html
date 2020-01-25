@@ -64,7 +64,7 @@
 <meta property="og:image" content="http:&#x2F;&#x2F;dunwu.test.upcdn.net&#x2F;cs&#x2F;design&#x2F;architecture&#x2F;MultiNode-StickySessions.jpg!zp">
 <meta property="og:image" content="http:&#x2F;&#x2F;dunwu.test.upcdn.net&#x2F;cs&#x2F;design&#x2F;architecture&#x2F;MultiNode-SessionReplication.jpg!zp">
 <meta property="og:image" content="http:&#x2F;&#x2F;dunwu.test.upcdn.net&#x2F;cs&#x2F;design&#x2F;architecture&#x2F;MultiNode-SpringSession.jpg!zp">
-<meta property="og:updated_time" content="2019-12-03T08:27:36.766Z">
+<meta property="og:updated_time" content="2020-01-19T11:43:25.924Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:image" content="https:&#x2F;&#x2F;user-gold-cdn.xitu.io&#x2F;2019&#x2F;5&#x2F;13&#x2F;16aafb5d90f398e2?imageView2&#x2F;0&#x2F;w&#x2F;1280&#x2F;h&#x2F;960&#x2F;format&#x2F;webp&#x2F;ignore-error&#x2F;1">
 
@@ -160,7 +160,7 @@
   </li>
         <li class="menu-item menu-item-tags">
 
-    <a href="/blog/tags/" rel="section"><i class="fa fa-fw fa-tags"></i>标签<span class="badge">40</span></a>
+    <a href="/blog/tags/" rel="section"><i class="fa fa-fw fa-tags"></i>标签<span class="badge">42</span></a>
 
   </li>
         <li class="menu-item menu-item-categories">
@@ -170,7 +170,7 @@
   </li>
         <li class="menu-item menu-item-archives">
 
-    <a href="/blog/archives/" rel="section"><i class="fa fa-fw fa-archive"></i>归档<span class="badge">68</span></a>
+    <a href="/blog/archives/" rel="section"><i class="fa fa-fw fa-archive"></i>归档<span class="badge">69</span></a>
 
   </li>
       <li class="menu-item menu-item-search">
@@ -258,7 +258,7 @@
                   <i class="fa fa-calendar-check-o"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2019-12-03 16:27:36" itemprop="dateModified" datetime="2019-12-03T16:27:36+08:00">2019-12-03</time>
+                <time title="修改时间：2020-01-19 19:43:25" itemprop="dateModified" datetime="2020-01-19T19:43:25+08:00">2020-01-19</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -374,23 +374,23 @@
 </blockquote>
 <h3 id="21-粘性-session"><a class="markdownIt-Anchor" href="#21-粘性-session"></a> 2.1. 粘性 Session</h3>
 <blockquote>
-<p>粘性 Session（Sticky Sessions）需要配置负载均衡器，使得一个用户的所有请求都路由到一个服务器节点上，这样就可以把用户的 Session 存放在该服务器节点中。</p>
-<p>缺点：当服务器节点宕机时，将丢失该服务器节点上的所有 Session。</p>
+<p>粘性 Session（Sticky Sessions）<strong>需要配置负载均衡器，使得一个用户的所有请求都路由到一个服务器节点上</strong>，这样就可以把用户的 Session 存放在该服务器节点中。</p>
+<p>缺点：<strong>当服务器节点宕机时，将丢失该服务器节点上的所有 Session</strong>。</p>
 </blockquote>
 <div align="center">
 <img src="http://dunwu.test.upcdn.net/cs/design/architecture/MultiNode-StickySessions.jpg!zp" />
 </div>
-<h3 id="22-session-复制共享"><a class="markdownIt-Anchor" href="#22-session-复制共享"></a> 2.2. session 复制共享</h3>
+<h3 id="22-session-复制共享"><a class="markdownIt-Anchor" href="#22-session-复制共享"></a> 2.2. Session 复制共享</h3>
 <blockquote>
-<p>Session 复制共享（Session Replication）在服务器节点之间进行 Session 同步操作，这样的话用户可以访问任何一个服务器节点。</p>
-<p>缺点：占用过多内存；同步过程占用网络带宽以及服务器处理器时间。</p>
+<p>Session 复制共享（Session Replication）<strong>在服务器节点之间进行 Session 同步操作</strong>，这样的话用户可以访问任何一个服务器节点。</p>
+<p>缺点：<strong>占用过多内存</strong>；<strong>同步过程占用网络带宽以及服务器处理器时间</strong>。</p>
 </blockquote>
 <div align="center">
 <img src="http://dunwu.test.upcdn.net/cs/design/architecture/MultiNode-SessionReplication.jpg!zp" />
 </div>
 <h3 id="23-基于缓存的-session-共享"><a class="markdownIt-Anchor" href="#23-基于缓存的-session-共享"></a> 2.3. 基于缓存的 session 共享</h3>
 <blockquote>
-<p>使用一个单独的存储服务器存储 Session 数据，可以存在 MySQL 数据库上，也可以存在 Redis 或者 Memcached 这种内存型数据库。</p>
+<p><strong>使用一个单独的存储服务器存储 Session 数据</strong>，可以存在 MySQL 数据库上，也可以存在 Redis 或者 Memcached 这种内存型数据库。</p>
 <p>缺点：需要去实现存取 Session 的代码。</p>
 </blockquote>
 <div align="center">
@@ -516,7 +516,7 @@
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
-          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#分布式会话基本原理"><span class="nav-text"> 分布式会话基本原理</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#1-简介"><span class="nav-text"> 1. 简介</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#11-什么是-cookie"><span class="nav-text"> 1.1. 什么是 Cookie</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#12-什么是-session"><span class="nav-text"> 1.2. 什么是 Session</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#13-cookie-和-session-的区别"><span class="nav-text"> 1.3. Cookie 和 Session 的区别</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#14-为什么需要-cookie-和-session他们有什么关联"><span class="nav-text"> 1.4. 为什么需要 Cookie 和 Session，他们有什么关联？</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#15-如果浏览器禁用-cookie-怎么办"><span class="nav-text"> 1.5. 如果浏览器禁用 Cookie 怎么办</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-分布式-session"><span class="nav-text"> 2. 分布式 Session</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#21-粘性-session"><span class="nav-text"> 2.1. 粘性 Session</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#22-session-复制共享"><span class="nav-text"> 2.2. session 复制共享</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#23-基于缓存的-session-共享"><span class="nav-text"> 2.3. 基于缓存的 session 共享</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#3-具体实现"><span class="nav-text"> 3. 具体实现</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#31-jwt-token"><span class="nav-text"> 3.1. JWT Token</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#32-tomcat-redis"><span class="nav-text"> 3.2. tomcat + redis</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#33-spring-session-redis"><span class="nav-text"> 3.3. spring session + redis</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#4-参考资料"><span class="nav-text"> 4. 参考资料</span></a></li></ol></li></ol></div>
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#分布式会话基本原理"><span class="nav-text"> 分布式会话基本原理</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#1-简介"><span class="nav-text"> 1. 简介</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#11-什么是-cookie"><span class="nav-text"> 1.1. 什么是 Cookie</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#12-什么是-session"><span class="nav-text"> 1.2. 什么是 Session</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#13-cookie-和-session-的区别"><span class="nav-text"> 1.3. Cookie 和 Session 的区别</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#14-为什么需要-cookie-和-session他们有什么关联"><span class="nav-text"> 1.4. 为什么需要 Cookie 和 Session，他们有什么关联？</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#15-如果浏览器禁用-cookie-怎么办"><span class="nav-text"> 1.5. 如果浏览器禁用 Cookie 怎么办</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-分布式-session"><span class="nav-text"> 2. 分布式 Session</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#21-粘性-session"><span class="nav-text"> 2.1. 粘性 Session</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#22-session-复制共享"><span class="nav-text"> 2.2. Session 复制共享</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#23-基于缓存的-session-共享"><span class="nav-text"> 2.3. 基于缓存的 session 共享</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#3-具体实现"><span class="nav-text"> 3. 具体实现</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#31-jwt-token"><span class="nav-text"> 3.1. JWT Token</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#32-tomcat-redis"><span class="nav-text"> 3.2. tomcat + redis</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#33-spring-session-redis"><span class="nav-text"> 3.3. spring session + redis</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#4-参考资料"><span class="nav-text"> 4. 参考资料</span></a></li></ol></li></ol></div>
       </div>
       <!--/noindex-->
 
@@ -532,7 +532,7 @@
       <div class="site-state-item site-state-posts">
           <a href="/blog/archives/">
         
-          <span class="site-state-item-count">68</span>
+          <span class="site-state-item-count">69</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
@@ -545,7 +545,7 @@
       <div class="site-state-item site-state-tags">
             <a href="/blog/tags/">
           
-        <span class="site-state-item-count">40</span>
+        <span class="site-state-item-count">42</span>
         <span class="site-state-item-name">标签</span></a>
       </div>
   </nav>
@@ -581,7 +581,7 @@
 <div class="copyright">
   
   &copy; 2015 – 
-  <span itemprop="copyrightYear">2019</span>
+  <span itemprop="copyrightYear">2020</span>
   <span class="with-love">
     <i class="fa fa-paper-plane"></i>
   </span>
@@ -590,12 +590,12 @@
     <span class="post-meta-item-icon">
       <i class="fa fa-area-chart"></i>
     </span>
-    <span title="站点总字数">351k</span>
+    <span title="站点总字数">350k</span>
     <span class="post-meta-divider">|</span>
     <span class="post-meta-item-icon">
       <i class="fa fa-coffee"></i>
     </span>
-    <span title="站点阅读时长">5:19</span>
+    <span title="站点阅读时长">5:18</span>
 </div>
 
         

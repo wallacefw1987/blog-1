@@ -153,7 +153,7 @@
   </li>
         <li class="menu-item menu-item-tags">
 
-    <a href="/blog/tags/" rel="section"><i class="fa fa-fw fa-tags"></i>标签<span class="badge">40</span></a>
+    <a href="/blog/tags/" rel="section"><i class="fa fa-fw fa-tags"></i>标签<span class="badge">42</span></a>
 
   </li>
         <li class="menu-item menu-item-categories">
@@ -163,7 +163,7 @@
   </li>
         <li class="menu-item menu-item-archives">
 
-    <a href="/blog/archives/" rel="section"><i class="fa fa-fw fa-archive"></i>归档<span class="badge">68</span></a>
+    <a href="/blog/archives/" rel="section"><i class="fa fa-fw fa-archive"></i>归档<span class="badge">69</span></a>
 
   </li>
       <li class="menu-item menu-item-search">
@@ -221,7 +221,7 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="https://dunwu.github.io/blog/blog/communication/network-data-link/">
+    <link itemprop="mainEntityOfPage" href="https://dunwu.github.io/blog/blog/bigdata/hbase/hbase-ops/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/blog/images/avatar.gif">
@@ -235,642 +235,7 @@
       <header class="post-header">
         <h2 class="post-title" itemprop="name headline">
           
-            <a href="/blog/communication/network-data-link/" class="post-title-link" itemprop="url">计算机网络之数据链路层</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-
-              <time title="创建时间：2019-03-06 00:00:00" itemprop="dateCreated datePublished" datetime="2019-03-06T00:00:00+08:00">2019-03-06</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-calendar-check-o"></i>
-                </span>
-                <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2019-11-21 20:10:33" itemprop="dateModified" datetime="2019-11-21T20:10:33+08:00">2019-11-21</time>
-              </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/blog/categories/%E9%80%9A%E4%BF%A1/" itemprop="url" rel="index">
-                    <span itemprop="name">通信</span>
-                  </a>
-                </span>
-            </span>
-
-          
-  
-  <span class="post-meta-item">
-    
-      <span class="post-meta-item-icon">
-        <i class="fa fa-comment-o"></i>
-      </span>
-      <span class="post-meta-item-text">Disqus：</span>
-    
-    <a title="disqus" href="/blog/communication/network-data-link/#comments" itemprop="discussionUrl">
-      <span class="post-comments-count disqus-comment-count" data-disqus-identifier="communication/network-data-link/" itemprop="commentCount"></span>
-    </a>
-  </span>
-  
-  <br>
-            <span class="post-meta-item" title="本文字数">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-file-word-o"></i>
-              </span>
-                <span class="post-meta-item-text">本文字数：</span>
-              <span>2.4k</span>
-            </span>
-            <span class="post-meta-item" title="阅读时长">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-clock-o"></i>
-              </span>
-                <span class="post-meta-item-text">阅读时长 &asymp;</span>
-              <span>2 分钟</span>
-            </span>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <blockquote>
-<p><strong>数据链路层（Data Link Layer）</strong> - 网络层针对的还是主机之间的数据传输服务，而主机之间可以有很多链路，链路层协议就是为同一链路的主机提供数据传输服务。数据链路层把网络层传下来的分组封装成帧。</p>
-<ul>
-<li>主要协议：<code>PPP</code>、<code>CSMA/CD</code> 等。</li>
-<li>数据单元：帧（frame）。</li>
-<li>典型设备：二层交换机、网桥、网卡。</li>
-</ul>
-</blockquote>
-<h2 id="简介"><a class="markdownIt-Anchor" href="#简介"></a> 简介</h2>
-<ul>
-<li>链路是从一个节点到相邻节点的一段物理线路，数据链路则是在链路的基础上增加了一些必要的硬件（网络适配器）和软件（协议）。</li>
-<li>数据链路层三个基本问题：封装成帧、透明传输、差错检测。</li>
-<li>数据链路层有两种信道类型：点对点信道（主要使用 <code>PPP</code>）和广播信道（主要使用 <code>CSMA/CD</code>）。</li>
-<li>以太网 MAC 层的地址。</li>
-<li>适配器、转发器、集线器、网桥、以太网交换机的作用及使用场合。</li>
-</ul>
-<h2 id="基本问题"><a class="markdownIt-Anchor" href="#基本问题"></a> 基本问题</h2>
-<h3 id="封装成帧"><a class="markdownIt-Anchor" href="#封装成帧"></a> 封装成帧</h3>
-<p>为网络层传下来的 IP 数据报添加首部和尾部，用于标记帧的开始和结束。</p>
-<p>为了提高传输效率，应该让数据部分长度尽可能大于首部和尾部。但是，每种链路层协议都限制了帧的数据部分长度上线——最大传送单元 MTU（Maximum Transfer Unit）</p>
-<div align="center"><img src="http://dunwu.test.upcdn.net/cs/network/data-link/数据链路帧.png!zp"/></div>
-<h3 id="透明传输"><a class="markdownIt-Anchor" href="#透明传输"></a> 透明传输</h3>
-<p><strong>透明</strong>表示：某一个实际存在的事物看起来好像不存在一样。</p>
-<p>帧使用首部和尾部进行定界，如果帧的数据部分含有和首部尾部相同的内容，那么帧的开始和结束位置就会被错误的判定。需要在数据部分出现首部尾部相同的内容前面插入转义字符。如果数据部分出现转义字符，那么就在转义字符前面再加个转义字符。在接收端进行处理之后可以还原出原始数据。这个过程透明传输的内容是转义字符，用户察觉不到转义字符的存在。</p>
-<div align="center"><img src="http://dunwu.test.upcdn.net/cs/network/data-link/经过字节填充后发送的数据.png!zp"/></div>
-<h3 id="差错检测"><a class="markdownIt-Anchor" href="#差错检测"></a> 差错检测</h3>
-<p>目前数据链路层广泛使用了<a href="https://zh.wikipedia.org/wiki/%E5%BE%AA%E7%8E%AF%E5%86%97%E4%BD%99%E6%A3%80%E9%AA%8C" target="_blank" rel="noopener"><strong>循环冗余检验 CRC（Cyclic redundancy check）</strong></a>来检查比特差错。</p>
-<h2 id="点对点信道"><a class="markdownIt-Anchor" href="#点对点信道"></a> 点对点信道</h2>
-<p>点对点信道使用一对一的点对点通信方式。</p>
-<p>对于点对点的链路，点对点协议 PPP（Point-to-Point Protocol）是使用最广泛的数据链路层协议。</p>
-<h3 id="ppp-协议"><a class="markdownIt-Anchor" href="#ppp-协议"></a> PPP 协议</h3>
-<p>互联网用户通常都要连接到某个 ISP 之后才能接入到互联网，PPP 协议是用户计算机和 ISP 进行通信时所使用的数据链路层协议。</p>
-<div align="center"><img src="http://dunwu.test.upcdn.net/cs/network/data-link/PPP协议.png!zp"/></div>
-<p>PPP（点到点协议）是为在同等单元之间传输数据包这样的简单链路设计的链路层协议。这种链路提供全双工操作，并按照顺序传递数据包。设计目的主要是用来通过拨号或专线方式建立点对点连接发送数据，使其成为各种主机、网桥和路由器之间简单连接的一种共通的解决方案。</p>
-<div align="center"><img src="http://dunwu.test.upcdn.net/cs/network/data-link/PPP帧.png!zp"/></div>
-<p>PPP 的帧格式：</p>
-<ul>
-<li>F 字段为帧的定界符</li>
-<li>A 和 C 字段暂时没有意义</li>
-<li>FCS 字段是使用 CRC 的检验序列</li>
-<li>信息部分的长度不超过 1500</li>
-</ul>
-<h2 id="广播信道"><a class="markdownIt-Anchor" href="#广播信道"></a> 广播信道</h2>
-<p>广播信道(broadcast channel)是通过广播的方式传输信息的信息通道。</p>
-<p>所有的节点都在同一个广播信道上发送数据，因此需要有专门的控制方法进行协调，避免发生冲突（冲突也叫碰撞）。</p>
-<p>主要有两种控制方法进行协调，一个是使用信道复用技术，一是使用 CSMA/CD 协议。</p>
-<h3 id="csmacd-协议"><a class="markdownIt-Anchor" href="#csmacd-协议"></a> CSMA/CD 协议</h3>
-<p>CSMA/CD（Carrier Sense Multiple Access with Collision Detection）即带冲突检测的载波监听多路访问技术(载波监听多点接入/碰撞检测)。</p>
-<ul>
-<li><strong>多点接入</strong> ：说明这是总线型网络，许多计算机以多点接入的方式连接在一根总线上。</li>
-<li><strong>载波监听</strong> ：每个主机都必须不停地监听信道。发送前监听，如果忙则等待，如果空闲则发送。</li>
-<li><strong>碰撞检测</strong> ：即边发送边检测。若检测到信道有干扰信号，则表示产生了碰撞，于是就要停止发送数据，计算出退避等待时间，然后使用 CSMA 方法继续尝试发送。计算退避等待时间采用的是<a href="https://baike.baidu.com/item/%E4%BA%8C%E8%BF%9B%E5%88%B6%E6%8C%87%E6%95%B0%E9%80%80%E9%81%BF%E7%AE%97%E6%B3%95" target="_blank" rel="noopener">二进制指数退避算法</a>。</li>
-</ul>
-<h2 id="局域网"><a class="markdownIt-Anchor" href="#局域网"></a> 局域网</h2>
-<p>局域网 LAN（Local Area Network）是指在某一区域内由多台计算机互联成的计算机组。</p>
-<p>局域网的拓扑结构通常为总线型和环型。</p>
-<p>局域网技术主要有：以太网、令牌环网、FDDI 网和无线局域网等。</p>
-<h2 id="以太网"><a class="markdownIt-Anchor" href="#以太网"></a> 以太网</h2>
-<p>以太网（Ethernet）是一种星型拓扑结构局域网。</p>
-<p>以太网是目前应用最广泛的局域网。</p>
-<p>以太网使用 CSMA/CD 协议。</p>
-<h2 id="mac-地址"><a class="markdownIt-Anchor" href="#mac-地址"></a> MAC 地址</h2>
-<p>MAC 地址（Media Access Control Address），也称为以太网地址或物理地址，它是一个用来确认网上设备位置的地址。</p>
-<p>MAC 地址长度为 6 字节（48 位），用于唯一标识网络适配器（网卡）。</p>
-<p>一台主机拥有多少个网络适配器就有多少个 MAC 地址。</p>
-<div align="center"><img src="http://dunwu.test.upcdn.net/cs/network/data-link/MAC帧.png!zp"/></div>
-<h2 id="设备"><a class="markdownIt-Anchor" href="#设备"></a> 设备</h2>
-<h3 id="适配器"><a class="markdownIt-Anchor" href="#适配器"></a> 适配器</h3>
-<p>网络适配器一般指网卡。</p>
-<p>网卡是工作在链路层的网络组件，是局域网中连接计算机和传输介质的接口，不仅能实现与局域网传输介质之间的物理连接和电信号匹配，还涉及帧的发送与接收、帧的封装与拆封、介质访问控制、数据的编码与解码以及数据缓存的功能等。</p>
-<p>网卡和局域网之间的通信是通过电缆或双绞线以串行传输方式进行的。而网卡和计算机之间的通信则是通过计算机主板上的 I/O 总线以并行传输方式进行。</p>
-<h3 id="集线器"><a class="markdownIt-Anchor" href="#集线器"></a> 集线器</h3>
-<p>集线器（Hub）的主要功能是对接收到的信号进行再生整形放大，以扩大网络的传输距离，同时把所有节点集中在以它为中心的节点上。</p>
-<p>使用集线器可以在物理层扩展以太网。</p>
-<h3 id="网桥"><a class="markdownIt-Anchor" href="#网桥"></a> 网桥</h3>
-<p>网桥（Bridge）是早期的两端口二层网络设备，用来连接不同网段。网桥的两个端口分别有一条独立的交换信道，不是共享一条背板总线，可隔离冲突域。网桥比集线器（Hub）性能更好，集线器上各端口都是共享同一条背板总线的。后来，网桥被具有更多端口、同时也可隔离冲突域的交换机（Switch）所取代。</p>
-<h3 id="以太网交换机"><a class="markdownIt-Anchor" href="#以太网交换机"></a> 以太网交换机</h3>
-<p>以太网交换机是基于以太网传输数据的交换机，以太网采用共享总线型传输媒体方式的局域网。以太网交换机的结构是每个端口都直接与主机相连，并且一般都工作在全双工方式。交换机能同时连通许多对端口，使每一对相互通信的主机都能像独占通信媒体那样，进行无冲突地传输数据。</p>
-<ul>
-<li>以太网交换机的每个端口都直接与主机相连，并且一般都工作在全双工方式。</li>
-<li>交换机能同时连通许多对的端口，使每一对相互通信的主机都能像独占通信媒体那样，进行无冲突地传输数据。</li>
-<li>用户独占传输媒体的带宽，若一个接口到主机的带宽是 10Mbit 每秒，那么有 10 个接口的交换机的总容量是 100Mbit 每秒。这是交换机的最大优点。</li>
-</ul>
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-        
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="https://dunwu.github.io/blog/blog/communication/network-physical/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/blog/images/avatar.gif">
-      <meta itemprop="name" content="Zhang Peng">
-      <meta itemprop="description" content="Dunwu's Blog">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Dunwu">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/blog/communication/network-physical/" class="post-title-link" itemprop="url">计算机网络之物理层</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-
-              <time title="创建时间：2019-03-06 00:00:00" itemprop="dateCreated datePublished" datetime="2019-03-06T00:00:00+08:00">2019-03-06</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-calendar-check-o"></i>
-                </span>
-                <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2019-11-21 20:10:33" itemprop="dateModified" datetime="2019-11-21T20:10:33+08:00">2019-11-21</time>
-              </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/blog/categories/%E9%80%9A%E4%BF%A1/" itemprop="url" rel="index">
-                    <span itemprop="name">通信</span>
-                  </a>
-                </span>
-            </span>
-
-          
-  
-  <span class="post-meta-item">
-    
-      <span class="post-meta-item-icon">
-        <i class="fa fa-comment-o"></i>
-      </span>
-      <span class="post-meta-item-text">Disqus：</span>
-    
-    <a title="disqus" href="/blog/communication/network-physical/#comments" itemprop="discussionUrl">
-      <span class="post-comments-count disqus-comment-count" data-disqus-identifier="communication/network-physical/" itemprop="commentCount"></span>
-    </a>
-  </span>
-  
-  <br>
-            <span class="post-meta-item" title="本文字数">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-file-word-o"></i>
-              </span>
-                <span class="post-meta-item-text">本文字数：</span>
-              <span>878</span>
-            </span>
-            <span class="post-meta-item" title="阅读时长">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-clock-o"></i>
-              </span>
-                <span class="post-meta-item-text">阅读时长 &asymp;</span>
-              <span>1 分钟</span>
-            </span>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <blockquote>
-<p><strong>摘要</strong></p>
-<p><strong>物理层（Physical Layer）</strong> - 物理层只接收和发送一串比特(bit)流，不考虑信息的意义和信息结构。</p>
-<ul>
-<li>数据单元：比特流。</li>
-<li>典型设备：光纤、同轴电缆、双绞线、中继器和集线器。</li>
-</ul>
-</blockquote>
-<h2 id="通信系统模型"><a class="markdownIt-Anchor" href="#通信系统模型"></a> 通信系统模型</h2>
-<div align="center"><img src="http://dunwu.test.upcdn.net/cs/network/physical/数据通信系统的模型.png!zp"/></div>
-<p>通信系统模型分为三大部分：源系统（包括信源和发送器）、传输系统、目的系统（包括信宿接收器）。</p>
-<p>重要概念：</p>
-<ul>
-<li><strong>信源</strong> - 也叫源点。产生各类信息的实体。</li>
-<li><strong>信道</strong> - 通信的通道，是信号传输的媒介。</li>
-<li><strong>信宿</strong> - 传输信息的归宿。</li>
-<li><strong>码元</strong> - 在数字通信中常常用时间间隔相同的符号来表示一个二进制数字，这样的时间间隔内的信号称为(二进制）码元。</li>
-</ul>
-<h2 id="通信方式"><a class="markdownIt-Anchor" href="#通信方式"></a> 通信方式</h2>
-<div align="center"><img src="http://dunwu.test.upcdn.net/cs/network/physical/通信方式.jpg!zp"/></div>
-<p>有三种通信方式：</p>
-<ul>
-<li>单工通信：单向传输</li>
-<li>半双工通信：双向交替传输</li>
-<li>全双工通信：双向同时传输</li>
-</ul>
-<h2 id="通信信号"><a class="markdownIt-Anchor" href="#通信信号"></a> 通信信号</h2>
-<p>通信的目的是传送消息。如语音、文字、图像、视频都是消息。数据时传送消息的实体。信号是数据的电气或电磁的表现。</p>
-<p>模拟信号和数字信号</p>
-<ul>
-<li><strong>模拟信号</strong> - 模拟信号是连续的信号。</li>
-<li><strong>数字信号</strong> - 数字信号是离散的信号。</li>
-</ul>
-<h2 id="调制解调"><a class="markdownIt-Anchor" href="#调制解调"></a> 调制解调</h2>
-<p>重要概念：</p>
-<ul>
-<li><strong>基带信号</strong> - 来自信源的信号叫做基带信号。</li>
-<li><strong>调制</strong> - 将各种数字基带信号转换成适于信道传输的数字调制信号(已调信号或频带信号)。简单来说：调制即，数字 -&gt; 模拟。</li>
-<li><strong>解调</strong> - 在接收端将收到的数字频带信号还原成数字基带信号。简单来说：解调即，模拟 -&gt; 数字。</li>
-</ul>
-<blockquote>
-<p>📌 提示：我们上网时所用到的调制解调器（俗称“猫”），指的就是转换数字和模拟信号的机器。</p>
-</blockquote>
-<p>信号要在信道上传输就要经过调制。</p>
-<p>调制分为：基带调制和带通调制</p>
-<h3 id="基本带通调制方法"><a class="markdownIt-Anchor" href="#基本带通调制方法"></a> 基本带通调制方法</h3>
-<div align="center"><img src="http://dunwu.test.upcdn.net/cs/network/physical/基本调制方法.png!zp"/></div>
-<p>如果你收听过广播，一定经常听到 AM、FM 这两个关键词，这是什么意思呢？答案如下：</p>
-<ul>
-<li><strong>调幅（AM）</strong> - 即载波的<strong>振幅</strong>随基带数字信号而变化。</li>
-<li><strong>调频（FM）</strong> - 即载波的<strong>频率</strong>随基带数字信号而变化。</li>
-<li><strong>调相（PM）</strong> - 即载波的<strong>初始相位</strong>随基带数字信号而变化。</li>
-</ul>
-<blockquote>
-<p>📌 提示：我们收听广播时，为了接收不同广播台的信号，就要调整 AM 或 FM，指的就是这里的调制方法。</p>
-</blockquote>
-<h2 id="通信媒介"><a class="markdownIt-Anchor" href="#通信媒介"></a> 通信媒介</h2>
-<p>通信媒介分为两大类：</p>
-<ul>
-<li>导引型 - 双绞线、电缆、光纤</li>
-<li>非导引型 - 无线、红外线、大气、激光</li>
-</ul>
-<h2 id="信道复用"><a class="markdownIt-Anchor" href="#信道复用"></a> 信道复用</h2>
-<p>信道复用就是将用于传输信道的总带宽划分成若干个子频带（或称子信道），每一个子信道传输一路信号。</p>
-<ul>
-<li>频分复用</li>
-<li>时分复用</li>
-<li>波分复用</li>
-<li>码分复用</li>
-</ul>
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-        
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="https://dunwu.github.io/blog/blog/communication/network-application/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/blog/images/avatar.gif">
-      <meta itemprop="name" content="Zhang Peng">
-      <meta itemprop="description" content="Dunwu's Blog">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Dunwu">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/blog/communication/network-application/" class="post-title-link" itemprop="url">计算机网络之应用层</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-
-              <time title="创建时间：2019-03-06 00:00:00" itemprop="dateCreated datePublished" datetime="2019-03-06T00:00:00+08:00">2019-03-06</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-calendar-check-o"></i>
-                </span>
-                <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2019-11-21 20:10:33" itemprop="dateModified" datetime="2019-11-21T20:10:33+08:00">2019-11-21</time>
-              </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/blog/categories/%E9%80%9A%E4%BF%A1/" itemprop="url" rel="index">
-                    <span itemprop="name">通信</span>
-                  </a>
-                </span>
-            </span>
-
-          
-  
-  <span class="post-meta-item">
-    
-      <span class="post-meta-item-icon">
-        <i class="fa fa-comment-o"></i>
-      </span>
-      <span class="post-meta-item-text">Disqus：</span>
-    
-    <a title="disqus" href="/blog/communication/network-application/#comments" itemprop="discussionUrl">
-      <span class="post-comments-count disqus-comment-count" data-disqus-identifier="communication/network-application/" itemprop="commentCount"></span>
-    </a>
-  </span>
-  
-  <br>
-            <span class="post-meta-item" title="本文字数">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-file-word-o"></i>
-              </span>
-                <span class="post-meta-item-text">本文字数：</span>
-              <span>3.5k</span>
-            </span>
-            <span class="post-meta-item" title="阅读时长">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-clock-o"></i>
-              </span>
-                <span class="post-meta-item-text">阅读时长 &asymp;</span>
-              <span>3 分钟</span>
-            </span>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h2 id="http"><a class="markdownIt-Anchor" href="#http"></a> HTTP</h2>
-<div align="center"><img src="http://dunwu.test.upcdn.net/cs/network/application/1551096916007.png!zp"/></div>
-<p>超文本传输协议（英语：HyperText Transfer Protocol，缩写：HTTP）是一种用于分布式、协作式和超媒体信息系统的应用层协议。HTTP 是万维网的数据通信的基础。</p>
-<p>设计 HTTP 最初的目的是为了提供一种发布和接收 HTML 页面的方法。通过 HTTP 或者 HTTPS 协议请求的资源由统一资源标识符（Uniform Resource Identifiers，URI）来标识。</p>
-<p>安全套接字层超文本传输协议 HTTPS 为了数据传输的安全，HTTPS 在 HTTP 的基础上加入了 SSL 协议，SSL 依靠证书来验证服务器的身份，并为浏览器和服务器之间的通信加密。</p>
-<blockquote>
-<p>👉 扩展阅读：<a href="HTTP.md">HTTP</a></p>
-</blockquote>
-<h2 id="dns"><a class="markdownIt-Anchor" href="#dns"></a> DNS</h2>
-<p>域名服务器 DNS 是一个分布式数据库，提供了主机名和 IP 地址之间相互转换的服务。这里的分布式数据库是指，每个站点只保留它自己的那部分数据。</p>
-<div align="center"><img src="http://dunwu.test.upcdn.net/cs/network/application/1551094759786.png!zp"/></div>
-<p>域名具有层次结构，从上到下依次为：根域名、顶级域名、二级域名。</p>
-<div align="center"><img src="http://dunwu.test.upcdn.net/cs/network/application/1551094954067.png!zp"/></div>
-<p>DNS 可以使用 UDP 或者 TCP 进行传输，使用的端口号都为 53。大多数情况下 DNS 使用 UDP 进行传输，这就要求域名解析器和域名服务器都必须自己处理超时和重传来保证可靠性。在两种情况下会使用 TCP 进行传输：</p>
-<ul>
-<li>如果返回的响应超过的 512 字节（UDP 最大只支持 512 字节的数据）。</li>
-<li>区域传送（区域传送是主域名服务器向辅助域名服务器传送变化的那部分数据）。</li>
-</ul>
-<blockquote>
-<p>👉 扩展阅读：<a href="DNS.md">DNS</a></p>
-</blockquote>
-<h2 id="ftp"><a class="markdownIt-Anchor" href="#ftp"></a> FTP</h2>
-<p>文件传送协议 FTP 使用 TCP 进行连接，它需要两个连接来传送一个文件：</p>
-<ul>
-<li>控制连接：服务器打开端口号 21 等待客户端的连接，客户端主动建立连接后，使用这个连接将客户端的命令传送给服务器，并传回服务器的应答。</li>
-<li>数据连接：用来传送一个文件数据。</li>
-</ul>
-<p>根据数据连接是否是服务器端主动建立，FTP 有主动和被动两种模式：</p>
-<div align="center"><img src="http://dunwu.test.upcdn.net/cs/network/application/1551095440002.png!zp"/></div>
-<ul>
-<li>主动模式：服务器端主动建立数据连接，其中服务器端的端口号为 20，客户端的端口号随机，但是必须大于 1024，因为 0~1023 是熟知端口号。</li>
-<li>被动模式：客户端主动建立数据连接，其中客户端的端口号由客户端自己指定，服务器端的端口号随机。</li>
-</ul>
-<p>主动模式要求客户端开放端口号给服务器端，需要去配置客户端的防火墙。被动模式只需要服务器端开放端口号即可，无需客户端配置防火墙。但是被动模式会导致服务器端的安全性减弱，因为开放了过多的端口号。</p>
-<p>FTPS 是一种对常用的文件传输协议（FTP）添加传输层安全（TLS）和安全套接层（SSL）加密协议支持的扩展协议。</p>
-<h2 id="dhcp"><a class="markdownIt-Anchor" href="#dhcp"></a> DHCP</h2>
-<p>动态主机配置协议 DHCP (Dynamic Host Configuration Protocol) 提供了即插即用的连网方式，用户不再需要去手动配置 IP 地址等信息。</p>
-<p>DHCP 配置的内容不仅是 IP 地址，还包括子网掩码、网关 IP 地址。</p>
-<p>DHCP 工作过程如下：</p>
-<ol>
-<li>客户端发送 Discover 报文，该报文的目的地址为 255.255.255.255:67，源地址为 0.0.0.0:68，被放入 UDP 中，该报文被广播到同一个子网的所有主机上。如果客户端和 DHCP 服务器不在同一个子网，就需要使用中继代理。</li>
-<li>DHCP 服务器收到 Discover 报文之后，发送 Offer 报文给客户端，该报文包含了客户端所需要的信息。因为客户端可能收到多个 DHCP 服务器提供的信息，因此客户端需要进行选择。</li>
-<li>如果客户端选择了某个 DHCP 服务器提供的信息，那么就发送 Request 报文给该 DHCP 服务器。</li>
-<li>DHCP 服务器发送 Ack 报文，表示客户端此时可以使用提供给它的信息。</li>
-</ol>
-<div align="center"><img src="http://dunwu.test.upcdn.net/cs/network/application/1551095610521.png!zp"/></div>
-<h2 id="telnet"><a class="markdownIt-Anchor" href="#telnet"></a> TELNET</h2>
-<p>远程登录协议 TELNET 用于登录到远程主机上，并且远程主机上的输出也会返回。</p>
-<p>TELNET 可以适应许多计算机和操作系统的差异，例如不同操作系统系统的换行符定义。</p>
-<h2 id="电子邮件协议"><a class="markdownIt-Anchor" href="#电子邮件协议"></a> 电子邮件协议</h2>
-<p>一个电子邮件系统由三部分组成：用户代理、邮件服务器以及邮件协议。</p>
-<p>邮件协议包含发送协议和读取协议，发送协议常用 SMTP，读取协议常用 POP3 和 IMAP。</p>
-<h3 id="1-smtp"><a class="markdownIt-Anchor" href="#1-smtp"></a> 1. SMTP</h3>
-<p>SMTP 只能发送 ASCII 码，而互联网邮件扩充 MIME 可以发送二进制文件。MIME 并没有改动或者取代 SMTP，而是增加邮件主体的结构，定义了非 ASCII 码的编码规则。</p>
-<h3 id="2-pop3"><a class="markdownIt-Anchor" href="#2-pop3"></a> 2. POP3</h3>
-<p>POP3 的特点是只要用户从服务器上读取了邮件，就把该邮件删除。</p>
-<h3 id="3-imap"><a class="markdownIt-Anchor" href="#3-imap"></a> 3. IMAP</h3>
-<p>IMAP 协议中客户端和服务器上的邮件保持同步，如果不手动删除邮件，那么服务器上的邮件也不会被删除。IMAP 这种做法可以让用户随时随地去访问服务器上的邮件。</p>
-<h2 id="常用端口"><a class="markdownIt-Anchor" href="#常用端口"></a> 常用端口</h2>
-<table>
-<thead>
-<tr>
-<th style="text-align:center">应用</th>
-<th style="text-align:center">应用层协议</th>
-<th style="text-align:center">端口号</th>
-<th style="text-align:center">传输层协议</th>
-<th style="text-align:center">备注</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td style="text-align:center">域名解析</td>
-<td style="text-align:center">DNS</td>
-<td style="text-align:center">53</td>
-<td style="text-align:center">UDP/TCP</td>
-<td style="text-align:center">长度超过 512 字节时使用 TCP</td>
-</tr>
-<tr>
-<td style="text-align:center">动态主机配置协议</td>
-<td style="text-align:center">DHCP</td>
-<td style="text-align:center">67/68</td>
-<td style="text-align:center">UDP</td>
-<td style="text-align:center"></td>
-</tr>
-<tr>
-<td style="text-align:center">简单网络管理协议</td>
-<td style="text-align:center">SNMP</td>
-<td style="text-align:center">161/162</td>
-<td style="text-align:center">UDP</td>
-<td style="text-align:center"></td>
-</tr>
-<tr>
-<td style="text-align:center">文件传送协议</td>
-<td style="text-align:center">FTP</td>
-<td style="text-align:center">20/21</td>
-<td style="text-align:center">TCP</td>
-<td style="text-align:center">控制连接 21，数据连接 20</td>
-</tr>
-<tr>
-<td style="text-align:center">远程终端协议</td>
-<td style="text-align:center">TELNET</td>
-<td style="text-align:center">23</td>
-<td style="text-align:center">TCP</td>
-<td style="text-align:center"></td>
-</tr>
-<tr>
-<td style="text-align:center">超文本传送协议</td>
-<td style="text-align:center">HTTP</td>
-<td style="text-align:center">80</td>
-<td style="text-align:center">TCP</td>
-<td style="text-align:center"></td>
-</tr>
-<tr>
-<td style="text-align:center">简单邮件传送协议</td>
-<td style="text-align:center">SMTP</td>
-<td style="text-align:center">25</td>
-<td style="text-align:center">TCP</td>
-<td style="text-align:center"></td>
-</tr>
-<tr>
-<td style="text-align:center">邮件读取协议</td>
-<td style="text-align:center">POP3</td>
-<td style="text-align:center">110</td>
-<td style="text-align:center">TCP</td>
-<td style="text-align:center"></td>
-</tr>
-<tr>
-<td style="text-align:center">网际报文存取协议</td>
-<td style="text-align:center">IMAP</td>
-<td style="text-align:center">143</td>
-<td style="text-align:center">TCP</td>
-<td style="text-align:center"></td>
-</tr>
-</tbody>
-</table>
-<h2 id="web-页面请求过程"><a class="markdownIt-Anchor" href="#web-页面请求过程"></a> Web 页面请求过程</h2>
-<h3 id="1-dhcp-配置主机信息"><a class="markdownIt-Anchor" href="#1-dhcp-配置主机信息"></a> 1. DHCP 配置主机信息</h3>
-<ul>
-<li>假设主机最开始没有 IP 地址以及其它信息，那么就需要先使用 DHCP 来获取。</li>
-<li>主机生成一个 DHCP 请求报文，并将这个报文放入具有目的端口 67 和源端口 68 的 UDP 报文段中。</li>
-<li>该报文段则被放入在一个具有广播 IP 目的地址(255.255.255.255) 和源 IP 地址（0.0.0.0）的 IP 数据报中。</li>
-<li>该数据报则被放置在 MAC 帧中，该帧具有目的地址 FF:FF:FF:FF:FF:FF，将广播到与交换机连接的所有设备。</li>
-<li>连接在交换机的 DHCP 服务器收到广播帧之后，不断地向上分解得到 IP 数据报、UDP 报文段、DHCP 请求报文，之后生成 DHCP ACK 报文，该报文包含以下信息：IP 地址、DNS 服务器的 IP 地址、默认网关路由器的 IP 地址和子网掩码。该报文被放入 UDP 报文段中，UDP 报文段有被放入 IP 数据报中，最后放入 MAC 帧中。</li>
-<li>该帧的目的地址是请求主机的 MAC 地址，因为交换机具有自学习能力，之前主机发送了广播帧之后就记录了 MAC 地址到其转发接口的交换表项，因此现在交换机就可以直接知道应该向哪个接口发送该帧。</li>
-<li>主机收到该帧后，不断分解得到 DHCP 报文。之后就配置它的 IP 地址、子网掩码和 DNS 服务器的 IP 地址，并在其 IP 转发表中安装默认网关。</li>
-</ul>
-<h3 id="2-arp-解析-mac-地址"><a class="markdownIt-Anchor" href="#2-arp-解析-mac-地址"></a> 2. ARP 解析 MAC 地址</h3>
-<ul>
-<li>主机通过浏览器生成一个 TCP 套接字，套接字向 HTTP 服务器发送 HTTP 请求。为了生成该套接字，主机需要知道网站的域名对应的 IP 地址。</li>
-<li>主机生成一个 DNS 查询报文，该报文具有 53 号端口，因为 DNS 服务器的端口号是 53。</li>
-<li>该 DNS 查询报文被放入目的地址为 DNS 服务器 IP 地址的 IP 数据报中。</li>
-<li>该 IP 数据报被放入一个以太网帧中，该帧将发送到网关路由器。</li>
-<li>DHCP 过程只知道网关路由器的 IP 地址，为了获取网关路由器的 MAC 地址，需要使用 ARP 协议。</li>
-<li>主机生成一个包含目的地址为网关路由器 IP 地址的 ARP 查询报文，将该 ARP 查询报文放入一个具有广播目的地址（FF:FF:FF:FF:FF:FF）的以太网帧中，并向交换机发送该以太网帧，交换机将该帧转发给所有的连接设备，包括网关路由器。</li>
-<li>网关路由器接收到该帧后，不断向上分解得到 ARP 报文，发现其中的 IP 地址与其接口的 IP 地址匹配，因此就发送一个 ARP 回答报文，包含了它的 MAC 地址，发回给主机。</li>
-</ul>
-<h3 id="3-dns-解析域名"><a class="markdownIt-Anchor" href="#3-dns-解析域名"></a> 3. DNS 解析域名</h3>
-<ul>
-<li>知道了网关路由器的 MAC 地址之后，就可以继续 DNS 的解析过程了。</li>
-<li>网关路由器接收到包含 DNS 查询报文的以太网帧后，抽取出 IP 数据报，并根据转发表决定该 IP 数据报应该转发的路由器。</li>
-<li>因为路由器具有内部网关协议（RIP、OSPF）和外部网关协议（BGP）这两种路由选择协议，因此路由表中已经配置了网关路由器到达 DNS 服务器的路由表项。</li>
-<li>到达 DNS 服务器之后，DNS 服务器抽取出 DNS 查询报文，并在 DNS 数据库中查找待解析的域名。</li>
-<li>找到 DNS 记录之后，发送 DNS 回答报文，将该回答报文放入 UDP 报文段中，然后放入 IP 数据报中，通过路由器反向转发回网关路由器，并经过以太网交换机到达主机。</li>
-</ul>
-<h3 id="4-http-请求页面"><a class="markdownIt-Anchor" href="#4-http-请求页面"></a> 4. HTTP 请求页面</h3>
-<ul>
-<li>有了 HTTP 服务器的 IP 地址之后，主机就能够生成 TCP 套接字，该套接字将用于向 Web 服务器发送 HTTP GET 报文。</li>
-<li>在生成 TCP 套接字之前，必须先与 HTTP 服务器进行三次握手来建立连接。生成一个具有目的端口 80 的 TCP SYN 报文段，并向 HTTP 服务器发送该报文段。</li>
-<li>HTTP 服务器收到该报文段之后，生成 TCP SYN ACK 报文段，发回给主机。</li>
-<li>连接建立之后，浏览器生成 HTTP GET 报文，并交付给 HTTP 服务器。</li>
-<li>HTTP 服务器从 TCP 套接字读取 HTTP GET 报文，生成一个 HTTP 响应报文，将 Web 页面内容放入报文主体中，发回给主机。</li>
-<li>浏览器收到 HTTP 响应报文后，抽取出 Web 页面内容，之后进行渲染，显示 Web 页面。</li>
-</ul>
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-        
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="https://dunwu.github.io/blog/blog/bigdata/hbase/hbase-cli/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/blog/images/avatar.gif">
-      <meta itemprop="name" content="Zhang Peng">
-      <meta itemprop="description" content="Dunwu's Blog">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Dunwu">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/blog/bigdata/hbase/hbase-cli/" class="post-title-link" itemprop="url">HBase 命令</a>
+            <a href="/blog/bigdata/hbase/hbase-ops/" class="post-title-link" itemprop="url">HBase 维护</a>
         </h2>
 
         <div class="post-meta">
@@ -899,8 +264,8 @@
       </span>
       <span class="post-meta-item-text">Disqus：</span>
     
-    <a title="disqus" href="/blog/bigdata/hbase/hbase-cli/#comments" itemprop="discussionUrl">
-      <span class="post-comments-count disqus-comment-count" data-disqus-identifier="bigdata/hbase/hbase-cli/" itemprop="commentCount"></span>
+    <a title="disqus" href="/blog/bigdata/hbase/hbase-ops/#comments" itemprop="discussionUrl">
+      <span class="post-comments-count disqus-comment-count" data-disqus-identifier="bigdata/hbase/hbase-ops/" itemprop="commentCount"></span>
     </a>
   </span>
   
@@ -910,14 +275,14 @@
                 <i class="fa fa-file-word-o"></i>
               </span>
                 <span class="post-meta-item-text">本文字数：</span>
-              <span>2.2k</span>
+              <span>1.6k</span>
             </span>
             <span class="post-meta-item" title="阅读时长">
               <span class="post-meta-item-icon">
                 <i class="fa fa-clock-o"></i>
               </span>
                 <span class="post-meta-item-text">阅读时长 &asymp;</span>
-              <span>2 分钟</span>
+              <span>1 分钟</span>
             </span>
 
         </div>
@@ -929,46 +294,931 @@
     <div class="post-body" itemprop="articleBody">
 
       
-          <h1 id="hbase-命令"><a class="markdownIt-Anchor" href="#hbase-命令"></a> HBase 命令</h1>
+          <h1 id="hbase-维护"><a class="markdownIt-Anchor" href="#hbase-维护"></a> HBase 维护</h1>
 <!-- TOC depthFrom:2 depthTo:3 -->
 <ul>
-<li><a href="#1-%E8%BF%9E%E6%8E%A5-hbase">1. 连接 HBase</a></li>
-<li><a href="#2-%E6%9F%A5%E8%AF%A2%E5%B8%AE%E5%8A%A9">2. 查询帮助</a></li>
-<li><a href="#3-%E5%88%9B%E5%BB%BA%E8%A1%A8">3. 创建表</a></li>
-<li><a href="#4-%E6%9F%A5%E7%9C%8B%E8%A1%A8%E4%BF%A1%E6%81%AF">4. 查看表信息</a></li>
-<li><a href="#5-%E6%9F%A5%E7%9C%8B%E8%A1%A8%E8%AF%A6%E7%BB%86%E4%BF%A1%E6%81%AF">5. 查看表详细信息</a></li>
-<li><a href="#6-%E5%90%91%E8%A1%A8%E4%B8%AD%E5%86%99%E6%95%B0%E6%8D%AE">6. 向表中写数据</a></li>
-<li><a href="#7-%E6%89%AB%E6%8F%8F%E8%A1%A8">7. 扫描表</a></li>
-<li><a href="#8-%E6%9F%A5%E8%AF%A2-row">8. 查询 row</a></li>
-<li><a href="#9-%E7%A6%81%E7%94%A8%E5%90%AF%E7%94%A8%E8%A1%A8">9. 禁用、启用表</a></li>
-<li><a href="#10-%E5%88%A0%E9%99%A4%E8%A1%A8">10. 删除表</a></li>
-<li><a href="#11-%E5%81%9C%E6%AD%A2-hbase">11. 停止 HBase</a></li>
+<li><a href="#%E9%85%8D%E7%BD%AE%E6%96%87%E4%BB%B6">配置文件</a></li>
+<li><a href="#%E7%8E%AF%E5%A2%83%E8%A6%81%E6%B1%82">环境要求</a></li>
+<li><a href="#%E5%BC%95%E7%94%A8%E5%92%8C%E5%BC%95%E7%94%B3">引用和引申</a>
+<ul>
+<li><a href="#%E5%BC%95%E7%94%B3">引申</a></li>
+</ul>
+</li>
 </ul>
 <!-- /TOC -->
-<h2 id="1-连接-hbase"><a class="markdownIt-Anchor" href="#1-连接-hbase"></a> 1. 连接 HBase</h2>
-<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ ./bin/hbase shell</span><br><span class="line">hbase(main):001:0&gt;</span><br></pre></td></tr></table></figure>
-<h2 id="2-查询帮助"><a class="markdownIt-Anchor" href="#2-查询帮助"></a> 2. 查询帮助</h2>
-<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="built_in">help</span></span><br></pre></td></tr></table></figure>
-<h2 id="3-创建表"><a class="markdownIt-Anchor" href="#3-创建表"></a> 3. 创建表</h2>
-<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">create <span class="string">'table1'</span>,<span class="string">'columnFamliy1'</span>,<span class="string">'columnFamliy2'</span></span><br></pre></td></tr></table></figure>
-<p>说明：</p>
-<p>创建一张名为 table1 的 HBase 表，columnFamliy1、columnFamliy2 是 table1 表的列族。</p>
-<h2 id="4-查看表信息"><a class="markdownIt-Anchor" href="#4-查看表信息"></a> 4. 查看表信息</h2>
-<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">list <span class="string">'table1'</span></span><br></pre></td></tr></table></figure>
-<h2 id="5-查看表详细信息"><a class="markdownIt-Anchor" href="#5-查看表详细信息"></a> 5. 查看表详细信息</h2>
-<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">describe <span class="string">'table1'</span></span><br></pre></td></tr></table></figure>
-<h2 id="6-向表中写数据"><a class="markdownIt-Anchor" href="#6-向表中写数据"></a> 6. 向表中写数据</h2>
-<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">put <span class="string">'table1'</span>, <span class="string">'row1'</span>, <span class="string">'columnFamliy1:a'</span>, <span class="string">'valueA'</span></span><br><span class="line">put <span class="string">'table1'</span>, <span class="string">'row1'</span>, <span class="string">'columnFamliy1:b'</span>, <span class="string">'valueB'</span></span><br><span class="line">put <span class="string">'table1'</span>, <span class="string">'row1'</span>, <span class="string">'columnFamliy1:c'</span>, <span class="string">'valueC'</span></span><br><span class="line"></span><br><span class="line">put <span class="string">'table1'</span>, <span class="string">'row2'</span>, <span class="string">'columnFamliy1:a'</span>, <span class="string">'valueA'</span></span><br><span class="line">put <span class="string">'table1'</span>, <span class="string">'row2'</span>, <span class="string">'columnFamliy1:b'</span>, <span class="string">'valueB'</span></span><br><span class="line">put <span class="string">'table1'</span>, <span class="string">'row2'</span>, <span class="string">'columnFamliy1:c'</span>, <span class="string">'valueC'</span></span><br><span class="line"></span><br><span class="line">put <span class="string">'table1'</span>, <span class="string">'row1'</span>, <span class="string">'columnFamliy2:a'</span>, <span class="string">'valueA'</span></span><br><span class="line">put <span class="string">'table1'</span>, <span class="string">'row1'</span>, <span class="string">'columnFamliy2:b'</span>, <span class="string">'valueB'</span></span><br><span class="line">put <span class="string">'table1'</span>, <span class="string">'row1'</span>, <span class="string">'columnFamliy2:c'</span>, <span class="string">'valueC'</span></span><br></pre></td></tr></table></figure>
-<h2 id="7-扫描表"><a class="markdownIt-Anchor" href="#7-扫描表"></a> 7. 扫描表</h2>
-<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">hbase&gt; scan <span class="string">'hbase:meta'</span></span><br><span class="line">hbase&gt; scan <span class="string">'hbase:meta'</span>, &#123;COLUMNS =&gt; <span class="string">'info:regioninfo'</span>&#125;</span><br><span class="line">hbase&gt; scan <span class="string">'ns1:</span></span><br><span class="line"><span class="string">hbase&gt; scan '</span>t1<span class="string">', &#123;COLUMNS =&gt; ['</span>c1<span class="string">', '</span>c2<span class="string">'], LIMIT =&gt; 10, STARTROW =&gt; '</span>xyz<span class="string">'&#125;</span></span><br><span class="line"><span class="string">hbase&gt; scan '</span>t1<span class="string">', &#123;COLUMNS =&gt; '</span>c1<span class="string">', TIMERANGE =&gt; [1303668804, 1303668904]&#125;</span></span><br><span class="line"><span class="string">hbase&gt; scan '</span>t1<span class="string">', &#123;REVERSED =&gt; true&#125;</span></span><br><span class="line"><span class="string">hbase&gt; scan '</span>t1<span class="string">', &#123;ALL_METRICS =&gt; true&#125;</span></span><br><span class="line"><span class="string">hbase&gt; scan '</span>t1<span class="string">', &#123;METRICS =&gt; ['</span>RPC_RETRIES<span class="string">', '</span>ROWS_FILTERED<span class="string">']&#125;</span></span><br><span class="line"><span class="string">hbase&gt; scan '</span>t1<span class="string">', &#123;ROWPREFIXFILTER =&gt; '</span>row2<span class="string">', FILTER =&gt; "</span></span><br><span class="line"><span class="string">  (QualifierFilter (&gt;=, '</span>binary:xyz<span class="string">')) AND (TimestampsFilter ( 123, 456))"&#125;</span></span><br><span class="line"><span class="string">hbase&gt; scan '</span>t1<span class="string">', &#123;FILTER =&gt;</span></span><br><span class="line"><span class="string">  org.apache.hadoop.hbase.filter.ColumnPaginationFilter.new(1, 0)&#125;</span></span><br><span class="line"><span class="string">hbase&gt; scan '</span>t1<span class="string">', &#123;CONSISTENCY =&gt; '</span>TIMELINE<span class="string">'&#125;</span></span><br><span class="line"><span class="string">For setting the Operation Attributes </span></span><br><span class="line"><span class="string">hbase&gt; scan '</span>t1<span class="string">', &#123; COLUMNS =&gt; ['</span>c1<span class="string">', '</span>c2<span class="string">'], ATTRIBUTES =&gt; &#123;'</span>mykey<span class="string">' =&gt; '</span>myvalue<span class="string">'&#125;&#125;</span></span><br><span class="line"><span class="string">hbase&gt; scan '</span>t1<span class="string">', &#123; COLUMNS =&gt; ['</span>c1<span class="string">', '</span>c2<span class="string">'], AUTHORIZATIONS =&gt; ['</span>PRIVATE<span class="string">','</span>SECRET<span class="string">']&#125;</span></span><br><span class="line"><span class="string">For experts, there is an additional option -- CACHE_BLOCKS -- which</span></span><br><span class="line"><span class="string">switches block caching for the scanner on (true) or off (false).  By</span></span><br><span class="line"><span class="string">default it is enabled.  Examples:</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">hbase&gt; scan '</span>t1<span class="string">', &#123;COLUMNS =&gt; ['</span>c1<span class="string">', '</span>c2<span class="string">'], CACHE_BLOCKS =&gt; false&#125;</span></span><br></pre></td></tr></table></figure>
-<h2 id="8-查询-row"><a class="markdownIt-Anchor" href="#8-查询-row"></a> 8. 查询 row</h2>
-<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">get <span class="string">'table1'</span>, <span class="string">'row1'</span></span><br><span class="line">get <span class="string">'table1'</span>, <span class="string">'row1'</span>, <span class="string">'columnFamliy1'</span></span><br><span class="line">get <span class="string">'table1'</span>, <span class="string">'row1'</span>, <span class="string">'columnFamliy1:a'</span></span><br></pre></td></tr></table></figure>
-<h2 id="9-禁用-启用表"><a class="markdownIt-Anchor" href="#9-禁用-启用表"></a> 9. 禁用、启用表</h2>
-<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">hbase(main):008:0&gt; <span class="built_in">disable</span> <span class="string">'test'</span></span><br><span class="line">0 row(s) <span class="keyword">in</span> 1.1820 seconds</span><br><span class="line"></span><br><span class="line">hbase(main):009:0&gt; <span class="built_in">enable</span> <span class="string">'test'</span></span><br><span class="line">0 row(s) <span class="keyword">in</span> 0.1770 seconds</span><br></pre></td></tr></table></figure>
-<h2 id="10-删除表"><a class="markdownIt-Anchor" href="#10-删除表"></a> 10. 删除表</h2>
-<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">hbase(main):011:0&gt; drop <span class="string">'test'</span></span><br><span class="line">0 row(s) <span class="keyword">in</span> 0.1370 seconds</span><br></pre></td></tr></table></figure>
-<h2 id="11-停止-hbase"><a class="markdownIt-Anchor" href="#11-停止-hbase"></a> 11. 停止 HBase</h2>
-<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ ./bin/stop-hbase.sh</span><br><span class="line">stopping hbase....................</span><br><span class="line">$</span><br></pre></td></tr></table></figure>
+<h2 id="配置文件"><a class="markdownIt-Anchor" href="#配置文件"></a> 配置文件</h2>
+<ul>
+<li><code>backup-masters</code> - 默认情况下不存在。列出主服务器应在其上启动备份主进程的主机，每行一个主机。</li>
+<li><code>hadoop-metrics2-hbase.properties</code> - 用于连接 HBase Hadoop 的 Metrics2 框架。</li>
+<li><code>hbase-env.cmd</code> and <a href="http://hbase-env.sh" target="_blank" rel="noopener">hbase-env.sh</a> - 用于 Windows 和 Linux / Unix 环境的脚本，用于设置 HBase 的工作环境，包括 Java，Java 选项和其他环境变量的位置。</li>
+<li><code>hbase-policy.xml</code> - RPC 服务器用于对客户端请求进行授权决策的默认策略配置文件。仅在启用 HBase 安全性时使用。</li>
+<li><code>hbase-site.xml</code> - 主要的 HBase 配置文件。此文件指定覆盖 HBase 默认配置的配置选项。您可以在 docs / hbase-default.xml 中查看（但不要编辑）默认配置文件。您还可以在 HBase Web UI 的 HBase 配置选项卡中查看群集的整个有效配置（默认值和覆盖）。</li>
+<li><code>log4j.properties</code> - log4j 日志配置。</li>
+<li><code>regionservers</code> - 包含应在 HBase 集群中运行 RegionServer 的主机列表。默认情况下，此文件包含单个条目 localhost。它应包含主机名或 IP 地址列表，每行一个，并且如果群集中的每个节点将在其 localhost 接口上运行 RegionServer，则应仅包含 localhost。</li>
+</ul>
+<h2 id="环境要求"><a class="markdownIt-Anchor" href="#环境要求"></a> 环境要求</h2>
+<ul>
+<li>Java
+<ul>
+<li>HBase 2.0+ 要求 JDK8+</li>
+<li>HBase 1.2+ 要求 JDK7+</li>
+</ul>
+</li>
+<li>SSH - 环境要支持 SSH</li>
+<li>DNS - 环境中要在 hosts 配置本机 hostname 和本机 IP</li>
+<li>NTP - HBase 集群的时间要同步，可以配置统一的 NTP</li>
+<li>平台 - 生产环境不推荐部署在 Windows 系统中</li>
+<li>Hadoop - 依赖 Hadoop 配套版本</li>
+<li>Zookeeper - 依赖 Zookeeper 配套版本</li>
+</ul>
+<h2 id="运行模式"><a class="markdownIt-Anchor" href="#运行模式"></a> 运行模式</h2>
+<h3 id="单点"><a class="markdownIt-Anchor" href="#单点"></a> 单点</h3>
+<p>hbase-site.xml 配置如下：</p>
+<figure class="highlight xml"><table><tr><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">configuration</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">property</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">name</span>&gt;</span>hbase.rootdir<span class="tag">&lt;/<span class="name">name</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">value</span>&gt;</span>hdfs://namenode.example.org:8020/hbase<span class="tag">&lt;/<span class="name">value</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;/<span class="name">property</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">property</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">name</span>&gt;</span>hbase.cluster.distributed<span class="tag">&lt;/<span class="name">name</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">value</span>&gt;</span>false<span class="tag">&lt;/<span class="name">value</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;/<span class="name">property</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">configuration</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<h3 id="分布式"><a class="markdownIt-Anchor" href="#分布式"></a> 分布式</h3>
+<p>hbase-site.xm 配置如下：</p>
+<figure class="highlight xml"><table><tr><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">configuration</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">property</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">name</span>&gt;</span>hbase.rootdir<span class="tag">&lt;/<span class="name">name</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">value</span>&gt;</span>hdfs://namenode.example.org:8020/hbase<span class="tag">&lt;/<span class="name">value</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;/<span class="name">property</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">property</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">name</span>&gt;</span>hbase.cluster.distributed<span class="tag">&lt;/<span class="name">name</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">value</span>&gt;</span>true<span class="tag">&lt;/<span class="name">value</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;/<span class="name">property</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">property</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">name</span>&gt;</span>hbase.zookeeper.quorum<span class="tag">&lt;/<span class="name">name</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">value</span>&gt;</span>node-a.example.com,node-b.example.com,node-c.example.com<span class="tag">&lt;/<span class="name">value</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;/<span class="name">property</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">configuration</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<h2 id="引用和引申"><a class="markdownIt-Anchor" href="#引用和引申"></a> 引用和引申</h2>
+<h3 id="扩展阅读"><a class="markdownIt-Anchor" href="#扩展阅读"></a> 扩展阅读</h3>
+<ul>
+<li><a href="http://hbase.apache.org/book.html#configuration" target="_blank" rel="noopener">Apache HBase Configuration</a></li>
+</ul>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+        
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://dunwu.github.io/blog/blog/efficiency/style/doc-style/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/blog/images/avatar.gif">
+      <meta itemprop="name" content="Zhang Peng">
+      <meta itemprop="description" content="Dunwu's Blog">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Dunwu">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/blog/efficiency/style/doc-style/" class="post-title-link" itemprop="url">合理编排技术文档</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2019-03-06 00:00:00" itemprop="dateCreated datePublished" datetime="2019-03-06T00:00:00+08:00">2019-03-06</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2019-11-21 21:42:51" itemprop="dateModified" datetime="2019-11-21T21:42:51+08:00">2019-11-21</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/blog/categories/%E6%95%88%E7%8E%87%E6%8F%90%E5%8D%87/" itemprop="url" rel="index">
+                    <span itemprop="name">效率提升</span>
+                  </a>
+                </span>
+                  ，
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/blog/categories/%E6%95%88%E7%8E%87%E6%8F%90%E5%8D%87/%E8%A7%84%E8%8C%83/" itemprop="url" rel="index">
+                    <span itemprop="name">规范</span>
+                  </a>
+                </span>
+            </span>
+
+          
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="fa fa-comment-o"></i>
+      </span>
+      <span class="post-meta-item-text">Disqus：</span>
+    
+    <a title="disqus" href="/blog/efficiency/style/doc-style/#comments" itemprop="discussionUrl">
+      <span class="post-comments-count disqus-comment-count" data-disqus-identifier="efficiency/style/doc-style/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  <br>
+            <span class="post-meta-item" title="本文字数">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-file-word-o"></i>
+              </span>
+                <span class="post-meta-item-text">本文字数：</span>
+              <span>5.5k</span>
+            </span>
+            <span class="post-meta-item" title="阅读时长">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-clock-o"></i>
+              </span>
+                <span class="post-meta-item-text">阅读时长 &asymp;</span>
+              <span>5 分钟</span>
+            </span>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <blockquote>
+<p>文档采用 Markdown 语法书写。</p>
+<p>📚 「参考」Markdown 语法可以参考：</p>
+<ul>
+<li><a href="https://github.com/guodongxiaren/README" target="_blank" rel="noopener">https://github.com/guodongxiaren/README</a></li>
+<li><a href="https://github.com/tchapi/markdown-cheatsheet" target="_blank" rel="noopener">https://github.com/tchapi/markdown-cheatsheet</a></li>
+</ul>
+</blockquote>
+<h2 id="1-标题"><a class="markdownIt-Anchor" href="#1-标题"></a> 1. 标题</h2>
+<h3 id="11-标题层级"><a class="markdownIt-Anchor" href="#11-标题层级"></a> 1.1. 标题层级</h3>
+<p>标题分为四级。</p>
+<ol>
+<li>一级标题：文章的标题</li>
+<li>二级标题：文章内容的大标题</li>
+<li>三级标题：二级标题下一级的标题</li>
+<li>四级标题：三级标题下一级的标题</li>
+</ol>
+<h3 id="12-标题原则"><a class="markdownIt-Anchor" href="#12-标题原则"></a> 1.2. 标题原则</h3>
+<ul>
+<li>一篇文章中应该尽力避免同名标题。</li>
+<li>一级标题下，不能直接出现三级标题。</li>
+<li>标题要避免孤立编号（即同级标题只有一个）。</li>
+<li>下级标题不重复上一级标题的内容。</li>
+<li>谨慎使用四级标题，尽量避免出现，保持层级的简单和防止出现过于复杂的章节。如果三级标题下有并列性的内容，建议只使用项目列表（Item list）。</li>
+</ul>
+<h2 id="2-文本"><a class="markdownIt-Anchor" href="#2-文本"></a> 2. 文本</h2>
+<h3 id="21-字间距"><a class="markdownIt-Anchor" href="#21-字间距"></a> 2.1. 字间距</h3>
+<p>全角中文字符与半角英文字符之间，应有一个半角空格。</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">反例：本文介绍如何快速启动Windows系统。</span><br><span class="line"></span><br><span class="line">正例：本文介绍如何快速启动 Windows 系统。</span><br></pre></td></tr></table></figure>
+<p>全角中文字符与半角阿拉伯数字之间，有没有半角空格都可，但必须保证风格统一，不能两种风格混杂。</p>
+<figure class="highlight angelscript"><table><tr><td class="code"><pre><span class="line">正例：<span class="number">2011</span>年<span class="number">5</span>月<span class="number">15</span>日，我订购了<span class="number">5</span>台笔记本电脑与<span class="number">10</span>台平板电脑。</span><br><span class="line"></span><br><span class="line">正例：<span class="number">2011</span> 年 <span class="number">5</span> 月 <span class="number">15</span> 日，我订购了 <span class="number">5</span> 台笔记本电脑与 <span class="number">10</span> 台平板电脑。</span><br></pre></td></tr></table></figure>
+<p>半角的百分号，视同阿拉伯数字。</p>
+<p>英文单位若不翻译，单位前的阿拉伯数字与单位间不留空格。</p>
+<figure class="highlight angelscript"><table><tr><td class="code"><pre><span class="line">反例：一部容量为 <span class="number">16</span> GB 的智能手机</span><br><span class="line"></span><br><span class="line">正例：一部容量为 <span class="number">16</span>GB 的智能手机</span><br></pre></td></tr></table></figure>
+<p>半角英文字符和半角阿拉伯数字，与全角标点符号之间不留空格。</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">反例：他的电脑是 MacBook Air 。</span><br><span class="line"></span><br><span class="line">正例：他的电脑是 MacBook Air。</span><br></pre></td></tr></table></figure>
+<h3 id="22-句子"><a class="markdownIt-Anchor" href="#22-句子"></a> 2.2. 句子</h3>
+<ul>
+<li>避免使用长句。一个句子建议不超过 100 字或者正文的 3 行。</li>
+<li>尽量使用简单句和并列句，避免使用复合句。</li>
+</ul>
+<h3 id="23-写作风格"><a class="markdownIt-Anchor" href="#23-写作风格"></a> 2.3. 写作风格</h3>
+<p>尽量不使用被动语态，改为使用主动语态。</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">反例：假如此软件尚未被安装，</span><br><span class="line"></span><br><span class="line">正例：假如尚未安装这个软件，</span><br></pre></td></tr></table></figure>
+<p>不使用非正式的语言风格。</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">反例：Lady Gaga 的演唱会真是酷毙了，从没看过这么给力的表演！！！</span><br><span class="line"></span><br><span class="line">正例：无法参加本次活动，我深感遗憾。</span><br></pre></td></tr></table></figure>
+<p>用对“的”、“地”、“得”。</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">她露出了开心的笑容。</span><br><span class="line">（形容词＋的＋名词）</span><br><span class="line"></span><br><span class="line">她开心地笑了。</span><br><span class="line">（副词＋地＋动词）</span><br><span class="line"></span><br><span class="line">她笑得很开心。</span><br><span class="line">（动词＋得＋副词）</span><br></pre></td></tr></table></figure>
+<p>使用代词时（比如“其”、“该”、“此”、“这”等词），必须明确指代的内容，保证只有一个含义。</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">反例：从管理系统可以监视中继系统和受其直接控制的分配系统。</span><br><span class="line"></span><br><span class="line">正例：从管理系统可以监视两个系统：中继系统和受中继系统直接控制的分配系统。</span><br></pre></td></tr></table></figure>
+<p>名词前不要使用过多的形容词。</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">反例：此设备的使用必须在接受过本公司举办的正式的设备培训的技师的指导下进行。</span><br><span class="line"></span><br><span class="line">正例：此设备必须在技师的指导下使用，且指导技师必须接受过由本公司举办的正式设备培训。</span><br></pre></td></tr></table></figure>
+<p>单个句子的长度尽量保持在 20 个字以内；20 ～ 29 个字的句子，可以接受；30 ～ 39 个字的句子，语义必须明确，才能接受；多于 40 个字的句子，在任何情况下都不能接受。</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">反例：本产品适用于从由一台服务器进行动作控制的单一节点结构到由多台服务器进行动作控制的并行处理程序结构等多种体系结构。</span><br><span class="line"></span><br><span class="line">正例：本产品适用于多种体系结构。无论是由一台服务器（单一节点结构），还是由多台服务器（并行处理结构）进行动作控制，均可以使用本产品。</span><br></pre></td></tr></table></figure>
+<p>同样一个意思，尽量使用肯定句表达，不使用否定句表达。</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">反例：请确认没有接通装置的电源。</span><br><span class="line"></span><br><span class="line">正例：请确认装置的电源已关闭。</span><br></pre></td></tr></table></figure>
+<p>避免使用双重否定句。</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">反例：没有删除权限的用户，不能删除此文件。</span><br><span class="line"></span><br><span class="line">正例：用户必须拥有删除权限，才能删除此文件。</span><br></pre></td></tr></table></figure>
+<h3 id="24-英文处理"><a class="markdownIt-Anchor" href="#24-英文处理"></a> 2.4. 英文处理</h3>
+<p>英文原文如果使用了复数形式，翻译成中文时，应该将其还原为单数形式。</p>
+<figure class="highlight ada"><table><tr><td class="code"><pre><span class="line">英文：⋯information stored <span class="keyword">in</span> random <span class="keyword">access</span> memory (RAMs)⋯</span><br><span class="line"></span><br><span class="line">中文：……存储在随机存取存储器（RAM）里的信息……</span><br></pre></td></tr></table></figure>
+<p>外文缩写可以使用半角圆点(<code>.</code>)表示缩写。</p>
+<figure class="highlight css"><table><tr><td class="code"><pre><span class="line"><span class="selector-tag">U</span><span class="selector-class">.S</span><span class="selector-class">.A</span>.</span><br><span class="line"><span class="selector-tag">Apple</span>, <span class="selector-tag">Inc</span>.</span><br></pre></td></tr></table></figure>
+<p>表示中文时，英文省略号（<code>⋯</code>）应改为中文省略号（<code>……</code>）。</p>
+<figure class="highlight angelscript"><table><tr><td class="code"><pre><span class="line">英文：<span class="number">5</span> minutes later⋯</span><br><span class="line"></span><br><span class="line">中文：<span class="number">5</span> 分钟过去了⋯⋯</span><br></pre></td></tr></table></figure>
+<p>英文书名或电影名改用中文表达时，双引号应改为书名号。</p>
+<figure class="highlight stata"><table><tr><td class="code"><pre><span class="line">英文：<span class="keyword">He</span> published <span class="keyword">an</span> article entitled <span class="string">"The Future of the Aviation"</span>.</span><br><span class="line"></span><br><span class="line">中文：他发表了一篇名为《航空业的未来》的文章。</span><br></pre></td></tr></table></figure>
+<p>第一次出现英文词汇时，在括号中给出中文标注。此后再次出现时，直接使用英文缩写即可。</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">IOC（International Olympic Committee，国际奥林匹克委员会）。这样定义后，便可以直接使用“IOC”了。</span><br></pre></td></tr></table></figure>
+<p>专有名词中每个词第一个字母均应大写，非专有名词则不需要大写。</p>
+<figure class="highlight applescript"><table><tr><td class="code"><pre><span class="line">“American Association <span class="keyword">of</span> Physicists <span class="keyword">in</span> Medicine”（美国医学物理学家协会）是专有名词，需要大写。</span><br><span class="line"></span><br><span class="line">“online <span class="keyword">transaction</span> processing”（在线事务处理）不是专有名词，不应大写。</span><br></pre></td></tr></table></figure>
+<h2 id="3-段落"><a class="markdownIt-Anchor" href="#3-段落"></a> 3. 段落</h2>
+<h3 id="31-段落原则"><a class="markdownIt-Anchor" href="#31-段落原则"></a> 3.1. 段落原则</h3>
+<ul>
+<li>一个段落只能有一个主题，或一个中心句子。</li>
+<li>段落的中心句子放在段首，对全段内容进行概述。后面陈述的句子为核心句服务。</li>
+<li>一个段落的长度不能超过七行，最佳段落长度小于等于四行。</li>
+<li>段落的句子语气要使用陈述和肯定语气，避免使用感叹语气。</li>
+<li>段落之间使用一个空行隔开。</li>
+<li>段落开头不要留出空白字符。</li>
+</ul>
+<h3 id="32-引用"><a class="markdownIt-Anchor" href="#32-引用"></a> 3.2. 引用</h3>
+<p>引用第三方内容时，应注明出处。</p>
+<figure class="highlight inform7"><table><tr><td class="code"><pre><span class="line">One <span class="keyword">man</span>’s constant <span class="keyword">is</span> another <span class="keyword">man</span>’s variable. — Alan Perlis</span><br></pre></td></tr></table></figure>
+<p>如果是全篇转载，请在全文开头显著位置注明作者和出处，并链接至原文。</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">本文转载自 WikiQuote</span><br></pre></td></tr></table></figure>
+<p>使用外部图片时，必须在图片下方或文末标明来源。</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">本文部分图片来自 Wikipedia</span><br></pre></td></tr></table></figure>
+<h3 id="33-强调"><a class="markdownIt-Anchor" href="#33-强调"></a> 3.3. 强调</h3>
+<p>一些特殊的强调内容可以按照如下方式书写：</p>
+<blockquote>
+<p>🔔 『注意』</p>
+</blockquote>
+<blockquote>
+<p>💡 『提示』</p>
+</blockquote>
+<blockquote>
+<p>📚 『参考』</p>
+</blockquote>
+<h2 id="4-数值"><a class="markdownIt-Anchor" href="#4-数值"></a> 4. 数值</h2>
+<h3 id="41-半角数字"><a class="markdownIt-Anchor" href="#41-半角数字"></a> 4.1. 半角数字</h3>
+<p>数字一律使用半角形式，不得使用全角形式。</p>
+<figure class="highlight angelscript"><table><tr><td class="code"><pre><span class="line">反例： 这件商品的价格是１０００元。</span><br><span class="line"></span><br><span class="line">正例： 这件商品的价格是 <span class="number">1000</span> 元。</span><br></pre></td></tr></table></figure>
+<h3 id="42-千分号"><a class="markdownIt-Anchor" href="#42-千分号"></a> 4.2. 千分号</h3>
+<p>数值为千位以上，应添加千分号（半角逗号）。</p>
+<figure class="highlight angelscript"><table><tr><td class="code"><pre><span class="line">XXX 公司的实收资本为 RMB1,<span class="number">258</span>,<span class="number">000</span>。</span><br></pre></td></tr></table></figure>
+<p>对于 4 ～ 6 位的数值，千分号是选用的，比如<code>1000</code>和<code>1,000</code>都可以接受。对于 7 位及以上的数值，千分号是必须的。</p>
+<p>多位小数要从小数点后从左向右添加千分号，比如<code>4.234,345</code>。</p>
+<h3 id="43-货币"><a class="markdownIt-Anchor" href="#43-货币"></a> 4.3. 货币</h3>
+<p>货币应为阿拉伯数字，并在数字前写出货币符号，或在数字后写出货币中文名称。</p>
+<figure class="highlight angelscript"><table><tr><td class="code"><pre><span class="line">$<span class="number">1</span>,<span class="number">000</span></span><br><span class="line"><span class="number">1</span>,<span class="number">000</span> 美元</span><br></pre></td></tr></table></figure>
+<h3 id="44-数值范围"><a class="markdownIt-Anchor" href="#44-数值范围"></a> 4.4. 数值范围</h3>
+<p>表示数值范围时，用<code>～</code>连接。参见《标点符号》一节的“连接号”部分。</p>
+<p>带有单位或百分号时，两个数字都要加上单位或百分号，不能只加后面一个。</p>
+<figure class="highlight angelscript"><table><tr><td class="code"><pre><span class="line">反例：<span class="number">132</span>～<span class="number">234</span>kg</span><br><span class="line">正例：<span class="number">132</span>kg～<span class="number">234</span>kg</span><br><span class="line"></span><br><span class="line">反例：<span class="number">67</span>～<span class="number">89</span>%</span><br><span class="line">正例：<span class="number">67</span>%～<span class="number">89</span>%</span><br></pre></td></tr></table></figure>
+<h3 id="45-变化程度的表示法"><a class="markdownIt-Anchor" href="#45-变化程度的表示法"></a> 4.5. 变化程度的表示法</h3>
+<p>数字的增加要使用“增加了”、“增加到”。“了”表示增量，“到”表示定量。</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">增加到过去的两倍</span><br><span class="line">（过去为一，现在为二）</span><br><span class="line"></span><br><span class="line">增加了两倍</span><br><span class="line">（过去为一，现在为三）</span><br></pre></td></tr></table></figure>
+<p>数字的减少要使用“降低了”、“降低到”。“了”表示增量，“到”表示定量。</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">降低到百分之八十</span><br><span class="line">（定额是一百，现在是八十）</span><br><span class="line"></span><br><span class="line">降低了百分之八十</span><br><span class="line">（原来是一百，现在是二十）</span><br></pre></td></tr></table></figure>
+<p>不能用“降低 N 倍”或“减少 N 倍”的表示法，要用“降低百分之几”或“减少百分之几”。因为减少（或降低）一倍表示数值原来为一百，现在等于零。</p>
+<h2 id="5-符号"><a class="markdownIt-Anchor" href="#5-符号"></a> 5. 符号</h2>
+<h3 id="51-符号原则"><a class="markdownIt-Anchor" href="#51-符号原则"></a> 5.1. 符号原则</h3>
+<ul>
+<li>中文语句的标点符号，均应该采取全角符号，这样可以保证视觉的一致。</li>
+<li>如果整句为英文，则该句使用英文/半角标点。</li>
+<li>句号、问号、叹号、逗号、顿号、分号和冒号不得出现在一行之首。</li>
+</ul>
+<h3 id="52-句号"><a class="markdownIt-Anchor" href="#52-句号"></a> 5.2. 句号</h3>
+<p>中文语句中的结尾处应该用全角句号（<code>。</code>）。</p>
+<p>句子末尾用括号加注时，句号应在括号之外。</p>
+<figure class="highlight angelscript"><table><tr><td class="code"><pre><span class="line">反例：关于文件的输出，请参照第 <span class="number">1.3</span> 节（见第 <span class="number">26</span> 页。）</span><br><span class="line"></span><br><span class="line">正例：关于文件的输出，请参照第 <span class="number">1.3</span> 节（见第 <span class="number">26</span> 页）。</span><br></pre></td></tr></table></figure>
+<h3 id="53-逗号"><a class="markdownIt-Anchor" href="#53-逗号"></a> 5.3. 逗号</h3>
+<p>逗号<code>，</code>表示句子内部的一般性停顿。</p>
+<p>注意避免“一逗到底”，即整个段落除了结尾，全部停顿都使用逗号。</p>
+<h3 id="54-顿号"><a class="markdownIt-Anchor" href="#54-顿号"></a> 5.4. 顿号</h3>
+<p>句子内部的并列词，应该用全角顿号(<code>、</code>) 分隔，而不用逗号，即使并列词是英语也是如此。</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">反例：我最欣赏的科技公司有 Google, Facebook, 腾讯, 阿里和百度等。</span><br><span class="line"></span><br><span class="line">正例：我最欣赏的科技公司有 Google、Facebook、腾讯、阿里和百度等。</span><br></pre></td></tr></table></figure>
+<p>英文句子中，并列词语之间使用半角逗号（<code>,</code>）分隔。</p>
+<figure class="highlight armasm"><table><tr><td class="code"><pre><span class="line">例句：Microsoft Office includes Word, Excel, PowerPoint, Outlook <span class="keyword">and </span>other components.</span><br></pre></td></tr></table></figure>
+<h3 id="55-分号"><a class="markdownIt-Anchor" href="#55-分号"></a> 5.5. 分号</h3>
+<p>分号<code>；</code>表示复句内部并列分句之间的停顿。</p>
+<h3 id="56-引号"><a class="markdownIt-Anchor" href="#56-引号"></a> 5.6. 引号</h3>
+<p>引用时，应该使用全角双引号（<code>“ ”</code>），注意前后双引号不同。</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">例句：许多人都认为客户服务的核心是“友好”和“专业”。</span><br></pre></td></tr></table></figure>
+<p>引号里面还要用引号时，外面一层用双引号，里面一层用单引号（<code>‘ ’</code>），注意前后单引号不同。</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">例句：鲍勃解释道：“我要放音乐，可萨利说，‘不行！’。”</span><br></pre></td></tr></table></figure>
+<h3 id="57-圆括号"><a class="markdownIt-Anchor" href="#57-圆括号"></a> 5.7. 圆括号</h3>
+<p>补充说明时，使用全角圆括号<code>（）</code>，括号前后不加空格。</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">例句：请确认所有的连接（电缆和接插件）均安装牢固。</span><br></pre></td></tr></table></figure>
+<h3 id="58-冒号"><a class="markdownIt-Anchor" href="#58-冒号"></a> 5.8. 冒号</h3>
+<p>全角冒号（<code>：</code>）常用在需要解释的词语后边，引出解释和说明。</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">例句：请确认以下几项内容：时间、地点、活动名称，以及来宾数量。</span><br></pre></td></tr></table></figure>
+<p>表示时间时，应使用半角冒号（<code>:</code>）。</p>
+<figure class="highlight angelscript"><table><tr><td class="code"><pre><span class="line">例句：早上 <span class="number">8</span>:<span class="number">00</span></span><br></pre></td></tr></table></figure>
+<h3 id="59-省略号"><a class="markdownIt-Anchor" href="#59-省略号"></a> 5.9. 省略号</h3>
+<p>省略号<code>……</code>表示语句未完、或者语气的不连续。它占两个汉字空间、包含六个省略点，不要使用<code>。。。</code>或<code>...</code>等非标准形式。</p>
+<p>省略号不应与“等”这个词一起使用。</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">反例：我们为会餐准备了香蕉、苹果、梨…等各色水果。</span><br><span class="line"></span><br><span class="line">正例：我们为会餐准备了各色水果，有香蕉、苹果、梨……</span><br><span class="line"></span><br><span class="line">正例：我们为会餐准备了香蕉、苹果、梨等各色水果。</span><br></pre></td></tr></table></figure>
+<h3 id="510-感叹号"><a class="markdownIt-Anchor" href="#510-感叹号"></a> 5.10. 感叹号</h3>
+<p>应该使用平静的语气叙述，尽量避免使用感叹号<code>！</code>。</p>
+<p>不得多个感叹号连用，比如<code>！！</code>和<code>!!!</code>。</p>
+<h3 id="511-破折号"><a class="markdownIt-Anchor" href="#511-破折号"></a> 5.11. 破折号</h3>
+<p>破折号<code>————</code>一般用于做进一步解释。破折号应占两个汉字的位置。</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">例句：直觉————尽管它并不总是可靠的————告诉我，这事可能出了些问题。</span><br></pre></td></tr></table></figure>
+<h3 id="512-连接号"><a class="markdownIt-Anchor" href="#512-连接号"></a> 5.12. 连接号</h3>
+<p>连接号用于连接两个类似的词。</p>
+<p>以下场合应该使用直线连接号（<code>-</code>），占一个半角字符的位置。</p>
+<ul>
+<li>两个名词的复合</li>
+<li>图表编号</li>
+</ul>
+<figure class="highlight angelscript"><table><tr><td class="code"><pre><span class="line">例句：氧化-还原反应</span><br><span class="line"></span><br><span class="line">例句：图 <span class="number">1</span><span class="number">-1</span></span><br></pre></td></tr></table></figure>
+<p>以下场合应该使用波浪连接号（<code>～</code>），占一个全角字符的位置。</p>
+<ul>
+<li>数值范围（例如日期、时间或数字）</li>
+</ul>
+<figure class="highlight angelscript"><table><tr><td class="code"><pre><span class="line">例句：<span class="number">2009</span> 年～<span class="number">2011</span> 年</span><br></pre></td></tr></table></figure>
+<p>注意，波浪连接号前后两个值都应该加上单位。</p>
+<p>波浪连接号也可以用汉字“至”代替。</p>
+<figure class="highlight angelscript"><table><tr><td class="code"><pre><span class="line">例句：周围温度：<span class="number">-20</span>°C 至 <span class="number">-10</span>°C</span><br></pre></td></tr></table></figure>
+<h2 id="6-结构"><a class="markdownIt-Anchor" href="#6-结构"></a> 6. 结构</h2>
+<h3 id="61-目录结构"><a class="markdownIt-Anchor" href="#61-目录结构"></a> 6.1. 目录结构</h3>
+<p>技术手册目录结构是一部完整的书，建议采用下面的结构。</p>
+<ul>
+<li><strong>简介</strong>（Introduction） - [必选][目录|文件] 提供对产品和文档本身的总体的、扼要的说明</li>
+<li><strong>入门篇</strong>（Quickstart） - [可选][文件] 如何最快速地使用产品</li>
+<li><strong>基础篇</strong>（Basics） - [必选][目录] 又称”使用篇“，提供初级的使用教程
+<ul>
+<li><strong>环境准备</strong>（Prerequisite） - [可选][文件] 软件使用需要满足的前置条件</li>
+<li><strong>安装</strong>（Installation） - [可选][文件] 软件的安装方法</li>
+<li><strong>配置</strong>（Configuration） - [可选][目录|文件] 软件的配置</li>
+<li><strong>特性</strong>（Feature） - [必选][目录|文件] 软件的功能特性</li>
+</ul>
+</li>
+<li><strong>进阶篇</strong>（Advanced） - [可选][目录] 又称”开发篇“，提供中高级的开发教程
+<ul>
+<li><strong>原理</strong>（Principle） - [可选][目录|文件] 软件的原理</li>
+<li><strong>设计</strong>（Design） - [可选][目录|文件] 软件的设计，如：架构、设计思想等</li>
+</ul>
+</li>
+<li><strong>实战篇</strong>（Action） - [可选][目录] 提供一些具有实战意义的示例说明</li>
+<li><strong>API</strong>（API） - [可选][目录|文件] 软件 API 的逐一介绍</li>
+<li><strong>常见问题</strong>（FAQ） - [可选][目录|文件] 常见问题解答</li>
+<li><strong>附录</strong>（Appendix） - [可选][目录] 不属于教程本身、但对阅读教程有帮助的内容
+<ul>
+<li><strong>命令</strong>（Command） - [可选][目录] 命令</li>
+<li><strong>资源</strong>（Resource） - [必选][文件] 资源</li>
+<li><strong>术语</strong>（Glossary） - [可选][文件] 名词解释</li>
+<li><strong>技巧</strong>（Recipe） - [可选][文件] 最佳实践</li>
+<li><strong>版本</strong>（Changelog） - [可选][文件] 版本说明</li>
+<li><strong>反馈</strong>（Feedback） - [可选][文件] 反馈方式</li>
+</ul>
+</li>
+</ul>
+<p>下面是两个真实范例，可参考。</p>
+<ul>
+<li><a href="http://redux.js.org/index.html" target="_blank" rel="noopener">Redux 手册</a></li>
+<li><a href="http://flight-manual.atom.io/" target="_blank" rel="noopener">Atom 手册</a></li>
+</ul>
+<h3 id="62-文件名"><a class="markdownIt-Anchor" href="#62-文件名"></a> 6.2. 文件名</h3>
+<p>文档的文件名不得含有空格。</p>
+<p>文件名必须使用半角字符，不得使用全角字符。这也意味着，中文不能用于文件名。</p>
+<figure class="highlight css"><table><tr><td class="code"><pre><span class="line">反例： 名词解释<span class="selector-class">.md</span></span><br><span class="line"></span><br><span class="line">正例： <span class="selector-tag">glossary</span><span class="selector-class">.md</span></span><br></pre></td></tr></table></figure>
+<p>文件名建议只使用小写字母，不使用大写字母。</p>
+<figure class="highlight css"><table><tr><td class="code"><pre><span class="line">反例：<span class="selector-tag">TroubleShooting</span><span class="selector-class">.md</span></span><br><span class="line"></span><br><span class="line">正例：<span class="selector-tag">troubleshooting</span><span class="selector-class">.md</span></span><br></pre></td></tr></table></figure>
+<p>为了醒目，某些说明文件的文件名，可以使用大写字母，比如<code>README</code>、<code>LICENSE</code>。</p>
+<p>文件名包含多个单词时，单词之间建议使用半角的连词线（<code>-</code>）分隔。</p>
+<figure class="highlight css"><table><tr><td class="code"><pre><span class="line">反例：<span class="selector-tag">advanced_usage</span><span class="selector-class">.md</span></span><br><span class="line"></span><br><span class="line">正例：<span class="selector-tag">advanced-usage</span><span class="selector-class">.md</span></span><br></pre></td></tr></table></figure>
+<h2 id="7-emoji"><a class="markdownIt-Anchor" href="#7-emoji"></a> 7. Emoji</h2>
+<p>在 markdown 文档中，普遍会使用 emoji，帮助理解内容。但是，如果滥用 emoji，可能会适得其反。</p>
+<p>这里，将一些比较约定俗成的 emoji 表情使用场景列举一下：</p>
+<ul>
+<li>💡 提示 - [推荐]</li>
+<li>🔔 注意、警告 - [推荐]</li>
+<li>⭕ 正确 - [推荐]</li>
+<li>❌ 错误 - [推荐]</li>
+<li>❓ 问题 - [推荐]</li>
+<li>⛔ 禁止 - [推荐]</li>
+<li>🚧 未完待续、有待补充 - [推荐]</li>
+<li>📚 参考、参考资料 - [可选]</li>
+<li>⌨ 源码 - [可选]</li>
+</ul>
+<h2 id="8-参考"><a class="markdownIt-Anchor" href="#8-参考"></a> 8. 参考</h2>
+<ul>
+<li><a href="http://wenku.baidu.com/view/23cc1a6527d3240c8447efbf.html" target="_blank" rel="noopener">产品手册中文写作规范</a>, by 华为</li>
+<li><a href="http://docs.daocloud.io/write-docs/format" target="_blank" rel="noopener">写作规范和格式规范</a>, by DaoCloud</li>
+<li><a href="http://www.hitachi-tc.co.jp/company/thesis/thesis.pdf" target="_blank" rel="noopener">技术写作技巧在日汉翻译中的应用</a>, by 刘方</li>
+<li><a href="https://www.lengoo.de/documents/styleguides/lengoo_styleguide_ZH.pdf" target="_blank" rel="noopener">简体中文规范指南</a>, by lengoo</li>
+<li><a href="https://open.leancloud.cn/copywriting-style-guide.html" target="_blank" rel="noopener">文档风格指南</a>, by LeanCloud</li>
+<li><a href="https://docs.google.com/document/d/1R8lMCPf6zCD5KEA8ekZ5knK77iw9J-vJ6vEopPemqZM/edit" target="_blank" rel="noopener">豌豆荚文案风格指南</a>, by 豌豆荚</li>
+<li><a href="https://github.com/sparanoid/chinese-copywriting-guidelines" target="_blank" rel="noopener">中文文案排版指北</a>, by sparanoid</li>
+<li><a href="http://w3c.github.io/clreq/" target="_blank" rel="noopener">中文排版需求</a>, by W3C</li>
+<li><a href="http://www.ruanyifeng.com/blog/2017/02/filename-should-be-lowercase.html" target="_blank" rel="noopener">为什么文件名要小写？</a>, by 阮一峰</li>
+</ul>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+        
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://dunwu.github.io/blog/blog/efficiency/style/dir-style/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/blog/images/avatar.gif">
+      <meta itemprop="name" content="Zhang Peng">
+      <meta itemprop="description" content="Dunwu's Blog">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Dunwu">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/blog/efficiency/style/dir-style/" class="post-title-link" itemprop="url">合理对文档进行归类</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2019-03-06 00:00:00" itemprop="dateCreated datePublished" datetime="2019-03-06T00:00:00+08:00">2019-03-06</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2019-11-21 21:45:32" itemprop="dateModified" datetime="2019-11-21T21:45:32+08:00">2019-11-21</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/blog/categories/%E6%95%88%E7%8E%87%E6%8F%90%E5%8D%87/" itemprop="url" rel="index">
+                    <span itemprop="name">效率提升</span>
+                  </a>
+                </span>
+                  ，
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/blog/categories/%E6%95%88%E7%8E%87%E6%8F%90%E5%8D%87/%E8%A7%84%E8%8C%83/" itemprop="url" rel="index">
+                    <span itemprop="name">规范</span>
+                  </a>
+                </span>
+            </span>
+
+          
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="fa fa-comment-o"></i>
+      </span>
+      <span class="post-meta-item-text">Disqus：</span>
+    
+    <a title="disqus" href="/blog/efficiency/style/dir-style/#comments" itemprop="discussionUrl">
+      <span class="post-comments-count disqus-comment-count" data-disqus-identifier="efficiency/style/dir-style/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  <br>
+            <span class="post-meta-item" title="本文字数">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-file-word-o"></i>
+              </span>
+                <span class="post-meta-item-text">本文字数：</span>
+              <span>656</span>
+            </span>
+            <span class="post-meta-item" title="阅读时长">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-clock-o"></i>
+              </span>
+                <span class="post-meta-item-text">阅读时长 &asymp;</span>
+              <span>1 分钟</span>
+            </span>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <blockquote>
+<p>作为程序员，想必每个人都会有大量的资料、数据。按照条理清晰的目录结构去分类化存储，十分有助于管理文件。</p>
+</blockquote>
+<h2 id="目录结构"><a class="markdownIt-Anchor" href="#目录结构"></a> 目录结构</h2>
+<p>以下是我个人整理的目录结构：</p>
+<figure class="highlight capnproto"><table><tr><td class="code"><pre><span class="line">.</span><br><span class="line">├── Codes           <span class="comment">#代码目录</span></span><br><span class="line">│   ├── Other       <span class="comment">#第三方代码目录</span></span><br><span class="line">│   ├── My          <span class="comment">#个人代码目录</span></span><br><span class="line">│   └── Work        <span class="comment">#工作代码目录</span></span><br><span class="line">├── <span class="built_in">Data</span>            <span class="comment">#数据目录</span></span><br><span class="line">├── Downloads       <span class="comment">#下载文件目录</span></span><br><span class="line">├── Docs            <span class="comment">#文档目录</span></span><br><span class="line">│   ├── Books       <span class="comment">#电子书目录</span></span><br><span class="line">│   ├── My          <span class="comment">#个人文档目录</span></span><br><span class="line">│   └── Work        <span class="comment">#工作文档目录</span></span><br><span class="line">├── Movies          <span class="comment">#视频目录</span></span><br><span class="line">├── Music           <span class="comment">#音乐目录</span></span><br><span class="line">├── Pictures        <span class="comment">#图片目录</span></span><br><span class="line">├── Public          <span class="comment">#共享目录</span></span><br><span class="line">├── Temp            <span class="comment">#临时文件目录</span></span><br><span class="line">└── Tools           <span class="comment">#工具软件目录</span></span><br><span class="line">    └── Packages    <span class="comment">#安装包目录</span></span><br></pre></td></tr></table></figure>
+<p>注：如果您使用的操作系统是 Mac 这种可以为目录或文件添加 tag 的操作系统，那么您可以根据自己的喜好更细致化的管理。</p>
+<h2 id="2-文件管理软件"><a class="markdownIt-Anchor" href="#2-文件管理软件"></a> 2. 文件管理软件</h2>
+<blockquote>
+<p>选用便利的文件管理软件，可以让你的文件管理如虎添翼。这里推荐几款经典的文件管理工具。</p>
+</blockquote>
+<h3 id="21-clover"><a class="markdownIt-Anchor" href="#21-clover"></a> 2.1. Clover</h3>
+<blockquote>
+<p><a href="http://cn.ejie.me/" target="_blank" rel="noopener">Clover</a> 是 Windows Explorer 资源管理器的一个扩展，为其增加类似谷歌 Chrome 浏览器的多标签页功能。</p>
+</blockquote>
+<div align="center">
+<img src="http://cn.ejie.me/images/clover.jpg" width="640" />
+</div>
+<h3 id="22-everything"><a class="markdownIt-Anchor" href="#22-everything"></a> 2.2. Everything</h3>
+<blockquote>
+<p><a href="http://www.voidtools.com/" target="_blank" rel="noopener">Everything</a> 可以立即在 windows 系统中找到制定名称的文件和文件夹。</p>
+</blockquote>
+<div align="center">
+<img src="http://www.voidtools.com/sssmall2.gif" width="640" />
+</div>
+<h3 id="23-wox"><a class="markdownIt-Anchor" href="#23-wox"></a> 2.3. Wox</h3>
+<blockquote>
+<p><a href="https://github.com/Wox-launcher/Wox" target="_blank" rel="noopener">Wox</a> 是一款简单易用的 Windows 启动器。可以把它视为 windows 版的 Alfred。</p>
+</blockquote>
+<div align="center">
+<img src="https://camo.githubusercontent.com/9db33546d3a905a9ad915e0948d3ba3f47f57b64/687474703a2f2f692e696d6775722e636f6d2f4474784e424a692e676966" width="640" />
+</div>
+<h3 id="24-q-dir"><a class="markdownIt-Anchor" href="#24-q-dir"></a> 2.4. Q-dir</h3>
+<blockquote>
+<p><a href="http://www.softpedia.com/get/File-managers/Q-Dir.shtml" target="_blank" rel="noopener">Q-dir</a> 是轻量的文件管理器,特点鲜明,各种布局视图切换灵活,默认四个小窗口组成一个大窗口,操作快捷。</p>
+</blockquote>
+<div align="center">
+<img src="http://i1-win.softpedia-static.com/screenshots/q-dir_1.png" width="640" />
+</div>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+        
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://dunwu.github.io/blog/blog/minds/%E4%BA%BA%E6%96%87/%E5%86%9B%E4%BA%8B/README/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/blog/images/avatar.gif">
+      <meta itemprop="name" content="Zhang Peng">
+      <meta itemprop="description" content="Dunwu's Blog">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Dunwu">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/blog/minds/%E4%BA%BA%E6%96%87/%E5%86%9B%E4%BA%8B/README/" class="post-title-link" itemprop="url">军事</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2019-03-06 00:00:00" itemprop="dateCreated datePublished" datetime="2019-03-06T00:00:00+08:00">2019-03-06</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2019-05-08 18:07:52" itemprop="dateModified" datetime="2019-05-08T18:07:52+08:00">2019-05-08</time>
+              </span>
+
+          
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="fa fa-comment-o"></i>
+      </span>
+      <span class="post-meta-item-text">Disqus：</span>
+    
+    <a title="disqus" href="/blog/minds/%E4%BA%BA%E6%96%87/%E5%86%9B%E4%BA%8B/README/#comments" itemprop="discussionUrl">
+      <span class="post-comments-count disqus-comment-count" data-disqus-identifier="minds/人文/军事/README/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  <br>
+            <span class="post-meta-item" title="本文字数">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-file-word-o"></i>
+              </span>
+                <span class="post-meta-item-text">本文字数：</span>
+              <span>64</span>
+            </span>
+            <span class="post-meta-item" title="阅读时长">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-clock-o"></i>
+              </span>
+                <span class="post-meta-item-text">阅读时长 &asymp;</span>
+              <span>1 分钟</span>
+            </span>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h1 id="军事"><a class="markdownIt-Anchor" href="#军事"></a> 军事</h1>
+<blockquote>
+<p>军事是与战争、军队、军人等有关事务的总称。</p>
+</blockquote>
+<h2 id="关键词"><a class="markdownIt-Anchor" href="#关键词"></a> 关键词</h2>
+<p>战争、战役、战斗、战士、战略、战术、武器、兵种、进攻、防御、指挥、兵法、军衔</p>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+        
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://dunwu.github.io/blog/blog/communication/network-network/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/blog/images/avatar.gif">
+      <meta itemprop="name" content="Zhang Peng">
+      <meta itemprop="description" content="Dunwu's Blog">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Dunwu">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/blog/communication/network-network/" class="post-title-link" itemprop="url">计算机网络之网络层</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2019-03-06 00:00:00" itemprop="dateCreated datePublished" datetime="2019-03-06T00:00:00+08:00">2019-03-06</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2020-01-16 17:48:30" itemprop="dateModified" datetime="2020-01-16T17:48:30+08:00">2020-01-16</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/blog/categories/%E9%80%9A%E4%BF%A1/" itemprop="url" rel="index">
+                    <span itemprop="name">通信</span>
+                  </a>
+                </span>
+            </span>
+
+          
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="fa fa-comment-o"></i>
+      </span>
+      <span class="post-meta-item-text">Disqus：</span>
+    
+    <a title="disqus" href="/blog/communication/network-network/#comments" itemprop="discussionUrl">
+      <span class="post-comments-count disqus-comment-count" data-disqus-identifier="communication/network-network/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  <br>
+            <span class="post-meta-item" title="本文字数">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-file-word-o"></i>
+              </span>
+                <span class="post-meta-item-text">本文字数：</span>
+              <span>4.7k</span>
+            </span>
+            <span class="post-meta-item" title="阅读时长">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-clock-o"></i>
+              </span>
+                <span class="post-meta-item-text">阅读时长 &asymp;</span>
+              <span>4 分钟</span>
+            </span>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <blockquote>
+<p><strong>网络层（network layer）</strong> - 为分组交换网上的不同主机提供通信服务。在发送数据时，网络层把运输层产生的报文段或用户数据报封装成分组或包进行传送。</p>
+<ul>
+<li>主要协议：<code>IP</code>、<code>ICMP</code>。</li>
+<li>数据单元：IP 数据报（packet）。</li>
+<li>典型设备：网关、路由器。</li>
+</ul>
+</blockquote>
+<h2 id="概述"><a class="markdownIt-Anchor" href="#概述"></a> 概述</h2>
+<p>网络层向上只提供简单灵活的、无连接的、尽最大努力交付的数据报服务。网络层不提供服务质量的承诺，不保证分组交付的时限，所传送的分组可能出错、丢失、重复和失序。进程间通信的可靠性由运输层负责。</p>
+<h2 id="ip-协议"><a class="markdownIt-Anchor" href="#ip-协议"></a> IP 协议</h2>
+<p>网际协议 IP (Internet Protocol) 定义了三种功能：</p>
+<ol>
+<li>IP 定义了在 TCP/IP 互联网上数据传送的基本单元和数据格式。</li>
+<li>IP 软件完成路由选择功能，选择数据传送的路径。</li>
+<li>IP 包含了一组不可靠分组传送的规则，指明了分组处理、差错信息发生以及分组的规则。</li>
+</ol>
+<h3 id="相关协议"><a class="markdownIt-Anchor" href="#相关协议"></a> 相关协议</h3>
+<p>与 IP 协议配套使用的还有三个协议：</p>
+<ul>
+<li>地址解析协议 ARP（Address Resolution Protocol）</li>
+<li>网际控制报文协议 ICMP（Internet Control Message Protocol）</li>
+<li>网际组管理协议 IGMP（Internet Group Management Protocol）</li>
+</ul>
+<div align="center"><img src="http://dunwu.test.upcdn.net/cs/network/network/1550912617336.png!zp"/></div>
+<h3 id="分类的-ip-地址"><a class="markdownIt-Anchor" href="#分类的-ip-地址"></a> 分类的 IP 地址</h3>
+<p>IP 地址的编址方式经历了三个历史阶段：</p>
+<ul>
+<li>分类</li>
+<li>子网划分</li>
+<li>无分类</li>
+</ul>
+<h4 id="1-分类"><a class="markdownIt-Anchor" href="#1-分类"></a> 1. 分类</h4>
+<p>由两部分组成，网络号和主机号，其中不同分类具有不同的网络号长度，并且是固定的。</p>
+<figure class="highlight bnf"><table><tr><td class="code"><pre><span class="line">IP 地址 ::= &#123;&lt; 网络号 &gt;, &lt; 主机号 &gt;&#125;</span><br></pre></td></tr></table></figure>
+<div align="center"><img src="http://dunwu.test.upcdn.net/cs/network/network/1551086738403.png!zp"/></div>
+<h4 id="2-子网划分"><a class="markdownIt-Anchor" href="#2-子网划分"></a> 2. 子网划分</h4>
+<p>通过在主机号字段中拿一部分作为子网号，把两级 IP 地址划分为三级 IP 地址。</p>
+<figure class="highlight bnf"><table><tr><td class="code"><pre><span class="line">IP 地址 ::= &#123;&lt; 网络号 &gt;, &lt; 子网号 &gt;, &lt; 主机号 &gt;&#125;</span><br></pre></td></tr></table></figure>
+<p>要使用子网，必须配置子网掩码。一个 B 类地址的默认子网掩码为 255.255.0.0，如果 B 类地址的子网占两个比特，那么子网掩码为 11111111 11111111 11000000 00000000，也就是 255.255.192.0。</p>
+<p>注意，外部网络看不到子网的存在。</p>
+<h4 id="3-无分类"><a class="markdownIt-Anchor" href="#3-无分类"></a> 3. 无分类</h4>
+<p>无分类编址 CIDR 消除了传统 A 类、B 类和 C 类地址以及划分子网的概念，使用网络前缀和主机号来对 IP 地址进行编码，网络前缀的长度可以根据需要变化。</p>
+<figure class="highlight bnf"><table><tr><td class="code"><pre><span class="line">IP 地址 ::= &#123;&lt; 网络前缀号 &gt;, &lt; 主机号 &gt;&#125;</span><br></pre></td></tr></table></figure>
+<p>CIDR 的记法上采用在 IP 地址后面加上网络前缀长度的方法，例如 128.14.35.7/20 表示前 20 位为网络前缀。</p>
+<p>CIDR 的地址掩码可以继续称为子网掩码，子网掩码首 1 长度为网络前缀的长度。</p>
+<p>一个 CIDR 地址块中有很多地址，一个 CIDR 表示的网络就可以表示原来的很多个网络，并且在路由表中只需要一个路由就可以代替原来的多个路由，减少了路由表项的数量。把这种通过使用网络前缀来减少路由表项的方式称为路由聚合，也称为 <strong>构成超网</strong> 。</p>
+<p>在路由表中的项目由“网络前缀”和“下一跳地址”组成，在查找时可能会得到不止一个匹配结果，应当采用最长前缀匹配来确定应该匹配哪一个。</p>
+<h3 id="ip-地址与物理地址"><a class="markdownIt-Anchor" href="#ip-地址与物理地址"></a> IP 地址与物理地址</h3>
+<div align="center"><img src="http://dunwu.test.upcdn.net/cs/network/network/1551088476626.png!zp"/></div>
+<ul>
+<li>物理地址是数据链路层和物理层使用的地址。</li>
+<li>IP 地址是网络层和以上各层使用的地址，是一种逻辑地址。</li>
+</ul>
+<div align="center"><img src="http://dunwu.test.upcdn.net/cs/network/network/1551088631948.png!zp"/></div>
+<h3 id="ip-数据报格式"><a class="markdownIt-Anchor" href="#ip-数据报格式"></a> IP 数据报格式</h3>
+<div align="center"><img src="http://dunwu.test.upcdn.net/cs/network/network/1550913213250.png!zp"/></div>
+<ul>
+<li><strong>版本</strong> - 有 4（IPv4）和 6（IPv6）两个值。</li>
+<li><strong>首部长度</strong> - 占 4 位，因此最大十进制数值为 15。值为 1 表示的是 1 个 32 位字的长度，也就是 4 字节。因为首部固定长度为 20 字节，因此该值最小为 5。如果可选字段的长度不是 4 字节的整数倍，就用尾部的填充部分来填充。</li>
+<li><strong>区分服务</strong> - 用来获得更好的服务，一般情况下不使用。</li>
+<li><strong>总长度</strong> - 包括首部长度和数据部分长度。占 16 位，因此数据报的最大长度为 2 <sup>16</sup> - 1 = 65535 字节。</li>
+<li><strong>生存时间</strong> - TTL，它的存在是为了防止无法交付的数据报在互联网中不断兜圈子。以路由器跳数为单位，当 TTL 为 0 时就丢弃数据报。</li>
+<li><strong>协议</strong> - 指出携带的数据应该上交给哪个协议进行处理，例如 ICMP、TCP、UDP 等。</li>
+<li><strong>首部检验和</strong> - 因为数据报每经过一个路由器，都要重新计算检验和，因此检验和不包含数据部分可以减少计算的工作量。</li>
+<li><strong>标识</strong> - 在数据报长度过长从而发生分片的情况下，相同数据报的不同分片具有相同的标识符。</li>
+<li><strong>片偏移</strong> - 和标识符一起，用于发生分片的情况。片偏移的单位为 8 字节。</li>
+</ul>
+<div align="center"><img src="http://dunwu.test.upcdn.net/cs/network/network/1550913364479.png!zp"/></div>
+<h2 id="地址解析协议-arp"><a class="markdownIt-Anchor" href="#地址解析协议-arp"></a> 地址解析协议 ARP</h2>
+<p>网络层实现主机之间的通信，而链路层实现具体每段链路之间的通信。因此在通信过程中，IP 数据报的源地址和目的地址始终不变，而 MAC 地址随着链路的改变而改变。</p>
+<div align="center"><img src="http://dunwu.test.upcdn.net/cs/network/network/1551086787261.png!zp"/></div>
+<p>ARP 实现由 IP 地址得到 MAC 地址。</p>
+<div align="center"><img src="http://dunwu.test.upcdn.net/cs/network/network/1551086769846.png!zp"/></div>
+<p>每个主机都有一个 ARP 高速缓存，里面有本局域网上的各主机和路由器的 IP 地址到 MAC 地址的映射表。</p>
+<p>如果主机 A 知道主机 B 的 IP 地址，但是 ARP 高速缓存中没有该 IP 地址到 MAC 地址的映射，此时主机 A 通过广播的方式发送 ARP 请求分组，主机 B 收到该请求后会发送 ARP 响应分组给主机 A 告知其 MAC 地址，随后主机 A 向其高速缓存中写入主机 B 的 IP 地址到 MAC 地址的映射。</p>
+<div align="center"><img src="http://dunwu.test.upcdn.net/cs/network/network/1551086833117.png!zp"/></div>
+<h2 id="网际控制报文协议-icmp"><a class="markdownIt-Anchor" href="#网际控制报文协议-icmp"></a> 网际控制报文协议 ICMP</h2>
+<p>ICMP 是为了更有效地转发 IP 数据报和提高交付成功的机会。它封装在 IP 数据报中，但是不属于高层协议。</p>
+<div align="center"><img src="http://dunwu.test.upcdn.net/cs/network/network/1551086857345.png!zp"/></div>
+<p>ICMP 报文分为差错报告报文和询问报文。</p>
+<div align="center"><img src="http://dunwu.test.upcdn.net/cs/network/network/1551086870897.png!zp"/></div>
+<h3 id="1-ping"><a class="markdownIt-Anchor" href="#1-ping"></a> 1. Ping</h3>
+<p>Ping 是 ICMP 的一个重要应用，主要用来测试两台主机之间的连通性。</p>
+<p>Ping 的原理是通过向目的主机发送 ICMP Echo 请求报文，目的主机收到之后会发送 Echo 回答报文。Ping 会根据时间和成功响应的次数估算出数据包往返时间以及丢包率。</p>
+<h3 id="2-traceroute"><a class="markdownIt-Anchor" href="#2-traceroute"></a> 2. Traceroute</h3>
+<p>Traceroute 是 ICMP 的另一个应用，用来跟踪一个分组从源点到终点的路径。</p>
+<p>Traceroute 发送的 IP 数据报封装的是无法交付的 UDP 用户数据报，并由目的主机发送终点不可达差错报告报文。</p>
+<ul>
+<li>源主机向目的主机发送一连串的 IP 数据报。第一个数据报 P1 的生存时间 TTL 设置为 1，当 P1 到达路径上的第一个路由器 R1 时，R1 收下它并把 TTL 减 1，此时 TTL 等于 0，R1 就把 P1 丢弃，并向源主机发送一个 ICMP 时间超过差错报告报文；</li>
+<li>源主机接着发送第二个数据报 P2，并把 TTL 设置为 2。P2 先到达 R1，R1 收下后把 TTL 减 1 再转发给 R2，R2 收下后也把 TTL 减 1，由于此时 TTL 等于 0，R2 就丢弃 P2，并向源主机发送一个 ICMP 时间超过差错报文。</li>
+<li>不断执行这样的步骤，直到最后一个数据报刚刚到达目的主机，主机不转发数据报，也不把 TTL 值减 1。但是因为数据报封装的是无法交付的 UDP，因此目的主机要向源主机发送 ICMP 终点不可达差错报告报文。</li>
+<li>之后源主机知道了到达目的主机所经过的路由器 IP 地址以及到达每个路由器的往返时间。</li>
+</ul>
+<h2 id="虚拟专用网-vpn"><a class="markdownIt-Anchor" href="#虚拟专用网-vpn"></a> 虚拟专用网 VPN</h2>
+<p>由于 IP 地址的紧缺，一个机构能申请到的 IP 地址数往往远小于本机构所拥有的主机数。并且一个机构并不需要把所有的主机接入到外部的互联网中，机构内的计算机可以使用仅在本机构有效的 IP 地址（专用地址）。</p>
+<p>有三个专用地址块：</p>
+<ul>
+<li>10.0.0.0 ~ 10.255.255.255</li>
+<li>172.16.0.0 ~ 172.31.255.255</li>
+<li>192.168.0.0 ~ 192.168.255.255</li>
+</ul>
+<p>VPN 使用公用的互联网作为本机构各专用网之间的通信载体。专用指机构内的主机只与本机构内的其它主机通信；虚拟指好像是，而实际上并不是，它有经过公用的互联网。</p>
+<p>下图中，场所 A 和 B 的通信经过互联网，如果场所 A 的主机 X 要和另一个场所 B 的主机 Y 通信，IP 数据报的源地址是 10.1.0.1，目的地址是 10.2.0.3。数据报先发送到与互联网相连的路由器 R1，R1 对内部数据进行加密，然后重新加上数据报的首部，源地址是路由器 R1 的全球地址 125.1.2.3，目的地址是路由器 R2 的全球地址 194.4.5.6。路由器 R2 收到数据报后将数据部分进行解密，恢复原来的数据报，此时目的地址为 10.2.0.3，就交付给 Y。</p>
+<div align="center"><img src="http://dunwu.test.upcdn.net/cs/network/network/1551086901339.png!zp"/></div>
+<h2 id="网络地址转换-nat"><a class="markdownIt-Anchor" href="#网络地址转换-nat"></a> 网络地址转换 NAT</h2>
+<p>专用网内部的主机使用本地 IP 地址又想和互联网上的主机通信时，可以使用 NAT 来将本地 IP 转换为全球 IP。</p>
+<p>在以前，NAT 将本地 IP 和全球 IP 一一对应，这种方式下拥有 n 个全球 IP 地址的专用网内最多只可以同时有 n 台主机接入互联网。为了更有效地利用全球 IP 地址，现在常用的 NAT 转换表把传输层的端口号也用上了，使得多个专用网内部的主机共用一个全球 IP 地址。使用端口号的 NAT 也叫做网络地址与端口转换 NAPT。</p>
+<h2 id="路由器的结构"><a class="markdownIt-Anchor" href="#路由器的结构"></a> 路由器的结构</h2>
+<p>路由器从功能上可以划分为：路由选择和分组转发。</p>
+<p>分组转发结构由三个部分组成：交换结构、一组输入端口和一组输出端口。</p>
+<div align="center"><img src="http://dunwu.test.upcdn.net/cs/network/network/1551086930371.png!zp"/></div>
+<h2 id="路由器分组转发流程"><a class="markdownIt-Anchor" href="#路由器分组转发流程"></a> 路由器分组转发流程</h2>
+<ul>
+<li>从数据报的首部提取目的主机的 IP 地址 D，得到目的网络地址 N。</li>
+<li>若 N 就是与此路由器直接相连的某个网络地址，则进行直接交付；</li>
+<li>若路由表中有目的地址为 D 的特定主机路由，则把数据报传送给表中所指明的下一跳路由器；</li>
+<li>若路由表中有到达网络 N 的路由，则把数据报传送给路由表中所指明的下一跳路由器；</li>
+<li>若路由表中有一个默认路由，则把数据报传送给路由表中所指明的默认路由器；</li>
+<li>报告转发分组出错。</li>
+</ul>
+<div align="center"><img src="http://dunwu.test.upcdn.net/cs/network/network/1551086952828.png!zp"/></div>
+<h2 id="路由选择协议"><a class="markdownIt-Anchor" href="#路由选择协议"></a> 路由选择协议</h2>
+<p>路由选择协议都是自适应的，能随着网络通信量和拓扑结构的变化而自适应地进行调整。</p>
+<p>互联网可以划分为许多较小的自治系统 AS，一个 AS 可以使用一种和别的 AS 不同的路由选择协议。</p>
+<p>可以把路由选择协议划分为两大类：</p>
+<ul>
+<li>自治系统内部的路由选择：RIP 和 OSPF</li>
+<li>自治系统间的路由选择：BGP</li>
+</ul>
+<h3 id="1-内部网关协议-rip"><a class="markdownIt-Anchor" href="#1-内部网关协议-rip"></a> 1. 内部网关协议 RIP</h3>
+<p>RIP 是一种基于距离向量的路由选择协议。距离是指跳数，直接相连的路由器跳数为 1。跳数最多为 15，超过 15 表示不可达。</p>
+<p>RIP 按固定的时间间隔仅和相邻路由器交换自己的路由表，经过若干次交换之后，所有路由器最终会知道到达本自治系统中任何一个网络的最短距离和下一跳路由器地址。</p>
+<p>距离向量算法：</p>
+<ul>
+<li>对地址为 X 的相邻路由器发来的 RIP 报文，先修改报文中的所有项目，把下一跳字段中的地址改为 X，并把所有的距离字段加 1；</li>
+<li>对修改后的 RIP 报文中的每一个项目，进行以下步骤：</li>
+<li>若原来的路由表中没有目的网络 N，则把该项目添加到路由表中；</li>
+<li>否则：若下一跳路由器地址是 X，则把收到的项目替换原来路由表中的项目；否则：若收到的项目中的距离 d 小于路由表中的距离，则进行更新（例如原始路由表项为 Net2, 5, P，新表项为 Net2, 4, X，则更新）；否则什么也不做。</li>
+<li>若 3 分钟还没有收到相邻路由器的更新路由表，则把该相邻路由器标为不可达，即把距离置为 16。</li>
+</ul>
+<p>RIP 协议实现简单，开销小。但是 RIP 能使用的最大距离为 15，限制了网络的规模。并且当网络出现故障时，要经过比较长的时间才能将此消息传送到所有路由器。</p>
+<h3 id="2-内部网关协议-ospf"><a class="markdownIt-Anchor" href="#2-内部网关协议-ospf"></a> 2. 内部网关协议 OSPF</h3>
+<p>开放最短路径优先 OSPF，是为了克服 RIP 的缺点而开发出来的。</p>
+<p>开放表示 OSPF 不受某一家厂商控制，而是公开发表的；最短路径优先表示使用了 Dijkstra 提出的最短路径算法 SPF。</p>
+<p>OSPF 具有以下特点：</p>
+<ul>
+<li>向本自治系统中的所有路由器发送信息，这种方法是洪泛法。</li>
+<li>发送的信息就是与相邻路由器的链路状态，链路状态包括与哪些路由器相连以及链路的度量，度量用费用、距离、时延、带宽等来表示。</li>
+<li>只有当链路状态发生变化时，路由器才会发送信息。</li>
+</ul>
+<p>所有路由器都具有全网的拓扑结构图，并且是一致的。相比于 RIP，OSPF 的更新过程收敛的很快。</p>
+<h3 id="3-外部网关协议-bgp"><a class="markdownIt-Anchor" href="#3-外部网关协议-bgp"></a> 3. 外部网关协议 BGP</h3>
+<p>BGP（Border Gateway Protocol，边界网关协议）</p>
+<p>AS 之间的路由选择很困难，主要是由于：</p>
+<ul>
+<li>互联网规模很大；</li>
+<li>各个 AS 内部使用不同的路由选择协议，无法准确定义路径的度量；</li>
+<li>AS 之间的路由选择必须考虑有关的策略，比如有些 AS 不愿意让其它 AS 经过。</li>
+</ul>
+<p>BGP 只能寻找一条比较好的路由，而不是最佳路由。</p>
+<p>每个 AS 都必须配置 BGP 发言人，通过在两个相邻 BGP 发言人之间建立 TCP 连接来交换路由信息。</p>
+<div align="center"><img src="http://dunwu.test.upcdn.net/cs/network/network/1551086977310.png!zp"/></div>
 
       
     </div>
@@ -1019,7 +1269,7 @@
                   <i class="fa fa-calendar-check-o"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2019-11-21 20:10:33" itemprop="dateModified" datetime="2019-11-21T20:10:33+08:00">2019-11-21</time>
+                <time title="修改时间：2020-01-16 17:48:30" itemprop="dateModified" datetime="2020-01-16T17:48:30+08:00">2020-01-16</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -1302,7 +1552,7 @@
                   <i class="fa fa-calendar-check-o"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2019-11-21 20:10:52" itemprop="dateModified" datetime="2019-11-21T20:10:52+08:00">2019-11-21</time>
+                <time title="修改时间：2020-01-16 17:48:30" itemprop="dateModified" datetime="2020-01-16T17:48:30+08:00">2020-01-16</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -1455,7 +1705,7 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="https://dunwu.github.io/blog/blog/design/refactor/%E4%BB%A3%E7%A0%81%E5%9D%8F%E5%91%B3%E9%81%93%E4%B9%8B%E8%80%A6%E5%90%88/">
+    <link itemprop="mainEntityOfPage" href="https://dunwu.github.io/blog/blog/design/refactor/%E4%BB%A3%E7%A0%81%E5%9D%8F%E5%91%B3%E9%81%93%E4%B9%8B%E4%BB%A3%E7%A0%81%E8%87%83%E8%82%BF/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/blog/images/avatar.gif">
@@ -1469,7 +1719,7 @@
       <header class="post-header">
         <h2 class="post-title" itemprop="name headline">
           
-            <a href="/blog/design/refactor/%E4%BB%A3%E7%A0%81%E5%9D%8F%E5%91%B3%E9%81%93%E4%B9%8B%E8%80%A6%E5%90%88/" class="post-title-link" itemprop="url">代码坏味道之耦合</a>
+            <a href="/blog/design/refactor/%E4%BB%A3%E7%A0%81%E5%9D%8F%E5%91%B3%E9%81%93%E4%B9%8B%E4%BB%A3%E7%A0%81%E8%87%83%E8%82%BF/" class="post-title-link" itemprop="url">代码坏味道之代码臃肿</a>
         </h2>
 
         <div class="post-meta">
@@ -1486,7 +1736,7 @@
                   <i class="fa fa-calendar-check-o"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2019-11-27 15:29:01" itemprop="dateModified" datetime="2019-11-27T15:29:01+08:00">2019-11-27</time>
+                <time title="修改时间：2020-01-16 17:48:30" itemprop="dateModified" datetime="2020-01-16T17:48:30+08:00">2020-01-16</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -1515,8 +1765,8 @@
       </span>
       <span class="post-meta-item-text">Disqus：</span>
     
-    <a title="disqus" href="/blog/design/refactor/%E4%BB%A3%E7%A0%81%E5%9D%8F%E5%91%B3%E9%81%93%E4%B9%8B%E8%80%A6%E5%90%88/#comments" itemprop="discussionUrl">
-      <span class="post-comments-count disqus-comment-count" data-disqus-identifier="design/refactor/代码坏味道之耦合/" itemprop="commentCount"></span>
+    <a title="disqus" href="/blog/design/refactor/%E4%BB%A3%E7%A0%81%E5%9D%8F%E5%91%B3%E9%81%93%E4%B9%8B%E4%BB%A3%E7%A0%81%E8%87%83%E8%82%BF/#comments" itemprop="discussionUrl">
+      <span class="post-comments-count disqus-comment-count" data-disqus-identifier="design/refactor/代码坏味道之代码臃肿/" itemprop="commentCount"></span>
     </a>
   </span>
   
@@ -1526,14 +1776,14 @@
                 <i class="fa fa-file-word-o"></i>
               </span>
                 <span class="post-meta-item-text">本文字数：</span>
-              <span>4.6k</span>
+              <span>8.1k</span>
             </span>
             <span class="post-meta-item" title="阅读时长">
               <span class="post-meta-item-icon">
                 <i class="fa fa-clock-o"></i>
               </span>
                 <span class="post-meta-item-text">阅读时长 &asymp;</span>
-              <span>4 分钟</span>
+              <span>7 分钟</span>
             </span>
 
         </div>
@@ -1547,167 +1797,110 @@
       
           <blockquote>
 <p>📓 本文已归档到：「<a href="https://github.com/dunwu/blog" target="_blank" rel="noopener">blog</a>」</p>
-<p>翻译自：<a href="https://sourcemaking.com/refactoring/smells/couplers" target="_blank" rel="noopener">https://sourcemaking.com/refactoring/smells/couplers</a></p>
-<p><strong>耦合(Couplers)这组坏味道意味着：不同类之间过度耦合。</strong></p>
+<p>翻译自：<a href="https://sourcemaking.com/refactoring/smells/bloaters" target="_blank" rel="noopener">https://sourcemaking.com/refactoring/smells/bloaters</a></p>
+<p><strong>代码臃肿(Bloated)这组坏味道意味着：代码中的类、函数、字段没有经过合理的组织，只是简单的堆砌起来。这一类型的问题通常在代码的初期并不明显，但是随着代码规模的增长而逐渐积累（特别是当没有人努力去根除它们时）。</strong></p>
 </blockquote>
-<h2 id="不完美的库类"><a class="markdownIt-Anchor" href="#不完美的库类"></a> 不完美的库类</h2>
+<h2 id="基本类型偏执"><a class="markdownIt-Anchor" href="#基本类型偏执"></a> 基本类型偏执</h2>
 <blockquote>
-<p>不完美的库类(Incomplete Library Class)</p>
-<p>当一个类库已经不能满足实际需要时，你就不得不改变这个库（如果这个库是只读的，那就没辙了）。</p>
-</blockquote>
-<h3 id="问题原因"><a class="markdownIt-Anchor" href="#问题原因"></a> 问题原因</h3>
-<p>许多编程技术都建立在库类的基础上。库类的作者没用未卜先知的能力，不能因此责怪他们。麻烦的是库往往构造的不够好，而且往往不可能让我们修改其中的类以满足我们的需要。</p>
-<h3 id="解决方法"><a class="markdownIt-Anchor" href="#解决方法"></a> 解决方法</h3>
+<p>基本类型偏执(Primitive Obsession)</p>
 <ul>
-<li>如果你只想修改类库的一两个函数，可以运用 <code>引入外加函数(Introduce Foreign Method)</code>；</li>
-<li>如果想要添加一大堆额外行为，就得运用 <code>引入本地扩展(Introduce Local Extension)</code> 。</li>
+<li>使用基本类型而不是小对象来实现简单任务（例如货币、范围、电话号码字符串等）。</li>
+<li>使用常量编码信息（例如一个用于引用管理员权限的常量<code>USER_ADMIN_ROLE = 1</code> ）。</li>
+<li>使用字符串常量作为字段名在数组中使用。</li>
+</ul>
+</blockquote>
+<div align="center"><img src="http://dunwu.test.upcdn.net/cs/design/refactor/primitive-obsession-1.png"/></div>
+<h3 id="问题原因"><a class="markdownIt-Anchor" href="#问题原因"></a> 问题原因</h3>
+<p>类似其他大部分坏味道，基本类型偏执诞生于类初建的时候。一开始，可能只是不多的字段，随着表示的特性越来越多，基本数据类型字段也越来越多。</p>
+<p>基本类型常常被用于表示模型的类型。你有一组数字或字符串用来表示某个实体。</p>
+<p>还有一个场景：在模拟场景，大量的字符串常量被用于数组的索引。</p>
+<h3 id="解决方法"><a class="markdownIt-Anchor" href="#解决方法"></a> 解决方法</h3>
+<div align="center"><img src="http://dunwu.test.upcdn.net/cs/design/refactor/primitive-obsession-2.png"/></div>
+<p>大多数编程语言都支持基本数据类型和结构类型（类、结构体等）。结构类型允许程序员将基本数据类型组织起来，以代表某一事物的模型。</p>
+<p>基本数据类型可以看成是机构类型的积木块。当基本数据类型数量成规模后，将它们有组织地结合起来，可以更方便的管理这些数据。</p>
+<ul>
+<li>如果你有大量的基本数据类型字段，就有可能将其中部分存在逻辑联系的字段组织起来，形成一个类。更进一步的是，将与这些数据有关联的方法也一并移入类中。为了实现这个目标，可以尝试 <code>以类取代类型码(Replace Type Code with Class)</code> 。</li>
+<li>如果基本数据类型字段的值是用于方法的参数，可以使用 <code>引入参数对象(Introduce Parameter Object)</code> 或 <code>保持对象完整(Preserve Whole Object)</code> 。</li>
+<li>如果想要替换的数据值是类型码，而它并不影响行为，则可以运用 <code>以类取代类型码(Replace Type Code with Class)</code> 将它替换掉。如果你有与类型码相关的条件表达式，可运用 <code>以子类取代类型码(Replace Type Code with Subclass)</code> 或 <code>以状态/策略模式取代类型码(Replace Type Code with State/Strategy)</code> 加以处理。</li>
+<li>如果你发现自己正从数组中挑选数据，可运用 <code>以对象取代数组(Replace Array with Object)</code> 。</li>
 </ul>
 <h3 id="收益"><a class="markdownIt-Anchor" href="#收益"></a> 收益</h3>
 <ul>
-<li>减少代码重复（你不用一言不合就自己动手实现一个库的全部功能，代价太高）</li>
+<li>多亏了使用对象替代基本数据类型，使得代码变得更加灵活。</li>
+<li>代码变得更加易读和更加有组织。特殊数据可以集中进行操作，而不像之前那样分散。不用再猜测这些陌生的常量的意义以及它们为什么在数组中。</li>
+<li>更容易发现重复代码。</li>
 </ul>
-<h3 id="何时忽略"><a class="markdownIt-Anchor" href="#何时忽略"></a> 何时忽略</h3>
-<ul>
-<li>如果扩展库会带来额外的工作量。</li>
-</ul>
+<div align="center"><img src="http://dunwu.test.upcdn.net/cs/design/refactor/primitive-obsession-3.png"/></div>
 <h3 id="重构方法说明"><a class="markdownIt-Anchor" href="#重构方法说明"></a> 重构方法说明</h3>
-<h4 id="引入外加函数introduce-foreign-method"><a class="markdownIt-Anchor" href="#引入外加函数introduce-foreign-method"></a> 引入外加函数(Introduce Foreign Method)</h4>
+<h4 id="以类取代类型码replace-type-code-with-class"><a class="markdownIt-Anchor" href="#以类取代类型码replace-type-code-with-class"></a> 以类取代类型码(Replace Type Code with Class)</h4>
 <p><strong>问题</strong></p>
-<p>你需要为提供服务的类增加一个函数，但你无法修改这个类。</p>
-<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Report</span> </span>&#123;</span><br><span class="line">  <span class="comment">//...</span></span><br><span class="line">  <span class="function"><span class="keyword">void</span> <span class="title">sendReport</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    Date nextDay = <span class="keyword">new</span> Date(previousEnd.getYear(),</span><br><span class="line">      previousEnd.getMonth(), previousEnd.getDate() + <span class="number">1</span>);</span><br><span class="line">    <span class="comment">//...</span></span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>类之中有一个数值类型码，但它并不影响类的行为。</p>
+<div align="center"><img src="http://dunwu.test.upcdn.net/cs/design/refactor/replace-type-code-with-class-before.png"/></div>
 <p><strong>解决</strong></p>
-<p>在客户类中建立一个函数，并一个第一个参数形式传入一个服务类实例。</p>
-<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Report</span> </span>&#123;</span><br><span class="line">  <span class="comment">//...</span></span><br><span class="line">  <span class="function"><span class="keyword">void</span> <span class="title">sendReport</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    Date newStart = nextDay(previousEnd);</span><br><span class="line">    <span class="comment">//...</span></span><br><span class="line">  &#125;</span><br><span class="line">  <span class="function"><span class="keyword">private</span> <span class="keyword">static</span> Date <span class="title">nextDay</span><span class="params">(Date arg)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="keyword">new</span> Date(arg.getYear(), arg.getMonth(), arg.getDate() + <span class="number">1</span>);</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<h4 id="引入本地扩展introduce-local-extension"><a class="markdownIt-Anchor" href="#引入本地扩展introduce-local-extension"></a> 引入本地扩展(Introduce Local Extension)</h4>
+<p>以一个新的类替换该数值类型码。</p>
+<div align="center"><img src="http://dunwu.test.upcdn.net/cs/design/refactor/replace-type-code-with-class-after.png"/></div>
+<h4 id="引入参数对象introduce-parameter-object"><a class="markdownIt-Anchor" href="#引入参数对象introduce-parameter-object"></a> 引入参数对象(Introduce Parameter Object)</h4>
 <p><strong>问题</strong></p>
-<p>你需要为服务类提供一些额外函数，但你无法修改这个类。</p>
-<div align="center"><img src="http://dunwu.test.upcdn.net/cs/design/refactor/introduce-local-extension-before.png"/></div>
+<p>某些参数总是很自然地同时出现。</p>
+<div align="center"><img src="http://dunwu.test.upcdn.net/cs/design/refactor/introduce-parameter-object-before.png"/></div>
 <p><strong>解决</strong></p>
-<p>建立一个新类，使它包含这些额外函数，让这个扩展品成为源类的子类或包装类。</p>
-<div align="center"><img src="http://dunwu.test.upcdn.net/cs/design/refactor/introduce-local-extension-after.png"/></div>
-<h2 id="中间人"><a class="markdownIt-Anchor" href="#中间人"></a> 中间人</h2>
+<p>以一个对象来取代这些参数。</p>
+<div align="center"><img src="http://dunwu.test.upcdn.net/cs/design/refactor/introduce-parameter-object-after.png"/></div>
+<h4 id="保持对象完整preserve-whole-object"><a class="markdownIt-Anchor" href="#保持对象完整preserve-whole-object"></a> 保持对象完整(Preserve Whole Object)</h4>
+<p><strong>问题</strong></p>
+<p>你从某个对象中取出若干值，将它们作为某一次函数调用时的参数。</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">int</span> low = daysTempRange.getLow();</span><br><span class="line"><span class="keyword">int</span> high = daysTempRange.getHigh();</span><br><span class="line"><span class="keyword">boolean</span> withinPlan = plan.withinRange(low, high);</span><br></pre></td></tr></table></figure>
+<p><strong>解决</strong></p>
+<p>改为传递整个对象。</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">boolean</span> withinPlan = plan.withinRange(daysTempRange);</span><br></pre></td></tr></table></figure>
+<h4 id="以子类取代类型码replace-type-code-with-subclass"><a class="markdownIt-Anchor" href="#以子类取代类型码replace-type-code-with-subclass"></a> 以子类取代类型码(Replace Type Code with Subclass)</h4>
+<p><strong>问题</strong></p>
+<p>你有一个不可变的类型码，它会影响类的行为。</p>
+<div align="center"><img src="http://dunwu.test.upcdn.net/cs/design/refactor/replace-type-code-with-subclasses-before.png"/></div>
+<p><strong>解决</strong></p>
+<p>以子类取代这个类型码。</p>
+<div align="center"><img src="http://dunwu.test.upcdn.net/cs/design/refactor/replace-type-code-with-subclasses-after.png"/></div>
+<h4 id="以状态策略模式取代类型码replace-type-code-with-statestrategy"><a class="markdownIt-Anchor" href="#以状态策略模式取代类型码replace-type-code-with-statestrategy"></a> 以状态/策略模式取代类型码(Replace Type Code with State/Strategy)</h4>
+<p><strong>问题</strong></p>
+<p>你有一个类型码，它会影响类的行为，但你无法通过继承消除它。</p>
+<div align="center"><img src="http://dunwu.test.upcdn.net/cs/design/refactor/replace-type-code-with-state-strategy-before.png"/></div>
+<p><strong>解决</strong></p>
+<p>以状态对象取代类型码。</p>
+<div align="center"><img src="http://dunwu.test.upcdn.net/cs/design/refactor/replace-type-code-with-state-strategy-after.png"/></div>
+<h4 id="以对象取代数组replace-array-with-object"><a class="markdownIt-Anchor" href="#以对象取代数组replace-array-with-object"></a> 以对象取代数组(Replace Array with Object)</h4>
+<p><strong>问题</strong></p>
+<p>你有一个数组，其中的元素各自代表不同的东西。</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line">String[] row = <span class="keyword">new</span> String[<span class="number">3</span>];</span><br><span class="line">row[<span class="number">0</span>] = <span class="string">"Liverpool"</span>;</span><br><span class="line">row[<span class="number">1</span>] = <span class="string">"15"</span>;</span><br></pre></td></tr></table></figure>
+<p><strong>解决</strong></p>
+<p>以对象替换数组。对于数组中的每个元素，以一个字段来表示。</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line">Performance row = <span class="keyword">new</span> Performance();</span><br><span class="line">row.setName(<span class="string">"Liverpool"</span>);</span><br><span class="line">row.setWins(<span class="string">"15"</span>);</span><br></pre></td></tr></table></figure>
+<h2 id="数据泥团"><a class="markdownIt-Anchor" href="#数据泥团"></a> 数据泥团</h2>
 <blockquote>
-<p>中间人(Middle Man)</p>
-<p>如果一个类的作用仅仅是指向另一个类的委托，为什么要存在呢？</p>
+<p>数据泥团(Data Clumps)</p>
+<p>有时，代码的不同部分包含相同的变量组（例如用于连接到数据库的参数）。这些绑在一起出现的数据应该拥有自己的对象。</p>
 </blockquote>
-<div align="center"><img src="http://dunwu.test.upcdn.net/cs/design/refactor/middle-man-1.png"/></div>
+<div align="center"><img src="http://dunwu.test.upcdn.net/cs/design/refactor/data-clumps-1.png"/></div>
 <h3 id="问题原因-2"><a class="markdownIt-Anchor" href="#问题原因-2"></a> 问题原因</h3>
-<p>对象的基本特征之一就是封装：对外部世界隐藏其内部细节。封装往往伴随委托。但是人们可能过度运用委托。比如，你也许会看到一个类的大部分有用工作都委托给了其他类，类本身成了一个空壳，除了委托之外不做任何事情。</p>
+<p>通常，数据泥团的出现时因为糟糕的编程结构或“复制-粘贴式编程”。</p>
+<p>有一个判断是否是数据泥团的好办法：删掉众多数据中的一项。这么做，其他数据有没有因而失去意义？如果它们不再有意义，这就是个明确的信号：你应该为它们产生一个新的对象。</p>
 <h3 id="解决方法-2"><a class="markdownIt-Anchor" href="#解决方法-2"></a> 解决方法</h3>
-<p>应该运用 <code>移除中间人(Remove Middle Man)</code>，直接和真正负责的对象打交道。</p>
+<ul>
+<li>首先找出这些数据以字段形式出现的地方，运用 <code>提炼类(Extract Class)</code> 将它们提炼到一个独立对象中。</li>
+<li>如果数据泥团在函数的参数列中出现，运用 <code>引入参数对象(Introduce Parameter Object)</code> 将它们组织成一个类。</li>
+<li>如果数据泥团的部分数据出现在其他函数中，考虑运用 <code>保持对象完整(Preserve Whole Object)</code> 将整个数据对象传入到函数中。</li>
+<li>检视一下使用这些字段的代码，也许，将它们移入一个数据类是个不错的主意。</li>
+</ul>
 <h3 id="收益-2"><a class="markdownIt-Anchor" href="#收益-2"></a> 收益</h3>
 <ul>
-<li>减少笨重的代码。</li>
+<li>提高代码易读性和组织性。对于特殊数据的操作，可以集中进行处理，而不像以前那样分散。</li>
+<li>减少代码量。</li>
 </ul>
-<div align="center"><img src="http://dunwu.test.upcdn.net/cs/design/refactor/middle-man-2.png"/></div>
-<h3 id="何时忽略-2"><a class="markdownIt-Anchor" href="#何时忽略-2"></a> 何时忽略</h3>
-<p>如果是以下情况，不要删除已创建的中间人：</p>
+<div align="center"><img src="http://dunwu.test.upcdn.net/cs/design/refactor/data-clumps-3.png"/></div>
+<h3 id="何时忽略"><a class="markdownIt-Anchor" href="#何时忽略"></a> 何时忽略</h3>
 <ul>
-<li>添加中间人是为了避免类之间依赖关系。</li>
-<li>一些设计模式有目的地创建中间人（例如代理模式和装饰器模式）。</li>
+<li>有时为了对象中的部分数据而将整个对象作为参数传递给函数，可能会产生让两个类之间不收欢迎的依赖关系，这中情况下可以不传递整个对象。</li>
 </ul>
 <h3 id="重构方法说明-2"><a class="markdownIt-Anchor" href="#重构方法说明-2"></a> 重构方法说明</h3>
-<h4 id="移除中间人remove-middle-man"><a class="markdownIt-Anchor" href="#移除中间人remove-middle-man"></a> 移除中间人(Remove Middle Man)</h4>
-<p><strong>问题</strong></p>
-<p>某个类做了过多的简单委托动作。</p>
-<div align="center"><img src="http://dunwu.test.upcdn.net/cs/design/refactor/remove-middle-man-before.png"/></div>
-<p><strong>解决</strong></p>
-<p>让客户直接调用委托类。</p>
-<div align="center"><img src="http://dunwu.test.upcdn.net/cs/design/refactor/remove-middle-man-after.png"/></div>
-<h2 id="依恋情结"><a class="markdownIt-Anchor" href="#依恋情结"></a> 依恋情结</h2>
-<blockquote>
-<p>依恋情结(Feature Envy)</p>
-<p>一个函数访问其它对象的数据比访问自己的数据更多。</p>
-</blockquote>
-<div align="center"><img src="http://dunwu.test.upcdn.net/cs/design/refactor/feature-envy-1.png"/></div>
-<h3 id="问题原因-3"><a class="markdownIt-Anchor" href="#问题原因-3"></a> 问题原因</h3>
-<p>这种气味可能发生在字段移动到数据类之后。如果是这种情况，你可能想将数据类的操作移动到这个类中。</p>
-<h3 id="解决方法-3"><a class="markdownIt-Anchor" href="#解决方法-3"></a> 解决方法</h3>
-<p>As a basic rule, if things change at the same time, you should keep them in the same place. Usually data and functions that use this data are changed together (although exceptions are possible).</p>
-<p>有一个基本原则：同时会发生改变的事情应该被放在同一个地方。通常，数据和使用这些数据的函数是一起改变的。</p>
-<div align="center"><img src="http://dunwu.test.upcdn.net/cs/design/refactor/feature-envy-2.png"/></div>
-<ul>
-<li>如果一个函数明显应该被移到另一个地方，可运用 <code>搬移函数(Move Method)</code> 。</li>
-<li>如果仅仅是函数的部分代码访问另一个对象的数据，运用 <code>提炼函数(Extract Method)</code> 将这部分代码移到独立的函数中。</li>
-<li>如果一个方法使用来自其他几个类的函数，首先确定哪个类包含大多数使用的数据。然后，将该方法与其他数据一起放在此类中。或者，使用 <code>提炼函数(Extract Method)</code> 将方法拆分为几个部分，可以放置在不同类中的不同位置。</li>
-</ul>
-<h3 id="收益-3"><a class="markdownIt-Anchor" href="#收益-3"></a> 收益</h3>
-<ul>
-<li>减少重复代码（如果数据处理的代码放在中心位置）。</li>
-<li>更好的代码组织性（处理数据的函数靠近实际数据）。</li>
-</ul>
-<div align="center"><img src="http://dunwu.test.upcdn.net/cs/design/refactor/feature-envy-3.png"/></div>
-<h3 id="何时忽略-3"><a class="markdownIt-Anchor" href="#何时忽略-3"></a> 何时忽略</h3>
-<ul>
-<li>有时，行为被有意地与保存数据的类分开。这通常的优点是能够动态地改变行为（见策略设计模式，访问者设计模式和其他模式）。</li>
-</ul>
-<h3 id="重构方法说明-3"><a class="markdownIt-Anchor" href="#重构方法说明-3"></a> 重构方法说明</h3>
-<h4 id="搬移函数move-method"><a class="markdownIt-Anchor" href="#搬移函数move-method"></a> 搬移函数(Move Method)</h4>
-<p><strong>问题</strong></p>
-<p>你的程序中，有个函数与其所驻类之外的另一个类进行更多交流：调用后者，或被后者调用。</p>
-<div align="center"><img src="http://dunwu.test.upcdn.net/cs/design/refactor/move-method-before.png"/></div>
-<p><strong>解决</strong></p>
-<p>在该函数最常引用的类中建立一个有着类似行为的新函数。将旧函数变成一个单纯的委托函数，或是旧函数完全移除。</p>
-<div align="center"><img src="http://dunwu.test.upcdn.net/cs/design/refactor/move-method-after.png"/></div>
-<h4 id="提炼函数extract-method"><a class="markdownIt-Anchor" href="#提炼函数extract-method"></a> 提炼函数(Extract Method)</h4>
-<p><strong>问题</strong></p>
-<p>你有一段代码可以组织在一起。</p>
-<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">printOwing</span><span class="params">()</span> </span>&#123;</span><br><span class="line">  printBanner();</span><br><span class="line"></span><br><span class="line">  <span class="comment">//print details</span></span><br><span class="line">  System.out.println(<span class="string">"name: "</span> + name);</span><br><span class="line">  System.out.println(<span class="string">"amount: "</span> + getOutstanding());</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p><strong>解决</strong></p>
-<p>移动这段代码到一个新的函数中，使用函数的调用来替代老代码。</p>
-<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">printOwing</span><span class="params">()</span> </span>&#123;</span><br><span class="line">  printBanner();</span><br><span class="line">  printDetails(getOutstanding());</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">printDetails</span><span class="params">(<span class="keyword">double</span> outstanding)</span> </span>&#123;</span><br><span class="line">  System.out.println(<span class="string">"name: "</span> + name);</span><br><span class="line">  System.out.println(<span class="string">"amount: "</span> + outstanding);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<h2 id="狎昵关系"><a class="markdownIt-Anchor" href="#狎昵关系"></a> 狎昵关系</h2>
-<blockquote>
-<p>狎昵关系(Inappropriate Intimacy)</p>
-<p>一个类大量使用另一个类的内部字段和方法。</p>
-</blockquote>
-<div align="center"><img src="http://dunwu.test.upcdn.net/cs/design/refactor/inappropriate-intimacy-1.png"/></div>
-<h3 id="问题原因-4"><a class="markdownIt-Anchor" href="#问题原因-4"></a> 问题原因</h3>
-<p>类和类之间应该尽量少的感知彼此（减少耦合）。这样的类更容易维护和复用。</p>
-<h3 id="解决方法-4"><a class="markdownIt-Anchor" href="#解决方法-4"></a> 解决方法</h3>
-<ul>
-<li>最简单的解决方法是运用 <code>搬移函数(Move Method)</code> 和 <code>搬移字段(Move Field)</code> 来让类之间斩断羁绊。</li>
-</ul>
-<div align="center"><img src="http://dunwu.test.upcdn.net/cs/design/refactor/inappropriate-intimacy-2.png"/></div>
-<ul>
-<li>
-<p>你也可以看看是否能运用 <code>将双向关联改为单向关联(Change Bidirectional Association to Unidirectional)</code> 让其中一个类对另一个说分手。</p>
-</li>
-<li>
-<p>如果这两个类实在是情比金坚，难分难舍，可以运用 <code>提炼类(Extract Class)</code> 把二者共同点提炼到一个新类中，让它们产生爱的结晶。或者，可以尝试运用 <code>隐藏委托关系(Hide Delegate)</code> 让另一个类来为它们牵线搭桥。</p>
-</li>
-<li>
-<p>继承往往造成类之间过分紧密，因为子类对超类的了解总是超过后者的主观愿望，如果你觉得该让这个子类自己闯荡，请运用 <code>以委托取代继承(Replace Inheritance with Delegation)</code> 来让超类和子类分家。</p>
-</li>
-</ul>
-<h3 id="收益-4"><a class="markdownIt-Anchor" href="#收益-4"></a> 收益</h3>
-<ul>
-<li>提高代码组织性。</li>
-<li>提高代码复用性。</li>
-</ul>
-<div align="center"><img src="http://dunwu.test.upcdn.net/cs/design/refactor/inappropriate-intimacy-3.png"/></div>
-<h3 id="重构方法说明-4"><a class="markdownIt-Anchor" href="#重构方法说明-4"></a> 重构方法说明</h3>
-<h4 id="搬移函数move-method-2"><a class="markdownIt-Anchor" href="#搬移函数move-method-2"></a> 搬移函数(Move Method)</h4>
-<p><strong>问题</strong></p>
-<p>你的程序中，有个函数与其所驻类之外的另一个类进行更多交流：调用后者，或被后者调用。</p>
-<div align="center"><img src="http://dunwu.test.upcdn.net/cs/design/refactor/move-method-before.png"/></div>
-<p><strong>解决</strong></p>
-<p>在该函数最常引用的类中建立一个有着类似行为的新函数。将旧函数变成一个单纯的委托函数，或是旧函数完全移除。</p>
-<div align="center"><img src="http://dunwu.test.upcdn.net/cs/design/refactor/move-method-after.png"/></div>
-<h4 id="搬移字段move-field"><a class="markdownIt-Anchor" href="#搬移字段move-field"></a> 搬移字段(Move Field)</h4>
-<p><strong>问题</strong></p>
-<p>在你的程序中，某个字段被其所驻类之外的另一个类更多地用到。</p>
-<div align="center"><img src="http://dunwu.test.upcdn.net/cs/design/refactor/move-field-before.png"/></div>
-<p><strong>解决</strong></p>
-<p>在目标类新建一个字段，修改源字段的所有用户，令他们改用新字段。</p>
-<div align="center"><img src="http://dunwu.test.upcdn.net/cs/design/refactor/move-field-after.png"/></div>
-<h4 id="将双向关联改为单向关联change-bidirectional-association-to-unidirectional"><a class="markdownIt-Anchor" href="#将双向关联改为单向关联change-bidirectional-association-to-unidirectional"></a> 将双向关联改为单向关联(Change Bidirectional Association to Unidirectional)</h4>
-<p><strong>问题</strong></p>
-<p>两个类之间有双向关联，但其中一个类如今不再需要另一个类的特性。</p>
-<div align="center"><img src="http://dunwu.test.upcdn.net/cs/design/refactor/change-bidirectional-association-to-unidirectional-before.png"/></div>
-<p><strong>解决</strong></p>
-<p>去除不必要的关联。</p>
-<div align="center"><img src="http://dunwu.test.upcdn.net/cs/design/refactor/change-bidirectional-association-to-unidirectional-after.png"/></div>
 <h4 id="提炼类extract-class"><a class="markdownIt-Anchor" href="#提炼类extract-class"></a> 提炼类(Extract Class)</h4>
 <p><strong>问题</strong></p>
 <p>某个类做了不止一件事。</p>
@@ -1715,347 +1908,192 @@
 <p><strong>解决</strong></p>
 <p>建立一个新类，将相关的字段和函数从旧类搬移到新类。</p>
 <div align="center"><img src="http://dunwu.test.upcdn.net/cs/design/refactor/extract-class-after.png"/></div>
-<h4 id="隐藏委托关系hide-delegate"><a class="markdownIt-Anchor" href="#隐藏委托关系hide-delegate"></a> 隐藏委托关系(Hide Delegate)</h4>
+<h4 id="引入参数对象introduce-parameter-object-2"><a class="markdownIt-Anchor" href="#引入参数对象introduce-parameter-object-2"></a> 引入参数对象(Introduce Parameter Object)</h4>
 <p><strong>问题</strong></p>
-<p>客户通过一个委托类来调用另一个对象。</p>
-<div align="center"><img src="http://dunwu.test.upcdn.net/cs/design/refactor/hide-delegate-before.png"/></div>
+<p>某些参数总是很自然地同时出现。</p>
+<div align="center"><img src="http://dunwu.test.upcdn.net/cs/design/refactor/introduce-parameter-object-before.png"/></div>
 <p><strong>解决</strong></p>
-<p>在服务类上建立客户所需的所有函数，用以隐藏委托关系。</p>
-<div align="center"><img src="http://dunwu.test.upcdn.net/cs/design/refactor/hide-delegate-after.png"/></div>
-<h4 id="以委托取代继承replace-inheritance-with-delegation"><a class="markdownIt-Anchor" href="#以委托取代继承replace-inheritance-with-delegation"></a> 以委托取代继承(Replace Inheritance with Delegation)</h4>
+<p>以一个对象来取代这些参数。</p>
+<div align="center"><img src="http://dunwu.test.upcdn.net/cs/design/refactor/introduce-parameter-object-after.png"/></div>
+<h4 id="保持对象完整preserve-whole-object-2"><a class="markdownIt-Anchor" href="#保持对象完整preserve-whole-object-2"></a> 保持对象完整(Preserve Whole Object)</h4>
 <p><strong>问题</strong></p>
-<p>某个子类只使用超类接口中的一部分，或是根本不需要继承而来的数据。</p>
-<div align="center"><img src="http://dunwu.test.upcdn.net/cs/design/refactor/replace-delegation-with-inheritance-before.png"/></div>
+<p>你从某个对象中取出若干值，将它们作为某一次函数调用时的参数。</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">int</span> low = daysTempRange.getLow();</span><br><span class="line"><span class="keyword">int</span> high = daysTempRange.getHigh();</span><br><span class="line"><span class="keyword">boolean</span> withinPlan = plan.withinRange(low, high);</span><br></pre></td></tr></table></figure>
 <p><strong>解决</strong></p>
-<p>在子类中新建一个字段用以保存超类；调整子类函数，令它改而委托超类；然后去掉两者之间的继承关系。</p>
-<div align="center"><img src="http://dunwu.test.upcdn.net/cs/design/refactor/replace-delegation-with-inheritance-after.png"/></div>
-<h2 id="过度耦合的消息链"><a class="markdownIt-Anchor" href="#过度耦合的消息链"></a> 过度耦合的消息链</h2>
+<p>改为传递整个对象。</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">boolean</span> withinPlan = plan.withinRange(daysTempRange);</span><br></pre></td></tr></table></figure>
+<h2 id="过大的类"><a class="markdownIt-Anchor" href="#过大的类"></a> 过大的类</h2>
 <blockquote>
-<p>过度耦合的消息链(Message Chains)</p>
-<p>消息链的形式类似于：<code>obj.getA().getB().getC()</code>。</p>
+<p>过大的类(Large Class)</p>
+<p>一个类含有过多字段、函数、代码行。</p>
 </blockquote>
-<div align="center"><img src="http://dunwu.test.upcdn.net/cs/design/refactor/message-chains-1.png"/></div>
-<h3 id="问题原因-5"><a class="markdownIt-Anchor" href="#问题原因-5"></a> 问题原因</h3>
-<p>如果你看到用户向一个对象请求另一个对象，然后再向后者请求另一个对象，然后再请求另一个对象……这就是消息链。实际代码中你看到的可能是一长串 getThis()或一长串临时变量。采取这种方式，意味客户代码将与查找过程中的导航紧密耦合。一旦对象间关系发生任何变化，客户端就不得不做出相应的修改。</p>
-<h3 id="解决方法-5"><a class="markdownIt-Anchor" href="#解决方法-5"></a> 解决方法</h3>
+<div align="center"><img src="http://dunwu.test.upcdn.net/cs/design/refactor/large-class-1.png"/></div>
+<h3 id="问题原因-3"><a class="markdownIt-Anchor" href="#问题原因-3"></a> 问题原因</h3>
+<p>类通常一开始很小，但是随着程序的增长而逐渐膨胀。</p>
+<p>类似于过长函数，程序员通常觉得在一个现存类中添加新特性比创建一个新的类要容易。</p>
+<h3 id="解决方法-3"><a class="markdownIt-Anchor" href="#解决方法-3"></a> 解决方法</h3>
+<p>设计模式中有一条重要原则：职责单一原则。一个类应该只赋予它一个职责。如果它所承担的职责太多，就该考虑为它减减负。</p>
+<div align="center"><img src="http://dunwu.test.upcdn.net/cs/design/refactor/large-class-2.png"/></div>
 <ul>
-<li>可以运用 <code>隐藏委托关系(Hide Delegate)</code> 删除一个消息链。</li>
+<li>如果过大类中的部分行为可以提炼到一个独立的组件中，可以使用 <code>提炼类(Extract Class)</code>。</li>
+<li>如果过大类中的部分行为可以用不同方式实现或使用于特殊场景，可以使用 <code>提炼子类(Extract Subclass)</code>。</li>
+<li>如果有必要为客户端提供一组操作和行为，可以使用 <code>提炼接口(Extract Interface)</code>。</li>
+<li>如果你的过大类是个 GUI 类，可能需要把数据和行为移到一个独立的领域对象去。你可能需要两边各保留一些重复数据，并保持两边同步。 <code>复制被监视数据(Duplicate Observed Data)</code> 可以告诉你怎么做。</li>
 </ul>
-<div align="center"><img src="http://dunwu.test.upcdn.net/cs/design/refactor/message-chains-2.png"/></div>
+<h3 id="收益-3"><a class="markdownIt-Anchor" href="#收益-3"></a> 收益</h3>
 <ul>
-<li>有时更好的选择是：先观察消息链最终得到的对象是用来干什么的。看看能否以 <code>提炼函数(Extract Method)</code>把使用该对象的代码提炼到一个独立函数中，再运用 <code>搬移函数(Move Method)</code> 把这个函数推入消息链。</li>
+<li>重构过大的类可以使程序员不必记住一个类中大量的属性。</li>
+<li>在大多数情况下，分割过大的类可以避免代码和功能的重复。</li>
 </ul>
-<h3 id="收益-5"><a class="markdownIt-Anchor" href="#收益-5"></a> 收益</h3>
-<ul>
-<li>能减少链中类之间的依赖。</li>
-<li>能减少代码量。</li>
-</ul>
-<div align="center"><img src="http://dunwu.test.upcdn.net/cs/design/refactor/message-chains-3.png"/></div>
-<h3 id="何时忽略-4"><a class="markdownIt-Anchor" href="#何时忽略-4"></a> 何时忽略</h3>
-<ul>
-<li>过于侵略性的委托可能会使程序员难以理解功能是如何触发的。</li>
-</ul>
-<h3 id="重构方法说明-5"><a class="markdownIt-Anchor" href="#重构方法说明-5"></a> 重构方法说明</h3>
-<h4 id="隐藏委托关系hide-delegate-2"><a class="markdownIt-Anchor" href="#隐藏委托关系hide-delegate-2"></a> 隐藏委托关系(Hide Delegate)</h4>
+<div align="center"><img src="http://dunwu.test.upcdn.net/cs/design/refactor/large-class-3.png"/></div>
+<h3 id="重构方法说明-3"><a class="markdownIt-Anchor" href="#重构方法说明-3"></a> 重构方法说明</h3>
+<h4 id="提炼类extract-class-2"><a class="markdownIt-Anchor" href="#提炼类extract-class-2"></a> 提炼类(Extract Class)</h4>
 <p><strong>问题</strong></p>
-<p>客户通过一个委托类来调用另一个对象。</p>
-<div align="center"><img src="http://dunwu.test.upcdn.net/cs/design/refactor/hide-delegate-before.png"/></div>
+<p>某个类做了不止一件事。</p>
+<div align="center"><img src="http://dunwu.test.upcdn.net/cs/design/refactor/extract-class-before.png"/></div>
 <p><strong>解决</strong></p>
-<p>在服务类上建立客户所需的所有函数，用以隐藏委托关系。</p>
-<div align="center"><img src="http://dunwu.test.upcdn.net/cs/design/refactor/hide-delegate-after.png"/></div>
-<h4 id="提炼函数extract-method-2"><a class="markdownIt-Anchor" href="#提炼函数extract-method-2"></a> 提炼函数(Extract Method)</h4>
+<p>建立一个新类，将相关的字段和函数从旧类搬移到新类。</p>
+<div align="center"><img src="http://dunwu.test.upcdn.net/cs/design/refactor/extract-class-after.png"/></div>
+<h4 id="提炼子类extract-subclass"><a class="markdownIt-Anchor" href="#提炼子类extract-subclass"></a> 提炼子类(Extract Subclass)</h4>
+<p><strong>问题</strong></p>
+<p>一个类中有些特性仅用于特定场景。</p>
+<div align="center"><img src="http://dunwu.test.upcdn.net/cs/design/refactor/extract-subclass-before.png"/></div>
+<p><strong>解决</strong></p>
+<p>创建一个子类，并将用于特殊场景的特性置入其中。</p>
+<div align="center"><img src="http://dunwu.test.upcdn.net/cs/design/refactor/extract-subclass-after.png"/></div>
+<h4 id="提炼接口extract-interface"><a class="markdownIt-Anchor" href="#提炼接口extract-interface"></a> 提炼接口(Extract Interface)</h4>
+<p><strong>问题</strong></p>
+<p>多个客户端使用一个类部分相同的函数。另一个场景是两个类中的部分函数相同。</p>
+<div align="center"><img src="http://dunwu.test.upcdn.net/cs/design/refactor/extract-interface-before.png"/></div>
+<p><strong>解决</strong></p>
+<p>移动相同的部分函数到接口中。</p>
+<div align="center"><img src="http://dunwu.test.upcdn.net/cs/design/refactor/extract-interface-after.png"/></div>
+<h4 id="复制被监视数据duplicate-observed-data"><a class="markdownIt-Anchor" href="#复制被监视数据duplicate-observed-data"></a> 复制被监视数据(Duplicate Observed Data)</h4>
+<p><strong>问题</strong></p>
+<p>如果存储在类中的数据是负责 GUI 的。</p>
+<div align="center"><img src="http://dunwu.test.upcdn.net/cs/design/refactor/duplicate-observed-data-before.png"/></div>
+<p><strong>解决</strong></p>
+<p>一个比较好的方法是将负责 GUI 的数据放入一个独立的类，以确保 GUI 数据与域类之间的连接和同步。</p>
+<div align="center"><img src="http://dunwu.test.upcdn.net/cs/design/refactor/duplicate-observed-data-after.png"/></div>
+<h2 id="过长函数"><a class="markdownIt-Anchor" href="#过长函数"></a> 过长函数</h2>
+<blockquote>
+<p>过长函数(Long Method)</p>
+<p>一个函数含有太多行代码。一般来说，任何函数超过 10 行时，你就可以考虑是不是过长了。<br />
+函数中的代码行数原则上不要超过 100 行。</p>
+</blockquote>
+<div align="center"><img src="http://dunwu.test.upcdn.net/cs/design/refactor/long-method-1.png"/></div>
+<h3 id="问题的原因"><a class="markdownIt-Anchor" href="#问题的原因"></a> 问题的原因</h3>
+<p>通常情况下，创建一个新函数的难度要大于添加功能到一个已存在的函数。大部分人都觉得：“我就添加这么两行代码，为此新建一个函数实在是小题大做了。”于是，张三加两行，李四加两行，王五加两行。。。函数日益庞大，最终烂的像一锅浆糊，再也没人能完全看懂了。于是大家就更不敢轻易动这个函数了，只能恶性循环的往其中添加代码。所以，如果你看到一个超过 200 行的函数，通常都是多个程序员东拼西凑出来的。</p>
+<h3 id="解决函数"><a class="markdownIt-Anchor" href="#解决函数"></a> 解决函数</h3>
+<p>一个很好的技巧是：<strong>寻找注释</strong>。添加注释，一般有这么几个原因：代码逻辑较为晦涩或复杂；这段代码功能相对独立；特殊处理。<br />
+如果代码前方有一行注释，就是在提醒你：可以将这段代码替换成一个函数，而且可以在注释的基础上给这个函数命名。如果函数有一个描述恰当的名字，就不需要去看内部代码究竟是如何实现的。就算只有一行代码，如果它需要以注释来说明，那也值得将它提炼到独立函数中。</p>
+<div align="center"><img src="http://dunwu.test.upcdn.net/cs/design/refactor/long-method-2.png"/></div>
+<ul>
+<li>为了给一个函数瘦身，可以使用 <code>提炼函数(Extract Method)</code>。</li>
+<li>如果局部变量和参数干扰提炼函数，可以使用 <code>以查询取代临时变量(Replace Temp with Query)</code>，<code>引入参数对象(Introduce Parameter Object)</code> 或 <code>保持对象完整(Preserve Whole Object)</code> 。</li>
+<li>如果前面两条没有帮助，可以通过 <code>以函数对象取代函数(Replace Method with Method Object)</code> 尝试移动整个函数到一个独立的对象中。</li>
+<li>条件表达式和循环常常也是提炼的信号。对于条件表达式，可以使用 <code>分解条件表达式(Decompose Conditional)</code> 。至于循环，应该使用 <code>提炼函数(Extract Method)</code> 将循环和其内的代码提炼到独立函数中。</li>
+</ul>
+<h3 id="收益-4"><a class="markdownIt-Anchor" href="#收益-4"></a> 收益</h3>
+<ul>
+<li>在所有类型的面向对象代码中，函数比较短小精悍的类往往生命周期较长。一个函数越长，就越不容易理解和维护。</li>
+<li>此外，过长函数中往往含有难以发现的重复代码。</li>
+</ul>
+<div align="center"><img src="http://dunwu.test.upcdn.net/cs/design/refactor/long-method-3.png"/></div>
+<h3 id="性能"><a class="markdownIt-Anchor" href="#性能"></a> 性能</h3>
+<p>是否像许多人说的那样，增加函数的数量会影响性能？在几乎绝大多数情况下，这种影响是可以忽略不计，所以不用担心。<br />
+此外，现在有了清晰和易读的代码，在需要的时候，你将更容易找到真正有效的函数来重组代码和提高性能。</p>
+<h3 id="重构方法说明-4"><a class="markdownIt-Anchor" href="#重构方法说明-4"></a> 重构方法说明</h3>
+<h4 id="提炼函数extract-method"><a class="markdownIt-Anchor" href="#提炼函数extract-method"></a> 提炼函数(Extract Method)</h4>
 <p><strong>问题</strong></p>
 <p>你有一段代码可以组织在一起。</p>
 <figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">printOwing</span><span class="params">()</span> </span>&#123;</span><br><span class="line">  printBanner();</span><br><span class="line"></span><br><span class="line">  <span class="comment">//print details</span></span><br><span class="line">  System.out.println(<span class="string">"name: "</span> + name);</span><br><span class="line">  System.out.println(<span class="string">"amount: "</span> + getOutstanding());</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <p><strong>解决</strong></p>
 <p>移动这段代码到一个新的函数中，使用函数的调用来替代老代码。</p>
 <figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">printOwing</span><span class="params">()</span> </span>&#123;</span><br><span class="line">  printBanner();</span><br><span class="line">  printDetails(getOutstanding());</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">printDetails</span><span class="params">(<span class="keyword">double</span> outstanding)</span> </span>&#123;</span><br><span class="line">  System.out.println(<span class="string">"name: "</span> + name);</span><br><span class="line">  System.out.println(<span class="string">"amount: "</span> + outstanding);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<h4 id="搬移函数move-method-3"><a class="markdownIt-Anchor" href="#搬移函数move-method-3"></a> 搬移函数(Move Method)</h4>
+<h4 id="以查询取代临时变量replace-temp-with-query"><a class="markdownIt-Anchor" href="#以查询取代临时变量replace-temp-with-query"></a> 以查询取代临时变量(Replace Temp with Query)</h4>
 <p><strong>问题</strong></p>
-<p>你的程序中，有个函数与其所驻类之外的另一个类进行更多交流：调用后者，或被后者调用。</p>
-<div align="center"><img src="http://dunwu.test.upcdn.net/cs/design/refactor/move-method-before.png"/></div>
+<p>将表达式的结果放在局部变量中，然后在代码中使用。</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">double</span> <span class="title">calculateTotal</span><span class="params">()</span> </span>&#123;</span><br><span class="line">  <span class="keyword">double</span> basePrice = quantity * itemPrice;</span><br><span class="line">  <span class="keyword">if</span> (basePrice &gt; <span class="number">1000</span>) &#123;</span><br><span class="line">    <span class="keyword">return</span> basePrice * <span class="number">0.95</span>;</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="keyword">else</span> &#123;</span><br><span class="line">    <span class="keyword">return</span> basePrice * <span class="number">0.98</span>;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <p><strong>解决</strong></p>
-<p>在该函数最常引用的类中建立一个有着类似行为的新函数。将旧函数变成一个单纯的委托函数，或是旧函数完全移除。</p>
-<div align="center"><img src="http://dunwu.test.upcdn.net/cs/design/refactor/move-method-after.png"/></div>
-<h2 id="扩展阅读"><a class="markdownIt-Anchor" href="#扩展阅读"></a> 扩展阅读</h2>
-<ul>
-<li><a href="https://github.com/dunwu/blog/blob/master/source/_posts/design/refactor/" target="_blank" rel="noopener">代码的坏味道和重构</a></li>
-<li><a href="https://github.com/dunwu/blog/blob/master/source/_posts/design/refactor/%E4%BB%A3%E7%A0%81%E5%9D%8F%E5%91%B3%E9%81%93%E4%B9%8B%E4%BB%A3%E7%A0%81%E8%87%83%E8%82%BF.md" target="_blank" rel="noopener">代码坏味道之代码臃肿</a></li>
-<li><a href="https://github.com/dunwu/blog/blob/master/source/_posts/design/refactor/%E4%BB%A3%E7%A0%81%E5%9D%8F%E5%91%B3%E9%81%93%E4%B9%8B%E6%BB%A5%E7%94%A8%E9%9D%A2%E5%90%91%E5%AF%B9%E8%B1%A1.md" target="_blank" rel="noopener">代码坏味道之滥用面向对象</a></li>
-<li><a href="https://github.com/dunwu/blog/blob/master/source/_posts/design/refactor/%E4%BB%A3%E7%A0%81%E5%9D%8F%E5%91%B3%E9%81%93%E4%B9%8B%E5%8F%98%E9%9D%A9%E7%9A%84%E9%9A%9C%E7%A2%8D.md" target="_blank" rel="noopener">代码坏味道之变革的障碍</a></li>
-<li><a href="https://github.com/dunwu/blog/blob/master/source/_posts/design/refactor/%E4%BB%A3%E7%A0%81%E5%9D%8F%E5%91%B3%E9%81%93%E4%B9%8B%E9%9D%9E%E5%BF%85%E8%A6%81%E7%9A%84.md" target="_blank" rel="noopener">代码坏味道之非必要的</a></li>
-<li><a href="https://github.com/dunwu/blog/blob/master/source/_posts/design/refactor/%E4%BB%A3%E7%A0%81%E5%9D%8F%E5%91%B3%E9%81%93%E4%B9%8B%E8%80%A6%E5%90%88.md" target="_blank" rel="noopener">代码坏味道之耦合</a></li>
-</ul>
-<h2 id="参考资料"><a class="markdownIt-Anchor" href="#参考资料"></a> 参考资料</h2>
-<ul>
-<li><a href="https://book.douban.com/subject/4262627/" target="_blank" rel="noopener">重构——改善既有代码的设计</a> - by Martin Fowler</li>
-<li><a href="https://sourcemaking.com/refactoring" target="_blank" rel="noopener">https://sourcemaking.com/refactoring</a></li>
-</ul>
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-        
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="https://dunwu.github.io/blog/blog/design/refactor/%E4%BB%A3%E7%A0%81%E7%9A%84%E5%9D%8F%E5%91%B3%E9%81%93%E5%92%8C%E9%87%8D%E6%9E%84/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/blog/images/avatar.gif">
-      <meta itemprop="name" content="Zhang Peng">
-      <meta itemprop="description" content="Dunwu's Blog">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Dunwu">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/blog/design/refactor/%E4%BB%A3%E7%A0%81%E7%9A%84%E5%9D%8F%E5%91%B3%E9%81%93%E5%92%8C%E9%87%8D%E6%9E%84/" class="post-title-link" itemprop="url">代码的坏味道和重构</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-
-              <time title="创建时间：2018-10-13 22:48:00" itemprop="dateCreated datePublished" datetime="2018-10-13T22:48:00+08:00">2018-10-13</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-calendar-check-o"></i>
-                </span>
-                <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2019-11-27 15:29:01" itemprop="dateModified" datetime="2019-11-27T15:29:01+08:00">2019-11-27</time>
-              </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/blog/categories/%E8%AE%BE%E8%AE%A1/" itemprop="url" rel="index">
-                    <span itemprop="name">设计</span>
-                  </a>
-                </span>
-                  ，
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/blog/categories/%E8%AE%BE%E8%AE%A1/%E9%87%8D%E6%9E%84/" itemprop="url" rel="index">
-                    <span itemprop="name">重构</span>
-                  </a>
-                </span>
-            </span>
-
-          
-  
-  <span class="post-meta-item">
-    
-      <span class="post-meta-item-icon">
-        <i class="fa fa-comment-o"></i>
-      </span>
-      <span class="post-meta-item-text">Disqus：</span>
-    
-    <a title="disqus" href="/blog/design/refactor/%E4%BB%A3%E7%A0%81%E7%9A%84%E5%9D%8F%E5%91%B3%E9%81%93%E5%92%8C%E9%87%8D%E6%9E%84/#comments" itemprop="discussionUrl">
-      <span class="post-comments-count disqus-comment-count" data-disqus-identifier="design/refactor/代码的坏味道和重构/" itemprop="commentCount"></span>
-    </a>
-  </span>
-  
-  <br>
-            <span class="post-meta-item" title="本文字数">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-file-word-o"></i>
-              </span>
-                <span class="post-meta-item-text">本文字数：</span>
-              <span>3.1k</span>
-            </span>
-            <span class="post-meta-item" title="阅读时长">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-clock-o"></i>
-              </span>
-                <span class="post-meta-item-text">阅读时长 &asymp;</span>
-              <span>3 分钟</span>
-            </span>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <blockquote>
-<p>📓 本文已归档到：「<a href="https://github.com/dunwu/blog" target="_blank" rel="noopener">blog</a>」</p>
-</blockquote>
-<p>第一次读《重构:改善既有代码的设计》时，我曾整理过一个简单的笔记。最近，因为参与一个重构项目，再一次温习了《重构:改善既有代码的设计》。过程中，萌发了认真总结、整理重构方法的冲动，于是有了这系列文字。</p>
-<p>代码的坏味道还有几篇没有完稿，后面我会陆续补充。。。</p>
-<h2 id="症与药"><a class="markdownIt-Anchor" href="#症与药"></a> 症与药</h2>
-<h3 id="对代码的坏味道的思考"><a class="markdownIt-Anchor" href="#对代码的坏味道的思考"></a> 对代码的坏味道的思考</h3>
-<p>“有病要早治，不要放弃治疗”。多么朴素的道理 ，人人都懂。</p>
-<p>病，就是不健康。</p>
-<p>人有病，可以通过打针、吃药、做手术来进行治疗。</p>
-<p><strong>如果把代码的坏味道（代码质量问题）比作病症，那么重构就是治疗代码的坏味道的药。</strong></p>
-<p>个人认为，在重构这件事上，也可以应用治病的道理：</p>
-<ul>
-<li>
-<p><strong>防病于未然。</strong><br />
-—— 春秋战国时期的一代名医扁鹊，曾经有个很著名的医学主张：<strong>防病于未然</strong>。 我觉得这个道理应用于软件代码的重构亦然。编程前要有合理的设计、编程时要有良好的编程风格，尽量减少问题。从这个层面上说，了解代码的坏味道，不仅仅是为了发现问题、解决问题。更重要的作用是：指导我们在编程过程中有意识的去规避这些问题。</p>
-</li>
-<li>
-<p><strong>小病不医，易得大病。</strong><br />
-—— 刘备说过：“勿以善小而不为，勿以恶小而为之”。发现问题就及时修改，代码质量自然容易进入良性循环；反之，亦然。要重视积累的力量，别总以为代码出现点小问题，那都不是事儿。</p>
-</li>
-<li>
-<p><strong>对症下药。</strong><br />
-—— 程序出现了问题，要分析出问题的根本，有针对性的制定合理的重构方案。大家都知道吃错药的后果，同样的，<strong>瞎改还不如不改</strong>。</p>
-</li>
-<li>
-<p><strong>忌猛药</strong><br />
-—— 医病用猛药容易产生副作用。换一句俗语：步子大了容易扯着蛋。重构如果大刀阔斧的干，那你就要有随时可能扑街的心理准备。推倒重来不是重构，而是重写。重构应该是循序渐进，步步为营的过程。当你发现重写代码比重构代码更简单，往往说明你早就该重构了。</p>
-</li>
-</ul>
-<h3 id="重构的原则"><a class="markdownIt-Anchor" href="#重构的原则"></a> 重构的原则</h3>
-<p>前面把代码质量问题比作病症，而把重构比作药。这里，我们再进一步讨论一下重构的原则。</p>
-<h4 id="何谓重构what"><a class="markdownIt-Anchor" href="#何谓重构what"></a> 何谓重构(What)</h4>
-<p><code>重构（Refactoring）</code> 的常见定义是：不改变软件系统外部行为的前提下，改善它的内部结构。</p>
-<p>个人觉得这个定义有点生涩。不妨理解为：重构是给代码治病的行为。而代码有病是指代码的质量（可靠性、安全性、可复用性、可维护性）和性能有问题。</p>
-<p><strong>重构的目的是为了提高代码的质量和性能</strong>。</p>
-<p><em>注：功能不全或者不正确，那是残疾代码。就像治病治不了残疾，重构也解决不了功能问题。</em></p>
-<h4 id="为何重构why"><a class="markdownIt-Anchor" href="#为何重构why"></a> 为何重构(Why)</h4>
-<p>翻翻书，上网搜一下，谈到重构的理由大体相同：</p>
-<ul>
-<li>重构改进软件设计</li>
-<li>重构使软件更容易理解</li>
-<li>重构帮助找到 bug</li>
-<li>重构提高编程速度</li>
-</ul>
-<p>总之就是，<strong>重构可以提高代码质量</strong>。</p>
-<h4 id="何时重构when"><a class="markdownIt-Anchor" href="#何时重构when"></a> 何时重构(When)</h4>
-<p>关于何时重构，我先引用一下 <a href="http://mt.sohu.com/20160812/n463980993.shtml" target="_blank" rel="noopener"><u>重构并非难在如何做，而是难在何时开始做</u></a> 一文的观点。</p>
+<p>将整个表达式移动到一个独立的函数中并返回结果。使用查询函数来替代使用变量。如果需要，可以在其他函数中合并新函数。</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">double</span> <span class="title">calculateTotal</span><span class="params">()</span> </span>&#123;</span><br><span class="line">  <span class="keyword">if</span> (basePrice() &gt; <span class="number">1000</span>) &#123;</span><br><span class="line">    <span class="keyword">return</span> basePrice() * <span class="number">0.95</span>;</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="keyword">else</span> &#123;</span><br><span class="line">    <span class="keyword">return</span> basePrice() * <span class="number">0.98</span>;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">double</span> <span class="title">basePrice</span><span class="params">()</span> </span>&#123;</span><br><span class="line">  <span class="keyword">return</span> quantity * itemPrice;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h4 id="引入参数对象introduce-parameter-object-3"><a class="markdownIt-Anchor" href="#引入参数对象introduce-parameter-object-3"></a> 引入参数对象(Introduce Parameter Object)</h4>
+<p><strong>问题</strong></p>
+<p>某些参数总是很自然地同时出现。</p>
+<div align="center"><img src="http://dunwu.test.upcdn.net/cs/design/refactor/introduce-parameter-object-before.png"/></div>
+<p><strong>解决</strong></p>
+<p>以一个对象来取代这些参数。</p>
+<div align="center"><img src="http://dunwu.test.upcdn.net/cs/design/refactor/introduce-parameter-object-after.png"/></div>
+<h4 id="保持对象完整preserve-whole-object-3"><a class="markdownIt-Anchor" href="#保持对象完整preserve-whole-object-3"></a> 保持对象完整(Preserve Whole Object)</h4>
+<p><strong>问题</strong></p>
+<p>你从某个对象中取出若干值，将它们作为某一次函数调用时的参数。</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">int</span> low = daysTempRange.getLow();</span><br><span class="line"><span class="keyword">int</span> high = daysTempRange.getHigh();</span><br><span class="line"><span class="keyword">boolean</span> withinPlan = plan.withinRange(low, high);</span><br></pre></td></tr></table></figure>
+<p><strong>解决</strong></p>
+<p>改为传递整个对象。</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">boolean</span> withinPlan = plan.withinRange(daysTempRange);</span><br></pre></td></tr></table></figure>
+<h4 id="以函数对象取代函数replace-method-with-method-object"><a class="markdownIt-Anchor" href="#以函数对象取代函数replace-method-with-method-object"></a> 以函数对象取代函数(Replace Method with Method Object)</h4>
+<p><strong>问题</strong></p>
+<p>你有一个过长函数，它的局部变量交织在一起，以致于你无法应用提炼函数(Extract Method) 。</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Order</span> </span>&#123;</span><br><span class="line">  <span class="comment">//...</span></span><br><span class="line">  <span class="function"><span class="keyword">public</span> <span class="keyword">double</span> <span class="title">price</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    <span class="keyword">double</span> primaryBasePrice;</span><br><span class="line">    <span class="keyword">double</span> secondaryBasePrice;</span><br><span class="line">    <span class="keyword">double</span> tertiaryBasePrice;</span><br><span class="line">    <span class="comment">// long computation.</span></span><br><span class="line">    <span class="comment">//...</span></span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p><strong>解决</strong></p>
+<p>将函数移到一个独立的类中，使得局部变量成了这个类的字段。然后，你可以将函数分割成这个类中的多个函数。</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Order</span> </span>&#123;</span><br><span class="line">  <span class="comment">//...</span></span><br><span class="line">  <span class="function"><span class="keyword">public</span> <span class="keyword">double</span> <span class="title">price</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="keyword">new</span> PriceCalculator(<span class="keyword">this</span>).compute();</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">PriceCalculator</span> </span>&#123;</span><br><span class="line">  <span class="keyword">private</span> <span class="keyword">double</span> primaryBasePrice;</span><br><span class="line">  <span class="keyword">private</span> <span class="keyword">double</span> secondaryBasePrice;</span><br><span class="line">  <span class="keyword">private</span> <span class="keyword">double</span> tertiaryBasePrice;</span><br><span class="line"></span><br><span class="line">  <span class="function"><span class="keyword">public</span> <span class="title">PriceCalculator</span><span class="params">(Order order)</span> </span>&#123;</span><br><span class="line">    <span class="comment">// copy relevant information from order object.</span></span><br><span class="line">    <span class="comment">//...</span></span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="function"><span class="keyword">public</span> <span class="keyword">double</span> <span class="title">compute</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    <span class="comment">// long computation.</span></span><br><span class="line">    <span class="comment">//...</span></span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h4 id="分解条件表达式decompose-conditional"><a class="markdownIt-Anchor" href="#分解条件表达式decompose-conditional"></a> 分解条件表达式(Decompose Conditional)</h4>
+<p><strong>问题</strong></p>
+<p>你有复杂的条件表达式。</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">if</span> (date.before(SUMMER_START) || date.after(SUMMER_END)) &#123;</span><br><span class="line">  charge = quantity * winterRate + winterServiceCharge;</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">else</span> &#123;</span><br><span class="line">  charge = quantity * summerRate;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p><strong>解决</strong></p>
+<p>根据条件分支将整个条件表达式分解成几个函数。</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">if</span> (notSummer(date)) &#123;</span><br><span class="line">  charge = winterCharge(quantity);</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">else</span> &#123;</span><br><span class="line">  charge = summerCharge(quantity);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="过长参数列"><a class="markdownIt-Anchor" href="#过长参数列"></a> 过长参数列</h2>
 <blockquote>
-<p>对于一个高速发展的公司来说，停止业务开发，专门来做重构项目，<strong>从来就不是一个可接受的选项</strong>，“边开飞机边换引擎”才是这种公司想要的。</p>
+<p>过长参数列(Long Parameter List)</p>
+<p>一个函数有超过 3、4 个入参。</p>
 </blockquote>
-<p>我们不妨来衡量一下重构的成本和收益。</p>
+<div align="center"><img src="http://dunwu.test.upcdn.net/cs/design/refactor/long-parameter-list-1.png"/></div>
+<h3 id="问题原因-4"><a class="markdownIt-Anchor" href="#问题原因-4"></a> 问题原因</h3>
+<p>过长参数列可能是将多个算法并到一个函数中时发生的。函数中的入参可以用来控制最终选用哪个算法去执行。</p>
+<p>过长参数列也可能是解耦类之间依赖关系时的副产品。例如，用于创建函数中所需的特定对象的代码已从函数移动到调用函数的代码处，但创建的对象是作为参数传递到函数中。因此，原始类不再知道对象之间的关系，并且依赖性也已经减少。但是如果创建的这些对象，每一个都将需要它自己的参数，这意味着过长参数列。</p>
+<p>太长的参数列难以理解，太多参数会造成前后不一致、不易使用，而且一旦需要更多数据，就不得不修改它。</p>
+<h3 id="解决方案"><a class="markdownIt-Anchor" href="#解决方案"></a> 解决方案</h3>
+<div align="center"><img src="http://dunwu.test.upcdn.net/cs/design/refactor/long-parameter-list-2.png"/></div>
 <ul>
-<li>
-<p><strong>重构的成本</strong></p>
-<p>重构是有成本的，费时费力（时间、人力）不说，还有可能会使本来正常运行的程序出错。所以，很多人都抱着“不求有功，但求无过”的心理得过且过。</p>
-<p>还有一种成本：重构使用较新且较为复杂的技术，学习曲线不平滑，团队成员技术切换困难，短期内开发效率可能不升反降。</p>
-<p>但是，如果一直放任代码腐朽下去，技术债务会越来越沉重。当代码最终快要跑不动时，架构师们往往还是不得不使用激进的手段来治疗代码的顽疾。但是，这个过程通常都是非常痛苦的，而且有着很高的失败风险。</p>
-</li>
-<li>
-<p><strong>重构的收益</strong></p>
-<p>重构的收益是提高代码的质量和性能，并提高未来的开发效率。但是，应当看到，重构往往并不能在短期内带来实际的效益，或者很难直观看出效益。而对于一个企业来说，没有什么比效益更重要。换句话说，没有实际效益的事，通常也没有价值。很多领导，尤其是非技术方向的领导，并不关心你应用了什么新技术，让代码变得多么优雅等等。</p>
-</li>
-<li>
-<p><strong>重构的合适时机</strong></p>
-<p>从以上来看，重构实在是个吃力不讨好的事情。</p>
-<p>于是，很多人屈服于万恶的 KPI 和要命的 deadline，一边吐槽着以前的代码是垃圾，一边自己也在造垃圾。</p>
-<p>但是，**重构本应该是个渐进式的过程，不是只有伤筋动骨的改造才叫重构。**如果非要等到代码已经烂到病入膏肓，再使用激进方式来重构，那必然是困难重重，风险极高。</p>
-<p>《重构》书中提到的重构时机应该在添加功能、修复功能、审查代码时，不建议专门抽出时间专门做重构项目。</p>
-<p>我认为，其思想就是指：<strong>重构应该是在开发过程中实时的、渐进的演化过程。</strong></p>
-</li>
-<li>
-<p><strong>重构的不恰当时机</strong></p>
-<p>但是，这里我也要强调一下：<strong>不是所有软件开发过程都一定要重构。</strong></p>
-<p>较能<strong>凸显重构价值的场景</strong>是：代码规模较大、生命周期还较长、承担了较多责任、有一个较大（且较不稳定，人员流动频繁）团队在其上工作的单一代码库。</p>
-<p>与之相反，有一些场景的重构价值就很小：</p>
+<li>如果向已有的对象发出一条请求就可以取代一个参数，那么你应该使用 <code>以函数取代参数(Replace Parameter with Methods)</code> 。在这里，，“已有的对象”可能是函数所属类里的一个字段，也可能是另一个参数。</li>
+<li>你还可以运用 <code>保持对象完整(Preserve Whole Object)</code> 将来自同一对象的一堆数据收集起来，并以该对象替换它们。</li>
+<li>如果某些数据缺乏合理的对象归属，可使用 <code>引入参数对象(Introduce Parameter Object)</code> 为它们制造出一个“参数对象”。</li>
+</ul>
+<h3 id="收益-5"><a class="markdownIt-Anchor" href="#收益-5"></a> 收益</h3>
 <ul>
-<li>代码库生命周期快要走到尾声，开发逐渐减少，以维护为主。</li>
-<li>代码库当前版本马上要发布了，这时重构无疑是给自己找麻烦。</li>
-<li>重构代价过于沉重：重构后功能的正确性、稳定性难以保障；技术过于超前，团队成员技术迁移难度太大。</li>
+<li>更易读，更简短的代码。</li>
+<li>重构可能会暴露出之前未注意到的重复代码。</li>
 </ul>
-</li>
-</ul>
-<h4 id="如何重构how"><a class="markdownIt-Anchor" href="#如何重构how"></a> 如何重构(How)</h4>
-<p>重构行为在我看来，也是可以分层级的。由高到低，越高层级难度越大：</p>
+<h3 id="何时忽略-2"><a class="markdownIt-Anchor" href="#何时忽略-2"></a> 何时忽略</h3>
 <ul>
-<li>
-<p>服务、数据库<br />
-现代软件往往业务复杂、庞大。使用微服务、数据迁移来拆分业务，降低业务复杂度成为了主流。但是，这些技术的测试、部署复杂，技术难度很高。</p>
-</li>
-<li>
-<p>组件、模块、框架<br />
-组件、模块、框架的重构，主要是针对代码的设计问题。解决的是代码的整体结构问题。需要对框架、设计模式、分布式、并发等等有足够的了解。</p>
-</li>
-<li>
-<p>类、接口、函数、字段<br />
-《重构》一书提到了**“代码的坏味道”**以及相关的重构方法。这些都是对类、接口、函数、字段级别代码的重构手段。由于这一级别的重构方法较为简单，所以可操作性较强。具体细节可以阅读《代码的坏味道》篇章。</p>
-</li>
+<li>这里有一个重要的例外：有时候你明显不想造成&quot;被调用对象&quot;与&quot;较大对象&quot;间的某种依赖关系。这时候将数据从对象中拆解出来单独作为参数，也很合情理。但是请注意其所引发的代价。如果参数列太长或变化太频繁，就需要重新考虑自己的依赖结构了。</li>
 </ul>
-<p>前两种层级的重构已经涉及到架构层面，影响较大，难度较高，如果功力不够不要轻易变动。由于这两个层级涉及领域较广，这里不做论述。</p>
-<p><u><strong><em>此处为分割线。下面是代码的坏味道系列。。。</em></strong></u></p>
-<h2 id="代码的坏味道"><a class="markdownIt-Anchor" href="#代码的坏味道"></a> 代码的坏味道</h2>
-<p>《重构:改善既有代码的设计》中介绍了 22 种代码的坏味道以及重构手法。这些坏味道可以进一步归类。我总觉得将事物分类有助于理解和记忆。所以本系列将坏味道按照特性分类，然后逐一讲解。</p>
-<div align="center"><img src="http://dunwu.test.upcdn.net/cs/design/refactor/code-smell.png"/></div>
-<h3 id="代码坏味道之代码臃肿"><a class="markdownIt-Anchor" href="#代码坏味道之代码臃肿"></a> 代码坏味道之代码臃肿</h3>
-<blockquote>
-<p><strong><a href="https://github.com/dunwu/blog/blob/master/source/_posts/design/refactor/%E4%BB%A3%E7%A0%81%E5%9D%8F%E5%91%B3%E9%81%93%E4%B9%8B%E4%BB%A3%E7%A0%81%E8%87%83%E8%82%BF.md" target="_blank" rel="noopener">代码臃肿(Bloated)</a>这组坏味道意味着：代码中的类、函数、字段没有经过合理的组织，只是简单的堆砌起来。这一类型的问题通常在代码的初期并不明显，但是随着代码规模的增长而逐渐积累（特别是当没有人努力去根除它们时）。</strong></p>
-</blockquote>
-<ul>
-<li><a href="https://github.com/dunwu/blog/blob/master/source/_posts/design/refactor/%E4%BB%A3%E7%A0%81%E5%9D%8F%E5%91%B3%E9%81%93%E4%B9%8B%E4%BB%A3%E7%A0%81%E8%87%83%E8%82%BF.md#%E8%BF%87%E9%95%BF%E5%87%BD%E6%95%B0" target="_blank" rel="noopener">过长函数</a></li>
-<li><a href="https://github.com/dunwu/blog/blob/master/source/_posts/design/refactor/%E4%BB%A3%E7%A0%81%E5%9D%8F%E5%91%B3%E9%81%93%E4%B9%8B%E4%BB%A3%E7%A0%81%E8%87%83%E8%82%BF.md#%E8%BF%87%E5%A4%A7%E7%9A%84%E7%B1%BB" target="_blank" rel="noopener">过大的类</a></li>
-<li><a href="https://github.com/dunwu/blog/blob/master/source/_posts/design/refactor/%E4%BB%A3%E7%A0%81%E5%9D%8F%E5%91%B3%E9%81%93%E4%B9%8B%E4%BB%A3%E7%A0%81%E8%87%83%E8%82%BF.md#%E5%9F%BA%E6%9C%AC%E7%B1%BB%E5%9E%8B%E5%81%8F%E6%89%A7" target="_blank" rel="noopener">基本类型偏执</a></li>
-<li><a href="https://github.com/dunwu/blog/blob/master/source/_posts/design/refactor/%E4%BB%A3%E7%A0%81%E5%9D%8F%E5%91%B3%E9%81%93%E4%B9%8B%E4%BB%A3%E7%A0%81%E8%87%83%E8%82%BF.md#%E8%BF%87%E9%95%BF%E5%8F%82%E6%95%B0%E5%88%97" target="_blank" rel="noopener">过长参数列</a></li>
-<li><a href="https://github.com/dunwu/blog/blob/master/source/_posts/design/refactor/%E4%BB%A3%E7%A0%81%E5%9D%8F%E5%91%B3%E9%81%93%E4%B9%8B%E4%BB%A3%E7%A0%81%E8%87%83%E8%82%BF.md#%E6%95%B0%E6%8D%AE%E6%B3%A5%E5%9B%A2" target="_blank" rel="noopener">数据泥团</a></li>
-</ul>
-<h3 id="代码坏味道之滥用面向对象"><a class="markdownIt-Anchor" href="#代码坏味道之滥用面向对象"></a> 代码坏味道之滥用面向对象</h3>
-<blockquote>
-<p><strong><a href="https://github.com/dunwu/blog/blob/master/source/_posts/design/refactor/%E4%BB%A3%E7%A0%81%E5%9D%8F%E5%91%B3%E9%81%93%E4%B9%8B%E6%BB%A5%E7%94%A8%E9%9D%A2%E5%90%91%E5%AF%B9%E8%B1%A1.md" target="_blank" rel="noopener">滥用面向对象(Object-Orientation Abusers)</a>这组坏味道意味着：代码部分或完全地违背了面向对象编程原则。</strong></p>
-</blockquote>
-<ul>
-<li><a href="https://github.com/dunwu/blog/blob/master/source/_posts/design/refactor/%E4%BB%A3%E7%A0%81%E5%9D%8F%E5%91%B3%E9%81%93%E4%B9%8B%E6%BB%A5%E7%94%A8%E9%9D%A2%E5%90%91%E5%AF%B9%E8%B1%A1.md#switch-%E5%A3%B0%E6%98%8E" target="_blank" rel="noopener">switch 声明</a></li>
-<li><a href="https://github.com/dunwu/blog/blob/master/source/_posts/design/refactor/%E4%BB%A3%E7%A0%81%E5%9D%8F%E5%91%B3%E9%81%93%E4%B9%8B%E6%BB%A5%E7%94%A8%E9%9D%A2%E5%90%91%E5%AF%B9%E8%B1%A1.md#%E4%B8%B4%E6%97%B6%E5%AD%97%E6%AE%B5" target="_blank" rel="noopener">临时字段</a></li>
-<li><a href="https://github.com/dunwu/blog/blob/master/source/_posts/design/refactor/%E4%BB%A3%E7%A0%81%E5%9D%8F%E5%91%B3%E9%81%93%E4%B9%8B%E6%BB%A5%E7%94%A8%E9%9D%A2%E5%90%91%E5%AF%B9%E8%B1%A1.md#%E8%A2%AB%E6%8B%92%E7%BB%9D%E7%9A%84%E9%A6%88%E8%B5%A0" target="_blank" rel="noopener">被拒绝的馈赠</a></li>
-<li><a href="https://github.com/dunwu/blog/blob/master/source/_posts/design/refactor/%E4%BB%A3%E7%A0%81%E5%9D%8F%E5%91%B3%E9%81%93%E4%B9%8B%E6%BB%A5%E7%94%A8%E9%9D%A2%E5%90%91%E5%AF%B9%E8%B1%A1.md#%E5%BC%82%E6%9B%B2%E5%90%8C%E5%B7%A5%E7%9A%84%E7%B1%BB" target="_blank" rel="noopener">异曲同工的类</a></li>
-</ul>
-<h3 id="代码坏味道之变革的障碍"><a class="markdownIt-Anchor" href="#代码坏味道之变革的障碍"></a> 代码坏味道之变革的障碍</h3>
-<blockquote>
-<p><strong><a href="https://github.com/dunwu/blog/blob/master/source/_posts/design/refactor/%E4%BB%A3%E7%A0%81%E5%9D%8F%E5%91%B3%E9%81%93%E4%B9%8B%E5%8F%98%E9%9D%A9%E7%9A%84%E9%9A%9C%E7%A2%8D.md" target="_blank" rel="noopener">变革的障碍(Change Preventers)</a>这组坏味道意味着：当你需要改变一处代码时，却发现不得不改变其他的地方。这使得程序开发变得复杂、代价高昂。</strong></p>
-</blockquote>
-<ul>
-<li><a href="https://github.com/dunwu/blog/blob/master/source/_posts/design/refactor/%E4%BB%A3%E7%A0%81%E5%9D%8F%E5%91%B3%E9%81%93%E4%B9%8B%E5%8F%98%E9%9D%A9%E7%9A%84%E9%9A%9C%E7%A2%8D.md#%E5%8F%91%E6%95%A3%E5%BC%8F%E5%8F%98%E5%8C%96" target="_blank" rel="noopener">发散式变化</a></li>
-<li><a href="https://github.com/dunwu/blog/blob/master/source/_posts/design/refactor/%E4%BB%A3%E7%A0%81%E5%9D%8F%E5%91%B3%E9%81%93%E4%B9%8B%E5%8F%98%E9%9D%A9%E7%9A%84%E9%9A%9C%E7%A2%8D.md#%E9%9C%B0%E5%BC%B9%E5%BC%8F%E4%BF%AE%E6%94%B9" target="_blank" rel="noopener">霰弹式修改</a></li>
-<li><a href="https://github.com/dunwu/blog/blob/master/source/_posts/design/refactor/%E4%BB%A3%E7%A0%81%E5%9D%8F%E5%91%B3%E9%81%93%E4%B9%8B%E5%8F%98%E9%9D%A9%E7%9A%84%E9%9A%9C%E7%A2%8D.md#%E5%B9%B3%E8%A1%8C%E7%BB%A7%E6%89%BF%E4%BD%93%E7%B3%BB" target="_blank" rel="noopener">平行继承体系</a></li>
-</ul>
-<h3 id="代码坏味道之非必要的"><a class="markdownIt-Anchor" href="#代码坏味道之非必要的"></a> 代码坏味道之非必要的</h3>
-<blockquote>
-<p><strong><a href="https://github.com/dunwu/blog/blob/master/source/_posts/design/refactor/%E4%BB%A3%E7%A0%81%E5%9D%8F%E5%91%B3%E9%81%93%E4%B9%8B%E9%9D%9E%E5%BF%85%E8%A6%81%E7%9A%84.md" target="_blank" rel="noopener">非必要的(Dispensables)</a>这组坏味道意味着：这样的代码可有可无，它的存在反而影响整体代码的整洁和可读性。</strong></p>
-</blockquote>
-<ul>
-<li><a href="https://github.com/dunwu/blog/blob/master/source/_posts/design/refactor/%E4%BB%A3%E7%A0%81%E5%9D%8F%E5%91%B3%E9%81%93%E4%B9%8B%E9%9D%9E%E5%BF%85%E8%A6%81%E7%9A%84.md#%E8%BF%87%E5%A4%9A%E7%9A%84%E6%B3%A8%E9%87%8A" target="_blank" rel="noopener">过多的注释</a></li>
-<li><a href="https://github.com/dunwu/blog/blob/master/source/_posts/design/refactor/%E4%BB%A3%E7%A0%81%E5%9D%8F%E5%91%B3%E9%81%93%E4%B9%8B%E9%9D%9E%E5%BF%85%E8%A6%81%E7%9A%84.md#%E9%87%8D%E5%A4%8D%E4%BB%A3%E7%A0%81" target="_blank" rel="noopener">重复代码</a></li>
-<li><a href="https://github.com/dunwu/blog/blob/master/source/_posts/design/refactor/%E4%BB%A3%E7%A0%81%E5%9D%8F%E5%91%B3%E9%81%93%E4%B9%8B%E9%9D%9E%E5%BF%85%E8%A6%81%E7%9A%84.md#%E5%86%97%E4%BD%99%E7%B1%BB" target="_blank" rel="noopener">冗余类</a></li>
-<li><a href="https://github.com/dunwu/blog/blob/master/source/_posts/design/refactor/%E4%BB%A3%E7%A0%81%E5%9D%8F%E5%91%B3%E9%81%93%E4%B9%8B%E9%9D%9E%E5%BF%85%E8%A6%81%E7%9A%84.md#%E7%BA%AF%E7%A8%9A%E7%9A%84%E6%95%B0%E6%8D%AE%E7%B1%BB" target="_blank" rel="noopener">纯稚的数据类</a></li>
-<li><a href="https://github.com/dunwu/blog/blob/master/source/_posts/design/refactor/%E4%BB%A3%E7%A0%81%E5%9D%8F%E5%91%B3%E9%81%93%E4%B9%8B%E9%9D%9E%E5%BF%85%E8%A6%81%E7%9A%84.md#%E5%A4%B8%E5%A4%B8%E5%85%B6%E8%B0%88%E6%9C%AA%E6%9D%A5%E6%80%A7" target="_blank" rel="noopener">夸夸其谈未来性</a></li>
-</ul>
-<h3 id="代码坏味道之耦合"><a class="markdownIt-Anchor" href="#代码坏味道之耦合"></a> 代码坏味道之耦合</h3>
-<blockquote>
-<p><strong><a href="https://github.com/dunwu/blog/blob/master/source/_posts/design/refactor/%E4%BB%A3%E7%A0%81%E5%9D%8F%E5%91%B3%E9%81%93%E4%B9%8B%E8%80%A6%E5%90%88.md" target="_blank" rel="noopener">耦合(Couplers)</a>这组坏味道意味着：不同类之间过度耦合。</strong></p>
-</blockquote>
-<ul>
-<li><a href="https://github.com/dunwu/blog/blob/master/source/_posts/design/refactor/%E4%BB%A3%E7%A0%81%E5%9D%8F%E5%91%B3%E9%81%93%E4%B9%8B%E8%80%A6%E5%90%88.md#%E4%BE%9D%E6%81%8B%E6%83%85%E7%BB%93" target="_blank" rel="noopener">依恋情结</a></li>
-<li><a href="https://github.com/dunwu/blog/blob/master/source/_posts/design/refactor/%E4%BB%A3%E7%A0%81%E5%9D%8F%E5%91%B3%E9%81%93%E4%B9%8B%E8%80%A6%E5%90%88.md#%E7%8B%8E%E6%98%B5%E5%85%B3%E7%B3%BB" target="_blank" rel="noopener">狎昵关系</a></li>
-<li><a href="https://github.com/dunwu/blog/blob/master/source/_posts/design/refactor/%E4%BB%A3%E7%A0%81%E5%9D%8F%E5%91%B3%E9%81%93%E4%B9%8B%E8%80%A6%E5%90%88.md#%E8%BF%87%E5%BA%A6%E8%80%A6%E5%90%88%E7%9A%84%E6%B6%88%E6%81%AF%E9%93%BE" target="_blank" rel="noopener">过度耦合的消息链</a></li>
-<li><a href="https://github.com/dunwu/blog/blob/master/source/_posts/design/refactor/%E4%BB%A3%E7%A0%81%E5%9D%8F%E5%91%B3%E9%81%93%E4%B9%8B%E8%80%A6%E5%90%88.md#%E4%B8%AD%E9%97%B4%E4%BA%BA" target="_blank" rel="noopener">中间人</a></li>
-<li><a href="https://github.com/dunwu/blog/blob/master/source/_posts/design/refactor/%E4%BB%A3%E7%A0%81%E5%9D%8F%E5%91%B3%E9%81%93%E4%B9%8B%E8%80%A6%E5%90%88.md#%E4%B8%8D%E5%AE%8C%E7%BE%8E%E7%9A%84%E5%BA%93%E7%B1%BB" target="_blank" rel="noopener">不完美的库类</a></li>
-</ul>
+<h3 id="重构方法说明-5"><a class="markdownIt-Anchor" href="#重构方法说明-5"></a> 重构方法说明</h3>
+<h4 id="以函数取代参数replace-parameter-with-methods"><a class="markdownIt-Anchor" href="#以函数取代参数replace-parameter-with-methods"></a> 以函数取代参数(Replace Parameter with Methods)</h4>
+<p><strong>问题</strong></p>
+<p>对象调用某个函数，并将所得结果作为参数，传递给另一个函数。而接受该参数的函数本身也能够调用前一个函数。</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">int</span> basePrice = quantity * itemPrice;</span><br><span class="line"><span class="keyword">double</span> seasonDiscount = <span class="keyword">this</span>.getSeasonalDiscount();</span><br><span class="line"><span class="keyword">double</span> fees = <span class="keyword">this</span>.getFees();</span><br><span class="line"><span class="keyword">double</span> finalPrice = discountedPrice(basePrice, seasonDiscount, fees);</span><br></pre></td></tr></table></figure>
+<p><strong>解决</strong></p>
+<p>让参数接受者去除该项参数，并直接调用前一个函数。</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">int</span> basePrice = quantity * itemPrice;</span><br><span class="line"><span class="keyword">double</span> finalPrice = discountedPrice(basePrice);</span><br></pre></td></tr></table></figure>
+<h4 id="保持对象完整preserve-whole-object-4"><a class="markdownIt-Anchor" href="#保持对象完整preserve-whole-object-4"></a> 保持对象完整(Preserve Whole Object)</h4>
+<p><strong>问题</strong></p>
+<p>你从某个对象中取出若干值，将它们作为某一次函数调用时的参数。</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">int</span> low = daysTempRange.getLow();</span><br><span class="line"><span class="keyword">int</span> high = daysTempRange.getHigh();</span><br><span class="line"><span class="keyword">boolean</span> withinPlan = plan.withinRange(low, high);</span><br></pre></td></tr></table></figure>
+<p><strong>解决</strong></p>
+<p>改为传递整个对象。</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">boolean</span> withinPlan = plan.withinRange(daysTempRange);</span><br></pre></td></tr></table></figure>
+<h4 id="引入参数对象introduce-parameter-object-4"><a class="markdownIt-Anchor" href="#引入参数对象introduce-parameter-object-4"></a> 引入参数对象(Introduce Parameter Object)</h4>
+<p><strong>问题</strong></p>
+<p>某些参数总是很自然地同时出现。</p>
+<div align="center"><img src="http://dunwu.test.upcdn.net/cs/design/refactor/introduce-parameter-object-before.png"/></div>
+<p><strong>解决</strong></p>
+<p>以一个对象来取代这些参数。</p>
+<div align="center"><img src="http://dunwu.test.upcdn.net/cs/design/refactor/introduce-parameter-object-after.png"/></div>
 <h2 id="扩展阅读"><a class="markdownIt-Anchor" href="#扩展阅读"></a> 扩展阅读</h2>
 <ul>
 <li><a href="https://github.com/dunwu/blog/blob/master/source/_posts/design/refactor/" target="_blank" rel="noopener">代码的坏味道和重构</a></li>
@@ -2120,7 +2158,7 @@
                   <i class="fa fa-calendar-check-o"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2019-11-27 15:29:01" itemprop="dateModified" datetime="2019-11-27T15:29:01+08:00">2019-11-27</time>
+                <time title="修改时间：2020-01-16 17:48:30" itemprop="dateModified" datetime="2020-01-16T17:48:30+08:00">2020-01-16</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -2355,7 +2393,7 @@
                   <i class="fa fa-calendar-check-o"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2019-11-27 15:29:01" itemprop="dateModified" datetime="2019-11-27T15:29:01+08:00">2019-11-27</time>
+                <time title="修改时间：2020-01-16 17:48:30" itemprop="dateModified" datetime="2020-01-16T17:48:30+08:00">2020-01-16</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -2825,7 +2863,7 @@
       <div class="site-state-item site-state-posts">
           <a href="/blog/archives/">
         
-          <span class="site-state-item-count">68</span>
+          <span class="site-state-item-count">69</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
@@ -2838,7 +2876,7 @@
       <div class="site-state-item site-state-tags">
             <a href="/blog/tags/">
           
-        <span class="site-state-item-count">40</span>
+        <span class="site-state-item-count">42</span>
         <span class="site-state-item-name">标签</span></a>
       </div>
   </nav>
@@ -2874,7 +2912,7 @@
 <div class="copyright">
   
   &copy; 2015 – 
-  <span itemprop="copyrightYear">2019</span>
+  <span itemprop="copyrightYear">2020</span>
   <span class="with-love">
     <i class="fa fa-paper-plane"></i>
   </span>
@@ -2883,12 +2921,12 @@
     <span class="post-meta-item-icon">
       <i class="fa fa-area-chart"></i>
     </span>
-    <span title="站点总字数">351k</span>
+    <span title="站点总字数">350k</span>
     <span class="post-meta-divider">|</span>
     <span class="post-meta-item-icon">
       <i class="fa fa-coffee"></i>
     </span>
-    <span title="站点阅读时长">5:19</span>
+    <span title="站点阅读时长">5:18</span>
 </div>
 
         
