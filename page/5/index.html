@@ -153,7 +153,7 @@
   </li>
         <li class="menu-item menu-item-tags">
 
-    <a href="/blog/tags/" rel="section"><i class="fa fa-fw fa-tags"></i>标签<span class="badge">42</span></a>
+    <a href="/blog/tags/" rel="section"><i class="fa fa-fw fa-tags"></i>标签<span class="badge">43</span></a>
 
   </li>
         <li class="menu-item menu-item-categories">
@@ -163,7 +163,7 @@
   </li>
         <li class="menu-item menu-item-archives">
 
-    <a href="/blog/archives/" rel="section"><i class="fa fa-fw fa-archive"></i>归档<span class="badge">69</span></a>
+    <a href="/blog/archives/" rel="section"><i class="fa fa-fw fa-archive"></i>归档<span class="badge">70</span></a>
 
   </li>
       <li class="menu-item menu-item-search">
@@ -217,6 +217,241 @@
             
 
   <div class="posts-expand">
+        
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://dunwu.github.io/blog/blog/design/refactor/%E4%BB%A3%E7%A0%81%E5%9D%8F%E5%91%B3%E9%81%93%E4%B9%8B%E5%8F%98%E9%9D%A9%E7%9A%84%E9%9A%9C%E7%A2%8D/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/blog/images/avatar.gif">
+      <meta itemprop="name" content="Zhang Peng">
+      <meta itemprop="description" content="Dunwu's Blog">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Dunwu">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/blog/design/refactor/%E4%BB%A3%E7%A0%81%E5%9D%8F%E5%91%B3%E9%81%93%E4%B9%8B%E5%8F%98%E9%9D%A9%E7%9A%84%E9%9A%9C%E7%A2%8D/" class="post-title-link" itemprop="url">代码坏味道之变革的障碍</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2018-10-13 22:48:00" itemprop="dateCreated datePublished" datetime="2018-10-13T22:48:00+08:00">2018-10-13</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2020-01-16 17:48:30" itemprop="dateModified" datetime="2020-01-16T17:48:30+08:00">2020-01-16</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/blog/categories/%E8%AE%BE%E8%AE%A1/" itemprop="url" rel="index">
+                    <span itemprop="name">设计</span>
+                  </a>
+                </span>
+                  ，
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/blog/categories/%E8%AE%BE%E8%AE%A1/%E9%87%8D%E6%9E%84/" itemprop="url" rel="index">
+                    <span itemprop="name">重构</span>
+                  </a>
+                </span>
+            </span>
+
+          
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="fa fa-comment-o"></i>
+      </span>
+      <span class="post-meta-item-text">Disqus：</span>
+    
+    <a title="disqus" href="/blog/design/refactor/%E4%BB%A3%E7%A0%81%E5%9D%8F%E5%91%B3%E9%81%93%E4%B9%8B%E5%8F%98%E9%9D%A9%E7%9A%84%E9%9A%9C%E7%A2%8D/#comments" itemprop="discussionUrl">
+      <span class="post-comments-count disqus-comment-count" data-disqus-identifier="design/refactor/代码坏味道之变革的障碍/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  <br>
+            <span class="post-meta-item" title="本文字数">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-file-word-o"></i>
+              </span>
+                <span class="post-meta-item-text">本文字数：</span>
+              <span>1.8k</span>
+            </span>
+            <span class="post-meta-item" title="阅读时长">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-clock-o"></i>
+              </span>
+                <span class="post-meta-item-text">阅读时长 &asymp;</span>
+              <span>2 分钟</span>
+            </span>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <blockquote>
+<p>📓 本文已归档到：「<a href="https://github.com/dunwu/blog" target="_blank" rel="noopener">blog</a>」</p>
+<p>翻译自：<a href="https://sourcemaking.com/refactoring/smells/change-preventers" target="_blank" rel="noopener">https://sourcemaking.com/refactoring/smells/change-preventers</a></p>
+<p><strong>变革的障碍(Change Preventers)这组坏味道意味着：当你需要改变一处代码时，却发现不得不改变其他的地方。这使得程序开发变得复杂、代价高昂。</strong></p>
+</blockquote>
+<h2 id="发散式变化"><a class="markdownIt-Anchor" href="#发散式变化"></a> 发散式变化</h2>
+<blockquote>
+<p><code>发散式变化(Divergent Change)</code> 类似于 <code>霰弹式修改(Shotgun Surgery)</code> ，但实际上完全不同。<code>发散式变化(Divergent Change)</code> 是指一个类受多种变化的影响。<code>霰弹式修改(Shotgun Surgery)</code> 是指多种变化引发多个类相应的修改。</p>
+</blockquote>
+<h3 id="特征"><a class="markdownIt-Anchor" href="#特征"></a> 特征</h3>
+<p>你发现你想要修改一个函数，却必须要同时修改许多不相关的函数。例如，当你想要添加一个新的产品类型时，你需要同步修改对产品进行查找、显示、排序的函数。</p>
+<div align="center"><img src="http://dunwu.test.upcdn.net/cs/design/refactor/divergent-change-1.png"/></div>
+<h3 id="问题原因"><a class="markdownIt-Anchor" href="#问题原因"></a> 问题原因</h3>
+<p>通常，这种发散式修改是由于编程结构不合理或者“复制-粘贴式编程”。</p>
+<h3 id="解决办法"><a class="markdownIt-Anchor" href="#解决办法"></a> 解决办法</h3>
+<ul>
+<li>运用 <code>提炼类(Extract Class)</code> 拆分类的行为。</li>
+</ul>
+<h3 id="收益"><a class="markdownIt-Anchor" href="#收益"></a> 收益</h3>
+<ul>
+<li>提高代码组织结构</li>
+<li>减少重复代码</li>
+</ul>
+<h3 id="重构方法说明"><a class="markdownIt-Anchor" href="#重构方法说明"></a> 重构方法说明</h3>
+<h4 id="提炼类extract-class"><a class="markdownIt-Anchor" href="#提炼类extract-class"></a> 提炼类(Extract Class)</h4>
+<p><strong>问题</strong></p>
+<p>某个类做了不止一件事。</p>
+<div align="center"><img src="http://dunwu.test.upcdn.net/cs/design/refactor/extract-class-before.png"/></div>
+<p><strong>解决</strong></p>
+<p>建立一个新类，将相关的字段和函数从旧类搬移到新类。</p>
+<div align="center"><img src="http://dunwu.test.upcdn.net/cs/design/refactor/extract-class-after.png"/></div>
+<h2 id="平行继承体系"><a class="markdownIt-Anchor" href="#平行继承体系"></a> 平行继承体系</h2>
+<blockquote>
+<p><code>平行继承体系(Parallel Inheritance Hierarchies)</code> 其实是 <code>霰弹式修改(Shotgun Surgery)</code> 的特殊情况。</p>
+</blockquote>
+<h3 id="特征-2"><a class="markdownIt-Anchor" href="#特征-2"></a> 特征</h3>
+<p>每当你为某个类添加一个子类，必须同时为另一个类相应添加一个子类。这种情况的典型特征是：某个继承体系的类名前缀或类名后缀完全相同。</p>
+<div align="center"><img src="http://dunwu.test.upcdn.net/cs/design/refactor/parallel-inheritance-hierarchies-1.png"/></div>
+<h3 id="问题原因-2"><a class="markdownIt-Anchor" href="#问题原因-2"></a> 问题原因</h3>
+<p>起初的继承体系很小，随着不断添加新类，继承体系越来越大，也越来越难修改。</p>
+<h3 id="解决方法"><a class="markdownIt-Anchor" href="#解决方法"></a> 解决方法</h3>
+<ul>
+<li>一般策略是：让一个继承体系的实例引用另一个继承体系的实例。如果再接再厉运用 <code>搬移函数(Move Method)</code> 和 <code>搬移字段(Move Field)</code>，就可以消除引用端的继承体系。</li>
+</ul>
+<h3 id="收益-2"><a class="markdownIt-Anchor" href="#收益-2"></a> 收益</h3>
+<ul>
+<li>更好的代码组织</li>
+<li>减少重复代码</li>
+</ul>
+<h3 id="何时忽略"><a class="markdownIt-Anchor" href="#何时忽略"></a> 何时忽略</h3>
+<ul>
+<li>有时具有并行类层次结构只是一种为了避免程序体系结构更混乱的方法。如果你发现尝试消除平行继承体系导致代码更加丑陋，那么你应该回滚你的修改。</li>
+</ul>
+<h3 id="重构方法说明-2"><a class="markdownIt-Anchor" href="#重构方法说明-2"></a> 重构方法说明</h3>
+<h4 id="搬移函数move-method"><a class="markdownIt-Anchor" href="#搬移函数move-method"></a> 搬移函数(Move Method)</h4>
+<p><strong>问题</strong></p>
+<p>你的程序中，有个函数与其所驻类之外的另一个类进行更多交流：调用后者，或被后者调用。</p>
+<div align="center"><img src="http://dunwu.test.upcdn.net/cs/design/refactor/move-method-before.png"/></div>
+<p><strong>解决</strong></p>
+<p>在该函数最常引用的类中建立一个有着类似行为的新函数。将旧函数变成一个单纯的委托函数，或是旧函数完全移除。</p>
+<div align="center"><img src="http://dunwu.test.upcdn.net/cs/design/refactor/move-method-after.png"/></div>
+<h4 id="搬移字段move-field"><a class="markdownIt-Anchor" href="#搬移字段move-field"></a> 搬移字段(Move Field)</h4>
+<p><strong>问题</strong></p>
+<p>在你的程序中，某个字段被其所驻类之外的另一个类更多地用到。</p>
+<div align="center"><img src="http://dunwu.test.upcdn.net/cs/design/refactor/move-field-before.png"/></div>
+<p><strong>解决</strong></p>
+<p>在目标类新建一个字段，修改源字段的所有用户，令他们改用新字段。</p>
+<div align="center"><img src="http://dunwu.test.upcdn.net/cs/design/refactor/move-field-after.png"/></div>
+<h2 id="霰弹式修改"><a class="markdownIt-Anchor" href="#霰弹式修改"></a> 霰弹式修改</h2>
+<blockquote>
+<p><code>霰弹式修改(Shotgun Surgery)</code> 类似于 <code>发散式变化(Divergent Change)</code> ，但实际上完全不同。<code>发散式变化(Divergent Change)</code> 是指一个类受多种变化的影响。<code>霰弹式修改(Shotgun Surgery)</code> 是指多种变化引发多个类相应的修改。</p>
+</blockquote>
+<h3 id="特征-3"><a class="markdownIt-Anchor" href="#特征-3"></a> 特征</h3>
+<p>任何修改都需要在许多不同类上做小幅度修改。</p>
+<div align="center"><img src="http://dunwu.test.upcdn.net/cs/design/refactor/shotgun-surgery-1.png"/></div>
+<h3 id="问题原因-3"><a class="markdownIt-Anchor" href="#问题原因-3"></a> 问题原因</h3>
+<p>一个单一的职责被拆分成大量的类。</p>
+<h3 id="解决方法-2"><a class="markdownIt-Anchor" href="#解决方法-2"></a> 解决方法</h3>
+<ul>
+<li>运用<code>搬移函数(Move Method)</code> 和 <code>搬移字段(Move Field)</code> 来搬移不同类中相同的行为到一个独立类中。如果没有适合存放搬移函数或字段的类，就创建一个新类。</li>
+<li>通常，可以运用 <code>将类内联化(Inline Class)</code> 将一些列相关行为放进同一个类。</li>
+</ul>
+<div align="center"><img src="http://dunwu.test.upcdn.net/cs/design/refactor/shotgun-surgery-2.png"/></div>
+<h3 id="收益-3"><a class="markdownIt-Anchor" href="#收益-3"></a> 收益</h3>
+<ul>
+<li>更好的代码组织</li>
+<li>减少重复代码</li>
+<li>更易维护</li>
+</ul>
+<div align="center"><img src="http://dunwu.test.upcdn.net/cs/design/refactor/shotgun-surgery-3.png"/></div>
+<h3 id="重构方法说明-3"><a class="markdownIt-Anchor" href="#重构方法说明-3"></a> 重构方法说明</h3>
+<h4 id="搬移函数move-method-2"><a class="markdownIt-Anchor" href="#搬移函数move-method-2"></a> 搬移函数(Move Method)</h4>
+<p><strong>问题</strong></p>
+<p>你的程序中，有个函数与其所驻类之外的另一个类进行更多交流：调用后者，或被后者调用。</p>
+<div align="center"><img src="http://dunwu.test.upcdn.net/cs/design/refactor/move-method-before.png"/></div>
+<p><strong>解决</strong></p>
+<p>在该函数最常引用的类中建立一个有着类似行为的新函数。将旧函数变成一个单纯的委托函数，或是旧函数完全移除。</p>
+<div align="center"><img src="http://dunwu.test.upcdn.net/cs/design/refactor/move-method-after.png"/></div>
+<h4 id="搬移字段move-field-2"><a class="markdownIt-Anchor" href="#搬移字段move-field-2"></a> 搬移字段(Move Field)</h4>
+<p><strong>问题</strong></p>
+<p>在你的程序中，某个字段被其所驻类之外的另一个类更多地用到。</p>
+<div align="center"><img src="http://dunwu.test.upcdn.net/cs/design/refactor/move-field-before.png"/></div>
+<p><strong>解决</strong></p>
+<p>在目标类新建一个字段，修改源字段的所有用户，令他们改用新字段。</p>
+<div align="center"><img src="http://dunwu.test.upcdn.net/cs/design/refactor/move-field-after.png"/></div>
+<h4 id="将类内联化inline-class"><a class="markdownIt-Anchor" href="#将类内联化inline-class"></a> 将类内联化(Inline Class)</h4>
+<p><strong>问题</strong></p>
+<p>某个类没有做太多事情。</p>
+<div align="center"><img src="http://dunwu.test.upcdn.net/cs/design/refactor/inline-class-before.png"/></div>
+<p><strong>解决</strong></p>
+<p>将这个类的所有特性搬移到另一个类中，然后移除原类。</p>
+<div align="center"><img src="http://dunwu.test.upcdn.net/cs/design/refactor/inline-class-after.png"/></div>
+<h2 id="扩展阅读"><a class="markdownIt-Anchor" href="#扩展阅读"></a> 扩展阅读</h2>
+<ul>
+<li><a href="https://github.com/dunwu/blog/blob/master/source/_posts/design/refactor/" target="_blank" rel="noopener">代码的坏味道和重构</a></li>
+<li><a href="https://github.com/dunwu/blog/blob/master/source/_posts/design/refactor/%E4%BB%A3%E7%A0%81%E5%9D%8F%E5%91%B3%E9%81%93%E4%B9%8B%E4%BB%A3%E7%A0%81%E8%87%83%E8%82%BF.md" target="_blank" rel="noopener">代码坏味道之代码臃肿</a></li>
+<li><a href="https://github.com/dunwu/blog/blob/master/source/_posts/design/refactor/%E4%BB%A3%E7%A0%81%E5%9D%8F%E5%91%B3%E9%81%93%E4%B9%8B%E6%BB%A5%E7%94%A8%E9%9D%A2%E5%90%91%E5%AF%B9%E8%B1%A1.md" target="_blank" rel="noopener">代码坏味道之滥用面向对象</a></li>
+<li><a href="https://github.com/dunwu/blog/blob/master/source/_posts/design/refactor/%E4%BB%A3%E7%A0%81%E5%9D%8F%E5%91%B3%E9%81%93%E4%B9%8B%E5%8F%98%E9%9D%A9%E7%9A%84%E9%9A%9C%E7%A2%8D.md" target="_blank" rel="noopener">代码坏味道之变革的障碍</a></li>
+<li><a href="https://github.com/dunwu/blog/blob/master/source/_posts/design/refactor/%E4%BB%A3%E7%A0%81%E5%9D%8F%E5%91%B3%E9%81%93%E4%B9%8B%E9%9D%9E%E5%BF%85%E8%A6%81%E7%9A%84.md" target="_blank" rel="noopener">代码坏味道之非必要的</a></li>
+<li><a href="https://github.com/dunwu/blog/blob/master/source/_posts/design/refactor/%E4%BB%A3%E7%A0%81%E5%9D%8F%E5%91%B3%E9%81%93%E4%B9%8B%E8%80%A6%E5%90%88.md" target="_blank" rel="noopener">代码坏味道之耦合</a></li>
+</ul>
+<h2 id="参考资料"><a class="markdownIt-Anchor" href="#参考资料"></a> 参考资料</h2>
+<ul>
+<li><a href="https://book.douban.com/subject/4262627/" target="_blank" rel="noopener">重构——改善既有代码的设计</a> - by Martin Fowler</li>
+<li><a href="https://sourcemaking.com/refactoring" target="_blank" rel="noopener">https://sourcemaking.com/refactoring</a></li>
+</ul>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
         
   
   
@@ -1636,259 +1871,6 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="https://dunwu.github.io/blog/blog/bigdata/MapReduce/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/blog/images/avatar.gif">
-      <meta itemprop="name" content="Zhang Peng">
-      <meta itemprop="description" content="Dunwu's Blog">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Dunwu">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/blog/bigdata/MapReduce/" class="post-title-link" itemprop="url">MapReduce</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-
-              <time title="创建时间：2018-09-03 00:00:00" itemprop="dateCreated datePublished" datetime="2018-09-03T00:00:00+08:00">2018-09-03</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-calendar-check-o"></i>
-                </span>
-                <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2019-05-08 18:07:48" itemprop="dateModified" datetime="2019-05-08T18:07:48+08:00">2019-05-08</time>
-              </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/blog/categories/bigdata/" itemprop="url" rel="index">
-                    <span itemprop="name">bigdata</span>
-                  </a>
-                </span>
-            </span>
-
-          
-  
-  <span class="post-meta-item">
-    
-      <span class="post-meta-item-icon">
-        <i class="fa fa-comment-o"></i>
-      </span>
-      <span class="post-meta-item-text">Disqus：</span>
-    
-    <a title="disqus" href="/blog/bigdata/MapReduce/#comments" itemprop="discussionUrl">
-      <span class="post-comments-count disqus-comment-count" data-disqus-identifier="bigdata/MapReduce/" itemprop="commentCount"></span>
-    </a>
-  </span>
-  
-  <br>
-            <span class="post-meta-item" title="本文字数">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-file-word-o"></i>
-              </span>
-                <span class="post-meta-item-text">本文字数：</span>
-              <span>1.8k</span>
-            </span>
-            <span class="post-meta-item" title="阅读时长">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-clock-o"></i>
-              </span>
-                <span class="post-meta-item-text">阅读时长 &asymp;</span>
-              <span>2 分钟</span>
-            </span>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h1 id="mapreduce"><a class="markdownIt-Anchor" href="#mapreduce"></a> MapReduce</h1>
-<!-- TOC depthFrom:2 depthTo:3 -->
-<ul>
-<li><a href="#mapreduce-%E7%AE%80%E4%BB%8B">MapReduce 简介</a>
-<ul>
-<li><a href="#%E6%A6%82%E5%BF%B5">概念</a></li>
-<li><a href="#%E6%80%9D%E6%83%B3">思想</a></li>
-<li><a href="#%E7%89%B9%E7%82%B9">特点</a></li>
-<li><a href="#%E9%80%82%E7%94%A8%E5%9C%BA%E6%99%AF">适用场景</a></li>
-<li><a href="#%E4%B8%8D%E9%80%82%E7%94%A8%E5%9C%BA%E6%99%AF">不适用场景</a></li>
-</ul>
-</li>
-<li><a href="#mapreduce-%E5%8E%9F%E7%90%86">MapReduce 原理</a>
-<ul>
-<li><a href="#job--task%E4%BD%9C%E4%B8%9A%E4%B8%8E%E4%BB%BB%E5%8A%A1">Job &amp; Task（作业与任务）</a></li>
-<li><a href="#split%E5%88%87%E7%89%87">Split（切片）</a></li>
-<li><a href="#map-%E9%98%B6%E6%AE%B5%E6%98%A0%E5%B0%84">Map 阶段（映射）</a></li>
-<li><a href="#reduce-%E9%98%B6%E6%AE%B5%E5%8C%96%E7%AE%80">Reduce 阶段（化简）</a></li>
-<li><a href="#shuffle-%E9%98%B6%E6%AE%B5%E6%B4%97%E7%89%8C">Shuffle 阶段（洗牌）</a></li>
-</ul>
-</li>
-<li><a href="#shuffle-%E8%AF%A6%E8%A7%A3">Shuffle 详解</a>
-<ul>
-<li><a href="#map-%E7%AB%AF">Map 端</a></li>
-<li><a href="#reduce-%E7%AB%AF">Reduce 端</a></li>
-</ul>
-</li>
-<li><a href="#%E4%BD%9C%E4%B8%9A%E8%BF%90%E8%A1%8C%E6%A8%A1%E5%BC%8F">作业运行模式</a>
-<ul>
-<li><a href="#jobtrackertasktracker-%E6%A8%A1%E5%BC%8Fhadoop-1x">JobTracker/TaskTracker 模式（Hadoop 1.X）</a></li>
-<li><a href="#yarn-%E6%A8%A1%E5%BC%8Fhadoop-2x">YARN 模式（Hadoop 2.X）</a></li>
-</ul>
-</li>
-</ul>
-<!-- /TOC -->
-<h2 id="mapreduce-简介"><a class="markdownIt-Anchor" href="#mapreduce-简介"></a> MapReduce 简介</h2>
-<h3 id="概念"><a class="markdownIt-Anchor" href="#概念"></a> 概念</h3>
-<p>MapReduce 是一个面向批处理的分布式计算框架。</p>
-<p>编程模型：MapReduce 程序被分为 Map（映射）阶段和 Reduce（化简）阶段。</p>
-<h3 id="思想"><a class="markdownIt-Anchor" href="#思想"></a> 思想</h3>
-<p>分而治之，并行计算<br />
-移动计算，而非移动数据</p>
-<h3 id="特点"><a class="markdownIt-Anchor" href="#特点"></a> 特点</h3>
-<ul>
-<li>计算跟着数据走</li>
-<li>良好的扩展性：计算能力随着节点数增加，近似线性递增</li>
-<li>高容错</li>
-<li>状态监控</li>
-<li>适合海量数据的离线批处理</li>
-<li>降低了分布式编程的门槛</li>
-</ul>
-<h3 id="适用场景"><a class="markdownIt-Anchor" href="#适用场景"></a> 适用场景</h3>
-<ul>
-<li>数据统计，如：网站的 PV、UV 统计</li>
-<li>搜索引擎构建索引</li>
-<li>海量数据查询</li>
-</ul>
-<h3 id="不适用场景"><a class="markdownIt-Anchor" href="#不适用场景"></a> 不适用场景</h3>
-<ul>
-<li>OLAP
-<ul>
-<li>要求毫秒或秒级返回结果</li>
-</ul>
-</li>
-<li>流计算
-<ul>
-<li>流计算的输入数据集是动态的，而 MapReduce 是静态的</li>
-</ul>
-</li>
-<li>DAG 计算
-<ul>
-<li>多个作业存在依赖关系，后一个的输入是前一个的输出，构成有向无环图 DAG</li>
-<li>每个 MapReduce 作业的输出结果都会落盘，造成大量磁盘 IO，导致性能非常低下</li>
-</ul>
-</li>
-</ul>
-<h2 id="mapreduce-原理"><a class="markdownIt-Anchor" href="#mapreduce-原理"></a> MapReduce 原理</h2>
-<h3 id="job-task作业与任务"><a class="markdownIt-Anchor" href="#job-task作业与任务"></a> Job &amp; Task（作业与任务）</h3>
-<ul>
-<li>作业是客户端请求执行的一个工作单元
-<ul>
-<li>包括输入数据、MapReduce 程序、配置信息</li>
-</ul>
-</li>
-<li>任务是将作业分解后得到的细分工作单元
-<ul>
-<li>分为 Map 任务和 Reduce 任务</li>
-</ul>
-</li>
-</ul>
-<h3 id="split切片"><a class="markdownIt-Anchor" href="#split切片"></a> Split（切片）</h3>
-<ul>
-<li>输入数据被划分成等长的小数据块，称为输入切片（Input Split），简称切片</li>
-<li>Split 是逻辑概念，仅包含元数据信息，如：数据的起始位置、长度、所在节点等</li>
-<li>每个 Split 交给一个 Map 任务处理，Split 的数量决定 Map 任务的数量</li>
-<li>Split 的划分方式由程序设定，Split 与 HDFS Block 没有严格的对应关系</li>
-<li>Split 的大小默认等于 Block 大小</li>
-<li>Split 越小，负载越均衡，但集群的开销越大</li>
-</ul>
-<h3 id="map-阶段映射"><a class="markdownIt-Anchor" href="#map-阶段映射"></a> Map 阶段（映射）</h3>
-<ul>
-<li>由若干 Map 任务组成，任务数量由 Split 数量决定</li>
-<li>输入：Split 切片（key-value），输出：中间计算结果（key-value）</li>
-</ul>
-<h3 id="reduce-阶段化简"><a class="markdownIt-Anchor" href="#reduce-阶段化简"></a> Reduce 阶段（化简）</h3>
-<ul>
-<li>由若干 Reduce 任务组成，任务数量由程序指定</li>
-<li>输入：Map 阶段输出的中间结果（key-value），输出：最终结果（key-value）</li>
-</ul>
-<h3 id="shuffle-阶段洗牌"><a class="markdownIt-Anchor" href="#shuffle-阶段洗牌"></a> Shuffle 阶段（洗牌）</h3>
-<ul>
-<li>Map、Reduce 阶段的中间环节，负责执行 Partition（分区）、Sort（排序）、Spill（溢写）、Merge（合并）、抓取（Fetch）等工作</li>
-<li>Partition 决定了 Map 任务输出的每条数据放入哪个分区，交给哪个 Reduce 任务处理</li>
-<li>Reduce 任务的数量决定了 Partition 数量</li>
-<li>Partition 编号 = Reduce 任务编号 =“key hashcode % reduce task number”</li>
-<li>避免和减少 Shuffle 是 MapReduce 程序调优的重点</li>
-</ul>
-<h2 id="shuffle-详解"><a class="markdownIt-Anchor" href="#shuffle-详解"></a> Shuffle 详解</h2>
-<h3 id="map-端"><a class="markdownIt-Anchor" href="#map-端"></a> Map 端</h3>
-<p>Map 任务将中间结果写入专用内存缓冲区 Buffer（默认 100M），同时进行 Partition 和 Sort（先按“key hashcode % reduce task number”对数据进行分区，分区内再按 key 排序）<br />
-当 Buffer 的数据量达到阈值（默认 80%）时，将数据溢写（Spill）到磁盘的一个临时文件中，文件内数据先分区后排序<br />
-Map 任务结束前，将多个临时文件合并（Merge）为一个 Map 输出文件，文件内数据先分区后排序</p>
-<h3 id="reduce-端"><a class="markdownIt-Anchor" href="#reduce-端"></a> Reduce 端</h3>
-<p>Reduce 任务从多个 Map 输出文件中主动抓取（Fetch）属于自己的分区数据，先写入 Buffer，数据量达到阈值后，溢写到磁盘的一个临时文件中<br />
-数据抓取完成后，将多个临时文件合并为一个 Reduce 输入文件，文件内数据按 key 排序</p>
-<h2 id="作业运行模式"><a class="markdownIt-Anchor" href="#作业运行模式"></a> 作业运行模式</h2>
-<h3 id="jobtrackertasktracker-模式hadoop-1x"><a class="markdownIt-Anchor" href="#jobtrackertasktracker-模式hadoop-1x"></a> JobTracker/TaskTracker 模式（Hadoop 1.X）</h3>
-<p><strong>JobTracker 节点（Master）</strong></p>
-<ul>
-<li>调度任务在 TaskTracker 上运行</li>
-<li>若任务失败，指定新 TaskTracker 重新运行</li>
-</ul>
-<p><strong>TaskTracker 节点（Slave）</strong></p>
-<ul>
-<li>执行任务，发送进度报告</li>
-</ul>
-<p><strong>存在的问题</strong></p>
-<ul>
-<li>JobTracker 存在单点故障</li>
-<li>JobTracker 负载太重（上限 4000 节点）</li>
-<li>JobTracker 缺少对资源的全面管理</li>
-<li>TaskTracker 对资源的描述过于简单</li>
-<li>源码很难理解</li>
-</ul>
-<h3 id="yarn-模式hadoop-2x"><a class="markdownIt-Anchor" href="#yarn-模式hadoop-2x"></a> YARN 模式（Hadoop 2.X）</h3>
-<ul>
-<li>提交作业</li>
-<li>查看作业</li>
-<li>终止作业</li>
-</ul>
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-        
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="zh-CN">
     <link itemprop="mainEntityOfPage" href="https://dunwu.github.io/blog/blog/bigdata/overview/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -2779,7 +2761,7 @@ Map 任务结束前，将多个临时文件合并（Merge）为一个 Map 输出
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="https://dunwu.github.io/blog/blog/bigdata/Spark/">
+    <link itemprop="mainEntityOfPage" href="https://dunwu.github.io/blog/blog/bigdata/MapReduce/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/blog/images/avatar.gif">
@@ -2793,7 +2775,7 @@ Map 任务结束前，将多个临时文件合并（Merge）为一个 Map 输出
       <header class="post-header">
         <h2 class="post-title" itemprop="name headline">
           
-            <a href="/blog/bigdata/Spark/" class="post-title-link" itemprop="url">Spark</a>
+            <a href="/blog/bigdata/MapReduce/" class="post-title-link" itemprop="url">MapReduce</a>
         </h2>
 
         <div class="post-meta">
@@ -2833,8 +2815,8 @@ Map 任务结束前，将多个临时文件合并（Merge）为一个 Map 输出
       </span>
       <span class="post-meta-item-text">Disqus：</span>
     
-    <a title="disqus" href="/blog/bigdata/Spark/#comments" itemprop="discussionUrl">
-      <span class="post-comments-count disqus-comment-count" data-disqus-identifier="bigdata/Spark/" itemprop="commentCount"></span>
+    <a title="disqus" href="/blog/bigdata/MapReduce/#comments" itemprop="discussionUrl">
+      <span class="post-comments-count disqus-comment-count" data-disqus-identifier="bigdata/MapReduce/" itemprop="commentCount"></span>
     </a>
   </span>
   
@@ -2844,14 +2826,14 @@ Map 任务结束前，将多个临时文件合并（Merge）为一个 Map 输出
                 <i class="fa fa-file-word-o"></i>
               </span>
                 <span class="post-meta-item-text">本文字数：</span>
-              <span>1.2k</span>
+              <span>1.8k</span>
             </span>
             <span class="post-meta-item" title="阅读时长">
               <span class="post-meta-item-icon">
                 <i class="fa fa-clock-o"></i>
               </span>
                 <span class="post-meta-item-text">阅读时长 &asymp;</span>
-              <span>1 分钟</span>
+              <span>2 分钟</span>
             </span>
 
         </div>
@@ -2863,124 +2845,155 @@ Map 任务结束前，将多个临时文件合并（Merge）为一个 Map 输出
     <div class="post-body" itemprop="articleBody">
 
       
-          <h1 id="spark"><a class="markdownIt-Anchor" href="#spark"></a> Spark</h1>
+          <h1 id="mapreduce"><a class="markdownIt-Anchor" href="#mapreduce"></a> MapReduce</h1>
 <!-- TOC depthFrom:2 depthTo:3 -->
 <ul>
-<li><a href="#spark-%E7%AE%80%E4%BB%8B">Spark 简介</a>
+<li><a href="#mapreduce-%E7%AE%80%E4%BB%8B">MapReduce 简介</a>
 <ul>
-<li><a href="#spark-%E6%A6%82%E5%BF%B5">Spark 概念</a></li>
-<li><a href="#spark-%E7%89%B9%E7%82%B9">Spark 特点</a></li>
+<li><a href="#%E6%A6%82%E5%BF%B5">概念</a></li>
+<li><a href="#%E6%80%9D%E6%83%B3">思想</a></li>
+<li><a href="#%E7%89%B9%E7%82%B9">特点</a></li>
+<li><a href="#%E9%80%82%E7%94%A8%E5%9C%BA%E6%99%AF">适用场景</a></li>
+<li><a href="#%E4%B8%8D%E9%80%82%E7%94%A8%E5%9C%BA%E6%99%AF">不适用场景</a></li>
 </ul>
 </li>
-<li><a href="#spark-%E5%8E%9F%E7%90%86">Spark 原理</a>
+<li><a href="#mapreduce-%E5%8E%9F%E7%90%86">MapReduce 原理</a>
 <ul>
-<li><a href="#%E7%BC%96%E7%A8%8B%E6%A8%A1%E5%9E%8B">编程模型</a></li>
+<li><a href="#job--task%E4%BD%9C%E4%B8%9A%E4%B8%8E%E4%BB%BB%E5%8A%A1">Job &amp; Task（作业与任务）</a></li>
+<li><a href="#split%E5%88%87%E7%89%87">Split（切片）</a></li>
+<li><a href="#map-%E9%98%B6%E6%AE%B5%E6%98%A0%E5%B0%84">Map 阶段（映射）</a></li>
+<li><a href="#reduce-%E9%98%B6%E6%AE%B5%E5%8C%96%E7%AE%80">Reduce 阶段（化简）</a></li>
+<li><a href="#shuffle-%E9%98%B6%E6%AE%B5%E6%B4%97%E7%89%8C">Shuffle 阶段（洗牌）</a></li>
+</ul>
+</li>
+<li><a href="#shuffle-%E8%AF%A6%E8%A7%A3">Shuffle 详解</a>
+<ul>
+<li><a href="#map-%E7%AB%AF">Map 端</a></li>
+<li><a href="#reduce-%E7%AB%AF">Reduce 端</a></li>
+</ul>
+</li>
+<li><a href="#%E4%BD%9C%E4%B8%9A%E8%BF%90%E8%A1%8C%E6%A8%A1%E5%BC%8F">作业运行模式</a>
+<ul>
+<li><a href="#jobtrackertasktracker-%E6%A8%A1%E5%BC%8Fhadoop-1x">JobTracker/TaskTracker 模式（Hadoop 1.X）</a></li>
+<li><a href="#yarn-%E6%A8%A1%E5%BC%8Fhadoop-2x">YARN 模式（Hadoop 2.X）</a></li>
 </ul>
 </li>
 </ul>
 <!-- /TOC -->
-<h2 id="spark-简介"><a class="markdownIt-Anchor" href="#spark-简介"></a> Spark 简介</h2>
-<h3 id="spark-概念"><a class="markdownIt-Anchor" href="#spark-概念"></a> Spark 概念</h3>
+<h2 id="mapreduce-简介"><a class="markdownIt-Anchor" href="#mapreduce-简介"></a> MapReduce 简介</h2>
+<h3 id="概念"><a class="markdownIt-Anchor" href="#概念"></a> 概念</h3>
+<p>MapReduce 是一个面向批处理的分布式计算框架。</p>
+<p>编程模型：MapReduce 程序被分为 Map（映射）阶段和 Reduce（化简）阶段。</p>
+<h3 id="思想"><a class="markdownIt-Anchor" href="#思想"></a> 思想</h3>
+<p>分而治之，并行计算<br />
+移动计算，而非移动数据</p>
+<h3 id="特点"><a class="markdownIt-Anchor" href="#特点"></a> 特点</h3>
 <ul>
-<li>大规模分布式通用计算引擎
+<li>计算跟着数据走</li>
+<li>良好的扩展性：计算能力随着节点数增加，近似线性递增</li>
+<li>高容错</li>
+<li>状态监控</li>
+<li>适合海量数据的离线批处理</li>
+<li>降低了分布式编程的门槛</li>
+</ul>
+<h3 id="适用场景"><a class="markdownIt-Anchor" href="#适用场景"></a> 适用场景</h3>
 <ul>
-<li>Spark Core：核心计算框架</li>
-<li>Spark SQL：结构化数据查询</li>
-<li>Spark Streaming：实时流处理</li>
-<li>Spark MLib：机器学习</li>
-<li>Spark GraphX：图计算</li>
+<li>数据统计，如：网站的 PV、UV 统计</li>
+<li>搜索引擎构建索引</li>
+<li>海量数据查询</li>
+</ul>
+<h3 id="不适用场景"><a class="markdownIt-Anchor" href="#不适用场景"></a> 不适用场景</h3>
+<ul>
+<li>OLAP
+<ul>
+<li>要求毫秒或秒级返回结果</li>
 </ul>
 </li>
-<li>具有高吞吐、低延时、通用易扩展、高容错等特点</li>
-<li>采用 Scala 语言开发</li>
-<li>提供多种运行模式</li>
-</ul>
-<h3 id="spark-特点"><a class="markdownIt-Anchor" href="#spark-特点"></a> Spark 特点</h3>
+<li>流计算
 <ul>
-<li>计算高效
-<ul>
-<li>利用内存计算、Cache 缓存机制，支持迭代计算和数据共享，减少数据读取的 IO 开销</li>
-<li>利用 DAG 引擎，减少中间计算结果写入 HDFS 的开销</li>
-<li>利用多线程池模型，减少任务启动开销，避免 Shuffle 中不必要的排序和磁盘 IO 操作</li>
+<li>流计算的输入数据集是动态的，而 MapReduce 是静态的</li>
 </ul>
 </li>
-<li>通用易用
+<li>DAG 计算
 <ul>
-<li>适用于批处理、流处理、交互式计算、机器学习算法等场景</li>
-<li>提供了丰富的开发 API，支持 Scala、Java、Python、R 等</li>
-</ul>
-</li>
-<li>运行模式多样
-<ul>
-<li>Local 模式</li>
-<li>Standalone 模式</li>
-<li>YARN/Mesos 模式</li>
-</ul>
-</li>
-<li>计算高效
-<ul>
-<li>利用内存计算、Cache 缓存机制，支持迭代计算和数据共享，减少数据读取的 IO 开销</li>
-<li>利用 DAG 引擎，减少中间计算结果写入 HDFS 的开销</li>
-<li>利用多线程池模型，减少任务启动开销，避免 Shuffle 中不必要的排序和磁盘 IO 操作</li>
-</ul>
-</li>
-<li>通用易用
-<ul>
-<li>适用于批处理、流处理、交互式计算、机器学习等场景</li>
-<li>提供了丰富的开发 API，支持 Scala、Java、Python、R 等</li>
+<li>多个作业存在依赖关系，后一个的输入是前一个的输出，构成有向无环图 DAG</li>
+<li>每个 MapReduce 作业的输出结果都会落盘，造成大量磁盘 IO，导致性能非常低下</li>
 </ul>
 </li>
 </ul>
-<h2 id="spark-原理"><a class="markdownIt-Anchor" href="#spark-原理"></a> Spark 原理</h2>
-<h3 id="编程模型"><a class="markdownIt-Anchor" href="#编程模型"></a> 编程模型</h3>
-<h4 id="rdd"><a class="markdownIt-Anchor" href="#rdd"></a> RDD</h4>
+<h2 id="mapreduce-原理"><a class="markdownIt-Anchor" href="#mapreduce-原理"></a> MapReduce 原理</h2>
+<h3 id="job-task作业与任务"><a class="markdownIt-Anchor" href="#job-task作业与任务"></a> Job &amp; Task（作业与任务）</h3>
 <ul>
-<li>弹性分布式数据集（Resilient Distributed Datesets）
+<li>作业是客户端请求执行的一个工作单元
 <ul>
-<li>分布在集群中的只读对象集合</li>
-<li>由多个 Partition 组成</li>
-<li>通过转换操作构造</li>
-<li>失效后自动重构（弹性）</li>
-<li>存储在内存或磁盘中</li>
+<li>包括输入数据、MapReduce 程序、配置信息</li>
 </ul>
 </li>
-<li>Spark 基于 RDD 进行计算</li>
-</ul>
-<h4 id="rdd-操作operator"><a class="markdownIt-Anchor" href="#rdd-操作operator"></a> RDD 操作（Operator）</h4>
+<li>任务是将作业分解后得到的细分工作单元
 <ul>
-<li>Transformation（转换）
-<ul>
-<li>将 Scala 集合或 Hadoop 输入数据构造成一个新 RDD</li>
-<li>通过已有的 RDD 产生新 RDD</li>
-<li>惰性执行：只记录转换关系，不触发计算</li>
-<li>例如：map、filter、flatmap、union、distinct、sortbykey</li>
-</ul>
-</li>
-<li>Action（动作）
-<ul>
-<li>通过 RDD 计算得到一个值或一组值</li>
-<li>真正触发计算</li>
-<li>例如：first、count、collect、foreach、saveAsTextFile</li>
+<li>分为 Map 任务和 Reduce 任务</li>
 </ul>
 </li>
 </ul>
-<h4 id="rdd-依赖dependency"><a class="markdownIt-Anchor" href="#rdd-依赖dependency"></a> RDD 依赖（Dependency）</h4>
+<h3 id="split切片"><a class="markdownIt-Anchor" href="#split切片"></a> Split（切片）</h3>
 <ul>
-<li>窄依赖（Narrow Dependency）
-<ul>
-<li>父 RDD 中的分区最多只能被一个子 RDD 的一个分区使用</li>
-<li>子 RDD 如果有部分分区数据丢失或损坏，只需从对应的父 RDD 重新计算恢复</li>
-<li>例如：map、filter、union</li>
+<li>输入数据被划分成等长的小数据块，称为输入切片（Input Split），简称切片</li>
+<li>Split 是逻辑概念，仅包含元数据信息，如：数据的起始位置、长度、所在节点等</li>
+<li>每个 Split 交给一个 Map 任务处理，Split 的数量决定 Map 任务的数量</li>
+<li>Split 的划分方式由程序设定，Split 与 HDFS Block 没有严格的对应关系</li>
+<li>Split 的大小默认等于 Block 大小</li>
+<li>Split 越小，负载越均衡，但集群的开销越大</li>
 </ul>
-</li>
-<li>宽依赖（Shuffle/Wide Dependency ）
+<h3 id="map-阶段映射"><a class="markdownIt-Anchor" href="#map-阶段映射"></a> Map 阶段（映射）</h3>
 <ul>
-<li>子 RDD 分区依赖父 RDD 的所有分区</li>
-<li>子 RDD 如果部分或全部分区数据丢失或损坏，必须从所有父 RDD 分区重新计算</li>
-<li>相对于窄依赖，宽依赖付出的代价要高很多，尽量避免使用</li>
-<li>例如：groupByKey、reduceByKey、sortByKey</li>
+<li>由若干 Map 任务组成，任务数量由 Split 数量决定</li>
+<li>输入：Split 切片（key-value），输出：中间计算结果（key-value）</li>
 </ul>
-</li>
+<h3 id="reduce-阶段化简"><a class="markdownIt-Anchor" href="#reduce-阶段化简"></a> Reduce 阶段（化简）</h3>
+<ul>
+<li>由若干 Reduce 任务组成，任务数量由程序指定</li>
+<li>输入：Map 阶段输出的中间结果（key-value），输出：最终结果（key-value）</li>
+</ul>
+<h3 id="shuffle-阶段洗牌"><a class="markdownIt-Anchor" href="#shuffle-阶段洗牌"></a> Shuffle 阶段（洗牌）</h3>
+<ul>
+<li>Map、Reduce 阶段的中间环节，负责执行 Partition（分区）、Sort（排序）、Spill（溢写）、Merge（合并）、抓取（Fetch）等工作</li>
+<li>Partition 决定了 Map 任务输出的每条数据放入哪个分区，交给哪个 Reduce 任务处理</li>
+<li>Reduce 任务的数量决定了 Partition 数量</li>
+<li>Partition 编号 = Reduce 任务编号 =“key hashcode % reduce task number”</li>
+<li>避免和减少 Shuffle 是 MapReduce 程序调优的重点</li>
+</ul>
+<h2 id="shuffle-详解"><a class="markdownIt-Anchor" href="#shuffle-详解"></a> Shuffle 详解</h2>
+<h3 id="map-端"><a class="markdownIt-Anchor" href="#map-端"></a> Map 端</h3>
+<p>Map 任务将中间结果写入专用内存缓冲区 Buffer（默认 100M），同时进行 Partition 和 Sort（先按“key hashcode % reduce task number”对数据进行分区，分区内再按 key 排序）<br />
+当 Buffer 的数据量达到阈值（默认 80%）时，将数据溢写（Spill）到磁盘的一个临时文件中，文件内数据先分区后排序<br />
+Map 任务结束前，将多个临时文件合并（Merge）为一个 Map 输出文件，文件内数据先分区后排序</p>
+<h3 id="reduce-端"><a class="markdownIt-Anchor" href="#reduce-端"></a> Reduce 端</h3>
+<p>Reduce 任务从多个 Map 输出文件中主动抓取（Fetch）属于自己的分区数据，先写入 Buffer，数据量达到阈值后，溢写到磁盘的一个临时文件中<br />
+数据抓取完成后，将多个临时文件合并为一个 Reduce 输入文件，文件内数据按 key 排序</p>
+<h2 id="作业运行模式"><a class="markdownIt-Anchor" href="#作业运行模式"></a> 作业运行模式</h2>
+<h3 id="jobtrackertasktracker-模式hadoop-1x"><a class="markdownIt-Anchor" href="#jobtrackertasktracker-模式hadoop-1x"></a> JobTracker/TaskTracker 模式（Hadoop 1.X）</h3>
+<p><strong>JobTracker 节点（Master）</strong></p>
+<ul>
+<li>调度任务在 TaskTracker 上运行</li>
+<li>若任务失败，指定新 TaskTracker 重新运行</li>
+</ul>
+<p><strong>TaskTracker 节点（Slave）</strong></p>
+<ul>
+<li>执行任务，发送进度报告</li>
+</ul>
+<p><strong>存在的问题</strong></p>
+<ul>
+<li>JobTracker 存在单点故障</li>
+<li>JobTracker 负载太重（上限 4000 节点）</li>
+<li>JobTracker 缺少对资源的全面管理</li>
+<li>TaskTracker 对资源的描述过于简单</li>
+<li>源码很难理解</li>
+</ul>
+<h3 id="yarn-模式hadoop-2x"><a class="markdownIt-Anchor" href="#yarn-模式hadoop-2x"></a> YARN 模式（Hadoop 2.X）</h3>
+<ul>
+<li>提交作业</li>
+<li>查看作业</li>
+<li>终止作业</li>
 </ul>
 
       
@@ -3047,7 +3060,7 @@ Map 任务结束前，将多个临时文件合并（Merge）为一个 Map 输出
       <div class="site-state-item site-state-posts">
           <a href="/blog/archives/">
         
-          <span class="site-state-item-count">69</span>
+          <span class="site-state-item-count">70</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
@@ -3060,7 +3073,7 @@ Map 任务结束前，将多个临时文件合并（Merge）为一个 Map 输出
       <div class="site-state-item site-state-tags">
             <a href="/blog/tags/">
           
-        <span class="site-state-item-count">42</span>
+        <span class="site-state-item-count">43</span>
         <span class="site-state-item-name">标签</span></a>
       </div>
   </nav>
@@ -3105,12 +3118,12 @@ Map 任务结束前，将多个临时文件合并（Merge）为一个 Map 输出
     <span class="post-meta-item-icon">
       <i class="fa fa-area-chart"></i>
     </span>
-    <span title="站点总字数">350k</span>
+    <span title="站点总字数">351k</span>
     <span class="post-meta-divider">|</span>
     <span class="post-meta-item-icon">
       <i class="fa fa-coffee"></i>
     </span>
-    <span title="站点阅读时长">5:18</span>
+    <span title="站点阅读时长">5:19</span>
 </div>
 
         

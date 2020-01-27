@@ -153,7 +153,7 @@
   </li>
         <li class="menu-item menu-item-tags">
 
-    <a href="/blog/tags/" rel="section"><i class="fa fa-fw fa-tags"></i>标签<span class="badge">42</span></a>
+    <a href="/blog/tags/" rel="section"><i class="fa fa-fw fa-tags"></i>标签<span class="badge">43</span></a>
 
   </li>
         <li class="menu-item menu-item-categories">
@@ -163,7 +163,7 @@
   </li>
         <li class="menu-item menu-item-archives">
 
-    <a href="/blog/archives/" rel="section"><i class="fa fa-fw fa-archive"></i>归档<span class="badge">69</span></a>
+    <a href="/blog/archives/" rel="section"><i class="fa fa-fw fa-archive"></i>归档<span class="badge">70</span></a>
 
   </li>
       <li class="menu-item menu-item-search">
@@ -217,6 +217,228 @@
             
 
   <div class="posts-expand">
+        
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://dunwu.github.io/blog/blog/bigdata/Spark/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/blog/images/avatar.gif">
+      <meta itemprop="name" content="Zhang Peng">
+      <meta itemprop="description" content="Dunwu's Blog">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Dunwu">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/blog/bigdata/Spark/" class="post-title-link" itemprop="url">Spark</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2018-09-03 00:00:00" itemprop="dateCreated datePublished" datetime="2018-09-03T00:00:00+08:00">2018-09-03</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2019-05-08 18:07:48" itemprop="dateModified" datetime="2019-05-08T18:07:48+08:00">2019-05-08</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/blog/categories/bigdata/" itemprop="url" rel="index">
+                    <span itemprop="name">bigdata</span>
+                  </a>
+                </span>
+            </span>
+
+          
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="fa fa-comment-o"></i>
+      </span>
+      <span class="post-meta-item-text">Disqus：</span>
+    
+    <a title="disqus" href="/blog/bigdata/Spark/#comments" itemprop="discussionUrl">
+      <span class="post-comments-count disqus-comment-count" data-disqus-identifier="bigdata/Spark/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  <br>
+            <span class="post-meta-item" title="本文字数">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-file-word-o"></i>
+              </span>
+                <span class="post-meta-item-text">本文字数：</span>
+              <span>1.2k</span>
+            </span>
+            <span class="post-meta-item" title="阅读时长">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-clock-o"></i>
+              </span>
+                <span class="post-meta-item-text">阅读时长 &asymp;</span>
+              <span>1 分钟</span>
+            </span>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h1 id="spark"><a class="markdownIt-Anchor" href="#spark"></a> Spark</h1>
+<!-- TOC depthFrom:2 depthTo:3 -->
+<ul>
+<li><a href="#spark-%E7%AE%80%E4%BB%8B">Spark 简介</a>
+<ul>
+<li><a href="#spark-%E6%A6%82%E5%BF%B5">Spark 概念</a></li>
+<li><a href="#spark-%E7%89%B9%E7%82%B9">Spark 特点</a></li>
+</ul>
+</li>
+<li><a href="#spark-%E5%8E%9F%E7%90%86">Spark 原理</a>
+<ul>
+<li><a href="#%E7%BC%96%E7%A8%8B%E6%A8%A1%E5%9E%8B">编程模型</a></li>
+</ul>
+</li>
+</ul>
+<!-- /TOC -->
+<h2 id="spark-简介"><a class="markdownIt-Anchor" href="#spark-简介"></a> Spark 简介</h2>
+<h3 id="spark-概念"><a class="markdownIt-Anchor" href="#spark-概念"></a> Spark 概念</h3>
+<ul>
+<li>大规模分布式通用计算引擎
+<ul>
+<li>Spark Core：核心计算框架</li>
+<li>Spark SQL：结构化数据查询</li>
+<li>Spark Streaming：实时流处理</li>
+<li>Spark MLib：机器学习</li>
+<li>Spark GraphX：图计算</li>
+</ul>
+</li>
+<li>具有高吞吐、低延时、通用易扩展、高容错等特点</li>
+<li>采用 Scala 语言开发</li>
+<li>提供多种运行模式</li>
+</ul>
+<h3 id="spark-特点"><a class="markdownIt-Anchor" href="#spark-特点"></a> Spark 特点</h3>
+<ul>
+<li>计算高效
+<ul>
+<li>利用内存计算、Cache 缓存机制，支持迭代计算和数据共享，减少数据读取的 IO 开销</li>
+<li>利用 DAG 引擎，减少中间计算结果写入 HDFS 的开销</li>
+<li>利用多线程池模型，减少任务启动开销，避免 Shuffle 中不必要的排序和磁盘 IO 操作</li>
+</ul>
+</li>
+<li>通用易用
+<ul>
+<li>适用于批处理、流处理、交互式计算、机器学习算法等场景</li>
+<li>提供了丰富的开发 API，支持 Scala、Java、Python、R 等</li>
+</ul>
+</li>
+<li>运行模式多样
+<ul>
+<li>Local 模式</li>
+<li>Standalone 模式</li>
+<li>YARN/Mesos 模式</li>
+</ul>
+</li>
+<li>计算高效
+<ul>
+<li>利用内存计算、Cache 缓存机制，支持迭代计算和数据共享，减少数据读取的 IO 开销</li>
+<li>利用 DAG 引擎，减少中间计算结果写入 HDFS 的开销</li>
+<li>利用多线程池模型，减少任务启动开销，避免 Shuffle 中不必要的排序和磁盘 IO 操作</li>
+</ul>
+</li>
+<li>通用易用
+<ul>
+<li>适用于批处理、流处理、交互式计算、机器学习等场景</li>
+<li>提供了丰富的开发 API，支持 Scala、Java、Python、R 等</li>
+</ul>
+</li>
+</ul>
+<h2 id="spark-原理"><a class="markdownIt-Anchor" href="#spark-原理"></a> Spark 原理</h2>
+<h3 id="编程模型"><a class="markdownIt-Anchor" href="#编程模型"></a> 编程模型</h3>
+<h4 id="rdd"><a class="markdownIt-Anchor" href="#rdd"></a> RDD</h4>
+<ul>
+<li>弹性分布式数据集（Resilient Distributed Datesets）
+<ul>
+<li>分布在集群中的只读对象集合</li>
+<li>由多个 Partition 组成</li>
+<li>通过转换操作构造</li>
+<li>失效后自动重构（弹性）</li>
+<li>存储在内存或磁盘中</li>
+</ul>
+</li>
+<li>Spark 基于 RDD 进行计算</li>
+</ul>
+<h4 id="rdd-操作operator"><a class="markdownIt-Anchor" href="#rdd-操作operator"></a> RDD 操作（Operator）</h4>
+<ul>
+<li>Transformation（转换）
+<ul>
+<li>将 Scala 集合或 Hadoop 输入数据构造成一个新 RDD</li>
+<li>通过已有的 RDD 产生新 RDD</li>
+<li>惰性执行：只记录转换关系，不触发计算</li>
+<li>例如：map、filter、flatmap、union、distinct、sortbykey</li>
+</ul>
+</li>
+<li>Action（动作）
+<ul>
+<li>通过 RDD 计算得到一个值或一组值</li>
+<li>真正触发计算</li>
+<li>例如：first、count、collect、foreach、saveAsTextFile</li>
+</ul>
+</li>
+</ul>
+<h4 id="rdd-依赖dependency"><a class="markdownIt-Anchor" href="#rdd-依赖dependency"></a> RDD 依赖（Dependency）</h4>
+<ul>
+<li>窄依赖（Narrow Dependency）
+<ul>
+<li>父 RDD 中的分区最多只能被一个子 RDD 的一个分区使用</li>
+<li>子 RDD 如果有部分分区数据丢失或损坏，只需从对应的父 RDD 重新计算恢复</li>
+<li>例如：map、filter、union</li>
+</ul>
+</li>
+<li>宽依赖（Shuffle/Wide Dependency ）
+<ul>
+<li>子 RDD 分区依赖父 RDD 的所有分区</li>
+<li>子 RDD 如果部分或全部分区数据丢失或损坏，必须从所有父 RDD 分区重新计算</li>
+<li>相对于窄依赖，宽依赖付出的代价要高很多，尽量避免使用</li>
+<li>例如：groupByKey、reduceByKey、sortByKey</li>
+</ul>
+</li>
+</ul>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
         
   
   
@@ -773,7 +995,7 @@
                   <i class="fa fa-calendar-check-o"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2020-01-19 21:55:06" itemprop="dateModified" datetime="2020-01-19T21:55:06+08:00">2020-01-19</time>
+                <time title="修改时间：2020-01-26 08:49:47" itemprop="dateModified" datetime="2020-01-26T08:49:47+08:00">2020-01-26</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -813,14 +1035,14 @@
                 <i class="fa fa-file-word-o"></i>
               </span>
                 <span class="post-meta-item-text">本文字数：</span>
-              <span>9k</span>
+              <span>6.4k</span>
             </span>
             <span class="post-meta-item" title="阅读时长">
               <span class="post-meta-item-icon">
                 <i class="fa fa-clock-o"></i>
               </span>
                 <span class="post-meta-item-text">阅读时长 &asymp;</span>
-              <span>8 分钟</span>
+              <span>6 分钟</span>
             </span>
 
         </div>
@@ -842,55 +1064,36 @@
 <li><a href="#13-%E8%A1%A1%E9%87%8F%E6%8C%87%E6%A0%87">1.3. 衡量指标</a></li>
 </ul>
 </li>
-<li><a href="#2-%E6%95%B0%E6%8D%AE%E5%88%86%E5%B8%83">2. 数据分布</a>
+<li><a href="#2-%E5%88%86%E5%B8%83%E5%BC%8F%E7%90%86%E8%AE%BA">2. 分布式理论</a>
 <ul>
-<li><a href="#21-%E5%93%88%E5%B8%8C%E5%88%86%E5%B8%83">2.1. 哈希分布</a></li>
-<li><a href="#22-%E9%A1%BA%E5%BA%8F%E5%88%86%E5%B8%83">2.2. 顺序分布</a></li>
-<li><a href="#23-%E8%B4%9F%E8%BD%BD%E5%9D%87%E8%A1%A1">2.3. 负载均衡</a></li>
+<li><a href="#21-cap">2.1. CAP</a></li>
+<li><a href="#22-base">2.2. BASE</a></li>
 </ul>
 </li>
-<li><a href="#3-%E5%88%86%E5%B8%83%E5%BC%8F%E7%90%86%E8%AE%BA">3. 分布式理论</a>
+<li><a href="#3-%E5%88%86%E5%B8%83%E5%BC%8F%E4%BA%8B%E5%8A%A1">3. 分布式事务</a>
 <ul>
-<li><a href="#31-cap">3.1. CAP</a></li>
-<li><a href="#32-base">3.2. BASE</a></li>
+<li><a href="#31-%E4%B8%A4%E9%98%B6%E6%AE%B5%E6%8F%90%E4%BA%A42pc">3.1. 两阶段提交（2PC）</a></li>
+<li><a href="#32-%E8%A1%A5%E5%81%BF%E4%BA%8B%E5%8A%A1tcc">3.2. 补偿事务（TCC）</a></li>
+<li><a href="#33-%E6%9C%AC%E5%9C%B0%E6%B6%88%E6%81%AF%E8%A1%A8%E5%BC%82%E6%AD%A5%E7%A1%AE%E4%BF%9D">3.3. 本地消息表（异步确保）</a></li>
+<li><a href="#34-mq-%E4%BA%8B%E5%8A%A1%E6%B6%88%E6%81%AF">3.4. MQ 事务消息</a></li>
 </ul>
 </li>
-<li><a href="#4-%E5%88%86%E5%B8%83%E5%BC%8F%E4%BA%8B%E5%8A%A1%E9%97%AE%E9%A2%98">4. 分布式事务问题</a>
+<li><a href="#4-%E5%85%B1%E8%AF%86%E6%80%A7%E9%97%AE%E9%A2%98">4. 共识性问题</a>
 <ul>
-<li><a href="#41-%E4%B8%A4%E9%98%B6%E6%AE%B5%E6%8F%90%E4%BA%A42pc">4.1. 两阶段提交（2PC）</a></li>
-<li><a href="#42-%E8%A1%A5%E5%81%BF%E4%BA%8B%E5%8A%A1tcc">4.2. 补偿事务（TCC）</a></li>
-<li><a href="#43-%E6%9C%AC%E5%9C%B0%E6%B6%88%E6%81%AF%E8%A1%A8%E5%BC%82%E6%AD%A5%E7%A1%AE%E4%BF%9D">4.3. 本地消息表（异步确保）</a></li>
-<li><a href="#44-mq-%E4%BA%8B%E5%8A%A1%E6%B6%88%E6%81%AF">4.4. MQ 事务消息</a></li>
+<li><a href="#41-paxos">4.1. Paxos</a></li>
+<li><a href="#42-raft">4.2. Raft</a></li>
 </ul>
 </li>
-<li><a href="#5-%E5%85%B1%E8%AF%86%E6%80%A7%E9%97%AE%E9%A2%98">5. 共识性问题</a>
-<ul>
-<li><a href="#51-paxos">5.1. Paxos</a></li>
-<li><a href="#52-raft">5.2. Raft</a></li>
-</ul>
-</li>
-<li><a href="#6-%E5%88%86%E5%B8%83%E5%BC%8F%E7%BC%93%E5%AD%98%E9%97%AE%E9%A2%98">6. 分布式缓存问题</a>
-<ul>
-<li><a href="#61-%E7%BC%93%E5%AD%98%E9%9B%AA%E5%B4%A9">6.1. 缓存雪崩</a></li>
-<li><a href="#62-%E7%BC%93%E5%AD%98%E7%A9%BF%E9%80%8F">6.2. 缓存穿透</a></li>
-<li><a href="#63-%E7%BC%93%E5%AD%98%E9%A2%84%E7%83%AD">6.3. 缓存预热</a></li>
-<li><a href="#64-%E7%BC%93%E5%AD%98%E6%9B%B4%E6%96%B0">6.4. 缓存更新</a></li>
-<li><a href="#65-%E7%BC%93%E5%AD%98%E9%99%8D%E7%BA%A7">6.5. 缓存降级</a></li>
-</ul>
-</li>
-<li><a href="#7-%E5%8F%82%E8%80%83%E8%B5%84%E6%96%99">7. 参考资料</a></li>
+<li><a href="#5-%E5%8F%82%E8%80%83%E8%B5%84%E6%96%99">5. 参考资料</a></li>
 </ul>
 <!-- /TOC -->
 <h2 id="1-分布式术语"><a class="markdownIt-Anchor" href="#1-分布式术语"></a> 1. 分布式术语</h2>
 <h3 id="11-异常"><a class="markdownIt-Anchor" href="#11-异常"></a> 1.1. 异常</h3>
-<h4 id="服务器宕机"><a class="markdownIt-Anchor" href="#服务器宕机"></a> 服务器宕机</h4>
-<p>内存错误、服务器停电等都会导致服务器宕机，此时节点无法正常工作，称为不可用。</p>
-<p>服务器宕机会导致节点失去所有内存信息，因此需要将内存信息保存到持久化介质上。</p>
-<h4 id="网络异常"><a class="markdownIt-Anchor" href="#网络异常"></a> 网络异常</h4>
-<p>有一种特殊的网络异常称为——<strong>网络分区</strong> ，即集群的所有节点被划分为多个区域，每个区域内部可以通信，但是区域之间无法通信。</p>
-<h4 id="磁盘故障"><a class="markdownIt-Anchor" href="#磁盘故障"></a> 磁盘故障</h4>
-<p>磁盘故障是一种发生概率很高的异常。</p>
-<p>使用冗余机制，将数据存储到多台服务器。</p>
+<ul>
+<li><strong><code>服务器宕机</code></strong> - 内存错误、服务器停电等都会导致服务器宕机，此时节点无法正常工作，称为不可用。服务器宕机会导致节点失去所有内存信息，因此需要将内存信息保存到持久化介质上。</li>
+<li><strong><code>网络异常</code></strong> - 有一种特殊的网络异常称为——<strong>网络分区</strong> ，即集群的所有节点被划分为多个区域，每个区域内部可以通信，但是区域之间无法通信。</li>
+<li><strong><code>磁盘故障</code></strong> - 磁盘故障是一种发生概率很高的异常。使用冗余机制，将数据存储到多台服务器。</li>
+</ul>
 <h3 id="12-超时"><a class="markdownIt-Anchor" href="#12-超时"></a> 1.2. 超时</h3>
 <p>在分布式系统中，一个请求除了成功和失败两种状态，还存在着超时状态。</p>
 <p>可以将服务器的操作设计为具有 <strong>幂等性</strong> ，即执行多次的结果与执行一次的结果相同。如果使用这种方式，当出现超时的时候，可以不断地重新请求直到成功。</p>
@@ -913,41 +1116,21 @@
 <p>可以从两个角度理解一致性：从客户端的角度，读写操作是否满足某种特性；从服务器的角度，多个数据副本之间是否一致。</p>
 <h4 id="可扩展性"><a class="markdownIt-Anchor" href="#可扩展性"></a> 可扩展性</h4>
 <p>指系统通过扩展集群服务器规模来提高性能的能力。理想的分布式系统需要实现“线性可扩展”，即随着集群规模的增加，系统的整体性能也会线性增加。</p>
-<h2 id="2-数据分布"><a class="markdownIt-Anchor" href="#2-数据分布"></a> 2. 数据分布</h2>
-<p>分布式存储系统的数据分布在多个节点中，常用的数据分布方式有哈希分布和顺序分布。</p>
-<p>数据库的水平切分（Sharding）也是一种分布式存储方法，下面的数据分布方法同样适用于 Sharding。</p>
-<h3 id="21-哈希分布"><a class="markdownIt-Anchor" href="#21-哈希分布"></a> 2.1. 哈希分布</h3>
-<p>哈希分布就是将数据计算哈希值之后，按照哈希值分配到不同的节点上。例如有 N 个节点，数据的主键为 key，则将该数据分配的节点序号为：hash(key)%N。</p>
-<p>传统的哈希分布算法存在一个问题：当节点数量变化时，也就是 N 值变化，那么几乎所有的数据都需要重新分布，将导致大量的数据迁移。</p>
-<p><strong>一致性哈希</strong></p>
-<p>Distributed Hash Table（DHT）：对于哈希空间 [0, 2<sup>n</sup>-1]，将该哈希空间看成一个哈希环，将每个节点都配置到哈希环上。每个数据对象通过哈希取模得到哈希值之后，存放到哈希环中顺时针方向第一个大于等于该哈希值的节点上。</p>
-<p>一致性哈希的优点是在增加或者删除节点时只会影响到哈希环中相邻的节点，例如下图中新增节点 X，只需要将数据对象 C 重新存放到节点 X 上即可，对于节点 A、B、D 都没有影响。</p>
-<h3 id="22-顺序分布"><a class="markdownIt-Anchor" href="#22-顺序分布"></a> 2.2. 顺序分布</h3>
-<p>哈希分布式破坏了数据的有序性，顺序分布则不会。</p>
-<p>顺序分布的数据划分为多个连续的部分，按数据的 ID 或者时间分布到不同节点上。例如下图中，User 表的 ID 范围为 1 ~ 7000，使用顺序分布可以将其划分成多个子表，对应的主键范围为 1 ~ 1000，1001 ~ 2000，…，6001 ~ 7000。</p>
-<p>顺序分布的优点是可以充分利用每个节点的空间，而哈希分布很难控制一个节点存储多少数据。</p>
-<p>但是顺序分布需要使用一个映射表来存储数据到节点的映射，这个映射表通常使用单独的节点来存储。当数据量非常大时，映射表也随着变大，那么一个节点就可能无法存放下整个映射表。并且单个节点维护着整个映射表的开销很大，查找速度也会变慢。为了解决以上问题，引入了一个中间层，也就是 Meta 表，从而分担映射表的维护工作。</p>
-<h3 id="23-负载均衡"><a class="markdownIt-Anchor" href="#23-负载均衡"></a> 2.3. 负载均衡</h3>
-<p>衡量负载的因素很多，如 CPU、内存、磁盘等资源使用情况、读写请求数等。</p>
-<p>分布式系统存储应当能够自动负载均衡，当某个节点的负载较高，将它的部分数据迁移到其它节点。</p>
-<p>每个集群都有一个总控节点，其它节点为工作节点，由总控节点根据全局负载信息进行整体调度，工作节点定时发送心跳包（Heartbeat）将节点负载相关的信息发送给总控节点。</p>
-<p>一个新上线的工作节点，由于其负载较低，如果不加控制，总控节点会将大量数据同时迁移到该节点上，造成该节点一段时间内无法工作。因此负载均衡操作需要平滑进行，新加入的节点需要较长的一段时间来达到比较均衡的状态。</p>
-<h2 id="3-分布式理论"><a class="markdownIt-Anchor" href="#3-分布式理论"></a> 3. 分布式理论</h2>
-<h3 id="31-cap"><a class="markdownIt-Anchor" href="#31-cap"></a> 3.1. CAP</h3>
-<p>分布式系统不可能同时满足一致性（C：Consistency）、可用性（A：Availability）和分区容忍性（P：Partition Tolerance），最多只能同时满足其中两项。</p>
+<h2 id="2-分布式理论"><a class="markdownIt-Anchor" href="#2-分布式理论"></a> 2. 分布式理论</h2>
+<h3 id="21-cap"><a class="markdownIt-Anchor" href="#21-cap"></a> 2.1. CAP</h3>
+<p>分布式系统不可能同时满足 <strong><code>一致性（C：Consistency）</code></strong>、<strong><code>可用性（A：Availability）</code><strong>和</strong><code>分区容忍性（P：Partition Tolerance）</code></strong>，最多只能同时满足其中两项。</p>
 <div align="center">
 <img src="http://dunwu.test.upcdn.net/cs/design/architecture/分布式理论-CAP.jpg" width="450"/>
 </div>
 <h4 id="一致性-2"><a class="markdownIt-Anchor" href="#一致性-2"></a> 一致性</h4>
-<p>一致性指的是多个数据副本是否能保持一致的特性。</p>
+<p>一致性指的是<strong>多个数据副本是否能保持一致</strong>的特性。</p>
 <p>在一致性的条件下，系统在执行数据更新操作之后能够从一致性状态转移到另一个一致性状态。</p>
 <p>对系统的一个数据更新成功之后，如果所有用户都能够读取到最新的值，该系统就被认为具有强一致性。</p>
 <h4 id="可用性-2"><a class="markdownIt-Anchor" href="#可用性-2"></a> 可用性</h4>
-<p>可用性指分布式系统在面对各种异常时可以提供正常服务的能力，可以用系统可用时间占总时间的比值来衡量，4 个 9 的可用性表示系统 99.99% 的时间是可用的。</p>
+<p>可用性指<strong>分布式系统在面对各种异常时可以提供正常服务的能力</strong>，可以用系统可用时间占总时间的比值来衡量，4 个 9 的可用性表示系统 <code>99.99%</code> 的时间是可用的。</p>
 <p>在可用性条件下，系统提供的服务一直处于可用的状态，对于用户的每一个操作请求总是能够在有限的时间内返回结果。</p>
-<h4 id="分区容忍性"><a class="markdownIt-Anchor" href="#分区容忍性"></a> 分区容忍性</h4>
-<p>网络分区指分布式系统中的节点被划分为多个区域，每个区域内部可以通信，但是区域之间无法通信。</p>
-<p>在分区容忍性条件下，分布式系统在遇到任何网络分区故障的时候，仍然需要能对外提供一致性和可用性的服务，除非是整个网络环境都发生了故障。</p>
+<h4 id="分区容错性"><a class="markdownIt-Anchor" href="#分区容错性"></a> 分区容错性</h4>
+<p>分区容错性指 <strong>分布式系统在遇到任何网络分区故障的时候，仍然需要能对外提供一致性和可用性的服务，除非是整个网络环境都发生了故障</strong>。</p>
 <h4 id="权衡"><a class="markdownIt-Anchor" href="#权衡"></a> 权衡</h4>
 <p>在分布式系统中，分区容忍性必不可少，因为需要总是假设网络是不可靠的。因此，CAP 理论实际在是要在可用性和一致性之间做权衡。</p>
 <p>可用性和一致性往往是冲突的，很难都使它们同时满足。在多个节点之间进行数据同步时，</p>
@@ -955,12 +1138,10 @@
 <li>为了保证一致性（CP），就需要让所有节点下线成为不可用的状态，等待同步完成；</li>
 <li>为了保证可用性（AP），在同步过程中允许读取所有节点的数据，但是数据可能不一致。</li>
 </ul>
-<h3 id="32-base"><a class="markdownIt-Anchor" href="#32-base"></a> 3.2. BASE</h3>
-<p>BASE 是基本可用（Basically Available）、软状态（Soft State）和最终一致性（Eventually Consistent）三个短语的缩写。</p>
+<h3 id="22-base"><a class="markdownIt-Anchor" href="#22-base"></a> 2.2. BASE</h3>
+<p>BASE 是 <strong><code>基本可用（Basically Available）</code></strong>、<strong><code>软状态（Soft State）</code></strong> 和 <strong><code>最终一致性（Eventually Consistent）</code></strong> 三个短语的缩写。</p>
 <p>BASE 理论是对 CAP 中一致性和可用性权衡的结果，它的理论的核心思想是：即使无法做到强一致性，但每个应用都可以根据自身业务特点，采用适当的方式来使系统达到最终一致性。</p>
-<div align="center">
-<img src="http://dunwu.test.upcdn.net/cs/distributed/architecture/分布式理论-BASE.png" />
-</div>
+<p><img src="http://dunwu.test.upcdn.net/cs/design/architecture/%E5%88%86%E5%B8%83%E5%BC%8F%E7%90%86%E8%AE%BA-BASE.png" alt="img" /></p>
 <h4 id="基本可用"><a class="markdownIt-Anchor" href="#基本可用"></a> 基本可用</h4>
 <p>指分布式系统在出现故障的时候，保证核心可用，允许损失部分可用性。</p>
 <p>例如，电商在做促销时，为了保证购物系统的稳定性，部分消费者可能会被引导到一个降级的页面。</p>
@@ -970,8 +1151,8 @@
 <p>最终一致性强调的是系统中所有的数据副本，在经过一段时间的同步后，最终能达到一致的状态。</p>
 <p>ACID 要求强一致性，通常运用在传统的数据库系统上。而 BASE 要求最终一致性，通过牺牲强一致性来达到可用性，通常运用在大型分布式系统中。</p>
 <p>在实际的分布式场景中，不同业务单元和组件对一致性的要求是不同的，因此 ACID 和 BASE 往往会结合在一起使用。</p>
-<h2 id="4-分布式事务问题"><a class="markdownIt-Anchor" href="#4-分布式事务问题"></a> 4. 分布式事务问题</h2>
-<h3 id="41-两阶段提交2pc"><a class="markdownIt-Anchor" href="#41-两阶段提交2pc"></a> 4.1. 两阶段提交（2PC）</h3>
+<h2 id="3-分布式事务"><a class="markdownIt-Anchor" href="#3-分布式事务"></a> 3. 分布式事务</h2>
+<h3 id="31-两阶段提交2pc"><a class="markdownIt-Anchor" href="#31-两阶段提交2pc"></a> 3.1. 两阶段提交（2PC）</h3>
 <p>两阶段提交（Two-phase Commit，2PC）</p>
 <p>主要用于实现分布式事务，分布式事务指的是事务操作跨越多个节点，并且要求满足事务的 ACID 特性。</p>
 <p>通过引入协调者（Coordinator）来调度参与者的行为，并最终决定这些参与者是否要真正执行事务。</p>
@@ -999,7 +1180,7 @@
 <h4 id="pc-优缺点"><a class="markdownIt-Anchor" href="#pc-优缺点"></a> PC 优缺点</h4>
 <p>优点：尽量保证了数据的强一致，适合对数据强一致要求很高的关键领域。（其实也不能 100%保证强一致）<br />
 缺点：实现复杂，牺牲了可用性，对性能影响较大，不适合高并发高性能场景。</p>
-<h3 id="42-补偿事务tcc"><a class="markdownIt-Anchor" href="#42-补偿事务tcc"></a> 4.2. 补偿事务（TCC）</h3>
+<h3 id="32-补偿事务tcc"><a class="markdownIt-Anchor" href="#32-补偿事务tcc"></a> 3.2. 补偿事务（TCC）</h3>
 <p>补偿事务（TCC）其核心思想是：针对每个操作，都要注册一个与其对应的确认和补偿（撤销）操作。它分为三个阶段：</p>
 <ol>
 <li>Try 阶段主要是对业务系统做检测及资源预留。</li>
@@ -1017,7 +1198,7 @@
 <li>优点：跟 2PC 比起来，实现以及流程相对简单了一些，但数据的一致性比 2PC 也要差一些。</li>
 <li>缺点：缺点还是比较明显的，在 2,3 步中都有可能失败。TCC 属于应用层的一种补偿方式，所以需要程序员在实现的时候多写很多补偿的代码，在一些场景中，一些业务流程可能用 TCC 不太好定义及处理。</li>
 </ul>
-<h3 id="43-本地消息表异步确保"><a class="markdownIt-Anchor" href="#43-本地消息表异步确保"></a> 4.3. 本地消息表（异步确保）</h3>
+<h3 id="33-本地消息表异步确保"><a class="markdownIt-Anchor" href="#33-本地消息表异步确保"></a> 3.3. 本地消息表（异步确保）</h3>
 <p>本地消息表与业务数据表处于同一个数据库中，这样就能利用本地事务来保证在对这两个表的操作满足事务特性。</p>
 <ol>
 <li>在分布式事务操作的一方完成写业务数据的操作之后向本地消息表发送一个消息，本地事务能保证这个消息一定会被写入本地消息表中。</li>
@@ -1034,7 +1215,7 @@
 <li>优点：一种非常经典的实现，避免了分布式事务，实现了最终一致性。</li>
 <li>缺点：消息表会耦合到业务系统中，如果没有封装好的解决方案，会有很多杂活需要处理。</li>
 </ul>
-<h3 id="44-mq-事务消息"><a class="markdownIt-Anchor" href="#44-mq-事务消息"></a> 4.4. MQ 事务消息</h3>
+<h3 id="34-mq-事务消息"><a class="markdownIt-Anchor" href="#34-mq-事务消息"></a> 3.4. MQ 事务消息</h3>
 <p>有一些第三方的 MQ 是支持事务消息的，比如 RocketMQ，他们支持事务消息的方式也是类似于采用的二阶段提交。但是市面上一些主流的 MQ 都是不支持事务消息的，比如 RabbitMQ 和 Kafka 都不支持。</p>
 <p>以阿里的 RocketMQ 中间件为例，其思路大致为：</p>
 <ol>
@@ -1048,8 +1229,8 @@
 <li>优点：实现了最终一致性，不需要依赖本地数据库事务。</li>
 <li>缺点：实现难度大，主流 MQ 不支持。</li>
 </ul>
-<h2 id="5-共识性问题"><a class="markdownIt-Anchor" href="#5-共识性问题"></a> 5. 共识性问题</h2>
-<h3 id="51-paxos"><a class="markdownIt-Anchor" href="#51-paxos"></a> 5.1. Paxos</h3>
+<h2 id="4-共识性问题"><a class="markdownIt-Anchor" href="#4-共识性问题"></a> 4. 共识性问题</h2>
+<h3 id="41-paxos"><a class="markdownIt-Anchor" href="#41-paxos"></a> 4.1. Paxos</h3>
 <p>用于达成共识性问题，即对多个节点产生的值，该算法能保证只选出唯一一个值。</p>
 <p>主要有三类节点：</p>
 <ul>
@@ -1087,7 +1268,7 @@
 <p>另一种情况是允许同一时间片段内可以出现多个提案者。那同一个节点可能收到多份提案，怎么对他们进行区分呢？这个时候采用只接受第一个提案而拒绝后续提案的方法也不适用。很自然的，提案需要带上不同的序号。节点需要根据提案序号来判断接受哪个。比如接受其中序号较大（往往意味着是接受新提出的，因为旧提案者故障概率更大）的提案。</p>
 <p>如何为提案分配序号呢？一种可能方案是每个节点的提案数字区间彼此隔离开，互相不冲突。为了满足递增的需求可以配合用时间戳作为前缀字段。</p>
 <p>此外，提案者即便收到了多数接收者的投票，也不敢说就一定通过。因为在此过程中系统可能还有其它的提案。</p>
-<h3 id="52-raft"><a class="markdownIt-Anchor" href="#52-raft"></a> 5.2. Raft</h3>
+<h3 id="42-raft"><a class="markdownIt-Anchor" href="#42-raft"></a> 4.2. Raft</h3>
 <p>Raft 算法是 Paxos 算法的一种简化实现。</p>
 <p>包括三种角色：leader、candidate 和 follower，其基本过程为：</p>
 <ul>
@@ -1159,43 +1340,7 @@
 <div align="center">
 <img src="http://dunwu.test.upcdn.net/cs/design/architecture/raft-sync-log-04.gif" />
 </div>
-<h2 id="6-分布式缓存问题"><a class="markdownIt-Anchor" href="#6-分布式缓存问题"></a> 6. 分布式缓存问题</h2>
-<h3 id="61-缓存雪崩"><a class="markdownIt-Anchor" href="#61-缓存雪崩"></a> 6.1. 缓存雪崩</h3>
-<p>缓存雪崩是指：在高并发场景下，由于原有缓存失效，新缓存未到期间(例如：我们设置缓存时采用了相同的过期时间，在同一时刻出现大面积的缓存过期)，所有原本应该访问缓存的请求都去查询数据库了，而对数据库 CPU 和内存造成巨大压力，严重的会造成数据库宕机。从而形成一系列连锁反应，造成整个系统崩溃。</p>
-<p>解决方案：</p>
-<ul>
-<li>用加锁或者队列的方式保证来保证不会有大量的线程对数据库一次性进行读写，从而避免失效时大量的并发请求落到底层存储系统上。</li>
-<li>还有一个简单的方案，就是将缓存失效时间分散开，不要所有缓存时间长度都设置成 5 分钟或者 10 分钟；比如我们可以在原有的失效时间基础上增加一个随机值，比如 1-5 分钟随机，这样每一个缓存的过期时间的重复率就会降低，就很难引发集体失效的事件。</li>
-</ul>
-<p>缓存失效时产生的雪崩效应，将所有请求全部放在数据库上，这样很容易就达到数据库的瓶颈，导致服务无法正常提供。尽量避免这种场景的发生。</p>
-<h3 id="62-缓存穿透"><a class="markdownIt-Anchor" href="#62-缓存穿透"></a> 6.2. 缓存穿透</h3>
-<p>缓存穿透是指：用户查询的数据，在数据库没有，自然在缓存中也不会有。这样就导致用户查询的时候，在缓存中找不到，每次都要去数据库再查询一遍，然后返回空（相当于进行了两次无用的查询）。这样请求就绕过缓存直接查数据库，这也是经常提的缓存命中率问题。</p>
-<p>当在流量较大时，出现这样的情况，一直请求 DB，很容易导致服务挂掉。</p>
-<p>解决方案：</p>
-<ol>
-<li>在封装的缓存 SET 和 GET 部分增加个步骤，如果查询一个 KEY 不存在，就以这个 KEY 为前缀设定一个标识 KEY；以后再查询该 KEY 的时候，先查询标识 KEY，如果标识 KEY 存在，就返回一个协定好的非 false 或者 NULL 值，然后 APP 做相应的处理，这样缓存层就不会被穿透。当然这个验证 KEY 的失效时间不能太长。</li>
-<li>如果一个查询返回的数据为空（不管是数据不存在，还是系统故障），我们仍然把这个空结果进行缓存，但它的过期时间会很短，一般只有几分钟。</li>
-<li>采用布隆过滤器，将所有可能存在的数据哈希到一个足够大的 bitmap 中，一个一定不存在的数据会被这个 bitmap 拦截掉，从而避免了对底层存储系统的查询压力。</li>
-</ol>
-<h3 id="63-缓存预热"><a class="markdownIt-Anchor" href="#63-缓存预热"></a> 6.3. 缓存预热</h3>
-<p>缓存预热这个应该是一个比较常见的概念，相信很多小伙伴都应该可以很容易的理解，缓存预热就是系统上线后，将相关的缓存数据直接加载到缓存系统。这样就可以避免在用户请求的时候，先查询数据库，然后再将数据缓存的问题！用户直接查询事先被预热的缓存数据！</p>
-<p>解决方案：</p>
-<ol>
-<li>直接写个缓存刷新页面，上线时手工操作下；</li>
-<li>数据量不大，可以在项目启动的时候自动进行加载；</li>
-<li>定时刷新缓存；</li>
-</ol>
-<h3 id="64-缓存更新"><a class="markdownIt-Anchor" href="#64-缓存更新"></a> 6.4. 缓存更新</h3>
-<p>除了缓存服务器自带的缓存失效策略之外（Redis 默认的有 6 中策略可供选择），我们还可以根据具体的业务需求进行自定义的缓存淘汰，常见的策略有两种：</p>
-<ol>
-<li>定时去清理过期的缓存；</li>
-<li>当有用户请求过来时，再判断这个请求所用到的缓存是否过期，过期的话就去底层系统得到新数据并更新缓存。</li>
-</ol>
-<p>两者各有优劣，第一种的缺点是维护大量缓存的 key 是比较麻烦的，第二种的缺点就是每次用户请求过来都要判断缓存失效，逻辑相对比较复杂！具体用哪种方案，大家可以根据自己的应用场景来权衡。</p>
-<h3 id="65-缓存降级"><a class="markdownIt-Anchor" href="#65-缓存降级"></a> 6.5. 缓存降级</h3>
-<p>当访问量剧增、服务出现问题（如响应时间慢或不响应）或非核心服务影响到核心流程的性能时，仍然需要保证服务还是可用的，即使是有损服务。系统可以根据一些关键数据进行自动降级，也可以配置开关实现人工降级。</p>
-<p>降级的最终目的是保证核心服务可用，即使是有损的。而且有些服务是无法降级的（如加入购物车、结算）。</p>
-<h2 id="参考资料"><a class="markdownIt-Anchor" href="#参考资料"></a> 参考资料</h2>
+<h2 id="5-参考资料"><a class="markdownIt-Anchor" href="#5-参考资料"></a> 5. 参考资料</h2>
 <ul>
 <li>杨传辉. 大规模分布式存储系统: 原理解析与架构实战[M]. 机械工业出版社, 2013.</li>
 <li><a href="https://www.gitbook.com/book/yeasy/blockchain_guide/details" target="_blank" rel="noopener">区块链技术指南</a></li>
@@ -2488,6 +2633,412 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://dunwu.github.io/blog/blog/design/architecture/extensible-architecture/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/blog/images/avatar.gif">
+      <meta itemprop="name" content="Zhang Peng">
+      <meta itemprop="description" content="Dunwu's Blog">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Dunwu">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/blog/design/architecture/extensible-architecture/" class="post-title-link" itemprop="url">扩展性架构</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2018-07-05 15:11:00" itemprop="dateCreated datePublished" datetime="2018-07-05T15:11:00+08:00">2018-07-05</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2019-12-03 16:31:45" itemprop="dateModified" datetime="2019-12-03T16:31:45+08:00">2019-12-03</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/blog/categories/%E8%AE%BE%E8%AE%A1/" itemprop="url" rel="index">
+                    <span itemprop="name">设计</span>
+                  </a>
+                </span>
+                  ，
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/blog/categories/%E8%AE%BE%E8%AE%A1/%E6%9E%B6%E6%9E%84/" itemprop="url" rel="index">
+                    <span itemprop="name">架构</span>
+                  </a>
+                </span>
+            </span>
+
+          
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="fa fa-comment-o"></i>
+      </span>
+      <span class="post-meta-item-text">Disqus：</span>
+    
+    <a title="disqus" href="/blog/design/architecture/extensible-architecture/#comments" itemprop="discussionUrl">
+      <span class="post-comments-count disqus-comment-count" data-disqus-identifier="design/architecture/extensible-architecture/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  <br>
+            <span class="post-meta-item" title="本文字数">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-file-word-o"></i>
+              </span>
+                <span class="post-meta-item-text">本文字数：</span>
+              <span>1.6k</span>
+            </span>
+            <span class="post-meta-item" title="阅读时长">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-clock-o"></i>
+              </span>
+                <span class="post-meta-item-text">阅读时长 &asymp;</span>
+              <span>1 分钟</span>
+            </span>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h1 id="扩展性架构"><a class="markdownIt-Anchor" href="#扩展性架构"></a> 扩展性架构</h1>
+<blockquote>
+<p>扩展性和伸缩性是不同的概念：</p>
+<ul>
+<li><strong>扩展性（Extensibility）</strong> - 指对现有系统影响最小的情况下，系统功能可持续扩展或提升的能力。表现在系统基础设施稳定不需要经常变更，应用之间较少依赖和耦合，对需求变更可以敏捷响应。它是系统架构设计层面的开闭原则（对扩展开放、对修改关闭），架构设计考虑未来功能扩展，当系统增加新功能时，不需要对现有系统的结构和代码进行修改。</li>
+<li><strong>伸缩性（Scalability）</strong> - 指系统能够通过增加减少自身资源规模的方式增减自己计算处理事务的能力。如果这种增减是成比例的，就被称作线性伸缩性。在网站架构中 ，通常指利用集群的方式增加服务器数量、提高系统的整体事务吞吐能力。</li>
+</ul>
+</blockquote>
+<h2 id="1-易扩展的系统架构"><a class="markdownIt-Anchor" href="#1-易扩展的系统架构"></a> 1. 易扩展的系统架构</h2>
+<blockquote>
+<p><strong>低耦合的系统更容易扩展、复用</strong>。</p>
+</blockquote>
+<p><strong>可扩展架构的核心思想是模块化，并在此基础上，降低模块间的耦合性，提高模块的复用性</strong>。</p>
+<p>分层和分割不仅可以进行架构伸缩，也是模块化设计的重要手段，利用分层和分割的方式将软件分割为若干个低耦合的独立的组件模块，这些组件模块以消息传递及依赖调用的方式聚合成一个完整的系统。</p>
+<p>在大型网站中，这些模块通过分布式部署的方式，独立的模块部署在独立的服务器上，从物理上分离模块间的耦合关系，进一步降低耦合性提高复用性。</p>
+<h2 id="2-利用分布式消息队列降低系统耦合性"><a class="markdownIt-Anchor" href="#2-利用分布式消息队列降低系统耦合性"></a> 2. 利用分布式消息队列降低系统耦合性</h2>
+<h3 id="21-事件驱动架构"><a class="markdownIt-Anchor" href="#21-事件驱动架构"></a> 2.1. 事件驱动架构</h3>
+<p><strong>事件驱动架构通过在低耦合的模块间传输事件消息，以保持模块的松散耦合，并借助事件消息的通信完成模块间合作</strong>。典型的事件驱动架构就是操作系统中常见的生产者消费者模式。在大型网站中，最常见的实现手段就是分布式消息队列。</p>
+<h3 id="22-分布式消息队列"><a class="markdownIt-Anchor" href="#22-分布式消息队列"></a> 2.2. 分布式消息队列</h3>
+<p>消息生产者应用程序通过远程访问接口将消息推送给消息队列服务器，消息队列服务器将消息写入本地内存队列后立即返回成功响应给消息生产者。消息队列服务器根据消息订阅列表查找订阅该消息的消息消费者应用程序，将消息队列中的消息按照先进先出（FIFO）的原则将消息通过远程通信接口发送给消息消费者程序。</p>
+<div align="center">
+<img src="http://dunwu.test.upcdn.net/cs/java/javaweb/architecture/分布式消息队列架构原理.png!zp" />
+</div>
+<p>在伸缩性方面，由于消息队列服务器上的数据可以看作是即时处理的，因此类似于无状态的服务器，伸缩性设计比较简单。将新服务器加入分布式消息队列集群中，通知生产者服务器更改消息队列服务器列表即可。</p>
+<p>在可用性方面，为了避免消费者进程处理缓慢，分布式消息队列服务器内存空间不足造成的问题，如果内存队列已满，会将消息写入磁盘，消息推送模块在将内存队列消息处理完成以后，将磁盘内容加载到内存队列继续处理。</p>
+<h2 id="3-利用分布式服务打造可复用的业务平台"><a class="markdownIt-Anchor" href="#3-利用分布式服务打造可复用的业务平台"></a> 3. 利用分布式服务打造可复用的业务平台</h2>
+<p>巨无霸系统的问题：</p>
+<ul>
+<li>构建、部署困难</li>
+<li>代码分支管理困难</li>
+<li>数据库连接耗尽</li>
+<li>扩展业务困难</li>
+</ul>
+<p>而解决巨无霸系统问题的方案就是拆分：</p>
+<ul>
+<li>通过纵向拆分将业务拆分多个应用或模块；</li>
+<li>通过横向拆分将可复用业务作为独立应用。</li>
+</ul>
+<p>然后，需要通过一个分布式服务管理框架将这些应用或服务组织管理起来：通过接口分解系统耦合性，不同子系统通过相同的接口描述进行服务调用。常见的分布式服务管理框架如：Spring Cloud、Dubbo 等。</p>
+<p>大型网站分布式服务的需求与特点：</p>
+<ul>
+<li>负载均衡</li>
+<li>失效转移</li>
+<li>高效的远程通信</li>
+<li>整合异构系统</li>
+<li>对应用最少侵入</li>
+<li>版本管理</li>
+<li>实时监控</li>
+</ul>
+<h2 id="4-可扩展的数据结构"><a class="markdownIt-Anchor" href="#4-可扩展的数据结构"></a> 4. 可扩展的数据结构</h2>
+<p>传统的关系型数据库为了保证关系运算的正确性，在设计数据库表结构的时候，就需要指定表的 schema ——字段名称，数据类型等，并要遵循特定的设计范式。这些规范带来一个问题：难以面对需求变更带来的挑战，所以有人通过预先设计一些冗余字段来应对。</p>
+<p>许多 NoSql 数据库使用 ColumnFamily 设计来设计可扩展的数据结构。</p>
+<h2 id="5-开放平台"><a class="markdownIt-Anchor" href="#5-开放平台"></a> 5. 开放平台</h2>
+<p>很多大公司会利用开放平台提供大量开放性 API 使得企业和个人可以方便的接入业务。通过开放平台，可以构建生态圈，提升品牌价值以及竞争力。</p>
+<p>开放平台不是一朝一夕完成的，这需要大量 OPEN API 的沉淀。系统架构在设计之初，应该有意识的将未来可能被复用的接口好好设计，以便于需要开放 OPEN API 时，可以便捷的暴露服务接口。</p>
+<h2 id="6-参考资料"><a class="markdownIt-Anchor" href="#6-参考资料"></a> 6. 参考资料</h2>
+<ul>
+<li><a href="https://item.jd.com/11322972.html" target="_blank" rel="noopener">大型网站技术架构：核心原理与案例分析</a></li>
+</ul>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+        
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://dunwu.github.io/blog/blog/design/architecture/high-performance-architecture/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/blog/images/avatar.gif">
+      <meta itemprop="name" content="Zhang Peng">
+      <meta itemprop="description" content="Dunwu's Blog">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Dunwu">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/blog/design/architecture/high-performance-architecture/" class="post-title-link" itemprop="url">高性能架构</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2018-07-05 15:11:00" itemprop="dateCreated datePublished" datetime="2018-07-05T15:11:00+08:00">2018-07-05</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2019-12-03 16:31:45" itemprop="dateModified" datetime="2019-12-03T16:31:45+08:00">2019-12-03</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/blog/categories/%E8%AE%BE%E8%AE%A1/" itemprop="url" rel="index">
+                    <span itemprop="name">设计</span>
+                  </a>
+                </span>
+                  ，
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/blog/categories/%E8%AE%BE%E8%AE%A1/%E6%9E%B6%E6%9E%84/" itemprop="url" rel="index">
+                    <span itemprop="name">架构</span>
+                  </a>
+                </span>
+            </span>
+
+          
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="fa fa-comment-o"></i>
+      </span>
+      <span class="post-meta-item-text">Disqus：</span>
+    
+    <a title="disqus" href="/blog/design/architecture/high-performance-architecture/#comments" itemprop="discussionUrl">
+      <span class="post-comments-count disqus-comment-count" data-disqus-identifier="design/architecture/high-performance-architecture/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  <br>
+            <span class="post-meta-item" title="本文字数">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-file-word-o"></i>
+              </span>
+                <span class="post-meta-item-text">本文字数：</span>
+              <span>3.2k</span>
+            </span>
+            <span class="post-meta-item" title="阅读时长">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-clock-o"></i>
+              </span>
+                <span class="post-meta-item-text">阅读时长 &asymp;</span>
+              <span>3 分钟</span>
+            </span>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h1 id="高性能架构"><a class="markdownIt-Anchor" href="#高性能架构"></a> 高性能架构</h1>
+<h2 id="1-性能测试"><a class="markdownIt-Anchor" href="#1-性能测试"></a> 1. 性能测试</h2>
+<blockquote>
+<p>性能测试是性能优化的前提和基础，也是性能优化结果的检查和度量标准。不同视角下的性能有不同标准，也有不同的优化手段。</p>
+</blockquote>
+<h3 id="11-性能指标"><a class="markdownIt-Anchor" href="#11-性能指标"></a> 1.1. 性能指标</h3>
+<p>性能测试的主要指标有：</p>
+<ul>
+<li><strong>响应时间</strong> - 响应时间(RT)是指从客户端发一个请求开始计时，到客户端接收到从服务器端返回的响应结果结束所经历的时间，响应时间由请求发送时间、网络传输时间和服务器处理时间三部分组成。</li>
+<li><strong>并发数</strong> - 系统能同时处理的请求、事务数。</li>
+<li><strong>吞吐量</strong> - <strong><code>TPS(每秒事务数)</code></strong>、<strong><code>HPS(每秒 HTTP 请求数)</code></strong>、<strong><code>QPS(每秒查询数)</code></strong>。</li>
+<li><strong>性能计数器</strong> - 系统负载、对象与线程数、内存使用、CPU 使用、磁盘与网络 IO 等。这些指标也是系统监控的重要参数。</li>
+</ul>
+<h3 id="12-性能测试方法"><a class="markdownIt-Anchor" href="#12-性能测试方法"></a> 1.2. 性能测试方法</h3>
+<ul>
+<li>性能测试</li>
+<li>负载测试</li>
+<li>压力测试</li>
+<li>稳定性测试</li>
+</ul>
+<h3 id="13-性能测试报告"><a class="markdownIt-Anchor" href="#13-性能测试报告"></a> 1.3. 性能测试报告</h3>
+<p>性能测试报告示例：</p>
+<div align="center">
+<img src="https://upload-images.jianshu.io/upload_images/3101171-3d533a36f42608a1.png" />
+</div>
+<h3 id="14-性能优化策略"><a class="markdownIt-Anchor" href="#14-性能优化策略"></a> 1.4. 性能优化策略</h3>
+<ol>
+<li><strong>性能分析</strong> - 如果请求响应慢，存在性能问题。需要对请求经历的各个环节逐一分析，排查可能出现性能瓶颈的地方，定位问题。检查监控数据，分析影响性能的主要因素：内存、磁盘、网络、CPU，可能是代码或架构设计不合理，又或者是系统资源确实不足。</li>
+<li><strong>性能优化</strong> - 性能优化根据网站分层架构，大致可分为前端性能优化、应用服务性能优化、存储服务性能优化。</li>
+</ol>
+<h2 id="2-前端性能优化"><a class="markdownIt-Anchor" href="#2-前端性能优化"></a> 2. 前端性能优化</h2>
+<h3 id="21-浏览器访问优化"><a class="markdownIt-Anchor" href="#21-浏览器访问优化"></a> 2.1. 浏览器访问优化</h3>
+<ol>
+<li><strong>减少 HTTP 请求</strong> - HTTP 请求需要建立通信链路，进行数据传输，开销高昂，所以减少 HTTP 请求数可以有效提高访问性能。减少 HTTP 的主要手段是合并 Css、JavaScript、图片。</li>
+<li><strong>使用浏览器缓存</strong> - 因为静态资源文件更新频率低，可以缓存浏览器中以提高性能。设置 HTTP 头中的 <code>Cache-Control</code> 和 <code>Expires</code> 属性，可设定浏览器缓存。</li>
+<li><strong>启用压缩</strong> - 在服务器端压缩静态资源文件，在浏览器端解压缩，可以有效减少传输的数据量。由于文本文件压缩率可达 80% 以上，所以可以对静态资源，如 Html、Css、JavaScrip 进行压缩。</li>
+<li><strong>CSS 放在页面最上面，JavaScript 放在页面最下面</strong> - 浏览器会在下载完全部的 Css 后才对整个页面进行渲染，所以最好的做法是将 Css 放在页面最上面，让浏览器尽快下载 Css；JavaScript 则相反，浏览器加载 JavaScript 后立即执行，可能会阻塞整个页面，造成页面显示缓慢，因此 JavaScript 最好放在页面最下面。</li>
+<li><strong>减少 Cookie 传输</strong> - Cookie 包含在 HTTP 每次的请求和响应中，太大的 Cookie 会严重影响数据传输。</li>
+</ol>
+<h3 id="22-cdn"><a class="markdownIt-Anchor" href="#22-cdn"></a> 2.2. CDN</h3>
+<p>CDN 一般缓存的是静态资源。</p>
+<p>CDN 的本质仍然是一个缓存，而且将数据缓存在离用户最近的地方，使用户已最快速度获取数据，即所谓网络访问第一跳。</p>
+<div align="center">
+<img src="http://dunwu.test.upcdn.net/cs/java/javaweb/architecture/cdn.png!zp" width="640" />
+</div>
+<h3 id="23-反向代理"><a class="markdownIt-Anchor" href="#23-反向代理"></a> 2.3. 反向代理</h3>
+<p>传统代理服务器位于浏览器一侧，代理浏览器将 HTTP 请求发送到互联网上，而反向代理服务器位于网站机房一侧，代理网站服务器接收 HTTP 请求。</p>
+<div align="center">
+<img src="http://dunwu.test.upcdn.net/cs/java/javaweb/architecture/reverse-proxy.jpg!zp" width="640" />
+</div>
+<p>反向代理服务器可以配置缓存功能加速 Web 请求，当用户第一次访问静态内容时，静态内容就会被缓存在反向代理服务器上。</p>
+<p>反向代理还可以实现负载均衡，通过负载均衡构建的集群可以提高系统总体处理能力。</p>
+<p>因为所有请求都必须先经过反向代理服务器，所以可以屏蔽一些攻击 IP，达到保护网站安全的作用。</p>
+<h2 id="3-应用服务性能优化"><a class="markdownIt-Anchor" href="#3-应用服务性能优化"></a> 3. 应用服务性能优化</h2>
+<h3 id="31-分布式缓存"><a class="markdownIt-Anchor" href="#31-分布式缓存"></a> 3.1. 分布式缓存</h3>
+<blockquote>
+<p>网站性能优化第一定律：优先考虑使用缓存优化性能。</p>
+</blockquote>
+<h4 id="311-缓存原理"><a class="markdownIt-Anchor" href="#311-缓存原理"></a> 3.1.1. 缓存原理</h4>
+<p>缓存指将数据存储在相对较高访问速度的存储介质中，以供系统处理。一方面缓存访问速度快，可以减少数据访问的时间，另一方面如果缓存的数据是经过计算处理得到的，那么被缓存的数据无需重复计算即可直接使用，因此缓存还起到减少计算时间的作用。</p>
+<p>缓存的本质是一个内存 HASH 表。</p>
+<p>缓存主要用来存放那些读写比很高、很少变化的数据，如商品的类目信息，热门词的搜索列表信息、热门商品信息等。</p>
+<h4 id="312-合理使用缓存"><a class="markdownIt-Anchor" href="#312-合理使用缓存"></a> 3.1.2. 合理使用缓存</h4>
+<p>缓存数据的选择：</p>
+<ul>
+<li>不要存储频繁修改的数据</li>
+<li>不要存储非热点数据</li>
+<li>数据不一致与脏读：缓存有有效期，所以存在一定时间的数据不一致和脏读问题。如果不能接受，可以考虑使用数据更新立即更新缓存策略</li>
+</ul>
+<p>需要考虑的缓存问题：</p>
+<ul>
+<li><strong>缓存雪崩</strong> - 当缓存服务崩溃时，数据库会因为不能承受过大的压力而宕机。</li>
+<li><strong>缓存预热</strong> - 对于一些明确的热点数据、元数据，如地名、类目信息等，可以在启动时加载到缓存进行预热。</li>
+<li><strong>缓存穿透</strong> - 如果因不恰当的业务或恶意攻击持续高并发地请求某个不存在的数据，由于缓存中没有该数据，就会导致请求都落在数据库上，导致数据库最终崩溃。一个简单的策略是将不存在的数据也缓存起来（即缓存 null 值）。</li>
+</ul>
+<h3 id="32-异步操作"><a class="markdownIt-Anchor" href="#32-异步操作"></a> 3.2. 异步操作</h3>
+<p>异步处理不仅可以减少系统服务间的耦合度，提高扩展性，事实上，它还可以提高系统的性能。异步处理可以有效减少响应等待时间，从而提高响应速度。</p>
+<p>异步处理一般是通过分布式消息队列的方式。</p>
+<p>异步处理可以解决以下问题：</p>
+<ul>
+<li>异步处理</li>
+<li>应用解耦</li>
+<li>流量削锋</li>
+<li>日志处理</li>
+<li>消息通讯</li>
+</ul>
+<h3 id="33-使用集群"><a class="markdownIt-Anchor" href="#33-使用集群"></a> 3.3. 使用集群</h3>
+<p>在高并发场景下，使用负载均衡技术为一个应用构建一个由多台服务器组成的服务器集群，将并发访问请求分发到多台服务器上处理，避免单一服务器因负载压力过大而响应缓慢，使用户请求具有更好的响应延迟特性。</p>
+<h3 id="34-代码优化"><a class="markdownIt-Anchor" href="#34-代码优化"></a> 3.4. 代码优化</h3>
+<h4 id="341-多线程"><a class="markdownIt-Anchor" href="#341-多线程"></a> 3.4.1. 多线程</h4>
+<p>从资源利用的角度看，使用多线程的原因主要有两个：IO 阻塞和多 CPU。</p>
+<p>线程数并非越多越好，那么启动多少线程合适呢？</p>
+<p>有个参考公式：</p>
+<figure class="highlight fix"><table><tr><td class="code"><pre><span class="line"><span class="attr">启动线程数 </span>=<span class="string"> (任务执行时间 / (任务执行时间 - IO 等待时间)) * CPU 内核数</span></span><br></pre></td></tr></table></figure>
+<p>最佳启动线程数和 CPU 内核数成正比，和 IO 阻塞时间成反比。</p>
+<ul>
+<li>如果任务都是 CPU 计算型任务，那么线程数最多不要超过 CPU 内核数，因为启动再多线程，CPU 也来不及调度；</li>
+<li>相反，如果是任务需要等待磁盘操作，网络响应，那么多启动线程有助于任务并罚赌，提高系统吞吐量。</li>
+</ul>
+<h5 id="线程安全问题"><a class="markdownIt-Anchor" href="#线程安全问题"></a> 线程安全问题</h5>
+<p>线程安全问题时指多个线程并发访问某个资源，导致数据混乱。</p>
+<p>解决手段有：</p>
+<ul>
+<li><strong>将对象设计为无状态对象</strong> - 典型应用：Servlet 就是无状态对象，可以被服务器多线程并发调用处理用户请求。</li>
+<li><strong>使用局部对象</strong></li>
+<li><strong>并发访问资源时使用锁</strong> - 但是引入锁会产生性能开销，应尽量使用轻量级的锁。</li>
+</ul>
+<h4 id="342-资源复用"><a class="markdownIt-Anchor" href="#342-资源复用"></a> 3.4.2. 资源复用</h4>
+<p>应该尽量减少那些开销很大的系统资源的创建和销毁，如数据库连接、网络通信连接、线程、复杂对象等。从编程角度，资源复用主要有两种模式：单例模式和对象池。</p>
+<h4 id="343-数据结构"><a class="markdownIt-Anchor" href="#343-数据结构"></a> 3.4.3. 数据结构</h4>
+<p>根据具体场景，选择合适的数据结构。</p>
+<h4 id="344-垃圾回收"><a class="markdownIt-Anchor" href="#344-垃圾回收"></a> 3.4.4. 垃圾回收</h4>
+<p>如果 Web 应用运行在 JVM 等具有垃圾回收功能的环境中，那么垃圾回收可能会对系统的性能特性产生巨大影响。立即垃圾回收机制有助于程序优化和参数调优，以及编写内存安全的代码。</p>
+<h2 id="4-存储性能优化"><a class="markdownIt-Anchor" href="#4-存储性能优化"></a> 4. 存储性能优化</h2>
+<h3 id="41-机械键盘和固态硬盘"><a class="markdownIt-Anchor" href="#41-机械键盘和固态硬盘"></a> 4.1. 机械键盘和固态硬盘</h3>
+<p>考虑使用固态硬盘替代机械键盘，因为它的读写速度更快。</p>
+<h3 id="42-b数和-lsm-树"><a class="markdownIt-Anchor" href="#42-b数和-lsm-树"></a> 4.2. B+数和 LSM 树</h3>
+<p>传统关系数据库的数据库索引一般都使用两级索引的 <strong>B+ 树</strong> 结构，树的层次最多三层。因此可能需要 5 次磁盘访问才能更新一条记录（三次磁盘访问获得数据索引及行 ID，然后再进行一次数据文件读操作及一次数据文件写操作）。</p>
+<p>由于磁盘访问是随机的，传统机械键盘在数据随机访问时性能较差，每次数据访问都需要多次访问磁盘影响数据访问性能。</p>
+<p>许多 Nosql 数据库中的索引采用 <strong>LSM 树</strong> 作为主要数据结构。LSM 树可视为一个 N 阶合并树。数据写操作都在内存中进行。在 <strong>LSM 树上进行一次数据更新不需要磁盘访问，速度远快于 B+ 树</strong>。</p>
+<h3 id="43-raid-和-hdfs"><a class="markdownIt-Anchor" href="#43-raid-和-hdfs"></a> 4.3. RAID 和 HDFS</h3>
+<p>RAID 是 Redundant Array of Independent Disks 的缩写，中文简称为独立冗余磁盘阵列。</p>
+<p>RAID 是一种把多块独立的硬盘（物理硬盘）按不同的方式组合起来形成一个硬盘组（逻辑硬盘），从而提供比单个硬盘更高的存储性能和提供数据备份技术。</p>
+<p>HDFS(分布式文件系统) 更被大型网站所青睐。它可以配合 <code>MapReduce</code> 并发计算任务框架进行大数据处理，可以在整个集群上并发访问所有磁盘，无需 RAID 支持。</p>
+<p>HDFS 对数据存储空间的管理以数据块（Block）为单位，默认为 64 MB。所以，HDFS 更适合存储较大的文件。</p>
+<h2 id="5-参考资料"><a class="markdownIt-Anchor" href="#5-参考资料"></a> 5. 参考资料</h2>
+<ul>
+<li><a href="https://item.jd.com/11322972.html" target="_blank" rel="noopener">大型网站技术架构：核心原理与案例分析</a></li>
+</ul>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+        
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="zh-CN">
     <link itemprop="mainEntityOfPage" href="https://dunwu.github.io/blog/blog/design/architecture/system-architecture-overview/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -3021,1053 +3572,6 @@
   
   
 
-        
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="https://dunwu.github.io/blog/blog/design/architecture/extensible-architecture/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/blog/images/avatar.gif">
-      <meta itemprop="name" content="Zhang Peng">
-      <meta itemprop="description" content="Dunwu's Blog">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Dunwu">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/blog/design/architecture/extensible-architecture/" class="post-title-link" itemprop="url">扩展性架构</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-
-              <time title="创建时间：2018-07-05 15:11:00" itemprop="dateCreated datePublished" datetime="2018-07-05T15:11:00+08:00">2018-07-05</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-calendar-check-o"></i>
-                </span>
-                <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2019-12-03 16:31:45" itemprop="dateModified" datetime="2019-12-03T16:31:45+08:00">2019-12-03</time>
-              </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/blog/categories/%E8%AE%BE%E8%AE%A1/" itemprop="url" rel="index">
-                    <span itemprop="name">设计</span>
-                  </a>
-                </span>
-                  ，
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/blog/categories/%E8%AE%BE%E8%AE%A1/%E6%9E%B6%E6%9E%84/" itemprop="url" rel="index">
-                    <span itemprop="name">架构</span>
-                  </a>
-                </span>
-            </span>
-
-          
-  
-  <span class="post-meta-item">
-    
-      <span class="post-meta-item-icon">
-        <i class="fa fa-comment-o"></i>
-      </span>
-      <span class="post-meta-item-text">Disqus：</span>
-    
-    <a title="disqus" href="/blog/design/architecture/extensible-architecture/#comments" itemprop="discussionUrl">
-      <span class="post-comments-count disqus-comment-count" data-disqus-identifier="design/architecture/extensible-architecture/" itemprop="commentCount"></span>
-    </a>
-  </span>
-  
-  <br>
-            <span class="post-meta-item" title="本文字数">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-file-word-o"></i>
-              </span>
-                <span class="post-meta-item-text">本文字数：</span>
-              <span>1.6k</span>
-            </span>
-            <span class="post-meta-item" title="阅读时长">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-clock-o"></i>
-              </span>
-                <span class="post-meta-item-text">阅读时长 &asymp;</span>
-              <span>1 分钟</span>
-            </span>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h1 id="扩展性架构"><a class="markdownIt-Anchor" href="#扩展性架构"></a> 扩展性架构</h1>
-<blockquote>
-<p>扩展性和伸缩性是不同的概念：</p>
-<ul>
-<li><strong>扩展性（Extensibility）</strong> - 指对现有系统影响最小的情况下，系统功能可持续扩展或提升的能力。表现在系统基础设施稳定不需要经常变更，应用之间较少依赖和耦合，对需求变更可以敏捷响应。它是系统架构设计层面的开闭原则（对扩展开放、对修改关闭），架构设计考虑未来功能扩展，当系统增加新功能时，不需要对现有系统的结构和代码进行修改。</li>
-<li><strong>伸缩性（Scalability）</strong> - 指系统能够通过增加减少自身资源规模的方式增减自己计算处理事务的能力。如果这种增减是成比例的，就被称作线性伸缩性。在网站架构中 ，通常指利用集群的方式增加服务器数量、提高系统的整体事务吞吐能力。</li>
-</ul>
-</blockquote>
-<h2 id="1-易扩展的系统架构"><a class="markdownIt-Anchor" href="#1-易扩展的系统架构"></a> 1. 易扩展的系统架构</h2>
-<blockquote>
-<p><strong>低耦合的系统更容易扩展、复用</strong>。</p>
-</blockquote>
-<p><strong>可扩展架构的核心思想是模块化，并在此基础上，降低模块间的耦合性，提高模块的复用性</strong>。</p>
-<p>分层和分割不仅可以进行架构伸缩，也是模块化设计的重要手段，利用分层和分割的方式将软件分割为若干个低耦合的独立的组件模块，这些组件模块以消息传递及依赖调用的方式聚合成一个完整的系统。</p>
-<p>在大型网站中，这些模块通过分布式部署的方式，独立的模块部署在独立的服务器上，从物理上分离模块间的耦合关系，进一步降低耦合性提高复用性。</p>
-<h2 id="2-利用分布式消息队列降低系统耦合性"><a class="markdownIt-Anchor" href="#2-利用分布式消息队列降低系统耦合性"></a> 2. 利用分布式消息队列降低系统耦合性</h2>
-<h3 id="21-事件驱动架构"><a class="markdownIt-Anchor" href="#21-事件驱动架构"></a> 2.1. 事件驱动架构</h3>
-<p><strong>事件驱动架构通过在低耦合的模块间传输事件消息，以保持模块的松散耦合，并借助事件消息的通信完成模块间合作</strong>。典型的事件驱动架构就是操作系统中常见的生产者消费者模式。在大型网站中，最常见的实现手段就是分布式消息队列。</p>
-<h3 id="22-分布式消息队列"><a class="markdownIt-Anchor" href="#22-分布式消息队列"></a> 2.2. 分布式消息队列</h3>
-<p>消息生产者应用程序通过远程访问接口将消息推送给消息队列服务器，消息队列服务器将消息写入本地内存队列后立即返回成功响应给消息生产者。消息队列服务器根据消息订阅列表查找订阅该消息的消息消费者应用程序，将消息队列中的消息按照先进先出（FIFO）的原则将消息通过远程通信接口发送给消息消费者程序。</p>
-<div align="center">
-<img src="http://dunwu.test.upcdn.net/cs/java/javaweb/architecture/分布式消息队列架构原理.png!zp" />
-</div>
-<p>在伸缩性方面，由于消息队列服务器上的数据可以看作是即时处理的，因此类似于无状态的服务器，伸缩性设计比较简单。将新服务器加入分布式消息队列集群中，通知生产者服务器更改消息队列服务器列表即可。</p>
-<p>在可用性方面，为了避免消费者进程处理缓慢，分布式消息队列服务器内存空间不足造成的问题，如果内存队列已满，会将消息写入磁盘，消息推送模块在将内存队列消息处理完成以后，将磁盘内容加载到内存队列继续处理。</p>
-<h2 id="3-利用分布式服务打造可复用的业务平台"><a class="markdownIt-Anchor" href="#3-利用分布式服务打造可复用的业务平台"></a> 3. 利用分布式服务打造可复用的业务平台</h2>
-<p>巨无霸系统的问题：</p>
-<ul>
-<li>构建、部署困难</li>
-<li>代码分支管理困难</li>
-<li>数据库连接耗尽</li>
-<li>扩展业务困难</li>
-</ul>
-<p>而解决巨无霸系统问题的方案就是拆分：</p>
-<ul>
-<li>通过纵向拆分将业务拆分多个应用或模块；</li>
-<li>通过横向拆分将可复用业务作为独立应用。</li>
-</ul>
-<p>然后，需要通过一个分布式服务管理框架将这些应用或服务组织管理起来：通过接口分解系统耦合性，不同子系统通过相同的接口描述进行服务调用。常见的分布式服务管理框架如：Spring Cloud、Dubbo 等。</p>
-<p>大型网站分布式服务的需求与特点：</p>
-<ul>
-<li>负载均衡</li>
-<li>失效转移</li>
-<li>高效的远程通信</li>
-<li>整合异构系统</li>
-<li>对应用最少侵入</li>
-<li>版本管理</li>
-<li>实时监控</li>
-</ul>
-<h2 id="4-可扩展的数据结构"><a class="markdownIt-Anchor" href="#4-可扩展的数据结构"></a> 4. 可扩展的数据结构</h2>
-<p>传统的关系型数据库为了保证关系运算的正确性，在设计数据库表结构的时候，就需要指定表的 schema ——字段名称，数据类型等，并要遵循特定的设计范式。这些规范带来一个问题：难以面对需求变更带来的挑战，所以有人通过预先设计一些冗余字段来应对。</p>
-<p>许多 NoSql 数据库使用 ColumnFamily 设计来设计可扩展的数据结构。</p>
-<h2 id="5-开放平台"><a class="markdownIt-Anchor" href="#5-开放平台"></a> 5. 开放平台</h2>
-<p>很多大公司会利用开放平台提供大量开放性 API 使得企业和个人可以方便的接入业务。通过开放平台，可以构建生态圈，提升品牌价值以及竞争力。</p>
-<p>开放平台不是一朝一夕完成的，这需要大量 OPEN API 的沉淀。系统架构在设计之初，应该有意识的将未来可能被复用的接口好好设计，以便于需要开放 OPEN API 时，可以便捷的暴露服务接口。</p>
-<h2 id="6-参考资料"><a class="markdownIt-Anchor" href="#6-参考资料"></a> 6. 参考资料</h2>
-<ul>
-<li><a href="https://item.jd.com/11322972.html" target="_blank" rel="noopener">大型网站技术架构：核心原理与案例分析</a></li>
-</ul>
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-        
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="https://dunwu.github.io/blog/blog/design/architecture/high-performance-architecture/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/blog/images/avatar.gif">
-      <meta itemprop="name" content="Zhang Peng">
-      <meta itemprop="description" content="Dunwu's Blog">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Dunwu">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/blog/design/architecture/high-performance-architecture/" class="post-title-link" itemprop="url">高性能架构</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-
-              <time title="创建时间：2018-07-05 15:11:00" itemprop="dateCreated datePublished" datetime="2018-07-05T15:11:00+08:00">2018-07-05</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-calendar-check-o"></i>
-                </span>
-                <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2019-12-03 16:31:45" itemprop="dateModified" datetime="2019-12-03T16:31:45+08:00">2019-12-03</time>
-              </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/blog/categories/%E8%AE%BE%E8%AE%A1/" itemprop="url" rel="index">
-                    <span itemprop="name">设计</span>
-                  </a>
-                </span>
-                  ，
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/blog/categories/%E8%AE%BE%E8%AE%A1/%E6%9E%B6%E6%9E%84/" itemprop="url" rel="index">
-                    <span itemprop="name">架构</span>
-                  </a>
-                </span>
-            </span>
-
-          
-  
-  <span class="post-meta-item">
-    
-      <span class="post-meta-item-icon">
-        <i class="fa fa-comment-o"></i>
-      </span>
-      <span class="post-meta-item-text">Disqus：</span>
-    
-    <a title="disqus" href="/blog/design/architecture/high-performance-architecture/#comments" itemprop="discussionUrl">
-      <span class="post-comments-count disqus-comment-count" data-disqus-identifier="design/architecture/high-performance-architecture/" itemprop="commentCount"></span>
-    </a>
-  </span>
-  
-  <br>
-            <span class="post-meta-item" title="本文字数">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-file-word-o"></i>
-              </span>
-                <span class="post-meta-item-text">本文字数：</span>
-              <span>3.2k</span>
-            </span>
-            <span class="post-meta-item" title="阅读时长">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-clock-o"></i>
-              </span>
-                <span class="post-meta-item-text">阅读时长 &asymp;</span>
-              <span>3 分钟</span>
-            </span>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h1 id="高性能架构"><a class="markdownIt-Anchor" href="#高性能架构"></a> 高性能架构</h1>
-<h2 id="1-性能测试"><a class="markdownIt-Anchor" href="#1-性能测试"></a> 1. 性能测试</h2>
-<blockquote>
-<p>性能测试是性能优化的前提和基础，也是性能优化结果的检查和度量标准。不同视角下的性能有不同标准，也有不同的优化手段。</p>
-</blockquote>
-<h3 id="11-性能指标"><a class="markdownIt-Anchor" href="#11-性能指标"></a> 1.1. 性能指标</h3>
-<p>性能测试的主要指标有：</p>
-<ul>
-<li><strong>响应时间</strong> - 响应时间(RT)是指从客户端发一个请求开始计时，到客户端接收到从服务器端返回的响应结果结束所经历的时间，响应时间由请求发送时间、网络传输时间和服务器处理时间三部分组成。</li>
-<li><strong>并发数</strong> - 系统能同时处理的请求、事务数。</li>
-<li><strong>吞吐量</strong> - <strong><code>TPS(每秒事务数)</code></strong>、<strong><code>HPS(每秒 HTTP 请求数)</code></strong>、<strong><code>QPS(每秒查询数)</code></strong>。</li>
-<li><strong>性能计数器</strong> - 系统负载、对象与线程数、内存使用、CPU 使用、磁盘与网络 IO 等。这些指标也是系统监控的重要参数。</li>
-</ul>
-<h3 id="12-性能测试方法"><a class="markdownIt-Anchor" href="#12-性能测试方法"></a> 1.2. 性能测试方法</h3>
-<ul>
-<li>性能测试</li>
-<li>负载测试</li>
-<li>压力测试</li>
-<li>稳定性测试</li>
-</ul>
-<h3 id="13-性能测试报告"><a class="markdownIt-Anchor" href="#13-性能测试报告"></a> 1.3. 性能测试报告</h3>
-<p>性能测试报告示例：</p>
-<div align="center">
-<img src="https://upload-images.jianshu.io/upload_images/3101171-3d533a36f42608a1.png" />
-</div>
-<h3 id="14-性能优化策略"><a class="markdownIt-Anchor" href="#14-性能优化策略"></a> 1.4. 性能优化策略</h3>
-<ol>
-<li><strong>性能分析</strong> - 如果请求响应慢，存在性能问题。需要对请求经历的各个环节逐一分析，排查可能出现性能瓶颈的地方，定位问题。检查监控数据，分析影响性能的主要因素：内存、磁盘、网络、CPU，可能是代码或架构设计不合理，又或者是系统资源确实不足。</li>
-<li><strong>性能优化</strong> - 性能优化根据网站分层架构，大致可分为前端性能优化、应用服务性能优化、存储服务性能优化。</li>
-</ol>
-<h2 id="2-前端性能优化"><a class="markdownIt-Anchor" href="#2-前端性能优化"></a> 2. 前端性能优化</h2>
-<h3 id="21-浏览器访问优化"><a class="markdownIt-Anchor" href="#21-浏览器访问优化"></a> 2.1. 浏览器访问优化</h3>
-<ol>
-<li><strong>减少 HTTP 请求</strong> - HTTP 请求需要建立通信链路，进行数据传输，开销高昂，所以减少 HTTP 请求数可以有效提高访问性能。减少 HTTP 的主要手段是合并 Css、JavaScript、图片。</li>
-<li><strong>使用浏览器缓存</strong> - 因为静态资源文件更新频率低，可以缓存浏览器中以提高性能。设置 HTTP 头中的 <code>Cache-Control</code> 和 <code>Expires</code> 属性，可设定浏览器缓存。</li>
-<li><strong>启用压缩</strong> - 在服务器端压缩静态资源文件，在浏览器端解压缩，可以有效减少传输的数据量。由于文本文件压缩率可达 80% 以上，所以可以对静态资源，如 Html、Css、JavaScrip 进行压缩。</li>
-<li><strong>CSS 放在页面最上面，JavaScript 放在页面最下面</strong> - 浏览器会在下载完全部的 Css 后才对整个页面进行渲染，所以最好的做法是将 Css 放在页面最上面，让浏览器尽快下载 Css；JavaScript 则相反，浏览器加载 JavaScript 后立即执行，可能会阻塞整个页面，造成页面显示缓慢，因此 JavaScript 最好放在页面最下面。</li>
-<li><strong>减少 Cookie 传输</strong> - Cookie 包含在 HTTP 每次的请求和响应中，太大的 Cookie 会严重影响数据传输。</li>
-</ol>
-<h3 id="22-cdn"><a class="markdownIt-Anchor" href="#22-cdn"></a> 2.2. CDN</h3>
-<p>CDN 一般缓存的是静态资源。</p>
-<p>CDN 的本质仍然是一个缓存，而且将数据缓存在离用户最近的地方，使用户已最快速度获取数据，即所谓网络访问第一跳。</p>
-<div align="center">
-<img src="http://dunwu.test.upcdn.net/cs/java/javaweb/architecture/cdn.png!zp" width="640" />
-</div>
-<h3 id="23-反向代理"><a class="markdownIt-Anchor" href="#23-反向代理"></a> 2.3. 反向代理</h3>
-<p>传统代理服务器位于浏览器一侧，代理浏览器将 HTTP 请求发送到互联网上，而反向代理服务器位于网站机房一侧，代理网站服务器接收 HTTP 请求。</p>
-<div align="center">
-<img src="http://dunwu.test.upcdn.net/cs/java/javaweb/architecture/reverse-proxy.jpg!zp" width="640" />
-</div>
-<p>反向代理服务器可以配置缓存功能加速 Web 请求，当用户第一次访问静态内容时，静态内容就会被缓存在反向代理服务器上。</p>
-<p>反向代理还可以实现负载均衡，通过负载均衡构建的集群可以提高系统总体处理能力。</p>
-<p>因为所有请求都必须先经过反向代理服务器，所以可以屏蔽一些攻击 IP，达到保护网站安全的作用。</p>
-<h2 id="3-应用服务性能优化"><a class="markdownIt-Anchor" href="#3-应用服务性能优化"></a> 3. 应用服务性能优化</h2>
-<h3 id="31-分布式缓存"><a class="markdownIt-Anchor" href="#31-分布式缓存"></a> 3.1. 分布式缓存</h3>
-<blockquote>
-<p>网站性能优化第一定律：优先考虑使用缓存优化性能。</p>
-</blockquote>
-<h4 id="311-缓存原理"><a class="markdownIt-Anchor" href="#311-缓存原理"></a> 3.1.1. 缓存原理</h4>
-<p>缓存指将数据存储在相对较高访问速度的存储介质中，以供系统处理。一方面缓存访问速度快，可以减少数据访问的时间，另一方面如果缓存的数据是经过计算处理得到的，那么被缓存的数据无需重复计算即可直接使用，因此缓存还起到减少计算时间的作用。</p>
-<p>缓存的本质是一个内存 HASH 表。</p>
-<p>缓存主要用来存放那些读写比很高、很少变化的数据，如商品的类目信息，热门词的搜索列表信息、热门商品信息等。</p>
-<h4 id="312-合理使用缓存"><a class="markdownIt-Anchor" href="#312-合理使用缓存"></a> 3.1.2. 合理使用缓存</h4>
-<p>缓存数据的选择：</p>
-<ul>
-<li>不要存储频繁修改的数据</li>
-<li>不要存储非热点数据</li>
-<li>数据不一致与脏读：缓存有有效期，所以存在一定时间的数据不一致和脏读问题。如果不能接受，可以考虑使用数据更新立即更新缓存策略</li>
-</ul>
-<p>需要考虑的缓存问题：</p>
-<ul>
-<li><strong>缓存雪崩</strong> - 当缓存服务崩溃时，数据库会因为不能承受过大的压力而宕机。</li>
-<li><strong>缓存预热</strong> - 对于一些明确的热点数据、元数据，如地名、类目信息等，可以在启动时加载到缓存进行预热。</li>
-<li><strong>缓存穿透</strong> - 如果因不恰当的业务或恶意攻击持续高并发地请求某个不存在的数据，由于缓存中没有该数据，就会导致请求都落在数据库上，导致数据库最终崩溃。一个简单的策略是将不存在的数据也缓存起来（即缓存 null 值）。</li>
-</ul>
-<h3 id="32-异步操作"><a class="markdownIt-Anchor" href="#32-异步操作"></a> 3.2. 异步操作</h3>
-<p>异步处理不仅可以减少系统服务间的耦合度，提高扩展性，事实上，它还可以提高系统的性能。异步处理可以有效减少响应等待时间，从而提高响应速度。</p>
-<p>异步处理一般是通过分布式消息队列的方式。</p>
-<p>异步处理可以解决以下问题：</p>
-<ul>
-<li>异步处理</li>
-<li>应用解耦</li>
-<li>流量削锋</li>
-<li>日志处理</li>
-<li>消息通讯</li>
-</ul>
-<h3 id="33-使用集群"><a class="markdownIt-Anchor" href="#33-使用集群"></a> 3.3. 使用集群</h3>
-<p>在高并发场景下，使用负载均衡技术为一个应用构建一个由多台服务器组成的服务器集群，将并发访问请求分发到多台服务器上处理，避免单一服务器因负载压力过大而响应缓慢，使用户请求具有更好的响应延迟特性。</p>
-<h3 id="34-代码优化"><a class="markdownIt-Anchor" href="#34-代码优化"></a> 3.4. 代码优化</h3>
-<h4 id="341-多线程"><a class="markdownIt-Anchor" href="#341-多线程"></a> 3.4.1. 多线程</h4>
-<p>从资源利用的角度看，使用多线程的原因主要有两个：IO 阻塞和多 CPU。</p>
-<p>线程数并非越多越好，那么启动多少线程合适呢？</p>
-<p>有个参考公式：</p>
-<figure class="highlight fix"><table><tr><td class="code"><pre><span class="line"><span class="attr">启动线程数 </span>=<span class="string"> (任务执行时间 / (任务执行时间 - IO 等待时间)) * CPU 内核数</span></span><br></pre></td></tr></table></figure>
-<p>最佳启动线程数和 CPU 内核数成正比，和 IO 阻塞时间成反比。</p>
-<ul>
-<li>如果任务都是 CPU 计算型任务，那么线程数最多不要超过 CPU 内核数，因为启动再多线程，CPU 也来不及调度；</li>
-<li>相反，如果是任务需要等待磁盘操作，网络响应，那么多启动线程有助于任务并罚赌，提高系统吞吐量。</li>
-</ul>
-<h5 id="线程安全问题"><a class="markdownIt-Anchor" href="#线程安全问题"></a> 线程安全问题</h5>
-<p>线程安全问题时指多个线程并发访问某个资源，导致数据混乱。</p>
-<p>解决手段有：</p>
-<ul>
-<li><strong>将对象设计为无状态对象</strong> - 典型应用：Servlet 就是无状态对象，可以被服务器多线程并发调用处理用户请求。</li>
-<li><strong>使用局部对象</strong></li>
-<li><strong>并发访问资源时使用锁</strong> - 但是引入锁会产生性能开销，应尽量使用轻量级的锁。</li>
-</ul>
-<h4 id="342-资源复用"><a class="markdownIt-Anchor" href="#342-资源复用"></a> 3.4.2. 资源复用</h4>
-<p>应该尽量减少那些开销很大的系统资源的创建和销毁，如数据库连接、网络通信连接、线程、复杂对象等。从编程角度，资源复用主要有两种模式：单例模式和对象池。</p>
-<h4 id="343-数据结构"><a class="markdownIt-Anchor" href="#343-数据结构"></a> 3.4.3. 数据结构</h4>
-<p>根据具体场景，选择合适的数据结构。</p>
-<h4 id="344-垃圾回收"><a class="markdownIt-Anchor" href="#344-垃圾回收"></a> 3.4.4. 垃圾回收</h4>
-<p>如果 Web 应用运行在 JVM 等具有垃圾回收功能的环境中，那么垃圾回收可能会对系统的性能特性产生巨大影响。立即垃圾回收机制有助于程序优化和参数调优，以及编写内存安全的代码。</p>
-<h2 id="4-存储性能优化"><a class="markdownIt-Anchor" href="#4-存储性能优化"></a> 4. 存储性能优化</h2>
-<h3 id="41-机械键盘和固态硬盘"><a class="markdownIt-Anchor" href="#41-机械键盘和固态硬盘"></a> 4.1. 机械键盘和固态硬盘</h3>
-<p>考虑使用固态硬盘替代机械键盘，因为它的读写速度更快。</p>
-<h3 id="42-b数和-lsm-树"><a class="markdownIt-Anchor" href="#42-b数和-lsm-树"></a> 4.2. B+数和 LSM 树</h3>
-<p>传统关系数据库的数据库索引一般都使用两级索引的 <strong>B+ 树</strong> 结构，树的层次最多三层。因此可能需要 5 次磁盘访问才能更新一条记录（三次磁盘访问获得数据索引及行 ID，然后再进行一次数据文件读操作及一次数据文件写操作）。</p>
-<p>由于磁盘访问是随机的，传统机械键盘在数据随机访问时性能较差，每次数据访问都需要多次访问磁盘影响数据访问性能。</p>
-<p>许多 Nosql 数据库中的索引采用 <strong>LSM 树</strong> 作为主要数据结构。LSM 树可视为一个 N 阶合并树。数据写操作都在内存中进行。在 <strong>LSM 树上进行一次数据更新不需要磁盘访问，速度远快于 B+ 树</strong>。</p>
-<h3 id="43-raid-和-hdfs"><a class="markdownIt-Anchor" href="#43-raid-和-hdfs"></a> 4.3. RAID 和 HDFS</h3>
-<p>RAID 是 Redundant Array of Independent Disks 的缩写，中文简称为独立冗余磁盘阵列。</p>
-<p>RAID 是一种把多块独立的硬盘（物理硬盘）按不同的方式组合起来形成一个硬盘组（逻辑硬盘），从而提供比单个硬盘更高的存储性能和提供数据备份技术。</p>
-<p>HDFS(分布式文件系统) 更被大型网站所青睐。它可以配合 <code>MapReduce</code> 并发计算任务框架进行大数据处理，可以在整个集群上并发访问所有磁盘，无需 RAID 支持。</p>
-<p>HDFS 对数据存储空间的管理以数据块（Block）为单位，默认为 64 MB。所以，HDFS 更适合存储较大的文件。</p>
-<h2 id="5-参考资料"><a class="markdownIt-Anchor" href="#5-参考资料"></a> 5. 参考资料</h2>
-<ul>
-<li><a href="https://item.jd.com/11322972.html" target="_blank" rel="noopener">大型网站技术架构：核心原理与案例分析</a></li>
-</ul>
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-        
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="https://dunwu.github.io/blog/blog/design/architecture/security-architecture/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/blog/images/avatar.gif">
-      <meta itemprop="name" content="Zhang Peng">
-      <meta itemprop="description" content="Dunwu's Blog">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Dunwu">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/blog/design/architecture/security-architecture/" class="post-title-link" itemprop="url">系统安全性架构</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-
-              <time title="创建时间：2018-07-05 15:11:00" itemprop="dateCreated datePublished" datetime="2018-07-05T15:11:00+08:00">2018-07-05</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-calendar-check-o"></i>
-                </span>
-                <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2020-01-19 21:47:09" itemprop="dateModified" datetime="2020-01-19T21:47:09+08:00">2020-01-19</time>
-              </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/blog/categories/%E8%AE%BE%E8%AE%A1/" itemprop="url" rel="index">
-                    <span itemprop="name">设计</span>
-                  </a>
-                </span>
-                  ，
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/blog/categories/%E8%AE%BE%E8%AE%A1/%E6%9E%B6%E6%9E%84/" itemprop="url" rel="index">
-                    <span itemprop="name">架构</span>
-                  </a>
-                </span>
-            </span>
-
-          
-  
-  <span class="post-meta-item">
-    
-      <span class="post-meta-item-icon">
-        <i class="fa fa-comment-o"></i>
-      </span>
-      <span class="post-meta-item-text">Disqus：</span>
-    
-    <a title="disqus" href="/blog/design/architecture/security-architecture/#comments" itemprop="discussionUrl">
-      <span class="post-comments-count disqus-comment-count" data-disqus-identifier="design/architecture/security-architecture/" itemprop="commentCount"></span>
-    </a>
-  </span>
-  
-  <br>
-            <span class="post-meta-item" title="本文字数">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-file-word-o"></i>
-              </span>
-                <span class="post-meta-item-text">本文字数：</span>
-              <span>15k</span>
-            </span>
-            <span class="post-meta-item" title="阅读时长">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-clock-o"></i>
-              </span>
-                <span class="post-meta-item-text">阅读时长 &asymp;</span>
-              <span>14 分钟</span>
-            </span>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h1 id="系统安全性架构"><a class="markdownIt-Anchor" href="#系统安全性架构"></a> 系统安全性架构</h1>
-<blockquote>
-<p>关键词：XSS、CSRF、SQL 注入、DoS、消息摘要、加密算法、证书</p>
-</blockquote>
-<!-- TOC depthFrom:2 depthTo:3 -->
-<ul>
-<li><a href="#%E4%B8%80%E8%AE%A4%E8%AF%81">一、认证</a>
-<ul>
-<li><a href="#sso">SSO</a></li>
-<li><a href="#oauth-20">Oauth 2.0</a></li>
-</ul>
-</li>
-<li><a href="#%E4%BA%8C%E9%89%B4%E6%9D%83">二、鉴权</a>
-<ul>
-<li><a href="#rbac">RBAC</a></li>
-<li><a href="#%E8%A7%92%E8%89%B2%E7%BB%A7%E6%89%BF">角色继承</a></li>
-</ul>
-</li>
-<li><a href="#%E4%B8%89%E5%AE%A1%E8%AE%A1">三、审计</a></li>
-<li><a href="#%E5%9B%9B%E7%BD%91%E7%AB%99%E6%94%BB%E5%87%BB">四、网站攻击</a>
-<ul>
-<li><a href="#xss">XSS</a></li>
-<li><a href="#csrf">CSRF</a></li>
-<li><a href="#sql-%E6%B3%A8%E5%85%A5">SQL 注入</a></li>
-<li><a href="#dos">DoS</a></li>
-</ul>
-</li>
-<li><a href="#%E4%BA%94%E5%8A%A0%E5%AF%86%E6%8A%80%E6%9C%AF">五、加密技术</a>
-<ul>
-<li><a href="#%E6%B6%88%E6%81%AF%E6%91%98%E8%A6%81">消息摘要</a></li>
-<li><a href="#%E5%8A%A0%E5%AF%86%E7%AE%97%E6%B3%95">加密算法</a></li>
-<li><a href="#%E8%AF%81%E4%B9%A6">证书</a></li>
-</ul>
-</li>
-<li><a href="#%E5%85%AD%E4%BF%A1%E6%81%AF%E8%BF%87%E6%BB%A4">六、信息过滤</a>
-<ul>
-<li><a href="#%E6%96%87%E6%9C%AC%E5%8C%B9%E9%85%8D">文本匹配</a></li>
-<li><a href="#%E9%BB%91%E5%90%8D%E5%8D%95">黑名单</a></li>
-<li><a href="#%E5%88%86%E7%B1%BB%E7%AE%97%E6%B3%95">分类算法</a></li>
-</ul>
-</li>
-<li><a href="#%E4%B8%83%E9%A3%8E%E9%99%A9%E6%8E%A7%E5%88%B6">七、风险控制</a>
-<ul>
-<li><a href="#%E9%A3%8E%E9%99%A9%E7%A7%8D%E7%B1%BB">风险种类</a></li>
-<li><a href="#%E9%A3%8E%E9%99%A9%E6%8E%A7%E5%88%B6%E6%89%8B%E6%AE%B5">风险控制手段</a></li>
-<li><a href="#%E8%A7%84%E5%88%99%E5%BC%95%E6%93%8E">规则引擎</a></li>
-<li><a href="#%E7%BB%9F%E8%AE%A1%E6%A8%A1%E5%9E%8B">统计模型</a></li>
-</ul>
-</li>
-<li><a href="#%E5%8F%82%E8%80%83%E8%B5%84%E6%96%99">参考资料</a></li>
-</ul>
-<!-- /TOC -->
-<h2 id="一-认证"><a class="markdownIt-Anchor" href="#一-认证"></a> 一、认证</h2>
-<h3 id="sso"><a class="markdownIt-Anchor" href="#sso"></a> SSO</h3>
-<p><strong>SSO(Single Sign On)，即单点登录</strong>。所谓单点登录，就是同平台的诸多应用登陆一次，下一次就免登陆的功能。</p>
-<p>SSO 需要解决多个异构系统之间的问题：</p>
-<ul>
-<li>Session 共享问题</li>
-<li>跨域问题</li>
-</ul>
-<h4 id="session-共享问题"><a class="markdownIt-Anchor" href="#session-共享问题"></a> Session 共享问题</h4>
-<p>分布式 Session 的几种实现策略：</p>
-<ul>
-<li>粘性 Session - 缺点：当<strong>服务器节点宕机时，将丢失该服务器节点上的所有 Session</strong>。</li>
-<li>应用服务器间的 Session 复制共享 - 缺点：<strong>占用过多内存</strong>；<strong>同步过程占用网络带宽以及服务器处理器时间</strong>。</li>
-<li>基于缓存的 Session 共享 ✅ （推荐方案） - 不过需要程序自身控制 Session 读写，可以考虑基于 spring-session + redis 这种成熟的方案来处理。</li>
-</ul>
-<blockquote>
-<p>详情请参考：<a href="../theory/distributed-session-theory.md">Session 原理</a></p>
-</blockquote>
-<h4 id="cookie-跨域"><a class="markdownIt-Anchor" href="#cookie-跨域"></a> Cookie 跨域</h4>
-<p><strong>Cookie 不能跨域</strong>！比如：浏览器不会把 <a href="http://www.google.com" target="_blank" rel="noopener">www.google.com</a> 的 cookie 传给 <a href="http://www.baidu.com" target="_blank" rel="noopener">www.baidu.com</a>。</p>
-<p>这就存在一个问题：由于域名不同，用户在系统 A 登录后，浏览器记录系统 A 的 Cookie，但是访问系统 B 的时候不会携带这个 Cookie。</p>
-<p>针对 <strong>Cookie 不能跨域</strong> 的问题，有几种解决方案：</p>
-<ul>
-<li>服务端生成 Cookie 后，返回给客户端，客户端解析 Cookie ，提取 Token （比如 JWT），此后每次请求都携带这个 Token。</li>
-<li>多个域名共享 Cookie，在返回 Cookie 给客户端的时候，在 Cookie 中设置 domain 白名单。</li>
-<li>将 Token 保存在 <strong><code>SessionStroage</code></strong> 中（不依赖 Cookie 就没有跨域的问题了）。</li>
-</ul>
-<h4 id="cas"><a class="markdownIt-Anchor" href="#cas"></a> CAS</h4>
-<p>CAS 是实现 SSO 的主流方式。</p>
-<p>CAS 分为两部分，CAS Server 和 CAS Client</p>
-<ul>
-<li><strong><code>CAS Server</code></strong> - 负责用户的认证工作，就像是把第一次登录用户的一个标识存在这里，以便此用户在其他系统登录时验证其需不需要再次登录。</li>
-<li><strong><code>CAS Client</code></strong> - 业务应用，需要接入 CAS Server。当用户访问我们的应用时，首先需要重定向到 CAS Server 端进行验证，要是原来登陆过，就免去登录，重定向到下游系统，否则进行用户名密码登陆操作。</li>
-</ul>
-<p>术语：</p>
-<ul>
-<li><strong><code>Ticket Granting Ticket (TGT)</code></strong> - 可以认为是 CAS Server 根据用户名、密码生成的一张票，存在 Server 端。</li>
-<li><strong><code>Ticket Granting Cookie (TGC)</code></strong> - 其实就是一个 Cookie，存放用户身份信息，由 Server 发给 Client 端。</li>
-<li><strong><code>Service Ticket (ST)</code></strong> - 由 TGT 生成的一次性票据，用于验证，只能用一次。</li>
-</ul>
-<p>CAS 工作流程：</p>
-<p><img src="https://raw.githubusercontent.com/dunwu/images/master/snap/20200119195646.png" alt="" /></p>
-<ol>
-<li>用户访问 CAS Client A（业务系统），第一次访问，重定向到认证服务中心（CAS Server）。CAS Server 发现当前请求中没有 Cookie，再重定向到 CAS Server 的登录页面。重定向请求的 URL 中包含访问地址，以便认证成功后直接跳转到访问页面。</li>
-<li>用户在登录页面输入用户名、密码等认证信息，认证成功后，CAS Server 生成 TGT，再用 TGT 生成一个 ST。然后返回 ST 和 TGC（Cookie）给浏览器。</li>
-<li>浏览器携带 ST 再度访问之前想访问的 CAS Client A 页面。</li>
-<li>CAS Client A 收到 ST 后，向 CAS Server 验证 ST 的有效性。验证通过则允许用户访问页面。</li>
-<li>此时，如果登录另一个 CAS Client B，会先重定向到 CAS Server，CAS Server 可以判断这个 CAS Client B 是第一次访问，但是本地有 TGC，所以无需再次登录。用 TGC 创建一个 ST，返回给浏览器。</li>
-<li>重复类似 3、4 步骤。</li>
-</ol>
-<p><img src="https://raw.githubusercontent.com/dunwu/images/master/snap/20200119202448.png" alt="" /></p>
-<p>以上了归纳总结如下：</p>
-<ol>
-<li>
-<p><strong>访问服务</strong> - 用户访问 SSO Client 资源。</p>
-</li>
-<li>
-<p><strong>定向认证</strong> - SSO Client 重定向用户请求到 SSO Server。</p>
-</li>
-<li>
-<p><strong>用户认证</strong> - 用户身份认证。</p>
-</li>
-<li>
-<p><strong>发放票据</strong> - SSO Server 会产生一个 Service Ticket (ST) 并返回给浏览器。</p>
-</li>
-<li>
-<p><strong>验证票据</strong> - 浏览器每次访问 SSO Client 时，携带 ST，SSO Client 向 SSO Server 验证票据。只有验证通过，才允许访问。</p>
-</li>
-<li>
-<p><strong>传输用户信息</strong> - SSO Server 验证票据通过后，传输用户认证结果信息给 SSO Client。</p>
-</li>
-</ol>
-<h3 id="oauth-20"><a class="markdownIt-Anchor" href="#oauth-20"></a> Oauth 2.0</h3>
-<h4 id="基本原理"><a class="markdownIt-Anchor" href="#基本原理"></a> 基本原理</h4>
-<p>OAuth 在&quot;客户端&quot;与&quot;服务提供商&quot;之间，设置了一个授权层（authorization layer）。“客户端&quot;不能直接登录&quot;服务提供商”，只能登录授权层，以此将用户与客户端区分开来。&quot;客户端&quot;登录授权层所用的令牌（token），与用户的密码不同。用户可以在登录的时候，指定授权层令牌的权限范围和有效期。</p>
-<p>&quot;客户端&quot;登录授权层以后，&quot;服务提供商&quot;根据令牌的权限范围和有效期，向&quot;客户端&quot;开放用户储存的资料。</p>
-<p>OAuth 2.0 的运行流程如下图，摘自 RFC 6749。</p>
-<div align="center"><img src="http://www.ruanyifeng.com/blogimg/asset/2014/bg2014051203.png"/></div>
-（A）用户打开客户端以后，客户端要求用户给予授权。
-<p>（B）用户同意给予客户端授权。</p>
-<p>（C）客户端使用上一步获得的授权，向认证服务器申请令牌。</p>
-<p>（D）认证服务器对客户端进行认证以后，确认无误，同意发放令牌。</p>
-<p>（E）客户端使用令牌，向资源服务器申请获取资源。</p>
-<p>（F）资源服务器确认令牌无误，同意向客户端开放资源。</p>
-<p>不难看出来，上面六个步骤之中，B 是关键，即用户怎样才能给于客户端授权。有了这个授权以后，客户端就可以获取令牌，进而凭令牌获取资源。</p>
-<h4 id="授权模式"><a class="markdownIt-Anchor" href="#授权模式"></a> 授权模式</h4>
-<p>客户端必须得到用户的授权（authorization grant），才能获得令牌（access token）。OAuth 2.0 定义了四种授权方式。</p>
-<ul>
-<li>授权码模式（authorization code）</li>
-<li>简化模式（implicit）</li>
-<li>密码模式（resource owner password credentials）</li>
-<li>客户端模式（client credentials）</li>
-</ul>
-<h4 id="授权码模式"><a class="markdownIt-Anchor" href="#授权码模式"></a> 授权码模式</h4>
-<p>授权码模式（authorization code）是功能最完整、流程最严密的授权模式。它的特点就是通过客户端的后台服务器，与&quot;服务提供商&quot;的认证服务器进行互动。</p>
-<div align="center"><img src="http://www.ruanyifeng.com/blogimg/asset/2014/bg2014051204.png"/></div>
-它的步骤如下：
-<p>（A）用户访问客户端，后者将前者导向认证服务器。</p>
-<p>（B）用户选择是否给予客户端授权。</p>
-<p>（C）假设用户给予授权，认证服务器将用户导向客户端事先指定的&quot;重定向 URI&quot;（redirection URI），同时附上一个授权码。</p>
-<p>（D）客户端收到授权码，附上早先的&quot;重定向 URI&quot;，向认证服务器申请令牌。这一步是在客户端的后台的服务器上完成的，对用户不可见。</p>
-<p>（E）认证服务器核对了授权码和重定向 URI，确认无误后，向客户端发送访问令牌（access token）和更新令牌（refresh token）。</p>
-<p>下面是上面这些步骤所需要的参数。</p>
-<p>A 步骤中，客户端申请认证的 URI，包含以下参数：</p>
-<ul>
-<li>response_type：表示授权类型，必选项，此处的值固定为&quot;code&quot;</li>
-<li>client_id：表示客户端的 ID，必选项</li>
-<li>redirect_uri：表示重定向 URI，可选项</li>
-<li>scope：表示申请的权限范围，可选项</li>
-<li>state：表示客户端的当前状态，可以指定任意值，认证服务器会原封不动地返回这个值。</li>
-</ul>
-<p>下面是一个例子。</p>
-<figure class="highlight http"><table><tr><td class="code"><pre><span class="line">GET /authorize?response_type=code&amp;client_id=s6BhdRkqt3&amp;state=xyz</span><br><span class="line">  &amp;redirect_uri=https%3A%2F%2Fclient%2Eexample%2Ecom%2Fcb HTTP/1.1</span><br><span class="line"><span class="attribute">Host</span>: server.example.com</span><br></pre></td></tr></table></figure>
-<p>C 步骤中，服务器回应客户端的 URI，包含以下参数：</p>
-<ul>
-<li>code：表示授权码，必选项。该码的有效期应该很短，通常设为 10 分钟，客户端只能使用该码一次，否则会被授权服务器拒绝。该码与客户端 ID 和重定向 URI，是一一对应关系。</li>
-<li>state：如果客户端的请求中包含这个参数，认证服务器的回应也必须一模一样包含这个参数。</li>
-</ul>
-<p>下面是一个例子。</p>
-<figure class="highlight"><table><tr><td class="code"><pre><span class="line">HTTP/1.1 <span class="number">302</span> Found</span><br><span class="line"><span class="attribute">Location</span>: https://client.example.com/cb?code=SplxlOBeZQQYbYS6WxSbIA</span><br><span class="line">    &amp;state=xyz</span><br></pre></td></tr></table></figure>
-<p>D 步骤中，客户端向认证服务器申请令牌的 HTTP 请求，包含以下参数：</p>
-<ul>
-<li>grant_type：表示使用的授权模式，必选项，此处的值固定为&quot;authorization_code&quot;。</li>
-<li>code：表示上一步获得的授权码，必选项。</li>
-<li>redirect_uri：表示重定向 URI，必选项，且必须与 A 步骤中的该参数值保持一致。</li>
-<li>client_id：表示客户端 ID，必选项。</li>
-</ul>
-<p>下面是一个例子。</p>
-<figure class="highlight"><table><tr><td class="code"><pre><span class="line"><span class="keyword">POST</span> <span class="string">/token</span> HTTP/1.1</span><br><span class="line"><span class="attribute">Host</span>: server.example.com</span><br><span class="line"><span class="attribute">Authorization</span>: Basic czZCaGRSa3F0MzpnWDFmQmF0M2JW</span><br><span class="line"><span class="attribute">Content-Type</span>: application/x-www-form-urlencoded</span><br><span class="line"></span><br><span class="line">grant_type=authorization_code&amp;code=SplxlOBeZQQYbYS6WxSbIA</span><br><span class="line">&amp;redirect_uri=https%3A%2F%2Fclient%2Eexample%2Ecom%2Fcb</span><br></pre></td></tr></table></figure>
-<p>E 步骤中，认证服务器发送的 HTTP 回复，包含以下参数：</p>
-<ul>
-<li>access_token：表示访问令牌，必选项。</li>
-<li>token_type：表示令牌类型，该值大小写不敏感，必选项，可以是 bearer 类型或 mac 类型。</li>
-<li>expires_in：表示过期时间，单位为秒。如果省略该参数，必须其他方式设置过期时间。</li>
-<li>refresh_token：表示更新令牌，用来获取下一次的访问令牌，可选项。</li>
-<li>scope：表示权限范围，如果与客户端申请的范围一致，此项可省略。</li>
-</ul>
-<p>下面是一个例子。</p>
-<figure class="highlight"><table><tr><td class="code"><pre><span class="line">HTTP/1.1 <span class="number">200</span> OK</span><br><span class="line"><span class="attribute">Content-Type</span>: application/json;charset=UTF-8</span><br><span class="line"><span class="attribute">Cache-Control</span>: no-store</span><br><span class="line"><span class="attribute">Pragma</span>: no-cache</span><br><span class="line"></span><br><span class="line">&#123;</span><br><span class="line"> "access_token":"2YotnFZFEjr1zCsicMWpAA",</span><br><span class="line"> "token_type":"example",</span><br><span class="line"> "expires_in":3600,</span><br><span class="line"> "refresh_token":"tGzv3JOkF0XG5Qx2TlKWIA",</span><br><span class="line"> "example_parameter":"example_value"</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>从上面代码可以看到，相关参数使用 JSON 格式发送（Content-Type: application/json）。此外，HTTP 头信息中明确指定不得缓存。</p>
-<h4 id="简化模式"><a class="markdownIt-Anchor" href="#简化模式"></a> 简化模式</h4>
-<p>简化模式（implicit grant type）不通过第三方应用程序的服务器，直接在浏览器中向认证服务器申请令牌，跳过了&quot;授权码&quot;这个步骤，因此得名。所有步骤在浏览器中完成，令牌对访问者是可见的，且客户端不需要认证。</p>
-<div align="center"><img src="http://www.ruanyifeng.com/blogimg/asset/2014/bg2014051205.png"/></div>
-它的步骤如下：
-<p>（A）客户端将用户导向认证服务器。</p>
-<p>（B）用户决定是否给于客户端授权。</p>
-<p>（C）假设用户给予授权，认证服务器将用户导向客户端指定的&quot;重定向 URI&quot;，并在 URI 的 Hash 部分包含了访问令牌。</p>
-<p>（D）浏览器向资源服务器发出请求，其中不包括上一步收到的 Hash 值。</p>
-<p>（E）资源服务器返回一个网页，其中包含的代码可以获取 Hash 值中的令牌。</p>
-<p>（F）浏览器执行上一步获得的脚本，提取出令牌。</p>
-<p>（G）浏览器将令牌发给客户端。</p>
-<p>下面是上面这些步骤所需要的参数。</p>
-<p>A 步骤中，客户端发出的 HTTP 请求，包含以下参数：</p>
-<ul>
-<li>response_type：表示授权类型，此处的值固定为&quot;token&quot;，必选项。</li>
-<li>client_id：表示客户端的 ID，必选项。</li>
-<li>redirect_uri：表示重定向的 URI，可选项。</li>
-<li>scope：表示权限范围，可选项。</li>
-<li>state：表示客户端的当前状态，可以指定任意值，认证服务器会原封不动地返回这个值。</li>
-</ul>
-<p>下面是一个例子。</p>
-<figure class="highlight http"><table><tr><td class="code"><pre><span class="line">GET /authorize?response_type=token&amp;client_id=s6BhdRkqt3&amp;state=xyz</span><br><span class="line">  &amp;redirect_uri=https%3A%2F%2Fclient%2Eexample%2Ecom%2Fcb HTTP/1.1</span><br><span class="line"><span class="attribute">Host</span>: server.example.com</span><br></pre></td></tr></table></figure>
-<p>C 步骤中，认证服务器回应客户端的 URI，包含以下参数：</p>
-<ul>
-<li>access_token：表示访问令牌，必选项。</li>
-<li>token_type：表示令牌类型，该值大小写不敏感，必选项。</li>
-<li>expires_in：表示过期时间，单位为秒。如果省略该参数，必须其他方式设置过期时间。</li>
-<li>scope：表示权限范围，如果与客户端申请的范围一致，此项可省略。</li>
-<li>state：如果客户端的请求中包含这个参数，认证服务器的回应也必须一模一样包含这个参数。</li>
-</ul>
-<p>下面是一个例子。</p>
-<figure class="highlight"><table><tr><td class="code"><pre><span class="line">HTTP/1.1 <span class="number">302</span> Found</span><br><span class="line"><span class="attribute">Location</span>: http://example.com/cb#access_token=2YotnFZFEjr1zCsicMWpAA</span><br><span class="line">         &amp;state=xyz&amp;token_type=example&amp;expires_in=3600</span><br></pre></td></tr></table></figure>
-<p>在上面的例子中，认证服务器用 HTTP 头信息的 Location 栏，指定浏览器重定向的网址。注意，在这个网址的 Hash 部分包含了令牌。</p>
-<p>根据上面的 D 步骤，下一步浏览器会访问 Location 指定的网址，但是 Hash 部分不会发送。接下来的 E 步骤，服务提供商的资源服务器发送过来的代码，会提取出 Hash 中的令牌。</p>
-<p>密码模式</p>
-<p>密码模式（Resource Owner Password Credentials Grant）中，用户向客户端提供自己的用户名和密码。客户端使用这些信息，向&quot;服务商提供商&quot;索要授权。</p>
-<p>在这种模式中，用户必须把自己的密码给客户端，但是客户端不得储存密码。这通常用在用户对客户端高度信任的情况下，比如客户端是操作系统的一部分，或者由一个著名公司出品。而认证服务器只有在其他授权模式无法执行的情况下，才能考虑使用这种模式。</p>
-<div align="center"><img src="http://www.ruanyifeng.com/blogimg/asset/2014/bg2014051206.png"/></div>
-它的步骤如下：
-<p>（A）用户向客户端提供用户名和密码。</p>
-<p>（B）客户端将用户名和密码发给认证服务器，向后者请求令牌。</p>
-<p>（C）认证服务器确认无误后，向客户端提供访问令牌。</p>
-<p>B 步骤中，客户端发出的 HTTP 请求，包含以下参数：</p>
-<ul>
-<li>grant_type：表示授权类型，此处的值固定为&quot;password&quot;，必选项。</li>
-<li>username：表示用户名，必选项。</li>
-<li>password：表示用户的密码，必选项。</li>
-<li>scope：表示权限范围，可选项。</li>
-</ul>
-<p>下面是一个例子。</p>
-<figure class="highlight"><table><tr><td class="code"><pre><span class="line"><span class="keyword">POST</span> <span class="string">/token</span> HTTP/1.1</span><br><span class="line"><span class="attribute">Host</span>: server.example.com</span><br><span class="line"><span class="attribute">Authorization</span>: Basic czZCaGRSa3F0MzpnWDFmQmF0M2JW</span><br><span class="line"><span class="attribute">Content-Type</span>: application/x-www-form-urlencoded</span><br><span class="line"></span><br><span class="line">grant_type=password&amp;username=johndoe&amp;password=A3ddj3w</span><br></pre></td></tr></table></figure>
-<p>C 步骤中，认证服务器向客户端发送访问令牌，下面是一个例子。</p>
-<figure class="highlight"><table><tr><td class="code"><pre><span class="line">HTTP/1.1 <span class="number">200</span> OK</span><br><span class="line"><span class="attribute">Content-Type</span>: application/json;charset=UTF-8</span><br><span class="line"><span class="attribute">Cache-Control</span>: no-store</span><br><span class="line"><span class="attribute">Pragma</span>: no-cache</span><br><span class="line"></span><br><span class="line">&#123;</span><br><span class="line"> "access_token":"2YotnFZFEjr1zCsicMWpAA",</span><br><span class="line"> "token_type":"example",</span><br><span class="line"> "expires_in":3600,</span><br><span class="line"> "refresh_token":"tGzv3JOkF0XG5Qx2TlKWIA",</span><br><span class="line"> "example_parameter":"example_value"</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>上面代码中，各个参数的含义参见《授权码模式》一节。</p>
-<p>整个过程中，客户端不得保存用户的密码。</p>
-<p>客户端模式</p>
-<p>客户端模式（Client Credentials Grant）指客户端以自己的名义，而不是以用户的名义，向&quot;服务提供商&quot;进行认证。严格地说，客户端模式并不属于 OAuth 框架所要解决的问题。在这种模式中，用户直接向客户端注册，客户端以自己的名义要求&quot;服务提供商&quot;提供服务，其实不存在授权问题。</p>
-<div align="center"><img src="http://www.ruanyifeng.com/blogimg/asset/2014/bg2014051207.png"/></div>
-它的步骤如下：
-<p>（A）客户端向认证服务器进行身份认证，并要求一个访问令牌。</p>
-<p>（B）认证服务器确认无误后，向客户端提供访问令牌。</p>
-<p>A 步骤中，客户端发出的 HTTP 请求，包含以下参数：</p>
-<ul>
-<li>grant<em>type：表示授权类型，此处的值固定为&quot;client</em>credentials&quot;，必选项。</li>
-<li>scope：表示权限范围，可选项。</li>
-</ul>
-<figure class="highlight"><table><tr><td class="code"><pre><span class="line"><span class="keyword">POST</span> <span class="string">/token</span> HTTP/1.1</span><br><span class="line"><span class="attribute">Host</span>: server.example.com</span><br><span class="line"><span class="attribute">Authorization</span>: Basic czZCaGRSa3F0MzpnWDFmQmF0M2JW</span><br><span class="line"><span class="attribute">Content-Type</span>: application/x-www-form-urlencoded</span><br><span class="line"></span><br><span class="line">grant_type=client_credentials</span><br></pre></td></tr></table></figure>
-<p>认证服务器必须以某种方式，验证客户端身份。</p>
-<p>B 步骤中，认证服务器向客户端发送访问令牌，下面是一个例子。</p>
-<figure class="highlight"><table><tr><td class="code"><pre><span class="line">HTTP/1.1 <span class="number">200</span> OK</span><br><span class="line"><span class="attribute">Content-Type</span>: application/json;charset=UTF-8</span><br><span class="line"><span class="attribute">Cache-Control</span>: no-store</span><br><span class="line"><span class="attribute">Pragma</span>: no-cache</span><br><span class="line"></span><br><span class="line">&#123;</span><br><span class="line"> "access_token":"2YotnFZFEjr1zCsicMWpAA",</span><br><span class="line"> "token_type":"example",</span><br><span class="line"> "expires_in":3600,</span><br><span class="line"> "example_parameter":"example_value"</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>上面代码中，各个参数的含义参见《授权码模式》一节。</p>
-<h4 id="更新令牌"><a class="markdownIt-Anchor" href="#更新令牌"></a> 更新令牌</h4>
-<p>如果用户访问的时候，客户端的&quot;访问令牌&quot;已经过期，则需要使用&quot;更新令牌&quot;申请一个新的访问令牌。</p>
-<p>客户端发出更新令牌的 HTTP 请求，包含以下参数：</p>
-<ul>
-<li>grant<em>type：表示使用的授权模式，此处的值固定为&quot;refresh</em>token&quot;，必选项。</li>
-<li>refresh_token：表示早前收到的更新令牌，必选项。</li>
-<li>scope：表示申请的授权范围，不可以超出上一次申请的范围，如果省略该参数，则表示与上一次一致。</li>
-</ul>
-<p>下面是一个例子。</p>
-<figure class="highlight"><table><tr><td class="code"><pre><span class="line"><span class="keyword">POST</span> <span class="string">/token</span> HTTP/1.1</span><br><span class="line"><span class="attribute">Host</span>: server.example.com</span><br><span class="line"><span class="attribute">Authorization</span>: Basic czZCaGRSa3F0MzpnWDFmQmF0M2JW</span><br><span class="line"><span class="attribute">Content-Type</span>: application/x-www-form-urlencoded</span><br><span class="line"></span><br><span class="line">grant_type=refresh_token&amp;refresh_token=tGzv3JOkF0XG5Qx2TlKWIA</span><br></pre></td></tr></table></figure>
-<h2 id="二-鉴权"><a class="markdownIt-Anchor" href="#二-鉴权"></a> 二、鉴权</h2>
-<h3 id="rbac"><a class="markdownIt-Anchor" href="#rbac"></a> RBAC</h3>
-<p>基于角色的访问控制（RBAC: Role-Based Access Control)</p>
-<p>每个用户关联一个或多个角色，每个角色关联一个或多个权限，从而可以实现了非常灵活的权限管理。角色可以根据实际业务需求灵活创建，这样就省去了每新增一个用户就要关联一遍所有权限的麻烦。简单来说 RBAC 就是：用户关联角色，角色关联权限。</p>
-<p><img src="https://raw.githubusercontent.com/dunwu/images/master/snap/20200119210359.png" alt="" /></p>
-<h3 id="角色继承"><a class="markdownIt-Anchor" href="#角色继承"></a> 角色继承</h3>
-<p>角色继承(Hierarchical Role) 就是指角色可以继承于其他角色，在拥有其他角色权限的同时，自己还可以关联额外的权限。这种设计可以给角色分组和分层，一定程度简化了权限管理工作。</p>
-<p><img src="https://raw.githubusercontent.com/dunwu/images/master/snap/20200119210528.png" alt="" /></p>
-<h4 id="职责分离separation-of-duty"><a class="markdownIt-Anchor" href="#职责分离separation-of-duty"></a> 职责分离(Separation of Duty)</h4>
-<p>为了避免用户拥有过多权限而产生利益冲突，例如一个篮球运动员同时拥有裁判的权限（看一眼就给你判犯规狠不狠？），另一种职责分离扩展版的 RBAC 被提出。</p>
-<p>职责分离有两种模式：</p>
-<p>静态职责分离(Static Separation of Duty)：用户无法同时被赋予有冲突的角色。</p>
-<p><img src="https:////upload-images.jianshu.io/upload_images/594774-feb7c1074d151113.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/509/format/webp" alt="img" /></p>
-<p>动态职责分离(Dynamic Separation of Duty)：用户在一次会话（Session）中不能同时激活自身所拥有的、互相有冲突的角色，只能选择其一。</p>
-<p><img src="https:////upload-images.jianshu.io/upload_images/594774-059b93e4209e8fa6.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/397/format/webp" alt="img" /></p>
-<p>讲了这么多 RBAC，都还只是在用户和权限之间进行设计，并没有涉及到用户和对象之间的权限判断，而在实际业务系统中限制用户能够使用的对象是很常见的需求。</p>
-<h2 id="三-审计"><a class="markdownIt-Anchor" href="#三-审计"></a> 三、审计</h2>
-<p>TODO</p>
-<h2 id="四-网站攻击"><a class="markdownIt-Anchor" href="#四-网站攻击"></a> 四、网站攻击</h2>
-<p>互联网环境鱼龙混杂，网站被攻击是常见现象，所以了解一些常见的网站攻击手段十分必要。下面列举比较常见的 4 种攻击手段：</p>
-<h3 id="xss"><a class="markdownIt-Anchor" href="#xss"></a> XSS</h3>
-<h4 id="概念"><a class="markdownIt-Anchor" href="#概念"></a> 概念</h4>
-<p><strong><code>跨站脚本（Cross-site scripting，通常简称为XSS）</code></strong> 是一种网站应用程序的安全漏洞攻击，是代码注入的一种。它允许恶意用户将代码注入到网页上，其他用户在观看网页时就会受到影响。这类攻击通常包含了 HTML 以及用户端脚本语言。</p>
-<p>XSS 攻击示例：</p>
-<p>假如有下面一个 textbox</p>
-<figure class="highlight html"><table><tr><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">input</span> <span class="attr">type</span>=<span class="string">"text"</span> <span class="attr">name</span>=<span class="string">"address1"</span> <span class="attr">value</span>=<span class="string">"value1from"</span> /&gt;</span></span><br></pre></td></tr></table></figure>
-<p>value1from 是来自用户的输入，如果用户不是输入 value1from,而是输入 <code>&quot;/&gt;&lt;script&gt;alert(document.cookie)&lt;/script&gt;&lt;!-</code> 那么就会变成：</p>
-<figure class="highlight html"><table><tr><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">input</span> <span class="attr">type</span>=<span class="string">"text"</span> <span class="attr">name</span>=<span class="string">"address1"</span> <span class="attr">value</span>=<span class="string">""</span> /&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">script</span>&gt;</span></span><br><span class="line"><span class="javascript">	alert(<span class="built_in">document</span>.cookie)</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">!-</span> "&gt;</span></span><br></pre></td></tr></table></figure>
-<p>嵌入的 JavaScript 代码将会被执行。攻击的威力，取决于用户输入了什么样的脚本。</p>
-<h4 id="攻击手段和目的"><a class="markdownIt-Anchor" href="#攻击手段和目的"></a> 攻击手段和目的</h4>
-<p>常用的 XSS 攻击手段和目的有：</p>
-<ul>
-<li>盗用 cookie，获取敏感信息。</li>
-<li>利用植入 Flash，通过 <code>crossdomain</code> 权限设置进一步获取更高权限；或者利用 Java 等得到类似的操作。</li>
-<li>利用 <code>iframe</code>、<code>frame</code>、<code>XMLHttpRequest</code> 或上述 Flash 等方式，以（被攻击）用户的身份执行一些管理动作，或执行一些一般的如发微博、加好友、发私信等操作。</li>
-<li>利用可被攻击的域受到其他域信任的特点，以受信任来源的身份请求一些平时不允许的操作，如进行不当的投票活动。</li>
-<li>在访问量极大的一些页面上的 XSS 可以攻击一些小型网站，实现 DDoS 攻击的效果。</li>
-</ul>
-<h4 id="应对手段"><a class="markdownIt-Anchor" href="#应对手段"></a> 应对手段</h4>
-<ul>
-<li><strong>过滤特殊字符</strong> - 将用户所提供的内容进行过滤，从而避免 HTML 和 Jascript 代码的运行。如 <code>&gt;</code> 转义为 <code>&amp;gt</code>、<code>&lt;</code> 转义为 <code>&amp;lt</code> 等，就可以防止大部分攻击。为了避免对不必要的内容错误转移，如 <code>3&lt;5</code> 中的 <code>&lt;</code> 需要进行文本匹配后再转移，如：<code>&lt;img src=</code> 这样的上下文中的 <code>&lt;</code> 才转义。</li>
-<li><strong>设置 Cookie 为 HttpOnly</strong> - 设置了 HttpOnly 的 Cookie 可以防止 JavaScript 脚本调用，就无法通过 document.cookie 获取用户 Cookie 信息。</li>
-</ul>
-<blockquote>
-<p>👉 参考阅读：</p>
-<ul>
-<li><a href="https://zh.wikipedia.org/wiki/%E8%B7%A8%E7%B6%B2%E7%AB%99%E6%8C%87%E4%BB%A4%E7%A2%BC" target="_blank" rel="noopener">Wiki 词条 - 跨站脚本</a></li>
-<li><a href="https://www.cnblogs.com/TankXiao/archive/2012/03/21/2337194.html" target="_blank" rel="noopener">Web 安全测试之 XSS</a></li>
-</ul>
-</blockquote>
-<h3 id="csrf"><a class="markdownIt-Anchor" href="#csrf"></a> CSRF</h3>
-<h4 id="概念-2"><a class="markdownIt-Anchor" href="#概念-2"></a> 概念</h4>
-<p><strong><code>跨站请求伪造（Cross-site request forgery，CSRF）</code></strong>，也被称为 one-click attack 或者 session riding，通常缩写为 CSRF 或者 XSRF。它是一种挟持用户在当前已登录的 Web 应用程序上执行非本意的操作的攻击方法。和跨站脚本（XSS）相比，XSS 利用的是用户对指定网站的信任，CSRF 利用的是网站对用户网页浏览器的信任。</p>
-<h4 id="攻击手段和目的-2"><a class="markdownIt-Anchor" href="#攻击手段和目的-2"></a> 攻击手段和目的</h4>
-<p>可以如此理解 CSRF：攻击者盗用了你的身份，以你的名义发送恶意请求。</p>
-<p>CSRF 能做的事太多：</p>
-<ul>
-<li>以你名义发送邮件，发消息</li>
-<li>用你的账号购买商品</li>
-<li>用你的名义完成虚拟货币转账</li>
-<li>泄露个人隐私</li>
-<li>…</li>
-</ul>
-<h4 id="应对手段-2"><a class="markdownIt-Anchor" href="#应对手段-2"></a> 应对手段</h4>
-<ul>
-<li><strong>表单 Token</strong> - CSRF 是一个伪造用户请求的操作，所以需要构造用户请求的所有参数才可以。表单 Token 通过在请求参数中添加随机数的办法来阻止攻击者获得所有请求参数。</li>
-<li><strong>验证码</strong> - 请求提交时，需要用户输入验证码，以避免用户在不知情的情况下被攻击者伪造请求。</li>
-<li><strong>Referer check</strong> - HTTP 请求头的 Referer 域中记录着请求资源，可通过检查请求来源，验证其是否合法。</li>
-</ul>
-<blockquote>
-<p>👉 参考阅读：</p>
-<ul>
-<li><a href="https://zh.wikipedia.org/wiki/%E8%B7%A8%E7%AB%99%E8%AF%B7%E6%B1%82%E4%BC%AA%E9%80%A0" target="_blank" rel="noopener">Wiki 词条 - 跨站请求伪造</a></li>
-<li><a href="http://www.cnblogs.com/hyddd/archive/2009/04/09/1432744.html" target="_blank" rel="noopener">浅谈 CSRF 攻击方式</a></li>
-<li><a href="https://zhuanlan.zhihu.com/p/22521378" target="_blank" rel="noopener">「每日一题」CSRF 是什么？</a><a href="https://zhuanlan.zhihu.com/p/22521378" target="_blank" rel="noopener">「每日一题」CSRF 是什么？</a></li>
-<li><a href="https://www.jianshu.com/p/855395f9603b" target="_blank" rel="noopener">WEB 安全之-CSRF（跨站请求伪造）</a></li>
-</ul>
-</blockquote>
-<h3 id="sql-注入"><a class="markdownIt-Anchor" href="#sql-注入"></a> SQL 注入</h3>
-<h4 id="概念-3"><a class="markdownIt-Anchor" href="#概念-3"></a> 概念</h4>
-<p><strong><code>SQL 注入攻击（SQL injection）</code></strong>，是发生于应用程序之数据层的安全漏洞。简而言之，是在输入的字符串之中注入 SQL 指令，在设计不良的程序当中忽略了检查，那么这些注入进去的指令就会被数据库服务器误认为是正常的 SQL 指令而运行，因此遭到破坏或是入侵。</p>
-<p>攻击示例：</p>
-<p>考虑以下简单的登录表单：</p>
-<figure class="highlight html"><table><tr><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">form</span> <span class="attr">action</span>=<span class="string">"/login"</span> <span class="attr">method</span>=<span class="string">"POST"</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">p</span>&gt;</span>Username: <span class="tag">&lt;<span class="name">input</span> <span class="attr">type</span>=<span class="string">"text"</span> <span class="attr">name</span>=<span class="string">"username"</span> /&gt;</span><span class="tag">&lt;/<span class="name">p</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">p</span>&gt;</span>Password: <span class="tag">&lt;<span class="name">input</span> <span class="attr">type</span>=<span class="string">"password"</span> <span class="attr">name</span>=<span class="string">"password"</span> /&gt;</span><span class="tag">&lt;/<span class="name">p</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">p</span>&gt;</span><span class="tag">&lt;<span class="name">input</span> <span class="attr">type</span>=<span class="string">"submit"</span> <span class="attr">value</span>=<span class="string">"登陆"</span> /&gt;</span><span class="tag">&lt;/<span class="name">p</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">form</span>&gt;</span></span><br></pre></td></tr></table></figure>
-<p>我们的处理里面的 SQL 可能是这样的：</p>
-<figure class="highlight sql"><table><tr><td class="code"><pre><span class="line">username:=r.Form.Get("username")</span><br><span class="line">password:=r.Form.Get("password")</span><br><span class="line">sql:="<span class="keyword">SELECT</span> * <span class="keyword">FROM</span> <span class="keyword">user</span> <span class="keyword">WHERE</span> username=<span class="string">'"+username+"'</span> <span class="keyword">AND</span> <span class="keyword">password</span>=<span class="string">'"+password+"'</span><span class="string">"</span></span><br></pre></td></tr></table></figure>
-<p>如果用户的输入的用户名如下，密码任意</p>
-<figure class="highlight sql"><table><tr><td class="code"><pre><span class="line">myuser' or 'foo' = 'foo' <span class="comment">--</span></span><br></pre></td></tr></table></figure>
-<p>那么我们的 SQL 变成了如下所示：</p>
-<figure class="highlight sql"><table><tr><td class="code"><pre><span class="line"><span class="keyword">SELECT</span> * <span class="keyword">FROM</span> <span class="keyword">user</span> <span class="keyword">WHERE</span> username=<span class="string">'myuser'</span> <span class="keyword">or</span> <span class="string">'foo'</span> = <span class="string">'foo'</span> <span class="comment">--'' AND password='xxx'</span></span><br></pre></td></tr></table></figure>
-<p>在 SQL 里面 <code>--</code> 是注释标记，所以查询语句会在此中断。这就让攻击者在不知道任何合法用户名和密码的情况下成功登录了。</p>
-<p>对于 MSSQL 还有更加危险的一种 SQL 注入，就是控制系统，下面这个可怕的例子将演示如何在某些版本的 MSSQL 数据库上执行系统命令。</p>
-<figure class="highlight sql"><table><tr><td class="code"><pre><span class="line">sql:="<span class="keyword">SELECT</span> * <span class="keyword">FROM</span> products <span class="keyword">WHERE</span> <span class="keyword">name</span> <span class="keyword">LIKE</span> <span class="string">'%"+prod+"%'</span><span class="string">"</span></span><br><span class="line"><span class="string">Db.Exec(sql)</span></span><br></pre></td></tr></table></figure>
-<p>如果攻击提交 <code>a%' exec master..xp_cmdshell 'net user test testpass /ADD' --</code> 作为变量 prod 的值，那么 sql 将会变成</p>
-<figure class="highlight sql"><table><tr><td class="code"><pre><span class="line">sql:="<span class="keyword">SELECT</span> * <span class="keyword">FROM</span> products <span class="keyword">WHERE</span> <span class="keyword">name</span> <span class="keyword">LIKE</span> <span class="string">'%a%'</span> exec master..xp_cmdshell <span class="string">'net user test testpass /ADD'</span><span class="comment">--%'"</span></span><br></pre></td></tr></table></figure>
-<p>MSSQL 服务器会执行这条 SQL 语句，包括它后面那个用于向系统添加新用户的命令。如果这个程序是以 sa 运行而 MSSQLSERVER 服务又有足够的权限的话，攻击者就可以获得一个系统帐号来访问主机了。</p>
-<p>虽然以上的例子是针对某一特定的数据库系统的，但是这并不代表不能对其它数据库系统实施类似的攻击。针对这种安全漏洞，只要使用不同方法，各种数据库都有可能遭殃。</p>
-<h4 id="攻击手段和目的-3"><a class="markdownIt-Anchor" href="#攻击手段和目的-3"></a> 攻击手段和目的</h4>
-<ul>
-<li>数据表中的数据外泄，例如个人机密数据，账户数据，密码等。</li>
-<li>数据结构被黑客探知，得以做进一步攻击（例如 <code>SELECT * FROM sys.tables</code>）。</li>
-<li>数据库服务器被攻击，系统管理员账户被窜改（例如 <code>ALTER LOGIN sa WITH PASSWORD='xxxxxx'</code>）。</li>
-<li>获取系统较高权限后，有可能得以在网页加入恶意链接、恶意代码以及 XSS 等。</li>
-<li>经由数据库服务器提供的操作系统支持，让黑客得以修改或控制操作系统（例如 xp_cmdshell &quot;net stop iisadmin&quot;可停止服务器的 IIS 服务）。</li>
-<li>破坏硬盘数据，瘫痪全系统（例如 xp_cmdshell “FORMAT C:”）。</li>
-</ul>
-<h4 id="应对手段-3"><a class="markdownIt-Anchor" href="#应对手段-3"></a> 应对手段</h4>
-<ul>
-<li><strong>使用参数化查询</strong> - 建议使用数据库提供的参数化查询接口，参数化的语句使用参数而不是将用户输入变量嵌入到 SQL 语句中，即不要直接拼接 SQL 语句。例如使用 database/sql 里面的查询函数 <code>Prepare</code> 和 <code>Query</code> ，或者 <code>Exec(query string, args ...interface{})</code>。</li>
-<li><strong>单引号转换</strong> - 在组合 SQL 字符串时，先针对所传入的参数进行字符替换（将单引号字符替换为连续 2 个单引号字符）。</li>
-</ul>
-<blockquote>
-<p>👉 参考阅读：</p>
-<ul>
-<li><a href="https://zh.wikipedia.org/wiki/SQL%E8%B3%87%E6%96%99%E9%9A%B1%E7%A2%BC%E6%94%BB%E6%93%8A" target="_blank" rel="noopener">Wiki 词条 - SQL 注入攻击</a></li>
-<li><a href="https://github.com/astaxie/build-web-application-with-golang/blob/master/zh/09.4.md" target="_blank" rel="noopener">避免 SQL 注入</a></li>
-<li><a href="http://blog.jobbole.com/83092/" target="_blank" rel="noopener">实例讲解 SQL 注入攻击</a></li>
-</ul>
-</blockquote>
-<h3 id="dos"><a class="markdownIt-Anchor" href="#dos"></a> DoS</h3>
-<p><strong><code>拒绝服务攻击（denial-of-service attack, DoS）亦称洪水攻击</code></strong>，是一种网络攻击手法，其目的在于使目标电脑的网络或系统资源耗尽，使服务暂时中断或停止，导致其正常用户无法访问。</p>
-<p>当黑客使用网络上两个或以上被攻陷的电脑作为“僵尸”向特定的目标发动“拒绝服务”式攻击时，称为分布式拒绝服务攻击（distributed denial-of-service attack，缩写：DDoS attack、DDoS）。</p>
-<h4 id="攻击方式"><a class="markdownIt-Anchor" href="#攻击方式"></a> 攻击方式</h4>
-<ul>
-<li>带宽消耗型攻击</li>
-<li>资源消耗型攻击</li>
-</ul>
-<h4 id="应对手段-4"><a class="markdownIt-Anchor" href="#应对手段-4"></a> 应对手段</h4>
-<ul>
-<li><strong>防火墙</strong> - 允许或拒绝特定通讯协议，端口或 IP 地址。当攻击从少数不正常的 IP 地址发出时，可以简单的使用拒绝规则阻止一切从攻击源 IP 发出的通信。</li>
-<li><strong>路由器、交换机</strong> - 具有速度限制和访问控制能力。</li>
-<li><strong>流量清洗</strong> - 通过采用抗 DDoS 软件处理，将正常流量和恶意流量区分开。</li>
-</ul>
-<blockquote>
-<p>👉 参考阅读：</p>
-<ul>
-<li><a href="https://zh.wikipedia.org/wiki/%E9%98%BB%E6%96%B7%E6%9C%8D%E5%8B%99%E6%94%BB%E6%93%8A" target="_blank" rel="noopener">拒绝服务攻击</a></li>
-</ul>
-</blockquote>
-<h2 id="五-加密技术"><a class="markdownIt-Anchor" href="#五-加密技术"></a> 五、加密技术</h2>
-<p>对于网站来说，用户信息、账户等等敏感数据一旦泄漏，后果严重，所以为了保护数据，应对这些信息进行加密处理。</p>
-<p>信息加密技术一般分为：</p>
-<ul>
-<li>消息摘要</li>
-<li>加密算法
-<ul>
-<li>对称加密</li>
-<li>非对称加密</li>
-</ul>
-</li>
-<li>证书</li>
-</ul>
-<h3 id="消息摘要"><a class="markdownIt-Anchor" href="#消息摘要"></a> 消息摘要</h3>
-<p>常用数字签名算法：MD5、SHA 等。</p>
-<p>应用场景：将用户密码以消息摘要形式保存到数据库中。</p>
-<blockquote>
-<p>👉 参考阅读：</p>
-<ul>
-<li><a href="https://github.com/dunwu/javacore/blob/master/docs/advanced/encode/java-message-digest.md" target="_blank" rel="noopener">消息摘要</a></li>
-</ul>
-</blockquote>
-<h3 id="加密算法"><a class="markdownIt-Anchor" href="#加密算法"></a> 加密算法</h3>
-<h4 id="对称加密"><a class="markdownIt-Anchor" href="#对称加密"></a> 对称加密</h4>
-<p>对称加密指加密和解密所使用的密钥是同一个密钥。</p>
-<p>常用对称加密算法：DES、AES 等。</p>
-<p>应用场景：Cookie 加密、通信机密等。</p>
-<h4 id="非对称加密"><a class="markdownIt-Anchor" href="#非对称加密"></a> 非对称加密</h4>
-<p>非对称加密指加密和解密所使用的不是同一个密钥，而是一个公私钥对。用公钥加密的信息必须用私钥才能解开；反之，用私钥加密的信息只有用公钥才能解开。</p>
-<p>常用非对称加密算法：RSA 等。</p>
-<p>应用场景：HTTPS 传输中浏览器使用的数字证书实质上是经过权威机构认证的非对称加密公钥。</p>
-<blockquote>
-<p>👉 参考阅读：</p>
-<ul>
-<li><a href="https://github.com/dunwu/javacore/blob/master/docs/advanced/encode/java-encryption.md" target="_blank" rel="noopener">加密</a></li>
-</ul>
-</blockquote>
-<h4 id="密钥安全管理"><a class="markdownIt-Anchor" href="#密钥安全管理"></a> 密钥安全管理</h4>
-<p>保证密钥安全的方法：</p>
-<ol>
-<li>把密钥和算法放在一个独立的服务器上，对外提供加密和解密服务，应用系统通过调用这个服务，实现数据的加解密。</li>
-<li>把加解密算法放在应用系统中，密钥则放在独立服务器中，为了提高密钥的安全性，实际存储时，密钥被切分成数片，加密后分别保存在不同存储介质中。</li>
-</ol>
-<h3 id="证书"><a class="markdownIt-Anchor" href="#证书"></a> 证书</h3>
-<p><strong>证书可以称为信息安全加密的终极手段</strong>。公开密钥认证（英语：Public key certificate），又称公开密钥证书、公钥证书、数字证书（digital certificate）、数字认证、身份证书（identity certificate）、电子证书或安全证书，是用于公开密钥基础建设的电子文件，用来证明公开密钥拥有者的身份。此文件包含了公钥信息、拥有者身份信息（主体）、以及数字证书认证机构（发行者）对这份文件的数字签名，以保证这个文件的整体内容正确无误。</p>
-<p>透过信任权威数字证书认证机构的根证书、及其使用公开密钥加密作数字签名核发的公开密钥认证，形成信任链架构，已在 TLS 实现并在万维网的 HTTP 以 HTTPS、在电子邮件的 SMTP 以 STARTTLS 引入并广泛应用。</p>
-<p>众所周知，常见的应用层协议 HTTP、FTP、Telnet 本身不保证信息安全。但是加入了 SSL/TLS 加密数据包机制的 HTTPS、FTPS、Telnets 是信息安全的。传输层安全性协议（Transport Layer Security, TLS），及其前身安全套接层（Secure Sockets Layer, SSL）是一种安全协议，目的是为互联网通信，提供安全及数据完整性保障。</p>
-<h4 id="证书原理"><a class="markdownIt-Anchor" href="#证书原理"></a> 证书原理</h4>
-<p>SSL/TLS 协议的基本思路是采用公钥加密法，也就是说，客户端先向服务器端索要公钥，然后用公钥加密信息，服务器收到密文后，用自己的私钥解密。</p>
-<p>这里有两个问题：</p>
-<p>（1）<strong>如何保证公钥不被篡改？</strong></p>
-<p>解决方法：将公钥放在数字证书中。只要证书是可信的，公钥就是可信的。</p>
-<p>（2）<strong>公钥加密计算量太大，如何减少耗用的时间？</strong></p>
-<p>解决方法：每一次对话（session），客户端和服务器端都生成一个&quot;对话密钥&quot;（session key），用它来加密信息。由于&quot;对话密钥&quot;是对称加密，所以运算速度非常快，而服务器公钥只用于加密&quot;对话密钥&quot;本身，这样就减少了加密运算的消耗时间。</p>
-<p>SSL/TLS 协议的基本过程是这样的：</p>
-<ol>
-<li>客户端向服务器端索要并验证公钥。</li>
-<li>双方协商生成&quot;对话密钥&quot;。</li>
-<li>双方采用&quot;对话密钥&quot;进行加密通信。</li>
-</ol>
-<blockquote>
-<p>👉 参考阅读：</p>
-<ul>
-<li><a href="https://zh.wikipedia.org/wiki/%E5%82%B3%E8%BC%B8%E5%B1%A4%E5%AE%89%E5%85%A8%E6%80%A7%E5%8D%94%E5%AE%9A" target="_blank" rel="noopener">传输层安全性协议</a></li>
-<li><a href="https://zh.wikipedia.org/wiki/%E5%85%AC%E9%96%8B%E9%87%91%E9%91%B0%E8%AA%8D%E8%AD%89" target="_blank" rel="noopener">公开密钥认证</a></li>
-<li><a href="http://www.ruanyifeng.com/blog/2014/02/ssl_tls.html" target="_blank" rel="noopener">SSL/TLS 协议运行机制的概述</a></li>
-</ul>
-</blockquote>
-<h2 id="六-信息过滤"><a class="markdownIt-Anchor" href="#六-信息过滤"></a> 六、信息过滤</h2>
-<p>在网络中，广告和垃圾信息屡见不鲜，泛滥成灾。</p>
-<p>常见的信息过滤与反垃圾手段有：</p>
-<h3 id="文本匹配"><a class="markdownIt-Anchor" href="#文本匹配"></a> 文本匹配</h3>
-<p>解决敏感词过滤。系统维护一份敏感词清单，如果信息中含有敏感词，则自动进行过滤或拒绝信息。</p>
-<h3 id="黑名单"><a class="markdownIt-Anchor" href="#黑名单"></a> 黑名单</h3>
-<p>黑名单就是将一些已经被识别出有违规行为的 IP、域名、邮箱等加入黑名单，拒绝其请求。</p>
-<p>黑名单可以通过 Hash 表来实现，方法简单，复杂度小，适于一般应用场景。</p>
-<p>但如果黑名单列表非常大时，Hash 表要占用很大的内存空间，这时就不再使用了。这种情况下，可以使用布隆过滤器来实现，即通过一个二进制列表和一组随机数映射函数来实现。</p>
-<h3 id="分类算法"><a class="markdownIt-Anchor" href="#分类算法"></a> 分类算法</h3>
-<p>对于海量信息，难以通过人工去审核。对广告贴。</p>
-<p>垃圾邮件等内容的识别比较好的自动化方法就是采用分类算法。</p>
-<p>简单来说，即将批量已分类的样本输入分类算法进行训练，得到一个分类模型，然后利用分类算法结合分类模型去对信息进行识别。想了解具体做法，需要去理解机器学习相关知识。</p>
-<h2 id="七-风险控制"><a class="markdownIt-Anchor" href="#七-风险控制"></a> 七、风险控制</h2>
-<p>网络给商务、金融领域带来极大便利的同时，也将风险带给了对网络安全一无所知的人们。由于交易双方信息的不对等，使得交易存在着风险，而当交易发生在网络上时，风险就更加难以控制了。</p>
-<h3 id="风险种类"><a class="markdownIt-Anchor" href="#风险种类"></a> 风险种类</h3>
-<ul>
-<li>账户风险 - 盗用账户、恶意注册账户等</li>
-<li>买家风险 - 虚假询盘、恶意拒收、恶意下单、黄牛党抢购热门商品等</li>
-<li>卖家风险 - 虚假发货、出售违禁品、侵权等</li>
-<li>交易风险 - 信用卡盗刷、交易欺诈、洗钱、套现、电信诈骗等</li>
-</ul>
-<h3 id="风险控制手段"><a class="markdownIt-Anchor" href="#风险控制手段"></a> 风险控制手段</h3>
-<p>大型电商网站系统或金融系统都配备专业的风控团队进行风险控制。风险控制手段既包括人工审核也包括自动审核。</p>
-<p>自动风控的技术手段主要有规则引擎和统计模型。</p>
-<h3 id="规则引擎"><a class="markdownIt-Anchor" href="#规则引擎"></a> 规则引擎</h3>
-<p>在交易中，买家、卖家的某些指标满足一定条件时，就会被认为存在风险。如：交易金额超过某个数值；用户来自黑名单；用户和上次登录的地址距离差距很大；用户在一定时间内频繁交易等等。</p>
-<p>如果以上这些条件都通过 if … else … 式样的代码去实现，代码维护、扩展会非常不便。因此，就有了规则引擎来处理这类问题。规则引擎是一种将业务规则和规则处理逻辑相分离的技术，业务规则由运营人员通过管理界面去编辑，实现无需修改代码，即可实时的使用新规则。</p>
-<h3 id="统计模型"><a class="markdownIt-Anchor" href="#统计模型"></a> 统计模型</h3>
-<p>规则引擎虽然技术简单，但是随着规则不断增加，规模越来越大。可能会出现规则冲突，难以维护的情况，并且规则越多，性能也越差。</p>
-<p>为了解决这种问题，就有了统计模型。统计模型会使用分类算法或更复杂的机器学习算法进行智能统计。根据历史交易中的信息训练分类，然后将经过采集加工后的交易信息输入分类算法，得到交易风险值，然后基于此，做出预测。</p>
-<p>经过充分训练后的统计模型，准确率不低于规则引擎。但是，需要有领域专家、行业专家介入，建立合理的训练模型，并不断优化。</p>
-<h2 id="参考资料"><a class="markdownIt-Anchor" href="#参考资料"></a> 参考资料</h2>
-<ul>
-<li><a href="https://item.jd.com/11322972.html" target="_blank" rel="noopener">《大型网站技术架构：核心原理与案例分析》</a></li>
-<li><a href="https://zh.wikipedia.org/wiki/%E8%B7%A8%E7%B6%B2%E7%AB%99%E6%8C%87%E4%BB%A4%E7%A2%BC" target="_blank" rel="noopener">Wiki 词条 - 跨站脚本</a></li>
-<li><a href="https://www.cnblogs.com/TankXiao/archive/2012/03/21/2337194.html" target="_blank" rel="noopener">Web 安全测试之 XSS</a></li>
-<li><a href="https://zh.wikipedia.org/wiki/%E8%B7%A8%E7%AB%99%E8%AF%B7%E6%B1%82%E4%BC%AA%E9%80%A0" target="_blank" rel="noopener">Wiki 词条 - 跨站请求伪造</a></li>
-<li><a href="http://www.cnblogs.com/hyddd/archive/2009/04/09/1432744.html" target="_blank" rel="noopener">浅谈 CSRF 攻击方式</a></li>
-<li><a href="https://zhuanlan.zhihu.com/p/22521378" target="_blank" rel="noopener">「每日一题」CSRF 是什么？</a><a href="https://zhuanlan.zhihu.com/p/22521378" target="_blank" rel="noopener">「每日一题」CSRF 是什么？</a></li>
-<li><a href="https://www.jianshu.com/p/855395f9603b" target="_blank" rel="noopener">WEB 安全之-CSRF（跨站请求伪造）</a></li>
-<li><a href="https://zh.wikipedia.org/wiki/SQL%E8%B3%87%E6%96%99%E9%9A%B1%E7%A2%BC%E6%94%BB%E6%93%8A" target="_blank" rel="noopener">Wiki 词条 - SQL 注入攻击</a></li>
-<li><a href="https://github.com/astaxie/build-web-application-with-golang/blob/master/zh/09.4.md" target="_blank" rel="noopener">避免 SQL 注入</a></li>
-<li><a href="http://blog.jobbole.com/83092/" target="_blank" rel="noopener">实例讲解 SQL 注入攻击</a></li>
-<li><a href="https://zh.wikipedia.org/wiki/%E9%98%BB%E6%96%B7%E6%9C%8D%E5%8B%99%E6%94%BB%E6%93%8A" target="_blank" rel="noopener">拒绝服务攻击</a></li>
-<li><a href="https://zh.wikipedia.org/wiki/%E5%82%B3%E8%BC%B8%E5%B1%A4%E5%AE%89%E5%85%A8%E6%80%A7%E5%8D%94%E5%AE%9A" target="_blank" rel="noopener">传输层安全性协议</a></li>
-<li><a href="https://zh.wikipedia.org/wiki/%E5%85%AC%E9%96%8B%E9%87%91%E9%91%B0%E8%AA%8D%E8%AD%89" target="_blank" rel="noopener">公开密钥认证</a></li>
-<li><a href="http://www.ruanyifeng.com/blog/2014/02/ssl_tls.html" target="_blank" rel="noopener">SSL/TLS 协议运行机制的概述</a></li>
-<li><a href="http://www.ruanyifeng.com/blog/2014/05/oauth_2_0.html" target="_blank" rel="noopener">http://www.ruanyifeng.com/blog/2014/05/oauth_2_0.html</a></li>
-<li><a href="http://www.coin163.com/java/cas/cas.html" target="_blank" rel="noopener">CAS 实现 SSO 单点登录原理</a></li>
-<li><a href="https://www.jianshu.com/p/ce0944b4a903" target="_blank" rel="noopener">权限系统设计模型分析（DAC，MAC，RBAC，ABAC）</a></li>
-</ul>
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
   </div>
 
   
@@ -4118,7 +3622,7 @@
       <div class="site-state-item site-state-posts">
           <a href="/blog/archives/">
         
-          <span class="site-state-item-count">69</span>
+          <span class="site-state-item-count">70</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
@@ -4131,7 +3635,7 @@
       <div class="site-state-item site-state-tags">
             <a href="/blog/tags/">
           
-        <span class="site-state-item-count">42</span>
+        <span class="site-state-item-count">43</span>
         <span class="site-state-item-name">标签</span></a>
       </div>
   </nav>
@@ -4176,12 +3680,12 @@
     <span class="post-meta-item-icon">
       <i class="fa fa-area-chart"></i>
     </span>
-    <span title="站点总字数">350k</span>
+    <span title="站点总字数">351k</span>
     <span class="post-meta-divider">|</span>
     <span class="post-meta-item-icon">
       <i class="fa fa-coffee"></i>
     </span>
-    <span title="站点阅读时长">5:18</span>
+    <span title="站点阅读时长">5:19</span>
 </div>
 
         
