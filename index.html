@@ -163,7 +163,7 @@
   </li>
         <li class="menu-item menu-item-archives">
 
-    <a href="/blog/archives/" rel="section"><i class="fa fa-fw fa-archive"></i>归档<span class="badge">71</span></a>
+    <a href="/blog/archives/" rel="section"><i class="fa fa-fw fa-archive"></i>归档<span class="badge">72</span></a>
 
   </li>
       <li class="menu-item menu-item-search">
@@ -221,6 +221,546 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://dunwu.github.io/blog/blog/design/theory/raft/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/blog/images/avatar.gif">
+      <meta itemprop="name" content="Zhang Peng">
+      <meta itemprop="description" content="Dunwu's Blog">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Dunwu">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/blog/design/theory/raft/" class="post-title-link" itemprop="url">深入剖析一致性算法 Raft</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+              
+
+              <time title="创建时间：2020-02-01 22:07:00 / 修改时间：22:32:36" itemprop="dateCreated datePublished" datetime="2020-02-01T22:07:00+08:00">2020-02-01</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/blog/categories/%E8%AE%BE%E8%AE%A1/" itemprop="url" rel="index">
+                    <span itemprop="name">设计</span>
+                  </a>
+                </span>
+                  ，
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/blog/categories/%E8%AE%BE%E8%AE%A1/%E7%B3%BB%E7%BB%9F%E5%8E%9F%E7%90%86/" itemprop="url" rel="index">
+                    <span itemprop="name">系统原理</span>
+                  </a>
+                </span>
+            </span>
+
+          
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="fa fa-comment-o"></i>
+      </span>
+      <span class="post-meta-item-text">Disqus：</span>
+    
+    <a title="disqus" href="/blog/design/theory/raft/#comments" itemprop="discussionUrl">
+      <span class="post-comments-count disqus-comment-count" data-disqus-identifier="design/theory/raft/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  <br>
+            <span class="post-meta-item" title="本文字数">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-file-word-o"></i>
+              </span>
+                <span class="post-meta-item-text">本文字数：</span>
+              <span>8.1k</span>
+            </span>
+            <span class="post-meta-item" title="阅读时长">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-clock-o"></i>
+              </span>
+                <span class="post-meta-item-text">阅读时长 &asymp;</span>
+              <span>7 分钟</span>
+            </span>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h1 id="深入剖析一致性算法-raft"><a class="markdownIt-Anchor" href="#深入剖析一致性算法-raft"></a> 深入剖析一致性算法 Raft</h1>
+<p><img src="https://raw.githubusercontent.com/dunwu/images/master/snap/20200201221202.png" alt="" /></p>
+<!-- TOC depthFrom:2 depthTo:3 -->
+<ul>
+<li><a href="#%E4%B8%80raft-%E7%AE%80%E4%BB%8B">一、Raft 简介</a>
+<ul>
+<li><a href="#%E5%88%86%E5%B8%83%E5%BC%8F%E4%B8%80%E8%87%B4%E6%80%A7">分布式一致性</a></li>
+<li><a href="#%E5%A4%8D%E5%88%B6%E7%8A%B6%E6%80%81%E6%9C%BA">复制状态机</a></li>
+<li><a href="#raft-%E5%BA%94%E7%94%A8">RAFT 应用</a></li>
+</ul>
+</li>
+<li><a href="#%E4%BA%8Craft-%E5%9F%BA%E7%A1%80">二、Raft 基础</a>
+<ul>
+<li><a href="#%E6%9C%8D%E5%8A%A1%E5%99%A8%E8%A7%92%E8%89%B2">服务器角色</a></li>
+<li><a href="#%E4%BB%BB%E6%9C%9F">任期</a></li>
+<li><a href="#rpc">RPC</a></li>
+</ul>
+</li>
+<li><a href="#%E4%B8%89%E9%80%89%E4%B8%BE-leader">三、选举 Leader</a>
+<ul>
+<li><a href="#%E9%80%89%E4%B8%BE%E8%A7%84%E5%88%99">选举规则</a></li>
+<li><a href="#%E5%8D%95-candidate-%E9%80%89%E4%B8%BE">单 Candidate 选举</a></li>
+<li><a href="#%E5%A4%9A-candidate-%E9%80%89%E4%B8%BE">多 Candidate 选举</a></li>
+</ul>
+</li>
+<li><a href="#%E5%9B%9B%E6%97%A5%E5%BF%97%E5%A4%8D%E5%88%B6">四、日志复制</a>
+<ul>
+<li><a href="#%E6%97%A5%E5%BF%97%E6%A0%BC%E5%BC%8F">日志格式</a></li>
+<li><a href="#%E6%97%A5%E5%BF%97%E5%A4%8D%E5%88%B6%E6%B5%81%E7%A8%8B">日志复制流程</a></li>
+<li><a href="#%E6%97%A5%E5%BF%97%E4%B8%80%E8%87%B4%E6%80%A7">日志一致性</a></li>
+</ul>
+</li>
+<li><a href="#%E4%BA%94%E5%AE%89%E5%85%A8%E6%80%A7">五、安全性</a>
+<ul>
+<li><a href="#%E9%80%89%E4%B8%BE%E9%99%90%E5%88%B6">选举限制</a></li>
+<li><a href="#%E6%8F%90%E4%BA%A4%E6%97%A7%E4%BB%BB%E6%9C%9F%E7%9A%84%E6%97%A5%E5%BF%97%E6%9D%A1%E7%9B%AE">提交旧任期的日志条目</a></li>
+</ul>
+</li>
+<li><a href="#%E5%85%AD%E6%97%A5%E5%BF%97%E5%8E%8B%E7%BC%A9">六、日志压缩</a></li>
+<li><a href="#%E5%8F%82%E8%80%83%E8%B5%84%E6%96%99">参考资料</a></li>
+</ul>
+<!-- /TOC -->
+<h2 id="一-raft-简介"><a class="markdownIt-Anchor" href="#一-raft-简介"></a> 一、Raft 简介</h2>
+<p><strong><a href="https://ramcloud.atlassian.net/wiki/download/attachments/6586375/raft.pdf" target="_blank" rel="noopener">Raft</a> <em>是一种为了管理日志复制的分布式一致性算法</em></strong>。</p>
+<p><a href="https://ramcloud.atlassian.net/wiki/download/attachments/6586375/raft.pdf" target="_blank" rel="noopener">Raft</a> 出现之前，Paxos 一直是分布式一致性算法的标准。Paxos <strong>难以理解，更难以实现</strong>。Raft 的设计目标是简化 Paxos，使得算法<strong>既容易理解，也容易实现</strong>。</p>
+<p>Paxos 和 Raft 都是分布式一致性算法，这个过程如同投票选举领袖（Leader），参选者（Candidate）需要说服大多数投票者（Follower）投票给他，一旦选举出领袖，就由领袖发号施令。Paxos 和 Raft 的区别在于选举的具体过程不同。</p>
+<p><strong>Raft 可以解决分布式 CAP 理论中的 CP</strong>，即 <em>一致性（C：Consistency）</em> 和 <em>分区容忍性（P：Partition Tolerance）</em>，并不能解决 <em>可用性（A：Availability）</em> 的问题。</p>
+<h3 id="分布式一致性"><a class="markdownIt-Anchor" href="#分布式一致性"></a> 分布式一致性</h3>
+<p>分布式一致性 (distributed consensus) 是分布式系统中最基本的问题，用来保证一个分布式系统的可靠性以及容错能力。简单来说，<strong><em>分布式一致性是指多个服务器的保持状态一致</em></strong>。</p>
+<p>在分布式系统中，可能出现各种意外（断电、网络拥塞、CPU/内存耗尽等等），使得服务器宕机或无法访问，最终导致无法和其他服务器保持状态一致。为了应对这种情况，就需要有一种一致性协议来进行容错，使得分布式系统中即使有部分服务器宕机或无法访问，整体依然可以对外提供服务。</p>
+<p>以容错方式达成一致，自然不能要求所有服务器都达成一致状态，只要<strong>超过半数以上</strong>的服务器达成一致就可以了。假设有 N 台服务器， 大于等于 <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mfrac><mi>N</mi><mn>2</mn></mfrac><mo>+</mo><mn>1</mn></mrow><annotation encoding="application/x-tex">\frac{N}{2}+1</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1.217331em;vertical-align:-0.345em;"></span><span class="mord"><span class="mopen nulldelimiter"></span><span class="mfrac"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.872331em;"><span style="top:-2.6550000000000002em;"><span class="pstrut" style="height:3em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mtight">2</span></span></span></span><span style="top:-3.23em;"><span class="pstrut" style="height:3em;"></span><span class="frac-line" style="border-bottom-width:0.04em;"></span></span><span style="top:-3.394em;"><span class="pstrut" style="height:3em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mathdefault mtight" style="margin-right:0.10903em;">N</span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.345em;"><span></span></span></span></span></span><span class="mclose nulldelimiter"></span></span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">+</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:0.64444em;vertical-align:0em;"></span><span class="mord">1</span></span></span></span> 台服务器就算是半数以上了 。</p>
+<h3 id="复制状态机"><a class="markdownIt-Anchor" href="#复制状态机"></a> 复制状态机</h3>
+<p><strong><code>复制状态机（Replicated State Machines）</code></strong> 是指一组服务器上的状态机产生相同状态的副本，并且在一些机器宕掉的情况下也可以继续运行。一致性算法管理着来自客户端指令的复制日志。状态机从日志中处理相同顺序的相同指令，所以产生的结果也是相同的。</p>
+<p><img src="https://raw.githubusercontent.com/dunwu/images/master/snap/20200131233906.png" alt="img" /></p>
+<p>复制状态机通常都是基于复制日志实现的，如上图。每一个服务器存储一个包含一系列指令的日志，并且按照日志的顺序进行执行。每一个日志都按照相同的顺序包含相同的指令，所以每一个服务器都执行相同的指令序列。因为每个状态机都是确定的，每一次执行操作都产生相同的状态和同样的序列。</p>
+<p>保证复制日志相同就是一致性算法的工作了。在一台服务器上，一致性模块接收客户端发送来的指令然后增加到自己的日志中去。它和其他服务器上的一致性模块进行通信来保证每一个服务器上的日志最终都以相同的顺序包含相同的请求，尽管有些服务器会宕机。一旦指令被正确的复制，每一个服务器的状态机按照日志顺序处理他们，然后输出结果被返回给客户端。因此，服务器集群看起来形成一个高可靠的状态机。</p>
+<p>实际系统中使用的一致性算法通常含有以下特性：</p>
+<ul>
+<li><strong>安全性保证</strong>（绝对不会返回一个错误的结果）：在非拜占庭错误情况下，包括网络延迟、分区、丢包、冗余和乱序等错误都可以保证正确。</li>
+<li><strong>可用性</strong>：集群中只要有大多数的机器可运行并且能够相互通信、和客户端通信，就可以保证可用。因此，一个典型的包含 5 个节点的集群可以容忍两个节点的失败。服务器被停止就认为是失败。他们当有稳定的存储的时候可以从状态中恢复回来并重新加入集群。</li>
+<li><strong>不依赖时序来保证一致性</strong>：物理时钟错误或者极端的消息延迟只有在最坏情况下才会导致可用性问题。</li>
+<li>通常情况下，一条指令可以尽可能快的在集群中大多数节点响应一轮远程过程调用时完成。小部分比较慢的节点不会影响系统整体的性能。</li>
+</ul>
+<h3 id="raft-应用"><a class="markdownIt-Anchor" href="#raft-应用"></a> RAFT 应用</h3>
+<p>RAFT 可以做什么？</p>
+<p>通过 RAFT 提供的复制状态机，可以解决分布式系统的复制、修复、节点管理等问题。Raft 极大的简化当前分布式系统的设计与实现，让开发者只关注于业务逻辑，将其抽象实现成对应的状态机即可。基于这套框架，可以构建很多分布式应用：</p>
+<ul>
+<li>分布式锁服务，比如 Zookeeper</li>
+<li>分布式存储系统，比如分布式消息队列、分布式块系统、分布式文件系统、分布式表格系统等</li>
+<li>高可靠元信息管理，比如各类 Master 模块的 HA</li>
+</ul>
+<h2 id="二-raft-基础"><a class="markdownIt-Anchor" href="#二-raft-基础"></a> 二、Raft 基础</h2>
+<p>Raft 将一致性问题分解成了三个子问题：</p>
+<ul>
+<li><strong>选举 Leader</strong></li>
+<li><strong>日志复制</strong></li>
+<li><strong>安全性</strong></li>
+</ul>
+<p>在后续章节，会详细讲解这个子问题。现在，先了解一下 Raft 的一些核心概念。</p>
+<h3 id="服务器角色"><a class="markdownIt-Anchor" href="#服务器角色"></a> 服务器角色</h3>
+<p>在 Raft 中，任何时刻，每个服务器都处于这三个角色之一 ：</p>
+<ul>
+<li><strong><code>Leader</code></strong> - 领导者，通常一个系统中是<strong>一主（Leader）多从（Follower）</strong>。Leader <strong>负责处理所有的客户端请求</strong>。</li>
+<li><strong><code>Follower</code></strong> - 跟随者，<strong>不会发送任何请求</strong>，只是简单的 <strong>响应来自 Leader 或者 Candidate 的请求</strong>。</li>
+<li><strong><code>Candidate</code></strong> - 参选者，选举新 Leader 时的临时角色。</li>
+</ul>
+<p><img src="https://raw.githubusercontent.com/dunwu/images/master/snap/20200131215742.png" alt="img" /></p>
+<blockquote>
+<p>💡 图示说明：</p>
+<ul>
+<li>Follower 只响应来自其他服务器的请求。在一定时限内，如果 Follower 接收不到消息，就会转变成 Candidate，并发起选举。</li>
+<li>Candidate 向 Follower 发起投票请求，如果获得集群中半数以上的选票，就会转变为 Leader。</li>
+<li>在一个 Term 内，Leader 始终保持不变，直到下线了。Leader 需要周期性向所有 Follower 发送心跳消息，以阻止 Follower 转变为 Candidate。</li>
+</ul>
+</blockquote>
+<h3 id="任期"><a class="markdownIt-Anchor" href="#任期"></a> 任期</h3>
+<p><img src="https://raw.githubusercontent.com/dunwu/images/master/snap/20200131220742.png" alt="img" /></p>
+<p>Raft 把时间分割成任意长度的 <strong><em><code>任期（Term）</code></em></strong>，任期用连续的整数标记。每一段任期从一次<strong>选举</strong>开始。<strong>Raft 保证了在一个给定的任期内，最多只有一个领导者</strong>。</p>
+<ul>
+<li>如果选举成功，Leader 会管理整个集群直到任期结束。</li>
+<li>如果选举失败，那么这个任期就会因为没有 Leader 而结束。</li>
+</ul>
+<p><strong>不同服务器节点观察到的任期转换状态可能不一样</strong>：</p>
+<ul>
+<li>服务器节点可能观察到多次的任期转换。</li>
+<li>服务器节点也可能观察不到任何一次任期转换。</li>
+</ul>
+<p><strong>任期在 Raft 算法中充当逻辑时钟的作用，使得服务器节点可以查明一些过期的信息（比如过期的 Leader）。每个服务器节点都会存储一个当前任期号，这一编号在整个时期内单调的增长。当服务器之间通信的时候会交换当前任期号。</strong></p>
+<ul>
+<li>如果一个服务器的当前任期号比其他人小，那么他会更新自己的编号到较大的编号值。</li>
+<li>如果一个 Candidate 或者 Leader 发现自己的任期号过期了，那么他会立即恢复成跟随者状态。</li>
+<li>如果一个节点接收到一个包含过期的任期号的请求，那么他会直接拒绝这个请求。</li>
+</ul>
+<h3 id="rpc"><a class="markdownIt-Anchor" href="#rpc"></a> RPC</h3>
+<p>Raft 算法中服务器节点之间的通信使用 <strong><em><code>远程过程调用（RPC）</code></em></strong>。</p>
+<p>基本的一致性算法只需要两种 RPC：</p>
+<ul>
+<li><strong><code>RequestVote RPC</code></strong> - 请求投票 RPC，由 Candidate 在选举期间发起。</li>
+<li><strong><code>AppendEntries RPC</code></strong> - 附加条目 RPC，由 Leader 发起，用来复制日志和提供一种心跳机制。</li>
+</ul>
+<h2 id="三-选举-leader"><a class="markdownIt-Anchor" href="#三-选举-leader"></a> 三、选举 Leader</h2>
+<h3 id="选举规则"><a class="markdownIt-Anchor" href="#选举规则"></a> 选举规则</h3>
+<p><strong>Raft 使用一种心跳机制来触发 Leader 选举</strong>。</p>
+<p><strong>Leader 需要周期性的向所有 Follower 发送心跳消息</strong>，以此维持自己的权威并阻止新 Leader 的产生。</p>
+<p>每个 Follower 都设置了一个<strong>随机的竞选超时时间</strong>，一般为 <code>150ms ~ 300ms</code>，如果在竞选超时时间内没有收到 Leader 的心跳消息，就会认为当前 Term 没有可用的 Leader，并发起选举来选出新的 Leader。开始一次选举过程，Follower 先要增加自己的当前 Term 号，并<strong>转换为 Candidate</strong>。</p>
+<p>Candidate 会并行的<strong>向集群中的所有服务器节点发送投票请求（<code>RequestVote RPC</code>）</strong>，它会保持当前状态直到以下三件事情之一发生：</p>
+<ul>
+<li><strong>自己成为 Leader</strong></li>
+<li><strong>其他的服务器成为 Leader</strong></li>
+<li><strong>没有任何服务器成为 Leader</strong></li>
+</ul>
+<h4 id="自己成为-leader"><a class="markdownIt-Anchor" href="#自己成为-leader"></a> 自己成为 Leader</h4>
+<ul>
+<li>当一个 Candidate 从整个集群<strong>半数以上</strong>的服务器节点获得了针对同一个 Term 的选票，那么它就赢得了这次选举并成为 Leader。每个服务器最多会对一个 Term 投出一张选票，按照先来先服务（FIFO）的原则。<em>要求半数以上选票的规则确保了最多只会有一个 Candidate 赢得此次选举</em>。</li>
+<li>一旦 Candidate 赢得选举，就立即成为 Leader。然后它会向其他的服务器发送心跳消息来建立自己的权威并且阻止新的领导人的产生。</li>
+</ul>
+<h4 id="其他的服务器成为-leader"><a class="markdownIt-Anchor" href="#其他的服务器成为-leader"></a> 其他的服务器成为 Leader</h4>
+<p>等待投票期间，Candidate 可能会从其他的服务器接收到声明它是 Leader 的 <code>AppendEntries RPC</code>。</p>
+<ul>
+<li>如果这个 Leader 的 Term 号（包含在此次的 RPC 中）不小于 Candidate 当前的 Term，那么 Candidate 会承认 Leader 合法并回到 Follower 状态。</li>
+<li>如果此次 RPC 中的 Term 号比自己小，那么 Candidate 就会拒绝这个消息并继续保持 Candidate 状态。</li>
+</ul>
+<h4 id="没有任何服务器成为-leader"><a class="markdownIt-Anchor" href="#没有任何服务器成为-leader"></a> 没有任何服务器成为 Leader</h4>
+<p>如果有多个 Follower 同时成为 Candidate，那么选票可能会被瓜分以至于没有 Candidate 可以赢得半数以上的投票。当这种情况发生的时候，每一个 Candidate 都会竞选超时，然后通过增加当前 Term 号来开始一轮新的选举。然而，没有其他机制的话，选票可能会被无限的重复瓜分。</p>
+<p>Raft 算法使用随机选举超时时间的方法来确保很少会发生选票瓜分的情况，就算发生也能很快的解决。为了阻止选票起初就被瓜分，竞选超时时间是一个<strong>随机的时间</strong>，在一个固定的区间（例如 150-300 毫秒）随机选择，这样可以把选举都分散开。</p>
+<ul>
+<li>以至于在大多数情况下，只有一个服务器会超时，然后它赢得选举，成为 Leader，并在其他服务器超时之前发送心跳包。</li>
+<li>同样的机制也被用在选票瓜分的情况下：每一个 Candidate 在开始一次选举的时候会重置一个随机的选举超时时间，然后在超时时间内等待投票的结果；这样减少了在新的选举中另外的选票瓜分的可能性。</li>
+</ul>
+<hr />
+<p>理解了上面的选举规则后，我们通过动图来加深认识。</p>
+<h3 id="单-candidate-选举"><a class="markdownIt-Anchor" href="#单-candidate-选举"></a> 单 Candidate 选举</h3>
+<p>（1）下图表示一个分布式系统的最初阶段，此时只有 Follower，没有 Leader。Follower A 等待一个随机的选举超时时间之后，没收到 Leader 发来的心跳消息。因此，将 Term 由 0 增加为 1，转换为 Candidate，进入选举状态。</p>
+<p><img src="http://dunwu.test.upcdn.net/cs/design/architecture/raft-candidate-01.gif" alt="img" /></p>
+<p>（2）此时，A 向所有其他节点发送投票请求。</p>
+<p><img src="http://dunwu.test.upcdn.net/cs/design/architecture/raft-candidate-02.gif" alt="img" /></p>
+<p>（3）其它节点会对投票请求进行回复，如果超过半数以上的节点投票了，那么该 Candidate 就会立即变成 Term 为 1 的 Leader。</p>
+<p><img src="http://dunwu.test.upcdn.net/cs/design/architecture/raft-candidate-03.gif" alt="img" /></p>
+<p>（4）Leader 会周期性地发送心跳消息给所有 Follower，Follower 接收到心跳包，会重新开始计时。</p>
+<p><img src="http://dunwu.test.upcdn.net/cs/design/architecture/raft-candidate-04.gif" alt="img" /></p>
+<h3 id="多-candidate-选举"><a class="markdownIt-Anchor" href="#多-candidate-选举"></a> 多 Candidate 选举</h3>
+<p>（1）如果有多个 Follower 成为 Candidate，并且所获得票数相同，那么就需要重新开始投票。例如下图中 Candidate B 和 Candidate D 都发起 Term 为 4 的选举，且都获得两票，因此需要重新开始投票。</p>
+<p><img src="http://dunwu.test.upcdn.net/cs/design/architecture/raft-multi-candidate-01.gif" alt="img" /></p>
+<p>（2）当重新开始投票时，由于每个节点设置的随机竞选超时时间不同，因此能下一次再次出现多个 Candidate 并获得同样票数的概率很低。</p>
+<p><img src="http://dunwu.test.upcdn.net/cs/design/architecture/raft-multi-candidate-02.gif" alt="img" /></p>
+<h2 id="四-日志复制"><a class="markdownIt-Anchor" href="#四-日志复制"></a> 四、日志复制</h2>
+<h3 id="日志格式"><a class="markdownIt-Anchor" href="#日志格式"></a> 日志格式</h3>
+<p><strong>日志由含日志索引（log index）的日志条目（log entry）组成</strong>。每个日志条目包含它被创建时的 Term 号（下图中方框中的数字），和一个复制状态机需要执行的指令。如果一个日志条目被复制到半数以上的服务器上，就被认为可以提交（Commit）了。</p>
+<ul>
+<li>日志条目中的 Term 号被用来检查是否出现不一致的情况。</li>
+<li>日志条目中的日志索引（一个整数值）用来表明它在日志中的位置。</li>
+</ul>
+<p><img src="https://pic3.zhimg.com/80/v2-ee29a89e4eb63468e142bb6103dbe4de_hd.jpg" alt="img" /></p>
+<p>Raft 日志同步保证如下两点：</p>
+<ul>
+<li>如果不同日志中的两个日志条目有着相同的日志索引和 Term，则<strong>它们所存储的命令是相同的</strong>。
+<ul>
+<li>这个特性基于这条原则：Leader 最多在一个 Term 内、在指定的一个日志索引上创建一条日志条目，同时日志条目在日志中的位置也从来不会改变。</li>
+</ul>
+</li>
+<li>如果不同日志中的两个日志条目有着相同的日志索引和 Term，则<strong>它们之前的所有条目都是完全一样的</strong>。
+<ul>
+<li>这个特性由 <code>AppendEntries RPC</code> 的一个简单的一致性检查所保证。在发送 <code>AppendEntries RPC</code> 时，Leader 会把新日志条目之前的日志条目的日志索引和 Term 号一起发送。如果 Follower 在它的日志中找不到包含相同日志索引和 Term 号的日志条目，它就会拒绝接收新的日志条目。</li>
+</ul>
+</li>
+</ul>
+<h3 id="日志复制流程"><a class="markdownIt-Anchor" href="#日志复制流程"></a> 日志复制流程</h3>
+<p><img src="https://raw.githubusercontent.com/dunwu/images/master/snap/20200201115848.png" alt="img" /></p>
+<ol>
+<li>Leader 负责处理所有客户端的请求。</li>
+<li>Leader 把请求作为日志条目加入到它的日志中，然后并行的向其他服务器发送 <code>AppendEntries RPC</code> 请求，要求 Follower 复制日志条目。</li>
+<li>Follower 复制成功后，返回确认消息。</li>
+<li>当这个日志条目被半数以上的服务器复制后，Leader 提交这个日志条目到它的复制状态机，并向客户端返回执行结果。</li>
+</ol>
+<blockquote>
+<p>注意：如果 Follower 崩溃或者运行缓慢，再或者网络丢包，Leader 会不断的重复尝试发送 <code>AppendEntries RPC</code> 请求 （尽管已经回复了客户端），直到所有的跟随者都最终复制了所有的日志条目。</p>
+</blockquote>
+<p>下面，通过一组动图来加深认识：</p>
+<p>（1）来自客户端的修改都会被传入 Leader。注意该修改还未被提交，只是写入日志中。</p>
+<p><img src="http://dunwu.test.upcdn.net/cs/design/architecture/raft-sync-log-01.gif" alt="img" /></p>
+<p>（2）Leader 会把修改复制到所有 Follower。</p>
+<p><img src="http://dunwu.test.upcdn.net/cs/design/architecture/raft-sync-log-02.gif" alt="img" /></p>
+<p>（3）Leader 会等待大多数的 Follower 也进行了修改，然后才将修改提交。</p>
+<p><img src="http://dunwu.test.upcdn.net/cs/design/architecture/raft-sync-log-03.gif" alt="img" /></p>
+<p>（4）此时 Leader 会通知的所有 Follower 让它们也提交修改，此时所有节点的值达成一致。</p>
+<p><img src="http://dunwu.test.upcdn.net/cs/design/architecture/raft-sync-log-04.gif" alt="img" /></p>
+<h3 id="日志一致性"><a class="markdownIt-Anchor" href="#日志一致性"></a> 日志一致性</h3>
+<p>一般情况下，Leader 和 Followers 的日志保持一致，因此日志条目一致性检查通常不会失败。然而，Leader 崩溃可能会导致日志不一致：旧的 Leader 可能没有完全复制完日志中的所有条目。</p>
+<h4 id="leader-和-follower-日志不一致的可能"><a class="markdownIt-Anchor" href="#leader-和-follower-日志不一致的可能"></a> Leader 和 Follower 日志不一致的可能</h4>
+<p>Leader 和 Follower 可能存在多种日志不一致的可能。</p>
+<p><img src="https://pic4.zhimg.com/80/v2-d36c587901391cae50788061f568d24f_hd.jpg" alt="img" /></p>
+<blockquote>
+<p>💡 图示说明：</p>
+<p>上图阐述了 Leader 和 Follower 可能存在多种日志不一致的可能，每一个方框表示一个日志条目，里面的数字表示任期号 。</p>
+<p>当一个 Leader 成功当选时，Follower 可能出现以下情况（a-f）：</p>
+<ul>
+<li><strong>存在未更新日志条目</strong>，如（a、b）。</li>
+<li><strong>存在未提交日志条目</strong>，如（c、d）。</li>
+<li>或<strong>两种情况都存在</strong>，如（e、f）。</li>
+</ul>
+<p><em>例如，场景 f 可能会这样发生，某服务器在 Term2 的时候是 Leader，已附加了一些日志条目到自己的日志中，但在提交之前就崩溃了；很快这个机器就被重启了，在 Term3 重新被选为 Leader，并且又增加了一些日志条目到自己的日志中；在 Term 2 和 Term 3 的日志被提交之前，这个服务器又宕机了，并且在接下来的几个任期里一直处于宕机状态</em>。</p>
+</blockquote>
+<h4 id="leader-和-follower-日志一致的保证"><a class="markdownIt-Anchor" href="#leader-和-follower-日志一致的保证"></a> Leader 和 Follower 日志一致的保证</h4>
+<p>Leader 通过强制 Followers 复制它的日志来处理日志的不一致，<strong>Followers 上的不一致的日志会被 Leader 的日志覆盖</strong>。</p>
+<ul>
+<li>
+<p>Leader 为了使 Followers 的日志同自己的一致，Leader 需要找到 Followers 同它的日志一致的地方，然后覆盖 Followers 在该位置之后的条目。</p>
+</li>
+<li>
+<p>Leader 会从后往前试，每次日志条目失败后尝试前一个日志条目，直到成功找到每个 Follower 的日志一致位点，然后向后逐条覆盖 Followers 在该位置之后的条目。</p>
+</li>
+</ul>
+<h2 id="五-安全性"><a class="markdownIt-Anchor" href="#五-安全性"></a> 五、安全性</h2>
+<p>前面描述了 Raft 算法是如何选举 Leader 和复制日志的。</p>
+<p>Raft 还增加了一些限制来完善 Raft 算法，以保证安全性：保证了任意 Leader 对于给定的 Term，都拥有了之前 Term 的所有被提交的日志条目。</p>
+<h3 id="选举限制"><a class="markdownIt-Anchor" href="#选举限制"></a> 选举限制</h3>
+<p>拥有最新的已提交的日志条目的 Follower 才有资格成为 Leader。</p>
+<p>Raft 使用投票的方式来阻止一个 Candidate 赢得选举除非这个 Candidate 包含了所有已经提交的日志条目。 Candidate 为了赢得选举必须联系集群中的大部分节点，这意味着每一个已经提交的日志条目在这些服务器节点中肯定存在于至少一个节点上。如果 Candidate 的日志至少和大多数的服务器节点一样新（这个新的定义会在下面讨论），那么他一定持有了所有已经提交的日志条目。</p>
+<p><code>RequestVote RPC</code> 实现了这样的限制：<strong>RequestVote RPC 中包含了 Candidate 的日志信息， Follower 会拒绝掉那些日志没有自己新的投票请求</strong>。</p>
+<p>如何判断哪个日志条目比较新？</p>
+<p>Raft 通过比较两份日志中最后一条日志条目的日志索引和 Term 来判断哪个日志比较新。</p>
+<ul>
+<li>先判断 Term，哪个数值大即代表哪个日志比较新。</li>
+<li>如果 Term 相同，再比较 日志索引，哪个数值大即代表哪个日志比较新。</li>
+</ul>
+<h3 id="提交旧任期的日志条目"><a class="markdownIt-Anchor" href="#提交旧任期的日志条目"></a> 提交旧任期的日志条目</h3>
+<p>一个当前 Term 的日志条目被复制到了半数以上的服务器上，Leader 就认为它是可以被提交的。如果这个 Leader 在提交日志条目前就下线了，后续的 Leader 可能会覆盖掉这个日志条目。</p>
+<p><img src="https://pic4.zhimg.com/80/v2-12a5ebab63781f9ec49e14e331775537_hd.jpg" alt="img" /></p>
+<blockquote>
+<p>💡 图示说明：</p>
+<p>上图解释了为什么 Leader 无法对旧 Term 的日志条目进行提交。</p>
+<ul>
+<li>阶段 (a) ，S1 是 Leader，且 S1 写入日志条目为 (Term 2，日志索引 2），只有 S2 复制了这个日志条目。</li>
+<li>阶段 (b)，S1 下线，S5 被选举为 Term3 的 Leader。S5 写入日志条目为 (Term 3，日志索引 2）。</li>
+<li>阶段 ©，S5 下线，S1 重新上线，并被选举为 Term4 的 Leader。此时，Term 2 的那条日志条目已经被复制到了集群中的大多数节点上，但是还没有被提交。</li>
+<li>阶段 (d)，S1 再次下线，S5 重新上线，并被重新选举为 Term3 的 Leader。然后 S5 覆盖了日志索引 2 处的日志。</li>
+<li>阶段 (e)，如果阶段 (d) 还未发生，即 S1 再次下线之前，S1 把自己主导的日志条目复制到了大多数节点上，那么在后续 Term 里面这些新日志条目就会被提交。这样在同一时刻就同时保证了，之前的所有旧日志条目就会被提交。</li>
+</ul>
+</blockquote>
+<p><strong>Raft 永远不会通过计算副本数目的方式去提交一个之前 Term 内的日志条目</strong>。只有 Leader 当前 Term 里的日志条目通过计算副本数目可以被提交；一旦当前 Term 的日志条目以这种方式被提交，那么由于日志匹配特性，之前的日志条目也都会被间接的提交。</p>
+<p>当 Leader 复制之前任期里的日志时，Raft 会为所有日志保留原始的 Term，这在提交规则上产生了额外的复杂性。在其他的一致性算法中，如果一个新的领导人要重新复制之前的任期里的日志时，它必须使用当前新的任期号。Raft 使用的方法更加容易辨别出日志，因为它可以随着时间和日志的变化对日志维护着同一个任期编号。另外，和其他的算法相比，Raft 中的新领导人只需要发送更少日志条目（其他算法中必须在他们被提交之前发送更多的冗余日志条目来为他们重新编号）。</p>
+<h2 id="六-日志压缩"><a class="markdownIt-Anchor" href="#六-日志压缩"></a> 六、日志压缩</h2>
+<p>在实际的系统中，不能让日志无限膨胀，否则系统重启时需要花很长的时间进行恢复，从而影响可用性。Raft 采用对整个系统进行快照来解决，快照之前的日志都可以丢弃。</p>
+<p>每个副本独立的对自己的系统状态生成快照，并且只能对已经提交的日志条目生成快照。</p>
+<p>快照包含以下内容：</p>
+<ul>
+<li>日志元数据。最后一条已提交的日志条目的日志索引和 Term。这两个值在快照之后的第一条日志条目的 <code>AppendEntries RPC</code> 的完整性检查的时候会被用上。</li>
+<li>系统当前状态。</li>
+</ul>
+<p>当 Leader 要发送某个日志条目，落后太多的 Follower 的日志条目会被丢弃，Leader 会将快照发给 Follower。或者新上线一台机器时，也会发送快照给它。</p>
+<p><img src="https://raw.githubusercontent.com/dunwu/images/master/snap/20200201220628.png" alt="img" /></p>
+<p><strong>生成快照的频率要适中</strong>，频率过高会消耗大量 I/O 带宽；频率过低，一旦需要执行恢复操作，会丢失大量数据，影响可用性。推荐当日志达到某个固定的大小时生成快照。</p>
+<p>生成一次快照可能耗时过长，影响正常日志同步。可以通过使用 copy-on-write 技术避免快照过程影响正常日志同步。</p>
+<blockquote>
+<p>说明：本文仅阐述 Raft 算法的核心内容，不包括算法论证、评估等</p>
+</blockquote>
+<h2 id="参考资料"><a class="markdownIt-Anchor" href="#参考资料"></a> 参考资料</h2>
+<ul>
+<li><a href="https://ramcloud.atlassian.net/wiki/download/attachments/6586375/raft.pdf" target="_blank" rel="noopener">Raft 一致性算法论文原文</a></li>
+<li><a href="https://github.com/maemual/raft-zh_cn/blob/master/raft-zh_cn.md" target="_blank" rel="noopener">Raft 一致性算法论文译文</a></li>
+<li><a href="https://www.youtube.com/watch?v=YbZ3zDzDnrw&amp;feature=youtu.be" target="_blank" rel="noopener">Raft 作者讲解视频</a></li>
+<li><a href="http://www2.cs.uh.edu/~paris/6360/PowerPoint/Raft.ppt" target="_blank" rel="noopener">Raft 作者讲解视频对应的 PPT</a></li>
+<li><a href="https://www.jdon.com/artichect/raft.html" target="_blank" rel="noopener">分布式系统的 Raft 算法</a></li>
+<li><a href="https://zhuanlan.zhihu.com/p/32052223" target="_blank" rel="noopener">Raft 算法详解</a></li>
+<li><a href="http://thesecretlivesofdata.com/raft" target="_blank" rel="noopener">Raft: Understandable Distributed Consensus</a> - 一个动画教程</li>
+<li><a href="https://github.com/sofastack/sofa-jraft" target="_blank" rel="noopener">sofa-jraft</a> - 蚂蚁金服的 Raft 算法实现库（Java 版）</li>
+</ul>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+        
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://dunwu.github.io/blog/blog/design/theory/paxos/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/blog/images/avatar.gif">
+      <meta itemprop="name" content="Zhang Peng">
+      <meta itemprop="description" content="Dunwu's Blog">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Dunwu">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/blog/design/theory/paxos/" class="post-title-link" itemprop="url">design/theory/paxos</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2020-01-31 17:42:52" itemprop="dateCreated datePublished" datetime="2020-01-31T17:42:52+08:00">2020-01-31</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2020-02-01 22:24:44" itemprop="dateModified" datetime="2020-02-01T22:24:44+08:00">2020-02-01</time>
+              </span>
+
+          
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="fa fa-comment-o"></i>
+      </span>
+      <span class="post-meta-item-text">Disqus：</span>
+    
+    <a title="disqus" href="/blog/design/theory/paxos/#comments" itemprop="discussionUrl">
+      <span class="post-comments-count disqus-comment-count" data-disqus-identifier="design/theory/paxos/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  <br>
+            <span class="post-meta-item" title="本文字数">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-file-word-o"></i>
+              </span>
+                <span class="post-meta-item-text">本文字数：</span>
+              <span>5.5k</span>
+            </span>
+            <span class="post-meta-item" title="阅读时长">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-clock-o"></i>
+              </span>
+                <span class="post-meta-item-text">阅读时长 &asymp;</span>
+              <span>5 分钟</span>
+            </span>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h1 id="深入剖析一致性算法-paxos"><a class="markdownIt-Anchor" href="#深入剖析一致性算法-paxos"></a> 深入剖析一致性算法 Paxos</h1>
+<p>这是一个有关Paxos算法非常形象的讲解与示范。Paxos是能够基于一大堆完全不可靠的网络条件下却能可靠确定地实现共识一致性的算法。也就是说：它允许一组不一定可靠的处理器（服务器）在某些条件得到满足情况下就能达成确定的安全的共识，如果条件不能满足也确保这组处理器（服务器）保持一致。</p>
+<h3 id="什么是共识"><a class="markdownIt-Anchor" href="#什么是共识"></a> 什么是共识？</h3>
+<p>具体来说是这样：分布式系统中由于网络之间通讯可能会中断，虽然概率很低，但是没有100%完美的网络因此，依靠网络通讯的计算机之间要达成共识就比较困难，假设有X, Y和Z三台计算机谋划在周一攻击人类世界，它们的攻击计划是只要所有计算机可用于战斗时就一起进行攻击，不落下任何一台机器，但是当他们决定具体什么时间开始攻击时，在这个关键问题上往往会出错。</p>
+<p>一个基本问题是，每台机器都有自己的攻击时间建议，计算机X可以建议在08:00时间，因为这个时间正是周一早晨，而人们刚刚过完狂欢的周末休息天，但是计算机Z认为13:00比较好，理由当然也有一大堆，让这三台计算机基于某个时刻达成共识是非常困难的，因此，也给人类反击留下了机会。</p>
+<p>另外一个情况是，这三台计算机是位于世界不同的位置，之间通讯或许通过电缆或者其他不太可靠的网络设备通讯，如果X建议在08:00，它必须确认它的这个建议能够到达活着的Y和Z，以免一个人战斗。</p>
+<p>问题是：我们不能准确地知道某个计算机的延迟的原因：是因为性能慢了还是已经是彻底死机不能用？</p>
+<p>那么，X怎么知道其他两个计算机是可用的呢？也就是说，当X和其他两个计算机通讯发现得到响应要过很长时间，它不能确定这两台计算机到底还能不能继续活下去，也许这次通讯有延迟了，下一次它们又活过来了没有延迟了，也许下次延迟更长了一点，也许下次延迟稍微短了一点，这些随机概率问题使得X不能确定Y和Z到底是出了什么问题造成延迟的，是因为处理了某个特别耗费CPU的任务还是因为死锁等原因？当然，有些天真的设计者会说，只要我们将性能监控到位，如果延迟超过一定时间，我们人工介入告诉X确切情况就可以，那么这种人工介入的分布式系统不是一个天然自洽的自动化系统了，不在我们讨论范围之内，而且这样的系统会让人疲于奔命。</p>
+<p>因为X不能确定Y或Z是否可用，所以X仅仅只能和Y与Z中一台基于攻击时间达成共识，就无法完全三台机器全部投入战斗的计划。注意的是，X Y Z三台中任何一台都可能会出现延迟，这就造成了三台机器之间任何通讯都是无法确认可靠的，比如X发出消息给Z，Z确认后回执给X，但是这段时间X突然死机了，那么Z要等待X多长时间才能知道它收到确认呢？还是再次等待X回复确认的确认，这样无限循环下去也不能解决它们之间通讯可能出现随机不可靠的问题。</p>
+<p>所有关键问题在于：由于这三台机器之间通讯是无法保证100%可靠，它们就不能就任何事情达成共识。</p>
+<p>下面以分布式拍卖案例说明这种情况以及Paxos的基本原理？</p>
+<p>在传统拍卖场景中，价高者先得，这些拍卖者都是在同一个房间，彼此能够直接看得到对方的报价，如果我们假设分布式拍卖是将这些拍卖者分离到不同的地方，这样我们可以用拍卖者之间的联系模拟分布式计算机之间的通讯。</p>
+<p>假设拍卖者各自在自己家里拍卖，通过邮局信件发出自己的拍卖信息，拍卖者之间除非等到邮局投递人告诉他们彼此之间的报价，否则是无法知道对方报价的。如果邮局信件投递这个环节出了问题，投递速度慢了甚至无法投递了，那么整个拍卖程序就无法继续进行下去。</p>
+<h3 id="paxos解决共识思路"><a class="markdownIt-Anchor" href="#paxos解决共识思路"></a> Paxos解决共识思路</h3>
+<p>Paxos是一个解决<a href="http://harry.me/blog/2013/07/07/id-like-to-have-an-argument-a-primer-on-consensus/" target="_blank" rel="noopener">共识问题consensus problem</a>的算法，现实中Paxos的实现以及成为一些世界级软件的心脏，如Cassandra, Google的 Spanner数据库, 分布式锁服务Chubby. 一个被Paxos管理的系统实际上谈论的是值 状态和跟踪等问题，其目标是建造更高可用性和强一致性的分布式系统。</p>
+<p>Paxos完成一次写操作需要两次来回，分别是prepare/promise, 和 propose/accept：</p>
+<p><img src="https://www.jdon.com/simgs/bigdata/paxos.png" alt="paxos" /></p>
+<p>第一次由提交者Leader向所有其他服务器发出prepare消息请求准备，所有服务器中大多数如果回复诺言承诺就表示准备好了，可以接受写入；第二次提交者向所有服务器发出正式建议propose，所有服务器中大多数如果回复已经接收就表示成功了。</p>
+<p>为了详细描述这个两段过程，首先让我们定义一下我们将使用的一些名词术语：</p>
+<ul>
+<li>一个流程是系统中计算机的一个. 人们使用有关复制或节点等词语表达，都差不多。</li>
+<li>一个客户端是属于系统中一个成员的计算机，但是询问系统值是什么或者要求系统获取一个新的值。</li>
+</ul>
+<p>Paxos构建分布式数据库的小片段: 它仅仅实现流程将一个新的东西精确地写入系统中，流程是由Paxos的一个实例管治，可以失败或者不知道任何东西、或者大多数流程都知道一个同样的值，这就是共识，Paxos并不真的告诉我们如何用它来构建数据库或类似的东西，它只是负责独立节点之间通讯的流程， 这些流程服务器会基于一个新值执行决定，Paxos会存储一个值数据，只是一次性的，一旦你第一次设置以后就不能再改变它。</p>
+<h3 id="paxo读操作"><a class="markdownIt-Anchor" href="#paxo读操作"></a> Paxo读操作</h3>
+<p>其实Paxos精华是在写操作，将读操作放在写操作前面讲解，是着重Paxos以大多数服务器达成共识为重要标志，通过读取判断是否达成共识这一状态。</p>
+<p>为了从Paxos系统中读取一个值数据，客户端会请求读取所有流程中存储的当前值，然后从大多数流程服务器中获得这个值，如果数量凑不够大多数或者没有足够的客户端响应，读取操作失败，下面图示你会看到一个客户端询问其他节点他们的值是多少，这些节点返回值给客户端，当客户端获得了大多数节点的响应，返回的值都是同样的，它就算成功地读操作了，并顺便保存读结果。</p>
+<p>与单节点系统(只有一台服务器)相比这有些奇怪，这两个系统中，客户端都需要观察系统已决定状态，但是在非分布式系统中像MySQL或一个memcached服务器中, 客户端只需直接向标准的状态存储的服务器地址获取状态即可，在简单的Paxos中, 客户端也是同样的方式观察状态，但是因为并没有标准的状态存储的服务器地址，它需要询问所有的成员，以便能够确定仅有一个会报告值数据，实际上是大多数节点都持有的值数据，如果客户端询问一个节点，有可能这个节点流程已经过期，得到了错误的值数据，流程失效过期的原因有很多：由于不可靠的网络导致本应送达到它们的消息丢失了；或者他们也许当机然后使用了一个过期状态恢复；或者算法还在运行计算中，流程并没有正好得到消息等等。在现实中使用Paxos实现时，其实不需要每个节点都进行一次读取，会有更好的读取方式，但是他们都是拓展的原始 Paxos 算法。</p>
+<h3 id="paxos写操作"><a class="markdownIt-Anchor" href="#paxos写操作"></a> Paxos写操作</h3>
+<p>当一个客户端要求写入系统一个新值时，让我们看看Paxos让我们集群的流程都做了什么？下面的过程都是只有一个值的写入，最终我们能用这个流程作为原始数据，允许值数据在彼此之间一个个设置，但是基本的Paxos算法管治了一个新值数据的写操作流程， 然后做重复的事情。</p>
+<p>首先Paxos管理的系统中一个客户端要求写入一个新值，客户端这里如图所示是红圈，其它流程是蓝圈， Paxos能保证客户端发送它们的写请求到Paxos集群中任何成员, 这里演示中客户端随机挑选流程中任意一个，这种方式是重要且巧妙的，意味著没有任何单点风险，意味着我们的Paxos管治系统能继续保持在线可用，无论任何一个节点当机或其他不可用原因无响应。如果我们设计一个特定节点作为“推荐人proposer”或者 “the master” 等, 如果这个主节点死机，那么整个系统就崩溃了。</p>
+<p>当写请求被接受后，Paxos流程会接受这个写新值到系统中请求“建议”， “建议”是Paxos中一个正式概念: 向一个Paxos管治的系统建议可能会成功或失败，需要步骤来确保共识能够达成维系，这个建议以准备消息从那些与客户端连接的流程节点们被发往整个系统。</p>
+<h4 id="序列号"><a class="markdownIt-Anchor" href="#序列号"></a> 序列号</h4>
+<p>这个准备消息保存在被建议的值数据中，它们也称为序列号s<em>equence number</em>，序列号是由建议流程产生的，它定义了接受流程应该准备接受带有序列号的建议，这个序列号是关键: 它用于表明新旧建议之间的区别，如果两个流程试图获得需要设置一个值，Paxos认为最后一个流程应该有优先权，这样让流程分辨哪个是最后一个，这样它就能设置最新的值。</p>
+<p>这些接受的流程能够进行在系统中关键的检查：这个在到来的准备消息中序列号是我见过的最高级别吗？如果是，那就很cool, 我能准备好接受将要到来的值数据，那就不要管之前听到的任何其他值数据了，你能看到这个过程在右边演示中：客户端每隔一段向一个流程建议一个新值，这个流程发送准备消息给其他流程，然后那些流程注意到这是一个成功的更高的超过旧的新序列号，然后就放手那些旧建议。</p>
+<p>这里有一个顺序的设计(先发送准备消息)，这是为避免单点风险，如果没有这个顺序，Paxos中成员就无法分辨哪个建议是他们可以有信心地准备接受的。</p>
+<p>我们不能想象有另外不同的共识算法，不是按照如下步骤：首先发送第一个消息询问其他流程，以确保将设置的新值是最新的值，尽管方式可以再简单些，但是可能就不能满足共识算法安全的需求了，如果两个流程正好同时建议不同的值，如下所示：</p>
+<p>大自然经常会这样欺骗我们，每个包都能另外一半的流程相信它们接受的也许是正确也许是错误的值，系统将进入一个僵局，存在两个相同数量的组却有不同的值，那么就无法确定大多数这个概念了，这个僵局能够被第一个Paxos消息避免，因为Paxos的序列号，那些有问题的建议将有被其他更低的序列号，这样序列号更高的建议就会毫不含糊地被大多数流程接收，它们也首先获得了更高的序列号，然后如果接受到更低的序列号就会拒绝，Paxos 就是这样通过用序列号控制整个系统的时间节奏。</p>
+<p><em>上图演示了客户端首先发一个准备消息给Paxos流程，Paxos流程会检查下一步将到来的建议的序列号，以分辨是否准备接受这个新值，所有流程都是这样消除歧义，共识由此达成。</em></p>
+<p>注意：保证没有两个建议使用相同的序列号是很重要的，这是确保他们的顺序，这样每个序列号只有一个建议，这样才能比较两个建议，实现Paxos时，全局唯一有序的序列号实际是精确系统时间和集群中节点数量的拷贝，随着时间不断增加，从来不会重复。</p>
+<h4 id="paxos第一阶段准备perpare诺言promises"><a class="markdownIt-Anchor" href="#paxos第一阶段准备perpare诺言promises"></a> Paxos第一阶段：准备Perpare/诺言Promises</h4>
+<p>Paxos的第一阶段是prepare/promise，准备阶段就是将建议值发送到各个目标节点。</p>
+<p>当建议被发到目标节点后，流程会会检查建议中的序列号，是否是它们见到过的最高级，如果是最高级，它们会发出一个promise不再接受比这个新序列号更旧的建议了，这个诺言promise作为消息从许下诺言的流程发到提交建议新值的流程服务器，这个诺言消息给提交建议的流程后，提交建议的流程需要自己统计一下有多少其他流程已经发回它们的诺言promise了，如果判断数量上是否达到大多数？如果大多数流程已经同意接受这个建议或者更高级序列号的建议，这个提交建议的流程就能知道它获得了发言权(因为有大多数支持)，这样就开始讲话，算法中的下一步处理将可能进行；如果回复诺言的节点数量没有达到大多数，也就是共识没有达成，这样这个节点提交的建议将退出，客户端要求的写操作失败。</p>
+<p>为了决定一个建议是否已经有足够的回复诺言promises, 提交建议者只是统计一下它接受到的 <code>promise</code> 消息数量，然后和整个系统中节点服务器数量比较一下，“足够”意味着大多数(N/2 + 1)个流程服务器在某段时间内都回复了诺言promises。如果超过一半的流程服务器没有返回诺言，这意味着这个建议没有被大多数通过，那么在前面描述的读算法中就不能满足大多数的要求，也就不能达成共识，这个建议就退出。其他包括网络分区错误也可能会阻止大多数达成共识，</p>
+<h3 id="第二阶段paoxs接纳acceptance"><a class="markdownIt-Anchor" href="#第二阶段paoxs接纳acceptance"></a> 第二阶段：Paoxs接纳Acceptance</h3>
+<p>当完成prepare/promise阶段，进入了 propose/accept阶段。</p>
+<p>一旦建议提交者已经从大多数其他流程服务器获得了诺言，它会要求许诺的流程服务器接收它们之前承诺接受的新值数据，这是一个“确认commit”阶段，如果没有冲突建议 失败或分区错误，那么这个新建议将被所有其他节点接受，那么Paxos过程就完成了。</p>
+<p>你能看到右边的演示，注意这个演示比上面promise在最后多了一个动作，也就是提交建议者将新值发给那些许诺言的流程服务器，让它们接受了这个新值。</p>
+<p>接受的过程也许可能会发生失败，在回复了诺言消息以后，在接受到Accept消息之前，如果有足够多的服务器正好在这个时间段失败，那么接受行为只能是少数服务器，那么Paxos进入了厄运状态：一些流程服务器接受了新值，而不是全部的，这种不一致已经在前面读操作中描述：一个客户端试图从系统中大多数节点服务器读取它们同意接受的值，它发现一些节点服务器报告有不同的值数据，这会引起读失败，但是Paxos还保持一致性，不允许在没有达成共识情况下任何写操作发生，这种坏的情况在实践中经常通过重复接受阶段来让大多数节点最终接受。</p>
+<h3 id="总结"><a class="markdownIt-Anchor" href="#总结"></a> 总结</h3>
+<p>Paxos算法是保证在分布式系统中写操作能够顺利进行，保证系统中大多数状态是一致的，没有机会看到不一致，因此，Paxos算法的特点是一致性&gt;可用性。</p>
+<p>vector clock向量时钟是另外一种保证复制的算法，其特点是可用性&gt;一致性，但是，一旦发生冲突，不像Paxos能自行解决，需要人工干预编写代码解决。</p>
+<p>Paxos算法和Vector Clock都是由Leslie Lamport提出。</p>
+<h2 id="参考资料"><a class="markdownIt-Anchor" href="#参考资料"></a> 参考资料</h2>
+<ul>
+<li><a href="https://lamport.azurewebsites.net/pubs/paxos-simple.pdf" target="_blank" rel="noopener">Paxos Made Simple 论文</a></li>
+<li><a href="https://www.jdon.com/artichect/paxos.html" target="_blank" rel="noopener">分布式系统Paxos算法</a></li>
+</ul>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+        
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="zh-CN">
     <link itemprop="mainEntityOfPage" href="https://dunwu.github.io/blog/blog/efficiency/style/markdown-cheatsheet/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -245,14 +785,14 @@
               </span>
               <span class="post-meta-item-text">发表于</span>
 
-              <time title="创建时间：2021-01-27 00:00:00" itemprop="dateCreated datePublished" datetime="2021-01-27T00:00:00+08:00">2021-01-27</time>
+              <time title="创建时间：2020-01-27 00:00:00" itemprop="dateCreated datePublished" datetime="2020-01-27T00:00:00+08:00">2020-01-27</time>
             </span>
               <span class="post-meta-item">
                 <span class="post-meta-item-icon">
                   <i class="fa fa-calendar-check-o"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2020-01-27 23:48:03" itemprop="dateModified" datetime="2020-01-27T23:48:03+08:00">2020-01-27</time>
+                <time title="修改时间：2020-02-01 22:30:57" itemprop="dateModified" datetime="2020-02-01T22:30:57+08:00">2020-02-01</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -745,156 +1285,6 @@ GFM 中可以显示的展示 diff 效果。可以用 <code>+</code> 开头表示
 </li>
 </ol>
 </section>
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-        
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="https://dunwu.github.io/blog/blog/design/theory/paxos/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/blog/images/avatar.gif">
-      <meta itemprop="name" content="Zhang Peng">
-      <meta itemprop="description" content="Dunwu's Blog">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Dunwu">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/blog/design/theory/paxos/" class="post-title-link" itemprop="url">design/theory/paxos</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-
-              <time title="创建时间：2020-01-31 17:42:52" itemprop="dateCreated datePublished" datetime="2020-01-31T17:42:52+08:00">2020-01-31</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-calendar-check-o"></i>
-                </span>
-                <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2020-02-01 22:24:44" itemprop="dateModified" datetime="2020-02-01T22:24:44+08:00">2020-02-01</time>
-              </span>
-
-          
-  
-  <span class="post-meta-item">
-    
-      <span class="post-meta-item-icon">
-        <i class="fa fa-comment-o"></i>
-      </span>
-      <span class="post-meta-item-text">Disqus：</span>
-    
-    <a title="disqus" href="/blog/design/theory/paxos/#comments" itemprop="discussionUrl">
-      <span class="post-comments-count disqus-comment-count" data-disqus-identifier="design/theory/paxos/" itemprop="commentCount"></span>
-    </a>
-  </span>
-  
-  <br>
-            <span class="post-meta-item" title="本文字数">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-file-word-o"></i>
-              </span>
-                <span class="post-meta-item-text">本文字数：</span>
-              <span>5.5k</span>
-            </span>
-            <span class="post-meta-item" title="阅读时长">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-clock-o"></i>
-              </span>
-                <span class="post-meta-item-text">阅读时长 &asymp;</span>
-              <span>5 分钟</span>
-            </span>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h1 id="深入剖析一致性算法-paxos"><a class="markdownIt-Anchor" href="#深入剖析一致性算法-paxos"></a> 深入剖析一致性算法 Paxos</h1>
-<p>这是一个有关Paxos算法非常形象的讲解与示范。Paxos是能够基于一大堆完全不可靠的网络条件下却能可靠确定地实现共识一致性的算法。也就是说：它允许一组不一定可靠的处理器（服务器）在某些条件得到满足情况下就能达成确定的安全的共识，如果条件不能满足也确保这组处理器（服务器）保持一致。</p>
-<h3 id="什么是共识"><a class="markdownIt-Anchor" href="#什么是共识"></a> 什么是共识？</h3>
-<p>具体来说是这样：分布式系统中由于网络之间通讯可能会中断，虽然概率很低，但是没有100%完美的网络因此，依靠网络通讯的计算机之间要达成共识就比较困难，假设有X, Y和Z三台计算机谋划在周一攻击人类世界，它们的攻击计划是只要所有计算机可用于战斗时就一起进行攻击，不落下任何一台机器，但是当他们决定具体什么时间开始攻击时，在这个关键问题上往往会出错。</p>
-<p>一个基本问题是，每台机器都有自己的攻击时间建议，计算机X可以建议在08:00时间，因为这个时间正是周一早晨，而人们刚刚过完狂欢的周末休息天，但是计算机Z认为13:00比较好，理由当然也有一大堆，让这三台计算机基于某个时刻达成共识是非常困难的，因此，也给人类反击留下了机会。</p>
-<p>另外一个情况是，这三台计算机是位于世界不同的位置，之间通讯或许通过电缆或者其他不太可靠的网络设备通讯，如果X建议在08:00，它必须确认它的这个建议能够到达活着的Y和Z，以免一个人战斗。</p>
-<p>问题是：我们不能准确地知道某个计算机的延迟的原因：是因为性能慢了还是已经是彻底死机不能用？</p>
-<p>那么，X怎么知道其他两个计算机是可用的呢？也就是说，当X和其他两个计算机通讯发现得到响应要过很长时间，它不能确定这两台计算机到底还能不能继续活下去，也许这次通讯有延迟了，下一次它们又活过来了没有延迟了，也许下次延迟更长了一点，也许下次延迟稍微短了一点，这些随机概率问题使得X不能确定Y和Z到底是出了什么问题造成延迟的，是因为处理了某个特别耗费CPU的任务还是因为死锁等原因？当然，有些天真的设计者会说，只要我们将性能监控到位，如果延迟超过一定时间，我们人工介入告诉X确切情况就可以，那么这种人工介入的分布式系统不是一个天然自洽的自动化系统了，不在我们讨论范围之内，而且这样的系统会让人疲于奔命。</p>
-<p>因为X不能确定Y或Z是否可用，所以X仅仅只能和Y与Z中一台基于攻击时间达成共识，就无法完全三台机器全部投入战斗的计划。注意的是，X Y Z三台中任何一台都可能会出现延迟，这就造成了三台机器之间任何通讯都是无法确认可靠的，比如X发出消息给Z，Z确认后回执给X，但是这段时间X突然死机了，那么Z要等待X多长时间才能知道它收到确认呢？还是再次等待X回复确认的确认，这样无限循环下去也不能解决它们之间通讯可能出现随机不可靠的问题。</p>
-<p>所有关键问题在于：由于这三台机器之间通讯是无法保证100%可靠，它们就不能就任何事情达成共识。</p>
-<p>下面以分布式拍卖案例说明这种情况以及Paxos的基本原理？</p>
-<p>在传统拍卖场景中，价高者先得，这些拍卖者都是在同一个房间，彼此能够直接看得到对方的报价，如果我们假设分布式拍卖是将这些拍卖者分离到不同的地方，这样我们可以用拍卖者之间的联系模拟分布式计算机之间的通讯。</p>
-<p>假设拍卖者各自在自己家里拍卖，通过邮局信件发出自己的拍卖信息，拍卖者之间除非等到邮局投递人告诉他们彼此之间的报价，否则是无法知道对方报价的。如果邮局信件投递这个环节出了问题，投递速度慢了甚至无法投递了，那么整个拍卖程序就无法继续进行下去。</p>
-<h3 id="paxos解决共识思路"><a class="markdownIt-Anchor" href="#paxos解决共识思路"></a> Paxos解决共识思路</h3>
-<p>Paxos是一个解决<a href="http://harry.me/blog/2013/07/07/id-like-to-have-an-argument-a-primer-on-consensus/" target="_blank" rel="noopener">共识问题consensus problem</a>的算法，现实中Paxos的实现以及成为一些世界级软件的心脏，如Cassandra, Google的 Spanner数据库, 分布式锁服务Chubby. 一个被Paxos管理的系统实际上谈论的是值 状态和跟踪等问题，其目标是建造更高可用性和强一致性的分布式系统。</p>
-<p>Paxos完成一次写操作需要两次来回，分别是prepare/promise, 和 propose/accept：</p>
-<p><img src="https://www.jdon.com/simgs/bigdata/paxos.png" alt="paxos" /></p>
-<p>第一次由提交者Leader向所有其他服务器发出prepare消息请求准备，所有服务器中大多数如果回复诺言承诺就表示准备好了，可以接受写入；第二次提交者向所有服务器发出正式建议propose，所有服务器中大多数如果回复已经接收就表示成功了。</p>
-<p>为了详细描述这个两段过程，首先让我们定义一下我们将使用的一些名词术语：</p>
-<ul>
-<li>一个流程是系统中计算机的一个. 人们使用有关复制或节点等词语表达，都差不多。</li>
-<li>一个客户端是属于系统中一个成员的计算机，但是询问系统值是什么或者要求系统获取一个新的值。</li>
-</ul>
-<p>Paxos构建分布式数据库的小片段: 它仅仅实现流程将一个新的东西精确地写入系统中，流程是由Paxos的一个实例管治，可以失败或者不知道任何东西、或者大多数流程都知道一个同样的值，这就是共识，Paxos并不真的告诉我们如何用它来构建数据库或类似的东西，它只是负责独立节点之间通讯的流程， 这些流程服务器会基于一个新值执行决定，Paxos会存储一个值数据，只是一次性的，一旦你第一次设置以后就不能再改变它。</p>
-<h3 id="paxo读操作"><a class="markdownIt-Anchor" href="#paxo读操作"></a> Paxo读操作</h3>
-<p>其实Paxos精华是在写操作，将读操作放在写操作前面讲解，是着重Paxos以大多数服务器达成共识为重要标志，通过读取判断是否达成共识这一状态。</p>
-<p>为了从Paxos系统中读取一个值数据，客户端会请求读取所有流程中存储的当前值，然后从大多数流程服务器中获得这个值，如果数量凑不够大多数或者没有足够的客户端响应，读取操作失败，下面图示你会看到一个客户端询问其他节点他们的值是多少，这些节点返回值给客户端，当客户端获得了大多数节点的响应，返回的值都是同样的，它就算成功地读操作了，并顺便保存读结果。</p>
-<p>与单节点系统(只有一台服务器)相比这有些奇怪，这两个系统中，客户端都需要观察系统已决定状态，但是在非分布式系统中像MySQL或一个memcached服务器中, 客户端只需直接向标准的状态存储的服务器地址获取状态即可，在简单的Paxos中, 客户端也是同样的方式观察状态，但是因为并没有标准的状态存储的服务器地址，它需要询问所有的成员，以便能够确定仅有一个会报告值数据，实际上是大多数节点都持有的值数据，如果客户端询问一个节点，有可能这个节点流程已经过期，得到了错误的值数据，流程失效过期的原因有很多：由于不可靠的网络导致本应送达到它们的消息丢失了；或者他们也许当机然后使用了一个过期状态恢复；或者算法还在运行计算中，流程并没有正好得到消息等等。在现实中使用Paxos实现时，其实不需要每个节点都进行一次读取，会有更好的读取方式，但是他们都是拓展的原始 Paxos 算法。</p>
-<h3 id="paxos写操作"><a class="markdownIt-Anchor" href="#paxos写操作"></a> Paxos写操作</h3>
-<p>当一个客户端要求写入系统一个新值时，让我们看看Paxos让我们集群的流程都做了什么？下面的过程都是只有一个值的写入，最终我们能用这个流程作为原始数据，允许值数据在彼此之间一个个设置，但是基本的Paxos算法管治了一个新值数据的写操作流程， 然后做重复的事情。</p>
-<p>首先Paxos管理的系统中一个客户端要求写入一个新值，客户端这里如图所示是红圈，其它流程是蓝圈， Paxos能保证客户端发送它们的写请求到Paxos集群中任何成员, 这里演示中客户端随机挑选流程中任意一个，这种方式是重要且巧妙的，意味著没有任何单点风险，意味着我们的Paxos管治系统能继续保持在线可用，无论任何一个节点当机或其他不可用原因无响应。如果我们设计一个特定节点作为“推荐人proposer”或者 “the master” 等, 如果这个主节点死机，那么整个系统就崩溃了。</p>
-<p>当写请求被接受后，Paxos流程会接受这个写新值到系统中请求“建议”， “建议”是Paxos中一个正式概念: 向一个Paxos管治的系统建议可能会成功或失败，需要步骤来确保共识能够达成维系，这个建议以准备消息从那些与客户端连接的流程节点们被发往整个系统。</p>
-<h4 id="序列号"><a class="markdownIt-Anchor" href="#序列号"></a> 序列号</h4>
-<p>这个准备消息保存在被建议的值数据中，它们也称为序列号s<em>equence number</em>，序列号是由建议流程产生的，它定义了接受流程应该准备接受带有序列号的建议，这个序列号是关键: 它用于表明新旧建议之间的区别，如果两个流程试图获得需要设置一个值，Paxos认为最后一个流程应该有优先权，这样让流程分辨哪个是最后一个，这样它就能设置最新的值。</p>
-<p>这些接受的流程能够进行在系统中关键的检查：这个在到来的准备消息中序列号是我见过的最高级别吗？如果是，那就很cool, 我能准备好接受将要到来的值数据，那就不要管之前听到的任何其他值数据了，你能看到这个过程在右边演示中：客户端每隔一段向一个流程建议一个新值，这个流程发送准备消息给其他流程，然后那些流程注意到这是一个成功的更高的超过旧的新序列号，然后就放手那些旧建议。</p>
-<p>这里有一个顺序的设计(先发送准备消息)，这是为避免单点风险，如果没有这个顺序，Paxos中成员就无法分辨哪个建议是他们可以有信心地准备接受的。</p>
-<p>我们不能想象有另外不同的共识算法，不是按照如下步骤：首先发送第一个消息询问其他流程，以确保将设置的新值是最新的值，尽管方式可以再简单些，但是可能就不能满足共识算法安全的需求了，如果两个流程正好同时建议不同的值，如下所示：</p>
-<p>大自然经常会这样欺骗我们，每个包都能另外一半的流程相信它们接受的也许是正确也许是错误的值，系统将进入一个僵局，存在两个相同数量的组却有不同的值，那么就无法确定大多数这个概念了，这个僵局能够被第一个Paxos消息避免，因为Paxos的序列号，那些有问题的建议将有被其他更低的序列号，这样序列号更高的建议就会毫不含糊地被大多数流程接收，它们也首先获得了更高的序列号，然后如果接受到更低的序列号就会拒绝，Paxos 就是这样通过用序列号控制整个系统的时间节奏。</p>
-<p><em>上图演示了客户端首先发一个准备消息给Paxos流程，Paxos流程会检查下一步将到来的建议的序列号，以分辨是否准备接受这个新值，所有流程都是这样消除歧义，共识由此达成。</em></p>
-<p>注意：保证没有两个建议使用相同的序列号是很重要的，这是确保他们的顺序，这样每个序列号只有一个建议，这样才能比较两个建议，实现Paxos时，全局唯一有序的序列号实际是精确系统时间和集群中节点数量的拷贝，随着时间不断增加，从来不会重复。</p>
-<h4 id="paxos第一阶段准备perpare诺言promises"><a class="markdownIt-Anchor" href="#paxos第一阶段准备perpare诺言promises"></a> Paxos第一阶段：准备Perpare/诺言Promises</h4>
-<p>Paxos的第一阶段是prepare/promise，准备阶段就是将建议值发送到各个目标节点。</p>
-<p>当建议被发到目标节点后，流程会会检查建议中的序列号，是否是它们见到过的最高级，如果是最高级，它们会发出一个promise不再接受比这个新序列号更旧的建议了，这个诺言promise作为消息从许下诺言的流程发到提交建议新值的流程服务器，这个诺言消息给提交建议的流程后，提交建议的流程需要自己统计一下有多少其他流程已经发回它们的诺言promise了，如果判断数量上是否达到大多数？如果大多数流程已经同意接受这个建议或者更高级序列号的建议，这个提交建议的流程就能知道它获得了发言权(因为有大多数支持)，这样就开始讲话，算法中的下一步处理将可能进行；如果回复诺言的节点数量没有达到大多数，也就是共识没有达成，这样这个节点提交的建议将退出，客户端要求的写操作失败。</p>
-<p>为了决定一个建议是否已经有足够的回复诺言promises, 提交建议者只是统计一下它接受到的 <code>promise</code> 消息数量，然后和整个系统中节点服务器数量比较一下，“足够”意味着大多数(N/2 + 1)个流程服务器在某段时间内都回复了诺言promises。如果超过一半的流程服务器没有返回诺言，这意味着这个建议没有被大多数通过，那么在前面描述的读算法中就不能满足大多数的要求，也就不能达成共识，这个建议就退出。其他包括网络分区错误也可能会阻止大多数达成共识，</p>
-<h3 id="第二阶段paoxs接纳acceptance"><a class="markdownIt-Anchor" href="#第二阶段paoxs接纳acceptance"></a> 第二阶段：Paoxs接纳Acceptance</h3>
-<p>当完成prepare/promise阶段，进入了 propose/accept阶段。</p>
-<p>一旦建议提交者已经从大多数其他流程服务器获得了诺言，它会要求许诺的流程服务器接收它们之前承诺接受的新值数据，这是一个“确认commit”阶段，如果没有冲突建议 失败或分区错误，那么这个新建议将被所有其他节点接受，那么Paxos过程就完成了。</p>
-<p>你能看到右边的演示，注意这个演示比上面promise在最后多了一个动作，也就是提交建议者将新值发给那些许诺言的流程服务器，让它们接受了这个新值。</p>
-<p>接受的过程也许可能会发生失败，在回复了诺言消息以后，在接受到Accept消息之前，如果有足够多的服务器正好在这个时间段失败，那么接受行为只能是少数服务器，那么Paxos进入了厄运状态：一些流程服务器接受了新值，而不是全部的，这种不一致已经在前面读操作中描述：一个客户端试图从系统中大多数节点服务器读取它们同意接受的值，它发现一些节点服务器报告有不同的值数据，这会引起读失败，但是Paxos还保持一致性，不允许在没有达成共识情况下任何写操作发生，这种坏的情况在实践中经常通过重复接受阶段来让大多数节点最终接受。</p>
-<h3 id="总结"><a class="markdownIt-Anchor" href="#总结"></a> 总结</h3>
-<p>Paxos算法是保证在分布式系统中写操作能够顺利进行，保证系统中大多数状态是一致的，没有机会看到不一致，因此，Paxos算法的特点是一致性&gt;可用性。</p>
-<p>vector clock向量时钟是另外一种保证复制的算法，其特点是可用性&gt;一致性，但是，一旦发生冲突，不像Paxos能自行解决，需要人工干预编写代码解决。</p>
-<p>Paxos算法和Vector Clock都是由Leslie Lamport提出。</p>
-<h2 id="参考资料"><a class="markdownIt-Anchor" href="#参考资料"></a> 参考资料</h2>
-<ul>
-<li><a href="https://lamport.azurewebsites.net/pubs/paxos-simple.pdf" target="_blank" rel="noopener">Paxos Made Simple 论文</a></li>
-<li><a href="https://www.jdon.com/artichect/paxos.html" target="_blank" rel="noopener">分布式系统Paxos算法</a></li>
-</ul>
 
       
     </div>
@@ -2481,705 +2871,11 @@ P2P 模式包含三个角色：MQ（Queue），发送者(Sender)，接收者(Rec
   
   
 
-        
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="https://dunwu.github.io/blog/blog/design/theory/cache-theory/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/blog/images/avatar.gif">
-      <meta itemprop="name" content="Zhang Peng">
-      <meta itemprop="description" content="Dunwu's Blog">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Dunwu">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/blog/design/theory/cache-theory/" class="post-title-link" itemprop="url">缓存基本原理</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-
-              <time title="创建时间：2019-06-27 15:36:00" itemprop="dateCreated datePublished" datetime="2019-06-27T15:36:00+08:00">2019-06-27</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-calendar-check-o"></i>
-                </span>
-                <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2020-01-25 22:48:34" itemprop="dateModified" datetime="2020-01-25T22:48:34+08:00">2020-01-25</time>
-              </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/blog/categories/%E8%AE%BE%E8%AE%A1/" itemprop="url" rel="index">
-                    <span itemprop="name">设计</span>
-                  </a>
-                </span>
-                  ，
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/blog/categories/%E8%AE%BE%E8%AE%A1/%E7%B3%BB%E7%BB%9F%E5%8E%9F%E7%90%86/" itemprop="url" rel="index">
-                    <span itemprop="name">系统原理</span>
-                  </a>
-                </span>
-            </span>
-
-          
-  
-  <span class="post-meta-item">
-    
-      <span class="post-meta-item-icon">
-        <i class="fa fa-comment-o"></i>
-      </span>
-      <span class="post-meta-item-text">Disqus：</span>
-    
-    <a title="disqus" href="/blog/design/theory/cache-theory/#comments" itemprop="discussionUrl">
-      <span class="post-comments-count disqus-comment-count" data-disqus-identifier="design/theory/cache-theory/" itemprop="commentCount"></span>
-    </a>
-  </span>
-  
-  <br>
-            <span class="post-meta-item" title="本文字数">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-file-word-o"></i>
-              </span>
-                <span class="post-meta-item-text">本文字数：</span>
-              <span>12k</span>
-            </span>
-            <span class="post-meta-item" title="阅读时长">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-clock-o"></i>
-              </span>
-                <span class="post-meta-item-text">阅读时长 &asymp;</span>
-              <span>11 分钟</span>
-            </span>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h1 id="缓存基本原理"><a class="markdownIt-Anchor" href="#缓存基本原理"></a> 缓存基本原理</h1>
-<!-- TOC depthFrom:2 depthTo:3 -->
-<ul>
-<li><a href="#1-%E7%BC%93%E5%AD%98%E6%A6%82%E8%BF%B0">1. 缓存概述</a>
-<ul>
-<li><a href="#11-%E4%BB%80%E4%B9%88%E6%98%AF%E7%BC%93%E5%AD%98">1.1. 什么是缓存</a></li>
-<li><a href="#12-%E4%B8%BA%E4%BB%80%E4%B9%88%E5%BC%95%E5%85%A5%E7%BC%93%E5%AD%98">1.2. 为什么引入缓存</a></li>
-<li><a href="#13-%E7%BC%93%E5%AD%98%E7%9A%84%E5%9F%BA%E6%9C%AC%E5%8E%9F%E7%90%86">1.3. 缓存的基本原理</a></li>
-<li><a href="#14-%E7%BC%93%E5%AD%98%E6%B7%98%E6%B1%B0%E7%AE%97%E6%B3%95">1.4. 缓存淘汰算法</a></li>
-<li><a href="#15-%E7%BC%93%E5%AD%98%E7%9A%84%E5%88%86%E7%B1%BB">1.5. 缓存的分类</a></li>
-<li><a href="#16-%E7%BC%93%E5%AD%98%E6%95%B4%E4%BD%93%E6%9E%B6%E6%9E%84">1.6. 缓存整体架构</a></li>
-</ul>
-</li>
-<li><a href="#2-cdn-%E7%BC%93%E5%AD%98">2. CDN 缓存</a>
-<ul>
-<li><a href="#21-cdn-%E5%8E%9F%E7%90%86">2.1. CDN 原理</a></li>
-<li><a href="#22-cdn-%E7%89%B9%E7%82%B9">2.2. CDN 特点</a></li>
-</ul>
-</li>
-<li><a href="#3-%E5%8F%8D%E5%90%91%E4%BB%A3%E7%90%86%E7%BC%93%E5%AD%98">3. 反向代理缓存</a>
-<ul>
-<li><a href="#31-%E7%BC%93%E5%AD%98%E5%8E%9F%E7%90%86">3.1. 缓存原理</a></li>
-<li><a href="#32-%E4%BB%A3%E7%90%86%E7%BC%93%E5%AD%98%E6%AF%94%E8%BE%83">3.2. 代理缓存比较</a></li>
-</ul>
-</li>
-<li><a href="#4-%E8%BF%9B%E7%A8%8B%E5%86%85%E7%BC%93%E5%AD%98">4. 进程内缓存</a>
-<ul>
-<li><a href="#41-concurrenthashmap">4.1. ConcurrentHashMap</a></li>
-<li><a href="#42-lruhashmap">4.2. LRUHashMap</a></li>
-<li><a href="#43-guava-cache">4.3. Guava Cache</a></li>
-<li><a href="#44-caffeine">4.4. Caffeine</a></li>
-<li><a href="#45-%E9%80%89%E6%8B%A9%E8%BF%9B%E7%A8%8B%E5%86%85%E7%BC%93%E5%AD%98">4.5. 选择进程内缓存</a></li>
-</ul>
-</li>
-<li><a href="#5-%E5%88%86%E5%B8%83%E5%BC%8F%E7%BC%93%E5%AD%98">5. 分布式缓存</a>
-<ul>
-<li><a href="#51-memcache">5.1. Memcache</a></li>
-<li><a href="#52-redis">5.2. Redis</a></li>
-<li><a href="#53-%E9%80%89%E6%8B%A9%E5%88%86%E5%B8%83%E5%BC%8F%E7%BC%93%E5%AD%98">5.3. 选择分布式缓存</a></li>
-</ul>
-</li>
-<li><a href="#6-%E5%A4%9A%E7%BA%A7%E7%BC%93%E5%AD%98">6. 多级缓存</a>
-<ul>
-<li><a href="#61-%E4%BD%BF%E7%94%A8%E8%BF%9B%E7%A8%8B%E5%86%85%E7%BC%93%E5%AD%98">6.1. 使用进程内缓存</a></li>
-<li><a href="#62-%E4%BD%BF%E7%94%A8%E5%88%86%E5%B8%83%E5%BC%8F%E7%BC%93%E5%AD%98">6.2. 使用分布式缓存</a></li>
-<li><a href="#63-%E4%BD%BF%E7%94%A8%E5%A4%9A%E7%BA%A7%E7%BC%93%E5%AD%98">6.3. 使用多级缓存</a></li>
-</ul>
-</li>
-<li><a href="#7-%E7%BC%93%E5%AD%98%E9%97%AE%E9%A2%98">7. 缓存问题</a>
-<ul>
-<li><a href="#71-%E7%BC%93%E5%AD%98%E9%9B%AA%E5%B4%A9">7.1. 缓存雪崩</a></li>
-<li><a href="#72-%E7%BC%93%E5%AD%98%E7%A9%BF%E9%80%8F">7.2. 缓存穿透</a></li>
-<li><a href="#73-%E7%BC%93%E5%AD%98%E5%87%BB%E7%A9%BF">7.3. 缓存击穿</a></li>
-<li><a href="#74-%E7%BC%93%E5%AD%98%E6%9B%B4%E6%96%B0">7.4. 缓存更新</a></li>
-<li><a href="#75-%E7%BC%93%E5%AD%98%E9%A2%84%E7%83%AD">7.5. 缓存预热</a></li>
-<li><a href="#76-%E7%BC%93%E5%AD%98%E9%99%8D%E7%BA%A7">7.6. 缓存降级</a></li>
-</ul>
-</li>
-<li><a href="#%E5%8F%82%E8%80%83%E8%B5%84%E6%96%99">参考资料</a></li>
-</ul>
-<!-- /TOC -->
-<h2 id="1-缓存概述"><a class="markdownIt-Anchor" href="#1-缓存概述"></a> 1. 缓存概述</h2>
-<h3 id="11-什么是缓存"><a class="markdownIt-Anchor" href="#11-什么是缓存"></a> 1.1. 什么是缓存</h3>
-<p><strong>缓存就是数据交换的缓冲区</strong>。</p>
-<p>缓存是用于存储数据的硬件或软件的组成部分，以使得后续更快访问相应的数据。缓存中的数据可能是提前计算好的结果、数据的副本等。典型的应用场景：有 cpu cache, 磁盘 cache 等。本文中提及到缓存主要是指互联网应用中所使用的缓存组件。</p>
-<h3 id="12-为什么引入缓存"><a class="markdownIt-Anchor" href="#12-为什么引入缓存"></a> 1.2. 为什么引入缓存</h3>
-<p>传统的后端业务场景中，访问量以及对响应时间的要求均不高，通常只使用数据库即可满足要求。这种架构简单，便于快速部署，很多网站发展初期均考虑使用这种架构。但是随着访问量的上升，以及对响应时间的要求提升，一个数据库服务已无法再满足要求。这时候通常会考虑数据库拆分(sharding)、读写分离、甚至硬件升级(SSD)等以满足新的业务需求。但是这种方式仍然会面临很多问题，主要体现在：</p>
-<ul>
-<li>性能提升有限，很难达到数量级上的提升，尤其在互联网业务场景下，随着网站的发展，访问量经常会面临十倍、百倍的上涨。</li>
-<li>成本高昂，为了承载 N 倍的访问量，通常需要 N 倍的机器，这个代价难以接受。</li>
-</ul>
-<p>在数据层引入缓存，有以下几个好处：</p>
-<ul>
-<li>提升数据读取速度。</li>
-<li>提升系统扩展能力，通过扩展缓存，提升系统承载能力。</li>
-<li>降低存储成本，Cache+DB 的方式可以承担原有需要多台 DB 才能承担的请求量，节省机器成本。</li>
-</ul>
-<p>根据业务场景，通常缓存有以下几种使用方式：</p>
-<ul>
-<li>懒汉式(读时触发)：写入 DB 后, 然后把相关的数据也写入 Cache。</li>
-<li>饥饿式(写时触发)：先查询 DB 里的数据, 然后把相关的数据写入 Cache。</li>
-<li>定期刷新：适合周期性的跑数据的任务，或者列表型的数据，而且不要求绝对实时性。</li>
-</ul>
-<h3 id="13-缓存的基本原理"><a class="markdownIt-Anchor" href="#13-缓存的基本原理"></a> 1.3. 缓存的基本原理</h3>
-<ol>
-<li>将数据写入/读取速度更快的存储（设备）；</li>
-<li>将数据缓存到离应用最近的位置；</li>
-<li>将数据缓存到离用户最近的位置。</li>
-</ol>
-<h3 id="14-缓存淘汰算法"><a class="markdownIt-Anchor" href="#14-缓存淘汰算法"></a> 1.4. 缓存淘汰算法</h3>
-<p>常见的缓存淘汰算法有以下几种：</p>
-<ul>
-<li><strong>FIFO</strong> - 先进先出，在这种淘汰算法中，先进入缓存的会先被淘汰。这种可谓是最简单的了，但是会导致我们命中率很低。试想一下我们如果有个访问频率很高的数据是所有数据第一个访问的，而那些不是很高的是后面再访问的，那这样就会把我们的首个数据但是他的访问频率很高给挤出。</li>
-<li><strong>LRU</strong> - 最近最少使用算法。在这种算法中避免了上面的问题，每次访问数据都会将其放在我们的队尾，如果需要淘汰数据，就只需要淘汰队首即可。但是这个依然有个问题，如果有个数据在 1 个小时的前 59 分钟访问了 1 万次(可见这是个热点数据),再后一分钟没有访问这个数据，但是有其他的数据访问，就导致了我们这个热点数据被淘汰。</li>
-<li><strong>LFU</strong> - 最近最少频率使用。在这种算法中又对上面进行了优化，利用额外的空间记录每个数据的使用频率，然后选出频率最低进行淘汰。这样就避免了 LRU 不能处理时间段的问题。</li>
-</ul>
-<p>这三种缓存淘汰算法，实现复杂度一个比一个高，同样的命中率也是一个比一个好。而我们一般来说选择的方案居中即可，即实现成本不是太高，而命中率也还行的 LRU。</p>
-<h3 id="15-缓存的分类"><a class="markdownIt-Anchor" href="#15-缓存的分类"></a> 1.5. 缓存的分类</h3>
-<p>在分布式系统中，缓存的应用非常广泛，从部署角度有以下几个方面的缓存应用。</p>
-<ul>
-<li><strong>CDN 缓存</strong> - 存放 HTML、CSS、JS 等静态资源。</li>
-<li><strong>反向代理缓存</strong> - 动静分离，只缓存用户请求的静态资源。</li>
-<li><strong>进程内缓存</strong> - 缓存应用字典等常用数据。</li>
-<li><strong>分布式缓存</strong> - 缓存数据库中的热点数据。</li>
-</ul>
-<h3 id="16-缓存整体架构"><a class="markdownIt-Anchor" href="#16-缓存整体架构"></a> 1.6. 缓存整体架构</h3>
-<p>通常，网站的缓存整体架构如下图所示：</p>
-<div align="center"><img src="http://dunwu.test.upcdn.net/cs/java/javaweb/technology/cache/缓存整体架构.png!zp" /></div>
-请求过程：
-<ol>
-<li>浏览器向客户端发起请求，如果 CDN 有缓存则直接返回；</li>
-<li>如果 CDN 无缓存，则访问反向代理服务器；</li>
-<li>如果反向代理服务器有缓存则直接返回；</li>
-<li>如果反向代理服务器无缓存或动态请求，则访问应用服务器；</li>
-<li>应用服务器访问进程内缓存；如果有缓存，则返回代理服务器，并缓存数据；（动态请求不缓存）</li>
-<li>如果进程内缓存无数据，则读取分布式缓存；并返回应用服务器；应用服务器将数据缓存到本地缓存（部分）；</li>
-<li>如果分布式缓存无数据，则应用程序读取数据库数据，并放入分布式缓存；</li>
-</ol>
-<h2 id="2-cdn-缓存"><a class="markdownIt-Anchor" href="#2-cdn-缓存"></a> 2. CDN 缓存</h2>
-<blockquote>
-<p><strong>CDN 将数据缓存到离用户物理距离最近的服务器，使得用户可以就近获取请求内容。CDN 一般缓存静态资源文件（页面，脚本，图片，视频，文件等）</strong>。</p>
-<p>国内网络异常复杂，跨运营商的网络访问会很慢。为了解决跨运营商或各地用户访问问题，可以在重要的城市，部署 CDN 应用。使用户就近获取所需内容，降低网络拥塞，提高用户访问响应速度和命中率。</p>
-</blockquote>
-<div align="center"><img src="http://dunwu.test.upcdn.net/snap/1559138689425.png!zp"/></div>
-### 2.1. CDN 原理
-<p>CDN 的基本原理是广泛采用各种缓存服务器，将这些缓存服务器分布到用户访问相对集中的地区或网络中，在用户访问网站时，利用全局负载技术将用户的访问指向距离最近的工作正常的缓存服务器上，由缓存服务器直接响应用户请求。</p>
-<p>（1）未部署 CDN 应用前的网络路径：</p>
-<ul>
-<li>请求：本机网络（局域网）=&gt; 运营商网络 =&gt; 应用服务器机房</li>
-<li>响应：应用服务器机房 =&gt; 运营商网络 =&gt; 本机网络（局域网）</li>
-</ul>
-<p>在不考虑复杂网络的情况下，从请求到响应需要经过 3 个节点，6 个步骤完成一次用户访问操作。</p>
-<p>（2）部署 CDN 应用后网络路径：</p>
-<ul>
-<li>请求：本机网络（局域网） =&gt; 运营商网络</li>
-<li>响应：运营商网络 =&gt; 本机网络（局域网）</li>
-</ul>
-<p>在不考虑复杂网络的情况下，从请求到响应需要经过 2 个节点，2 个步骤完成一次用户访问操作。</p>
-<p>与不部署 CDN 服务相比，减少了 1 个节点，4 个步骤的访问。极大的提高的系统的响应速度。</p>
-<h3 id="22-cdn-特点"><a class="markdownIt-Anchor" href="#22-cdn-特点"></a> 2.2. CDN 特点</h3>
-<ul>
-<li><strong>优点</strong>
-<ul>
-<li><strong>本地 Cache 加速</strong> - 提升访问速度，尤其含有大量图片和静态页面站点；</li>
-<li><strong>镜像服务</strong> - 消除了不同运营商之间互联的瓶颈造成的影响，实现了跨运营商的网络加速，保证不同网络中的用户都能得到良好的访问质量；</li>
-<li><strong>远程加速</strong> - 远程访问用户根据 DNS 负载均衡技术智能自动选择 Cache 服务器，选择最快的 Cache 服务器，加快远程访问的速度；</li>
-<li><strong>带宽优化</strong> - 自动生成服务器的远程 Mirror（镜像）cache 服务器，远程用户访问时从 cache 服务器上读取数据，减少远程访问的带宽、分担网络流量、减轻原站点 WEB 服务器负载等功能。</li>
-<li><strong>集群抗攻击</strong> - 广泛分布的 CDN 节点加上节点之间的智能冗余机制，可以有效地预防黑客入侵以及降低各种 D.D.o.S 攻击对网站的影响，同时保证较好的服务质量。</li>
-</ul>
-</li>
-<li><strong>缺点</strong>
-<ul>
-<li><strong>不适宜缓存动态资源</strong>
-<ul>
-<li>解决方案：主要缓存静态资源，动态资源建立多级缓存或准实时同步；</li>
-</ul>
-</li>
-<li><strong>存在数据的一致性问题</strong>
-<ul>
-<li>解决方案（主要是在性能和数据一致性二者间寻找一个平衡）
-<ul>
-<li>设置缓存失效时间（1 个小时，过期后同步数据）。</li>
-<li>针对资源设置版本号。</li>
-</ul>
-</li>
-</ul>
-</li>
-</ul>
-</li>
-</ul>
-<h2 id="3-反向代理缓存"><a class="markdownIt-Anchor" href="#3-反向代理缓存"></a> 3. 反向代理缓存</h2>
-<blockquote>
-<p><strong>反向代理（Reverse Proxy）方式是指以代理服务器来接受 internet 上的连接请求，然后将请求转发给内部网络上的服务器，并将从服务器上得到的结果返回给 internet 上请求连接的客户端，此时代理服务器对外就表现为一个反向代理服务器。</strong></p>
-</blockquote>
-<div align="center"><img src="http://dunwu.test.upcdn.net/cs/web/nginx/reverse-proxy.png!zp"/></div>
-### 3.1. 缓存原理
-<p>反向代理位于应用服务器同一网络，处理所有对 WEB 服务器的请求。</p>
-<p>反向代理缓存的原理：</p>
-<ul>
-<li>如果用户请求的页面在代理服务器上有缓存的话，代理服务器直接将缓存内容发送给用户。</li>
-<li>如果没有缓存则先向 WEB 服务器发出请求，取回数据，本地缓存后再发送给用户。</li>
-</ul>
-<p>这种方式通过降低向 WEB 服务器的请求数，从而降低了 WEB 服务器的负载。</p>
-<p><strong>反向代理缓存一般针对的是静态资源，而将动态资源请求转发到应用服务器处理</strong>。常用的缓存应用服务器有 Varnish，Ngnix，Squid。</p>
-<h3 id="32-代理缓存比较"><a class="markdownIt-Anchor" href="#32-代理缓存比较"></a> 3.2. 代理缓存比较</h3>
-<p>常用的代理缓存有 Varnish，Squid，Ngnix，简单比较如下：</p>
-<ul>
-<li>Varnish 和 Squid 是专业的 cache 服务，Ngnix 需要第三方模块支持；</li>
-<li>Varnish 采用内存型缓存，避免了频繁在内存、磁盘中交换文件，性能比 Squid 高；</li>
-<li>Varnish 由于是内存 cache，所以对小文件如 css、js、小图片的支持很棒，后端的持久化缓存可以采用的是 Squid 或 ATS；</li>
-<li>Squid 功能全而大，适合于各种静态的文件缓存，一般会在前端挂一个 HAProxy 或 Ngnix 做负载均衡跑多个实例；</li>
-<li>Nginx 采用第三方模块 ncache 做的缓冲，性能基本达到 Varnish，一般作为反向代理使用，可以实现简单的缓存。</li>
-</ul>
-<h2 id="4-进程内缓存"><a class="markdownIt-Anchor" href="#4-进程内缓存"></a> 4. 进程内缓存</h2>
-<blockquote>
-<p>进程内缓存是指应用内部的缓存，标准的分布式系统，一般有多级缓存构成。本地缓存是离应用最近的缓存，一般可以将数据缓存到硬盘或内存。</p>
-</blockquote>
-<ul>
-<li><code>硬盘缓存</code> - 将数据缓存到硬盘到，读取时从硬盘读取。原理是直接读取本机文件，减少了网络传输消耗，比通过网络读取数据库速度更快。可以应用在对速度要求不是很高，但需要大量缓存存储的场景。</li>
-<li><code>内存缓存</code> - 直接将数据存储到本机内存中，通过程序直接维护缓存对象，是访问速度最快的方式。</li>
-</ul>
-<p>常见的本地缓存实现方案：HashMap、Guava Cache、Caffeine、Ehcache。</p>
-<h3 id="41-concurrenthashmap"><a class="markdownIt-Anchor" href="#41-concurrenthashmap"></a> 4.1. ConcurrentHashMap</h3>
-<p>最简单的进程内缓存可以通过 JDK 自带的 <code>HashMap</code> 或 <code>ConcurrentHashMap</code> 实现。</p>
-<p>适用场景：不需要淘汰的缓存数据。</p>
-<p>缺点：无法进行缓存淘汰，内存会无限制的增长。</p>
-<h3 id="42-lruhashmap"><a class="markdownIt-Anchor" href="#42-lruhashmap"></a> 4.2. LRUHashMap</h3>
-<p>可以通过继承 <code>LinkedHashMap</code> 来实现一个简单的 <code>LRUHashMap</code>。重写 <code>removeEldestEntry</code> 方法，即可完成一个简单的最近最少使用算法。</p>
-<ul>
-<li>缺点：
-<ul>
-<li>锁竞争严重，性能比较低。</li>
-<li>不支持过期时间</li>
-<li>不支持自动刷新</li>
-</ul>
-</li>
-</ul>
-<h3 id="43-guava-cache"><a class="markdownIt-Anchor" href="#43-guava-cache"></a> 4.3. Guava Cache</h3>
-<p>解决了 <code>LRUHashMap</code> 中的几个缺点。</p>
-<p>Guava Cache 采用了类似 <code>ConcurrentHashMap</code> 的思想，分段加锁，减少锁竞争。</p>
-<p>Guava Cache 对于过期的 Entry 并没有马上过期(也就是并没有后台线程一直在扫)，而是通过进行读写操作的时候进行过期处理，这样做的好处是避免后台线程扫描的时候进行全局加锁。</p>
-<p>直接通过查询，判断其是否满足刷新条件，进行刷新。</p>
-<h3 id="44-caffeine"><a class="markdownIt-Anchor" href="#44-caffeine"></a> 4.4. Caffeine</h3>
-<p>Caffeine 实现了 W-TinyLFU(LFU+LRU 算法的变种)，其命中率和读写吞吐量大大优于 Guava Cache。</p>
-<p>其实现原理较复杂，可以参考<a href="https://juejin.im/post/5b7593496fb9a009b62904fa#comment" target="_blank" rel="noopener">你应该知道的缓存进化史</a>。</p>
-<h3 id="45-选择进程内缓存"><a class="markdownIt-Anchor" href="#45-选择进程内缓存"></a> 4.5. 选择进程内缓存</h3>
-<table>
-<thead>
-<tr>
-<th>比较项</th>
-<th>ConcurrentHashMap</th>
-<th>LRUMap</th>
-<th>Ehcache</th>
-<th>Guava Cache</th>
-<th>Caffeine</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>读写性能</td>
-<td>很好，分段锁</td>
-<td>一般，全局加锁</td>
-<td>好</td>
-<td>好，需要做淘汰操作</td>
-<td>很好</td>
-</tr>
-<tr>
-<td>淘汰算法</td>
-<td>无</td>
-<td>LRU，一般</td>
-<td>支持多种淘汰算法,LRU,LFU,FIFO</td>
-<td>LRU，一般</td>
-<td>W-TinyLFU, 很好</td>
-</tr>
-<tr>
-<td>功能丰富程度</td>
-<td>功能比较简单</td>
-<td>功能比较单一</td>
-<td>功能很丰富</td>
-<td>功能很丰富，支持刷新和虚引用等</td>
-<td>功能和 Guava Cache 类似</td>
-</tr>
-<tr>
-<td>工具大小</td>
-<td>jdk 自带类，很小</td>
-<td>基于 LinkedHashMap，较小</td>
-<td>很大，最新版本 1.4MB</td>
-<td>是 Guava 工具类中的一个小部分，较小</td>
-<td>一般，最新版本 644KB</td>
-</tr>
-<tr>
-<td>是否持久化</td>
-<td>否</td>
-<td>否</td>
-<td>是</td>
-<td>否</td>
-<td>否</td>
-</tr>
-<tr>
-<td>是否支持集群</td>
-<td>否</td>
-<td>否</td>
-<td>是</td>
-<td>否</td>
-<td>否</td>
-</tr>
-</tbody>
-</table>
-<ul>
-<li><strong><code>ConcurrentHashMap</code></strong> - 比较适合缓存比较固定不变的元素，且缓存的数量较小的。虽然从上面表格中比起来有点逊色，但是其由于是 JDK 自带的类，在各种框架中依然有大量的使用，比如我们可以用来缓存我们反射的 Method，Field 等等；也可以缓存一些链接，防止其重复建立。在 Caffeine 中也是使用的 <code>ConcurrentHashMap</code> 来存储元素。</li>
-<li><strong><code>LRUMap</code></strong> - 如果不想引入第三方包，又想使用淘汰算法淘汰数据，可以使用这个。</li>
-<li><strong><code>Ehcache</code></strong> - 由于其 jar 包很大，较重量级。对于需要持久化和集群的一些功能的，可以选择 Ehcache。笔者没怎么使用过这个缓存，如果要选择的话，可以选择分布式缓存来替代 Ehcache。</li>
-<li><strong><code>Guava Cache</code></strong> - Guava 这个 jar 包在很多 Java 应用程序中都有大量的引入，所以很多时候其实是直接用就好了，并且其本身是轻量级的而且功能较为丰富，在不了解 Caffeine 的情况下可以选择 Guava Cache。</li>
-<li><strong><code>Caffeine</code></strong> - 其在命中率，读写性能上都比 Guava Cache 好很多，并且其 API 和 Guava cache 基本一致，甚至会多一点。在真实环境中使用 Caffeine，取得过不错的效果。</li>
-</ul>
-<p>总结一下：如果不需要淘汰算法则选择 <code>ConcurrentHashMap</code>，如果需要淘汰算法和一些丰富的 API，推荐选择 Caffeine。</p>
-<h2 id="5-分布式缓存"><a class="markdownIt-Anchor" href="#5-分布式缓存"></a> 5. 分布式缓存</h2>
-<blockquote>
-<p><strong>分布式缓存解决了进程内缓存最大的问题：如果应用是分布式系统，节点之间无法共享彼此的进程内缓存</strong>。</p>
-<p>分布式缓存的应用场景：</p>
-<ul>
-<li>缓存经过复杂计算得到的数据</li>
-<li>缓存系统中频繁访问的热点数据，减轻数据库压力</li>
-</ul>
-</blockquote>
-<p>不同分布式缓存的实现原理往往有比较大的差异。本文主要针对 Memcached 和 Redis 进行说明。</p>
-<h3 id="51-memcache"><a class="markdownIt-Anchor" href="#51-memcache"></a> 5.1. Memcache</h3>
-<blockquote>
-<p><a href="https://memcached.org/" target="_blank" rel="noopener">Memcache</a> 是一个高性能，分布式内存对象缓存系统，通过在内存里维护一个统一的巨大的 hash 表，它能够用来存储各种格式的数据，包括图像、视频、文件以及数据库检索的结果等。</p>
-<p>简单的说就是：将数据缓存到内存中，然后从内存中读取，从而大大提高读取速度。</p>
-</blockquote>
-<h4 id="memcache-特性"><a class="markdownIt-Anchor" href="#memcache-特性"></a> Memcache 特性</h4>
-<ul>
-<li><strong>使用物理内存作为缓存区，可独立运行在服务器上</strong>。每个进程最大 2G，如果想缓存更多的数据，可以开辟更多的 Memcache 进程（不同端口）或者使用分布式 Memcache 进行缓存，将数据缓存到不同的物理机或者虚拟机上。</li>
-<li><strong>使用 key-value 的方式来存储数据</strong>。这是一种单索引的结构化数据组织形式，可使数据项查询时间复杂度为 O(1)。</li>
-<li><strong>协议简单，基于文本行的协议</strong>。直接通过 telnet 在 Memcached 服务器上可进行存取数据操作，简单，方便多种缓存参考此协议；</li>
-<li><strong>基于 libevent 高性能通信</strong>。Libevent 是一套利用 C 开发的程序库，它将 BSD 系统的 kqueue,Linux 系统的 epoll 等事件处理功能封装成一个接口，与传统的 select 相比，提高了性能。</li>
-<li><strong>分布式能力取决于 Memcache 客户端，服务器之间互不通信</strong>。各个 Memcached 服务器之间互不通信，各自独立存取数据，不共享任何信息。服务器并不具有分布式功能，分布式部署取决于 Memcached 客户端。</li>
-<li><strong>采用 LRU 缓存淘汰策略</strong>。在 Memcached 内存储数据项时，可以指定它在缓存的失效时间，默认为永久。当 Memcached 服务器用完分配的内时，失效的数据被首先替换，然后也是最近未使用的数据。在 LRU 中，Memcached 使用的是一种 Lazy Expiration 策略，自己不会监控存入的 key/vlue 对是否过期，而是在获取 key 值时查看记录的时间戳，检查 key/value 对空间是否过期，这样可减轻服务器的负载。</li>
-<li><strong>内置了一套高效的内存管理算法</strong>。这套内存管理效率很高，而且不会造成内存碎片，但是它最大的缺点就是会导致空间浪费。当内存满后，通过 LRU 算法自动删除不使用的缓存。</li>
-<li><strong>不支持持久化</strong>。Memcached 没有考虑数据的容灾问题，重启服务，所有数据会丢失。</li>
-</ul>
-<h4 id="memcache-工作原理"><a class="markdownIt-Anchor" href="#memcache-工作原理"></a> Memcache 工作原理</h4>
-<p>（1）内存管理</p>
-<p>Memcached 利用 <strong>slab allocation</strong> 机制来分配和管理内存，它按照预先规定的大小，将分配的内存分割成特定长度的内存块，再把尺寸相同的内存块分成组，数据在存放时，根据键值 大小去匹配 slab 大小，找就近的 slab 存放，所以存在空间浪费现象。</p>
-<p>这套内存管理效率很高，而且不会造成内存碎片，但是它最大的缺点就是会导致空间浪费。</p>
-<p>（2）缓存淘汰策略</p>
-<p>Memcached 的缓存淘汰策略是 <strong>LRU</strong> + 到期失效策略。</p>
-<p>当你在 Memcached 内存储数据项时，你有可能会指定它在缓存的失效时间，默认为永久。当 Memcached 服务器用完分配的内时，失效的数据被首先替换，然后是最近未使用的数据。</p>
-<p>在 LRU 中，Memcached 使用的是一种 Lazy Expiration 策略：<strong>Memcached 不会监控存入的 key/vlue 对是否过期</strong>，而是在获取 key 值时查看记录的时间戳，<strong>检查 key/value 对空间是否过期</strong>，这样可减轻服务器的负载。</p>
-<p>（3）分区</p>
-<p>Memcached 服务器之间彼此不通信，它的分布式能力是依赖客户端来实现。</p>
-<p>具体来说，就是在客户端实现一种算法，根据 key 来计算出数据应该向哪个服务器节点读/写。</p>
-<p>而这种选取集群节点的算法常见的有三种：</p>
-<ul>
-<li><strong>哈希取余算法</strong> - 使用公式：<code>hash（key）% N</code> 计算出 <strong>哈希值</strong> 来决定数据映射到哪一个节点。</li>
-<li><strong>一致性哈希算法</strong> - 可以很好的解决 <strong>稳定性问题</strong>，可以将所有的 <strong>存储节点</strong> 排列在 <strong>首尾相接</strong> 的 <code>Hash</code> 环上，每个 <code>key</code> 在计算 <code>Hash</code> 后会 <strong>顺时针</strong> 找到 <strong>临接</strong> 的 <strong>存储节点</strong> 存放。而当有节点 <strong>加入</strong> 或 <strong>退出</strong> 时，仅影响该节点在 <code>Hash</code> 环上 <strong>顺时针相邻</strong> 的 <strong>后续节点</strong>。</li>
-<li><strong>虚拟 Hash 槽算法</strong> - 使用 <strong>分散度良好</strong> 的 <strong>哈希函数</strong> 把所有数据 <strong>映射</strong> 到一个 <strong>固定范围</strong> 的 <strong>整数集合</strong> 中，整数定义为 <strong>槽</strong>（<code>slot</code>），这个范围一般 <strong>远远大于</strong> 节点数。<strong>槽</strong> 是集群内 <strong>数据管理</strong> 和 <strong>迁移</strong> 的 <strong>基本单位</strong>。采用 <strong>大范围槽</strong> 的主要目的是为了方便 <strong>数据拆分</strong> 和 <strong>集群扩展</strong>。每个节点会负责 <strong>一定数量的槽</strong>。</li>
-</ul>
-<h3 id="52-redis"><a class="markdownIt-Anchor" href="#52-redis"></a> 5.2. Redis</h3>
-<blockquote>
-<p>Redis 是一个开源（BSD 许可）的，基于内存的，多数据结构存储系统。可以用作数据库、缓存和消息中间件。</p>
-<p>Redis 还可以使用客户端分片来扩展写性能。内置了 复制（replication），LUA 脚本（Lua scripting），LRU 驱动事件（LRU eviction），事务（transactions） 和不同级别的 磁盘持久化（persistence）， 并通过 Redis 哨兵（Sentinel）和自动分区（Cluster）提供高可用性（high availability）。</p>
-</blockquote>
-<h4 id="redis-特性"><a class="markdownIt-Anchor" href="#redis-特性"></a> Redis 特性</h4>
-<ul>
-<li>
-<p>支持多种数据类型 - string、hash、list、set、sorted set。</p>
-</li>
-<li>
-<p>支持多种数据淘汰策略</p>
-<ul>
-<li><strong>volatile-lru</strong> - 从已设置过期时间的数据集中挑选最近最少使用的数据淘汰</li>
-<li><strong>volatile-ttl</strong> - 从已设置过期时间的数据集中挑选将要过期的数据淘汰</li>
-<li><strong>volatile-random</strong> - 从已设置过期时间的数据集中任意选择数据淘汰</li>
-<li><strong>allkeys-lru</strong> - 从所有数据集中挑选最近最少使用的数据淘汰</li>
-<li><strong>allkeys-random</strong> - 从所有数据集中任意选择数据进行淘汰</li>
-<li><strong>noeviction</strong> - 禁止驱逐数据</li>
-</ul>
-</li>
-<li>
-<p>提供两种持久化方式 - RDB 和 AOF</p>
-</li>
-<li>
-<p>通过 Redis cluster 提供集群模式。</p>
-</li>
-</ul>
-<h4 id="redis-原理"><a class="markdownIt-Anchor" href="#redis-原理"></a> Redis 原理</h4>
-<ul>
-<li>缓存淘汰
-<ul>
-<li>Redis 有两种数据淘汰实现
-<ul>
-<li>消极方式 - 访问 Redis key 时，如果发现它已经失效，则删除它</li>
-<li>积极方式 - 周期性从设置了失效时间的 key 中，根据淘汰策略，选择一部分失效的 key 进行删除。</li>
-</ul>
-</li>
-</ul>
-</li>
-<li>分区
-<ul>
-<li>Redis Cluster 集群包含 16384 个虚拟 Hash 槽，它通过一个高效的算法来计算 key 属于哪个 Hash 槽。</li>
-<li>Redis Cluster 支持请求分发 - 节点在接到一个命令请求时，会先检测这个命令请求要处理的键所在的槽是否由自己负责，如果不是的话，节点将向客户端返回一个 MOVED 错误，MOVED 错误携带的信息可以指引客户端将请求重定向至正在负责相关槽的节点。</li>
-</ul>
-</li>
-<li>主从复制
-<ul>
-<li>Redis 2.8 后支持异步复制。它有两种模式：
-<ul>
-<li><code>完整重同步（full resychronization）</code> - 用于初次复制。执行步骤与 <code>SYNC</code> 命令基本一致。</li>
-<li><code>部分重同步（partial resychronization）</code> - 用于断线后重复制。如果条件允许，主服务器可以将主从服务器连接断开期间执行的写命令发送给从服务器，从服务器只需接收并执行这些写命令，即可将主从服务器的数据库状态保持一致。</li>
-</ul>
-</li>
-<li>集群中每个节点都会定期向集群中的其他节点发送 PING 消息，以此来检测对方是否在线。</li>
-<li>如果一个主节点被认为下线，则在其从节点中，根据 Raft 算法，选举出一个节点，升级为主节点。</li>
-</ul>
-</li>
-<li>数据一致性
-<ul>
-<li>Redis 不保证强一致性，因为这会使得集群性能大大降低。</li>
-<li>Redis 是通过异步复制来实现最终一致性。</li>
-</ul>
-</li>
-</ul>
-<h3 id="53-选择分布式缓存"><a class="markdownIt-Anchor" href="#53-选择分布式缓存"></a> 5.3. 选择分布式缓存</h3>
-<p>不同的分布式缓存功能特性和实现原理方面有很大的差异，因此他们所适应的场景也有所不同。</p>
-<p>这里选取三个比较出名的分布式缓存（MemCache，Redis，Tair）来作为比较：</p>
-<table>
-<thead>
-<tr>
-<th>比较项</th>
-<th>MemCache</th>
-<th>Redis</th>
-<th>Tair</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>数据结构</td>
-<td>只支持简单的 Key-Value 结构</td>
-<td>String,Hash, List, Set, Sorted Set</td>
-<td>String,HashMap, List，Set</td>
-</tr>
-<tr>
-<td>持久化</td>
-<td>不支持</td>
-<td>支持</td>
-<td>支持</td>
-</tr>
-<tr>
-<td>容量大小</td>
-<td>数据纯内存，数据存储不宜过多</td>
-<td>数据全内存，资源成本考量不宜超过 100GB</td>
-<td>可以配置全内存或内存+磁盘引擎，数据容量可无限扩充</td>
-</tr>
-<tr>
-<td>读写性能</td>
-<td>很高</td>
-<td>很高(RT0.5ms 左右)</td>
-<td>String 类型比较高(RT1ms 左右)，复杂类型比较慢(RT5ms 左右)</td>
-</tr>
-<tr>
-<td>过期策略</td>
-<td>过期后，不删除缓存</td>
-<td>有六种策略来处理过期数据</td>
-<td>支持</td>
-</tr>
-</tbody>
-</table>
-<ul>
-<li><code>MemCache</code> - 这一块接触得比较少，不做过多的推荐。其吞吐量较大，但是支持的数据结构较少，并且不支持持久化。</li>
-<li><code>Redis</code> - 支持丰富的数据结构，读写性能很高，但是数据全内存，必须要考虑资源成本，支持持久化。</li>
-<li><code>Tair</code> - 支持丰富的数据结构，读写性能较高，部分类型比较慢，理论上容量可以无限扩充。</li>
-</ul>
-<p>总结：如果服务对延迟比较敏感，Map/Set 数据也比较多的话，比较适合 Redis。如果服务需要放入缓存量的数据很大，对延迟又不是特别敏感的话，那就可以选择 Tair。</p>
-<h2 id="6-多级缓存"><a class="markdownIt-Anchor" href="#6-多级缓存"></a> 6. 多级缓存</h2>
-<h3 id="61-使用进程内缓存"><a class="markdownIt-Anchor" href="#61-使用进程内缓存"></a> 6.1. 使用进程内缓存</h3>
-<p>如果应用服务不是分布式系统，那么进程内缓存当然是缓存的首选方案。</p>
-<p>对于进程内缓存，其本来受限于内存的大小的限制，以及进程缓存更新后其他缓存无法得知，所以一般来说进程缓存适用于:</p>
-<ol>
-<li>数据量不是很大且更新频率较低的数据。</li>
-<li>如果更新频繁的数据，也想使用进程内缓存，那么可以将其过期时间设置为较短的时间，或者设置较短的自动刷新时间。</li>
-</ol>
-<p>这种方案存在以下问题：</p>
-<ul>
-<li>如果应用服务是分布式系统，应用节点之间无法共享缓存，存在数据不一致问题。</li>
-<li>由于进程内缓存受限于内存大小的限制，所以缓存不能无限扩展。</li>
-</ul>
-<h3 id="62-使用分布式缓存"><a class="markdownIt-Anchor" href="#62-使用分布式缓存"></a> 6.2. 使用分布式缓存</h3>
-<p>如果应用服务是分布式系统，那么最简单的缓存方案就是直接使用分布式缓存。</p>
-<p>其应用场景如图所示：</p>
-<div align="center"><img src="http://dunwu.test.upcdn.net/cs/java/javaweb/technology/cache/多级缓存1.png!zp" width="600px"/></div>
-Redis 用来存储热点数据，如果缓存不命中，则去查询数据库，并更新缓存。
-<p>这种方案存在以下问题：</p>
-<ol>
-<li>缓存服务如果挂了，这时应用只能访问数据库，容易造成缓存雪崩。</li>
-<li>访问分布式缓存服务会有一定的 I/O 以及序列化反序列化的开销，虽然性能很高，但是其终究没有在内存中查询快。</li>
-</ol>
-<h3 id="63-使用多级缓存"><a class="markdownIt-Anchor" href="#63-使用多级缓存"></a> 6.3. 使用多级缓存</h3>
-<p>单纯使用进程内缓存和分布式缓存都存在各自的不足。如果需要更高的性能以及更好的可用性，我们可以将缓存设计为多级结构。将最热的数据使用进程内缓存存储在内存中，进一步提升访问速度。</p>
-<p>这个设计思路在计算机系统中也存在，比如 CPU 使用 L1、L2、L3 多级缓存，用来减少对内存的直接访问，从而加快访问速度。</p>
-<p>一般来说，多级缓存架构使用二级缓存已可以满足大部分业务需求，过多的分级会增加系统的复杂度以及维护的成本。因此，多级缓存不是分级越多越好，需要根据实际情况进行权衡。</p>
-<p>一个典型的二级缓存架构，可以使用进程内缓存（如： Caffeine/Google Guava/Ehcache/HashMap）作为一级缓存；使用分布式缓存（如：Redis/Memcached）作为二级缓存。</p>
-<h4 id="多级缓存查询"><a class="markdownIt-Anchor" href="#多级缓存查询"></a> 多级缓存查询</h4>
-<div align="center"><img src="http://dunwu.test.upcdn.net/cs/java/javaweb/technology/cache/多级缓存2.png!zp" width="600" /></div>
-多级缓存查询流程如下：
-<ol>
-<li>首先，查询 L1 缓存，如果缓存命中，直接返回结果；如果没有命中，执行下一步。</li>
-<li>接下来，查询 L2 缓存，如果缓存命中，直接返回结果并回填 L1 缓存；如果没有命中，执行下一步。</li>
-<li>最后，查询数据库，返回结果并依次回填 L2 缓存、L1 缓存。</li>
-</ol>
-<h4 id="多级缓存更新"><a class="markdownIt-Anchor" href="#多级缓存更新"></a> 多级缓存更新</h4>
-<p>对于 L1 缓存，如果有数据更新，只能删除并更新所在机器上的缓存，其他机器只能通过超时机制来刷新缓存。超时设定可以有两种策略:</p>
-<ul>
-<li>设置成写入后多少时间后过期</li>
-<li>设置成写入后多少时间刷新</li>
-</ul>
-<p>对于 L1 缓存，如果有数据更新，其他机器立马可见。但是，也必须要设置超时时间，其时间应该比 L1 缓存的有效时间长。</p>
-<p>为了解决进程内缓存不一致的问题，设计可以进一步优化:</p>
-<div align="center"><img src="http://dunwu.test.upcdn.net/cs/java/javaweb/technology/cache/多级缓存3.png!zp" /></div>
-通过消息队列的发布、订阅机制，可以通知其他应用节点对进程内缓存进行更新。使用这种方案，即使消息队列服务挂了或不可靠，由于先执行了数据库更新，但进程内缓存过期，刷新缓存时，也能保证数据的最终一致性。
-<h2 id="7-缓存问题"><a class="markdownIt-Anchor" href="#7-缓存问题"></a> 7. 缓存问题</h2>
-<h3 id="71-缓存雪崩"><a class="markdownIt-Anchor" href="#71-缓存雪崩"></a> 7.1. 缓存雪崩</h3>
-<blockquote>
-<p><strong>缓存雪崩是指缓存不可用或者大量缓存由于超时时间相同在同一时间段失效，大量请求直接访问数据库，数据库压力过大导致系统雪崩</strong>。</p>
-</blockquote>
-<p>解决方案：</p>
-<ul>
-<li>增加缓存系统可用性。通过监控关注缓存的健康程度，根据业务量适当的扩容缓存。</li>
-<li>采用多级缓存。不同级别缓存设置的超时时间不同，即使某个级别缓存都过期，也有其他级别缓存兜底。</li>
-<li>缓存的过期时间可以取个随机值。比如以前是设置 10 分钟的超时时间，那每个 Key 都可以随机 8-13 分钟过期，尽量让不同 Key 的过期时间不同。</li>
-<li>对数据库进行过载保护或应用层限流。</li>
-</ul>
-<h3 id="72-缓存穿透"><a class="markdownIt-Anchor" href="#72-缓存穿透"></a> 7.2. 缓存穿透</h3>
-<blockquote>
-<p><strong>缓存穿透是指：查询的数据在数据库中不存在，那么缓存中自然也不存在。所以，应用在缓存中查不到，则会去查询数据库。当这样的请求多了后，数据库的压力就会增大。</strong></p>
-</blockquote>
-<p>解决缓存穿透，一般有两种方法：</p>
-<ul>
-<li><strong>对于返回为 NULL 的依然缓存，对于抛出异常的返回不进行缓存</strong>。</li>
-</ul>
-<div align="center"><img src="http://dunwu.test.upcdn.net/cs/java/javaweb/technology/cache/缓存穿透1.png!zp" width="350px"/></div>
-采用这种手段的会增加我们缓存的维护成本，需要在插入缓存的时候删除这个空缓存，当然我们可以通过设置较短的超时时间来解决这个问题。
-<ul>
-<li><strong>过滤不可能存在的数据</strong></li>
-</ul>
-<div align="center"><img src="http://dunwu.test.upcdn.net/cs/java/javaweb/technology/cache/缓存穿透2.png!zp" width="350px"/></div>
-**制定一些规则过滤一些不可能存在的数据**。小数据用 BitMap，大数据可以用布隆过滤器，比如你的订单 ID 明显是在一个范围 1-1000，如果不是 1-1000 之内的数据那其实可以直接给过滤掉。
-<h3 id="73-缓存击穿"><a class="markdownIt-Anchor" href="#73-缓存击穿"></a> 7.3. 缓存击穿</h3>
-<p>对于某些 key 设置了过期时间，但是其是热点数据，如果某个 key 失效，可能大量的请求打过来，缓存未命中，然后去数据库访问，此时数据库访问量会急剧增加。</p>
-<p>为了避免这个问题，我们可以采取下面的两个手段:</p>
-<ul>
-<li><strong>分布式锁</strong> - 锁住热点数据的 key，避免大量线程同时访问同一个 key。</li>
-<li><strong>异步加载</strong> - 可以对部分数据采取到期自动刷新的策略，而不是到期自动淘汰。淘汰其实也是为了数据的时效性，所以采用自动刷新也可以。</li>
-</ul>
-<h3 id="74-缓存更新"><a class="markdownIt-Anchor" href="#74-缓存更新"></a> 7.4. 缓存更新</h3>
-<p>一般来说缓存的更新有两种情况:</p>
-<ul>
-<li>先删除缓存，再更新数据库。</li>
-<li>先更新数据库，再删除缓存。</li>
-</ul>
-<blockquote>
-<p><strong>为什么是删除缓存，而不是更新缓存呢？</strong></p>
-<p>你可以想想当有多个并发的请求更新数据，你并不能保证更新数据库的顺序和更新缓存的顺序一致，那就会出现数据库中和缓存中数据不一致的情况。所以一般来说考虑删除缓存。</p>
-</blockquote>
-<ul>
-<li><strong>先删除缓存，再更新数据库</strong></li>
-</ul>
-<p>对于一个更新操作简单来说，就是先去各级缓存进行删除，然后更新数据库。</p>
-<p>这个操作有一个比较大的问题，在对缓存删除完之后，有一个读请求，这个时候由于缓存被删除所以直接会读库，读操作的数据是老的并且会被加载进入缓存当中，后续读请求全部访问的老数据。</p>
-<div align="center"><img src="http://dunwu.test.upcdn.net/cs/java/javaweb/technology/cache/缓存更新.png!zp" width="400px"/></div>
-对缓存的操作不论成功失败都不能阻塞我们对数据库的操作，那么很多时候删除缓存可以用异步的操作，但是先删除缓存不能很好的适用于这个场景。
-<p>先删除缓存也有一个好处是，如果对数据库操作失败了，那么由于先删除的缓存，最多只是造成 Cache Miss。</p>
-<ul>
-<li><strong>先更新数据库，再删除缓存</strong></li>
-</ul>
-<blockquote>
-<p>注：更推荐使用这种策略</p>
-</blockquote>
-<p>如果我们使用更新数据库，再删除缓存就能避免上面的问题。</p>
-<p>但是同样的引入了新的问题：假设执行更新操作时，又接收到查询请求，此时就会返回缓存中的老数据。更麻烦的是，如果数据库更新操作执行失败，则缓存中可能永远是脏数据。</p>
-<ul>
-<li>应该选择哪种更新测录</li>
-</ul>
-<p>通过上面的内容，我们知道，两种更新策略都存在并发问题。</p>
-<p>但是建议选择先更新数据库，再删除缓存，因为其并发问题出现的概率可能非常低，因为这个条件需要发生在读缓存时缓存失效，而且并发着有一个写操作。而实际上数据库的写操作会比读操作慢得多，而且还要锁表，而读操作必需在写操作前进入数据库操作，而又要晚于写操作更新缓存，所有的这些条件都具备的概率基本并不大。</p>
-<p>如果需要数据库和缓存保证强一致性，则可以通过 2PC 或 Paxos 协议来实现。但是 2PC 太慢，而 Paxos 太复杂，所以如果不是非常重要的数据，不建议使用强一致性方案。</p>
-<h3 id="75-缓存预热"><a class="markdownIt-Anchor" href="#75-缓存预热"></a> 7.5. 缓存预热</h3>
-<p>缓存预热是指系统启动后，将常用的数据直接缓存。这样就可以避免用户请求的时候，先查询数据库，然后再更新缓存的问题。</p>
-<p>解决方案：</p>
-<ul>
-<li>直接写个缓存刷新页面，上线时手工操作下。</li>
-<li>数据量不大，可以在项目启动的时候自动进行加载。</li>
-<li>定时刷新缓存。</li>
-</ul>
-<h3 id="76-缓存降级"><a class="markdownIt-Anchor" href="#76-缓存降级"></a> 7.6. 缓存降级</h3>
-<p>当访问量剧增、服务出现问题（如响应时间慢或不响应）或非核心服务影响到核心流程的性能时，仍然需要保证服务还是可用的，即使是有损服务。系统可以根据一些关键数据进行自动降级，也可以配置开关实现人工降级。</p>
-<p>降级的最终目的是保证核心服务可用，即使是有损的。而且有些服务是无法降级的（如加入购物车、结算）。</p>
-<h2 id="参考资料"><a class="markdownIt-Anchor" href="#参考资料"></a> 参考资料</h2>
-<ul>
-<li>《大型网站技术架构》</li>
-<li><a href="https://link.juejin.im/?target=https%3A%2F%2Fjuejin.im%2Fpost%2F5b7593496fb9a009b62904fa">你应该知道的缓存进化史</a></li>
-<li><a href="https://link.juejin.im/?target=https%3A%2F%2Fjuejin.im%2Fpost%2F5b849878e51d4538c77a974a">如何优雅的设计和使用缓存？</a></li>
-<li><a href="https://www.jianshu.com/p/73ce0ef820f9" target="_blank" rel="noopener">理解分布式系统中的缓存架构(上)</a></li>
-</ul>
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
   </div>
 
   
   <nav class="pagination">
-    <span class="page-number current">1</span><a class="page-number" href="/blog/page/2/">2</a><span class="space">&hellip;</span><a class="page-number" href="/blog/page/7/">7</a><a class="extend next" rel="next" href="/blog/page/2/"><i class="fa fa-angle-right" aria-label="下一页"></i></a>
+    <span class="page-number current">1</span><a class="page-number" href="/blog/page/2/">2</a><span class="space">&hellip;</span><a class="page-number" href="/blog/page/8/">8</a><a class="extend next" rel="next" href="/blog/page/2/"><i class="fa fa-angle-right" aria-label="下一页"></i></a>
   </nav>
 
 
@@ -3225,7 +2921,7 @@ Redis 用来存储热点数据，如果缓存不命中，则去查询数据库�
       <div class="site-state-item site-state-posts">
           <a href="/blog/archives/">
         
-          <span class="site-state-item-count">71</span>
+          <span class="site-state-item-count">72</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
@@ -3283,12 +2979,12 @@ Redis 用来存储热点数据，如果缓存不命中，则去查询数据库�
     <span class="post-meta-item-icon">
       <i class="fa fa-area-chart"></i>
     </span>
-    <span title="站点总字数">356k</span>
+    <span title="站点总字数">364k</span>
     <span class="post-meta-divider">|</span>
     <span class="post-meta-item-icon">
       <i class="fa fa-coffee"></i>
     </span>
-    <span title="站点阅读时长">5:23</span>
+    <span title="站点阅读时长">5:31</span>
 </div>
 
         

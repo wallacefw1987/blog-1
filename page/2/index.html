@@ -163,7 +163,7 @@
   </li>
         <li class="menu-item menu-item-archives">
 
-    <a href="/blog/archives/" rel="section"><i class="fa fa-fw fa-archive"></i>归档<span class="badge">71</span></a>
+    <a href="/blog/archives/" rel="section"><i class="fa fa-fw fa-archive"></i>归档<span class="badge">72</span></a>
 
   </li>
       <li class="menu-item menu-item-search">
@@ -217,6 +217,700 @@
             
 
   <div class="posts-expand">
+        
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://dunwu.github.io/blog/blog/design/theory/cache-theory/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/blog/images/avatar.gif">
+      <meta itemprop="name" content="Zhang Peng">
+      <meta itemprop="description" content="Dunwu's Blog">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Dunwu">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/blog/design/theory/cache-theory/" class="post-title-link" itemprop="url">缓存基本原理</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2019-06-27 15:36:00" itemprop="dateCreated datePublished" datetime="2019-06-27T15:36:00+08:00">2019-06-27</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2020-01-25 22:48:34" itemprop="dateModified" datetime="2020-01-25T22:48:34+08:00">2020-01-25</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/blog/categories/%E8%AE%BE%E8%AE%A1/" itemprop="url" rel="index">
+                    <span itemprop="name">设计</span>
+                  </a>
+                </span>
+                  ，
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/blog/categories/%E8%AE%BE%E8%AE%A1/%E7%B3%BB%E7%BB%9F%E5%8E%9F%E7%90%86/" itemprop="url" rel="index">
+                    <span itemprop="name">系统原理</span>
+                  </a>
+                </span>
+            </span>
+
+          
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="fa fa-comment-o"></i>
+      </span>
+      <span class="post-meta-item-text">Disqus：</span>
+    
+    <a title="disqus" href="/blog/design/theory/cache-theory/#comments" itemprop="discussionUrl">
+      <span class="post-comments-count disqus-comment-count" data-disqus-identifier="design/theory/cache-theory/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  <br>
+            <span class="post-meta-item" title="本文字数">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-file-word-o"></i>
+              </span>
+                <span class="post-meta-item-text">本文字数：</span>
+              <span>12k</span>
+            </span>
+            <span class="post-meta-item" title="阅读时长">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-clock-o"></i>
+              </span>
+                <span class="post-meta-item-text">阅读时长 &asymp;</span>
+              <span>11 分钟</span>
+            </span>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h1 id="缓存基本原理"><a class="markdownIt-Anchor" href="#缓存基本原理"></a> 缓存基本原理</h1>
+<!-- TOC depthFrom:2 depthTo:3 -->
+<ul>
+<li><a href="#1-%E7%BC%93%E5%AD%98%E6%A6%82%E8%BF%B0">1. 缓存概述</a>
+<ul>
+<li><a href="#11-%E4%BB%80%E4%B9%88%E6%98%AF%E7%BC%93%E5%AD%98">1.1. 什么是缓存</a></li>
+<li><a href="#12-%E4%B8%BA%E4%BB%80%E4%B9%88%E5%BC%95%E5%85%A5%E7%BC%93%E5%AD%98">1.2. 为什么引入缓存</a></li>
+<li><a href="#13-%E7%BC%93%E5%AD%98%E7%9A%84%E5%9F%BA%E6%9C%AC%E5%8E%9F%E7%90%86">1.3. 缓存的基本原理</a></li>
+<li><a href="#14-%E7%BC%93%E5%AD%98%E6%B7%98%E6%B1%B0%E7%AE%97%E6%B3%95">1.4. 缓存淘汰算法</a></li>
+<li><a href="#15-%E7%BC%93%E5%AD%98%E7%9A%84%E5%88%86%E7%B1%BB">1.5. 缓存的分类</a></li>
+<li><a href="#16-%E7%BC%93%E5%AD%98%E6%95%B4%E4%BD%93%E6%9E%B6%E6%9E%84">1.6. 缓存整体架构</a></li>
+</ul>
+</li>
+<li><a href="#2-cdn-%E7%BC%93%E5%AD%98">2. CDN 缓存</a>
+<ul>
+<li><a href="#21-cdn-%E5%8E%9F%E7%90%86">2.1. CDN 原理</a></li>
+<li><a href="#22-cdn-%E7%89%B9%E7%82%B9">2.2. CDN 特点</a></li>
+</ul>
+</li>
+<li><a href="#3-%E5%8F%8D%E5%90%91%E4%BB%A3%E7%90%86%E7%BC%93%E5%AD%98">3. 反向代理缓存</a>
+<ul>
+<li><a href="#31-%E7%BC%93%E5%AD%98%E5%8E%9F%E7%90%86">3.1. 缓存原理</a></li>
+<li><a href="#32-%E4%BB%A3%E7%90%86%E7%BC%93%E5%AD%98%E6%AF%94%E8%BE%83">3.2. 代理缓存比较</a></li>
+</ul>
+</li>
+<li><a href="#4-%E8%BF%9B%E7%A8%8B%E5%86%85%E7%BC%93%E5%AD%98">4. 进程内缓存</a>
+<ul>
+<li><a href="#41-concurrenthashmap">4.1. ConcurrentHashMap</a></li>
+<li><a href="#42-lruhashmap">4.2. LRUHashMap</a></li>
+<li><a href="#43-guava-cache">4.3. Guava Cache</a></li>
+<li><a href="#44-caffeine">4.4. Caffeine</a></li>
+<li><a href="#45-%E9%80%89%E6%8B%A9%E8%BF%9B%E7%A8%8B%E5%86%85%E7%BC%93%E5%AD%98">4.5. 选择进程内缓存</a></li>
+</ul>
+</li>
+<li><a href="#5-%E5%88%86%E5%B8%83%E5%BC%8F%E7%BC%93%E5%AD%98">5. 分布式缓存</a>
+<ul>
+<li><a href="#51-memcache">5.1. Memcache</a></li>
+<li><a href="#52-redis">5.2. Redis</a></li>
+<li><a href="#53-%E9%80%89%E6%8B%A9%E5%88%86%E5%B8%83%E5%BC%8F%E7%BC%93%E5%AD%98">5.3. 选择分布式缓存</a></li>
+</ul>
+</li>
+<li><a href="#6-%E5%A4%9A%E7%BA%A7%E7%BC%93%E5%AD%98">6. 多级缓存</a>
+<ul>
+<li><a href="#61-%E4%BD%BF%E7%94%A8%E8%BF%9B%E7%A8%8B%E5%86%85%E7%BC%93%E5%AD%98">6.1. 使用进程内缓存</a></li>
+<li><a href="#62-%E4%BD%BF%E7%94%A8%E5%88%86%E5%B8%83%E5%BC%8F%E7%BC%93%E5%AD%98">6.2. 使用分布式缓存</a></li>
+<li><a href="#63-%E4%BD%BF%E7%94%A8%E5%A4%9A%E7%BA%A7%E7%BC%93%E5%AD%98">6.3. 使用多级缓存</a></li>
+</ul>
+</li>
+<li><a href="#7-%E7%BC%93%E5%AD%98%E9%97%AE%E9%A2%98">7. 缓存问题</a>
+<ul>
+<li><a href="#71-%E7%BC%93%E5%AD%98%E9%9B%AA%E5%B4%A9">7.1. 缓存雪崩</a></li>
+<li><a href="#72-%E7%BC%93%E5%AD%98%E7%A9%BF%E9%80%8F">7.2. 缓存穿透</a></li>
+<li><a href="#73-%E7%BC%93%E5%AD%98%E5%87%BB%E7%A9%BF">7.3. 缓存击穿</a></li>
+<li><a href="#74-%E7%BC%93%E5%AD%98%E6%9B%B4%E6%96%B0">7.4. 缓存更新</a></li>
+<li><a href="#75-%E7%BC%93%E5%AD%98%E9%A2%84%E7%83%AD">7.5. 缓存预热</a></li>
+<li><a href="#76-%E7%BC%93%E5%AD%98%E9%99%8D%E7%BA%A7">7.6. 缓存降级</a></li>
+</ul>
+</li>
+<li><a href="#%E5%8F%82%E8%80%83%E8%B5%84%E6%96%99">参考资料</a></li>
+</ul>
+<!-- /TOC -->
+<h2 id="1-缓存概述"><a class="markdownIt-Anchor" href="#1-缓存概述"></a> 1. 缓存概述</h2>
+<h3 id="11-什么是缓存"><a class="markdownIt-Anchor" href="#11-什么是缓存"></a> 1.1. 什么是缓存</h3>
+<p><strong>缓存就是数据交换的缓冲区</strong>。</p>
+<p>缓存是用于存储数据的硬件或软件的组成部分，以使得后续更快访问相应的数据。缓存中的数据可能是提前计算好的结果、数据的副本等。典型的应用场景：有 cpu cache, 磁盘 cache 等。本文中提及到缓存主要是指互联网应用中所使用的缓存组件。</p>
+<h3 id="12-为什么引入缓存"><a class="markdownIt-Anchor" href="#12-为什么引入缓存"></a> 1.2. 为什么引入缓存</h3>
+<p>传统的后端业务场景中，访问量以及对响应时间的要求均不高，通常只使用数据库即可满足要求。这种架构简单，便于快速部署，很多网站发展初期均考虑使用这种架构。但是随着访问量的上升，以及对响应时间的要求提升，一个数据库服务已无法再满足要求。这时候通常会考虑数据库拆分(sharding)、读写分离、甚至硬件升级(SSD)等以满足新的业务需求。但是这种方式仍然会面临很多问题，主要体现在：</p>
+<ul>
+<li>性能提升有限，很难达到数量级上的提升，尤其在互联网业务场景下，随着网站的发展，访问量经常会面临十倍、百倍的上涨。</li>
+<li>成本高昂，为了承载 N 倍的访问量，通常需要 N 倍的机器，这个代价难以接受。</li>
+</ul>
+<p>在数据层引入缓存，有以下几个好处：</p>
+<ul>
+<li>提升数据读取速度。</li>
+<li>提升系统扩展能力，通过扩展缓存，提升系统承载能力。</li>
+<li>降低存储成本，Cache+DB 的方式可以承担原有需要多台 DB 才能承担的请求量，节省机器成本。</li>
+</ul>
+<p>根据业务场景，通常缓存有以下几种使用方式：</p>
+<ul>
+<li>懒汉式(读时触发)：写入 DB 后, 然后把相关的数据也写入 Cache。</li>
+<li>饥饿式(写时触发)：先查询 DB 里的数据, 然后把相关的数据写入 Cache。</li>
+<li>定期刷新：适合周期性的跑数据的任务，或者列表型的数据，而且不要求绝对实时性。</li>
+</ul>
+<h3 id="13-缓存的基本原理"><a class="markdownIt-Anchor" href="#13-缓存的基本原理"></a> 1.3. 缓存的基本原理</h3>
+<ol>
+<li>将数据写入/读取速度更快的存储（设备）；</li>
+<li>将数据缓存到离应用最近的位置；</li>
+<li>将数据缓存到离用户最近的位置。</li>
+</ol>
+<h3 id="14-缓存淘汰算法"><a class="markdownIt-Anchor" href="#14-缓存淘汰算法"></a> 1.4. 缓存淘汰算法</h3>
+<p>常见的缓存淘汰算法有以下几种：</p>
+<ul>
+<li><strong>FIFO</strong> - 先进先出，在这种淘汰算法中，先进入缓存的会先被淘汰。这种可谓是最简单的了，但是会导致我们命中率很低。试想一下我们如果有个访问频率很高的数据是所有数据第一个访问的，而那些不是很高的是后面再访问的，那这样就会把我们的首个数据但是他的访问频率很高给挤出。</li>
+<li><strong>LRU</strong> - 最近最少使用算法。在这种算法中避免了上面的问题，每次访问数据都会将其放在我们的队尾，如果需要淘汰数据，就只需要淘汰队首即可。但是这个依然有个问题，如果有个数据在 1 个小时的前 59 分钟访问了 1 万次(可见这是个热点数据),再后一分钟没有访问这个数据，但是有其他的数据访问，就导致了我们这个热点数据被淘汰。</li>
+<li><strong>LFU</strong> - 最近最少频率使用。在这种算法中又对上面进行了优化，利用额外的空间记录每个数据的使用频率，然后选出频率最低进行淘汰。这样就避免了 LRU 不能处理时间段的问题。</li>
+</ul>
+<p>这三种缓存淘汰算法，实现复杂度一个比一个高，同样的命中率也是一个比一个好。而我们一般来说选择的方案居中即可，即实现成本不是太高，而命中率也还行的 LRU。</p>
+<h3 id="15-缓存的分类"><a class="markdownIt-Anchor" href="#15-缓存的分类"></a> 1.5. 缓存的分类</h3>
+<p>在分布式系统中，缓存的应用非常广泛，从部署角度有以下几个方面的缓存应用。</p>
+<ul>
+<li><strong>CDN 缓存</strong> - 存放 HTML、CSS、JS 等静态资源。</li>
+<li><strong>反向代理缓存</strong> - 动静分离，只缓存用户请求的静态资源。</li>
+<li><strong>进程内缓存</strong> - 缓存应用字典等常用数据。</li>
+<li><strong>分布式缓存</strong> - 缓存数据库中的热点数据。</li>
+</ul>
+<h3 id="16-缓存整体架构"><a class="markdownIt-Anchor" href="#16-缓存整体架构"></a> 1.6. 缓存整体架构</h3>
+<p>通常，网站的缓存整体架构如下图所示：</p>
+<div align="center"><img src="http://dunwu.test.upcdn.net/cs/java/javaweb/technology/cache/缓存整体架构.png!zp" /></div>
+请求过程：
+<ol>
+<li>浏览器向客户端发起请求，如果 CDN 有缓存则直接返回；</li>
+<li>如果 CDN 无缓存，则访问反向代理服务器；</li>
+<li>如果反向代理服务器有缓存则直接返回；</li>
+<li>如果反向代理服务器无缓存或动态请求，则访问应用服务器；</li>
+<li>应用服务器访问进程内缓存；如果有缓存，则返回代理服务器，并缓存数据；（动态请求不缓存）</li>
+<li>如果进程内缓存无数据，则读取分布式缓存；并返回应用服务器；应用服务器将数据缓存到本地缓存（部分）；</li>
+<li>如果分布式缓存无数据，则应用程序读取数据库数据，并放入分布式缓存；</li>
+</ol>
+<h2 id="2-cdn-缓存"><a class="markdownIt-Anchor" href="#2-cdn-缓存"></a> 2. CDN 缓存</h2>
+<blockquote>
+<p><strong>CDN 将数据缓存到离用户物理距离最近的服务器，使得用户可以就近获取请求内容。CDN 一般缓存静态资源文件（页面，脚本，图片，视频，文件等）</strong>。</p>
+<p>国内网络异常复杂，跨运营商的网络访问会很慢。为了解决跨运营商或各地用户访问问题，可以在重要的城市，部署 CDN 应用。使用户就近获取所需内容，降低网络拥塞，提高用户访问响应速度和命中率。</p>
+</blockquote>
+<div align="center"><img src="http://dunwu.test.upcdn.net/snap/1559138689425.png!zp"/></div>
+### 2.1. CDN 原理
+<p>CDN 的基本原理是广泛采用各种缓存服务器，将这些缓存服务器分布到用户访问相对集中的地区或网络中，在用户访问网站时，利用全局负载技术将用户的访问指向距离最近的工作正常的缓存服务器上，由缓存服务器直接响应用户请求。</p>
+<p>（1）未部署 CDN 应用前的网络路径：</p>
+<ul>
+<li>请求：本机网络（局域网）=&gt; 运营商网络 =&gt; 应用服务器机房</li>
+<li>响应：应用服务器机房 =&gt; 运营商网络 =&gt; 本机网络（局域网）</li>
+</ul>
+<p>在不考虑复杂网络的情况下，从请求到响应需要经过 3 个节点，6 个步骤完成一次用户访问操作。</p>
+<p>（2）部署 CDN 应用后网络路径：</p>
+<ul>
+<li>请求：本机网络（局域网） =&gt; 运营商网络</li>
+<li>响应：运营商网络 =&gt; 本机网络（局域网）</li>
+</ul>
+<p>在不考虑复杂网络的情况下，从请求到响应需要经过 2 个节点，2 个步骤完成一次用户访问操作。</p>
+<p>与不部署 CDN 服务相比，减少了 1 个节点，4 个步骤的访问。极大的提高的系统的响应速度。</p>
+<h3 id="22-cdn-特点"><a class="markdownIt-Anchor" href="#22-cdn-特点"></a> 2.2. CDN 特点</h3>
+<ul>
+<li><strong>优点</strong>
+<ul>
+<li><strong>本地 Cache 加速</strong> - 提升访问速度，尤其含有大量图片和静态页面站点；</li>
+<li><strong>镜像服务</strong> - 消除了不同运营商之间互联的瓶颈造成的影响，实现了跨运营商的网络加速，保证不同网络中的用户都能得到良好的访问质量；</li>
+<li><strong>远程加速</strong> - 远程访问用户根据 DNS 负载均衡技术智能自动选择 Cache 服务器，选择最快的 Cache 服务器，加快远程访问的速度；</li>
+<li><strong>带宽优化</strong> - 自动生成服务器的远程 Mirror（镜像）cache 服务器，远程用户访问时从 cache 服务器上读取数据，减少远程访问的带宽、分担网络流量、减轻原站点 WEB 服务器负载等功能。</li>
+<li><strong>集群抗攻击</strong> - 广泛分布的 CDN 节点加上节点之间的智能冗余机制，可以有效地预防黑客入侵以及降低各种 D.D.o.S 攻击对网站的影响，同时保证较好的服务质量。</li>
+</ul>
+</li>
+<li><strong>缺点</strong>
+<ul>
+<li><strong>不适宜缓存动态资源</strong>
+<ul>
+<li>解决方案：主要缓存静态资源，动态资源建立多级缓存或准实时同步；</li>
+</ul>
+</li>
+<li><strong>存在数据的一致性问题</strong>
+<ul>
+<li>解决方案（主要是在性能和数据一致性二者间寻找一个平衡）
+<ul>
+<li>设置缓存失效时间（1 个小时，过期后同步数据）。</li>
+<li>针对资源设置版本号。</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<h2 id="3-反向代理缓存"><a class="markdownIt-Anchor" href="#3-反向代理缓存"></a> 3. 反向代理缓存</h2>
+<blockquote>
+<p><strong>反向代理（Reverse Proxy）方式是指以代理服务器来接受 internet 上的连接请求，然后将请求转发给内部网络上的服务器，并将从服务器上得到的结果返回给 internet 上请求连接的客户端，此时代理服务器对外就表现为一个反向代理服务器。</strong></p>
+</blockquote>
+<div align="center"><img src="http://dunwu.test.upcdn.net/cs/web/nginx/reverse-proxy.png!zp"/></div>
+### 3.1. 缓存原理
+<p>反向代理位于应用服务器同一网络，处理所有对 WEB 服务器的请求。</p>
+<p>反向代理缓存的原理：</p>
+<ul>
+<li>如果用户请求的页面在代理服务器上有缓存的话，代理服务器直接将缓存内容发送给用户。</li>
+<li>如果没有缓存则先向 WEB 服务器发出请求，取回数据，本地缓存后再发送给用户。</li>
+</ul>
+<p>这种方式通过降低向 WEB 服务器的请求数，从而降低了 WEB 服务器的负载。</p>
+<p><strong>反向代理缓存一般针对的是静态资源，而将动态资源请求转发到应用服务器处理</strong>。常用的缓存应用服务器有 Varnish，Ngnix，Squid。</p>
+<h3 id="32-代理缓存比较"><a class="markdownIt-Anchor" href="#32-代理缓存比较"></a> 3.2. 代理缓存比较</h3>
+<p>常用的代理缓存有 Varnish，Squid，Ngnix，简单比较如下：</p>
+<ul>
+<li>Varnish 和 Squid 是专业的 cache 服务，Ngnix 需要第三方模块支持；</li>
+<li>Varnish 采用内存型缓存，避免了频繁在内存、磁盘中交换文件，性能比 Squid 高；</li>
+<li>Varnish 由于是内存 cache，所以对小文件如 css、js、小图片的支持很棒，后端的持久化缓存可以采用的是 Squid 或 ATS；</li>
+<li>Squid 功能全而大，适合于各种静态的文件缓存，一般会在前端挂一个 HAProxy 或 Ngnix 做负载均衡跑多个实例；</li>
+<li>Nginx 采用第三方模块 ncache 做的缓冲，性能基本达到 Varnish，一般作为反向代理使用，可以实现简单的缓存。</li>
+</ul>
+<h2 id="4-进程内缓存"><a class="markdownIt-Anchor" href="#4-进程内缓存"></a> 4. 进程内缓存</h2>
+<blockquote>
+<p>进程内缓存是指应用内部的缓存，标准的分布式系统，一般有多级缓存构成。本地缓存是离应用最近的缓存，一般可以将数据缓存到硬盘或内存。</p>
+</blockquote>
+<ul>
+<li><code>硬盘缓存</code> - 将数据缓存到硬盘到，读取时从硬盘读取。原理是直接读取本机文件，减少了网络传输消耗，比通过网络读取数据库速度更快。可以应用在对速度要求不是很高，但需要大量缓存存储的场景。</li>
+<li><code>内存缓存</code> - 直接将数据存储到本机内存中，通过程序直接维护缓存对象，是访问速度最快的方式。</li>
+</ul>
+<p>常见的本地缓存实现方案：HashMap、Guava Cache、Caffeine、Ehcache。</p>
+<h3 id="41-concurrenthashmap"><a class="markdownIt-Anchor" href="#41-concurrenthashmap"></a> 4.1. ConcurrentHashMap</h3>
+<p>最简单的进程内缓存可以通过 JDK 自带的 <code>HashMap</code> 或 <code>ConcurrentHashMap</code> 实现。</p>
+<p>适用场景：不需要淘汰的缓存数据。</p>
+<p>缺点：无法进行缓存淘汰，内存会无限制的增长。</p>
+<h3 id="42-lruhashmap"><a class="markdownIt-Anchor" href="#42-lruhashmap"></a> 4.2. LRUHashMap</h3>
+<p>可以通过继承 <code>LinkedHashMap</code> 来实现一个简单的 <code>LRUHashMap</code>。重写 <code>removeEldestEntry</code> 方法，即可完成一个简单的最近最少使用算法。</p>
+<ul>
+<li>缺点：
+<ul>
+<li>锁竞争严重，性能比较低。</li>
+<li>不支持过期时间</li>
+<li>不支持自动刷新</li>
+</ul>
+</li>
+</ul>
+<h3 id="43-guava-cache"><a class="markdownIt-Anchor" href="#43-guava-cache"></a> 4.3. Guava Cache</h3>
+<p>解决了 <code>LRUHashMap</code> 中的几个缺点。</p>
+<p>Guava Cache 采用了类似 <code>ConcurrentHashMap</code> 的思想，分段加锁，减少锁竞争。</p>
+<p>Guava Cache 对于过期的 Entry 并没有马上过期(也就是并没有后台线程一直在扫)，而是通过进行读写操作的时候进行过期处理，这样做的好处是避免后台线程扫描的时候进行全局加锁。</p>
+<p>直接通过查询，判断其是否满足刷新条件，进行刷新。</p>
+<h3 id="44-caffeine"><a class="markdownIt-Anchor" href="#44-caffeine"></a> 4.4. Caffeine</h3>
+<p>Caffeine 实现了 W-TinyLFU(LFU+LRU 算法的变种)，其命中率和读写吞吐量大大优于 Guava Cache。</p>
+<p>其实现原理较复杂，可以参考<a href="https://juejin.im/post/5b7593496fb9a009b62904fa#comment" target="_blank" rel="noopener">你应该知道的缓存进化史</a>。</p>
+<h3 id="45-选择进程内缓存"><a class="markdownIt-Anchor" href="#45-选择进程内缓存"></a> 4.5. 选择进程内缓存</h3>
+<table>
+<thead>
+<tr>
+<th>比较项</th>
+<th>ConcurrentHashMap</th>
+<th>LRUMap</th>
+<th>Ehcache</th>
+<th>Guava Cache</th>
+<th>Caffeine</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>读写性能</td>
+<td>很好，分段锁</td>
+<td>一般，全局加锁</td>
+<td>好</td>
+<td>好，需要做淘汰操作</td>
+<td>很好</td>
+</tr>
+<tr>
+<td>淘汰算法</td>
+<td>无</td>
+<td>LRU，一般</td>
+<td>支持多种淘汰算法,LRU,LFU,FIFO</td>
+<td>LRU，一般</td>
+<td>W-TinyLFU, 很好</td>
+</tr>
+<tr>
+<td>功能丰富程度</td>
+<td>功能比较简单</td>
+<td>功能比较单一</td>
+<td>功能很丰富</td>
+<td>功能很丰富，支持刷新和虚引用等</td>
+<td>功能和 Guava Cache 类似</td>
+</tr>
+<tr>
+<td>工具大小</td>
+<td>jdk 自带类，很小</td>
+<td>基于 LinkedHashMap，较小</td>
+<td>很大，最新版本 1.4MB</td>
+<td>是 Guava 工具类中的一个小部分，较小</td>
+<td>一般，最新版本 644KB</td>
+</tr>
+<tr>
+<td>是否持久化</td>
+<td>否</td>
+<td>否</td>
+<td>是</td>
+<td>否</td>
+<td>否</td>
+</tr>
+<tr>
+<td>是否支持集群</td>
+<td>否</td>
+<td>否</td>
+<td>是</td>
+<td>否</td>
+<td>否</td>
+</tr>
+</tbody>
+</table>
+<ul>
+<li><strong><code>ConcurrentHashMap</code></strong> - 比较适合缓存比较固定不变的元素，且缓存的数量较小的。虽然从上面表格中比起来有点逊色，但是其由于是 JDK 自带的类，在各种框架中依然有大量的使用，比如我们可以用来缓存我们反射的 Method，Field 等等；也可以缓存一些链接，防止其重复建立。在 Caffeine 中也是使用的 <code>ConcurrentHashMap</code> 来存储元素。</li>
+<li><strong><code>LRUMap</code></strong> - 如果不想引入第三方包，又想使用淘汰算法淘汰数据，可以使用这个。</li>
+<li><strong><code>Ehcache</code></strong> - 由于其 jar 包很大，较重量级。对于需要持久化和集群的一些功能的，可以选择 Ehcache。笔者没怎么使用过这个缓存，如果要选择的话，可以选择分布式缓存来替代 Ehcache。</li>
+<li><strong><code>Guava Cache</code></strong> - Guava 这个 jar 包在很多 Java 应用程序中都有大量的引入，所以很多时候其实是直接用就好了，并且其本身是轻量级的而且功能较为丰富，在不了解 Caffeine 的情况下可以选择 Guava Cache。</li>
+<li><strong><code>Caffeine</code></strong> - 其在命中率，读写性能上都比 Guava Cache 好很多，并且其 API 和 Guava cache 基本一致，甚至会多一点。在真实环境中使用 Caffeine，取得过不错的效果。</li>
+</ul>
+<p>总结一下：如果不需要淘汰算法则选择 <code>ConcurrentHashMap</code>，如果需要淘汰算法和一些丰富的 API，推荐选择 Caffeine。</p>
+<h2 id="5-分布式缓存"><a class="markdownIt-Anchor" href="#5-分布式缓存"></a> 5. 分布式缓存</h2>
+<blockquote>
+<p><strong>分布式缓存解决了进程内缓存最大的问题：如果应用是分布式系统，节点之间无法共享彼此的进程内缓存</strong>。</p>
+<p>分布式缓存的应用场景：</p>
+<ul>
+<li>缓存经过复杂计算得到的数据</li>
+<li>缓存系统中频繁访问的热点数据，减轻数据库压力</li>
+</ul>
+</blockquote>
+<p>不同分布式缓存的实现原理往往有比较大的差异。本文主要针对 Memcached 和 Redis 进行说明。</p>
+<h3 id="51-memcache"><a class="markdownIt-Anchor" href="#51-memcache"></a> 5.1. Memcache</h3>
+<blockquote>
+<p><a href="https://memcached.org/" target="_blank" rel="noopener">Memcache</a> 是一个高性能，分布式内存对象缓存系统，通过在内存里维护一个统一的巨大的 hash 表，它能够用来存储各种格式的数据，包括图像、视频、文件以及数据库检索的结果等。</p>
+<p>简单的说就是：将数据缓存到内存中，然后从内存中读取，从而大大提高读取速度。</p>
+</blockquote>
+<h4 id="memcache-特性"><a class="markdownIt-Anchor" href="#memcache-特性"></a> Memcache 特性</h4>
+<ul>
+<li><strong>使用物理内存作为缓存区，可独立运行在服务器上</strong>。每个进程最大 2G，如果想缓存更多的数据，可以开辟更多的 Memcache 进程（不同端口）或者使用分布式 Memcache 进行缓存，将数据缓存到不同的物理机或者虚拟机上。</li>
+<li><strong>使用 key-value 的方式来存储数据</strong>。这是一种单索引的结构化数据组织形式，可使数据项查询时间复杂度为 O(1)。</li>
+<li><strong>协议简单，基于文本行的协议</strong>。直接通过 telnet 在 Memcached 服务器上可进行存取数据操作，简单，方便多种缓存参考此协议；</li>
+<li><strong>基于 libevent 高性能通信</strong>。Libevent 是一套利用 C 开发的程序库，它将 BSD 系统的 kqueue,Linux 系统的 epoll 等事件处理功能封装成一个接口，与传统的 select 相比，提高了性能。</li>
+<li><strong>分布式能力取决于 Memcache 客户端，服务器之间互不通信</strong>。各个 Memcached 服务器之间互不通信，各自独立存取数据，不共享任何信息。服务器并不具有分布式功能，分布式部署取决于 Memcached 客户端。</li>
+<li><strong>采用 LRU 缓存淘汰策略</strong>。在 Memcached 内存储数据项时，可以指定它在缓存的失效时间，默认为永久。当 Memcached 服务器用完分配的内时，失效的数据被首先替换，然后也是最近未使用的数据。在 LRU 中，Memcached 使用的是一种 Lazy Expiration 策略，自己不会监控存入的 key/vlue 对是否过期，而是在获取 key 值时查看记录的时间戳，检查 key/value 对空间是否过期，这样可减轻服务器的负载。</li>
+<li><strong>内置了一套高效的内存管理算法</strong>。这套内存管理效率很高，而且不会造成内存碎片，但是它最大的缺点就是会导致空间浪费。当内存满后，通过 LRU 算法自动删除不使用的缓存。</li>
+<li><strong>不支持持久化</strong>。Memcached 没有考虑数据的容灾问题，重启服务，所有数据会丢失。</li>
+</ul>
+<h4 id="memcache-工作原理"><a class="markdownIt-Anchor" href="#memcache-工作原理"></a> Memcache 工作原理</h4>
+<p>（1）内存管理</p>
+<p>Memcached 利用 <strong>slab allocation</strong> 机制来分配和管理内存，它按照预先规定的大小，将分配的内存分割成特定长度的内存块，再把尺寸相同的内存块分成组，数据在存放时，根据键值 大小去匹配 slab 大小，找就近的 slab 存放，所以存在空间浪费现象。</p>
+<p>这套内存管理效率很高，而且不会造成内存碎片，但是它最大的缺点就是会导致空间浪费。</p>
+<p>（2）缓存淘汰策略</p>
+<p>Memcached 的缓存淘汰策略是 <strong>LRU</strong> + 到期失效策略。</p>
+<p>当你在 Memcached 内存储数据项时，你有可能会指定它在缓存的失效时间，默认为永久。当 Memcached 服务器用完分配的内时，失效的数据被首先替换，然后是最近未使用的数据。</p>
+<p>在 LRU 中，Memcached 使用的是一种 Lazy Expiration 策略：<strong>Memcached 不会监控存入的 key/vlue 对是否过期</strong>，而是在获取 key 值时查看记录的时间戳，<strong>检查 key/value 对空间是否过期</strong>，这样可减轻服务器的负载。</p>
+<p>（3）分区</p>
+<p>Memcached 服务器之间彼此不通信，它的分布式能力是依赖客户端来实现。</p>
+<p>具体来说，就是在客户端实现一种算法，根据 key 来计算出数据应该向哪个服务器节点读/写。</p>
+<p>而这种选取集群节点的算法常见的有三种：</p>
+<ul>
+<li><strong>哈希取余算法</strong> - 使用公式：<code>hash（key）% N</code> 计算出 <strong>哈希值</strong> 来决定数据映射到哪一个节点。</li>
+<li><strong>一致性哈希算法</strong> - 可以很好的解决 <strong>稳定性问题</strong>，可以将所有的 <strong>存储节点</strong> 排列在 <strong>首尾相接</strong> 的 <code>Hash</code> 环上，每个 <code>key</code> 在计算 <code>Hash</code> 后会 <strong>顺时针</strong> 找到 <strong>临接</strong> 的 <strong>存储节点</strong> 存放。而当有节点 <strong>加入</strong> 或 <strong>退出</strong> 时，仅影响该节点在 <code>Hash</code> 环上 <strong>顺时针相邻</strong> 的 <strong>后续节点</strong>。</li>
+<li><strong>虚拟 Hash 槽算法</strong> - 使用 <strong>分散度良好</strong> 的 <strong>哈希函数</strong> 把所有数据 <strong>映射</strong> 到一个 <strong>固定范围</strong> 的 <strong>整数集合</strong> 中，整数定义为 <strong>槽</strong>（<code>slot</code>），这个范围一般 <strong>远远大于</strong> 节点数。<strong>槽</strong> 是集群内 <strong>数据管理</strong> 和 <strong>迁移</strong> 的 <strong>基本单位</strong>。采用 <strong>大范围槽</strong> 的主要目的是为了方便 <strong>数据拆分</strong> 和 <strong>集群扩展</strong>。每个节点会负责 <strong>一定数量的槽</strong>。</li>
+</ul>
+<h3 id="52-redis"><a class="markdownIt-Anchor" href="#52-redis"></a> 5.2. Redis</h3>
+<blockquote>
+<p>Redis 是一个开源（BSD 许可）的，基于内存的，多数据结构存储系统。可以用作数据库、缓存和消息中间件。</p>
+<p>Redis 还可以使用客户端分片来扩展写性能。内置了 复制（replication），LUA 脚本（Lua scripting），LRU 驱动事件（LRU eviction），事务（transactions） 和不同级别的 磁盘持久化（persistence）， 并通过 Redis 哨兵（Sentinel）和自动分区（Cluster）提供高可用性（high availability）。</p>
+</blockquote>
+<h4 id="redis-特性"><a class="markdownIt-Anchor" href="#redis-特性"></a> Redis 特性</h4>
+<ul>
+<li>
+<p>支持多种数据类型 - string、hash、list、set、sorted set。</p>
+</li>
+<li>
+<p>支持多种数据淘汰策略</p>
+<ul>
+<li><strong>volatile-lru</strong> - 从已设置过期时间的数据集中挑选最近最少使用的数据淘汰</li>
+<li><strong>volatile-ttl</strong> - 从已设置过期时间的数据集中挑选将要过期的数据淘汰</li>
+<li><strong>volatile-random</strong> - 从已设置过期时间的数据集中任意选择数据淘汰</li>
+<li><strong>allkeys-lru</strong> - 从所有数据集中挑选最近最少使用的数据淘汰</li>
+<li><strong>allkeys-random</strong> - 从所有数据集中任意选择数据进行淘汰</li>
+<li><strong>noeviction</strong> - 禁止驱逐数据</li>
+</ul>
+</li>
+<li>
+<p>提供两种持久化方式 - RDB 和 AOF</p>
+</li>
+<li>
+<p>通过 Redis cluster 提供集群模式。</p>
+</li>
+</ul>
+<h4 id="redis-原理"><a class="markdownIt-Anchor" href="#redis-原理"></a> Redis 原理</h4>
+<ul>
+<li>缓存淘汰
+<ul>
+<li>Redis 有两种数据淘汰实现
+<ul>
+<li>消极方式 - 访问 Redis key 时，如果发现它已经失效，则删除它</li>
+<li>积极方式 - 周期性从设置了失效时间的 key 中，根据淘汰策略，选择一部分失效的 key 进行删除。</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>分区
+<ul>
+<li>Redis Cluster 集群包含 16384 个虚拟 Hash 槽，它通过一个高效的算法来计算 key 属于哪个 Hash 槽。</li>
+<li>Redis Cluster 支持请求分发 - 节点在接到一个命令请求时，会先检测这个命令请求要处理的键所在的槽是否由自己负责，如果不是的话，节点将向客户端返回一个 MOVED 错误，MOVED 错误携带的信息可以指引客户端将请求重定向至正在负责相关槽的节点。</li>
+</ul>
+</li>
+<li>主从复制
+<ul>
+<li>Redis 2.8 后支持异步复制。它有两种模式：
+<ul>
+<li><code>完整重同步（full resychronization）</code> - 用于初次复制。执行步骤与 <code>SYNC</code> 命令基本一致。</li>
+<li><code>部分重同步（partial resychronization）</code> - 用于断线后重复制。如果条件允许，主服务器可以将主从服务器连接断开期间执行的写命令发送给从服务器，从服务器只需接收并执行这些写命令，即可将主从服务器的数据库状态保持一致。</li>
+</ul>
+</li>
+<li>集群中每个节点都会定期向集群中的其他节点发送 PING 消息，以此来检测对方是否在线。</li>
+<li>如果一个主节点被认为下线，则在其从节点中，根据 Raft 算法，选举出一个节点，升级为主节点。</li>
+</ul>
+</li>
+<li>数据一致性
+<ul>
+<li>Redis 不保证强一致性，因为这会使得集群性能大大降低。</li>
+<li>Redis 是通过异步复制来实现最终一致性。</li>
+</ul>
+</li>
+</ul>
+<h3 id="53-选择分布式缓存"><a class="markdownIt-Anchor" href="#53-选择分布式缓存"></a> 5.3. 选择分布式缓存</h3>
+<p>不同的分布式缓存功能特性和实现原理方面有很大的差异，因此他们所适应的场景也有所不同。</p>
+<p>这里选取三个比较出名的分布式缓存（MemCache，Redis，Tair）来作为比较：</p>
+<table>
+<thead>
+<tr>
+<th>比较项</th>
+<th>MemCache</th>
+<th>Redis</th>
+<th>Tair</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>数据结构</td>
+<td>只支持简单的 Key-Value 结构</td>
+<td>String,Hash, List, Set, Sorted Set</td>
+<td>String,HashMap, List，Set</td>
+</tr>
+<tr>
+<td>持久化</td>
+<td>不支持</td>
+<td>支持</td>
+<td>支持</td>
+</tr>
+<tr>
+<td>容量大小</td>
+<td>数据纯内存，数据存储不宜过多</td>
+<td>数据全内存，资源成本考量不宜超过 100GB</td>
+<td>可以配置全内存或内存+磁盘引擎，数据容量可无限扩充</td>
+</tr>
+<tr>
+<td>读写性能</td>
+<td>很高</td>
+<td>很高(RT0.5ms 左右)</td>
+<td>String 类型比较高(RT1ms 左右)，复杂类型比较慢(RT5ms 左右)</td>
+</tr>
+<tr>
+<td>过期策略</td>
+<td>过期后，不删除缓存</td>
+<td>有六种策略来处理过期数据</td>
+<td>支持</td>
+</tr>
+</tbody>
+</table>
+<ul>
+<li><code>MemCache</code> - 这一块接触得比较少，不做过多的推荐。其吞吐量较大，但是支持的数据结构较少，并且不支持持久化。</li>
+<li><code>Redis</code> - 支持丰富的数据结构，读写性能很高，但是数据全内存，必须要考虑资源成本，支持持久化。</li>
+<li><code>Tair</code> - 支持丰富的数据结构，读写性能较高，部分类型比较慢，理论上容量可以无限扩充。</li>
+</ul>
+<p>总结：如果服务对延迟比较敏感，Map/Set 数据也比较多的话，比较适合 Redis。如果服务需要放入缓存量的数据很大，对延迟又不是特别敏感的话，那就可以选择 Tair。</p>
+<h2 id="6-多级缓存"><a class="markdownIt-Anchor" href="#6-多级缓存"></a> 6. 多级缓存</h2>
+<h3 id="61-使用进程内缓存"><a class="markdownIt-Anchor" href="#61-使用进程内缓存"></a> 6.1. 使用进程内缓存</h3>
+<p>如果应用服务不是分布式系统，那么进程内缓存当然是缓存的首选方案。</p>
+<p>对于进程内缓存，其本来受限于内存的大小的限制，以及进程缓存更新后其他缓存无法得知，所以一般来说进程缓存适用于:</p>
+<ol>
+<li>数据量不是很大且更新频率较低的数据。</li>
+<li>如果更新频繁的数据，也想使用进程内缓存，那么可以将其过期时间设置为较短的时间，或者设置较短的自动刷新时间。</li>
+</ol>
+<p>这种方案存在以下问题：</p>
+<ul>
+<li>如果应用服务是分布式系统，应用节点之间无法共享缓存，存在数据不一致问题。</li>
+<li>由于进程内缓存受限于内存大小的限制，所以缓存不能无限扩展。</li>
+</ul>
+<h3 id="62-使用分布式缓存"><a class="markdownIt-Anchor" href="#62-使用分布式缓存"></a> 6.2. 使用分布式缓存</h3>
+<p>如果应用服务是分布式系统，那么最简单的缓存方案就是直接使用分布式缓存。</p>
+<p>其应用场景如图所示：</p>
+<div align="center"><img src="http://dunwu.test.upcdn.net/cs/java/javaweb/technology/cache/多级缓存1.png!zp" width="600px"/></div>
+Redis 用来存储热点数据，如果缓存不命中，则去查询数据库，并更新缓存。
+<p>这种方案存在以下问题：</p>
+<ol>
+<li>缓存服务如果挂了，这时应用只能访问数据库，容易造成缓存雪崩。</li>
+<li>访问分布式缓存服务会有一定的 I/O 以及序列化反序列化的开销，虽然性能很高，但是其终究没有在内存中查询快。</li>
+</ol>
+<h3 id="63-使用多级缓存"><a class="markdownIt-Anchor" href="#63-使用多级缓存"></a> 6.3. 使用多级缓存</h3>
+<p>单纯使用进程内缓存和分布式缓存都存在各自的不足。如果需要更高的性能以及更好的可用性，我们可以将缓存设计为多级结构。将最热的数据使用进程内缓存存储在内存中，进一步提升访问速度。</p>
+<p>这个设计思路在计算机系统中也存在，比如 CPU 使用 L1、L2、L3 多级缓存，用来减少对内存的直接访问，从而加快访问速度。</p>
+<p>一般来说，多级缓存架构使用二级缓存已可以满足大部分业务需求，过多的分级会增加系统的复杂度以及维护的成本。因此，多级缓存不是分级越多越好，需要根据实际情况进行权衡。</p>
+<p>一个典型的二级缓存架构，可以使用进程内缓存（如： Caffeine/Google Guava/Ehcache/HashMap）作为一级缓存；使用分布式缓存（如：Redis/Memcached）作为二级缓存。</p>
+<h4 id="多级缓存查询"><a class="markdownIt-Anchor" href="#多级缓存查询"></a> 多级缓存查询</h4>
+<div align="center"><img src="http://dunwu.test.upcdn.net/cs/java/javaweb/technology/cache/多级缓存2.png!zp" width="600" /></div>
+多级缓存查询流程如下：
+<ol>
+<li>首先，查询 L1 缓存，如果缓存命中，直接返回结果；如果没有命中，执行下一步。</li>
+<li>接下来，查询 L2 缓存，如果缓存命中，直接返回结果并回填 L1 缓存；如果没有命中，执行下一步。</li>
+<li>最后，查询数据库，返回结果并依次回填 L2 缓存、L1 缓存。</li>
+</ol>
+<h4 id="多级缓存更新"><a class="markdownIt-Anchor" href="#多级缓存更新"></a> 多级缓存更新</h4>
+<p>对于 L1 缓存，如果有数据更新，只能删除并更新所在机器上的缓存，其他机器只能通过超时机制来刷新缓存。超时设定可以有两种策略:</p>
+<ul>
+<li>设置成写入后多少时间后过期</li>
+<li>设置成写入后多少时间刷新</li>
+</ul>
+<p>对于 L1 缓存，如果有数据更新，其他机器立马可见。但是，也必须要设置超时时间，其时间应该比 L1 缓存的有效时间长。</p>
+<p>为了解决进程内缓存不一致的问题，设计可以进一步优化:</p>
+<div align="center"><img src="http://dunwu.test.upcdn.net/cs/java/javaweb/technology/cache/多级缓存3.png!zp" /></div>
+通过消息队列的发布、订阅机制，可以通知其他应用节点对进程内缓存进行更新。使用这种方案，即使消息队列服务挂了或不可靠，由于先执行了数据库更新，但进程内缓存过期，刷新缓存时，也能保证数据的最终一致性。
+<h2 id="7-缓存问题"><a class="markdownIt-Anchor" href="#7-缓存问题"></a> 7. 缓存问题</h2>
+<h3 id="71-缓存雪崩"><a class="markdownIt-Anchor" href="#71-缓存雪崩"></a> 7.1. 缓存雪崩</h3>
+<blockquote>
+<p><strong>缓存雪崩是指缓存不可用或者大量缓存由于超时时间相同在同一时间段失效，大量请求直接访问数据库，数据库压力过大导致系统雪崩</strong>。</p>
+</blockquote>
+<p>解决方案：</p>
+<ul>
+<li>增加缓存系统可用性。通过监控关注缓存的健康程度，根据业务量适当的扩容缓存。</li>
+<li>采用多级缓存。不同级别缓存设置的超时时间不同，即使某个级别缓存都过期，也有其他级别缓存兜底。</li>
+<li>缓存的过期时间可以取个随机值。比如以前是设置 10 分钟的超时时间，那每个 Key 都可以随机 8-13 分钟过期，尽量让不同 Key 的过期时间不同。</li>
+<li>对数据库进行过载保护或应用层限流。</li>
+</ul>
+<h3 id="72-缓存穿透"><a class="markdownIt-Anchor" href="#72-缓存穿透"></a> 7.2. 缓存穿透</h3>
+<blockquote>
+<p><strong>缓存穿透是指：查询的数据在数据库中不存在，那么缓存中自然也不存在。所以，应用在缓存中查不到，则会去查询数据库。当这样的请求多了后，数据库的压力就会增大。</strong></p>
+</blockquote>
+<p>解决缓存穿透，一般有两种方法：</p>
+<ul>
+<li><strong>对于返回为 NULL 的依然缓存，对于抛出异常的返回不进行缓存</strong>。</li>
+</ul>
+<div align="center"><img src="http://dunwu.test.upcdn.net/cs/java/javaweb/technology/cache/缓存穿透1.png!zp" width="350px"/></div>
+采用这种手段的会增加我们缓存的维护成本，需要在插入缓存的时候删除这个空缓存，当然我们可以通过设置较短的超时时间来解决这个问题。
+<ul>
+<li><strong>过滤不可能存在的数据</strong></li>
+</ul>
+<div align="center"><img src="http://dunwu.test.upcdn.net/cs/java/javaweb/technology/cache/缓存穿透2.png!zp" width="350px"/></div>
+**制定一些规则过滤一些不可能存在的数据**。小数据用 BitMap，大数据可以用布隆过滤器，比如你的订单 ID 明显是在一个范围 1-1000，如果不是 1-1000 之内的数据那其实可以直接给过滤掉。
+<h3 id="73-缓存击穿"><a class="markdownIt-Anchor" href="#73-缓存击穿"></a> 7.3. 缓存击穿</h3>
+<p>对于某些 key 设置了过期时间，但是其是热点数据，如果某个 key 失效，可能大量的请求打过来，缓存未命中，然后去数据库访问，此时数据库访问量会急剧增加。</p>
+<p>为了避免这个问题，我们可以采取下面的两个手段:</p>
+<ul>
+<li><strong>分布式锁</strong> - 锁住热点数据的 key，避免大量线程同时访问同一个 key。</li>
+<li><strong>异步加载</strong> - 可以对部分数据采取到期自动刷新的策略，而不是到期自动淘汰。淘汰其实也是为了数据的时效性，所以采用自动刷新也可以。</li>
+</ul>
+<h3 id="74-缓存更新"><a class="markdownIt-Anchor" href="#74-缓存更新"></a> 7.4. 缓存更新</h3>
+<p>一般来说缓存的更新有两种情况:</p>
+<ul>
+<li>先删除缓存，再更新数据库。</li>
+<li>先更新数据库，再删除缓存。</li>
+</ul>
+<blockquote>
+<p><strong>为什么是删除缓存，而不是更新缓存呢？</strong></p>
+<p>你可以想想当有多个并发的请求更新数据，你并不能保证更新数据库的顺序和更新缓存的顺序一致，那就会出现数据库中和缓存中数据不一致的情况。所以一般来说考虑删除缓存。</p>
+</blockquote>
+<ul>
+<li><strong>先删除缓存，再更新数据库</strong></li>
+</ul>
+<p>对于一个更新操作简单来说，就是先去各级缓存进行删除，然后更新数据库。</p>
+<p>这个操作有一个比较大的问题，在对缓存删除完之后，有一个读请求，这个时候由于缓存被删除所以直接会读库，读操作的数据是老的并且会被加载进入缓存当中，后续读请求全部访问的老数据。</p>
+<div align="center"><img src="http://dunwu.test.upcdn.net/cs/java/javaweb/technology/cache/缓存更新.png!zp" width="400px"/></div>
+对缓存的操作不论成功失败都不能阻塞我们对数据库的操作，那么很多时候删除缓存可以用异步的操作，但是先删除缓存不能很好的适用于这个场景。
+<p>先删除缓存也有一个好处是，如果对数据库操作失败了，那么由于先删除的缓存，最多只是造成 Cache Miss。</p>
+<ul>
+<li><strong>先更新数据库，再删除缓存</strong></li>
+</ul>
+<blockquote>
+<p>注：更推荐使用这种策略</p>
+</blockquote>
+<p>如果我们使用更新数据库，再删除缓存就能避免上面的问题。</p>
+<p>但是同样的引入了新的问题：假设执行更新操作时，又接收到查询请求，此时就会返回缓存中的老数据。更麻烦的是，如果数据库更新操作执行失败，则缓存中可能永远是脏数据。</p>
+<ul>
+<li>应该选择哪种更新测录</li>
+</ul>
+<p>通过上面的内容，我们知道，两种更新策略都存在并发问题。</p>
+<p>但是建议选择先更新数据库，再删除缓存，因为其并发问题出现的概率可能非常低，因为这个条件需要发生在读缓存时缓存失效，而且并发着有一个写操作。而实际上数据库的写操作会比读操作慢得多，而且还要锁表，而读操作必需在写操作前进入数据库操作，而又要晚于写操作更新缓存，所有的这些条件都具备的概率基本并不大。</p>
+<p>如果需要数据库和缓存保证强一致性，则可以通过 2PC 或 Paxos 协议来实现。但是 2PC 太慢，而 Paxos 太复杂，所以如果不是非常重要的数据，不建议使用强一致性方案。</p>
+<h3 id="75-缓存预热"><a class="markdownIt-Anchor" href="#75-缓存预热"></a> 7.5. 缓存预热</h3>
+<p>缓存预热是指系统启动后，将常用的数据直接缓存。这样就可以避免用户请求的时候，先查询数据库，然后再更新缓存的问题。</p>
+<p>解决方案：</p>
+<ul>
+<li>直接写个缓存刷新页面，上线时手工操作下。</li>
+<li>数据量不大，可以在项目启动的时候自动进行加载。</li>
+<li>定时刷新缓存。</li>
+</ul>
+<h3 id="76-缓存降级"><a class="markdownIt-Anchor" href="#76-缓存降级"></a> 7.6. 缓存降级</h3>
+<p>当访问量剧增、服务出现问题（如响应时间慢或不响应）或非核心服务影响到核心流程的性能时，仍然需要保证服务还是可用的，即使是有损服务。系统可以根据一些关键数据进行自动降级，也可以配置开关实现人工降级。</p>
+<p>降级的最终目的是保证核心服务可用，即使是有损的。而且有些服务是无法降级的（如加入购物车、结算）。</p>
+<h2 id="参考资料"><a class="markdownIt-Anchor" href="#参考资料"></a> 参考资料</h2>
+<ul>
+<li>《大型网站技术架构》</li>
+<li><a href="https://link.juejin.im/?target=https%3A%2F%2Fjuejin.im%2Fpost%2F5b7593496fb9a009b62904fa">你应该知道的缓存进化史</a></li>
+<li><a href="https://link.juejin.im/?target=https%3A%2F%2Fjuejin.im%2Fpost%2F5b849878e51d4538c77a974a">如何优雅的设计和使用缓存？</a></li>
+<li><a href="https://www.jianshu.com/p/73ce0ef820f9" target="_blank" rel="noopener">理解分布式系统中的缓存架构(上)</a></li>
+</ul>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
         
   
   
@@ -458,223 +1152,6 @@
 <h2 id="5-参考资料"><a class="markdownIt-Anchor" href="#5-参考资料"></a> 5. 参考资料</h2>
 <ul>
 <li><a href="https://www.cnblogs.com/savorboard/p/distributed-system-transaction-consistency.html" target="_blank" rel="noopener">聊聊分布式事务，再说说解决方案</a></li>
-</ul>
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-        
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="https://dunwu.github.io/blog/blog/design/theory/distributed-session-theory/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/blog/images/avatar.gif">
-      <meta itemprop="name" content="Zhang Peng">
-      <meta itemprop="description" content="Dunwu's Blog">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Dunwu">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/blog/design/theory/distributed-session-theory/" class="post-title-link" itemprop="url">分布式会话基本原理</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-
-              <time title="创建时间：2019-06-04 23:42:00" itemprop="dateCreated datePublished" datetime="2019-06-04T23:42:00+08:00">2019-06-04</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-calendar-check-o"></i>
-                </span>
-                <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2020-01-19 19:43:25" itemprop="dateModified" datetime="2020-01-19T19:43:25+08:00">2020-01-19</time>
-              </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/blog/categories/%E8%AE%BE%E8%AE%A1/" itemprop="url" rel="index">
-                    <span itemprop="name">设计</span>
-                  </a>
-                </span>
-                  ，
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/blog/categories/%E8%AE%BE%E8%AE%A1/%E7%B3%BB%E7%BB%9F%E5%8E%9F%E7%90%86/" itemprop="url" rel="index">
-                    <span itemprop="name">系统原理</span>
-                  </a>
-                </span>
-            </span>
-
-          
-  
-  <span class="post-meta-item">
-    
-      <span class="post-meta-item-icon">
-        <i class="fa fa-comment-o"></i>
-      </span>
-      <span class="post-meta-item-text">Disqus：</span>
-    
-    <a title="disqus" href="/blog/design/theory/distributed-session-theory/#comments" itemprop="discussionUrl">
-      <span class="post-comments-count disqus-comment-count" data-disqus-identifier="design/theory/distributed-session-theory/" itemprop="commentCount"></span>
-    </a>
-  </span>
-  
-  <br>
-            <span class="post-meta-item" title="本文字数">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-file-word-o"></i>
-              </span>
-                <span class="post-meta-item-text">本文字数：</span>
-              <span>6k</span>
-            </span>
-            <span class="post-meta-item" title="阅读时长">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-clock-o"></i>
-              </span>
-                <span class="post-meta-item-text">阅读时长 &asymp;</span>
-              <span>5 分钟</span>
-            </span>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h1 id="分布式会话基本原理"><a class="markdownIt-Anchor" href="#分布式会话基本原理"></a> 分布式会话基本原理</h1>
-<blockquote>
-<p>由于 Http 是一种无状态的协议，服务器单单从网络连接上无从知道客户身份。</p>
-<p>会话跟踪是 Web 程序中常用的技术，用来跟踪用户的整个会话。常用会话跟踪技术是 Cookie 与 Session。</p>
-</blockquote>
-<h2 id="1-简介"><a class="markdownIt-Anchor" href="#1-简介"></a> 1. 简介</h2>
-<h3 id="11-什么是-cookie"><a class="markdownIt-Anchor" href="#11-什么是-cookie"></a> 1.1. 什么是 Cookie</h3>
-<p>Cookie 实际上是存储在用户浏览器上的文本信息，并保留了各种跟踪的信息。</p>
-<p>Cookie 工作步骤：</p>
-<ol>
-<li>客户端请求服务器，如果服务器需要记录该用户的状态，就是用 response 向客户端浏览器颁发一个 Cookie。</li>
-<li>客户端浏览器会把 Cookie 保存下来。</li>
-<li>当浏览器再请求该网站时，浏览器把该请求的网址连同 Cookie 一同提交给服务器。服务器检查该 Cookie，以此来辨认用户状态。</li>
-</ol>
-<p>Cookie 主要用于以下三个方面：</p>
-<ul>
-<li>会话状态管理（如用户登录状态、购物车、游戏分数或其它需要记录的信息）</li>
-<li>个性化设置（如用户自定义设置、主题等）</li>
-<li>浏览器行为跟踪（如跟踪分析用户行为等）</li>
-</ul>
-<p><strong><em>注：Cookie 功能需要浏览器的支持，如果浏览器不支持 Cookie 或者 Cookie 禁用了，Cookie 功能就会失效。</em></strong></p>
-<h3 id="12-什么是-session"><a class="markdownIt-Anchor" href="#12-什么是-session"></a> 1.2. 什么是 Session</h3>
-<p>Session 代表着服务器和客户端一次会话的过程。Session 对象存储特定用户会话所需的属性及配置信息。这样，当用户在应用程序的 Web 页之间跳转时，存储在 Session 对象中的变量将不会丢失，而是在整个用户会话中一直存在下去。当客户端关闭会话，或者 Session 超时失效时会话结束。</p>
-<h3 id="13-cookie-和-session-的区别"><a class="markdownIt-Anchor" href="#13-cookie-和-session-的区别"></a> 1.3. Cookie 和 Session 的区别</h3>
-<ul>
-<li><strong>作用范围不同</strong>，Cookie 保存在客户端（浏览器），Session 保存在服务器端。</li>
-<li><strong>存取方式的不同</strong>，Cookie 只能保存 ASCII，Session 可以存任意数据类型，一般情况下我们可以在 Session 中保持一些常用变量信息，比如说 UserId 等。</li>
-<li><strong>有效期不同</strong>，Cookie 可设置为长时间保持，比如我们经常使用的默认登录功能，Session 一般失效时间较短，客户端关闭或者 Session 超时都会失效。</li>
-<li><strong>隐私策略不同</strong>，Cookie 存储在客户端，比较容易遭到不法获取，早期有人将用户的登录名和密码存储在 Cookie 中导致信息被窃取；Session 存储在服务端，安全性相对 Cookie 要好一些。</li>
-<li><strong>存储大小不同</strong>， 单个 Cookie 保存的数据不能超过 4K，Session 可存储数据远高于 Cookie。</li>
-</ul>
-<h3 id="14-为什么需要-cookie-和-session他们有什么关联"><a class="markdownIt-Anchor" href="#14-为什么需要-cookie-和-session他们有什么关联"></a> 1.4. 为什么需要 Cookie 和 Session，他们有什么关联？</h3>
-<p>说起来为什么需要 Cookie ，这就需要从浏览器开始说起，我们都知道浏览器是没有状态的(HTTP 协议无状态)，这意味着浏览器并不知道是张三还是李四在和服务端打交道。这个时候就需要有一个机制来告诉服务端，本次操作用户是否登录，是哪个用户在执行的操作，那这套机制的实现就需要 Cookie 和 Session 的配合。</p>
-<p>那么 Cookie 和 Session 是如何配合的呢？我画了一张图大家可以先了解下。</p>
-<p><img src="https://user-gold-cdn.xitu.io/2019/5/13/16aafb5d90f398e2?imageView2/0/w/1280/h/960/format/webp/ignore-error/1" alt="img" /></p>
-<p>用户第一次请求服务器的时候，服务器根据用户提交的相关信息，创建创建对应的 Session ，请求返回时将此 Session 的唯一标识信息 SessionID 返回给浏览器，浏览器接收到服务器返回的 SessionID 信息后，会将此信息存入到 Cookie 中，同时 Cookie 记录此 SessionID 属于哪个域名。</p>
-<p>当用户第二次访问服务器的时候，请求会自动判断此域名下是否存在 Cookie 信息，如果存在自动将 Cookie 信息也发送给服务端，服务端会从 Cookie 中获取 SessionID，再根据 SessionID 查找对应的 Session 信息，如果没有找到说明用户没有登录或者登录失效，如果找到 Session 证明用户已经登录可执行后面操作。</p>
-<p>根据以上流程可知，SessionID 是连接 Cookie 和 Session 的一道桥梁，大部分系统也是根据此原理来验证用户登录状态。</p>
-<h3 id="15-如果浏览器禁用-cookie-怎么办"><a class="markdownIt-Anchor" href="#15-如果浏览器禁用-cookie-怎么办"></a> 1.5. 如果浏览器禁用 Cookie 怎么办</h3>
-<p>既然服务端是根据 Cookie 中的信息判断用户是否登录，那么如果浏览器中禁止了 Cookie，如何保障整个机制的正常运转。</p>
-<p>第一种方案，每次请求中都携带一个 SessionID 的参数，也可以 Post 的方式提交，也可以在请求的地址后面拼接 <code>xxx?SessionID=123456...</code>。</p>
-<p>第二种方案，Token 机制。Token 机制多用于 App 客户端和服务器交互的模式，也可以用于 Web 端做用户状态管理。</p>
-<p>Token 的意思是“令牌”，是服务端生成的一串字符串，作为客户端进行请求的一个标识。Token 机制和 Cookie 和 Session 的使用机制比较类似。</p>
-<p>当用户第一次登录后，服务器根据提交的用户信息生成一个 Token，响应时将 Token 返回给客户端，以后客户端只需带上这个 Token 前来请求数据即可，无需再次登录验证。</p>
-<h2 id="2-分布式-session"><a class="markdownIt-Anchor" href="#2-分布式-session"></a> 2. 分布式 Session</h2>
-<p>在分布式场景下，一个用户的 Session 如果只存储在一个服务器上，那么当负载均衡器把用户的下一个请求转发到另一个服务器上，该服务器没有用户的 Session，就可能导致用户需要重新进行登录等操作。</p>
-<p>分布式 Session 的几种实现策略：</p>
-<ol>
-<li>粘性 session</li>
-<li>应用服务器间的 session 复制共享</li>
-<li>基于缓存的 session 共享 ✅</li>
-</ol>
-<blockquote>
-<p>推荐：基于缓存的 session 共享</p>
-</blockquote>
-<h3 id="21-粘性-session"><a class="markdownIt-Anchor" href="#21-粘性-session"></a> 2.1. 粘性 Session</h3>
-<blockquote>
-<p>粘性 Session（Sticky Sessions）<strong>需要配置负载均衡器，使得一个用户的所有请求都路由到一个服务器节点上</strong>，这样就可以把用户的 Session 存放在该服务器节点中。</p>
-<p>缺点：<strong>当服务器节点宕机时，将丢失该服务器节点上的所有 Session</strong>。</p>
-</blockquote>
-<div align="center">
-<img src="http://dunwu.test.upcdn.net/cs/design/architecture/MultiNode-StickySessions.jpg!zp" />
-</div>
-<h3 id="22-session-复制共享"><a class="markdownIt-Anchor" href="#22-session-复制共享"></a> 2.2. Session 复制共享</h3>
-<blockquote>
-<p>Session 复制共享（Session Replication）<strong>在服务器节点之间进行 Session 同步操作</strong>，这样的话用户可以访问任何一个服务器节点。</p>
-<p>缺点：<strong>占用过多内存</strong>；<strong>同步过程占用网络带宽以及服务器处理器时间</strong>。</p>
-</blockquote>
-<div align="center">
-<img src="http://dunwu.test.upcdn.net/cs/design/architecture/MultiNode-SessionReplication.jpg!zp" />
-</div>
-<h3 id="23-基于缓存的-session-共享"><a class="markdownIt-Anchor" href="#23-基于缓存的-session-共享"></a> 2.3. 基于缓存的 session 共享</h3>
-<blockquote>
-<p><strong>使用一个单独的存储服务器存储 Session 数据</strong>，可以存在 MySQL 数据库上，也可以存在 Redis 或者 Memcached 这种内存型数据库。</p>
-<p>缺点：需要去实现存取 Session 的代码。</p>
-</blockquote>
-<div align="center">
-<img src="http://dunwu.test.upcdn.net/cs/design/architecture/MultiNode-SpringSession.jpg!zp" />
-</div>
-<h2 id="3-具体实现"><a class="markdownIt-Anchor" href="#3-具体实现"></a> 3. 具体实现</h2>
-<h3 id="31-jwt-token"><a class="markdownIt-Anchor" href="#31-jwt-token"></a> 3.1. JWT Token</h3>
-<p>使用 JWT Token 储存用户身份，然后再从数据库或者 cache 中获取其他的信息。这样无论请求分配到哪个服务器都无所谓。</p>
-<h3 id="32-tomcat-redis"><a class="markdownIt-Anchor" href="#32-tomcat-redis"></a> 3.2. tomcat + redis</h3>
-<p>这个其实还挺方便的，就是使用 session 的代码，跟以前一样，还是基于 tomcat 原生的 session 支持即可，然后就是用一个叫做 <code>Tomcat RedisSessionManager</code> 的东西，让所有我们部署的 tomcat 都将 session 数据存储到 redis 即可。</p>
-<p>在 tomcat 的配置文件中配置：</p>
-<figure class="highlight xml"><table><tr><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">Valve</span> <span class="attr">className</span>=<span class="string">"com.orangefunction.tomcat.redissessions.RedisSessionHandlerValve"</span> /&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;<span class="name">Manager</span> <span class="attr">className</span>=<span class="string">"com.orangefunction.tomcat.redissessions.RedisSessionManager"</span></span></span><br><span class="line"><span class="tag">         <span class="attr">host</span>=<span class="string">"&#123;redis.host&#125;"</span></span></span><br><span class="line"><span class="tag">         <span class="attr">port</span>=<span class="string">"&#123;redis.port&#125;"</span></span></span><br><span class="line"><span class="tag">         <span class="attr">database</span>=<span class="string">"&#123;redis.dbnum&#125;"</span></span></span><br><span class="line"><span class="tag">         <span class="attr">maxInactiveInterval</span>=<span class="string">"60"</span>/&gt;</span></span><br></pre></td></tr></table></figure>
-<p>然后指定 redis 的 host 和 port 就 ok 了。</p>
-<figure class="highlight xml"><table><tr><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">Valve</span> <span class="attr">className</span>=<span class="string">"com.orangefunction.tomcat.redissessions.RedisSessionHandlerValve"</span> /&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">Manager</span> <span class="attr">className</span>=<span class="string">"com.orangefunction.tomcat.redissessions.RedisSessionManager"</span></span></span><br><span class="line"><span class="tag">	 <span class="attr">sentinelMaster</span>=<span class="string">"mymaster"</span></span></span><br><span class="line"><span class="tag">	 <span class="attr">sentinels</span>=<span class="string">"&lt;sentinel1-ip&gt;:26379,&lt;sentinel2-ip&gt;:26379,&lt;sentinel3-ip&gt;:26379"</span></span></span><br><span class="line"><span class="tag">	 <span class="attr">maxInactiveInterval</span>=<span class="string">"60"</span>/&gt;</span></span><br></pre></td></tr></table></figure>
-<p>还可以用上面这种方式基于 redis 哨兵支持的 redis 高可用集群来保存 session 数据，都是 ok 的。</p>
-<h3 id="33-spring-session-redis"><a class="markdownIt-Anchor" href="#33-spring-session-redis"></a> 3.3. spring session + redis</h3>
-<p>上面那种 tomcat + redis 的方式好用，但是会<strong>严重依赖于 web 容器</strong>，不好将代码移植到其他 web 容器上去，尤其是你要是换了技术栈咋整？比如换成了 spring cloud 或者是 spring boot 之类的呢？</p>
-<p>所以现在比较好的还是基于 Java 一站式解决方案，也就是 spring。人家 spring 基本上承包了大部分我们需要使用的框架，spirng cloud 做微服务，spring boot 做脚手架，所以用 <a href="https://github.com/spring-projects/spring-session" target="_blank" rel="noopener">sping session</a> 是一个很好的选择。</p>
-<p>在 pom.xml 中配置：</p>
-<figure class="highlight xml"><table><tr><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.springframework.session<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>spring-session-data-redis<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">version</span>&gt;</span>1.2.1.RELEASE<span class="tag">&lt;/<span class="name">version</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>redis.clients<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>jedis<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">version</span>&gt;</span>2.8.1<span class="tag">&lt;/<span class="name">version</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br></pre></td></tr></table></figure>
-<p>在 spring 配置文件中配置：</p>
-<figure class="highlight xml"><table><tr><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">bean</span> <span class="attr">id</span>=<span class="string">"redisHttpSessionConfiguration"</span></span></span><br><span class="line"><span class="tag">     <span class="attr">class</span>=<span class="string">"org.springframework.session.data.redis.config.annotation.web.http.RedisHttpSessionConfiguration"</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">property</span> <span class="attr">name</span>=<span class="string">"maxInactiveIntervalInSeconds"</span> <span class="attr">value</span>=<span class="string">"600"</span>/&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">bean</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;<span class="name">bean</span> <span class="attr">id</span>=<span class="string">"jedisPoolConfig"</span> <span class="attr">class</span>=<span class="string">"redis.clients.jedis.JedisPoolConfig"</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">property</span> <span class="attr">name</span>=<span class="string">"maxTotal"</span> <span class="attr">value</span>=<span class="string">"100"</span> /&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">property</span> <span class="attr">name</span>=<span class="string">"maxIdle"</span> <span class="attr">value</span>=<span class="string">"10"</span> /&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">bean</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;<span class="name">bean</span> <span class="attr">id</span>=<span class="string">"jedisConnectionFactory"</span></span></span><br><span class="line"><span class="tag">      <span class="attr">class</span>=<span class="string">"org.springframework.data.redis.connection.jedis.JedisConnectionFactory"</span> <span class="attr">destroy-method</span>=<span class="string">"destroy"</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">property</span> <span class="attr">name</span>=<span class="string">"hostName"</span> <span class="attr">value</span>=<span class="string">"$&#123;redis_hostname&#125;"</span>/&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">property</span> <span class="attr">name</span>=<span class="string">"port"</span> <span class="attr">value</span>=<span class="string">"$&#123;redis_port&#125;"</span>/&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">property</span> <span class="attr">name</span>=<span class="string">"password"</span> <span class="attr">value</span>=<span class="string">"$&#123;redis_pwd&#125;"</span> /&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">property</span> <span class="attr">name</span>=<span class="string">"timeout"</span> <span class="attr">value</span>=<span class="string">"3000"</span>/&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">property</span> <span class="attr">name</span>=<span class="string">"usePool"</span> <span class="attr">value</span>=<span class="string">"true"</span>/&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">property</span> <span class="attr">name</span>=<span class="string">"poolConfig"</span> <span class="attr">ref</span>=<span class="string">"jedisPoolConfig"</span>/&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">bean</span>&gt;</span></span><br></pre></td></tr></table></figure>
-<p>在 web.xml 中配置：</p>
-<figure class="highlight xml"><table><tr><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">filter</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">filter-name</span>&gt;</span>springSessionRepositoryFilter<span class="tag">&lt;/<span class="name">filter-name</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">filter-class</span>&gt;</span>org.springframework.web.filter.DelegatingFilterProxy<span class="tag">&lt;/<span class="name">filter-class</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">filter</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">filter-mapping</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">filter-name</span>&gt;</span>springSessionRepositoryFilter<span class="tag">&lt;/<span class="name">filter-name</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">url-pattern</span>&gt;</span>/*<span class="tag">&lt;/<span class="name">url-pattern</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">filter-mapping</span>&gt;</span></span><br></pre></td></tr></table></figure>
-<p>示例代码：</p>
-<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="meta">@RestController</span></span><br><span class="line"><span class="meta">@RequestMapping</span>(<span class="string">"/test"</span>)</span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">TestController</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@RequestMapping</span>(<span class="string">"/putIntoSession"</span>)</span><br><span class="line">    <span class="function"><span class="keyword">public</span> String <span class="title">putIntoSession</span><span class="params">(HttpServletRequest request, String username)</span> </span>&#123;</span><br><span class="line">        request.getSession().setAttribute(<span class="string">"name"</span>,  <span class="string">"leo"</span>);</span><br><span class="line">        <span class="keyword">return</span> <span class="string">"ok"</span>;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@RequestMapping</span>(<span class="string">"/getFromSession"</span>)</span><br><span class="line">    <span class="function"><span class="keyword">public</span> String <span class="title">getFromSession</span><span class="params">(HttpServletRequest request, Model model)</span></span>&#123;</span><br><span class="line">        String name = request.getSession().getAttribute(<span class="string">"name"</span>);</span><br><span class="line">        <span class="keyword">return</span> name;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>上面的代码就是 ok 的，给 sping session 配置基于 redis 来存储 session 数据，然后配置了一个 spring session 的过滤器，这样的话，session 相关操作都会交给 spring session 来管了。接着在代码中，就用原生的 session 操作，就是直接基于 spring sesion 从 redis 中获取数据了。</p>
-<p>实现分布式的会话有很多种方式，我说的只不过是比较常见的几种方式，tomcat + redis 早期比较常用，但是会重耦合到 tomcat 中；近些年，通过 spring session 来实现。</p>
-<h2 id="4-参考资料"><a class="markdownIt-Anchor" href="#4-参考资料"></a> 4. 参考资料</h2>
-<ul>
-<li><a href="https://github.com/L316476844/distributed-session" target="_blank" rel="noopener">集群/分布式环境 Session 的几种策略</a></li>
-<li><a href="https://juejin.im/post/5cd9037ee51d456e5c5babca" target="_blank" rel="noopener">你真的了解 Cookie 和 Session 吗</a></li>
-<li><a href="https://juejin.im/post/5aede266f265da0ba266e0ef" target="_blank" rel="noopener">聊一聊 session 和 cookie</a></li>
 </ul>
 
       
@@ -944,6 +1421,223 @@
 <h2 id="参考资料"><a class="markdownIt-Anchor" href="#参考资料"></a> 参考资料</h2>
 <ul>
 <li><a href="https://juejin.im/post/5a20cd8bf265da43163cdd9a" target="_blank" rel="noopener">分布式锁实现汇总</a></li>
+</ul>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+        
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://dunwu.github.io/blog/blog/design/theory/distributed-session-theory/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/blog/images/avatar.gif">
+      <meta itemprop="name" content="Zhang Peng">
+      <meta itemprop="description" content="Dunwu's Blog">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Dunwu">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/blog/design/theory/distributed-session-theory/" class="post-title-link" itemprop="url">分布式会话基本原理</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2019-06-04 23:42:00" itemprop="dateCreated datePublished" datetime="2019-06-04T23:42:00+08:00">2019-06-04</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2020-01-19 19:43:25" itemprop="dateModified" datetime="2020-01-19T19:43:25+08:00">2020-01-19</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/blog/categories/%E8%AE%BE%E8%AE%A1/" itemprop="url" rel="index">
+                    <span itemprop="name">设计</span>
+                  </a>
+                </span>
+                  ，
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/blog/categories/%E8%AE%BE%E8%AE%A1/%E7%B3%BB%E7%BB%9F%E5%8E%9F%E7%90%86/" itemprop="url" rel="index">
+                    <span itemprop="name">系统原理</span>
+                  </a>
+                </span>
+            </span>
+
+          
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="fa fa-comment-o"></i>
+      </span>
+      <span class="post-meta-item-text">Disqus：</span>
+    
+    <a title="disqus" href="/blog/design/theory/distributed-session-theory/#comments" itemprop="discussionUrl">
+      <span class="post-comments-count disqus-comment-count" data-disqus-identifier="design/theory/distributed-session-theory/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  <br>
+            <span class="post-meta-item" title="本文字数">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-file-word-o"></i>
+              </span>
+                <span class="post-meta-item-text">本文字数：</span>
+              <span>6k</span>
+            </span>
+            <span class="post-meta-item" title="阅读时长">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-clock-o"></i>
+              </span>
+                <span class="post-meta-item-text">阅读时长 &asymp;</span>
+              <span>5 分钟</span>
+            </span>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h1 id="分布式会话基本原理"><a class="markdownIt-Anchor" href="#分布式会话基本原理"></a> 分布式会话基本原理</h1>
+<blockquote>
+<p>由于 Http 是一种无状态的协议，服务器单单从网络连接上无从知道客户身份。</p>
+<p>会话跟踪是 Web 程序中常用的技术，用来跟踪用户的整个会话。常用会话跟踪技术是 Cookie 与 Session。</p>
+</blockquote>
+<h2 id="1-简介"><a class="markdownIt-Anchor" href="#1-简介"></a> 1. 简介</h2>
+<h3 id="11-什么是-cookie"><a class="markdownIt-Anchor" href="#11-什么是-cookie"></a> 1.1. 什么是 Cookie</h3>
+<p>Cookie 实际上是存储在用户浏览器上的文本信息，并保留了各种跟踪的信息。</p>
+<p>Cookie 工作步骤：</p>
+<ol>
+<li>客户端请求服务器，如果服务器需要记录该用户的状态，就是用 response 向客户端浏览器颁发一个 Cookie。</li>
+<li>客户端浏览器会把 Cookie 保存下来。</li>
+<li>当浏览器再请求该网站时，浏览器把该请求的网址连同 Cookie 一同提交给服务器。服务器检查该 Cookie，以此来辨认用户状态。</li>
+</ol>
+<p>Cookie 主要用于以下三个方面：</p>
+<ul>
+<li>会话状态管理（如用户登录状态、购物车、游戏分数或其它需要记录的信息）</li>
+<li>个性化设置（如用户自定义设置、主题等）</li>
+<li>浏览器行为跟踪（如跟踪分析用户行为等）</li>
+</ul>
+<p><strong><em>注：Cookie 功能需要浏览器的支持，如果浏览器不支持 Cookie 或者 Cookie 禁用了，Cookie 功能就会失效。</em></strong></p>
+<h3 id="12-什么是-session"><a class="markdownIt-Anchor" href="#12-什么是-session"></a> 1.2. 什么是 Session</h3>
+<p>Session 代表着服务器和客户端一次会话的过程。Session 对象存储特定用户会话所需的属性及配置信息。这样，当用户在应用程序的 Web 页之间跳转时，存储在 Session 对象中的变量将不会丢失，而是在整个用户会话中一直存在下去。当客户端关闭会话，或者 Session 超时失效时会话结束。</p>
+<h3 id="13-cookie-和-session-的区别"><a class="markdownIt-Anchor" href="#13-cookie-和-session-的区别"></a> 1.3. Cookie 和 Session 的区别</h3>
+<ul>
+<li><strong>作用范围不同</strong>，Cookie 保存在客户端（浏览器），Session 保存在服务器端。</li>
+<li><strong>存取方式的不同</strong>，Cookie 只能保存 ASCII，Session 可以存任意数据类型，一般情况下我们可以在 Session 中保持一些常用变量信息，比如说 UserId 等。</li>
+<li><strong>有效期不同</strong>，Cookie 可设置为长时间保持，比如我们经常使用的默认登录功能，Session 一般失效时间较短，客户端关闭或者 Session 超时都会失效。</li>
+<li><strong>隐私策略不同</strong>，Cookie 存储在客户端，比较容易遭到不法获取，早期有人将用户的登录名和密码存储在 Cookie 中导致信息被窃取；Session 存储在服务端，安全性相对 Cookie 要好一些。</li>
+<li><strong>存储大小不同</strong>， 单个 Cookie 保存的数据不能超过 4K，Session 可存储数据远高于 Cookie。</li>
+</ul>
+<h3 id="14-为什么需要-cookie-和-session他们有什么关联"><a class="markdownIt-Anchor" href="#14-为什么需要-cookie-和-session他们有什么关联"></a> 1.4. 为什么需要 Cookie 和 Session，他们有什么关联？</h3>
+<p>说起来为什么需要 Cookie ，这就需要从浏览器开始说起，我们都知道浏览器是没有状态的(HTTP 协议无状态)，这意味着浏览器并不知道是张三还是李四在和服务端打交道。这个时候就需要有一个机制来告诉服务端，本次操作用户是否登录，是哪个用户在执行的操作，那这套机制的实现就需要 Cookie 和 Session 的配合。</p>
+<p>那么 Cookie 和 Session 是如何配合的呢？我画了一张图大家可以先了解下。</p>
+<p><img src="https://user-gold-cdn.xitu.io/2019/5/13/16aafb5d90f398e2?imageView2/0/w/1280/h/960/format/webp/ignore-error/1" alt="img" /></p>
+<p>用户第一次请求服务器的时候，服务器根据用户提交的相关信息，创建创建对应的 Session ，请求返回时将此 Session 的唯一标识信息 SessionID 返回给浏览器，浏览器接收到服务器返回的 SessionID 信息后，会将此信息存入到 Cookie 中，同时 Cookie 记录此 SessionID 属于哪个域名。</p>
+<p>当用户第二次访问服务器的时候，请求会自动判断此域名下是否存在 Cookie 信息，如果存在自动将 Cookie 信息也发送给服务端，服务端会从 Cookie 中获取 SessionID，再根据 SessionID 查找对应的 Session 信息，如果没有找到说明用户没有登录或者登录失效，如果找到 Session 证明用户已经登录可执行后面操作。</p>
+<p>根据以上流程可知，SessionID 是连接 Cookie 和 Session 的一道桥梁，大部分系统也是根据此原理来验证用户登录状态。</p>
+<h3 id="15-如果浏览器禁用-cookie-怎么办"><a class="markdownIt-Anchor" href="#15-如果浏览器禁用-cookie-怎么办"></a> 1.5. 如果浏览器禁用 Cookie 怎么办</h3>
+<p>既然服务端是根据 Cookie 中的信息判断用户是否登录，那么如果浏览器中禁止了 Cookie，如何保障整个机制的正常运转。</p>
+<p>第一种方案，每次请求中都携带一个 SessionID 的参数，也可以 Post 的方式提交，也可以在请求的地址后面拼接 <code>xxx?SessionID=123456...</code>。</p>
+<p>第二种方案，Token 机制。Token 机制多用于 App 客户端和服务器交互的模式，也可以用于 Web 端做用户状态管理。</p>
+<p>Token 的意思是“令牌”，是服务端生成的一串字符串，作为客户端进行请求的一个标识。Token 机制和 Cookie 和 Session 的使用机制比较类似。</p>
+<p>当用户第一次登录后，服务器根据提交的用户信息生成一个 Token，响应时将 Token 返回给客户端，以后客户端只需带上这个 Token 前来请求数据即可，无需再次登录验证。</p>
+<h2 id="2-分布式-session"><a class="markdownIt-Anchor" href="#2-分布式-session"></a> 2. 分布式 Session</h2>
+<p>在分布式场景下，一个用户的 Session 如果只存储在一个服务器上，那么当负载均衡器把用户的下一个请求转发到另一个服务器上，该服务器没有用户的 Session，就可能导致用户需要重新进行登录等操作。</p>
+<p>分布式 Session 的几种实现策略：</p>
+<ol>
+<li>粘性 session</li>
+<li>应用服务器间的 session 复制共享</li>
+<li>基于缓存的 session 共享 ✅</li>
+</ol>
+<blockquote>
+<p>推荐：基于缓存的 session 共享</p>
+</blockquote>
+<h3 id="21-粘性-session"><a class="markdownIt-Anchor" href="#21-粘性-session"></a> 2.1. 粘性 Session</h3>
+<blockquote>
+<p>粘性 Session（Sticky Sessions）<strong>需要配置负载均衡器，使得一个用户的所有请求都路由到一个服务器节点上</strong>，这样就可以把用户的 Session 存放在该服务器节点中。</p>
+<p>缺点：<strong>当服务器节点宕机时，将丢失该服务器节点上的所有 Session</strong>。</p>
+</blockquote>
+<div align="center">
+<img src="http://dunwu.test.upcdn.net/cs/design/architecture/MultiNode-StickySessions.jpg!zp" />
+</div>
+<h3 id="22-session-复制共享"><a class="markdownIt-Anchor" href="#22-session-复制共享"></a> 2.2. Session 复制共享</h3>
+<blockquote>
+<p>Session 复制共享（Session Replication）<strong>在服务器节点之间进行 Session 同步操作</strong>，这样的话用户可以访问任何一个服务器节点。</p>
+<p>缺点：<strong>占用过多内存</strong>；<strong>同步过程占用网络带宽以及服务器处理器时间</strong>。</p>
+</blockquote>
+<div align="center">
+<img src="http://dunwu.test.upcdn.net/cs/design/architecture/MultiNode-SessionReplication.jpg!zp" />
+</div>
+<h3 id="23-基于缓存的-session-共享"><a class="markdownIt-Anchor" href="#23-基于缓存的-session-共享"></a> 2.3. 基于缓存的 session 共享</h3>
+<blockquote>
+<p><strong>使用一个单独的存储服务器存储 Session 数据</strong>，可以存在 MySQL 数据库上，也可以存在 Redis 或者 Memcached 这种内存型数据库。</p>
+<p>缺点：需要去实现存取 Session 的代码。</p>
+</blockquote>
+<div align="center">
+<img src="http://dunwu.test.upcdn.net/cs/design/architecture/MultiNode-SpringSession.jpg!zp" />
+</div>
+<h2 id="3-具体实现"><a class="markdownIt-Anchor" href="#3-具体实现"></a> 3. 具体实现</h2>
+<h3 id="31-jwt-token"><a class="markdownIt-Anchor" href="#31-jwt-token"></a> 3.1. JWT Token</h3>
+<p>使用 JWT Token 储存用户身份，然后再从数据库或者 cache 中获取其他的信息。这样无论请求分配到哪个服务器都无所谓。</p>
+<h3 id="32-tomcat-redis"><a class="markdownIt-Anchor" href="#32-tomcat-redis"></a> 3.2. tomcat + redis</h3>
+<p>这个其实还挺方便的，就是使用 session 的代码，跟以前一样，还是基于 tomcat 原生的 session 支持即可，然后就是用一个叫做 <code>Tomcat RedisSessionManager</code> 的东西，让所有我们部署的 tomcat 都将 session 数据存储到 redis 即可。</p>
+<p>在 tomcat 的配置文件中配置：</p>
+<figure class="highlight xml"><table><tr><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">Valve</span> <span class="attr">className</span>=<span class="string">"com.orangefunction.tomcat.redissessions.RedisSessionHandlerValve"</span> /&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;<span class="name">Manager</span> <span class="attr">className</span>=<span class="string">"com.orangefunction.tomcat.redissessions.RedisSessionManager"</span></span></span><br><span class="line"><span class="tag">         <span class="attr">host</span>=<span class="string">"&#123;redis.host&#125;"</span></span></span><br><span class="line"><span class="tag">         <span class="attr">port</span>=<span class="string">"&#123;redis.port&#125;"</span></span></span><br><span class="line"><span class="tag">         <span class="attr">database</span>=<span class="string">"&#123;redis.dbnum&#125;"</span></span></span><br><span class="line"><span class="tag">         <span class="attr">maxInactiveInterval</span>=<span class="string">"60"</span>/&gt;</span></span><br></pre></td></tr></table></figure>
+<p>然后指定 redis 的 host 和 port 就 ok 了。</p>
+<figure class="highlight xml"><table><tr><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">Valve</span> <span class="attr">className</span>=<span class="string">"com.orangefunction.tomcat.redissessions.RedisSessionHandlerValve"</span> /&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">Manager</span> <span class="attr">className</span>=<span class="string">"com.orangefunction.tomcat.redissessions.RedisSessionManager"</span></span></span><br><span class="line"><span class="tag">	 <span class="attr">sentinelMaster</span>=<span class="string">"mymaster"</span></span></span><br><span class="line"><span class="tag">	 <span class="attr">sentinels</span>=<span class="string">"&lt;sentinel1-ip&gt;:26379,&lt;sentinel2-ip&gt;:26379,&lt;sentinel3-ip&gt;:26379"</span></span></span><br><span class="line"><span class="tag">	 <span class="attr">maxInactiveInterval</span>=<span class="string">"60"</span>/&gt;</span></span><br></pre></td></tr></table></figure>
+<p>还可以用上面这种方式基于 redis 哨兵支持的 redis 高可用集群来保存 session 数据，都是 ok 的。</p>
+<h3 id="33-spring-session-redis"><a class="markdownIt-Anchor" href="#33-spring-session-redis"></a> 3.3. spring session + redis</h3>
+<p>上面那种 tomcat + redis 的方式好用，但是会<strong>严重依赖于 web 容器</strong>，不好将代码移植到其他 web 容器上去，尤其是你要是换了技术栈咋整？比如换成了 spring cloud 或者是 spring boot 之类的呢？</p>
+<p>所以现在比较好的还是基于 Java 一站式解决方案，也就是 spring。人家 spring 基本上承包了大部分我们需要使用的框架，spirng cloud 做微服务，spring boot 做脚手架，所以用 <a href="https://github.com/spring-projects/spring-session" target="_blank" rel="noopener">sping session</a> 是一个很好的选择。</p>
+<p>在 pom.xml 中配置：</p>
+<figure class="highlight xml"><table><tr><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.springframework.session<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>spring-session-data-redis<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">version</span>&gt;</span>1.2.1.RELEASE<span class="tag">&lt;/<span class="name">version</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>redis.clients<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>jedis<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">version</span>&gt;</span>2.8.1<span class="tag">&lt;/<span class="name">version</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<p>在 spring 配置文件中配置：</p>
+<figure class="highlight xml"><table><tr><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">bean</span> <span class="attr">id</span>=<span class="string">"redisHttpSessionConfiguration"</span></span></span><br><span class="line"><span class="tag">     <span class="attr">class</span>=<span class="string">"org.springframework.session.data.redis.config.annotation.web.http.RedisHttpSessionConfiguration"</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">property</span> <span class="attr">name</span>=<span class="string">"maxInactiveIntervalInSeconds"</span> <span class="attr">value</span>=<span class="string">"600"</span>/&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">bean</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;<span class="name">bean</span> <span class="attr">id</span>=<span class="string">"jedisPoolConfig"</span> <span class="attr">class</span>=<span class="string">"redis.clients.jedis.JedisPoolConfig"</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">property</span> <span class="attr">name</span>=<span class="string">"maxTotal"</span> <span class="attr">value</span>=<span class="string">"100"</span> /&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">property</span> <span class="attr">name</span>=<span class="string">"maxIdle"</span> <span class="attr">value</span>=<span class="string">"10"</span> /&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">bean</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;<span class="name">bean</span> <span class="attr">id</span>=<span class="string">"jedisConnectionFactory"</span></span></span><br><span class="line"><span class="tag">      <span class="attr">class</span>=<span class="string">"org.springframework.data.redis.connection.jedis.JedisConnectionFactory"</span> <span class="attr">destroy-method</span>=<span class="string">"destroy"</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">property</span> <span class="attr">name</span>=<span class="string">"hostName"</span> <span class="attr">value</span>=<span class="string">"$&#123;redis_hostname&#125;"</span>/&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">property</span> <span class="attr">name</span>=<span class="string">"port"</span> <span class="attr">value</span>=<span class="string">"$&#123;redis_port&#125;"</span>/&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">property</span> <span class="attr">name</span>=<span class="string">"password"</span> <span class="attr">value</span>=<span class="string">"$&#123;redis_pwd&#125;"</span> /&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">property</span> <span class="attr">name</span>=<span class="string">"timeout"</span> <span class="attr">value</span>=<span class="string">"3000"</span>/&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">property</span> <span class="attr">name</span>=<span class="string">"usePool"</span> <span class="attr">value</span>=<span class="string">"true"</span>/&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">property</span> <span class="attr">name</span>=<span class="string">"poolConfig"</span> <span class="attr">ref</span>=<span class="string">"jedisPoolConfig"</span>/&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">bean</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<p>在 web.xml 中配置：</p>
+<figure class="highlight xml"><table><tr><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">filter</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">filter-name</span>&gt;</span>springSessionRepositoryFilter<span class="tag">&lt;/<span class="name">filter-name</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">filter-class</span>&gt;</span>org.springframework.web.filter.DelegatingFilterProxy<span class="tag">&lt;/<span class="name">filter-class</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">filter</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">filter-mapping</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">filter-name</span>&gt;</span>springSessionRepositoryFilter<span class="tag">&lt;/<span class="name">filter-name</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">url-pattern</span>&gt;</span>/*<span class="tag">&lt;/<span class="name">url-pattern</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">filter-mapping</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<p>示例代码：</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="meta">@RestController</span></span><br><span class="line"><span class="meta">@RequestMapping</span>(<span class="string">"/test"</span>)</span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">TestController</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@RequestMapping</span>(<span class="string">"/putIntoSession"</span>)</span><br><span class="line">    <span class="function"><span class="keyword">public</span> String <span class="title">putIntoSession</span><span class="params">(HttpServletRequest request, String username)</span> </span>&#123;</span><br><span class="line">        request.getSession().setAttribute(<span class="string">"name"</span>,  <span class="string">"leo"</span>);</span><br><span class="line">        <span class="keyword">return</span> <span class="string">"ok"</span>;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@RequestMapping</span>(<span class="string">"/getFromSession"</span>)</span><br><span class="line">    <span class="function"><span class="keyword">public</span> String <span class="title">getFromSession</span><span class="params">(HttpServletRequest request, Model model)</span></span>&#123;</span><br><span class="line">        String name = request.getSession().getAttribute(<span class="string">"name"</span>);</span><br><span class="line">        <span class="keyword">return</span> name;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>上面的代码就是 ok 的，给 sping session 配置基于 redis 来存储 session 数据，然后配置了一个 spring session 的过滤器，这样的话，session 相关操作都会交给 spring session 来管了。接着在代码中，就用原生的 session 操作，就是直接基于 spring sesion 从 redis 中获取数据了。</p>
+<p>实现分布式的会话有很多种方式，我说的只不过是比较常见的几种方式，tomcat + redis 早期比较常用，但是会重耦合到 tomcat 中；近些年，通过 spring session 来实现。</p>
+<h2 id="4-参考资料"><a class="markdownIt-Anchor" href="#4-参考资料"></a> 4. 参考资料</h2>
+<ul>
+<li><a href="https://github.com/L316476844/distributed-session" target="_blank" rel="noopener">集群/分布式环境 Session 的几种策略</a></li>
+<li><a href="https://juejin.im/post/5cd9037ee51d456e5c5babca" target="_blank" rel="noopener">你真的了解 Cookie 和 Session 吗</a></li>
+<li><a href="https://juejin.im/post/5aede266f265da0ba266e0ef" target="_blank" rel="noopener">聊一聊 session 和 cookie</a></li>
 </ul>
 
       
@@ -1598,6 +2292,150 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://dunwu.github.io/blog/blog/communication/udp/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/blog/images/avatar.gif">
+      <meta itemprop="name" content="Zhang Peng">
+      <meta itemprop="description" content="Dunwu's Blog">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Dunwu">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/blog/communication/udp/" class="post-title-link" itemprop="url">网络协议之 UDP</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2019-05-31 11:51:00" itemprop="dateCreated datePublished" datetime="2019-05-31T11:51:00+08:00">2019-05-31</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2020-01-16 17:48:30" itemprop="dateModified" datetime="2020-01-16T17:48:30+08:00">2020-01-16</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/blog/categories/%E9%80%9A%E4%BF%A1/" itemprop="url" rel="index">
+                    <span itemprop="name">通信</span>
+                  </a>
+                </span>
+            </span>
+
+          
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="fa fa-comment-o"></i>
+      </span>
+      <span class="post-meta-item-text">Disqus：</span>
+    
+    <a title="disqus" href="/blog/communication/udp/#comments" itemprop="discussionUrl">
+      <span class="post-comments-count disqus-comment-count" data-disqus-identifier="communication/udp/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  <br>
+            <span class="post-meta-item" title="本文字数">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-file-word-o"></i>
+              </span>
+                <span class="post-meta-item-text">本文字数：</span>
+              <span>720</span>
+            </span>
+            <span class="post-meta-item" title="阅读时长">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-clock-o"></i>
+              </span>
+                <span class="post-meta-item-text">阅读时长 &asymp;</span>
+              <span>1 分钟</span>
+            </span>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h2 id="简介"><a class="markdownIt-Anchor" href="#简介"></a> 简介</h2>
+<div align="center"><img src="http://dunwu.test.upcdn.net/snap/1559263939493.png!zp"/></div>
+<p>UDP 是无连接的。数据报（类似于数据包）只在数据报级别有保证。数据报可能会无序的到达目的地，也有可能会遗失。UDP 不支持拥塞控制。虽然不如 TCP 那样有保证，但 UDP 通常效率更高。</p>
+<p>UDP 可以通过广播将数据报发送至子网内的所有设备。这对 <a href="https://en.wikipedia.org/wiki/Dynamic_Host_Configuration_Protocol" target="_blank" rel="noopener">DHCP</a> 很有用，因为子网内的设备还没有分配 IP 地址，而 IP 对于 TCP 是必须的。</p>
+<p>UDP 可靠性更低但适合用在网络电话、视频聊天，流媒体和实时多人游戏上。</p>
+<p>以下情况使用 UDP 代替 TCP：</p>
+<ul>
+<li>你需要低延迟</li>
+<li>相对于数据丢失更糟的是数据延迟</li>
+<li>你想实现自己的错误校正方法</li>
+</ul>
+<h3 id="udp-特点"><a class="markdownIt-Anchor" href="#udp-特点"></a> UDP 特点</h3>
+<ol>
+<li><strong>无连接的</strong>，即发送数据之前不需要建立连接，因此减少了开销和发送数据之前的时延。</li>
+<li><strong>不保证可靠交付</strong>，因此主机不需要为此复杂的连接状态表</li>
+<li><strong>面向报文的</strong>，意思是 UDP 对应用层交下来的报文，既不合并，也不拆分，而是保留这些报文的边界，在添加首部后向下交给 IP 层。</li>
+<li><strong>没有阻塞控制</strong>，因此网络出现的拥塞不会使发送方的发送速率降低。</li>
+<li><strong>支持一对一、一对多、多对一和多对多的交互通信</strong>，也即是提供广播和多播的功能。</li>
+<li><strong>首部开销小</strong>，首部只有 8 个字节，分为四部分。</li>
+</ol>
+<h3 id="udp-应用场景"><a class="markdownIt-Anchor" href="#udp-应用场景"></a> UDP 应用场景</h3>
+<ol>
+<li>名字转换（DNS）</li>
+<li>文件传送（TFTP）</li>
+<li>路由选择协议（RIP）</li>
+<li>IP 地址配置（BOOTP，DHTP）</li>
+<li>网络管理（SNMP）</li>
+<li>远程文件服务（NFS）</li>
+<li>IP 电话</li>
+<li>流式多媒体通信</li>
+</ol>
+<h2 id="udp-报文"><a class="markdownIt-Anchor" href="#udp-报文"></a> UDP 报文</h2>
+<p>UDP 数据报分为数据字段和首部字段。<br />
+首部字段只有 8 个字节，由四个字段组成，每个字段的长度是 2 个字节。</p>
+<p><strong>首部各字段意义</strong>：</p>
+<ol>
+<li><strong>源端口</strong>：源端口号，在需要对方回信时选用，不需要时可全 0.</li>
+<li><strong>目的端口</strong>：目的端口号，在终点交付报文时必须要使用到。</li>
+<li><strong>长度</strong>：UDP 用户数据报的长度，在只有首部的情况，其最小值是 8 。</li>
+<li><strong>检验和</strong>：检测 UDP 用户数据报在传输中是否有错，有错就丢弃。</li>
+</ol>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+        
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="zh-CN">
     <link itemprop="mainEntityOfPage" href="https://dunwu.github.io/blog/blog/communication/tcp/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -1823,150 +2661,6 @@
 <li><a href="https://blog.csdn.net/qzcsu/article/details/72861891" target="_blank" rel="noopener">TCP 的三次握手与四次挥手（详解+动图）</a></li>
 <li><a href="https://blog.csdn.net/sinat_36629696/article/details/80740678" target="_blank" rel="noopener">TCP 详解</a></li>
 </ul>
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-        
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="https://dunwu.github.io/blog/blog/communication/udp/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/blog/images/avatar.gif">
-      <meta itemprop="name" content="Zhang Peng">
-      <meta itemprop="description" content="Dunwu's Blog">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Dunwu">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/blog/communication/udp/" class="post-title-link" itemprop="url">网络协议之 UDP</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-
-              <time title="创建时间：2019-05-31 11:51:00" itemprop="dateCreated datePublished" datetime="2019-05-31T11:51:00+08:00">2019-05-31</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-calendar-check-o"></i>
-                </span>
-                <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2020-01-16 17:48:30" itemprop="dateModified" datetime="2020-01-16T17:48:30+08:00">2020-01-16</time>
-              </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/blog/categories/%E9%80%9A%E4%BF%A1/" itemprop="url" rel="index">
-                    <span itemprop="name">通信</span>
-                  </a>
-                </span>
-            </span>
-
-          
-  
-  <span class="post-meta-item">
-    
-      <span class="post-meta-item-icon">
-        <i class="fa fa-comment-o"></i>
-      </span>
-      <span class="post-meta-item-text">Disqus：</span>
-    
-    <a title="disqus" href="/blog/communication/udp/#comments" itemprop="discussionUrl">
-      <span class="post-comments-count disqus-comment-count" data-disqus-identifier="communication/udp/" itemprop="commentCount"></span>
-    </a>
-  </span>
-  
-  <br>
-            <span class="post-meta-item" title="本文字数">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-file-word-o"></i>
-              </span>
-                <span class="post-meta-item-text">本文字数：</span>
-              <span>720</span>
-            </span>
-            <span class="post-meta-item" title="阅读时长">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-clock-o"></i>
-              </span>
-                <span class="post-meta-item-text">阅读时长 &asymp;</span>
-              <span>1 分钟</span>
-            </span>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h2 id="简介"><a class="markdownIt-Anchor" href="#简介"></a> 简介</h2>
-<div align="center"><img src="http://dunwu.test.upcdn.net/snap/1559263939493.png!zp"/></div>
-<p>UDP 是无连接的。数据报（类似于数据包）只在数据报级别有保证。数据报可能会无序的到达目的地，也有可能会遗失。UDP 不支持拥塞控制。虽然不如 TCP 那样有保证，但 UDP 通常效率更高。</p>
-<p>UDP 可以通过广播将数据报发送至子网内的所有设备。这对 <a href="https://en.wikipedia.org/wiki/Dynamic_Host_Configuration_Protocol" target="_blank" rel="noopener">DHCP</a> 很有用，因为子网内的设备还没有分配 IP 地址，而 IP 对于 TCP 是必须的。</p>
-<p>UDP 可靠性更低但适合用在网络电话、视频聊天，流媒体和实时多人游戏上。</p>
-<p>以下情况使用 UDP 代替 TCP：</p>
-<ul>
-<li>你需要低延迟</li>
-<li>相对于数据丢失更糟的是数据延迟</li>
-<li>你想实现自己的错误校正方法</li>
-</ul>
-<h3 id="udp-特点"><a class="markdownIt-Anchor" href="#udp-特点"></a> UDP 特点</h3>
-<ol>
-<li><strong>无连接的</strong>，即发送数据之前不需要建立连接，因此减少了开销和发送数据之前的时延。</li>
-<li><strong>不保证可靠交付</strong>，因此主机不需要为此复杂的连接状态表</li>
-<li><strong>面向报文的</strong>，意思是 UDP 对应用层交下来的报文，既不合并，也不拆分，而是保留这些报文的边界，在添加首部后向下交给 IP 层。</li>
-<li><strong>没有阻塞控制</strong>，因此网络出现的拥塞不会使发送方的发送速率降低。</li>
-<li><strong>支持一对一、一对多、多对一和多对多的交互通信</strong>，也即是提供广播和多播的功能。</li>
-<li><strong>首部开销小</strong>，首部只有 8 个字节，分为四部分。</li>
-</ol>
-<h3 id="udp-应用场景"><a class="markdownIt-Anchor" href="#udp-应用场景"></a> UDP 应用场景</h3>
-<ol>
-<li>名字转换（DNS）</li>
-<li>文件传送（TFTP）</li>
-<li>路由选择协议（RIP）</li>
-<li>IP 地址配置（BOOTP，DHTP）</li>
-<li>网络管理（SNMP）</li>
-<li>远程文件服务（NFS）</li>
-<li>IP 电话</li>
-<li>流式多媒体通信</li>
-</ol>
-<h2 id="udp-报文"><a class="markdownIt-Anchor" href="#udp-报文"></a> UDP 报文</h2>
-<p>UDP 数据报分为数据字段和首部字段。<br />
-首部字段只有 8 个字节，由四个字段组成，每个字段的长度是 2 个字节。</p>
-<p><strong>首部各字段意义</strong>：</p>
-<ol>
-<li><strong>源端口</strong>：源端口号，在需要对方回信时选用，不需要时可全 0.</li>
-<li><strong>目的端口</strong>：目的端口号，在终点交付报文时必须要使用到。</li>
-<li><strong>长度</strong>：UDP 用户数据报的长度，在只有首部的情况，其最小值是 8 。</li>
-<li><strong>检验和</strong>：检测 UDP 用户数据报在传输中是否有错，有错就丢弃。</li>
-</ol>
 
       
     </div>
@@ -2618,241 +3312,11 @@
   
   
 
-        
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="https://dunwu.github.io/blog/blog/os/windows/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/blog/images/avatar.gif">
-      <meta itemprop="name" content="Zhang Peng">
-      <meta itemprop="description" content="Dunwu's Blog">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Dunwu">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/blog/os/windows/" class="post-title-link" itemprop="url">Windows 常用技巧总结</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-
-              <time title="创建时间：2019-05-07 20:35:00" itemprop="dateCreated datePublished" datetime="2019-05-07T20:35:00+08:00">2019-05-07</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-calendar-check-o"></i>
-                </span>
-                <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2019-11-22 11:31:33" itemprop="dateModified" datetime="2019-11-22T11:31:33+08:00">2019-11-22</time>
-              </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/blog/categories/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/" itemprop="url" rel="index">
-                    <span itemprop="name">操作系统</span>
-                  </a>
-                </span>
-            </span>
-
-          
-  
-  <span class="post-meta-item">
-    
-      <span class="post-meta-item-icon">
-        <i class="fa fa-comment-o"></i>
-      </span>
-      <span class="post-meta-item-text">Disqus：</span>
-    
-    <a title="disqus" href="/blog/os/windows/#comments" itemprop="discussionUrl">
-      <span class="post-comments-count disqus-comment-count" data-disqus-identifier="os/windows/" itemprop="commentCount"></span>
-    </a>
-  </span>
-  
-  <br>
-            <span class="post-meta-item" title="本文字数">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-file-word-o"></i>
-              </span>
-                <span class="post-meta-item-text">本文字数：</span>
-              <span>2.2k</span>
-            </span>
-            <span class="post-meta-item" title="阅读时长">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-clock-o"></i>
-              </span>
-                <span class="post-meta-item-text">阅读时长 &asymp;</span>
-              <span>2 分钟</span>
-            </span>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h1 id="windows-常用技巧总结"><a class="markdownIt-Anchor" href="#windows-常用技巧总结"></a> Windows 常用技巧总结</h1>
-<!-- TOC depthFrom:2 depthTo:3 -->
-<ul>
-<li><a href="#%E8%BD%AF%E4%BB%B6">软件</a>
-<ul>
-<li><a href="#%E8%A7%86%E9%A2%91%E9%9F%B3%E9%A2%91">视频音频</a></li>
-<li><a href="#%E5%8E%8B%E7%BC%A9">压缩</a></li>
-<li><a href="#%E6%96%87%E4%BB%B6%E7%AE%A1%E7%90%86">文件管理</a></li>
-<li><a href="#%E5%BC%80%E5%8F%91">开发</a></li>
-<li><a href="#%E7%BC%96%E8%BE%91%E5%99%A8">编辑器</a></li>
-<li><a href="#%E6%96%87%E6%A1%A3">文档</a></li>
-<li><a href="#%E6%95%88%E7%8E%87%E6%8F%90%E5%8D%87">效率提升</a></li>
-<li><a href="#%E5%8A%9E%E5%85%AC">办公</a></li>
-<li><a href="#%E4%B8%AA%E6%80%A7%E5%8C%96">个性化</a></li>
-</ul>
-</li>
-<li><a href="#%E5%8F%82%E8%80%83%E8%B5%84%E6%96%99">参考资料</a></li>
-</ul>
-<!-- /TOC -->
-<h2 id="软件"><a class="markdownIt-Anchor" href="#软件"></a> 软件</h2>
-<blockquote>
-<p>扩展阅读：</p>
-<ul>
-<li><a href="https://github.com/Awesome-Windows/Awesome/blob/master/README-cn.md" target="_blank" rel="noopener">Awesome Windows</a></li>
-<li><a href="https://github.com/stackia/best-windows-apps" target="_blank" rel="noopener">best-windows-apps</a></li>
-</ul>
-</blockquote>
-<h3 id="视频音频"><a class="markdownIt-Anchor" href="#视频音频"></a> 视频音频</h3>
-<ul>
-<li><a href="http://getmusicbee.com/" target="_blank" rel="noopener">Musicbee</a> - 类似 iTunes，但比 iTunes 更好用。</li>
-<li><a href="http://www.screentogif.com/" target="_blank" rel="noopener">ScreenToGif</a> - 它允许你录制屏幕的一部分区域并保存为 gif 或视频。</li>
-<li><a href="http://potplayer.daum.net/" target="_blank" rel="noopener">PotPlayer</a> - 多媒体播放器，具有广泛的编解码器集合，它还为用户提供大量配置选项。</li>
-<li><a href="http://www.splayer.org/" target="_blank" rel="noopener">射手影音播放器</a> - 来自射手网，小巧开源，首创自动匹配字幕功能。</li>
-</ul>
-<h3 id="压缩"><a class="markdownIt-Anchor" href="#压缩"></a> 压缩</h3>
-<ul>
-<li><a href="http://www.7-zip.org/" target="_blank" rel="noopener">7-Zip</a> - 用于处理压缩包的开源 Windows 实用程序。完美支持 7z，ZIP，GZIP，BZIP2 和 TAR 的全部特性，其他格式也可解压缩。</li>
-<li><a href="http://www.rarlab.com/" target="_blank" rel="noopener">WinRAR</a> - 强大的归档管理器。 它可以备份您的数据并减小电子邮件附件的大小，解压缩 RAR，ZIP 和其他文件。</li>
-</ul>
-<h3 id="文件管理"><a class="markdownIt-Anchor" href="#文件管理"></a> 文件管理</h3>
-<ul>
-<li><a href="http://en.ejie.me/" target="_blank" rel="noopener">Clover</a> - 为资源管理器加上多标签功能。</li>
-<li><a href="http://www.ghisler.com/" target="_blank" rel="noopener">Total Commander</a> - 老牌、功能异常强大的文件管理增强软件。</li>
-<li><a href="http://www.softwareok.com/?seite=Freeware/Q-Dir" target="_blank" rel="noopener">Q-Dir</a> - 轻量级的文件管理器，各种布局视图切换灵活，默认四个小窗口组成一个大窗口，操作快捷。软件虽小，粉丝忠诚。</li>
-<li><a href="https://github.com/Wox-launcher/Wox" target="_blank" rel="noopener">WoX</a> - 新一代文件定位工具，堪称 Windows 上的 Alfred。</li>
-<li><a href="http://www.voidtools.com/" target="_blank" rel="noopener">Everything</a> - 最快的文件/文件夹搜索工具， 通过名称搜索。</li>
-<li><a href="http://www.listary.com/" target="_blank" rel="noopener">Listary</a> - 非常优秀的 Windows 文件浏览和搜索增强工具。</li>
-<li>Beyond Compare - 好用又万能的文件对比工具。</li>
-<li><a href="https://www.piriform.com/ccleaner/download" target="_blank" rel="noopener">CCleaner</a> - 如果你有系统洁癖，那一定要选择一款干净、良心、老牌的清洁软件。</li>
-<li><a href="https://chocolatey.org/" target="_blank" rel="noopener">chocolatey</a> - 包管理器</li>
-<li><a href="https://ninite.com/" target="_blank" rel="noopener">Ninite</a> - 最简单，最快速的更新或安装软件的方式。</li>
-<li><a href="http://www.piriform.com/RECUVA" target="_blank" rel="noopener">Recuva</a> - 来自 piriform 梨子公司产品，免费的数据恢复工具。</li>
-<li><a href="http://www.launchy.net/" target="_blank" rel="noopener">Launchy</a>：自由的跨平台工具，帮助你忘记开始菜单、桌面图标甚至文件管理器。</li>
-</ul>
-<h3 id="开发"><a class="markdownIt-Anchor" href="#开发"></a> 开发</h3>
-<ul>
-<li><a href="http://www.telerik.com/fiddler" target="_blank" rel="noopener">Fiddler</a> - web 调试代理工具。</li>
-<li><a href="https://www.getpostman.com/postman" target="_blank" rel="noopener">Postman</a> - 适合 API 开发的完整工具链，最常用的 REST 客户端。</li>
-<li><a href="https://www.sourcetreeapp.com/" target="_blank" rel="noopener">SourceTree</a> - 一个免费的 Git &amp; Mercurial 客户端。</li>
-<li><a href="https://tortoisesvn.net/" target="_blank" rel="noopener">TortoiseSVN</a> - Subversion(SVN)的图形客户端</li>
-<li><a href="https://www.wireshark.org/" target="_blank" rel="noopener">Wireshark</a> - 一个网络协议分析工具。</li>
-<li>Switchhosts</li>
-<li><a href="https://github.com/cmderdev/cmder" target="_blank" rel="noopener">Cmder</a> - 控制台模拟器包。扩展阅读：<a href="https://www.jeffjade.com/2016/01/13/2016-01-13-windows-software-cmder/" target="_blank" rel="noopener">Win 下必备神器之 Cmder</a></li>
-<li><a href="http://babun.github.io/" target="_blank" rel="noopener">Babun</a> - 基于 Cygwin，用于替代 Windows shell。</li>
-</ul>
-<h3 id="编辑器"><a class="markdownIt-Anchor" href="#编辑器"></a> 编辑器</h3>
-<ul>
-<li><a href="http://www.jetbrains.com/" target="_blank" rel="noopener">JetBrain IDE 系列</a> - 真香！</li>
-<li><a href="https://code.visualstudio.com/" target="_blank" rel="noopener">Visual Studio Code</a> - 用于构建和调试现代 Web 和云应用程序。</li>
-<li><a href="https://eclipse.org/downloads/" target="_blank" rel="noopener">Eclipse</a> - 一款功能强大的 IDE。</li>
-<li><a href="https://www.visualstudio.com/vs/" target="_blank" rel="noopener">Visual Studio</a> - 微软官方的 IDE，通过插件可支持大量编程语言。</li>
-<li><a href="https://netbeans.org/" target="_blank" rel="noopener">NetBeans IDE</a> - 免费开源的 IDE。</li>
-<li><a href="https://www.typora.io/" target="_blank" rel="noopener">Typora</a> - 个人觉得最好用的 Markdown 编辑器。</li>
-<li><a href="https://www.zybuluo.com/cmd/" target="_blank" rel="noopener">Cmd Markdown</a> - 跨平台优秀 Markdown 编辑器，本文即用其所写。</li>
-<li><a href="https://notepad-plus-plus.org/" target="_blank" rel="noopener">Notepad++</a> - 一款支持多种编程语言的源码编辑器。</li>
-<li><a href="http://www.flos-freeware.ch/notepad2.html" target="_blank" rel="noopener">Notepad2</a> - 用于替代默认文本编辑器的轻量快速的编辑器，拥有众多有用的功能。</li>
-<li><a href="http://www.sublimetext.com/3" target="_blank" rel="noopener">Sublime Text 3</a> - 高级文本编辑器。</li>
-<li><a href="https://atom.io/" target="_blank" rel="noopener">Atom</a> - 面向 21 世纪的极客文本编辑器。</li>
-</ul>
-<h3 id="文档"><a class="markdownIt-Anchor" href="#文档"></a> 文档</h3>
-<ul>
-<li><a href="http://www.office.com/" target="_blank" rel="noopener">Microsoft Office</a> - 微软办公软件。</li>
-<li><a href="https://www.wps.com/office-free" target="_blank" rel="noopener">WPS Office</a> - 金山免费办公软件。</li>
-<li><a href="http://calibre-ebook.com/" target="_blank" rel="noopener">Calibre</a> - 用于电子书管理和转换的强大软件。</li>
-<li><a href="http://www.foxitsoftware.cn/products/reader/" target="_blank" rel="noopener">福昕阅读器</a> - 在全球拥有大量用户，最优秀的国产软件之一。Ribbon 界面，支持手写签名、插入印章等。</li>
-</ul>
-<h3 id="效率提升"><a class="markdownIt-Anchor" href="#效率提升"></a> 效率提升</h3>
-<p><strong>【笔记】</strong></p>
-<ul>
-<li><a href="http://www.xmind.net/" target="_blank" rel="noopener">XMind</a> - 优秀的思维导图。</li>
-<li><a href="https://www.onenote.com/" target="_blank" rel="noopener">OneNote</a> - Windows 下综合评价非常高的笔记应用。</li>
-<li><a href="http://www.yinxiang.com/" target="_blank" rel="noopener">印象笔记</a> - 老牌跨平台笔记工具，国际版 Evernote。一家立志于做百年公司的企业，安全、可靠。</li>
-<li><a href="http://www.wiz.cn/index.html" target="_blank" rel="noopener">为知笔记</a> - 越来越好的笔记应用，记录、查阅一切有价值的信息，同样跨平台支持。</li>
-<li><a href="http://note.youdao.com/" target="_blank" rel="noopener">有道云笔记</a> - 网易旗下笔记工具，同样跨主流平台支持，文字、手写、录音、拍照多种记录方式，支持任意附件格式。</li>
-<li><a href="https://getsharex.com/" target="_blank" rel="noopener">ShareX</a> - 你要的所有与截图、录屏相关的功能，这里都有了。</li>
-</ul>
-<p>【快捷键】</p>
-<ul>
-<li><a href="https://autohotkey.com/" target="_blank" rel="noopener">AutoHotkey</a> - Windows 平台的终极自动化脚本语言。</li>
-</ul>
-<blockquote>
-<p>技巧：</p>
-<ul>
-<li><a href="https://www.jeffjade.com/2016/03/11/2016-03-11-autohotkey/" target="_blank" rel="noopener">https://www.jeffjade.com/2016/03/11/2016-03-11-autohotkey/</a></li>
-<li><a href="https://www.autohotkey.com/boards/viewtopic.php?f=29&amp;t=4296" target="_blank" rel="noopener">https://www.autohotkey.com/boards/viewtopic.php?f=29&amp;t=4296</a></li>
-</ul>
-</blockquote>
-<h3 id="办公"><a class="markdownIt-Anchor" href="#办公"></a> 办公</h3>
-<ul>
-<li><a href="http://cidian.youdao.com/index.html" target="_blank" rel="noopener">有道词典</a> - 最好用的免费全能翻译软件。</li>
-<li><a href="http://office.microsoft.com/zh-cn/outlook/" target="_blank" rel="noopener">Outlook</a> - 大名鼎鼎的 Microsoft Office 组件之一，除了电子邮件，还包含了日历、任务管理、联系人、记事本等功能。</li>
-<li><a href="http://www.gmail.com/" target="_blank" rel="noopener">Gmail</a> - 功能上可以称为业界标杆，用户数量世界第一，或许你真的找不到比它更好的邮件系统。</li>
-<li><a href="https://www.google.com/intl/zh-CN/chrome/browser/" target="_blank" rel="noopener">Chrome</a> - 最好的浏览器。</li>
-<li><a href="http://www.teamviewer.com/Zhcn/index.aspx" target="_blank" rel="noopener">Teamviewer</a> - 专业、功能强大的远程控制软件。使用简单，对个人用户免费。</li>
-</ul>
-<h3 id="个性化"><a class="markdownIt-Anchor" href="#个性化"></a> 个性化</h3>
-<ul>
-<li><a href="https://github.com/TranslucentTB/TranslucentTB" target="_blank" rel="noopener">TranslucentTB</a> - 透明化你的 Windows 任务栏。</li>
-<li><a href="http://qttabbar.wikidot.com/" target="_blank" rel="noopener">QTTabBar</a> - 通过多标签和额外的文件夹视图扩展资源管理器的功能。</li>
-<li><a href="https://www.stardock.com/products/fences/" target="_blank" rel="noopener">Fences</a> - 管理桌面快捷方式。</li>
-</ul>
-<h2 id="参考资料"><a class="markdownIt-Anchor" href="#参考资料"></a> 参考资料</h2>
-<ul>
-<li><a href="https://github.com/Awesome-Windows/Awesome/blob/master/README-cn.md" target="_blank" rel="noopener">https://github.com/Awesome-Windows/Awesome/blob/master/README-cn.md</a></li>
-<li><a href="https://love.appinn.com/" target="_blank" rel="noopener">https://love.appinn.com/</a></li>
-<li><a href="https://github.com/stackia/best-windows-apps" target="_blank" rel="noopener">https://github.com/stackia/best-windows-apps</a></li>
-</ul>
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
   </div>
 
   
   <nav class="pagination">
-    <a class="extend prev" rel="prev" href="/blog/"><i class="fa fa-angle-left" aria-label="上一页"></i></a><a class="page-number" href="/blog/">1</a><span class="page-number current">2</span><a class="page-number" href="/blog/page/3/">3</a><span class="space">&hellip;</span><a class="page-number" href="/blog/page/7/">7</a><a class="extend next" rel="next" href="/blog/page/3/"><i class="fa fa-angle-right" aria-label="下一页"></i></a>
+    <a class="extend prev" rel="prev" href="/blog/"><i class="fa fa-angle-left" aria-label="上一页"></i></a><a class="page-number" href="/blog/">1</a><span class="page-number current">2</span><a class="page-number" href="/blog/page/3/">3</a><span class="space">&hellip;</span><a class="page-number" href="/blog/page/8/">8</a><a class="extend next" rel="next" href="/blog/page/3/"><i class="fa fa-angle-right" aria-label="下一页"></i></a>
   </nav>
 
 
@@ -2898,7 +3362,7 @@
       <div class="site-state-item site-state-posts">
           <a href="/blog/archives/">
         
-          <span class="site-state-item-count">71</span>
+          <span class="site-state-item-count">72</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
@@ -2956,12 +3420,12 @@
     <span class="post-meta-item-icon">
       <i class="fa fa-area-chart"></i>
     </span>
-    <span title="站点总字数">356k</span>
+    <span title="站点总字数">364k</span>
     <span class="post-meta-divider">|</span>
     <span class="post-meta-item-icon">
       <i class="fa fa-coffee"></i>
     </span>
-    <span title="站点阅读时长">5:23</span>
+    <span title="站点阅读时长">5:31</span>
 </div>
 
         
