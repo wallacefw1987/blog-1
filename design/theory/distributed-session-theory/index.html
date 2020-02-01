@@ -52,19 +52,19 @@
   };
 </script>
 
-  <meta name="description" content="分布式会话基本原理  由于 Http 是一种无状态的协议，服务器单单从网络连接上无从知道客户身份。 会话跟踪是 Web 程序中常用的技术，用来跟踪用户的整个会话。常用会话跟踪技术是 Cookie 与 Session。   1. 简介  1.1. 什么是 Cookie Cookie 实际上是存储在用户浏览器上的文本信息，并保留了各种跟踪的信息。 Cookie 工作步骤：  客户端请求服务器，如果服">
+  <meta name="description" content="分布式会话基本原理  📦 本文已归档到：「blog」 由于 Http 是一种无状态的协议，服务器单单从网络连接上无从知道客户身份。 会话跟踪是 Web 程序中常用的技术，用来跟踪用户的整个会话。常用会话跟踪技术是 Cookie 与 Session。   1. 简介  1.1. 什么是 Cookie Cookie 实际上是存储在用户浏览器上的文本信息，并保留了各种跟踪的信息。 Cookie 工作">
 <meta name="keywords" content="设计,系统原理,session">
 <meta property="og:type" content="article">
 <meta property="og:title" content="分布式会话基本原理">
 <meta property="og:url" content="https:&#x2F;&#x2F;dunwu.github.io&#x2F;blog&#x2F;design&#x2F;theory&#x2F;distributed-session-theory&#x2F;index.html">
 <meta property="og:site_name" content="Dunwu">
-<meta property="og:description" content="分布式会话基本原理  由于 Http 是一种无状态的协议，服务器单单从网络连接上无从知道客户身份。 会话跟踪是 Web 程序中常用的技术，用来跟踪用户的整个会话。常用会话跟踪技术是 Cookie 与 Session。   1. 简介  1.1. 什么是 Cookie Cookie 实际上是存储在用户浏览器上的文本信息，并保留了各种跟踪的信息。 Cookie 工作步骤：  客户端请求服务器，如果服">
+<meta property="og:description" content="分布式会话基本原理  📦 本文已归档到：「blog」 由于 Http 是一种无状态的协议，服务器单单从网络连接上无从知道客户身份。 会话跟踪是 Web 程序中常用的技术，用来跟踪用户的整个会话。常用会话跟踪技术是 Cookie 与 Session。   1. 简介  1.1. 什么是 Cookie Cookie 实际上是存储在用户浏览器上的文本信息，并保留了各种跟踪的信息。 Cookie 工作">
 <meta property="og:locale" content="zh-CN">
 <meta property="og:image" content="https:&#x2F;&#x2F;user-gold-cdn.xitu.io&#x2F;2019&#x2F;5&#x2F;13&#x2F;16aafb5d90f398e2?imageView2&#x2F;0&#x2F;w&#x2F;1280&#x2F;h&#x2F;960&#x2F;format&#x2F;webp&#x2F;ignore-error&#x2F;1">
 <meta property="og:image" content="http:&#x2F;&#x2F;dunwu.test.upcdn.net&#x2F;cs&#x2F;design&#x2F;architecture&#x2F;MultiNode-StickySessions.jpg!zp">
 <meta property="og:image" content="http:&#x2F;&#x2F;dunwu.test.upcdn.net&#x2F;cs&#x2F;design&#x2F;architecture&#x2F;MultiNode-SessionReplication.jpg!zp">
 <meta property="og:image" content="http:&#x2F;&#x2F;dunwu.test.upcdn.net&#x2F;cs&#x2F;design&#x2F;architecture&#x2F;MultiNode-SpringSession.jpg!zp">
-<meta property="og:updated_time" content="2020-01-19T11:43:25.924Z">
+<meta property="og:updated_time" content="2020-02-01T14:42:06.052Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:image" content="https:&#x2F;&#x2F;user-gold-cdn.xitu.io&#x2F;2019&#x2F;5&#x2F;13&#x2F;16aafb5d90f398e2?imageView2&#x2F;0&#x2F;w&#x2F;1280&#x2F;h&#x2F;960&#x2F;format&#x2F;webp&#x2F;ignore-error&#x2F;1">
 
@@ -160,7 +160,7 @@
   </li>
         <li class="menu-item menu-item-tags">
 
-    <a href="/blog/tags/" rel="section"><i class="fa fa-fw fa-tags"></i>标签<span class="badge">43</span></a>
+    <a href="/blog/tags/" rel="section"><i class="fa fa-fw fa-tags"></i>标签<span class="badge">44</span></a>
 
   </li>
         <li class="menu-item menu-item-categories">
@@ -258,7 +258,7 @@
                   <i class="fa fa-calendar-check-o"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2020-01-19 19:43:25" itemprop="dateModified" datetime="2020-01-19T19:43:25+08:00">2020-01-19</time>
+                <time title="修改时间：2020-02-01 22:42:06" itemprop="dateModified" datetime="2020-02-01T22:42:06+08:00">2020-02-01</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -319,6 +319,7 @@
       
         <h1 id="分布式会话基本原理"><a class="markdownIt-Anchor" href="#分布式会话基本原理"></a> 分布式会话基本原理</h1>
 <blockquote>
+<p>📦 本文已归档到：「<a href="https://github.com/dunwu/blog" target="_blank" rel="noopener">blog</a>」</p>
 <p>由于 Http 是一种无状态的协议，服务器单单从网络连接上无从知道客户身份。</p>
 <p>会话跟踪是 Web 程序中常用的技术，用来跟踪用户的整个会话。常用会话跟踪技术是 Cookie 与 Session。</p>
 </blockquote>
@@ -545,7 +546,7 @@
       <div class="site-state-item site-state-tags">
             <a href="/blog/tags/">
           
-        <span class="site-state-item-count">43</span>
+        <span class="site-state-item-count">44</span>
         <span class="site-state-item-name">标签</span></a>
       </div>
   </nav>

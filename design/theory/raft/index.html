@@ -52,13 +52,13 @@
   };
 </script>
 
-  <meta name="description" content="深入剖析一致性算法 Raft    一、Raft 简介  分布式一致性 复制状态机 RAFT 应用   二、Raft 基础  服务器角色 任期 RPC   三、选举 Leader  选举规则 单 Candidate 选举 多 Candidate 选举   四、日志复制  日志格式 日志复制流程 日志一致性   五、安全性  选举限制 提交旧任期的日志条目   六、日志压缩 参考资料    一、R">
-<meta name="keywords" content="设计,系统原理,分布式">
+  <meta name="description" content="深入剖析一致性算法 Raft  📦 本文已归档到：「blog」     一、Raft 简介  分布式一致性 复制状态机 RAFT 应用   二、Raft 基础  服务器角色 任期 RPC   三、选举 Leader  选举规则 单 Candidate 选举 多 Candidate 选举   四、日志复制  日志格式 日志复制流程 日志一致性   五、安全性  选举限制 提交旧任期的日志条目">
+<meta name="keywords" content="设计,系统原理,分布式,一致性">
 <meta property="og:type" content="article">
 <meta property="og:title" content="深入剖析一致性算法 Raft">
 <meta property="og:url" content="https:&#x2F;&#x2F;dunwu.github.io&#x2F;blog&#x2F;design&#x2F;theory&#x2F;raft&#x2F;index.html">
 <meta property="og:site_name" content="Dunwu">
-<meta property="og:description" content="深入剖析一致性算法 Raft    一、Raft 简介  分布式一致性 复制状态机 RAFT 应用   二、Raft 基础  服务器角色 任期 RPC   三、选举 Leader  选举规则 单 Candidate 选举 多 Candidate 选举   四、日志复制  日志格式 日志复制流程 日志一致性   五、安全性  选举限制 提交旧任期的日志条目   六、日志压缩 参考资料    一、R">
+<meta property="og:description" content="深入剖析一致性算法 Raft  📦 本文已归档到：「blog」     一、Raft 简介  分布式一致性 复制状态机 RAFT 应用   二、Raft 基础  服务器角色 任期 RPC   三、选举 Leader  选举规则 单 Candidate 选举 多 Candidate 选举   四、日志复制  日志格式 日志复制流程 日志一致性   五、安全性  选举限制 提交旧任期的日志条目">
 <meta property="og:locale" content="zh-CN">
 <meta property="og:image" content="https:&#x2F;&#x2F;raw.githubusercontent.com&#x2F;dunwu&#x2F;images&#x2F;master&#x2F;snap&#x2F;20200201221202.png">
 <meta property="og:image" content="https:&#x2F;&#x2F;raw.githubusercontent.com&#x2F;dunwu&#x2F;images&#x2F;master&#x2F;snap&#x2F;20200131233906.png">
@@ -79,7 +79,7 @@
 <meta property="og:image" content="https:&#x2F;&#x2F;pic4.zhimg.com&#x2F;80&#x2F;v2-d36c587901391cae50788061f568d24f_hd.jpg">
 <meta property="og:image" content="https:&#x2F;&#x2F;pic4.zhimg.com&#x2F;80&#x2F;v2-12a5ebab63781f9ec49e14e331775537_hd.jpg">
 <meta property="og:image" content="https:&#x2F;&#x2F;raw.githubusercontent.com&#x2F;dunwu&#x2F;images&#x2F;master&#x2F;snap&#x2F;20200201220628.png">
-<meta property="og:updated_time" content="2020-02-01T14:32:36.354Z">
+<meta property="og:updated_time" content="2020-02-01T14:41:39.046Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:image" content="https:&#x2F;&#x2F;raw.githubusercontent.com&#x2F;dunwu&#x2F;images&#x2F;master&#x2F;snap&#x2F;20200201221202.png">
 
@@ -175,7 +175,7 @@
   </li>
         <li class="menu-item menu-item-tags">
 
-    <a href="/blog/tags/" rel="section"><i class="fa fa-fw fa-tags"></i>标签<span class="badge">43</span></a>
+    <a href="/blog/tags/" rel="section"><i class="fa fa-fw fa-tags"></i>标签<span class="badge">44</span></a>
 
   </li>
         <li class="menu-item menu-item-categories">
@@ -267,7 +267,7 @@
               <span class="post-meta-item-text">发表于</span>
               
 
-              <time title="创建时间：2020-02-01 22:07:00 / 修改时间：22:32:36" itemprop="dateCreated datePublished" datetime="2020-02-01T22:07:00+08:00">2020-02-01</time>
+              <time title="创建时间：2020-02-01 22:07:00 / 修改时间：22:41:39" itemprop="dateCreated datePublished" datetime="2020-02-01T22:07:00+08:00">2020-02-01</time>
             </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -327,7 +327,10 @@
 
       
         <h1 id="深入剖析一致性算法-raft"><a class="markdownIt-Anchor" href="#深入剖析一致性算法-raft"></a> 深入剖析一致性算法 Raft</h1>
-<p><img src="https://raw.githubusercontent.com/dunwu/images/master/snap/20200201221202.png" alt="" /></p>
+<blockquote>
+<p>📦 本文已归档到：「<a href="https://github.com/dunwu/blog" target="_blank" rel="noopener">blog</a>」</p>
+</blockquote>
+<p><img src="https://raw.githubusercontent.com/dunwu/images/master/snap/20200201221202.png" alt="img" /></p>
 <!-- TOC depthFrom:2 depthTo:3 -->
 <ul>
 <li><a href="#%E4%B8%80raft-%E7%AE%80%E4%BB%8B">一、Raft 简介</a>
@@ -642,20 +645,24 @@
               <a href="/blog/tags/%E8%AE%BE%E8%AE%A1/" rel="tag"># 设计</a>
               <a href="/blog/tags/%E7%B3%BB%E7%BB%9F%E5%8E%9F%E7%90%86/" rel="tag"># 系统原理</a>
               <a href="/blog/tags/%E5%88%86%E5%B8%83%E5%BC%8F/" rel="tag"># 分布式</a>
+              <a href="/blog/tags/%E4%B8%80%E8%87%B4%E6%80%A7/" rel="tag"># 一致性</a>
           </div>
 
         
 
           <div class="post-nav">
             <div class="post-nav-next post-nav-item">
-                <a href="/blog/design/theory/paxos/" rel="next" title="design/theory/paxos">
-                  <i class="fa fa-chevron-left"></i> design/theory/paxos
+                <a href="/blog/efficiency/style/markdown-cheatsheet/" rel="next" title="Markdown Cheat Sheet">
+                  <i class="fa fa-chevron-left"></i> Markdown Cheat Sheet
                 </a>
             </div>
 
             <span class="post-nav-divider"></span>
 
             <div class="post-nav-prev post-nav-item">
+                <a href="/blog/design/theory/paxos/" rel="prev" title="深入剖析一致性算法 Paxos">
+                  深入剖析一致性算法 Paxos <i class="fa fa-chevron-right"></i>
+                </a>
             </div>
           </div>
       </footer>
@@ -730,7 +737,7 @@
       <div class="site-state-item site-state-tags">
             <a href="/blog/tags/">
           
-        <span class="site-state-item-count">43</span>
+        <span class="site-state-item-count">44</span>
         <span class="site-state-item-name">标签</span></a>
       </div>
   </nav>

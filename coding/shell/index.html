@@ -52,15 +52,15 @@
   };
 </script>
 
-  <meta name="description" content="由于 bash 是 Linux 标准默认的 shell 解释器，可以说 bash 是 shell 编程的基础。 本文主要介绍 bash 的语法，对于 linux 指令不做任何介绍。 📓 本文已归档到：「blog」 🔁 本文的源码已归档到 linux-tutorial  ███████╗██╗  ██╗███████╗██╗     ██╗██╔════╝██║  ██║██╔════╝██║">
+  <meta name="description" content="由于 bash 是 Linux 标准默认的 shell 解释器，可以说 bash 是 shell 编程的基础。 本文主要介绍 bash 的语法，对于 linux 指令不做任何介绍。 📦 本文已归档到：「blog」 🔁 本文的源码已归档到 linux-tutorial  ███████╗██╗  ██╗███████╗██╗     ██╗██╔════╝██║  ██║██╔════╝██║">
 <meta name="keywords" content="编程,shell">
 <meta property="og:type" content="article">
 <meta property="og:title" content="一篇文章让你彻底掌握 Shell">
 <meta property="og:url" content="https:&#x2F;&#x2F;dunwu.github.io&#x2F;blog&#x2F;coding&#x2F;shell&#x2F;index.html">
 <meta property="og:site_name" content="Dunwu">
-<meta property="og:description" content="由于 bash 是 Linux 标准默认的 shell 解释器，可以说 bash 是 shell 编程的基础。 本文主要介绍 bash 的语法，对于 linux 指令不做任何介绍。 📓 本文已归档到：「blog」 🔁 本文的源码已归档到 linux-tutorial  ███████╗██╗  ██╗███████╗██╗     ██╗██╔════╝██║  ██║██╔════╝██║">
+<meta property="og:description" content="由于 bash 是 Linux 标准默认的 shell 解释器，可以说 bash 是 shell 编程的基础。 本文主要介绍 bash 的语法，对于 linux 指令不做任何介绍。 📦 本文已归档到：「blog」 🔁 本文的源码已归档到 linux-tutorial  ███████╗██╗  ██╗███████╗██╗     ██╗██╔════╝██║  ██║██╔════╝██║">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:updated_time" content="2019-11-27T07:29:01.921Z">
+<meta property="og:updated_time" content="2020-02-01T14:41:38.967Z">
 <meta name="twitter:card" content="summary">
 
 <link rel="canonical" href="https://dunwu.github.io/blog/coding/shell/">
@@ -155,7 +155,7 @@
   </li>
         <li class="menu-item menu-item-tags">
 
-    <a href="/blog/tags/" rel="section"><i class="fa fa-fw fa-tags"></i>标签<span class="badge">43</span></a>
+    <a href="/blog/tags/" rel="section"><i class="fa fa-fw fa-tags"></i>标签<span class="badge">44</span></a>
 
   </li>
         <li class="menu-item menu-item-categories">
@@ -253,7 +253,7 @@
                   <i class="fa fa-calendar-check-o"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2019-11-27 15:29:01" itemprop="dateModified" datetime="2019-11-27T15:29:01+08:00">2019-11-27</time>
+                <time title="修改时间：2020-02-01 22:41:38" itemprop="dateModified" datetime="2020-02-01T22:41:38+08:00">2020-02-01</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -309,7 +309,7 @@
         <blockquote>
 <p>由于 bash 是 Linux 标准默认的 shell 解释器，可以说 bash 是 shell 编程的基础。</p>
 <p>本文主要介绍 bash 的语法，对于 linux 指令不做任何介绍。</p>
-<p>📓 本文已归档到：「<a href="https://github.com/dunwu/blog" target="_blank" rel="noopener">blog</a>」<br />
+<p>📦 本文已归档到：「<a href="https://github.com/dunwu/blog" target="_blank" rel="noopener">blog</a>」<br />
 🔁 本文的源码已归档到 <a href="https://github.com/dunwu/linux-tutorial/tree/master/codes/shell/demos" target="_blank" rel="noopener">linux-tutorial</a></p>
 </blockquote>
 <figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">███████╗██╗  ██╗███████╗██╗     ██╗</span><br><span class="line">██╔════╝██║  ██║██╔════╝██║     ██║</span><br><span class="line">███████╗███████║█████╗  ██║     ██║</span><br><span class="line">╚════██║██╔══██║██╔══╝  ██║     ██║</span><br><span class="line">███████║██║  ██║███████╗███████╗███████╗</span><br></pre></td></tr></table></figure>
@@ -1204,7 +1204,7 @@
 <figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="comment"># 开启 debug</span></span><br><span class="line"><span class="built_in">set</span> -x</span><br><span class="line"><span class="keyword">for</span> (( i = 0; i &lt; 3; i++ )); <span class="keyword">do</span></span><br><span class="line">  <span class="built_in">printf</span> <span class="variable">$&#123;i&#125;</span></span><br><span class="line"><span class="keyword">done</span></span><br><span class="line"><span class="comment"># 关闭 debug</span></span><br><span class="line"><span class="built_in">set</span> +x</span><br><span class="line"><span class="comment">#  Output:</span></span><br><span class="line"><span class="comment">#  + (( i = 0 ))</span></span><br><span class="line"><span class="comment">#  + (( i &lt; 3 ))</span></span><br><span class="line"><span class="comment">#  + printf 0</span></span><br><span class="line"><span class="comment">#  0+ (( i++  ))</span></span><br><span class="line"><span class="comment">#  + (( i &lt; 3 ))</span></span><br><span class="line"><span class="comment">#  + printf 1</span></span><br><span class="line"><span class="comment">#  1+ (( i++  ))</span></span><br><span class="line"><span class="comment">#  + (( i &lt; 3 ))</span></span><br><span class="line"><span class="comment">#  + printf 2</span></span><br><span class="line"><span class="comment">#  2+ (( i++  ))</span></span><br><span class="line"><span class="comment">#  + (( i &lt; 3 ))</span></span><br><span class="line"><span class="comment">#  + set +x</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">for</span> i <span class="keyword">in</span> &#123;1..5&#125;; <span class="keyword">do</span> <span class="built_in">printf</span> <span class="variable">$&#123;i&#125;</span>; <span class="keyword">done</span></span><br><span class="line"><span class="built_in">printf</span> <span class="string">"\n"</span></span><br><span class="line"><span class="comment">#  Output: 12345</span></span><br></pre></td></tr></table></figure>
 <h2 id="12-更多内容"><a class="markdownIt-Anchor" href="#12-更多内容"></a> 12. 更多内容</h2>
 <blockquote>
-<p>📓 本文已归档到：「<a href="https://github.com/dunwu/blog" target="_blank" rel="noopener">blog</a>」</p>
+<p>📦 本文已归档到：「<a href="https://github.com/dunwu/blog" target="_blank" rel="noopener">blog</a>」</p>
 </blockquote>
 <ul>
 <li><a href="https://github.com/alebcay/awesome-shell" target="_blank" rel="noopener">awesome-shell</a>，shell 资源列表</li>
@@ -1336,7 +1336,7 @@
       <div class="site-state-item site-state-tags">
             <a href="/blog/tags/">
           
-        <span class="site-state-item-count">43</span>
+        <span class="site-state-item-count">44</span>
         <span class="site-state-item-name">标签</span></a>
       </div>
   </nav>

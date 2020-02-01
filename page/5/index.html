@@ -153,7 +153,7 @@
   </li>
         <li class="menu-item menu-item-tags">
 
-    <a href="/blog/tags/" rel="section"><i class="fa fa-fw fa-tags"></i>标签<span class="badge">43</span></a>
+    <a href="/blog/tags/" rel="section"><i class="fa fa-fw fa-tags"></i>标签<span class="badge">44</span></a>
 
   </li>
         <li class="menu-item menu-item-categories">
@@ -221,241 +221,6 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="https://dunwu.github.io/blog/blog/design/refactor/%E4%BB%A3%E7%A0%81%E5%9D%8F%E5%91%B3%E9%81%93%E4%B9%8B%E5%8F%98%E9%9D%A9%E7%9A%84%E9%9A%9C%E7%A2%8D/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/blog/images/avatar.gif">
-      <meta itemprop="name" content="Zhang Peng">
-      <meta itemprop="description" content="Dunwu's Blog">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Dunwu">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/blog/design/refactor/%E4%BB%A3%E7%A0%81%E5%9D%8F%E5%91%B3%E9%81%93%E4%B9%8B%E5%8F%98%E9%9D%A9%E7%9A%84%E9%9A%9C%E7%A2%8D/" class="post-title-link" itemprop="url">代码坏味道之变革的障碍</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-
-              <time title="创建时间：2018-10-13 22:48:00" itemprop="dateCreated datePublished" datetime="2018-10-13T22:48:00+08:00">2018-10-13</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-calendar-check-o"></i>
-                </span>
-                <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2020-01-16 17:48:30" itemprop="dateModified" datetime="2020-01-16T17:48:30+08:00">2020-01-16</time>
-              </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/blog/categories/%E8%AE%BE%E8%AE%A1/" itemprop="url" rel="index">
-                    <span itemprop="name">设计</span>
-                  </a>
-                </span>
-                  ，
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/blog/categories/%E8%AE%BE%E8%AE%A1/%E9%87%8D%E6%9E%84/" itemprop="url" rel="index">
-                    <span itemprop="name">重构</span>
-                  </a>
-                </span>
-            </span>
-
-          
-  
-  <span class="post-meta-item">
-    
-      <span class="post-meta-item-icon">
-        <i class="fa fa-comment-o"></i>
-      </span>
-      <span class="post-meta-item-text">Disqus：</span>
-    
-    <a title="disqus" href="/blog/design/refactor/%E4%BB%A3%E7%A0%81%E5%9D%8F%E5%91%B3%E9%81%93%E4%B9%8B%E5%8F%98%E9%9D%A9%E7%9A%84%E9%9A%9C%E7%A2%8D/#comments" itemprop="discussionUrl">
-      <span class="post-comments-count disqus-comment-count" data-disqus-identifier="design/refactor/代码坏味道之变革的障碍/" itemprop="commentCount"></span>
-    </a>
-  </span>
-  
-  <br>
-            <span class="post-meta-item" title="本文字数">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-file-word-o"></i>
-              </span>
-                <span class="post-meta-item-text">本文字数：</span>
-              <span>1.8k</span>
-            </span>
-            <span class="post-meta-item" title="阅读时长">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-clock-o"></i>
-              </span>
-                <span class="post-meta-item-text">阅读时长 &asymp;</span>
-              <span>2 分钟</span>
-            </span>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <blockquote>
-<p>📓 本文已归档到：「<a href="https://github.com/dunwu/blog" target="_blank" rel="noopener">blog</a>」</p>
-<p>翻译自：<a href="https://sourcemaking.com/refactoring/smells/change-preventers" target="_blank" rel="noopener">https://sourcemaking.com/refactoring/smells/change-preventers</a></p>
-<p><strong>变革的障碍(Change Preventers)这组坏味道意味着：当你需要改变一处代码时，却发现不得不改变其他的地方。这使得程序开发变得复杂、代价高昂。</strong></p>
-</blockquote>
-<h2 id="发散式变化"><a class="markdownIt-Anchor" href="#发散式变化"></a> 发散式变化</h2>
-<blockquote>
-<p><code>发散式变化(Divergent Change)</code> 类似于 <code>霰弹式修改(Shotgun Surgery)</code> ，但实际上完全不同。<code>发散式变化(Divergent Change)</code> 是指一个类受多种变化的影响。<code>霰弹式修改(Shotgun Surgery)</code> 是指多种变化引发多个类相应的修改。</p>
-</blockquote>
-<h3 id="特征"><a class="markdownIt-Anchor" href="#特征"></a> 特征</h3>
-<p>你发现你想要修改一个函数，却必须要同时修改许多不相关的函数。例如，当你想要添加一个新的产品类型时，你需要同步修改对产品进行查找、显示、排序的函数。</p>
-<div align="center"><img src="http://dunwu.test.upcdn.net/cs/design/refactor/divergent-change-1.png"/></div>
-<h3 id="问题原因"><a class="markdownIt-Anchor" href="#问题原因"></a> 问题原因</h3>
-<p>通常，这种发散式修改是由于编程结构不合理或者“复制-粘贴式编程”。</p>
-<h3 id="解决办法"><a class="markdownIt-Anchor" href="#解决办法"></a> 解决办法</h3>
-<ul>
-<li>运用 <code>提炼类(Extract Class)</code> 拆分类的行为。</li>
-</ul>
-<h3 id="收益"><a class="markdownIt-Anchor" href="#收益"></a> 收益</h3>
-<ul>
-<li>提高代码组织结构</li>
-<li>减少重复代码</li>
-</ul>
-<h3 id="重构方法说明"><a class="markdownIt-Anchor" href="#重构方法说明"></a> 重构方法说明</h3>
-<h4 id="提炼类extract-class"><a class="markdownIt-Anchor" href="#提炼类extract-class"></a> 提炼类(Extract Class)</h4>
-<p><strong>问题</strong></p>
-<p>某个类做了不止一件事。</p>
-<div align="center"><img src="http://dunwu.test.upcdn.net/cs/design/refactor/extract-class-before.png"/></div>
-<p><strong>解决</strong></p>
-<p>建立一个新类，将相关的字段和函数从旧类搬移到新类。</p>
-<div align="center"><img src="http://dunwu.test.upcdn.net/cs/design/refactor/extract-class-after.png"/></div>
-<h2 id="平行继承体系"><a class="markdownIt-Anchor" href="#平行继承体系"></a> 平行继承体系</h2>
-<blockquote>
-<p><code>平行继承体系(Parallel Inheritance Hierarchies)</code> 其实是 <code>霰弹式修改(Shotgun Surgery)</code> 的特殊情况。</p>
-</blockquote>
-<h3 id="特征-2"><a class="markdownIt-Anchor" href="#特征-2"></a> 特征</h3>
-<p>每当你为某个类添加一个子类，必须同时为另一个类相应添加一个子类。这种情况的典型特征是：某个继承体系的类名前缀或类名后缀完全相同。</p>
-<div align="center"><img src="http://dunwu.test.upcdn.net/cs/design/refactor/parallel-inheritance-hierarchies-1.png"/></div>
-<h3 id="问题原因-2"><a class="markdownIt-Anchor" href="#问题原因-2"></a> 问题原因</h3>
-<p>起初的继承体系很小，随着不断添加新类，继承体系越来越大，也越来越难修改。</p>
-<h3 id="解决方法"><a class="markdownIt-Anchor" href="#解决方法"></a> 解决方法</h3>
-<ul>
-<li>一般策略是：让一个继承体系的实例引用另一个继承体系的实例。如果再接再厉运用 <code>搬移函数(Move Method)</code> 和 <code>搬移字段(Move Field)</code>，就可以消除引用端的继承体系。</li>
-</ul>
-<h3 id="收益-2"><a class="markdownIt-Anchor" href="#收益-2"></a> 收益</h3>
-<ul>
-<li>更好的代码组织</li>
-<li>减少重复代码</li>
-</ul>
-<h3 id="何时忽略"><a class="markdownIt-Anchor" href="#何时忽略"></a> 何时忽略</h3>
-<ul>
-<li>有时具有并行类层次结构只是一种为了避免程序体系结构更混乱的方法。如果你发现尝试消除平行继承体系导致代码更加丑陋，那么你应该回滚你的修改。</li>
-</ul>
-<h3 id="重构方法说明-2"><a class="markdownIt-Anchor" href="#重构方法说明-2"></a> 重构方法说明</h3>
-<h4 id="搬移函数move-method"><a class="markdownIt-Anchor" href="#搬移函数move-method"></a> 搬移函数(Move Method)</h4>
-<p><strong>问题</strong></p>
-<p>你的程序中，有个函数与其所驻类之外的另一个类进行更多交流：调用后者，或被后者调用。</p>
-<div align="center"><img src="http://dunwu.test.upcdn.net/cs/design/refactor/move-method-before.png"/></div>
-<p><strong>解决</strong></p>
-<p>在该函数最常引用的类中建立一个有着类似行为的新函数。将旧函数变成一个单纯的委托函数，或是旧函数完全移除。</p>
-<div align="center"><img src="http://dunwu.test.upcdn.net/cs/design/refactor/move-method-after.png"/></div>
-<h4 id="搬移字段move-field"><a class="markdownIt-Anchor" href="#搬移字段move-field"></a> 搬移字段(Move Field)</h4>
-<p><strong>问题</strong></p>
-<p>在你的程序中，某个字段被其所驻类之外的另一个类更多地用到。</p>
-<div align="center"><img src="http://dunwu.test.upcdn.net/cs/design/refactor/move-field-before.png"/></div>
-<p><strong>解决</strong></p>
-<p>在目标类新建一个字段，修改源字段的所有用户，令他们改用新字段。</p>
-<div align="center"><img src="http://dunwu.test.upcdn.net/cs/design/refactor/move-field-after.png"/></div>
-<h2 id="霰弹式修改"><a class="markdownIt-Anchor" href="#霰弹式修改"></a> 霰弹式修改</h2>
-<blockquote>
-<p><code>霰弹式修改(Shotgun Surgery)</code> 类似于 <code>发散式变化(Divergent Change)</code> ，但实际上完全不同。<code>发散式变化(Divergent Change)</code> 是指一个类受多种变化的影响。<code>霰弹式修改(Shotgun Surgery)</code> 是指多种变化引发多个类相应的修改。</p>
-</blockquote>
-<h3 id="特征-3"><a class="markdownIt-Anchor" href="#特征-3"></a> 特征</h3>
-<p>任何修改都需要在许多不同类上做小幅度修改。</p>
-<div align="center"><img src="http://dunwu.test.upcdn.net/cs/design/refactor/shotgun-surgery-1.png"/></div>
-<h3 id="问题原因-3"><a class="markdownIt-Anchor" href="#问题原因-3"></a> 问题原因</h3>
-<p>一个单一的职责被拆分成大量的类。</p>
-<h3 id="解决方法-2"><a class="markdownIt-Anchor" href="#解决方法-2"></a> 解决方法</h3>
-<ul>
-<li>运用<code>搬移函数(Move Method)</code> 和 <code>搬移字段(Move Field)</code> 来搬移不同类中相同的行为到一个独立类中。如果没有适合存放搬移函数或字段的类，就创建一个新类。</li>
-<li>通常，可以运用 <code>将类内联化(Inline Class)</code> 将一些列相关行为放进同一个类。</li>
-</ul>
-<div align="center"><img src="http://dunwu.test.upcdn.net/cs/design/refactor/shotgun-surgery-2.png"/></div>
-<h3 id="收益-3"><a class="markdownIt-Anchor" href="#收益-3"></a> 收益</h3>
-<ul>
-<li>更好的代码组织</li>
-<li>减少重复代码</li>
-<li>更易维护</li>
-</ul>
-<div align="center"><img src="http://dunwu.test.upcdn.net/cs/design/refactor/shotgun-surgery-3.png"/></div>
-<h3 id="重构方法说明-3"><a class="markdownIt-Anchor" href="#重构方法说明-3"></a> 重构方法说明</h3>
-<h4 id="搬移函数move-method-2"><a class="markdownIt-Anchor" href="#搬移函数move-method-2"></a> 搬移函数(Move Method)</h4>
-<p><strong>问题</strong></p>
-<p>你的程序中，有个函数与其所驻类之外的另一个类进行更多交流：调用后者，或被后者调用。</p>
-<div align="center"><img src="http://dunwu.test.upcdn.net/cs/design/refactor/move-method-before.png"/></div>
-<p><strong>解决</strong></p>
-<p>在该函数最常引用的类中建立一个有着类似行为的新函数。将旧函数变成一个单纯的委托函数，或是旧函数完全移除。</p>
-<div align="center"><img src="http://dunwu.test.upcdn.net/cs/design/refactor/move-method-after.png"/></div>
-<h4 id="搬移字段move-field-2"><a class="markdownIt-Anchor" href="#搬移字段move-field-2"></a> 搬移字段(Move Field)</h4>
-<p><strong>问题</strong></p>
-<p>在你的程序中，某个字段被其所驻类之外的另一个类更多地用到。</p>
-<div align="center"><img src="http://dunwu.test.upcdn.net/cs/design/refactor/move-field-before.png"/></div>
-<p><strong>解决</strong></p>
-<p>在目标类新建一个字段，修改源字段的所有用户，令他们改用新字段。</p>
-<div align="center"><img src="http://dunwu.test.upcdn.net/cs/design/refactor/move-field-after.png"/></div>
-<h4 id="将类内联化inline-class"><a class="markdownIt-Anchor" href="#将类内联化inline-class"></a> 将类内联化(Inline Class)</h4>
-<p><strong>问题</strong></p>
-<p>某个类没有做太多事情。</p>
-<div align="center"><img src="http://dunwu.test.upcdn.net/cs/design/refactor/inline-class-before.png"/></div>
-<p><strong>解决</strong></p>
-<p>将这个类的所有特性搬移到另一个类中，然后移除原类。</p>
-<div align="center"><img src="http://dunwu.test.upcdn.net/cs/design/refactor/inline-class-after.png"/></div>
-<h2 id="扩展阅读"><a class="markdownIt-Anchor" href="#扩展阅读"></a> 扩展阅读</h2>
-<ul>
-<li><a href="https://github.com/dunwu/blog/blob/master/source/_posts/design/refactor/" target="_blank" rel="noopener">代码的坏味道和重构</a></li>
-<li><a href="https://github.com/dunwu/blog/blob/master/source/_posts/design/refactor/%E4%BB%A3%E7%A0%81%E5%9D%8F%E5%91%B3%E9%81%93%E4%B9%8B%E4%BB%A3%E7%A0%81%E8%87%83%E8%82%BF.md" target="_blank" rel="noopener">代码坏味道之代码臃肿</a></li>
-<li><a href="https://github.com/dunwu/blog/blob/master/source/_posts/design/refactor/%E4%BB%A3%E7%A0%81%E5%9D%8F%E5%91%B3%E9%81%93%E4%B9%8B%E6%BB%A5%E7%94%A8%E9%9D%A2%E5%90%91%E5%AF%B9%E8%B1%A1.md" target="_blank" rel="noopener">代码坏味道之滥用面向对象</a></li>
-<li><a href="https://github.com/dunwu/blog/blob/master/source/_posts/design/refactor/%E4%BB%A3%E7%A0%81%E5%9D%8F%E5%91%B3%E9%81%93%E4%B9%8B%E5%8F%98%E9%9D%A9%E7%9A%84%E9%9A%9C%E7%A2%8D.md" target="_blank" rel="noopener">代码坏味道之变革的障碍</a></li>
-<li><a href="https://github.com/dunwu/blog/blob/master/source/_posts/design/refactor/%E4%BB%A3%E7%A0%81%E5%9D%8F%E5%91%B3%E9%81%93%E4%B9%8B%E9%9D%9E%E5%BF%85%E8%A6%81%E7%9A%84.md" target="_blank" rel="noopener">代码坏味道之非必要的</a></li>
-<li><a href="https://github.com/dunwu/blog/blob/master/source/_posts/design/refactor/%E4%BB%A3%E7%A0%81%E5%9D%8F%E5%91%B3%E9%81%93%E4%B9%8B%E8%80%A6%E5%90%88.md" target="_blank" rel="noopener">代码坏味道之耦合</a></li>
-</ul>
-<h2 id="参考资料"><a class="markdownIt-Anchor" href="#参考资料"></a> 参考资料</h2>
-<ul>
-<li><a href="https://book.douban.com/subject/4262627/" target="_blank" rel="noopener">重构——改善既有代码的设计</a> - by Martin Fowler</li>
-<li><a href="https://sourcemaking.com/refactoring" target="_blank" rel="noopener">https://sourcemaking.com/refactoring</a></li>
-</ul>
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-        
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="zh-CN">
     <link itemprop="mainEntityOfPage" href="https://dunwu.github.io/blog/blog/design/refactor/%E4%BB%A3%E7%A0%81%E5%9D%8F%E5%91%B3%E9%81%93%E4%B9%8B%E9%9D%9E%E5%BF%85%E8%A6%81%E7%9A%84/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -487,7 +252,7 @@
                   <i class="fa fa-calendar-check-o"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2020-01-16 17:48:30" itemprop="dateModified" datetime="2020-01-16T17:48:30+08:00">2020-01-16</time>
+                <time title="修改时间：2020-02-01 22:41:38" itemprop="dateModified" datetime="2020-02-01T22:41:38+08:00">2020-02-01</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -547,7 +312,7 @@
 
       
           <blockquote>
-<p>📓 本文已归档到：「<a href="https://github.com/dunwu/blog" target="_blank" rel="noopener">blog</a>」</p>
+<p>📦 本文已归档到：「<a href="https://github.com/dunwu/blog" target="_blank" rel="noopener">blog</a>」</p>
 <p>翻译自：<a href="https://sourcemaking.com/refactoring/smells/dispensables" target="_blank" rel="noopener">https://sourcemaking.com/refactoring/smells/dispensables</a></p>
 <p><strong>非必要的(Dispensables)这组坏味道意味着：这样的代码可有可无，它的存在反而影响整体代码的整洁和可读性。</strong></p>
 </blockquote>
@@ -911,7 +676,7 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="https://dunwu.github.io/blog/blog/design/refactor/%E4%BB%A3%E7%A0%81%E5%9D%8F%E5%91%B3%E9%81%93%E4%B9%8B%E8%80%A6%E5%90%88/">
+    <link itemprop="mainEntityOfPage" href="https://dunwu.github.io/blog/blog/design/refactor/%E4%BB%A3%E7%A0%81%E5%9D%8F%E5%91%B3%E9%81%93%E4%B9%8B%E5%8F%98%E9%9D%A9%E7%9A%84%E9%9A%9C%E7%A2%8D/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/blog/images/avatar.gif">
@@ -925,7 +690,7 @@
       <header class="post-header">
         <h2 class="post-title" itemprop="name headline">
           
-            <a href="/blog/design/refactor/%E4%BB%A3%E7%A0%81%E5%9D%8F%E5%91%B3%E9%81%93%E4%B9%8B%E8%80%A6%E5%90%88/" class="post-title-link" itemprop="url">代码坏味道之耦合</a>
+            <a href="/blog/design/refactor/%E4%BB%A3%E7%A0%81%E5%9D%8F%E5%91%B3%E9%81%93%E4%B9%8B%E5%8F%98%E9%9D%A9%E7%9A%84%E9%9A%9C%E7%A2%8D/" class="post-title-link" itemprop="url">代码坏味道之变革的障碍</a>
         </h2>
 
         <div class="post-meta">
@@ -942,7 +707,7 @@
                   <i class="fa fa-calendar-check-o"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2020-01-16 17:48:30" itemprop="dateModified" datetime="2020-01-16T17:48:30+08:00">2020-01-16</time>
+                <time title="修改时间：2020-02-01 22:41:39" itemprop="dateModified" datetime="2020-02-01T22:41:39+08:00">2020-02-01</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -971,8 +736,8 @@
       </span>
       <span class="post-meta-item-text">Disqus：</span>
     
-    <a title="disqus" href="/blog/design/refactor/%E4%BB%A3%E7%A0%81%E5%9D%8F%E5%91%B3%E9%81%93%E4%B9%8B%E8%80%A6%E5%90%88/#comments" itemprop="discussionUrl">
-      <span class="post-comments-count disqus-comment-count" data-disqus-identifier="design/refactor/代码坏味道之耦合/" itemprop="commentCount"></span>
+    <a title="disqus" href="/blog/design/refactor/%E4%BB%A3%E7%A0%81%E5%9D%8F%E5%91%B3%E9%81%93%E4%B9%8B%E5%8F%98%E9%9D%A9%E7%9A%84%E9%9A%9C%E7%A2%8D/#comments" itemprop="discussionUrl">
+      <span class="post-comments-count disqus-comment-count" data-disqus-identifier="design/refactor/代码坏味道之变革的障碍/" itemprop="commentCount"></span>
     </a>
   </span>
   
@@ -982,14 +747,14 @@
                 <i class="fa fa-file-word-o"></i>
               </span>
                 <span class="post-meta-item-text">本文字数：</span>
-              <span>4.6k</span>
+              <span>1.8k</span>
             </span>
             <span class="post-meta-item" title="阅读时长">
               <span class="post-meta-item-icon">
                 <i class="fa fa-clock-o"></i>
               </span>
                 <span class="post-meta-item-text">阅读时长 &asymp;</span>
-              <span>4 分钟</span>
+              <span>2 分钟</span>
             </span>
 
         </div>
@@ -1002,148 +767,60 @@
 
       
           <blockquote>
-<p>📓 本文已归档到：「<a href="https://github.com/dunwu/blog" target="_blank" rel="noopener">blog</a>」</p>
-<p>翻译自：<a href="https://sourcemaking.com/refactoring/smells/couplers" target="_blank" rel="noopener">https://sourcemaking.com/refactoring/smells/couplers</a></p>
-<p><strong>耦合(Couplers)这组坏味道意味着：不同类之间过度耦合。</strong></p>
+<p>📦 本文已归档到：「<a href="https://github.com/dunwu/blog" target="_blank" rel="noopener">blog</a>」</p>
+<p>翻译自：<a href="https://sourcemaking.com/refactoring/smells/change-preventers" target="_blank" rel="noopener">https://sourcemaking.com/refactoring/smells/change-preventers</a></p>
+<p><strong>变革的障碍(Change Preventers)这组坏味道意味着：当你需要改变一处代码时，却发现不得不改变其他的地方。这使得程序开发变得复杂、代价高昂。</strong></p>
 </blockquote>
-<h2 id="不完美的库类"><a class="markdownIt-Anchor" href="#不完美的库类"></a> 不完美的库类</h2>
+<h2 id="发散式变化"><a class="markdownIt-Anchor" href="#发散式变化"></a> 发散式变化</h2>
 <blockquote>
-<p>不完美的库类(Incomplete Library Class)</p>
-<p>当一个类库已经不能满足实际需要时，你就不得不改变这个库（如果这个库是只读的，那就没辙了）。</p>
+<p><code>发散式变化(Divergent Change)</code> 类似于 <code>霰弹式修改(Shotgun Surgery)</code> ，但实际上完全不同。<code>发散式变化(Divergent Change)</code> 是指一个类受多种变化的影响。<code>霰弹式修改(Shotgun Surgery)</code> 是指多种变化引发多个类相应的修改。</p>
 </blockquote>
+<h3 id="特征"><a class="markdownIt-Anchor" href="#特征"></a> 特征</h3>
+<p>你发现你想要修改一个函数，却必须要同时修改许多不相关的函数。例如，当你想要添加一个新的产品类型时，你需要同步修改对产品进行查找、显示、排序的函数。</p>
+<div align="center"><img src="http://dunwu.test.upcdn.net/cs/design/refactor/divergent-change-1.png"/></div>
 <h3 id="问题原因"><a class="markdownIt-Anchor" href="#问题原因"></a> 问题原因</h3>
-<p>许多编程技术都建立在库类的基础上。库类的作者没用未卜先知的能力，不能因此责怪他们。麻烦的是库往往构造的不够好，而且往往不可能让我们修改其中的类以满足我们的需要。</p>
-<h3 id="解决方法"><a class="markdownIt-Anchor" href="#解决方法"></a> 解决方法</h3>
+<p>通常，这种发散式修改是由于编程结构不合理或者“复制-粘贴式编程”。</p>
+<h3 id="解决办法"><a class="markdownIt-Anchor" href="#解决办法"></a> 解决办法</h3>
 <ul>
-<li>如果你只想修改类库的一两个函数，可以运用 <code>引入外加函数(Introduce Foreign Method)</code>；</li>
-<li>如果想要添加一大堆额外行为，就得运用 <code>引入本地扩展(Introduce Local Extension)</code> 。</li>
+<li>运用 <code>提炼类(Extract Class)</code> 拆分类的行为。</li>
 </ul>
 <h3 id="收益"><a class="markdownIt-Anchor" href="#收益"></a> 收益</h3>
 <ul>
-<li>减少代码重复（你不用一言不合就自己动手实现一个库的全部功能，代价太高）</li>
+<li>提高代码组织结构</li>
+<li>减少重复代码</li>
+</ul>
+<h3 id="重构方法说明"><a class="markdownIt-Anchor" href="#重构方法说明"></a> 重构方法说明</h3>
+<h4 id="提炼类extract-class"><a class="markdownIt-Anchor" href="#提炼类extract-class"></a> 提炼类(Extract Class)</h4>
+<p><strong>问题</strong></p>
+<p>某个类做了不止一件事。</p>
+<div align="center"><img src="http://dunwu.test.upcdn.net/cs/design/refactor/extract-class-before.png"/></div>
+<p><strong>解决</strong></p>
+<p>建立一个新类，将相关的字段和函数从旧类搬移到新类。</p>
+<div align="center"><img src="http://dunwu.test.upcdn.net/cs/design/refactor/extract-class-after.png"/></div>
+<h2 id="平行继承体系"><a class="markdownIt-Anchor" href="#平行继承体系"></a> 平行继承体系</h2>
+<blockquote>
+<p><code>平行继承体系(Parallel Inheritance Hierarchies)</code> 其实是 <code>霰弹式修改(Shotgun Surgery)</code> 的特殊情况。</p>
+</blockquote>
+<h3 id="特征-2"><a class="markdownIt-Anchor" href="#特征-2"></a> 特征</h3>
+<p>每当你为某个类添加一个子类，必须同时为另一个类相应添加一个子类。这种情况的典型特征是：某个继承体系的类名前缀或类名后缀完全相同。</p>
+<div align="center"><img src="http://dunwu.test.upcdn.net/cs/design/refactor/parallel-inheritance-hierarchies-1.png"/></div>
+<h3 id="问题原因-2"><a class="markdownIt-Anchor" href="#问题原因-2"></a> 问题原因</h3>
+<p>起初的继承体系很小，随着不断添加新类，继承体系越来越大，也越来越难修改。</p>
+<h3 id="解决方法"><a class="markdownIt-Anchor" href="#解决方法"></a> 解决方法</h3>
+<ul>
+<li>一般策略是：让一个继承体系的实例引用另一个继承体系的实例。如果再接再厉运用 <code>搬移函数(Move Method)</code> 和 <code>搬移字段(Move Field)</code>，就可以消除引用端的继承体系。</li>
+</ul>
+<h3 id="收益-2"><a class="markdownIt-Anchor" href="#收益-2"></a> 收益</h3>
+<ul>
+<li>更好的代码组织</li>
+<li>减少重复代码</li>
 </ul>
 <h3 id="何时忽略"><a class="markdownIt-Anchor" href="#何时忽略"></a> 何时忽略</h3>
 <ul>
-<li>如果扩展库会带来额外的工作量。</li>
-</ul>
-<h3 id="重构方法说明"><a class="markdownIt-Anchor" href="#重构方法说明"></a> 重构方法说明</h3>
-<h4 id="引入外加函数introduce-foreign-method"><a class="markdownIt-Anchor" href="#引入外加函数introduce-foreign-method"></a> 引入外加函数(Introduce Foreign Method)</h4>
-<p><strong>问题</strong></p>
-<p>你需要为提供服务的类增加一个函数，但你无法修改这个类。</p>
-<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Report</span> </span>&#123;</span><br><span class="line">  <span class="comment">//...</span></span><br><span class="line">  <span class="function"><span class="keyword">void</span> <span class="title">sendReport</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    Date nextDay = <span class="keyword">new</span> Date(previousEnd.getYear(),</span><br><span class="line">      previousEnd.getMonth(), previousEnd.getDate() + <span class="number">1</span>);</span><br><span class="line">    <span class="comment">//...</span></span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p><strong>解决</strong></p>
-<p>在客户类中建立一个函数，并一个第一个参数形式传入一个服务类实例。</p>
-<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Report</span> </span>&#123;</span><br><span class="line">  <span class="comment">//...</span></span><br><span class="line">  <span class="function"><span class="keyword">void</span> <span class="title">sendReport</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    Date newStart = nextDay(previousEnd);</span><br><span class="line">    <span class="comment">//...</span></span><br><span class="line">  &#125;</span><br><span class="line">  <span class="function"><span class="keyword">private</span> <span class="keyword">static</span> Date <span class="title">nextDay</span><span class="params">(Date arg)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="keyword">new</span> Date(arg.getYear(), arg.getMonth(), arg.getDate() + <span class="number">1</span>);</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<h4 id="引入本地扩展introduce-local-extension"><a class="markdownIt-Anchor" href="#引入本地扩展introduce-local-extension"></a> 引入本地扩展(Introduce Local Extension)</h4>
-<p><strong>问题</strong></p>
-<p>你需要为服务类提供一些额外函数，但你无法修改这个类。</p>
-<div align="center"><img src="http://dunwu.test.upcdn.net/cs/design/refactor/introduce-local-extension-before.png"/></div>
-<p><strong>解决</strong></p>
-<p>建立一个新类，使它包含这些额外函数，让这个扩展品成为源类的子类或包装类。</p>
-<div align="center"><img src="http://dunwu.test.upcdn.net/cs/design/refactor/introduce-local-extension-after.png"/></div>
-<h2 id="中间人"><a class="markdownIt-Anchor" href="#中间人"></a> 中间人</h2>
-<blockquote>
-<p>中间人(Middle Man)</p>
-<p>如果一个类的作用仅仅是指向另一个类的委托，为什么要存在呢？</p>
-</blockquote>
-<div align="center"><img src="http://dunwu.test.upcdn.net/cs/design/refactor/middle-man-1.png"/></div>
-<h3 id="问题原因-2"><a class="markdownIt-Anchor" href="#问题原因-2"></a> 问题原因</h3>
-<p>对象的基本特征之一就是封装：对外部世界隐藏其内部细节。封装往往伴随委托。但是人们可能过度运用委托。比如，你也许会看到一个类的大部分有用工作都委托给了其他类，类本身成了一个空壳，除了委托之外不做任何事情。</p>
-<h3 id="解决方法-2"><a class="markdownIt-Anchor" href="#解决方法-2"></a> 解决方法</h3>
-<p>应该运用 <code>移除中间人(Remove Middle Man)</code>，直接和真正负责的对象打交道。</p>
-<h3 id="收益-2"><a class="markdownIt-Anchor" href="#收益-2"></a> 收益</h3>
-<ul>
-<li>减少笨重的代码。</li>
-</ul>
-<div align="center"><img src="http://dunwu.test.upcdn.net/cs/design/refactor/middle-man-2.png"/></div>
-<h3 id="何时忽略-2"><a class="markdownIt-Anchor" href="#何时忽略-2"></a> 何时忽略</h3>
-<p>如果是以下情况，不要删除已创建的中间人：</p>
-<ul>
-<li>添加中间人是为了避免类之间依赖关系。</li>
-<li>一些设计模式有目的地创建中间人（例如代理模式和装饰器模式）。</li>
+<li>有时具有并行类层次结构只是一种为了避免程序体系结构更混乱的方法。如果你发现尝试消除平行继承体系导致代码更加丑陋，那么你应该回滚你的修改。</li>
 </ul>
 <h3 id="重构方法说明-2"><a class="markdownIt-Anchor" href="#重构方法说明-2"></a> 重构方法说明</h3>
-<h4 id="移除中间人remove-middle-man"><a class="markdownIt-Anchor" href="#移除中间人remove-middle-man"></a> 移除中间人(Remove Middle Man)</h4>
-<p><strong>问题</strong></p>
-<p>某个类做了过多的简单委托动作。</p>
-<div align="center"><img src="http://dunwu.test.upcdn.net/cs/design/refactor/remove-middle-man-before.png"/></div>
-<p><strong>解决</strong></p>
-<p>让客户直接调用委托类。</p>
-<div align="center"><img src="http://dunwu.test.upcdn.net/cs/design/refactor/remove-middle-man-after.png"/></div>
-<h2 id="依恋情结"><a class="markdownIt-Anchor" href="#依恋情结"></a> 依恋情结</h2>
-<blockquote>
-<p>依恋情结(Feature Envy)</p>
-<p>一个函数访问其它对象的数据比访问自己的数据更多。</p>
-</blockquote>
-<div align="center"><img src="http://dunwu.test.upcdn.net/cs/design/refactor/feature-envy-1.png"/></div>
-<h3 id="问题原因-3"><a class="markdownIt-Anchor" href="#问题原因-3"></a> 问题原因</h3>
-<p>这种气味可能发生在字段移动到数据类之后。如果是这种情况，你可能想将数据类的操作移动到这个类中。</p>
-<h3 id="解决方法-3"><a class="markdownIt-Anchor" href="#解决方法-3"></a> 解决方法</h3>
-<p>As a basic rule, if things change at the same time, you should keep them in the same place. Usually data and functions that use this data are changed together (although exceptions are possible).</p>
-<p>有一个基本原则：同时会发生改变的事情应该被放在同一个地方。通常，数据和使用这些数据的函数是一起改变的。</p>
-<div align="center"><img src="http://dunwu.test.upcdn.net/cs/design/refactor/feature-envy-2.png"/></div>
-<ul>
-<li>如果一个函数明显应该被移到另一个地方，可运用 <code>搬移函数(Move Method)</code> 。</li>
-<li>如果仅仅是函数的部分代码访问另一个对象的数据，运用 <code>提炼函数(Extract Method)</code> 将这部分代码移到独立的函数中。</li>
-<li>如果一个方法使用来自其他几个类的函数，首先确定哪个类包含大多数使用的数据。然后，将该方法与其他数据一起放在此类中。或者，使用 <code>提炼函数(Extract Method)</code> 将方法拆分为几个部分，可以放置在不同类中的不同位置。</li>
-</ul>
-<h3 id="收益-3"><a class="markdownIt-Anchor" href="#收益-3"></a> 收益</h3>
-<ul>
-<li>减少重复代码（如果数据处理的代码放在中心位置）。</li>
-<li>更好的代码组织性（处理数据的函数靠近实际数据）。</li>
-</ul>
-<div align="center"><img src="http://dunwu.test.upcdn.net/cs/design/refactor/feature-envy-3.png"/></div>
-<h3 id="何时忽略-3"><a class="markdownIt-Anchor" href="#何时忽略-3"></a> 何时忽略</h3>
-<ul>
-<li>有时，行为被有意地与保存数据的类分开。这通常的优点是能够动态地改变行为（见策略设计模式，访问者设计模式和其他模式）。</li>
-</ul>
-<h3 id="重构方法说明-3"><a class="markdownIt-Anchor" href="#重构方法说明-3"></a> 重构方法说明</h3>
 <h4 id="搬移函数move-method"><a class="markdownIt-Anchor" href="#搬移函数move-method"></a> 搬移函数(Move Method)</h4>
-<p><strong>问题</strong></p>
-<p>你的程序中，有个函数与其所驻类之外的另一个类进行更多交流：调用后者，或被后者调用。</p>
-<div align="center"><img src="http://dunwu.test.upcdn.net/cs/design/refactor/move-method-before.png"/></div>
-<p><strong>解决</strong></p>
-<p>在该函数最常引用的类中建立一个有着类似行为的新函数。将旧函数变成一个单纯的委托函数，或是旧函数完全移除。</p>
-<div align="center"><img src="http://dunwu.test.upcdn.net/cs/design/refactor/move-method-after.png"/></div>
-<h4 id="提炼函数extract-method"><a class="markdownIt-Anchor" href="#提炼函数extract-method"></a> 提炼函数(Extract Method)</h4>
-<p><strong>问题</strong></p>
-<p>你有一段代码可以组织在一起。</p>
-<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">printOwing</span><span class="params">()</span> </span>&#123;</span><br><span class="line">  printBanner();</span><br><span class="line"></span><br><span class="line">  <span class="comment">//print details</span></span><br><span class="line">  System.out.println(<span class="string">"name: "</span> + name);</span><br><span class="line">  System.out.println(<span class="string">"amount: "</span> + getOutstanding());</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p><strong>解决</strong></p>
-<p>移动这段代码到一个新的函数中，使用函数的调用来替代老代码。</p>
-<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">printOwing</span><span class="params">()</span> </span>&#123;</span><br><span class="line">  printBanner();</span><br><span class="line">  printDetails(getOutstanding());</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">printDetails</span><span class="params">(<span class="keyword">double</span> outstanding)</span> </span>&#123;</span><br><span class="line">  System.out.println(<span class="string">"name: "</span> + name);</span><br><span class="line">  System.out.println(<span class="string">"amount: "</span> + outstanding);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<h2 id="狎昵关系"><a class="markdownIt-Anchor" href="#狎昵关系"></a> 狎昵关系</h2>
-<blockquote>
-<p>狎昵关系(Inappropriate Intimacy)</p>
-<p>一个类大量使用另一个类的内部字段和方法。</p>
-</blockquote>
-<div align="center"><img src="http://dunwu.test.upcdn.net/cs/design/refactor/inappropriate-intimacy-1.png"/></div>
-<h3 id="问题原因-4"><a class="markdownIt-Anchor" href="#问题原因-4"></a> 问题原因</h3>
-<p>类和类之间应该尽量少的感知彼此（减少耦合）。这样的类更容易维护和复用。</p>
-<h3 id="解决方法-4"><a class="markdownIt-Anchor" href="#解决方法-4"></a> 解决方法</h3>
-<ul>
-<li>最简单的解决方法是运用 <code>搬移函数(Move Method)</code> 和 <code>搬移字段(Move Field)</code> 来让类之间斩断羁绊。</li>
-</ul>
-<div align="center"><img src="http://dunwu.test.upcdn.net/cs/design/refactor/inappropriate-intimacy-2.png"/></div>
-<ul>
-<li>
-<p>你也可以看看是否能运用 <code>将双向关联改为单向关联(Change Bidirectional Association to Unidirectional)</code> 让其中一个类对另一个说分手。</p>
-</li>
-<li>
-<p>如果这两个类实在是情比金坚，难分难舍，可以运用 <code>提炼类(Extract Class)</code> 把二者共同点提炼到一个新类中，让它们产生爱的结晶。或者，可以尝试运用 <code>隐藏委托关系(Hide Delegate)</code> 让另一个类来为它们牵线搭桥。</p>
-</li>
-<li>
-<p>继承往往造成类之间过分紧密，因为子类对超类的了解总是超过后者的主观愿望，如果你觉得该让这个子类自己闯荡，请运用 <code>以委托取代继承(Replace Inheritance with Delegation)</code> 来让超类和子类分家。</p>
-</li>
-</ul>
-<h3 id="收益-4"><a class="markdownIt-Anchor" href="#收益-4"></a> 收益</h3>
-<ul>
-<li>提高代码组织性。</li>
-<li>提高代码复用性。</li>
-</ul>
-<div align="center"><img src="http://dunwu.test.upcdn.net/cs/design/refactor/inappropriate-intimacy-3.png"/></div>
-<h3 id="重构方法说明-4"><a class="markdownIt-Anchor" href="#重构方法说明-4"></a> 重构方法说明</h3>
-<h4 id="搬移函数move-method-2"><a class="markdownIt-Anchor" href="#搬移函数move-method-2"></a> 搬移函数(Move Method)</h4>
 <p><strong>问题</strong></p>
 <p>你的程序中，有个函数与其所驻类之外的另一个类进行更多交流：调用后者，或被后者调用。</p>
 <div align="center"><img src="http://dunwu.test.upcdn.net/cs/design/refactor/move-method-before.png"/></div>
@@ -1157,361 +834,50 @@
 <p><strong>解决</strong></p>
 <p>在目标类新建一个字段，修改源字段的所有用户，令他们改用新字段。</p>
 <div align="center"><img src="http://dunwu.test.upcdn.net/cs/design/refactor/move-field-after.png"/></div>
-<h4 id="将双向关联改为单向关联change-bidirectional-association-to-unidirectional"><a class="markdownIt-Anchor" href="#将双向关联改为单向关联change-bidirectional-association-to-unidirectional"></a> 将双向关联改为单向关联(Change Bidirectional Association to Unidirectional)</h4>
-<p><strong>问题</strong></p>
-<p>两个类之间有双向关联，但其中一个类如今不再需要另一个类的特性。</p>
-<div align="center"><img src="http://dunwu.test.upcdn.net/cs/design/refactor/change-bidirectional-association-to-unidirectional-before.png"/></div>
-<p><strong>解决</strong></p>
-<p>去除不必要的关联。</p>
-<div align="center"><img src="http://dunwu.test.upcdn.net/cs/design/refactor/change-bidirectional-association-to-unidirectional-after.png"/></div>
-<h4 id="提炼类extract-class"><a class="markdownIt-Anchor" href="#提炼类extract-class"></a> 提炼类(Extract Class)</h4>
-<p><strong>问题</strong></p>
-<p>某个类做了不止一件事。</p>
-<div align="center"><img src="http://dunwu.test.upcdn.net/cs/design/refactor/extract-class-before.png"/></div>
-<p><strong>解决</strong></p>
-<p>建立一个新类，将相关的字段和函数从旧类搬移到新类。</p>
-<div align="center"><img src="http://dunwu.test.upcdn.net/cs/design/refactor/extract-class-after.png"/></div>
-<h4 id="隐藏委托关系hide-delegate"><a class="markdownIt-Anchor" href="#隐藏委托关系hide-delegate"></a> 隐藏委托关系(Hide Delegate)</h4>
-<p><strong>问题</strong></p>
-<p>客户通过一个委托类来调用另一个对象。</p>
-<div align="center"><img src="http://dunwu.test.upcdn.net/cs/design/refactor/hide-delegate-before.png"/></div>
-<p><strong>解决</strong></p>
-<p>在服务类上建立客户所需的所有函数，用以隐藏委托关系。</p>
-<div align="center"><img src="http://dunwu.test.upcdn.net/cs/design/refactor/hide-delegate-after.png"/></div>
-<h4 id="以委托取代继承replace-inheritance-with-delegation"><a class="markdownIt-Anchor" href="#以委托取代继承replace-inheritance-with-delegation"></a> 以委托取代继承(Replace Inheritance with Delegation)</h4>
-<p><strong>问题</strong></p>
-<p>某个子类只使用超类接口中的一部分，或是根本不需要继承而来的数据。</p>
-<div align="center"><img src="http://dunwu.test.upcdn.net/cs/design/refactor/replace-delegation-with-inheritance-before.png"/></div>
-<p><strong>解决</strong></p>
-<p>在子类中新建一个字段用以保存超类；调整子类函数，令它改而委托超类；然后去掉两者之间的继承关系。</p>
-<div align="center"><img src="http://dunwu.test.upcdn.net/cs/design/refactor/replace-delegation-with-inheritance-after.png"/></div>
-<h2 id="过度耦合的消息链"><a class="markdownIt-Anchor" href="#过度耦合的消息链"></a> 过度耦合的消息链</h2>
+<h2 id="霰弹式修改"><a class="markdownIt-Anchor" href="#霰弹式修改"></a> 霰弹式修改</h2>
 <blockquote>
-<p>过度耦合的消息链(Message Chains)</p>
-<p>消息链的形式类似于：<code>obj.getA().getB().getC()</code>。</p>
+<p><code>霰弹式修改(Shotgun Surgery)</code> 类似于 <code>发散式变化(Divergent Change)</code> ，但实际上完全不同。<code>发散式变化(Divergent Change)</code> 是指一个类受多种变化的影响。<code>霰弹式修改(Shotgun Surgery)</code> 是指多种变化引发多个类相应的修改。</p>
 </blockquote>
-<div align="center"><img src="http://dunwu.test.upcdn.net/cs/design/refactor/message-chains-1.png"/></div>
-<h3 id="问题原因-5"><a class="markdownIt-Anchor" href="#问题原因-5"></a> 问题原因</h3>
-<p>如果你看到用户向一个对象请求另一个对象，然后再向后者请求另一个对象，然后再请求另一个对象……这就是消息链。实际代码中你看到的可能是一长串 getThis()或一长串临时变量。采取这种方式，意味客户代码将与查找过程中的导航紧密耦合。一旦对象间关系发生任何变化，客户端就不得不做出相应的修改。</p>
-<h3 id="解决方法-5"><a class="markdownIt-Anchor" href="#解决方法-5"></a> 解决方法</h3>
+<h3 id="特征-3"><a class="markdownIt-Anchor" href="#特征-3"></a> 特征</h3>
+<p>任何修改都需要在许多不同类上做小幅度修改。</p>
+<div align="center"><img src="http://dunwu.test.upcdn.net/cs/design/refactor/shotgun-surgery-1.png"/></div>
+<h3 id="问题原因-3"><a class="markdownIt-Anchor" href="#问题原因-3"></a> 问题原因</h3>
+<p>一个单一的职责被拆分成大量的类。</p>
+<h3 id="解决方法-2"><a class="markdownIt-Anchor" href="#解决方法-2"></a> 解决方法</h3>
 <ul>
-<li>可以运用 <code>隐藏委托关系(Hide Delegate)</code> 删除一个消息链。</li>
+<li>运用<code>搬移函数(Move Method)</code> 和 <code>搬移字段(Move Field)</code> 来搬移不同类中相同的行为到一个独立类中。如果没有适合存放搬移函数或字段的类，就创建一个新类。</li>
+<li>通常，可以运用 <code>将类内联化(Inline Class)</code> 将一些列相关行为放进同一个类。</li>
 </ul>
-<div align="center"><img src="http://dunwu.test.upcdn.net/cs/design/refactor/message-chains-2.png"/></div>
+<div align="center"><img src="http://dunwu.test.upcdn.net/cs/design/refactor/shotgun-surgery-2.png"/></div>
+<h3 id="收益-3"><a class="markdownIt-Anchor" href="#收益-3"></a> 收益</h3>
 <ul>
-<li>有时更好的选择是：先观察消息链最终得到的对象是用来干什么的。看看能否以 <code>提炼函数(Extract Method)</code>把使用该对象的代码提炼到一个独立函数中，再运用 <code>搬移函数(Move Method)</code> 把这个函数推入消息链。</li>
+<li>更好的代码组织</li>
+<li>减少重复代码</li>
+<li>更易维护</li>
 </ul>
-<h3 id="收益-5"><a class="markdownIt-Anchor" href="#收益-5"></a> 收益</h3>
-<ul>
-<li>能减少链中类之间的依赖。</li>
-<li>能减少代码量。</li>
-</ul>
-<div align="center"><img src="http://dunwu.test.upcdn.net/cs/design/refactor/message-chains-3.png"/></div>
-<h3 id="何时忽略-4"><a class="markdownIt-Anchor" href="#何时忽略-4"></a> 何时忽略</h3>
-<ul>
-<li>过于侵略性的委托可能会使程序员难以理解功能是如何触发的。</li>
-</ul>
-<h3 id="重构方法说明-5"><a class="markdownIt-Anchor" href="#重构方法说明-5"></a> 重构方法说明</h3>
-<h4 id="隐藏委托关系hide-delegate-2"><a class="markdownIt-Anchor" href="#隐藏委托关系hide-delegate-2"></a> 隐藏委托关系(Hide Delegate)</h4>
-<p><strong>问题</strong></p>
-<p>客户通过一个委托类来调用另一个对象。</p>
-<div align="center"><img src="http://dunwu.test.upcdn.net/cs/design/refactor/hide-delegate-before.png"/></div>
-<p><strong>解决</strong></p>
-<p>在服务类上建立客户所需的所有函数，用以隐藏委托关系。</p>
-<div align="center"><img src="http://dunwu.test.upcdn.net/cs/design/refactor/hide-delegate-after.png"/></div>
-<h4 id="提炼函数extract-method-2"><a class="markdownIt-Anchor" href="#提炼函数extract-method-2"></a> 提炼函数(Extract Method)</h4>
-<p><strong>问题</strong></p>
-<p>你有一段代码可以组织在一起。</p>
-<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">printOwing</span><span class="params">()</span> </span>&#123;</span><br><span class="line">  printBanner();</span><br><span class="line"></span><br><span class="line">  <span class="comment">//print details</span></span><br><span class="line">  System.out.println(<span class="string">"name: "</span> + name);</span><br><span class="line">  System.out.println(<span class="string">"amount: "</span> + getOutstanding());</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p><strong>解决</strong></p>
-<p>移动这段代码到一个新的函数中，使用函数的调用来替代老代码。</p>
-<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">printOwing</span><span class="params">()</span> </span>&#123;</span><br><span class="line">  printBanner();</span><br><span class="line">  printDetails(getOutstanding());</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">printDetails</span><span class="params">(<span class="keyword">double</span> outstanding)</span> </span>&#123;</span><br><span class="line">  System.out.println(<span class="string">"name: "</span> + name);</span><br><span class="line">  System.out.println(<span class="string">"amount: "</span> + outstanding);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<h4 id="搬移函数move-method-3"><a class="markdownIt-Anchor" href="#搬移函数move-method-3"></a> 搬移函数(Move Method)</h4>
+<div align="center"><img src="http://dunwu.test.upcdn.net/cs/design/refactor/shotgun-surgery-3.png"/></div>
+<h3 id="重构方法说明-3"><a class="markdownIt-Anchor" href="#重构方法说明-3"></a> 重构方法说明</h3>
+<h4 id="搬移函数move-method-2"><a class="markdownIt-Anchor" href="#搬移函数move-method-2"></a> 搬移函数(Move Method)</h4>
 <p><strong>问题</strong></p>
 <p>你的程序中，有个函数与其所驻类之外的另一个类进行更多交流：调用后者，或被后者调用。</p>
 <div align="center"><img src="http://dunwu.test.upcdn.net/cs/design/refactor/move-method-before.png"/></div>
 <p><strong>解决</strong></p>
 <p>在该函数最常引用的类中建立一个有着类似行为的新函数。将旧函数变成一个单纯的委托函数，或是旧函数完全移除。</p>
 <div align="center"><img src="http://dunwu.test.upcdn.net/cs/design/refactor/move-method-after.png"/></div>
-<h2 id="扩展阅读"><a class="markdownIt-Anchor" href="#扩展阅读"></a> 扩展阅读</h2>
-<ul>
-<li><a href="https://github.com/dunwu/blog/blob/master/source/_posts/design/refactor/" target="_blank" rel="noopener">代码的坏味道和重构</a></li>
-<li><a href="https://github.com/dunwu/blog/blob/master/source/_posts/design/refactor/%E4%BB%A3%E7%A0%81%E5%9D%8F%E5%91%B3%E9%81%93%E4%B9%8B%E4%BB%A3%E7%A0%81%E8%87%83%E8%82%BF.md" target="_blank" rel="noopener">代码坏味道之代码臃肿</a></li>
-<li><a href="https://github.com/dunwu/blog/blob/master/source/_posts/design/refactor/%E4%BB%A3%E7%A0%81%E5%9D%8F%E5%91%B3%E9%81%93%E4%B9%8B%E6%BB%A5%E7%94%A8%E9%9D%A2%E5%90%91%E5%AF%B9%E8%B1%A1.md" target="_blank" rel="noopener">代码坏味道之滥用面向对象</a></li>
-<li><a href="https://github.com/dunwu/blog/blob/master/source/_posts/design/refactor/%E4%BB%A3%E7%A0%81%E5%9D%8F%E5%91%B3%E9%81%93%E4%B9%8B%E5%8F%98%E9%9D%A9%E7%9A%84%E9%9A%9C%E7%A2%8D.md" target="_blank" rel="noopener">代码坏味道之变革的障碍</a></li>
-<li><a href="https://github.com/dunwu/blog/blob/master/source/_posts/design/refactor/%E4%BB%A3%E7%A0%81%E5%9D%8F%E5%91%B3%E9%81%93%E4%B9%8B%E9%9D%9E%E5%BF%85%E8%A6%81%E7%9A%84.md" target="_blank" rel="noopener">代码坏味道之非必要的</a></li>
-<li><a href="https://github.com/dunwu/blog/blob/master/source/_posts/design/refactor/%E4%BB%A3%E7%A0%81%E5%9D%8F%E5%91%B3%E9%81%93%E4%B9%8B%E8%80%A6%E5%90%88.md" target="_blank" rel="noopener">代码坏味道之耦合</a></li>
-</ul>
-<h2 id="参考资料"><a class="markdownIt-Anchor" href="#参考资料"></a> 参考资料</h2>
-<ul>
-<li><a href="https://book.douban.com/subject/4262627/" target="_blank" rel="noopener">重构——改善既有代码的设计</a> - by Martin Fowler</li>
-<li><a href="https://sourcemaking.com/refactoring" target="_blank" rel="noopener">https://sourcemaking.com/refactoring</a></li>
-</ul>
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-        
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="https://dunwu.github.io/blog/blog/design/refactor/%E4%BB%A3%E7%A0%81%E7%9A%84%E5%9D%8F%E5%91%B3%E9%81%93%E5%92%8C%E9%87%8D%E6%9E%84/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/blog/images/avatar.gif">
-      <meta itemprop="name" content="Zhang Peng">
-      <meta itemprop="description" content="Dunwu's Blog">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Dunwu">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/blog/design/refactor/%E4%BB%A3%E7%A0%81%E7%9A%84%E5%9D%8F%E5%91%B3%E9%81%93%E5%92%8C%E9%87%8D%E6%9E%84/" class="post-title-link" itemprop="url">代码的坏味道和重构</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-
-              <time title="创建时间：2018-10-13 22:48:00" itemprop="dateCreated datePublished" datetime="2018-10-13T22:48:00+08:00">2018-10-13</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-calendar-check-o"></i>
-                </span>
-                <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2020-01-16 17:48:30" itemprop="dateModified" datetime="2020-01-16T17:48:30+08:00">2020-01-16</time>
-              </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/blog/categories/%E8%AE%BE%E8%AE%A1/" itemprop="url" rel="index">
-                    <span itemprop="name">设计</span>
-                  </a>
-                </span>
-                  ，
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/blog/categories/%E8%AE%BE%E8%AE%A1/%E9%87%8D%E6%9E%84/" itemprop="url" rel="index">
-                    <span itemprop="name">重构</span>
-                  </a>
-                </span>
-            </span>
-
-          
-  
-  <span class="post-meta-item">
-    
-      <span class="post-meta-item-icon">
-        <i class="fa fa-comment-o"></i>
-      </span>
-      <span class="post-meta-item-text">Disqus：</span>
-    
-    <a title="disqus" href="/blog/design/refactor/%E4%BB%A3%E7%A0%81%E7%9A%84%E5%9D%8F%E5%91%B3%E9%81%93%E5%92%8C%E9%87%8D%E6%9E%84/#comments" itemprop="discussionUrl">
-      <span class="post-comments-count disqus-comment-count" data-disqus-identifier="design/refactor/代码的坏味道和重构/" itemprop="commentCount"></span>
-    </a>
-  </span>
-  
-  <br>
-            <span class="post-meta-item" title="本文字数">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-file-word-o"></i>
-              </span>
-                <span class="post-meta-item-text">本文字数：</span>
-              <span>3.1k</span>
-            </span>
-            <span class="post-meta-item" title="阅读时长">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-clock-o"></i>
-              </span>
-                <span class="post-meta-item-text">阅读时长 &asymp;</span>
-              <span>3 分钟</span>
-            </span>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <blockquote>
-<p>📓 本文已归档到：「<a href="https://github.com/dunwu/blog" target="_blank" rel="noopener">blog</a>」</p>
-</blockquote>
-<p>第一次读《重构:改善既有代码的设计》时，我曾整理过一个简单的笔记。最近，因为参与一个重构项目，再一次温习了《重构:改善既有代码的设计》。过程中，萌发了认真总结、整理重构方法的冲动，于是有了这系列文字。</p>
-<p>代码的坏味道还有几篇没有完稿，后面我会陆续补充。。。</p>
-<h2 id="症与药"><a class="markdownIt-Anchor" href="#症与药"></a> 症与药</h2>
-<h3 id="对代码的坏味道的思考"><a class="markdownIt-Anchor" href="#对代码的坏味道的思考"></a> 对代码的坏味道的思考</h3>
-<p>“有病要早治，不要放弃治疗”。多么朴素的道理 ，人人都懂。</p>
-<p>病，就是不健康。</p>
-<p>人有病，可以通过打针、吃药、做手术来进行治疗。</p>
-<p><strong>如果把代码的坏味道（代码质量问题）比作病症，那么重构就是治疗代码的坏味道的药。</strong></p>
-<p>个人认为，在重构这件事上，也可以应用治病的道理：</p>
-<ul>
-<li>
-<p><strong>防病于未然。</strong><br />
-—— 春秋战国时期的一代名医扁鹊，曾经有个很著名的医学主张：<strong>防病于未然</strong>。 我觉得这个道理应用于软件代码的重构亦然。编程前要有合理的设计、编程时要有良好的编程风格，尽量减少问题。从这个层面上说，了解代码的坏味道，不仅仅是为了发现问题、解决问题。更重要的作用是：指导我们在编程过程中有意识的去规避这些问题。</p>
-</li>
-<li>
-<p><strong>小病不医，易得大病。</strong><br />
-—— 刘备说过：“勿以善小而不为，勿以恶小而为之”。发现问题就及时修改，代码质量自然容易进入良性循环；反之，亦然。要重视积累的力量，别总以为代码出现点小问题，那都不是事儿。</p>
-</li>
-<li>
-<p><strong>对症下药。</strong><br />
-—— 程序出现了问题，要分析出问题的根本，有针对性的制定合理的重构方案。大家都知道吃错药的后果，同样的，<strong>瞎改还不如不改</strong>。</p>
-</li>
-<li>
-<p><strong>忌猛药</strong><br />
-—— 医病用猛药容易产生副作用。换一句俗语：步子大了容易扯着蛋。重构如果大刀阔斧的干，那你就要有随时可能扑街的心理准备。推倒重来不是重构，而是重写。重构应该是循序渐进，步步为营的过程。当你发现重写代码比重构代码更简单，往往说明你早就该重构了。</p>
-</li>
-</ul>
-<h3 id="重构的原则"><a class="markdownIt-Anchor" href="#重构的原则"></a> 重构的原则</h3>
-<p>前面把代码质量问题比作病症，而把重构比作药。这里，我们再进一步讨论一下重构的原则。</p>
-<h4 id="何谓重构what"><a class="markdownIt-Anchor" href="#何谓重构what"></a> 何谓重构(What)</h4>
-<p><code>重构（Refactoring）</code> 的常见定义是：不改变软件系统外部行为的前提下，改善它的内部结构。</p>
-<p>个人觉得这个定义有点生涩。不妨理解为：重构是给代码治病的行为。而代码有病是指代码的质量（可靠性、安全性、可复用性、可维护性）和性能有问题。</p>
-<p><strong>重构的目的是为了提高代码的质量和性能</strong>。</p>
-<p><em>注：功能不全或者不正确，那是残疾代码。就像治病治不了残疾，重构也解决不了功能问题。</em></p>
-<h4 id="为何重构why"><a class="markdownIt-Anchor" href="#为何重构why"></a> 为何重构(Why)</h4>
-<p>翻翻书，上网搜一下，谈到重构的理由大体相同：</p>
-<ul>
-<li>重构改进软件设计</li>
-<li>重构使软件更容易理解</li>
-<li>重构帮助找到 bug</li>
-<li>重构提高编程速度</li>
-</ul>
-<p>总之就是，<strong>重构可以提高代码质量</strong>。</p>
-<h4 id="何时重构when"><a class="markdownIt-Anchor" href="#何时重构when"></a> 何时重构(When)</h4>
-<p>关于何时重构，我先引用一下 <a href="http://mt.sohu.com/20160812/n463980993.shtml" target="_blank" rel="noopener"><u>重构并非难在如何做，而是难在何时开始做</u></a> 一文的观点。</p>
-<blockquote>
-<p>对于一个高速发展的公司来说，停止业务开发，专门来做重构项目，<strong>从来就不是一个可接受的选项</strong>，“边开飞机边换引擎”才是这种公司想要的。</p>
-</blockquote>
-<p>我们不妨来衡量一下重构的成本和收益。</p>
-<ul>
-<li>
-<p><strong>重构的成本</strong></p>
-<p>重构是有成本的，费时费力（时间、人力）不说，还有可能会使本来正常运行的程序出错。所以，很多人都抱着“不求有功，但求无过”的心理得过且过。</p>
-<p>还有一种成本：重构使用较新且较为复杂的技术，学习曲线不平滑，团队成员技术切换困难，短期内开发效率可能不升反降。</p>
-<p>但是，如果一直放任代码腐朽下去，技术债务会越来越沉重。当代码最终快要跑不动时，架构师们往往还是不得不使用激进的手段来治疗代码的顽疾。但是，这个过程通常都是非常痛苦的，而且有着很高的失败风险。</p>
-</li>
-<li>
-<p><strong>重构的收益</strong></p>
-<p>重构的收益是提高代码的质量和性能，并提高未来的开发效率。但是，应当看到，重构往往并不能在短期内带来实际的效益，或者很难直观看出效益。而对于一个企业来说，没有什么比效益更重要。换句话说，没有实际效益的事，通常也没有价值。很多领导，尤其是非技术方向的领导，并不关心你应用了什么新技术，让代码变得多么优雅等等。</p>
-</li>
-<li>
-<p><strong>重构的合适时机</strong></p>
-<p>从以上来看，重构实在是个吃力不讨好的事情。</p>
-<p>于是，很多人屈服于万恶的 KPI 和要命的 deadline，一边吐槽着以前的代码是垃圾，一边自己也在造垃圾。</p>
-<p>但是，**重构本应该是个渐进式的过程，不是只有伤筋动骨的改造才叫重构。**如果非要等到代码已经烂到病入膏肓，再使用激进方式来重构，那必然是困难重重，风险极高。</p>
-<p>《重构》书中提到的重构时机应该在添加功能、修复功能、审查代码时，不建议专门抽出时间专门做重构项目。</p>
-<p>我认为，其思想就是指：<strong>重构应该是在开发过程中实时的、渐进的演化过程。</strong></p>
-</li>
-<li>
-<p><strong>重构的不恰当时机</strong></p>
-<p>但是，这里我也要强调一下：<strong>不是所有软件开发过程都一定要重构。</strong></p>
-<p>较能<strong>凸显重构价值的场景</strong>是：代码规模较大、生命周期还较长、承担了较多责任、有一个较大（且较不稳定，人员流动频繁）团队在其上工作的单一代码库。</p>
-<p>与之相反，有一些场景的重构价值就很小：</p>
-<ul>
-<li>代码库生命周期快要走到尾声，开发逐渐减少，以维护为主。</li>
-<li>代码库当前版本马上要发布了，这时重构无疑是给自己找麻烦。</li>
-<li>重构代价过于沉重：重构后功能的正确性、稳定性难以保障；技术过于超前，团队成员技术迁移难度太大。</li>
-</ul>
-</li>
-</ul>
-<h4 id="如何重构how"><a class="markdownIt-Anchor" href="#如何重构how"></a> 如何重构(How)</h4>
-<p>重构行为在我看来，也是可以分层级的。由高到低，越高层级难度越大：</p>
-<ul>
-<li>
-<p>服务、数据库<br />
-现代软件往往业务复杂、庞大。使用微服务、数据迁移来拆分业务，降低业务复杂度成为了主流。但是，这些技术的测试、部署复杂，技术难度很高。</p>
-</li>
-<li>
-<p>组件、模块、框架<br />
-组件、模块、框架的重构，主要是针对代码的设计问题。解决的是代码的整体结构问题。需要对框架、设计模式、分布式、并发等等有足够的了解。</p>
-</li>
-<li>
-<p>类、接口、函数、字段<br />
-《重构》一书提到了**“代码的坏味道”**以及相关的重构方法。这些都是对类、接口、函数、字段级别代码的重构手段。由于这一级别的重构方法较为简单，所以可操作性较强。具体细节可以阅读《代码的坏味道》篇章。</p>
-</li>
-</ul>
-<p>前两种层级的重构已经涉及到架构层面，影响较大，难度较高，如果功力不够不要轻易变动。由于这两个层级涉及领域较广，这里不做论述。</p>
-<p><u><strong><em>此处为分割线。下面是代码的坏味道系列。。。</em></strong></u></p>
-<h2 id="代码的坏味道"><a class="markdownIt-Anchor" href="#代码的坏味道"></a> 代码的坏味道</h2>
-<p>《重构:改善既有代码的设计》中介绍了 22 种代码的坏味道以及重构手法。这些坏味道可以进一步归类。我总觉得将事物分类有助于理解和记忆。所以本系列将坏味道按照特性分类，然后逐一讲解。</p>
-<div align="center"><img src="http://dunwu.test.upcdn.net/cs/design/refactor/code-smell.png"/></div>
-<h3 id="代码坏味道之代码臃肿"><a class="markdownIt-Anchor" href="#代码坏味道之代码臃肿"></a> 代码坏味道之代码臃肿</h3>
-<blockquote>
-<p><strong><a href="https://github.com/dunwu/blog/blob/master/source/_posts/design/refactor/%E4%BB%A3%E7%A0%81%E5%9D%8F%E5%91%B3%E9%81%93%E4%B9%8B%E4%BB%A3%E7%A0%81%E8%87%83%E8%82%BF.md" target="_blank" rel="noopener">代码臃肿(Bloated)</a>这组坏味道意味着：代码中的类、函数、字段没有经过合理的组织，只是简单的堆砌起来。这一类型的问题通常在代码的初期并不明显，但是随着代码规模的增长而逐渐积累（特别是当没有人努力去根除它们时）。</strong></p>
-</blockquote>
-<ul>
-<li><a href="https://github.com/dunwu/blog/blob/master/source/_posts/design/refactor/%E4%BB%A3%E7%A0%81%E5%9D%8F%E5%91%B3%E9%81%93%E4%B9%8B%E4%BB%A3%E7%A0%81%E8%87%83%E8%82%BF.md#%E8%BF%87%E9%95%BF%E5%87%BD%E6%95%B0" target="_blank" rel="noopener">过长函数</a></li>
-<li><a href="https://github.com/dunwu/blog/blob/master/source/_posts/design/refactor/%E4%BB%A3%E7%A0%81%E5%9D%8F%E5%91%B3%E9%81%93%E4%B9%8B%E4%BB%A3%E7%A0%81%E8%87%83%E8%82%BF.md#%E8%BF%87%E5%A4%A7%E7%9A%84%E7%B1%BB" target="_blank" rel="noopener">过大的类</a></li>
-<li><a href="https://github.com/dunwu/blog/blob/master/source/_posts/design/refactor/%E4%BB%A3%E7%A0%81%E5%9D%8F%E5%91%B3%E9%81%93%E4%B9%8B%E4%BB%A3%E7%A0%81%E8%87%83%E8%82%BF.md#%E5%9F%BA%E6%9C%AC%E7%B1%BB%E5%9E%8B%E5%81%8F%E6%89%A7" target="_blank" rel="noopener">基本类型偏执</a></li>
-<li><a href="https://github.com/dunwu/blog/blob/master/source/_posts/design/refactor/%E4%BB%A3%E7%A0%81%E5%9D%8F%E5%91%B3%E9%81%93%E4%B9%8B%E4%BB%A3%E7%A0%81%E8%87%83%E8%82%BF.md#%E8%BF%87%E9%95%BF%E5%8F%82%E6%95%B0%E5%88%97" target="_blank" rel="noopener">过长参数列</a></li>
-<li><a href="https://github.com/dunwu/blog/blob/master/source/_posts/design/refactor/%E4%BB%A3%E7%A0%81%E5%9D%8F%E5%91%B3%E9%81%93%E4%B9%8B%E4%BB%A3%E7%A0%81%E8%87%83%E8%82%BF.md#%E6%95%B0%E6%8D%AE%E6%B3%A5%E5%9B%A2" target="_blank" rel="noopener">数据泥团</a></li>
-</ul>
-<h3 id="代码坏味道之滥用面向对象"><a class="markdownIt-Anchor" href="#代码坏味道之滥用面向对象"></a> 代码坏味道之滥用面向对象</h3>
-<blockquote>
-<p><strong><a href="https://github.com/dunwu/blog/blob/master/source/_posts/design/refactor/%E4%BB%A3%E7%A0%81%E5%9D%8F%E5%91%B3%E9%81%93%E4%B9%8B%E6%BB%A5%E7%94%A8%E9%9D%A2%E5%90%91%E5%AF%B9%E8%B1%A1.md" target="_blank" rel="noopener">滥用面向对象(Object-Orientation Abusers)</a>这组坏味道意味着：代码部分或完全地违背了面向对象编程原则。</strong></p>
-</blockquote>
-<ul>
-<li><a href="https://github.com/dunwu/blog/blob/master/source/_posts/design/refactor/%E4%BB%A3%E7%A0%81%E5%9D%8F%E5%91%B3%E9%81%93%E4%B9%8B%E6%BB%A5%E7%94%A8%E9%9D%A2%E5%90%91%E5%AF%B9%E8%B1%A1.md#switch-%E5%A3%B0%E6%98%8E" target="_blank" rel="noopener">switch 声明</a></li>
-<li><a href="https://github.com/dunwu/blog/blob/master/source/_posts/design/refactor/%E4%BB%A3%E7%A0%81%E5%9D%8F%E5%91%B3%E9%81%93%E4%B9%8B%E6%BB%A5%E7%94%A8%E9%9D%A2%E5%90%91%E5%AF%B9%E8%B1%A1.md#%E4%B8%B4%E6%97%B6%E5%AD%97%E6%AE%B5" target="_blank" rel="noopener">临时字段</a></li>
-<li><a href="https://github.com/dunwu/blog/blob/master/source/_posts/design/refactor/%E4%BB%A3%E7%A0%81%E5%9D%8F%E5%91%B3%E9%81%93%E4%B9%8B%E6%BB%A5%E7%94%A8%E9%9D%A2%E5%90%91%E5%AF%B9%E8%B1%A1.md#%E8%A2%AB%E6%8B%92%E7%BB%9D%E7%9A%84%E9%A6%88%E8%B5%A0" target="_blank" rel="noopener">被拒绝的馈赠</a></li>
-<li><a href="https://github.com/dunwu/blog/blob/master/source/_posts/design/refactor/%E4%BB%A3%E7%A0%81%E5%9D%8F%E5%91%B3%E9%81%93%E4%B9%8B%E6%BB%A5%E7%94%A8%E9%9D%A2%E5%90%91%E5%AF%B9%E8%B1%A1.md#%E5%BC%82%E6%9B%B2%E5%90%8C%E5%B7%A5%E7%9A%84%E7%B1%BB" target="_blank" rel="noopener">异曲同工的类</a></li>
-</ul>
-<h3 id="代码坏味道之变革的障碍"><a class="markdownIt-Anchor" href="#代码坏味道之变革的障碍"></a> 代码坏味道之变革的障碍</h3>
-<blockquote>
-<p><strong><a href="https://github.com/dunwu/blog/blob/master/source/_posts/design/refactor/%E4%BB%A3%E7%A0%81%E5%9D%8F%E5%91%B3%E9%81%93%E4%B9%8B%E5%8F%98%E9%9D%A9%E7%9A%84%E9%9A%9C%E7%A2%8D.md" target="_blank" rel="noopener">变革的障碍(Change Preventers)</a>这组坏味道意味着：当你需要改变一处代码时，却发现不得不改变其他的地方。这使得程序开发变得复杂、代价高昂。</strong></p>
-</blockquote>
-<ul>
-<li><a href="https://github.com/dunwu/blog/blob/master/source/_posts/design/refactor/%E4%BB%A3%E7%A0%81%E5%9D%8F%E5%91%B3%E9%81%93%E4%B9%8B%E5%8F%98%E9%9D%A9%E7%9A%84%E9%9A%9C%E7%A2%8D.md#%E5%8F%91%E6%95%A3%E5%BC%8F%E5%8F%98%E5%8C%96" target="_blank" rel="noopener">发散式变化</a></li>
-<li><a href="https://github.com/dunwu/blog/blob/master/source/_posts/design/refactor/%E4%BB%A3%E7%A0%81%E5%9D%8F%E5%91%B3%E9%81%93%E4%B9%8B%E5%8F%98%E9%9D%A9%E7%9A%84%E9%9A%9C%E7%A2%8D.md#%E9%9C%B0%E5%BC%B9%E5%BC%8F%E4%BF%AE%E6%94%B9" target="_blank" rel="noopener">霰弹式修改</a></li>
-<li><a href="https://github.com/dunwu/blog/blob/master/source/_posts/design/refactor/%E4%BB%A3%E7%A0%81%E5%9D%8F%E5%91%B3%E9%81%93%E4%B9%8B%E5%8F%98%E9%9D%A9%E7%9A%84%E9%9A%9C%E7%A2%8D.md#%E5%B9%B3%E8%A1%8C%E7%BB%A7%E6%89%BF%E4%BD%93%E7%B3%BB" target="_blank" rel="noopener">平行继承体系</a></li>
-</ul>
-<h3 id="代码坏味道之非必要的"><a class="markdownIt-Anchor" href="#代码坏味道之非必要的"></a> 代码坏味道之非必要的</h3>
-<blockquote>
-<p><strong><a href="https://github.com/dunwu/blog/blob/master/source/_posts/design/refactor/%E4%BB%A3%E7%A0%81%E5%9D%8F%E5%91%B3%E9%81%93%E4%B9%8B%E9%9D%9E%E5%BF%85%E8%A6%81%E7%9A%84.md" target="_blank" rel="noopener">非必要的(Dispensables)</a>这组坏味道意味着：这样的代码可有可无，它的存在反而影响整体代码的整洁和可读性。</strong></p>
-</blockquote>
-<ul>
-<li><a href="https://github.com/dunwu/blog/blob/master/source/_posts/design/refactor/%E4%BB%A3%E7%A0%81%E5%9D%8F%E5%91%B3%E9%81%93%E4%B9%8B%E9%9D%9E%E5%BF%85%E8%A6%81%E7%9A%84.md#%E8%BF%87%E5%A4%9A%E7%9A%84%E6%B3%A8%E9%87%8A" target="_blank" rel="noopener">过多的注释</a></li>
-<li><a href="https://github.com/dunwu/blog/blob/master/source/_posts/design/refactor/%E4%BB%A3%E7%A0%81%E5%9D%8F%E5%91%B3%E9%81%93%E4%B9%8B%E9%9D%9E%E5%BF%85%E8%A6%81%E7%9A%84.md#%E9%87%8D%E5%A4%8D%E4%BB%A3%E7%A0%81" target="_blank" rel="noopener">重复代码</a></li>
-<li><a href="https://github.com/dunwu/blog/blob/master/source/_posts/design/refactor/%E4%BB%A3%E7%A0%81%E5%9D%8F%E5%91%B3%E9%81%93%E4%B9%8B%E9%9D%9E%E5%BF%85%E8%A6%81%E7%9A%84.md#%E5%86%97%E4%BD%99%E7%B1%BB" target="_blank" rel="noopener">冗余类</a></li>
-<li><a href="https://github.com/dunwu/blog/blob/master/source/_posts/design/refactor/%E4%BB%A3%E7%A0%81%E5%9D%8F%E5%91%B3%E9%81%93%E4%B9%8B%E9%9D%9E%E5%BF%85%E8%A6%81%E7%9A%84.md#%E7%BA%AF%E7%A8%9A%E7%9A%84%E6%95%B0%E6%8D%AE%E7%B1%BB" target="_blank" rel="noopener">纯稚的数据类</a></li>
-<li><a href="https://github.com/dunwu/blog/blob/master/source/_posts/design/refactor/%E4%BB%A3%E7%A0%81%E5%9D%8F%E5%91%B3%E9%81%93%E4%B9%8B%E9%9D%9E%E5%BF%85%E8%A6%81%E7%9A%84.md#%E5%A4%B8%E5%A4%B8%E5%85%B6%E8%B0%88%E6%9C%AA%E6%9D%A5%E6%80%A7" target="_blank" rel="noopener">夸夸其谈未来性</a></li>
-</ul>
-<h3 id="代码坏味道之耦合"><a class="markdownIt-Anchor" href="#代码坏味道之耦合"></a> 代码坏味道之耦合</h3>
-<blockquote>
-<p><strong><a href="https://github.com/dunwu/blog/blob/master/source/_posts/design/refactor/%E4%BB%A3%E7%A0%81%E5%9D%8F%E5%91%B3%E9%81%93%E4%B9%8B%E8%80%A6%E5%90%88.md" target="_blank" rel="noopener">耦合(Couplers)</a>这组坏味道意味着：不同类之间过度耦合。</strong></p>
-</blockquote>
-<ul>
-<li><a href="https://github.com/dunwu/blog/blob/master/source/_posts/design/refactor/%E4%BB%A3%E7%A0%81%E5%9D%8F%E5%91%B3%E9%81%93%E4%B9%8B%E8%80%A6%E5%90%88.md#%E4%BE%9D%E6%81%8B%E6%83%85%E7%BB%93" target="_blank" rel="noopener">依恋情结</a></li>
-<li><a href="https://github.com/dunwu/blog/blob/master/source/_posts/design/refactor/%E4%BB%A3%E7%A0%81%E5%9D%8F%E5%91%B3%E9%81%93%E4%B9%8B%E8%80%A6%E5%90%88.md#%E7%8B%8E%E6%98%B5%E5%85%B3%E7%B3%BB" target="_blank" rel="noopener">狎昵关系</a></li>
-<li><a href="https://github.com/dunwu/blog/blob/master/source/_posts/design/refactor/%E4%BB%A3%E7%A0%81%E5%9D%8F%E5%91%B3%E9%81%93%E4%B9%8B%E8%80%A6%E5%90%88.md#%E8%BF%87%E5%BA%A6%E8%80%A6%E5%90%88%E7%9A%84%E6%B6%88%E6%81%AF%E9%93%BE" target="_blank" rel="noopener">过度耦合的消息链</a></li>
-<li><a href="https://github.com/dunwu/blog/blob/master/source/_posts/design/refactor/%E4%BB%A3%E7%A0%81%E5%9D%8F%E5%91%B3%E9%81%93%E4%B9%8B%E8%80%A6%E5%90%88.md#%E4%B8%AD%E9%97%B4%E4%BA%BA" target="_blank" rel="noopener">中间人</a></li>
-<li><a href="https://github.com/dunwu/blog/blob/master/source/_posts/design/refactor/%E4%BB%A3%E7%A0%81%E5%9D%8F%E5%91%B3%E9%81%93%E4%B9%8B%E8%80%A6%E5%90%88.md#%E4%B8%8D%E5%AE%8C%E7%BE%8E%E7%9A%84%E5%BA%93%E7%B1%BB" target="_blank" rel="noopener">不完美的库类</a></li>
-</ul>
+<h4 id="搬移字段move-field-2"><a class="markdownIt-Anchor" href="#搬移字段move-field-2"></a> 搬移字段(Move Field)</h4>
+<p><strong>问题</strong></p>
+<p>在你的程序中，某个字段被其所驻类之外的另一个类更多地用到。</p>
+<div align="center"><img src="http://dunwu.test.upcdn.net/cs/design/refactor/move-field-before.png"/></div>
+<p><strong>解决</strong></p>
+<p>在目标类新建一个字段，修改源字段的所有用户，令他们改用新字段。</p>
+<div align="center"><img src="http://dunwu.test.upcdn.net/cs/design/refactor/move-field-after.png"/></div>
+<h4 id="将类内联化inline-class"><a class="markdownIt-Anchor" href="#将类内联化inline-class"></a> 将类内联化(Inline Class)</h4>
+<p><strong>问题</strong></p>
+<p>某个类没有做太多事情。</p>
+<div align="center"><img src="http://dunwu.test.upcdn.net/cs/design/refactor/inline-class-before.png"/></div>
+<p><strong>解决</strong></p>
+<p>将这个类的所有特性搬移到另一个类中，然后移除原类。</p>
+<div align="center"><img src="http://dunwu.test.upcdn.net/cs/design/refactor/inline-class-after.png"/></div>
 <h2 id="扩展阅读"><a class="markdownIt-Anchor" href="#扩展阅读"></a> 扩展阅读</h2>
 <ul>
 <li><a href="https://github.com/dunwu/blog/blob/master/source/_posts/design/refactor/" target="_blank" rel="noopener">代码的坏味道和重构</a></li>
@@ -1576,7 +942,7 @@
                   <i class="fa fa-calendar-check-o"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2020-01-16 17:48:30" itemprop="dateModified" datetime="2020-01-16T17:48:30+08:00">2020-01-16</time>
+                <time title="修改时间：2020-02-01 22:41:39" itemprop="dateModified" datetime="2020-02-01T22:41:39+08:00">2020-02-01</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -1636,7 +1002,7 @@
 
       
           <blockquote>
-<p>📓 本文已归档到：「<a href="https://github.com/dunwu/blog" target="_blank" rel="noopener">blog</a>」</p>
+<p>📦 本文已归档到：「<a href="https://github.com/dunwu/blog" target="_blank" rel="noopener">blog</a>」</p>
 <p>翻译自：<a href="https://sourcemaking.com/refactoring/smells/oo-abusers" target="_blank" rel="noopener">https://sourcemaking.com/refactoring/smells/oo-abusers</a></p>
 <p><strong>滥用面向对象(Object-Orientation Abusers)这组坏味道意味着：代码部分或完全地违背了面向对象编程原则。</strong></p>
 </blockquote>
@@ -1922,7 +1288,7 @@
                   <i class="fa fa-calendar-check-o"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2020-01-16 17:48:30" itemprop="dateModified" datetime="2020-01-16T17:48:30+08:00">2020-01-16</time>
+                <time title="修改时间：2020-02-01 22:41:39" itemprop="dateModified" datetime="2020-02-01T22:41:39+08:00">2020-02-01</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -1982,7 +1348,7 @@
 
       
           <blockquote>
-<p>📓 本文已归档到：「<a href="https://github.com/dunwu/blog" target="_blank" rel="noopener">blog</a>」</p>
+<p>📦 本文已归档到：「<a href="https://github.com/dunwu/blog" target="_blank" rel="noopener">blog</a>」</p>
 <p>翻译自：<a href="https://sourcemaking.com/refactoring/smells/bloaters" target="_blank" rel="noopener">https://sourcemaking.com/refactoring/smells/bloaters</a></p>
 <p><strong>代码臃肿(Bloated)这组坏味道意味着：代码中的类、函数、字段没有经过合理的组织，只是简单的堆砌起来。这一类型的问题通常在代码的初期并不明显，但是随着代码规模的增长而逐渐积累（特别是当没有人努力去根除它们时）。</strong></p>
 </blockquote>
@@ -2280,6 +1646,640 @@
 <p><strong>解决</strong></p>
 <p>以一个对象来取代这些参数。</p>
 <div align="center"><img src="http://dunwu.test.upcdn.net/cs/design/refactor/introduce-parameter-object-after.png"/></div>
+<h2 id="扩展阅读"><a class="markdownIt-Anchor" href="#扩展阅读"></a> 扩展阅读</h2>
+<ul>
+<li><a href="https://github.com/dunwu/blog/blob/master/source/_posts/design/refactor/" target="_blank" rel="noopener">代码的坏味道和重构</a></li>
+<li><a href="https://github.com/dunwu/blog/blob/master/source/_posts/design/refactor/%E4%BB%A3%E7%A0%81%E5%9D%8F%E5%91%B3%E9%81%93%E4%B9%8B%E4%BB%A3%E7%A0%81%E8%87%83%E8%82%BF.md" target="_blank" rel="noopener">代码坏味道之代码臃肿</a></li>
+<li><a href="https://github.com/dunwu/blog/blob/master/source/_posts/design/refactor/%E4%BB%A3%E7%A0%81%E5%9D%8F%E5%91%B3%E9%81%93%E4%B9%8B%E6%BB%A5%E7%94%A8%E9%9D%A2%E5%90%91%E5%AF%B9%E8%B1%A1.md" target="_blank" rel="noopener">代码坏味道之滥用面向对象</a></li>
+<li><a href="https://github.com/dunwu/blog/blob/master/source/_posts/design/refactor/%E4%BB%A3%E7%A0%81%E5%9D%8F%E5%91%B3%E9%81%93%E4%B9%8B%E5%8F%98%E9%9D%A9%E7%9A%84%E9%9A%9C%E7%A2%8D.md" target="_blank" rel="noopener">代码坏味道之变革的障碍</a></li>
+<li><a href="https://github.com/dunwu/blog/blob/master/source/_posts/design/refactor/%E4%BB%A3%E7%A0%81%E5%9D%8F%E5%91%B3%E9%81%93%E4%B9%8B%E9%9D%9E%E5%BF%85%E8%A6%81%E7%9A%84.md" target="_blank" rel="noopener">代码坏味道之非必要的</a></li>
+<li><a href="https://github.com/dunwu/blog/blob/master/source/_posts/design/refactor/%E4%BB%A3%E7%A0%81%E5%9D%8F%E5%91%B3%E9%81%93%E4%B9%8B%E8%80%A6%E5%90%88.md" target="_blank" rel="noopener">代码坏味道之耦合</a></li>
+</ul>
+<h2 id="参考资料"><a class="markdownIt-Anchor" href="#参考资料"></a> 参考资料</h2>
+<ul>
+<li><a href="https://book.douban.com/subject/4262627/" target="_blank" rel="noopener">重构——改善既有代码的设计</a> - by Martin Fowler</li>
+<li><a href="https://sourcemaking.com/refactoring" target="_blank" rel="noopener">https://sourcemaking.com/refactoring</a></li>
+</ul>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+        
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://dunwu.github.io/blog/blog/design/refactor/%E4%BB%A3%E7%A0%81%E7%9A%84%E5%9D%8F%E5%91%B3%E9%81%93%E5%92%8C%E9%87%8D%E6%9E%84/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/blog/images/avatar.gif">
+      <meta itemprop="name" content="Zhang Peng">
+      <meta itemprop="description" content="Dunwu's Blog">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Dunwu">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/blog/design/refactor/%E4%BB%A3%E7%A0%81%E7%9A%84%E5%9D%8F%E5%91%B3%E9%81%93%E5%92%8C%E9%87%8D%E6%9E%84/" class="post-title-link" itemprop="url">代码的坏味道和重构</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2018-10-13 22:48:00" itemprop="dateCreated datePublished" datetime="2018-10-13T22:48:00+08:00">2018-10-13</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2020-02-01 22:41:39" itemprop="dateModified" datetime="2020-02-01T22:41:39+08:00">2020-02-01</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/blog/categories/%E8%AE%BE%E8%AE%A1/" itemprop="url" rel="index">
+                    <span itemprop="name">设计</span>
+                  </a>
+                </span>
+                  ，
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/blog/categories/%E8%AE%BE%E8%AE%A1/%E9%87%8D%E6%9E%84/" itemprop="url" rel="index">
+                    <span itemprop="name">重构</span>
+                  </a>
+                </span>
+            </span>
+
+          
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="fa fa-comment-o"></i>
+      </span>
+      <span class="post-meta-item-text">Disqus：</span>
+    
+    <a title="disqus" href="/blog/design/refactor/%E4%BB%A3%E7%A0%81%E7%9A%84%E5%9D%8F%E5%91%B3%E9%81%93%E5%92%8C%E9%87%8D%E6%9E%84/#comments" itemprop="discussionUrl">
+      <span class="post-comments-count disqus-comment-count" data-disqus-identifier="design/refactor/代码的坏味道和重构/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  <br>
+            <span class="post-meta-item" title="本文字数">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-file-word-o"></i>
+              </span>
+                <span class="post-meta-item-text">本文字数：</span>
+              <span>3.1k</span>
+            </span>
+            <span class="post-meta-item" title="阅读时长">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-clock-o"></i>
+              </span>
+                <span class="post-meta-item-text">阅读时长 &asymp;</span>
+              <span>3 分钟</span>
+            </span>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <blockquote>
+<p>📦 本文已归档到：「<a href="https://github.com/dunwu/blog" target="_blank" rel="noopener">blog</a>」</p>
+</blockquote>
+<p>第一次读《重构:改善既有代码的设计》时，我曾整理过一个简单的笔记。最近，因为参与一个重构项目，再一次温习了《重构:改善既有代码的设计》。过程中，萌发了认真总结、整理重构方法的冲动，于是有了这系列文字。</p>
+<p>代码的坏味道还有几篇没有完稿，后面我会陆续补充。。。</p>
+<h2 id="症与药"><a class="markdownIt-Anchor" href="#症与药"></a> 症与药</h2>
+<h3 id="对代码的坏味道的思考"><a class="markdownIt-Anchor" href="#对代码的坏味道的思考"></a> 对代码的坏味道的思考</h3>
+<p>“有病要早治，不要放弃治疗”。多么朴素的道理 ，人人都懂。</p>
+<p>病，就是不健康。</p>
+<p>人有病，可以通过打针、吃药、做手术来进行治疗。</p>
+<p><strong>如果把代码的坏味道（代码质量问题）比作病症，那么重构就是治疗代码的坏味道的药。</strong></p>
+<p>个人认为，在重构这件事上，也可以应用治病的道理：</p>
+<ul>
+<li>
+<p><strong>防病于未然。</strong><br />
+—— 春秋战国时期的一代名医扁鹊，曾经有个很著名的医学主张：<strong>防病于未然</strong>。 我觉得这个道理应用于软件代码的重构亦然。编程前要有合理的设计、编程时要有良好的编程风格，尽量减少问题。从这个层面上说，了解代码的坏味道，不仅仅是为了发现问题、解决问题。更重要的作用是：指导我们在编程过程中有意识的去规避这些问题。</p>
+</li>
+<li>
+<p><strong>小病不医，易得大病。</strong><br />
+—— 刘备说过：“勿以善小而不为，勿以恶小而为之”。发现问题就及时修改，代码质量自然容易进入良性循环；反之，亦然。要重视积累的力量，别总以为代码出现点小问题，那都不是事儿。</p>
+</li>
+<li>
+<p><strong>对症下药。</strong><br />
+—— 程序出现了问题，要分析出问题的根本，有针对性的制定合理的重构方案。大家都知道吃错药的后果，同样的，<strong>瞎改还不如不改</strong>。</p>
+</li>
+<li>
+<p><strong>忌猛药</strong><br />
+—— 医病用猛药容易产生副作用。换一句俗语：步子大了容易扯着蛋。重构如果大刀阔斧的干，那你就要有随时可能扑街的心理准备。推倒重来不是重构，而是重写。重构应该是循序渐进，步步为营的过程。当你发现重写代码比重构代码更简单，往往说明你早就该重构了。</p>
+</li>
+</ul>
+<h3 id="重构的原则"><a class="markdownIt-Anchor" href="#重构的原则"></a> 重构的原则</h3>
+<p>前面把代码质量问题比作病症，而把重构比作药。这里，我们再进一步讨论一下重构的原则。</p>
+<h4 id="何谓重构what"><a class="markdownIt-Anchor" href="#何谓重构what"></a> 何谓重构(What)</h4>
+<p><code>重构（Refactoring）</code> 的常见定义是：不改变软件系统外部行为的前提下，改善它的内部结构。</p>
+<p>个人觉得这个定义有点生涩。不妨理解为：重构是给代码治病的行为。而代码有病是指代码的质量（可靠性、安全性、可复用性、可维护性）和性能有问题。</p>
+<p><strong>重构的目的是为了提高代码的质量和性能</strong>。</p>
+<p><em>注：功能不全或者不正确，那是残疾代码。就像治病治不了残疾，重构也解决不了功能问题。</em></p>
+<h4 id="为何重构why"><a class="markdownIt-Anchor" href="#为何重构why"></a> 为何重构(Why)</h4>
+<p>翻翻书，上网搜一下，谈到重构的理由大体相同：</p>
+<ul>
+<li>重构改进软件设计</li>
+<li>重构使软件更容易理解</li>
+<li>重构帮助找到 bug</li>
+<li>重构提高编程速度</li>
+</ul>
+<p>总之就是，<strong>重构可以提高代码质量</strong>。</p>
+<h4 id="何时重构when"><a class="markdownIt-Anchor" href="#何时重构when"></a> 何时重构(When)</h4>
+<p>关于何时重构，我先引用一下 <a href="http://mt.sohu.com/20160812/n463980993.shtml" target="_blank" rel="noopener"><u>重构并非难在如何做，而是难在何时开始做</u></a> 一文的观点。</p>
+<blockquote>
+<p>对于一个高速发展的公司来说，停止业务开发，专门来做重构项目，<strong>从来就不是一个可接受的选项</strong>，“边开飞机边换引擎”才是这种公司想要的。</p>
+</blockquote>
+<p>我们不妨来衡量一下重构的成本和收益。</p>
+<ul>
+<li>
+<p><strong>重构的成本</strong></p>
+<p>重构是有成本的，费时费力（时间、人力）不说，还有可能会使本来正常运行的程序出错。所以，很多人都抱着“不求有功，但求无过”的心理得过且过。</p>
+<p>还有一种成本：重构使用较新且较为复杂的技术，学习曲线不平滑，团队成员技术切换困难，短期内开发效率可能不升反降。</p>
+<p>但是，如果一直放任代码腐朽下去，技术债务会越来越沉重。当代码最终快要跑不动时，架构师们往往还是不得不使用激进的手段来治疗代码的顽疾。但是，这个过程通常都是非常痛苦的，而且有着很高的失败风险。</p>
+</li>
+<li>
+<p><strong>重构的收益</strong></p>
+<p>重构的收益是提高代码的质量和性能，并提高未来的开发效率。但是，应当看到，重构往往并不能在短期内带来实际的效益，或者很难直观看出效益。而对于一个企业来说，没有什么比效益更重要。换句话说，没有实际效益的事，通常也没有价值。很多领导，尤其是非技术方向的领导，并不关心你应用了什么新技术，让代码变得多么优雅等等。</p>
+</li>
+<li>
+<p><strong>重构的合适时机</strong></p>
+<p>从以上来看，重构实在是个吃力不讨好的事情。</p>
+<p>于是，很多人屈服于万恶的 KPI 和要命的 deadline，一边吐槽着以前的代码是垃圾，一边自己也在造垃圾。</p>
+<p>但是，**重构本应该是个渐进式的过程，不是只有伤筋动骨的改造才叫重构。**如果非要等到代码已经烂到病入膏肓，再使用激进方式来重构，那必然是困难重重，风险极高。</p>
+<p>《重构》书中提到的重构时机应该在添加功能、修复功能、审查代码时，不建议专门抽出时间专门做重构项目。</p>
+<p>我认为，其思想就是指：<strong>重构应该是在开发过程中实时的、渐进的演化过程。</strong></p>
+</li>
+<li>
+<p><strong>重构的不恰当时机</strong></p>
+<p>但是，这里我也要强调一下：<strong>不是所有软件开发过程都一定要重构。</strong></p>
+<p>较能<strong>凸显重构价值的场景</strong>是：代码规模较大、生命周期还较长、承担了较多责任、有一个较大（且较不稳定，人员流动频繁）团队在其上工作的单一代码库。</p>
+<p>与之相反，有一些场景的重构价值就很小：</p>
+<ul>
+<li>代码库生命周期快要走到尾声，开发逐渐减少，以维护为主。</li>
+<li>代码库当前版本马上要发布了，这时重构无疑是给自己找麻烦。</li>
+<li>重构代价过于沉重：重构后功能的正确性、稳定性难以保障；技术过于超前，团队成员技术迁移难度太大。</li>
+</ul>
+</li>
+</ul>
+<h4 id="如何重构how"><a class="markdownIt-Anchor" href="#如何重构how"></a> 如何重构(How)</h4>
+<p>重构行为在我看来，也是可以分层级的。由高到低，越高层级难度越大：</p>
+<ul>
+<li>
+<p>服务、数据库<br />
+现代软件往往业务复杂、庞大。使用微服务、数据迁移来拆分业务，降低业务复杂度成为了主流。但是，这些技术的测试、部署复杂，技术难度很高。</p>
+</li>
+<li>
+<p>组件、模块、框架<br />
+组件、模块、框架的重构，主要是针对代码的设计问题。解决的是代码的整体结构问题。需要对框架、设计模式、分布式、并发等等有足够的了解。</p>
+</li>
+<li>
+<p>类、接口、函数、字段<br />
+《重构》一书提到了**“代码的坏味道”**以及相关的重构方法。这些都是对类、接口、函数、字段级别代码的重构手段。由于这一级别的重构方法较为简单，所以可操作性较强。具体细节可以阅读《代码的坏味道》篇章。</p>
+</li>
+</ul>
+<p>前两种层级的重构已经涉及到架构层面，影响较大，难度较高，如果功力不够不要轻易变动。由于这两个层级涉及领域较广，这里不做论述。</p>
+<p><u><strong><em>此处为分割线。下面是代码的坏味道系列。。。</em></strong></u></p>
+<h2 id="代码的坏味道"><a class="markdownIt-Anchor" href="#代码的坏味道"></a> 代码的坏味道</h2>
+<p>《重构:改善既有代码的设计》中介绍了 22 种代码的坏味道以及重构手法。这些坏味道可以进一步归类。我总觉得将事物分类有助于理解和记忆。所以本系列将坏味道按照特性分类，然后逐一讲解。</p>
+<div align="center"><img src="http://dunwu.test.upcdn.net/cs/design/refactor/code-smell.png"/></div>
+<h3 id="代码坏味道之代码臃肿"><a class="markdownIt-Anchor" href="#代码坏味道之代码臃肿"></a> 代码坏味道之代码臃肿</h3>
+<blockquote>
+<p><strong><a href="https://github.com/dunwu/blog/blob/master/source/_posts/design/refactor/%E4%BB%A3%E7%A0%81%E5%9D%8F%E5%91%B3%E9%81%93%E4%B9%8B%E4%BB%A3%E7%A0%81%E8%87%83%E8%82%BF.md" target="_blank" rel="noopener">代码臃肿(Bloated)</a>这组坏味道意味着：代码中的类、函数、字段没有经过合理的组织，只是简单的堆砌起来。这一类型的问题通常在代码的初期并不明显，但是随着代码规模的增长而逐渐积累（特别是当没有人努力去根除它们时）。</strong></p>
+</blockquote>
+<ul>
+<li><a href="https://github.com/dunwu/blog/blob/master/source/_posts/design/refactor/%E4%BB%A3%E7%A0%81%E5%9D%8F%E5%91%B3%E9%81%93%E4%B9%8B%E4%BB%A3%E7%A0%81%E8%87%83%E8%82%BF.md#%E8%BF%87%E9%95%BF%E5%87%BD%E6%95%B0" target="_blank" rel="noopener">过长函数</a></li>
+<li><a href="https://github.com/dunwu/blog/blob/master/source/_posts/design/refactor/%E4%BB%A3%E7%A0%81%E5%9D%8F%E5%91%B3%E9%81%93%E4%B9%8B%E4%BB%A3%E7%A0%81%E8%87%83%E8%82%BF.md#%E8%BF%87%E5%A4%A7%E7%9A%84%E7%B1%BB" target="_blank" rel="noopener">过大的类</a></li>
+<li><a href="https://github.com/dunwu/blog/blob/master/source/_posts/design/refactor/%E4%BB%A3%E7%A0%81%E5%9D%8F%E5%91%B3%E9%81%93%E4%B9%8B%E4%BB%A3%E7%A0%81%E8%87%83%E8%82%BF.md#%E5%9F%BA%E6%9C%AC%E7%B1%BB%E5%9E%8B%E5%81%8F%E6%89%A7" target="_blank" rel="noopener">基本类型偏执</a></li>
+<li><a href="https://github.com/dunwu/blog/blob/master/source/_posts/design/refactor/%E4%BB%A3%E7%A0%81%E5%9D%8F%E5%91%B3%E9%81%93%E4%B9%8B%E4%BB%A3%E7%A0%81%E8%87%83%E8%82%BF.md#%E8%BF%87%E9%95%BF%E5%8F%82%E6%95%B0%E5%88%97" target="_blank" rel="noopener">过长参数列</a></li>
+<li><a href="https://github.com/dunwu/blog/blob/master/source/_posts/design/refactor/%E4%BB%A3%E7%A0%81%E5%9D%8F%E5%91%B3%E9%81%93%E4%B9%8B%E4%BB%A3%E7%A0%81%E8%87%83%E8%82%BF.md#%E6%95%B0%E6%8D%AE%E6%B3%A5%E5%9B%A2" target="_blank" rel="noopener">数据泥团</a></li>
+</ul>
+<h3 id="代码坏味道之滥用面向对象"><a class="markdownIt-Anchor" href="#代码坏味道之滥用面向对象"></a> 代码坏味道之滥用面向对象</h3>
+<blockquote>
+<p><strong><a href="https://github.com/dunwu/blog/blob/master/source/_posts/design/refactor/%E4%BB%A3%E7%A0%81%E5%9D%8F%E5%91%B3%E9%81%93%E4%B9%8B%E6%BB%A5%E7%94%A8%E9%9D%A2%E5%90%91%E5%AF%B9%E8%B1%A1.md" target="_blank" rel="noopener">滥用面向对象(Object-Orientation Abusers)</a>这组坏味道意味着：代码部分或完全地违背了面向对象编程原则。</strong></p>
+</blockquote>
+<ul>
+<li><a href="https://github.com/dunwu/blog/blob/master/source/_posts/design/refactor/%E4%BB%A3%E7%A0%81%E5%9D%8F%E5%91%B3%E9%81%93%E4%B9%8B%E6%BB%A5%E7%94%A8%E9%9D%A2%E5%90%91%E5%AF%B9%E8%B1%A1.md#switch-%E5%A3%B0%E6%98%8E" target="_blank" rel="noopener">switch 声明</a></li>
+<li><a href="https://github.com/dunwu/blog/blob/master/source/_posts/design/refactor/%E4%BB%A3%E7%A0%81%E5%9D%8F%E5%91%B3%E9%81%93%E4%B9%8B%E6%BB%A5%E7%94%A8%E9%9D%A2%E5%90%91%E5%AF%B9%E8%B1%A1.md#%E4%B8%B4%E6%97%B6%E5%AD%97%E6%AE%B5" target="_blank" rel="noopener">临时字段</a></li>
+<li><a href="https://github.com/dunwu/blog/blob/master/source/_posts/design/refactor/%E4%BB%A3%E7%A0%81%E5%9D%8F%E5%91%B3%E9%81%93%E4%B9%8B%E6%BB%A5%E7%94%A8%E9%9D%A2%E5%90%91%E5%AF%B9%E8%B1%A1.md#%E8%A2%AB%E6%8B%92%E7%BB%9D%E7%9A%84%E9%A6%88%E8%B5%A0" target="_blank" rel="noopener">被拒绝的馈赠</a></li>
+<li><a href="https://github.com/dunwu/blog/blob/master/source/_posts/design/refactor/%E4%BB%A3%E7%A0%81%E5%9D%8F%E5%91%B3%E9%81%93%E4%B9%8B%E6%BB%A5%E7%94%A8%E9%9D%A2%E5%90%91%E5%AF%B9%E8%B1%A1.md#%E5%BC%82%E6%9B%B2%E5%90%8C%E5%B7%A5%E7%9A%84%E7%B1%BB" target="_blank" rel="noopener">异曲同工的类</a></li>
+</ul>
+<h3 id="代码坏味道之变革的障碍"><a class="markdownIt-Anchor" href="#代码坏味道之变革的障碍"></a> 代码坏味道之变革的障碍</h3>
+<blockquote>
+<p><strong><a href="https://github.com/dunwu/blog/blob/master/source/_posts/design/refactor/%E4%BB%A3%E7%A0%81%E5%9D%8F%E5%91%B3%E9%81%93%E4%B9%8B%E5%8F%98%E9%9D%A9%E7%9A%84%E9%9A%9C%E7%A2%8D.md" target="_blank" rel="noopener">变革的障碍(Change Preventers)</a>这组坏味道意味着：当你需要改变一处代码时，却发现不得不改变其他的地方。这使得程序开发变得复杂、代价高昂。</strong></p>
+</blockquote>
+<ul>
+<li><a href="https://github.com/dunwu/blog/blob/master/source/_posts/design/refactor/%E4%BB%A3%E7%A0%81%E5%9D%8F%E5%91%B3%E9%81%93%E4%B9%8B%E5%8F%98%E9%9D%A9%E7%9A%84%E9%9A%9C%E7%A2%8D.md#%E5%8F%91%E6%95%A3%E5%BC%8F%E5%8F%98%E5%8C%96" target="_blank" rel="noopener">发散式变化</a></li>
+<li><a href="https://github.com/dunwu/blog/blob/master/source/_posts/design/refactor/%E4%BB%A3%E7%A0%81%E5%9D%8F%E5%91%B3%E9%81%93%E4%B9%8B%E5%8F%98%E9%9D%A9%E7%9A%84%E9%9A%9C%E7%A2%8D.md#%E9%9C%B0%E5%BC%B9%E5%BC%8F%E4%BF%AE%E6%94%B9" target="_blank" rel="noopener">霰弹式修改</a></li>
+<li><a href="https://github.com/dunwu/blog/blob/master/source/_posts/design/refactor/%E4%BB%A3%E7%A0%81%E5%9D%8F%E5%91%B3%E9%81%93%E4%B9%8B%E5%8F%98%E9%9D%A9%E7%9A%84%E9%9A%9C%E7%A2%8D.md#%E5%B9%B3%E8%A1%8C%E7%BB%A7%E6%89%BF%E4%BD%93%E7%B3%BB" target="_blank" rel="noopener">平行继承体系</a></li>
+</ul>
+<h3 id="代码坏味道之非必要的"><a class="markdownIt-Anchor" href="#代码坏味道之非必要的"></a> 代码坏味道之非必要的</h3>
+<blockquote>
+<p><strong><a href="https://github.com/dunwu/blog/blob/master/source/_posts/design/refactor/%E4%BB%A3%E7%A0%81%E5%9D%8F%E5%91%B3%E9%81%93%E4%B9%8B%E9%9D%9E%E5%BF%85%E8%A6%81%E7%9A%84.md" target="_blank" rel="noopener">非必要的(Dispensables)</a>这组坏味道意味着：这样的代码可有可无，它的存在反而影响整体代码的整洁和可读性。</strong></p>
+</blockquote>
+<ul>
+<li><a href="https://github.com/dunwu/blog/blob/master/source/_posts/design/refactor/%E4%BB%A3%E7%A0%81%E5%9D%8F%E5%91%B3%E9%81%93%E4%B9%8B%E9%9D%9E%E5%BF%85%E8%A6%81%E7%9A%84.md#%E8%BF%87%E5%A4%9A%E7%9A%84%E6%B3%A8%E9%87%8A" target="_blank" rel="noopener">过多的注释</a></li>
+<li><a href="https://github.com/dunwu/blog/blob/master/source/_posts/design/refactor/%E4%BB%A3%E7%A0%81%E5%9D%8F%E5%91%B3%E9%81%93%E4%B9%8B%E9%9D%9E%E5%BF%85%E8%A6%81%E7%9A%84.md#%E9%87%8D%E5%A4%8D%E4%BB%A3%E7%A0%81" target="_blank" rel="noopener">重复代码</a></li>
+<li><a href="https://github.com/dunwu/blog/blob/master/source/_posts/design/refactor/%E4%BB%A3%E7%A0%81%E5%9D%8F%E5%91%B3%E9%81%93%E4%B9%8B%E9%9D%9E%E5%BF%85%E8%A6%81%E7%9A%84.md#%E5%86%97%E4%BD%99%E7%B1%BB" target="_blank" rel="noopener">冗余类</a></li>
+<li><a href="https://github.com/dunwu/blog/blob/master/source/_posts/design/refactor/%E4%BB%A3%E7%A0%81%E5%9D%8F%E5%91%B3%E9%81%93%E4%B9%8B%E9%9D%9E%E5%BF%85%E8%A6%81%E7%9A%84.md#%E7%BA%AF%E7%A8%9A%E7%9A%84%E6%95%B0%E6%8D%AE%E7%B1%BB" target="_blank" rel="noopener">纯稚的数据类</a></li>
+<li><a href="https://github.com/dunwu/blog/blob/master/source/_posts/design/refactor/%E4%BB%A3%E7%A0%81%E5%9D%8F%E5%91%B3%E9%81%93%E4%B9%8B%E9%9D%9E%E5%BF%85%E8%A6%81%E7%9A%84.md#%E5%A4%B8%E5%A4%B8%E5%85%B6%E8%B0%88%E6%9C%AA%E6%9D%A5%E6%80%A7" target="_blank" rel="noopener">夸夸其谈未来性</a></li>
+</ul>
+<h3 id="代码坏味道之耦合"><a class="markdownIt-Anchor" href="#代码坏味道之耦合"></a> 代码坏味道之耦合</h3>
+<blockquote>
+<p><strong><a href="https://github.com/dunwu/blog/blob/master/source/_posts/design/refactor/%E4%BB%A3%E7%A0%81%E5%9D%8F%E5%91%B3%E9%81%93%E4%B9%8B%E8%80%A6%E5%90%88.md" target="_blank" rel="noopener">耦合(Couplers)</a>这组坏味道意味着：不同类之间过度耦合。</strong></p>
+</blockquote>
+<ul>
+<li><a href="https://github.com/dunwu/blog/blob/master/source/_posts/design/refactor/%E4%BB%A3%E7%A0%81%E5%9D%8F%E5%91%B3%E9%81%93%E4%B9%8B%E8%80%A6%E5%90%88.md#%E4%BE%9D%E6%81%8B%E6%83%85%E7%BB%93" target="_blank" rel="noopener">依恋情结</a></li>
+<li><a href="https://github.com/dunwu/blog/blob/master/source/_posts/design/refactor/%E4%BB%A3%E7%A0%81%E5%9D%8F%E5%91%B3%E9%81%93%E4%B9%8B%E8%80%A6%E5%90%88.md#%E7%8B%8E%E6%98%B5%E5%85%B3%E7%B3%BB" target="_blank" rel="noopener">狎昵关系</a></li>
+<li><a href="https://github.com/dunwu/blog/blob/master/source/_posts/design/refactor/%E4%BB%A3%E7%A0%81%E5%9D%8F%E5%91%B3%E9%81%93%E4%B9%8B%E8%80%A6%E5%90%88.md#%E8%BF%87%E5%BA%A6%E8%80%A6%E5%90%88%E7%9A%84%E6%B6%88%E6%81%AF%E9%93%BE" target="_blank" rel="noopener">过度耦合的消息链</a></li>
+<li><a href="https://github.com/dunwu/blog/blob/master/source/_posts/design/refactor/%E4%BB%A3%E7%A0%81%E5%9D%8F%E5%91%B3%E9%81%93%E4%B9%8B%E8%80%A6%E5%90%88.md#%E4%B8%AD%E9%97%B4%E4%BA%BA" target="_blank" rel="noopener">中间人</a></li>
+<li><a href="https://github.com/dunwu/blog/blob/master/source/_posts/design/refactor/%E4%BB%A3%E7%A0%81%E5%9D%8F%E5%91%B3%E9%81%93%E4%B9%8B%E8%80%A6%E5%90%88.md#%E4%B8%8D%E5%AE%8C%E7%BE%8E%E7%9A%84%E5%BA%93%E7%B1%BB" target="_blank" rel="noopener">不完美的库类</a></li>
+</ul>
+<h2 id="扩展阅读"><a class="markdownIt-Anchor" href="#扩展阅读"></a> 扩展阅读</h2>
+<ul>
+<li><a href="https://github.com/dunwu/blog/blob/master/source/_posts/design/refactor/" target="_blank" rel="noopener">代码的坏味道和重构</a></li>
+<li><a href="https://github.com/dunwu/blog/blob/master/source/_posts/design/refactor/%E4%BB%A3%E7%A0%81%E5%9D%8F%E5%91%B3%E9%81%93%E4%B9%8B%E4%BB%A3%E7%A0%81%E8%87%83%E8%82%BF.md" target="_blank" rel="noopener">代码坏味道之代码臃肿</a></li>
+<li><a href="https://github.com/dunwu/blog/blob/master/source/_posts/design/refactor/%E4%BB%A3%E7%A0%81%E5%9D%8F%E5%91%B3%E9%81%93%E4%B9%8B%E6%BB%A5%E7%94%A8%E9%9D%A2%E5%90%91%E5%AF%B9%E8%B1%A1.md" target="_blank" rel="noopener">代码坏味道之滥用面向对象</a></li>
+<li><a href="https://github.com/dunwu/blog/blob/master/source/_posts/design/refactor/%E4%BB%A3%E7%A0%81%E5%9D%8F%E5%91%B3%E9%81%93%E4%B9%8B%E5%8F%98%E9%9D%A9%E7%9A%84%E9%9A%9C%E7%A2%8D.md" target="_blank" rel="noopener">代码坏味道之变革的障碍</a></li>
+<li><a href="https://github.com/dunwu/blog/blob/master/source/_posts/design/refactor/%E4%BB%A3%E7%A0%81%E5%9D%8F%E5%91%B3%E9%81%93%E4%B9%8B%E9%9D%9E%E5%BF%85%E8%A6%81%E7%9A%84.md" target="_blank" rel="noopener">代码坏味道之非必要的</a></li>
+<li><a href="https://github.com/dunwu/blog/blob/master/source/_posts/design/refactor/%E4%BB%A3%E7%A0%81%E5%9D%8F%E5%91%B3%E9%81%93%E4%B9%8B%E8%80%A6%E5%90%88.md" target="_blank" rel="noopener">代码坏味道之耦合</a></li>
+</ul>
+<h2 id="参考资料"><a class="markdownIt-Anchor" href="#参考资料"></a> 参考资料</h2>
+<ul>
+<li><a href="https://book.douban.com/subject/4262627/" target="_blank" rel="noopener">重构——改善既有代码的设计</a> - by Martin Fowler</li>
+<li><a href="https://sourcemaking.com/refactoring" target="_blank" rel="noopener">https://sourcemaking.com/refactoring</a></li>
+</ul>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+        
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://dunwu.github.io/blog/blog/design/refactor/%E4%BB%A3%E7%A0%81%E5%9D%8F%E5%91%B3%E9%81%93%E4%B9%8B%E8%80%A6%E5%90%88/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/blog/images/avatar.gif">
+      <meta itemprop="name" content="Zhang Peng">
+      <meta itemprop="description" content="Dunwu's Blog">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Dunwu">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/blog/design/refactor/%E4%BB%A3%E7%A0%81%E5%9D%8F%E5%91%B3%E9%81%93%E4%B9%8B%E8%80%A6%E5%90%88/" class="post-title-link" itemprop="url">代码坏味道之耦合</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2018-10-13 22:48:00" itemprop="dateCreated datePublished" datetime="2018-10-13T22:48:00+08:00">2018-10-13</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2020-02-01 22:41:38" itemprop="dateModified" datetime="2020-02-01T22:41:38+08:00">2020-02-01</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/blog/categories/%E8%AE%BE%E8%AE%A1/" itemprop="url" rel="index">
+                    <span itemprop="name">设计</span>
+                  </a>
+                </span>
+                  ，
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/blog/categories/%E8%AE%BE%E8%AE%A1/%E9%87%8D%E6%9E%84/" itemprop="url" rel="index">
+                    <span itemprop="name">重构</span>
+                  </a>
+                </span>
+            </span>
+
+          
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="fa fa-comment-o"></i>
+      </span>
+      <span class="post-meta-item-text">Disqus：</span>
+    
+    <a title="disqus" href="/blog/design/refactor/%E4%BB%A3%E7%A0%81%E5%9D%8F%E5%91%B3%E9%81%93%E4%B9%8B%E8%80%A6%E5%90%88/#comments" itemprop="discussionUrl">
+      <span class="post-comments-count disqus-comment-count" data-disqus-identifier="design/refactor/代码坏味道之耦合/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  <br>
+            <span class="post-meta-item" title="本文字数">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-file-word-o"></i>
+              </span>
+                <span class="post-meta-item-text">本文字数：</span>
+              <span>4.6k</span>
+            </span>
+            <span class="post-meta-item" title="阅读时长">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-clock-o"></i>
+              </span>
+                <span class="post-meta-item-text">阅读时长 &asymp;</span>
+              <span>4 分钟</span>
+            </span>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <blockquote>
+<p>📦 本文已归档到：「<a href="https://github.com/dunwu/blog" target="_blank" rel="noopener">blog</a>」</p>
+<p>翻译自：<a href="https://sourcemaking.com/refactoring/smells/couplers" target="_blank" rel="noopener">https://sourcemaking.com/refactoring/smells/couplers</a></p>
+<p><strong>耦合(Couplers)这组坏味道意味着：不同类之间过度耦合。</strong></p>
+</blockquote>
+<h2 id="不完美的库类"><a class="markdownIt-Anchor" href="#不完美的库类"></a> 不完美的库类</h2>
+<blockquote>
+<p>不完美的库类(Incomplete Library Class)</p>
+<p>当一个类库已经不能满足实际需要时，你就不得不改变这个库（如果这个库是只读的，那就没辙了）。</p>
+</blockquote>
+<h3 id="问题原因"><a class="markdownIt-Anchor" href="#问题原因"></a> 问题原因</h3>
+<p>许多编程技术都建立在库类的基础上。库类的作者没用未卜先知的能力，不能因此责怪他们。麻烦的是库往往构造的不够好，而且往往不可能让我们修改其中的类以满足我们的需要。</p>
+<h3 id="解决方法"><a class="markdownIt-Anchor" href="#解决方法"></a> 解决方法</h3>
+<ul>
+<li>如果你只想修改类库的一两个函数，可以运用 <code>引入外加函数(Introduce Foreign Method)</code>；</li>
+<li>如果想要添加一大堆额外行为，就得运用 <code>引入本地扩展(Introduce Local Extension)</code> 。</li>
+</ul>
+<h3 id="收益"><a class="markdownIt-Anchor" href="#收益"></a> 收益</h3>
+<ul>
+<li>减少代码重复（你不用一言不合就自己动手实现一个库的全部功能，代价太高）</li>
+</ul>
+<h3 id="何时忽略"><a class="markdownIt-Anchor" href="#何时忽略"></a> 何时忽略</h3>
+<ul>
+<li>如果扩展库会带来额外的工作量。</li>
+</ul>
+<h3 id="重构方法说明"><a class="markdownIt-Anchor" href="#重构方法说明"></a> 重构方法说明</h3>
+<h4 id="引入外加函数introduce-foreign-method"><a class="markdownIt-Anchor" href="#引入外加函数introduce-foreign-method"></a> 引入外加函数(Introduce Foreign Method)</h4>
+<p><strong>问题</strong></p>
+<p>你需要为提供服务的类增加一个函数，但你无法修改这个类。</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Report</span> </span>&#123;</span><br><span class="line">  <span class="comment">//...</span></span><br><span class="line">  <span class="function"><span class="keyword">void</span> <span class="title">sendReport</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    Date nextDay = <span class="keyword">new</span> Date(previousEnd.getYear(),</span><br><span class="line">      previousEnd.getMonth(), previousEnd.getDate() + <span class="number">1</span>);</span><br><span class="line">    <span class="comment">//...</span></span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p><strong>解决</strong></p>
+<p>在客户类中建立一个函数，并一个第一个参数形式传入一个服务类实例。</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Report</span> </span>&#123;</span><br><span class="line">  <span class="comment">//...</span></span><br><span class="line">  <span class="function"><span class="keyword">void</span> <span class="title">sendReport</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    Date newStart = nextDay(previousEnd);</span><br><span class="line">    <span class="comment">//...</span></span><br><span class="line">  &#125;</span><br><span class="line">  <span class="function"><span class="keyword">private</span> <span class="keyword">static</span> Date <span class="title">nextDay</span><span class="params">(Date arg)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="keyword">new</span> Date(arg.getYear(), arg.getMonth(), arg.getDate() + <span class="number">1</span>);</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h4 id="引入本地扩展introduce-local-extension"><a class="markdownIt-Anchor" href="#引入本地扩展introduce-local-extension"></a> 引入本地扩展(Introduce Local Extension)</h4>
+<p><strong>问题</strong></p>
+<p>你需要为服务类提供一些额外函数，但你无法修改这个类。</p>
+<div align="center"><img src="http://dunwu.test.upcdn.net/cs/design/refactor/introduce-local-extension-before.png"/></div>
+<p><strong>解决</strong></p>
+<p>建立一个新类，使它包含这些额外函数，让这个扩展品成为源类的子类或包装类。</p>
+<div align="center"><img src="http://dunwu.test.upcdn.net/cs/design/refactor/introduce-local-extension-after.png"/></div>
+<h2 id="中间人"><a class="markdownIt-Anchor" href="#中间人"></a> 中间人</h2>
+<blockquote>
+<p>中间人(Middle Man)</p>
+<p>如果一个类的作用仅仅是指向另一个类的委托，为什么要存在呢？</p>
+</blockquote>
+<div align="center"><img src="http://dunwu.test.upcdn.net/cs/design/refactor/middle-man-1.png"/></div>
+<h3 id="问题原因-2"><a class="markdownIt-Anchor" href="#问题原因-2"></a> 问题原因</h3>
+<p>对象的基本特征之一就是封装：对外部世界隐藏其内部细节。封装往往伴随委托。但是人们可能过度运用委托。比如，你也许会看到一个类的大部分有用工作都委托给了其他类，类本身成了一个空壳，除了委托之外不做任何事情。</p>
+<h3 id="解决方法-2"><a class="markdownIt-Anchor" href="#解决方法-2"></a> 解决方法</h3>
+<p>应该运用 <code>移除中间人(Remove Middle Man)</code>，直接和真正负责的对象打交道。</p>
+<h3 id="收益-2"><a class="markdownIt-Anchor" href="#收益-2"></a> 收益</h3>
+<ul>
+<li>减少笨重的代码。</li>
+</ul>
+<div align="center"><img src="http://dunwu.test.upcdn.net/cs/design/refactor/middle-man-2.png"/></div>
+<h3 id="何时忽略-2"><a class="markdownIt-Anchor" href="#何时忽略-2"></a> 何时忽略</h3>
+<p>如果是以下情况，不要删除已创建的中间人：</p>
+<ul>
+<li>添加中间人是为了避免类之间依赖关系。</li>
+<li>一些设计模式有目的地创建中间人（例如代理模式和装饰器模式）。</li>
+</ul>
+<h3 id="重构方法说明-2"><a class="markdownIt-Anchor" href="#重构方法说明-2"></a> 重构方法说明</h3>
+<h4 id="移除中间人remove-middle-man"><a class="markdownIt-Anchor" href="#移除中间人remove-middle-man"></a> 移除中间人(Remove Middle Man)</h4>
+<p><strong>问题</strong></p>
+<p>某个类做了过多的简单委托动作。</p>
+<div align="center"><img src="http://dunwu.test.upcdn.net/cs/design/refactor/remove-middle-man-before.png"/></div>
+<p><strong>解决</strong></p>
+<p>让客户直接调用委托类。</p>
+<div align="center"><img src="http://dunwu.test.upcdn.net/cs/design/refactor/remove-middle-man-after.png"/></div>
+<h2 id="依恋情结"><a class="markdownIt-Anchor" href="#依恋情结"></a> 依恋情结</h2>
+<blockquote>
+<p>依恋情结(Feature Envy)</p>
+<p>一个函数访问其它对象的数据比访问自己的数据更多。</p>
+</blockquote>
+<div align="center"><img src="http://dunwu.test.upcdn.net/cs/design/refactor/feature-envy-1.png"/></div>
+<h3 id="问题原因-3"><a class="markdownIt-Anchor" href="#问题原因-3"></a> 问题原因</h3>
+<p>这种气味可能发生在字段移动到数据类之后。如果是这种情况，你可能想将数据类的操作移动到这个类中。</p>
+<h3 id="解决方法-3"><a class="markdownIt-Anchor" href="#解决方法-3"></a> 解决方法</h3>
+<p>As a basic rule, if things change at the same time, you should keep them in the same place. Usually data and functions that use this data are changed together (although exceptions are possible).</p>
+<p>有一个基本原则：同时会发生改变的事情应该被放在同一个地方。通常，数据和使用这些数据的函数是一起改变的。</p>
+<div align="center"><img src="http://dunwu.test.upcdn.net/cs/design/refactor/feature-envy-2.png"/></div>
+<ul>
+<li>如果一个函数明显应该被移到另一个地方，可运用 <code>搬移函数(Move Method)</code> 。</li>
+<li>如果仅仅是函数的部分代码访问另一个对象的数据，运用 <code>提炼函数(Extract Method)</code> 将这部分代码移到独立的函数中。</li>
+<li>如果一个方法使用来自其他几个类的函数，首先确定哪个类包含大多数使用的数据。然后，将该方法与其他数据一起放在此类中。或者，使用 <code>提炼函数(Extract Method)</code> 将方法拆分为几个部分，可以放置在不同类中的不同位置。</li>
+</ul>
+<h3 id="收益-3"><a class="markdownIt-Anchor" href="#收益-3"></a> 收益</h3>
+<ul>
+<li>减少重复代码（如果数据处理的代码放在中心位置）。</li>
+<li>更好的代码组织性（处理数据的函数靠近实际数据）。</li>
+</ul>
+<div align="center"><img src="http://dunwu.test.upcdn.net/cs/design/refactor/feature-envy-3.png"/></div>
+<h3 id="何时忽略-3"><a class="markdownIt-Anchor" href="#何时忽略-3"></a> 何时忽略</h3>
+<ul>
+<li>有时，行为被有意地与保存数据的类分开。这通常的优点是能够动态地改变行为（见策略设计模式，访问者设计模式和其他模式）。</li>
+</ul>
+<h3 id="重构方法说明-3"><a class="markdownIt-Anchor" href="#重构方法说明-3"></a> 重构方法说明</h3>
+<h4 id="搬移函数move-method"><a class="markdownIt-Anchor" href="#搬移函数move-method"></a> 搬移函数(Move Method)</h4>
+<p><strong>问题</strong></p>
+<p>你的程序中，有个函数与其所驻类之外的另一个类进行更多交流：调用后者，或被后者调用。</p>
+<div align="center"><img src="http://dunwu.test.upcdn.net/cs/design/refactor/move-method-before.png"/></div>
+<p><strong>解决</strong></p>
+<p>在该函数最常引用的类中建立一个有着类似行为的新函数。将旧函数变成一个单纯的委托函数，或是旧函数完全移除。</p>
+<div align="center"><img src="http://dunwu.test.upcdn.net/cs/design/refactor/move-method-after.png"/></div>
+<h4 id="提炼函数extract-method"><a class="markdownIt-Anchor" href="#提炼函数extract-method"></a> 提炼函数(Extract Method)</h4>
+<p><strong>问题</strong></p>
+<p>你有一段代码可以组织在一起。</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">printOwing</span><span class="params">()</span> </span>&#123;</span><br><span class="line">  printBanner();</span><br><span class="line"></span><br><span class="line">  <span class="comment">//print details</span></span><br><span class="line">  System.out.println(<span class="string">"name: "</span> + name);</span><br><span class="line">  System.out.println(<span class="string">"amount: "</span> + getOutstanding());</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p><strong>解决</strong></p>
+<p>移动这段代码到一个新的函数中，使用函数的调用来替代老代码。</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">printOwing</span><span class="params">()</span> </span>&#123;</span><br><span class="line">  printBanner();</span><br><span class="line">  printDetails(getOutstanding());</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">printDetails</span><span class="params">(<span class="keyword">double</span> outstanding)</span> </span>&#123;</span><br><span class="line">  System.out.println(<span class="string">"name: "</span> + name);</span><br><span class="line">  System.out.println(<span class="string">"amount: "</span> + outstanding);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="狎昵关系"><a class="markdownIt-Anchor" href="#狎昵关系"></a> 狎昵关系</h2>
+<blockquote>
+<p>狎昵关系(Inappropriate Intimacy)</p>
+<p>一个类大量使用另一个类的内部字段和方法。</p>
+</blockquote>
+<div align="center"><img src="http://dunwu.test.upcdn.net/cs/design/refactor/inappropriate-intimacy-1.png"/></div>
+<h3 id="问题原因-4"><a class="markdownIt-Anchor" href="#问题原因-4"></a> 问题原因</h3>
+<p>类和类之间应该尽量少的感知彼此（减少耦合）。这样的类更容易维护和复用。</p>
+<h3 id="解决方法-4"><a class="markdownIt-Anchor" href="#解决方法-4"></a> 解决方法</h3>
+<ul>
+<li>最简单的解决方法是运用 <code>搬移函数(Move Method)</code> 和 <code>搬移字段(Move Field)</code> 来让类之间斩断羁绊。</li>
+</ul>
+<div align="center"><img src="http://dunwu.test.upcdn.net/cs/design/refactor/inappropriate-intimacy-2.png"/></div>
+<ul>
+<li>
+<p>你也可以看看是否能运用 <code>将双向关联改为单向关联(Change Bidirectional Association to Unidirectional)</code> 让其中一个类对另一个说分手。</p>
+</li>
+<li>
+<p>如果这两个类实在是情比金坚，难分难舍，可以运用 <code>提炼类(Extract Class)</code> 把二者共同点提炼到一个新类中，让它们产生爱的结晶。或者，可以尝试运用 <code>隐藏委托关系(Hide Delegate)</code> 让另一个类来为它们牵线搭桥。</p>
+</li>
+<li>
+<p>继承往往造成类之间过分紧密，因为子类对超类的了解总是超过后者的主观愿望，如果你觉得该让这个子类自己闯荡，请运用 <code>以委托取代继承(Replace Inheritance with Delegation)</code> 来让超类和子类分家。</p>
+</li>
+</ul>
+<h3 id="收益-4"><a class="markdownIt-Anchor" href="#收益-4"></a> 收益</h3>
+<ul>
+<li>提高代码组织性。</li>
+<li>提高代码复用性。</li>
+</ul>
+<div align="center"><img src="http://dunwu.test.upcdn.net/cs/design/refactor/inappropriate-intimacy-3.png"/></div>
+<h3 id="重构方法说明-4"><a class="markdownIt-Anchor" href="#重构方法说明-4"></a> 重构方法说明</h3>
+<h4 id="搬移函数move-method-2"><a class="markdownIt-Anchor" href="#搬移函数move-method-2"></a> 搬移函数(Move Method)</h4>
+<p><strong>问题</strong></p>
+<p>你的程序中，有个函数与其所驻类之外的另一个类进行更多交流：调用后者，或被后者调用。</p>
+<div align="center"><img src="http://dunwu.test.upcdn.net/cs/design/refactor/move-method-before.png"/></div>
+<p><strong>解决</strong></p>
+<p>在该函数最常引用的类中建立一个有着类似行为的新函数。将旧函数变成一个单纯的委托函数，或是旧函数完全移除。</p>
+<div align="center"><img src="http://dunwu.test.upcdn.net/cs/design/refactor/move-method-after.png"/></div>
+<h4 id="搬移字段move-field"><a class="markdownIt-Anchor" href="#搬移字段move-field"></a> 搬移字段(Move Field)</h4>
+<p><strong>问题</strong></p>
+<p>在你的程序中，某个字段被其所驻类之外的另一个类更多地用到。</p>
+<div align="center"><img src="http://dunwu.test.upcdn.net/cs/design/refactor/move-field-before.png"/></div>
+<p><strong>解决</strong></p>
+<p>在目标类新建一个字段，修改源字段的所有用户，令他们改用新字段。</p>
+<div align="center"><img src="http://dunwu.test.upcdn.net/cs/design/refactor/move-field-after.png"/></div>
+<h4 id="将双向关联改为单向关联change-bidirectional-association-to-unidirectional"><a class="markdownIt-Anchor" href="#将双向关联改为单向关联change-bidirectional-association-to-unidirectional"></a> 将双向关联改为单向关联(Change Bidirectional Association to Unidirectional)</h4>
+<p><strong>问题</strong></p>
+<p>两个类之间有双向关联，但其中一个类如今不再需要另一个类的特性。</p>
+<div align="center"><img src="http://dunwu.test.upcdn.net/cs/design/refactor/change-bidirectional-association-to-unidirectional-before.png"/></div>
+<p><strong>解决</strong></p>
+<p>去除不必要的关联。</p>
+<div align="center"><img src="http://dunwu.test.upcdn.net/cs/design/refactor/change-bidirectional-association-to-unidirectional-after.png"/></div>
+<h4 id="提炼类extract-class"><a class="markdownIt-Anchor" href="#提炼类extract-class"></a> 提炼类(Extract Class)</h4>
+<p><strong>问题</strong></p>
+<p>某个类做了不止一件事。</p>
+<div align="center"><img src="http://dunwu.test.upcdn.net/cs/design/refactor/extract-class-before.png"/></div>
+<p><strong>解决</strong></p>
+<p>建立一个新类，将相关的字段和函数从旧类搬移到新类。</p>
+<div align="center"><img src="http://dunwu.test.upcdn.net/cs/design/refactor/extract-class-after.png"/></div>
+<h4 id="隐藏委托关系hide-delegate"><a class="markdownIt-Anchor" href="#隐藏委托关系hide-delegate"></a> 隐藏委托关系(Hide Delegate)</h4>
+<p><strong>问题</strong></p>
+<p>客户通过一个委托类来调用另一个对象。</p>
+<div align="center"><img src="http://dunwu.test.upcdn.net/cs/design/refactor/hide-delegate-before.png"/></div>
+<p><strong>解决</strong></p>
+<p>在服务类上建立客户所需的所有函数，用以隐藏委托关系。</p>
+<div align="center"><img src="http://dunwu.test.upcdn.net/cs/design/refactor/hide-delegate-after.png"/></div>
+<h4 id="以委托取代继承replace-inheritance-with-delegation"><a class="markdownIt-Anchor" href="#以委托取代继承replace-inheritance-with-delegation"></a> 以委托取代继承(Replace Inheritance with Delegation)</h4>
+<p><strong>问题</strong></p>
+<p>某个子类只使用超类接口中的一部分，或是根本不需要继承而来的数据。</p>
+<div align="center"><img src="http://dunwu.test.upcdn.net/cs/design/refactor/replace-delegation-with-inheritance-before.png"/></div>
+<p><strong>解决</strong></p>
+<p>在子类中新建一个字段用以保存超类；调整子类函数，令它改而委托超类；然后去掉两者之间的继承关系。</p>
+<div align="center"><img src="http://dunwu.test.upcdn.net/cs/design/refactor/replace-delegation-with-inheritance-after.png"/></div>
+<h2 id="过度耦合的消息链"><a class="markdownIt-Anchor" href="#过度耦合的消息链"></a> 过度耦合的消息链</h2>
+<blockquote>
+<p>过度耦合的消息链(Message Chains)</p>
+<p>消息链的形式类似于：<code>obj.getA().getB().getC()</code>。</p>
+</blockquote>
+<div align="center"><img src="http://dunwu.test.upcdn.net/cs/design/refactor/message-chains-1.png"/></div>
+<h3 id="问题原因-5"><a class="markdownIt-Anchor" href="#问题原因-5"></a> 问题原因</h3>
+<p>如果你看到用户向一个对象请求另一个对象，然后再向后者请求另一个对象，然后再请求另一个对象……这就是消息链。实际代码中你看到的可能是一长串 getThis()或一长串临时变量。采取这种方式，意味客户代码将与查找过程中的导航紧密耦合。一旦对象间关系发生任何变化，客户端就不得不做出相应的修改。</p>
+<h3 id="解决方法-5"><a class="markdownIt-Anchor" href="#解决方法-5"></a> 解决方法</h3>
+<ul>
+<li>可以运用 <code>隐藏委托关系(Hide Delegate)</code> 删除一个消息链。</li>
+</ul>
+<div align="center"><img src="http://dunwu.test.upcdn.net/cs/design/refactor/message-chains-2.png"/></div>
+<ul>
+<li>有时更好的选择是：先观察消息链最终得到的对象是用来干什么的。看看能否以 <code>提炼函数(Extract Method)</code>把使用该对象的代码提炼到一个独立函数中，再运用 <code>搬移函数(Move Method)</code> 把这个函数推入消息链。</li>
+</ul>
+<h3 id="收益-5"><a class="markdownIt-Anchor" href="#收益-5"></a> 收益</h3>
+<ul>
+<li>能减少链中类之间的依赖。</li>
+<li>能减少代码量。</li>
+</ul>
+<div align="center"><img src="http://dunwu.test.upcdn.net/cs/design/refactor/message-chains-3.png"/></div>
+<h3 id="何时忽略-4"><a class="markdownIt-Anchor" href="#何时忽略-4"></a> 何时忽略</h3>
+<ul>
+<li>过于侵略性的委托可能会使程序员难以理解功能是如何触发的。</li>
+</ul>
+<h3 id="重构方法说明-5"><a class="markdownIt-Anchor" href="#重构方法说明-5"></a> 重构方法说明</h3>
+<h4 id="隐藏委托关系hide-delegate-2"><a class="markdownIt-Anchor" href="#隐藏委托关系hide-delegate-2"></a> 隐藏委托关系(Hide Delegate)</h4>
+<p><strong>问题</strong></p>
+<p>客户通过一个委托类来调用另一个对象。</p>
+<div align="center"><img src="http://dunwu.test.upcdn.net/cs/design/refactor/hide-delegate-before.png"/></div>
+<p><strong>解决</strong></p>
+<p>在服务类上建立客户所需的所有函数，用以隐藏委托关系。</p>
+<div align="center"><img src="http://dunwu.test.upcdn.net/cs/design/refactor/hide-delegate-after.png"/></div>
+<h4 id="提炼函数extract-method-2"><a class="markdownIt-Anchor" href="#提炼函数extract-method-2"></a> 提炼函数(Extract Method)</h4>
+<p><strong>问题</strong></p>
+<p>你有一段代码可以组织在一起。</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">printOwing</span><span class="params">()</span> </span>&#123;</span><br><span class="line">  printBanner();</span><br><span class="line"></span><br><span class="line">  <span class="comment">//print details</span></span><br><span class="line">  System.out.println(<span class="string">"name: "</span> + name);</span><br><span class="line">  System.out.println(<span class="string">"amount: "</span> + getOutstanding());</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p><strong>解决</strong></p>
+<p>移动这段代码到一个新的函数中，使用函数的调用来替代老代码。</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">printOwing</span><span class="params">()</span> </span>&#123;</span><br><span class="line">  printBanner();</span><br><span class="line">  printDetails(getOutstanding());</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">printDetails</span><span class="params">(<span class="keyword">double</span> outstanding)</span> </span>&#123;</span><br><span class="line">  System.out.println(<span class="string">"name: "</span> + name);</span><br><span class="line">  System.out.println(<span class="string">"amount: "</span> + outstanding);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h4 id="搬移函数move-method-3"><a class="markdownIt-Anchor" href="#搬移函数move-method-3"></a> 搬移函数(Move Method)</h4>
+<p><strong>问题</strong></p>
+<p>你的程序中，有个函数与其所驻类之外的另一个类进行更多交流：调用后者，或被后者调用。</p>
+<div align="center"><img src="http://dunwu.test.upcdn.net/cs/design/refactor/move-method-before.png"/></div>
+<p><strong>解决</strong></p>
+<p>在该函数最常引用的类中建立一个有着类似行为的新函数。将旧函数变成一个单纯的委托函数，或是旧函数完全移除。</p>
+<div align="center"><img src="http://dunwu.test.upcdn.net/cs/design/refactor/move-method-after.png"/></div>
 <h2 id="扩展阅读"><a class="markdownIt-Anchor" href="#扩展阅读"></a> 扩展阅读</h2>
 <ul>
 <li><a href="https://github.com/dunwu/blog/blob/master/source/_posts/design/refactor/" target="_blank" rel="noopener">代码的坏味道和重构</a></li>
@@ -2672,278 +2672,6 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="https://dunwu.github.io/blog/blog/bigdata/YARN/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/blog/images/avatar.gif">
-      <meta itemprop="name" content="Zhang Peng">
-      <meta itemprop="description" content="Dunwu's Blog">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Dunwu">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/blog/bigdata/YARN/" class="post-title-link" itemprop="url">YARN</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-
-              <time title="创建时间：2018-09-03 00:00:00" itemprop="dateCreated datePublished" datetime="2018-09-03T00:00:00+08:00">2018-09-03</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-calendar-check-o"></i>
-                </span>
-                <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2019-05-08 18:07:49" itemprop="dateModified" datetime="2019-05-08T18:07:49+08:00">2019-05-08</time>
-              </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/blog/categories/bigdata/" itemprop="url" rel="index">
-                    <span itemprop="name">bigdata</span>
-                  </a>
-                </span>
-            </span>
-
-          
-  
-  <span class="post-meta-item">
-    
-      <span class="post-meta-item-icon">
-        <i class="fa fa-comment-o"></i>
-      </span>
-      <span class="post-meta-item-text">Disqus：</span>
-    
-    <a title="disqus" href="/blog/bigdata/YARN/#comments" itemprop="discussionUrl">
-      <span class="post-comments-count disqus-comment-count" data-disqus-identifier="bigdata/YARN/" itemprop="commentCount"></span>
-    </a>
-  </span>
-  
-  <br>
-            <span class="post-meta-item" title="本文字数">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-file-word-o"></i>
-              </span>
-                <span class="post-meta-item-text">本文字数：</span>
-              <span>2k</span>
-            </span>
-            <span class="post-meta-item" title="阅读时长">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-clock-o"></i>
-              </span>
-                <span class="post-meta-item-text">阅读时长 &asymp;</span>
-              <span>2 分钟</span>
-            </span>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h1 id="yarn"><a class="markdownIt-Anchor" href="#yarn"></a> YARN</h1>
-<blockquote>
-<p>YARN 的目标是解决 MapReduce 的缺陷。</p>
-</blockquote>
-<!-- TOC depthFrom:2 depthTo:3 -->
-<ul>
-<li><a href="#mapreduce-%E7%9A%84%E7%BC%BA%E9%99%B7hadoop-1x">MapReduce 的缺陷（Hadoop 1.x）</a></li>
-<li><a href="#yarn-%E7%AE%80%E4%BB%8B">YARN 简介</a></li>
-<li><a href="#yarn-%E7%B3%BB%E7%BB%9F%E6%9E%B6%E6%9E%84">YARN 系统架构</a>
-<ul>
-<li><a href="#resourcemanagerrm">ResourceManager（RM）</a></li>
-<li><a href="#nodemanagernm">NodeManager（NM）</a></li>
-<li><a href="#applicationmasteram">ApplicationMaster（AM）</a></li>
-<li><a href="#container">Container</a></li>
-</ul>
-</li>
-<li><a href="#yarn-%E9%AB%98%E5%8F%AF%E7%94%A8">YARN 高可用</a></li>
-<li><a href="#yarn-%E8%B5%84%E6%BA%90%E8%B0%83%E5%BA%A6%E7%AD%96%E7%95%A5">YARN 资源调度策略</a>
-<ul>
-<li><a href="#fifo-scheduler%E5%85%88%E8%BF%9B%E5%85%88%E5%87%BA%E8%B0%83%E5%BA%A6%E5%99%A8">FIFO Scheduler（先进先出调度器）</a></li>
-<li><a href="#capacity-scheduler%E5%AE%B9%E9%87%8F%E8%B0%83%E5%BA%A6%E5%99%A8">Capacity Scheduler（容量调度器）</a></li>
-<li><a href="#fair-scheduler%E5%85%AC%E5%B9%B3%E8%B0%83%E5%BA%A6%E5%99%A8">Fair Scheduler（公平调度器）</a></li>
-</ul>
-</li>
-<li><a href="#%E8%B5%84%E6%BA%90">资源</a></li>
-</ul>
-<!-- /TOC -->
-<h2 id="mapreduce-的缺陷hadoop-1x"><a class="markdownIt-Anchor" href="#mapreduce-的缺陷hadoop-1x"></a> MapReduce 的缺陷（Hadoop 1.x）</h2>
-<ul>
-<li>身兼两职：计算框架 + 资源管理框架</li>
-<li>JobTracker
-<ul>
-<li>既做资源管理，又做任务调度</li>
-<li>任务太重，开销过大</li>
-<li>存在单点故障</li>
-</ul>
-</li>
-<li>资源描述模型过于简单，资源利用率较低
-<ul>
-<li>仅把 Task 数量看作资源，没有考虑 CPU 和内存</li>
-<li>强制把资源分成 Map Task Slot 和 Reduce Task Slot</li>
-</ul>
-</li>
-<li>扩展性较差，集群规模上限 4K</li>
-<li>源码难于理解，升级维护困难</li>
-</ul>
-<h2 id="yarn-简介"><a class="markdownIt-Anchor" href="#yarn-简介"></a> YARN 简介</h2>
-<p>YARN(Yet Another Resource Negotiator，另一种资源管理器)是一个<strong>分布式通用资源管理系统</strong>。</p>
-<p>设计目标：聚焦资源管理、通用（适用各种计算框架）、高可用、高扩展。</p>
-<h2 id="yarn-系统架构"><a class="markdownIt-Anchor" href="#yarn-系统架构"></a> YARN 系统架构</h2>
-<ul>
-<li>主从结构（master/slave）</li>
-<li>将 JobTracker 的资源管理、任务调度功能分离</li>
-<li>三种角色：
-<ul>
-<li>ResourceManager（Master） - 集群资源的统一管理和分配</li>
-<li>NodeManager（Slave） - 管理节点资源，以及容器的生命周期</li>
-<li>ApplicationMaster（新角色） - 管理应用程序实例，包括任务调度和资源申请</li>
-</ul>
-</li>
-</ul>
-<h3 id="resourcemanagerrm"><a class="markdownIt-Anchor" href="#resourcemanagerrm"></a> ResourceManager（RM）</h3>
-<p><strong>主要功能</strong></p>
-<ul>
-<li>统一管理集群的所有资源</li>
-<li>将资源按照一定策略分配给各个应用（ApplicationMaster）</li>
-<li>接收 NodeManager 的资源上报信息</li>
-</ul>
-<p><strong>核心组件</strong></p>
-<ul>
-<li>用户交互服务（User Service）</li>
-<li>NodeManager 管理</li>
-<li>ApplicationMaster 管理</li>
-<li>Application 管理</li>
-<li>安全管理</li>
-<li>资源管理</li>
-</ul>
-<h3 id="nodemanagernm"><a class="markdownIt-Anchor" href="#nodemanagernm"></a> NodeManager（NM）</h3>
-<p><strong>主要功能</strong></p>
-<ul>
-<li>管理单个节点的资源</li>
-<li>向 ResourceManager 汇报节点资源使用情况</li>
-<li>管理 Container 的生命周期</li>
-</ul>
-<p><strong>核心组件</strong></p>
-<ul>
-<li>NodeStatusUpdater</li>
-<li>ContainerManager</li>
-<li>ContainerExecutor</li>
-<li>NodeHealthCheckerService</li>
-<li>Security</li>
-<li>WebServer</li>
-</ul>
-<h3 id="applicationmasteram"><a class="markdownIt-Anchor" href="#applicationmasteram"></a> ApplicationMaster（AM）</h3>
-<p><strong>主要功能</strong></p>
-<ul>
-<li>管理应用程序实例</li>
-<li>向 ResourceManager 申请任务执行所需的资源</li>
-<li>任务调度和监管</li>
-</ul>
-<p><strong>实现方式</strong></p>
-<ul>
-<li>需要为每个应用开发一个 AM 组件</li>
-<li>YARN 提供 MapReduce 的 ApplicationMaster 实现</li>
-<li>采用基于事件驱动的异步编程模型，由中央事件调度器统一管理所有事件</li>
-<li>每种组件都是一种事件处理器，在中央事件调度器中注册</li>
-</ul>
-<h3 id="container"><a class="markdownIt-Anchor" href="#container"></a> Container</h3>
-<ul>
-<li>概念：Container 封装了节点上进程的相关资源，是 YARN 中资源的抽象</li>
-<li>分类：运行 ApplicationMaster 的 Container 、运行应用任务的 Container</li>
-</ul>
-<h2 id="yarn-高可用"><a class="markdownIt-Anchor" href="#yarn-高可用"></a> YARN 高可用</h2>
-<p>ResourceManager 高可用</p>
-<ul>
-<li>1 个 Active RM、多个 Standby RM</li>
-<li>宕机后自动实现主备切换</li>
-<li>ZooKeeper 的核心作用
-<ul>
-<li>Active 节点选举</li>
-<li>恢复 Active RM 的原有状态信息</li>
-</ul>
-</li>
-<li>重启 AM，杀死所有运行中的 Container</li>
-<li>切换方式：手动、自动</li>
-</ul>
-<h2 id="yarn-资源调度策略"><a class="markdownIt-Anchor" href="#yarn-资源调度策略"></a> YARN 资源调度策略</h2>
-<h3 id="fifo-scheduler先进先出调度器"><a class="markdownIt-Anchor" href="#fifo-scheduler先进先出调度器"></a> FIFO Scheduler（先进先出调度器）</h3>
-<p><strong>调度策略</strong></p>
-<p>将所有任务放入一个队列，先进队列的先获得资源，排在后面的任务只有等待</p>
-<p><strong>缺点</strong></p>
-<ul>
-<li>资源利用率低，无法交叉运行任务</li>
-<li>灵活性差，如：紧急任务无法插队，耗时长的任务拖慢耗时短的任务</li>
-</ul>
-<h3 id="capacity-scheduler容量调度器"><a class="markdownIt-Anchor" href="#capacity-scheduler容量调度器"></a> Capacity Scheduler（容量调度器）</h3>
-<p><strong>核心思想</strong> - 提前<strong>做预算</strong>，在预算指导下分享集群资源。</p>
-<p><strong>调度策略</strong></p>
-<ul>
-<li>集群资源由多个队列分享</li>
-<li>每个队列都要预设资源分配的比例（提前做预算）</li>
-<li>空闲资源优先分配给“实际资源/预算资源”比值最低的队列</li>
-<li>队列内部采用 FIFO 调度策略</li>
-</ul>
-<p><strong>特点</strong></p>
-<ul>
-<li>层次化的队列设计：子队列可使用父队列资源</li>
-<li>容量保证：每个队列都要预设资源占比，防止资源独占</li>
-<li>弹性分配：空闲资源可以分配给任何队列，当多个队列争用时，会按比例进行平衡</li>
-<li>支持动态管理：可以动态调整队列的容量、权限等参数，也可动态增加、暂停队列</li>
-<li>访问控制：用户只能向自己的队列中提交任务，不能访问其他队列</li>
-<li>多租户：多用户共享集群资源</li>
-</ul>
-<h3 id="fair-scheduler公平调度器"><a class="markdownIt-Anchor" href="#fair-scheduler公平调度器"></a> Fair Scheduler（公平调度器）</h3>
-<p><strong>调度策略</strong></p>
-<ul>
-<li>多队列公平共享集群资源</li>
-<li>通过平分的方式，动态分配资源，无需预先设定资源分配比例</li>
-<li>队列内部可配置调度策略：FIFO、Fair（默认）</li>
-</ul>
-<p><strong>资源抢占</strong></p>
-<ul>
-<li>终止其他队列的任务，使其让出所占资源，然后将资源分配给占用资源量少于最小资源量限制的队列</li>
-</ul>
-<p><strong>队列权重</strong></p>
-<ul>
-<li>当队列中有任务等待，并且集群中有空闲资源时，每个队列可以根据权重获得不同比例的空闲资源</li>
-</ul>
-<h2 id="资源"><a class="markdownIt-Anchor" href="#资源"></a> 资源</h2>
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-        
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="zh-CN">
     <link itemprop="mainEntityOfPage" href="https://dunwu.github.io/blog/blog/bigdata/overview/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -3244,6 +2972,320 @@
   
   
 
+        
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://dunwu.github.io/blog/blog/bigdata/HDFS/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/blog/images/avatar.gif">
+      <meta itemprop="name" content="Zhang Peng">
+      <meta itemprop="description" content="Dunwu's Blog">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Dunwu">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/blog/bigdata/HDFS/" class="post-title-link" itemprop="url">HDFS</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2018-09-03 00:00:00" itemprop="dateCreated datePublished" datetime="2018-09-03T00:00:00+08:00">2018-09-03</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2020-01-16 17:48:30" itemprop="dateModified" datetime="2020-01-16T17:48:30+08:00">2020-01-16</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/blog/categories/bigdata/" itemprop="url" rel="index">
+                    <span itemprop="name">bigdata</span>
+                  </a>
+                </span>
+            </span>
+
+          
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="fa fa-comment-o"></i>
+      </span>
+      <span class="post-meta-item-text">Disqus：</span>
+    
+    <a title="disqus" href="/blog/bigdata/HDFS/#comments" itemprop="discussionUrl">
+      <span class="post-comments-count disqus-comment-count" data-disqus-identifier="bigdata/HDFS/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  <br>
+            <span class="post-meta-item" title="本文字数">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-file-word-o"></i>
+              </span>
+                <span class="post-meta-item-text">本文字数：</span>
+              <span>4.1k</span>
+            </span>
+            <span class="post-meta-item" title="阅读时长">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-clock-o"></i>
+              </span>
+                <span class="post-meta-item-text">阅读时长 &asymp;</span>
+              <span>4 分钟</span>
+            </span>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h1 id="hdfs"><a class="markdownIt-Anchor" href="#hdfs"></a> HDFS</h1>
+<blockquote>
+<p><strong>HDFS 是 Hadoop 分布式文件系统。</strong></p>
+<p>关键词：分布式、文件系统</p>
+</blockquote>
+<!-- TOC depthFrom:2 depthTo:3 -->
+<ul>
+<li><a href="#%E6%A6%82%E8%BF%B0">概述</a>
+<ul>
+<li><a href="#hdfs-%E7%9A%84%E7%89%B9%E7%82%B9">HDFS 的特点</a></li>
+</ul>
+</li>
+<li><a href="#hdfs-%E7%9A%84%E6%A6%82%E5%BF%B5">HDFS 的概念</a>
+<ul>
+<li><a href="#namenode">NameNode</a></li>
+<li><a href="#datanode">DataNode</a></li>
+<li><a href="#block-%E6%95%B0%E6%8D%AE%E5%9D%97">Block 数据块</a></li>
+<li><a href="#client">Client</a></li>
+</ul>
+</li>
+<li><a href="#block-%E5%89%AF%E6%9C%AC%E7%AD%96%E7%95%A5">Block 副本策略</a></li>
+<li><a href="#%E6%95%B0%E6%8D%AE%E6%B5%81">数据流</a>
+<ul>
+<li><a href="#hdfs-%E8%AF%BB%E6%96%87%E4%BB%B6">HDFS 读文件</a></li>
+<li><a href="#hdfs-%E5%86%99%E6%96%87%E4%BB%B6">HDFS 写文件</a></li>
+</ul>
+</li>
+<li><a href="#hdfs-%E5%AE%89%E5%85%A8%E6%A8%A1%E5%BC%8F">HDFS 安全模式</a>
+<ul>
+<li><a href="#%E4%BB%80%E4%B9%88%E6%98%AF%E5%AE%89%E5%85%A8%E6%A8%A1%E5%BC%8F">什么是安全模式？</a></li>
+<li><a href="#%E4%BD%95%E6%97%B6%E6%AD%A3%E5%B8%B8%E7%A6%BB%E5%BC%80%E5%AE%89%E5%85%A8%E6%A8%A1%E5%BC%8F">何时正常离开安全模式</a></li>
+<li><a href="#%E8%A7%A6%E5%8F%91%E5%AE%89%E5%85%A8%E6%A8%A1%E5%BC%8F%E7%9A%84%E5%8E%9F%E5%9B%A0">触发安全模式的原因</a></li>
+<li><a href="#%E6%95%85%E9%9A%9C%E6%8E%92%E6%9F%A5">故障排查</a></li>
+</ul>
+</li>
+<li><a href="#hdfs-%E9%AB%98%E5%8F%AF%E7%94%A8">HDFS 高可用</a>
+<ul>
+<li><a href="#namenode-%E7%9A%84-ha-%E6%9C%BA%E5%88%B6">NameNode 的 HA 机制</a></li>
+<li><a href="#%E5%88%A9%E7%94%A8-qjm-%E5%AE%9E%E7%8E%B0%E5%85%83%E6%95%B0%E6%8D%AE%E9%AB%98%E5%8F%AF%E7%94%A8">利用 QJM 实现元数据高可用</a></li>
+</ul>
+</li>
+<li><a href="#%E8%B5%84%E6%BA%90">资源</a></li>
+</ul>
+<!-- /TOC -->
+<h2 id="概述"><a class="markdownIt-Anchor" href="#概述"></a> 概述</h2>
+<blockquote>
+<p>HDFS 是 Hadoop 的核心子项目。</p>
+<p><strong>HDFS</strong> 是 <strong>Hadoop Distributed File System</strong> 的缩写，即 Hadoop 分布式文件系统。</p>
+<p>HDFS 是一种用于存储具有流数据访问模式的超大文件的文件系统，它运行在廉价的机器集群上。</p>
+</blockquote>
+<h3 id="hdfs-的特点"><a class="markdownIt-Anchor" href="#hdfs-的特点"></a> HDFS 的特点</h3>
+<p><strong>优点</strong></p>
+<ul>
+<li><strong>高容错</strong> - 数据冗余多副本，副本丢失后自动恢复</li>
+<li><strong>高可用</strong> - NameNode HA、安全模式</li>
+<li><strong>高扩展</strong> - 能够处理 10K 节点的规模；处理数据达到 GB、TB、甚至 PB 级别的数据；能够处理百万规模以上的文件数量，数量相当之大。</li>
+<li><strong>批处理</strong> - 流式数据访问；数据位置暴露给计算框架</li>
+<li><strong>构建在廉价商用机器上</strong> - 提供了容错和恢复机制</li>
+</ul>
+<p><strong>缺点</strong></p>
+<ul>
+<li><strong>不适合低延迟数据访问</strong> - 适合高吞吐率的场景，就是在某一时间内写入大量的数据。但是它在低延时的情况下是不行的，比如毫秒级以内读取数据，它是很难做到的。</li>
+<li><strong>不适合大量小文件存储</strong>
+<ul>
+<li>存储大量小文件(这里的小文件是指小于 HDFS 系统的 Block 大小的文件（默认 64M）)的话，它会占用 NameNode 大量的内存来存储文件、目录和块信息。这样是不可取的，因为 NameNode 的内存总是有限的。</li>
+<li>磁盘寻道时间超过读取时间</li>
+</ul>
+</li>
+<li><strong>不支持并发写入</strong> - 一个文件同时只能有一个写入者</li>
+<li><strong>不支持文件随机修改</strong> - 仅支持追加写入</li>
+</ul>
+<h2 id="hdfs-的概念"><a class="markdownIt-Anchor" href="#hdfs-的概念"></a> HDFS 的概念</h2>
+<p>HDFS 采用 Master/Slave 架构。</p>
+<p>一个 HDFS 集群是由一个 Namenode 和一定数目的 Datanodes 组成。Namenode 是一个中心服务器，负责管理文件系统的名字空间(namespace)以及客户端对文件的访问。集群中的 Datanode 一般是一个节点一个，负责管理它所在节点上的存储。HDFS 暴露了文件系统的名字空间，用户能够以文件的形式在上面存储数据。从内部看，一个文件其实被分成一个或多个数据块，这些块存储在一组 Datanode 上。Namenode 执行文件系统的名字空间操作，比如打开、关闭、重命名文件或目录。它也负责确定数据块到具体 Datanode 节点的映射。Datanode 负责处理文件系统客户端的读写请求。在 Namenode 的统一调度下进行数据块的创建、删除和复制。</p>
+<div align="center"><img src="http://dunwu.test.upcdn.net/cs/bigdata/hdfs/hdfs-architecture.png"/></div>
+<h3 id="namenode"><a class="markdownIt-Anchor" href="#namenode"></a> NameNode</h3>
+<p><strong>NameNode 就是 master 工作节点。</strong></p>
+<ul>
+<li>管理命名空间</li>
+<li>管理元数据：文件的位置、所有者、权限、数据块等</li>
+<li>管理 Block 副本策略：默认 3 个副本</li>
+<li>处理客户端读写请求，为 DataNode 分配任务</li>
+</ul>
+<h4 id="active-namenode-和-standby-namenode"><a class="markdownIt-Anchor" href="#active-namenode-和-standby-namenode"></a> Active NameNode 和 Standby NameNode</h4>
+<p>NameNode 通过 HA 机制来容错。</p>
+<ul>
+<li><strong>Active NameNode</strong> - 是正在工作的 NameNode；</li>
+<li><strong>Standby NameNode</strong> - 是备份的 NameNode。</li>
+</ul>
+<p>Active NameNode 宕机后，Standby NameNode 快速升级为新的 Active NameNode。</p>
+<p>Standby NameNode 周期性同步 edits 编辑日志，定期合并 fsimage 与 edits 到本地磁盘。</p>
+<p>Hadoop 3.0 允许配置多个 Standby NameNode。</p>
+<h4 id="元数据文件"><a class="markdownIt-Anchor" href="#元数据文件"></a> 元数据文件</h4>
+<ul>
+<li><strong>edits（编辑日志文件）</strong> - 保存了自最新检查点（Checkpoint）之后的所有文件更新操作。</li>
+<li><strong>fsimage（元数据检查点镜像文件）</strong> - 保存了文件系统中所有的目录和文件信息，如：某个目录下有哪些子目录和文件，以及文件名、文件副本数、文件由哪些 Block 组成等。</li>
+</ul>
+<p>Active NameNode 内存中有一份最新的元数据（= fsimage + edits）。</p>
+<p>Standby NameNode 在检查点定期将内存中的元数据保存到 fsimage 文件中。</p>
+<h3 id="datanode"><a class="markdownIt-Anchor" href="#datanode"></a> DataNode</h3>
+<p>**DataNode 就是 slave 工作节点。**NameNode 下达命令，DataNode 执行实际的操作。</p>
+<ul>
+<li>存储 Block 和数据校验和</li>
+<li>执行客户端发送的读写操作</li>
+<li>通过心跳机制定期（默认 3 秒）向 NameNode 汇报运行状态和 Block 列表信息</li>
+<li>集群启动时，DataNode 向 NameNode 提供 Block 列表信息</li>
+</ul>
+<h3 id="block-数据块"><a class="markdownIt-Anchor" href="#block-数据块"></a> Block 数据块</h3>
+<ul>
+<li>HDFS 最小存储单元</li>
+<li>文件写入 HDFS 会被切分成若干个 Block</li>
+<li>Block 大小固定，默认为 128MB，可自定义</li>
+<li>若一个 Block 的大小小于设定值，不会占用整个块空间</li>
+<li>默认情况下每个 Block 有 3 个副本</li>
+</ul>
+<h3 id="client"><a class="markdownIt-Anchor" href="#client"></a> Client</h3>
+<ul>
+<li>将文件切分为 Block 数据块</li>
+<li>与 NameNode 交互，获取文件元数据</li>
+<li>与 DataNode 交互，读取或写入数据</li>
+<li>管理 HDFS</li>
+</ul>
+<h2 id="block-副本策略"><a class="markdownIt-Anchor" href="#block-副本策略"></a> Block 副本策略</h2>
+<p>HDFS 被设计成能够在一个大集群中跨机器可靠地存储超大文件。它将每个文件存储成一系列的数据块，除了最后一个，所有的数据块都是同样大小的。为了容错，文件的所有数据块都会有副本。每个文件的数据块大小和副本系数都是可配置的。应用程序可以指定某个文件的副本数目。副本系数可以在文件创建的时候指定，也可以在之后改变。HDFS 中的文件都是一次性写入的，并且严格要求在任何时候只能有一个写入者。</p>
+<p><strong>Namenode 全权管理数据块的复制</strong>，它周期性地从集群中的每个 Datanode 接收心跳信号和块状态报告(Blockreport)。接收到心跳信号意味着该 Datanode 节点工作正常。块状态报告包含了一个该 Datanode 上所有数据块的列表。</p>
+<div align="center"><img src="http://dunwu.test.upcdn.net/cs/bigdata/hdfs/hdfs-replica.png"/></div>
+<ul>
+<li>副本 1：放在 Client 所在节点
+<ul>
+<li>对于远程 Client，系统会随机选择节点</li>
+</ul>
+</li>
+<li>副本 2：放在不同的机架节点上</li>
+<li>副本 3：放在与第二个副本同一机架的不同节点上</li>
+<li>副本 N：随机选择</li>
+<li>节点选择：同等条件下优先选择空闲节点</li>
+</ul>
+<h2 id="数据流"><a class="markdownIt-Anchor" href="#数据流"></a> 数据流</h2>
+<h3 id="hdfs-读文件"><a class="markdownIt-Anchor" href="#hdfs-读文件"></a> HDFS 读文件</h3>
+<div align="center"><img src="http://dunwu.test.upcdn.net/cs/bigdata/hdfs/hdfs-read.png"/></div>
+<ol>
+<li>客户端调用 FileSyste 对象的 open() 方法在分布式文件系统中<strong>打开要读取的文件</strong>。</li>
+<li>分布式文件系统通过使用 RPC（远程过程调用）来调用 namenode，<strong>确定文件起始块的位置</strong>。</li>
+<li>分布式文件系统的 DistributedFileSystem 类返回一个支持文件定位的输入流 FSDataInputStream 对象，FSDataInputStream 对象接着封装 DFSInputStream 对象（<strong>存储着文件起始几个块的 datanode 地址</strong>），客户端对这个输入流调用 read()方法。</li>
+<li>DFSInputStream 连接距离最近的 datanode，通过反复调用 read 方法，<strong>将数据从 datanode 传输到客户端</strong>。</li>
+<li>到达块的末端时，DFSInputStream 关闭与该 datanode 的连接，<strong>寻找下一个块的最佳 datanode</strong>。</li>
+<li>客户端完成读取，对 FSDataInputStream 调用 close()方法<strong>关闭连接</strong>。</li>
+</ol>
+<h3 id="hdfs-写文件"><a class="markdownIt-Anchor" href="#hdfs-写文件"></a> HDFS 写文件</h3>
+<div align="center"><img src="http://dunwu.test.upcdn.net/cs/bigdata/hdfs/hdfs-write.png"/></div>
+<ol>
+<li>客户端通过对 DistributedFileSystem 对象调用 create() 函数来<strong>新建文件</strong>。</li>
+<li>分布式文件系统对 namenod 创建一个 RPC 调用，在文件系统的<strong>命名空间中新建一个文件</strong>。</li>
+<li>Namenode 对新建文件进行检查无误后，分布式文件系统返回给客户端一个 FSDataOutputStream 对象，FSDataOutputStream 对象封装一个 DFSoutPutstream 对象，负责处理 namenode 和 datanode 之间的通信，<strong>客户端开始写入数据</strong>。</li>
+<li>FSDataOutputStream 将<strong>数据分成一个一个的数据包，写入内部队列“数据队列”</strong>，DataStreamer 负责将数据包依次流式传输到由一组 namenode 构成的管线中。</li>
+<li>DFSOutputStream 维护着确认队列来等待 datanode 收到确认回执，<strong>收到管道中所有 datanode 确认后，数据包从确认队列删</strong>除。</li>
+<li><strong>客户端完成数据的写入</strong>，对数据流调用 close() 方法。</li>
+<li>namenode <strong>确认完成</strong>。</li>
+</ol>
+<h2 id="hdfs-安全模式"><a class="markdownIt-Anchor" href="#hdfs-安全模式"></a> HDFS 安全模式</h2>
+<h3 id="什么是安全模式"><a class="markdownIt-Anchor" href="#什么是安全模式"></a> 什么是安全模式？</h3>
+<ul>
+<li>安全模式是 HDFS 的一种特殊状态，在这种状态下，HDFS 只接收读数据请求，而不接收写入、删除、修改等变更请求。</li>
+<li>安全模式是 HDFS 确保 Block 数据安全的一种保护机制。</li>
+<li>Active NameNode 启动时，HDFS 会进入安全模式，DataNode 主动向 NameNode 汇报可用 Block 列表等信息，在系统达到安全标准前，HDFS 一直处于“只读”状态。</li>
+</ul>
+<h3 id="何时正常离开安全模式"><a class="markdownIt-Anchor" href="#何时正常离开安全模式"></a> 何时正常离开安全模式</h3>
+<ul>
+<li>Block 上报率：DataNode 上报的可用 Block 个数 / NameNode 元数据记录的 Block 个数</li>
+<li>当 Block 上报率 &gt;= 阈值时，HDFS 才能离开安全模式，默认阈值为 0.999</li>
+<li>不建议手动强制退出安全模式</li>
+</ul>
+<h3 id="触发安全模式的原因"><a class="markdownIt-Anchor" href="#触发安全模式的原因"></a> 触发安全模式的原因</h3>
+<ul>
+<li>NameNode 重启</li>
+<li>NameNode 磁盘空间不足</li>
+<li>Block 上报率低于阈值</li>
+<li>DataNode 无法正常启动</li>
+<li>日志中出现严重异常</li>
+<li>用户操作不当，如：<strong>强制关机（特别注意！）</strong></li>
+</ul>
+<h3 id="故障排查"><a class="markdownIt-Anchor" href="#故障排查"></a> 故障排查</h3>
+<ul>
+<li>找到 DataNode 不能正常启动的原因，重启 DataNode</li>
+<li>清理 NameNode 磁盘</li>
+<li>谨慎操作，有问题找星环，以免丢失数据</li>
+</ul>
+<h2 id="hdfs-高可用"><a class="markdownIt-Anchor" href="#hdfs-高可用"></a> HDFS 高可用</h2>
+<h3 id="namenode-的-ha-机制"><a class="markdownIt-Anchor" href="#namenode-的-ha-机制"></a> NameNode 的 HA 机制</h3>
+<p>Active NameNode 和 Standby NameNode 实现主备。</p>
+<h3 id="利用-qjm-实现元数据高可用"><a class="markdownIt-Anchor" href="#利用-qjm-实现元数据高可用"></a> 利用 QJM 实现元数据高可用</h3>
+<blockquote>
+<p>基于 Paxos 算法</p>
+</blockquote>
+<p>QJM 机制（Quorum Journal Manager）</p>
+<p>只要保证 Quorum（法定人数）数量的操作成功，就认为这是一次最终成功的操作</p>
+<p>QJM 共享存储系统</p>
+<ul>
+<li>部署奇数（2N+1）个 JournalNode</li>
+<li>JournalNode 负责存储 edits 编辑日志</li>
+<li>写 edits 的时候，只要超过半数（N+1）的 JournalNode 返回成功，就代表本次写入成功</li>
+<li>最多可容忍 N 个 JournalNode 宕机</li>
+</ul>
+<p>利用 ZooKeeper 实现 Active 节点选举。</p>
+<h2 id="资源"><a class="markdownIt-Anchor" href="#资源"></a> 资源</h2>
+<ul>
+<li><a href="http://hadoop.apache.org/docs/current/hadoop-project-dist/hadoop-hdfs/HdfsDesign.html" target="_blank" rel="noopener">HDFS 官方文档</a></li>
+<li><a href="https://www.cnblogs.com/caiyisen/p/7395843.html" target="_blank" rel="noopener">HDFS 知识点总结</a></li>
+<li><a href="http://shop.oreilly.com/product/0636920033448.do" target="_blank" rel="noopener">《Hadoop: The Definitive Guide, Fourth Edition》</a> by Tom White</li>
+<li><a href="http://hadoop.apache.org/docs/r1.0.4/cn/hdfs_design.html" target="_blank" rel="noopener">http://hadoop.apache.org/docs/r1.0.4/cn/hdfs_design.html</a></li>
+</ul>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
   </div>
 
   
@@ -3307,7 +3349,7 @@
       <div class="site-state-item site-state-tags">
             <a href="/blog/tags/">
           
-        <span class="site-state-item-count">43</span>
+        <span class="site-state-item-count">44</span>
         <span class="site-state-item-name">标签</span></a>
       </div>
   </nav>

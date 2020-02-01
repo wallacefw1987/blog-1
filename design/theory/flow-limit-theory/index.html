@@ -52,15 +52,15 @@
   };
 </script>
 
-  <meta name="description" content="限流基本原理   限流方法  计数器 滑动窗口 令牌桶（Token Bucket） 漏桶   参考资料   限流可以认为是服务降级的一种。限流就是限制系统的输入和输出流量已达到保护系统的目的。一般来说系统的吞吐量是可以被测算的，为了保证系统的稳定运行，一旦达到的需要限制的阈值，就需要限制流量并采取一些措施以完成限制流量的目的。比如：延迟处理，拒绝处理，或者部分拒绝处理等等。  限流方法  计数器">
+  <meta name="description" content="限流基本原理  📦 本文已归档到：「blog」    限流方法  计数器 滑动窗口 令牌桶（Token Bucket） 漏桶   参考资料   限流可以认为是服务降级的一种。限流就是限制系统的输入和输出流量已达到保护系统的目的。一般来说系统的吞吐量是可以被测算的，为了保证系统的稳定运行，一旦达到的需要限制的阈值，就需要限制流量并采取一些措施以完成限制流量的目的。比如：延迟处理，拒绝处理，或者部">
 <meta name="keywords" content="设计,系统原理,限流">
 <meta property="og:type" content="article">
 <meta property="og:title" content="限流基本原理">
 <meta property="og:url" content="https:&#x2F;&#x2F;dunwu.github.io&#x2F;blog&#x2F;design&#x2F;theory&#x2F;flow-limit-theory&#x2F;index.html">
 <meta property="og:site_name" content="Dunwu">
-<meta property="og:description" content="限流基本原理   限流方法  计数器 滑动窗口 令牌桶（Token Bucket） 漏桶   参考资料   限流可以认为是服务降级的一种。限流就是限制系统的输入和输出流量已达到保护系统的目的。一般来说系统的吞吐量是可以被测算的，为了保证系统的稳定运行，一旦达到的需要限制的阈值，就需要限制流量并采取一些措施以完成限制流量的目的。比如：延迟处理，拒绝处理，或者部分拒绝处理等等。  限流方法  计数器">
+<meta property="og:description" content="限流基本原理  📦 本文已归档到：「blog」    限流方法  计数器 滑动窗口 令牌桶（Token Bucket） 漏桶   参考资料   限流可以认为是服务降级的一种。限流就是限制系统的输入和输出流量已达到保护系统的目的。一般来说系统的吞吐量是可以被测算的，为了保证系统的稳定运行，一旦达到的需要限制的阈值，就需要限制流量并采取一些措施以完成限制流量的目的。比如：延迟处理，拒绝处理，或者部">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:updated_time" content="2020-01-25T14:49:22.053Z">
+<meta property="og:updated_time" content="2020-02-01T14:42:18.023Z">
 <meta name="twitter:card" content="summary">
 
 <link rel="canonical" href="https://dunwu.github.io/blog/design/theory/flow-limit-theory/">
@@ -155,7 +155,7 @@
   </li>
         <li class="menu-item menu-item-tags">
 
-    <a href="/blog/tags/" rel="section"><i class="fa fa-fw fa-tags"></i>标签<span class="badge">43</span></a>
+    <a href="/blog/tags/" rel="section"><i class="fa fa-fw fa-tags"></i>标签<span class="badge">44</span></a>
 
   </li>
         <li class="menu-item menu-item-categories">
@@ -253,7 +253,7 @@
                   <i class="fa fa-calendar-check-o"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2020-01-25 22:49:22" itemprop="dateModified" datetime="2020-01-25T22:49:22+08:00">2020-01-25</time>
+                <time title="修改时间：2020-02-01 22:42:18" itemprop="dateModified" datetime="2020-02-01T22:42:18+08:00">2020-02-01</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -313,6 +313,9 @@
 
       
         <h1 id="限流基本原理"><a class="markdownIt-Anchor" href="#限流基本原理"></a> 限流基本原理</h1>
+<blockquote>
+<p>📦 本文已归档到：「<a href="https://github.com/dunwu/blog" target="_blank" rel="noopener">blog</a>」</p>
+</blockquote>
 <!-- TOC depthFrom:2 depthTo:3 -->
 <ul>
 <li><a href="#%E9%99%90%E6%B5%81%E6%96%B9%E6%B3%95">限流方法</a>
@@ -466,7 +469,7 @@
       <div class="site-state-item site-state-tags">
             <a href="/blog/tags/">
           
-        <span class="site-state-item-count">43</span>
+        <span class="site-state-item-count">44</span>
         <span class="site-state-item-name">标签</span></a>
       </div>
   </nav>

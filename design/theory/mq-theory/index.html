@@ -52,13 +52,13 @@
   };
 </script>
 
-  <meta name="description" content="消息队列基本原理  消息队列（Message Queue，简称 MQ）技术是分布式应用间交换信息的一种技术。 消息队列主要解决应用耦合，异步消息，流量削锋等问题，实现高性能，高可用，可伸缩和最终一致性架构。是大型分布式系统不可缺少的中间件。 注意：为了简便，下文中除了文章标题，一律使用 MQ 简称。   1. 为什么要使用 MQ MQ 比较核心的优点有 3 个：解耦、异步、削峰。  1.1. 解">
+  <meta name="description" content="消息队列基本原理  📦 本文已归档到：「blog」 消息队列（Message Queue，简称 MQ）技术是分布式应用间交换信息的一种技术。 消息队列主要解决应用耦合，异步消息，流量削锋等问题，实现高性能，高可用，可伸缩和最终一致性架构。是大型分布式系统不可缺少的中间件。 注意：为了简便，下文中除了文章标题，一律使用 MQ 简称。   1. 为什么要使用 MQ MQ 比较核心的优点有 3 个：">
 <meta name="keywords" content="设计,系统原理,消息队列">
 <meta property="og:type" content="article">
 <meta property="og:title" content="消息队列基本原理">
 <meta property="og:url" content="https:&#x2F;&#x2F;dunwu.github.io&#x2F;blog&#x2F;design&#x2F;theory&#x2F;mq-theory&#x2F;index.html">
 <meta property="og:site_name" content="Dunwu">
-<meta property="og:description" content="消息队列基本原理  消息队列（Message Queue，简称 MQ）技术是分布式应用间交换信息的一种技术。 消息队列主要解决应用耦合，异步消息，流量削锋等问题，实现高性能，高可用，可伸缩和最终一致性架构。是大型分布式系统不可缺少的中间件。 注意：为了简便，下文中除了文章标题，一律使用 MQ 简称。   1. 为什么要使用 MQ MQ 比较核心的优点有 3 个：解耦、异步、削峰。  1.1. 解">
+<meta property="og:description" content="消息队列基本原理  📦 本文已归档到：「blog」 消息队列（Message Queue，简称 MQ）技术是分布式应用间交换信息的一种技术。 消息队列主要解决应用耦合，异步消息，流量削锋等问题，实现高性能，高可用，可伸缩和最终一致性架构。是大型分布式系统不可缺少的中间件。 注意：为了简便，下文中除了文章标题，一律使用 MQ 简称。   1. 为什么要使用 MQ MQ 比较核心的优点有 3 个：">
 <meta property="og:locale" content="zh-CN">
 <meta property="og:image" content="http:&#x2F;&#x2F;dunwu.test.upcdn.net&#x2F;cs&#x2F;design&#x2F;theory&#x2F;mq&#x2F;mq_1.png">
 <meta property="og:image" content="http:&#x2F;&#x2F;dunwu.test.upcdn.net&#x2F;cs&#x2F;design&#x2F;theory&#x2F;mq&#x2F;mq_2.png">
@@ -73,7 +73,7 @@
 <meta property="og:image" content="http:&#x2F;&#x2F;dunwu.test.upcdn.net&#x2F;cs&#x2F;java&#x2F;javaweb&#x2F;distributed&#x2F;mq&#x2F;kafka&#x2F;kafka-replication.png">
 <meta property="og:image" content="http:&#x2F;&#x2F;upload-images.jianshu.io&#x2F;upload_images&#x2F;3101171-2adc66e2367cd2c2.png">
 <meta property="og:image" content="http:&#x2F;&#x2F;upload-images.jianshu.io&#x2F;upload_images&#x2F;3101171-12afe9581da889ea.png">
-<meta property="og:updated_time" content="2020-01-20T03:26:54.204Z">
+<meta property="og:updated_time" content="2020-02-01T14:42:28.006Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:image" content="http:&#x2F;&#x2F;dunwu.test.upcdn.net&#x2F;cs&#x2F;design&#x2F;theory&#x2F;mq&#x2F;mq_1.png">
 
@@ -169,7 +169,7 @@
   </li>
         <li class="menu-item menu-item-tags">
 
-    <a href="/blog/tags/" rel="section"><i class="fa fa-fw fa-tags"></i>标签<span class="badge">43</span></a>
+    <a href="/blog/tags/" rel="section"><i class="fa fa-fw fa-tags"></i>标签<span class="badge">44</span></a>
 
   </li>
         <li class="menu-item menu-item-categories">
@@ -267,7 +267,7 @@
                   <i class="fa fa-calendar-check-o"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2020-01-20 11:26:54" itemprop="dateModified" datetime="2020-01-20T11:26:54+08:00">2020-01-20</time>
+                <time title="修改时间：2020-02-01 22:42:28" itemprop="dateModified" datetime="2020-02-01T22:42:28+08:00">2020-02-01</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -328,6 +328,7 @@
       
         <h1 id="消息队列基本原理"><a class="markdownIt-Anchor" href="#消息队列基本原理"></a> 消息队列基本原理</h1>
 <blockquote>
+<p>📦 本文已归档到：「<a href="https://github.com/dunwu/blog" target="_blank" rel="noopener">blog</a>」</p>
 <p>消息队列（Message Queue，简称 MQ）技术是分布式应用间交换信息的一种技术。</p>
 <p>消息队列主要解决应用耦合，异步消息，流量削锋等问题，实现高性能，高可用，可伸缩和最终一致性架构。是大型分布式系统不可缺少的中间件。</p>
 <p>注意：<em>为了简便，下文中除了文章标题，一律使用 MQ 简称</em>。</p>
@@ -731,7 +732,7 @@ P2P 模式包含三个角色：MQ（Queue），发送者(Sender)，接收者(Rec
       <div class="site-state-item site-state-tags">
             <a href="/blog/tags/">
           
-        <span class="site-state-item-count">43</span>
+        <span class="site-state-item-count">44</span>
         <span class="site-state-item-name">标签</span></a>
       </div>
   </nav>

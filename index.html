@@ -153,7 +153,7 @@
   </li>
         <li class="menu-item menu-item-tags">
 
-    <a href="/blog/tags/" rel="section"><i class="fa fa-fw fa-tags"></i>标签<span class="badge">43</span></a>
+    <a href="/blog/tags/" rel="section"><i class="fa fa-fw fa-tags"></i>标签<span class="badge">44</span></a>
 
   </li>
         <li class="menu-item menu-item-categories">
@@ -221,6 +221,173 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://dunwu.github.io/blog/blog/design/theory/paxos/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/blog/images/avatar.gif">
+      <meta itemprop="name" content="Zhang Peng">
+      <meta itemprop="description" content="Dunwu's Blog">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Dunwu">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/blog/design/theory/paxos/" class="post-title-link" itemprop="url">深入剖析一致性算法 Paxos</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2020-02-02 12:00:00" itemprop="dateCreated datePublished" datetime="2020-02-02T12:00:00+08:00">2020-02-02</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2020-02-01 22:37:21" itemprop="dateModified" datetime="2020-02-01T22:37:21+08:00">2020-02-01</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/blog/categories/%E8%AE%BE%E8%AE%A1/" itemprop="url" rel="index">
+                    <span itemprop="name">设计</span>
+                  </a>
+                </span>
+                  ，
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/blog/categories/%E8%AE%BE%E8%AE%A1/%E7%B3%BB%E7%BB%9F%E5%8E%9F%E7%90%86/" itemprop="url" rel="index">
+                    <span itemprop="name">系统原理</span>
+                  </a>
+                </span>
+            </span>
+
+          
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="fa fa-comment-o"></i>
+      </span>
+      <span class="post-meta-item-text">Disqus：</span>
+    
+    <a title="disqus" href="/blog/design/theory/paxos/#comments" itemprop="discussionUrl">
+      <span class="post-comments-count disqus-comment-count" data-disqus-identifier="design/theory/paxos/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  <br>
+            <span class="post-meta-item" title="本文字数">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-file-word-o"></i>
+              </span>
+                <span class="post-meta-item-text">本文字数：</span>
+              <span>5.5k</span>
+            </span>
+            <span class="post-meta-item" title="阅读时长">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-clock-o"></i>
+              </span>
+                <span class="post-meta-item-text">阅读时长 &asymp;</span>
+              <span>5 分钟</span>
+            </span>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h1 id="深入剖析一致性算法-paxos"><a class="markdownIt-Anchor" href="#深入剖析一致性算法-paxos"></a> 深入剖析一致性算法 Paxos</h1>
+<p>这是一个有关Paxos算法非常形象的讲解与示范。Paxos是能够基于一大堆完全不可靠的网络条件下却能可靠确定地实现共识一致性的算法。也就是说：它允许一组不一定可靠的处理器（服务器）在某些条件得到满足情况下就能达成确定的安全的共识，如果条件不能满足也确保这组处理器（服务器）保持一致。</p>
+<h3 id="什么是共识"><a class="markdownIt-Anchor" href="#什么是共识"></a> 什么是共识？</h3>
+<p>具体来说是这样：分布式系统中由于网络之间通讯可能会中断，虽然概率很低，但是没有100%完美的网络因此，依靠网络通讯的计算机之间要达成共识就比较困难，假设有X, Y和Z三台计算机谋划在周一攻击人类世界，它们的攻击计划是只要所有计算机可用于战斗时就一起进行攻击，不落下任何一台机器，但是当他们决定具体什么时间开始攻击时，在这个关键问题上往往会出错。</p>
+<p>一个基本问题是，每台机器都有自己的攻击时间建议，计算机X可以建议在08:00时间，因为这个时间正是周一早晨，而人们刚刚过完狂欢的周末休息天，但是计算机Z认为13:00比较好，理由当然也有一大堆，让这三台计算机基于某个时刻达成共识是非常困难的，因此，也给人类反击留下了机会。</p>
+<p>另外一个情况是，这三台计算机是位于世界不同的位置，之间通讯或许通过电缆或者其他不太可靠的网络设备通讯，如果X建议在08:00，它必须确认它的这个建议能够到达活着的Y和Z，以免一个人战斗。</p>
+<p>问题是：我们不能准确地知道某个计算机的延迟的原因：是因为性能慢了还是已经是彻底死机不能用？</p>
+<p>那么，X怎么知道其他两个计算机是可用的呢？也就是说，当X和其他两个计算机通讯发现得到响应要过很长时间，它不能确定这两台计算机到底还能不能继续活下去，也许这次通讯有延迟了，下一次它们又活过来了没有延迟了，也许下次延迟更长了一点，也许下次延迟稍微短了一点，这些随机概率问题使得X不能确定Y和Z到底是出了什么问题造成延迟的，是因为处理了某个特别耗费CPU的任务还是因为死锁等原因？当然，有些天真的设计者会说，只要我们将性能监控到位，如果延迟超过一定时间，我们人工介入告诉X确切情况就可以，那么这种人工介入的分布式系统不是一个天然自洽的自动化系统了，不在我们讨论范围之内，而且这样的系统会让人疲于奔命。</p>
+<p>因为X不能确定Y或Z是否可用，所以X仅仅只能和Y与Z中一台基于攻击时间达成共识，就无法完全三台机器全部投入战斗的计划。注意的是，X Y Z三台中任何一台都可能会出现延迟，这就造成了三台机器之间任何通讯都是无法确认可靠的，比如X发出消息给Z，Z确认后回执给X，但是这段时间X突然死机了，那么Z要等待X多长时间才能知道它收到确认呢？还是再次等待X回复确认的确认，这样无限循环下去也不能解决它们之间通讯可能出现随机不可靠的问题。</p>
+<p>所有关键问题在于：由于这三台机器之间通讯是无法保证100%可靠，它们就不能就任何事情达成共识。</p>
+<p>下面以分布式拍卖案例说明这种情况以及Paxos的基本原理？</p>
+<p>在传统拍卖场景中，价高者先得，这些拍卖者都是在同一个房间，彼此能够直接看得到对方的报价，如果我们假设分布式拍卖是将这些拍卖者分离到不同的地方，这样我们可以用拍卖者之间的联系模拟分布式计算机之间的通讯。</p>
+<p>假设拍卖者各自在自己家里拍卖，通过邮局信件发出自己的拍卖信息，拍卖者之间除非等到邮局投递人告诉他们彼此之间的报价，否则是无法知道对方报价的。如果邮局信件投递这个环节出了问题，投递速度慢了甚至无法投递了，那么整个拍卖程序就无法继续进行下去。</p>
+<h3 id="paxos解决共识思路"><a class="markdownIt-Anchor" href="#paxos解决共识思路"></a> Paxos解决共识思路</h3>
+<p>Paxos是一个解决<a href="http://harry.me/blog/2013/07/07/id-like-to-have-an-argument-a-primer-on-consensus/" target="_blank" rel="noopener">共识问题consensus problem</a>的算法，现实中Paxos的实现以及成为一些世界级软件的心脏，如Cassandra, Google的 Spanner数据库, 分布式锁服务Chubby. 一个被Paxos管理的系统实际上谈论的是值 状态和跟踪等问题，其目标是建造更高可用性和强一致性的分布式系统。</p>
+<p>Paxos完成一次写操作需要两次来回，分别是prepare/promise, 和 propose/accept：</p>
+<p><img src="https://www.jdon.com/simgs/bigdata/paxos.png" alt="paxos" /></p>
+<p>第一次由提交者Leader向所有其他服务器发出prepare消息请求准备，所有服务器中大多数如果回复诺言承诺就表示准备好了，可以接受写入；第二次提交者向所有服务器发出正式建议propose，所有服务器中大多数如果回复已经接收就表示成功了。</p>
+<p>为了详细描述这个两段过程，首先让我们定义一下我们将使用的一些名词术语：</p>
+<ul>
+<li>一个流程是系统中计算机的一个. 人们使用有关复制或节点等词语表达，都差不多。</li>
+<li>一个客户端是属于系统中一个成员的计算机，但是询问系统值是什么或者要求系统获取一个新的值。</li>
+</ul>
+<p>Paxos构建分布式数据库的小片段: 它仅仅实现流程将一个新的东西精确地写入系统中，流程是由Paxos的一个实例管治，可以失败或者不知道任何东西、或者大多数流程都知道一个同样的值，这就是共识，Paxos并不真的告诉我们如何用它来构建数据库或类似的东西，它只是负责独立节点之间通讯的流程， 这些流程服务器会基于一个新值执行决定，Paxos会存储一个值数据，只是一次性的，一旦你第一次设置以后就不能再改变它。</p>
+<h3 id="paxo读操作"><a class="markdownIt-Anchor" href="#paxo读操作"></a> Paxo读操作</h3>
+<p>其实Paxos精华是在写操作，将读操作放在写操作前面讲解，是着重Paxos以大多数服务器达成共识为重要标志，通过读取判断是否达成共识这一状态。</p>
+<p>为了从Paxos系统中读取一个值数据，客户端会请求读取所有流程中存储的当前值，然后从大多数流程服务器中获得这个值，如果数量凑不够大多数或者没有足够的客户端响应，读取操作失败，下面图示你会看到一个客户端询问其他节点他们的值是多少，这些节点返回值给客户端，当客户端获得了大多数节点的响应，返回的值都是同样的，它就算成功地读操作了，并顺便保存读结果。</p>
+<p>与单节点系统(只有一台服务器)相比这有些奇怪，这两个系统中，客户端都需要观察系统已决定状态，但是在非分布式系统中像MySQL或一个memcached服务器中, 客户端只需直接向标准的状态存储的服务器地址获取状态即可，在简单的Paxos中, 客户端也是同样的方式观察状态，但是因为并没有标准的状态存储的服务器地址，它需要询问所有的成员，以便能够确定仅有一个会报告值数据，实际上是大多数节点都持有的值数据，如果客户端询问一个节点，有可能这个节点流程已经过期，得到了错误的值数据，流程失效过期的原因有很多：由于不可靠的网络导致本应送达到它们的消息丢失了；或者他们也许当机然后使用了一个过期状态恢复；或者算法还在运行计算中，流程并没有正好得到消息等等。在现实中使用Paxos实现时，其实不需要每个节点都进行一次读取，会有更好的读取方式，但是他们都是拓展的原始 Paxos 算法。</p>
+<h3 id="paxos写操作"><a class="markdownIt-Anchor" href="#paxos写操作"></a> Paxos写操作</h3>
+<p>当一个客户端要求写入系统一个新值时，让我们看看Paxos让我们集群的流程都做了什么？下面的过程都是只有一个值的写入，最终我们能用这个流程作为原始数据，允许值数据在彼此之间一个个设置，但是基本的Paxos算法管治了一个新值数据的写操作流程， 然后做重复的事情。</p>
+<p>首先Paxos管理的系统中一个客户端要求写入一个新值，客户端这里如图所示是红圈，其它流程是蓝圈， Paxos能保证客户端发送它们的写请求到Paxos集群中任何成员, 这里演示中客户端随机挑选流程中任意一个，这种方式是重要且巧妙的，意味著没有任何单点风险，意味着我们的Paxos管治系统能继续保持在线可用，无论任何一个节点当机或其他不可用原因无响应。如果我们设计一个特定节点作为“推荐人proposer”或者 “the master” 等, 如果这个主节点死机，那么整个系统就崩溃了。</p>
+<p>当写请求被接受后，Paxos流程会接受这个写新值到系统中请求“建议”， “建议”是Paxos中一个正式概念: 向一个Paxos管治的系统建议可能会成功或失败，需要步骤来确保共识能够达成维系，这个建议以准备消息从那些与客户端连接的流程节点们被发往整个系统。</p>
+<h4 id="序列号"><a class="markdownIt-Anchor" href="#序列号"></a> 序列号</h4>
+<p>这个准备消息保存在被建议的值数据中，它们也称为序列号s<em>equence number</em>，序列号是由建议流程产生的，它定义了接受流程应该准备接受带有序列号的建议，这个序列号是关键: 它用于表明新旧建议之间的区别，如果两个流程试图获得需要设置一个值，Paxos认为最后一个流程应该有优先权，这样让流程分辨哪个是最后一个，这样它就能设置最新的值。</p>
+<p>这些接受的流程能够进行在系统中关键的检查：这个在到来的准备消息中序列号是我见过的最高级别吗？如果是，那就很cool, 我能准备好接受将要到来的值数据，那就不要管之前听到的任何其他值数据了，你能看到这个过程在右边演示中：客户端每隔一段向一个流程建议一个新值，这个流程发送准备消息给其他流程，然后那些流程注意到这是一个成功的更高的超过旧的新序列号，然后就放手那些旧建议。</p>
+<p>这里有一个顺序的设计(先发送准备消息)，这是为避免单点风险，如果没有这个顺序，Paxos中成员就无法分辨哪个建议是他们可以有信心地准备接受的。</p>
+<p>我们不能想象有另外不同的共识算法，不是按照如下步骤：首先发送第一个消息询问其他流程，以确保将设置的新值是最新的值，尽管方式可以再简单些，但是可能就不能满足共识算法安全的需求了，如果两个流程正好同时建议不同的值，如下所示：</p>
+<p>大自然经常会这样欺骗我们，每个包都能另外一半的流程相信它们接受的也许是正确也许是错误的值，系统将进入一个僵局，存在两个相同数量的组却有不同的值，那么就无法确定大多数这个概念了，这个僵局能够被第一个Paxos消息避免，因为Paxos的序列号，那些有问题的建议将有被其他更低的序列号，这样序列号更高的建议就会毫不含糊地被大多数流程接收，它们也首先获得了更高的序列号，然后如果接受到更低的序列号就会拒绝，Paxos 就是这样通过用序列号控制整个系统的时间节奏。</p>
+<p><em>上图演示了客户端首先发一个准备消息给Paxos流程，Paxos流程会检查下一步将到来的建议的序列号，以分辨是否准备接受这个新值，所有流程都是这样消除歧义，共识由此达成。</em></p>
+<p>注意：保证没有两个建议使用相同的序列号是很重要的，这是确保他们的顺序，这样每个序列号只有一个建议，这样才能比较两个建议，实现Paxos时，全局唯一有序的序列号实际是精确系统时间和集群中节点数量的拷贝，随着时间不断增加，从来不会重复。</p>
+<h4 id="paxos第一阶段准备perpare诺言promises"><a class="markdownIt-Anchor" href="#paxos第一阶段准备perpare诺言promises"></a> Paxos第一阶段：准备Perpare/诺言Promises</h4>
+<p>Paxos的第一阶段是prepare/promise，准备阶段就是将建议值发送到各个目标节点。</p>
+<p>当建议被发到目标节点后，流程会会检查建议中的序列号，是否是它们见到过的最高级，如果是最高级，它们会发出一个promise不再接受比这个新序列号更旧的建议了，这个诺言promise作为消息从许下诺言的流程发到提交建议新值的流程服务器，这个诺言消息给提交建议的流程后，提交建议的流程需要自己统计一下有多少其他流程已经发回它们的诺言promise了，如果判断数量上是否达到大多数？如果大多数流程已经同意接受这个建议或者更高级序列号的建议，这个提交建议的流程就能知道它获得了发言权(因为有大多数支持)，这样就开始讲话，算法中的下一步处理将可能进行；如果回复诺言的节点数量没有达到大多数，也就是共识没有达成，这样这个节点提交的建议将退出，客户端要求的写操作失败。</p>
+<p>为了决定一个建议是否已经有足够的回复诺言promises, 提交建议者只是统计一下它接受到的 <code>promise</code> 消息数量，然后和整个系统中节点服务器数量比较一下，“足够”意味着大多数(N/2 + 1)个流程服务器在某段时间内都回复了诺言promises。如果超过一半的流程服务器没有返回诺言，这意味着这个建议没有被大多数通过，那么在前面描述的读算法中就不能满足大多数的要求，也就不能达成共识，这个建议就退出。其他包括网络分区错误也可能会阻止大多数达成共识，</p>
+<h3 id="第二阶段paoxs接纳acceptance"><a class="markdownIt-Anchor" href="#第二阶段paoxs接纳acceptance"></a> 第二阶段：Paoxs接纳Acceptance</h3>
+<p>当完成prepare/promise阶段，进入了 propose/accept阶段。</p>
+<p>一旦建议提交者已经从大多数其他流程服务器获得了诺言，它会要求许诺的流程服务器接收它们之前承诺接受的新值数据，这是一个“确认commit”阶段，如果没有冲突建议 失败或分区错误，那么这个新建议将被所有其他节点接受，那么Paxos过程就完成了。</p>
+<p>你能看到右边的演示，注意这个演示比上面promise在最后多了一个动作，也就是提交建议者将新值发给那些许诺言的流程服务器，让它们接受了这个新值。</p>
+<p>接受的过程也许可能会发生失败，在回复了诺言消息以后，在接受到Accept消息之前，如果有足够多的服务器正好在这个时间段失败，那么接受行为只能是少数服务器，那么Paxos进入了厄运状态：一些流程服务器接受了新值，而不是全部的，这种不一致已经在前面读操作中描述：一个客户端试图从系统中大多数节点服务器读取它们同意接受的值，它发现一些节点服务器报告有不同的值数据，这会引起读失败，但是Paxos还保持一致性，不允许在没有达成共识情况下任何写操作发生，这种坏的情况在实践中经常通过重复接受阶段来让大多数节点最终接受。</p>
+<h3 id="总结"><a class="markdownIt-Anchor" href="#总结"></a> 总结</h3>
+<p>Paxos算法是保证在分布式系统中写操作能够顺利进行，保证系统中大多数状态是一致的，没有机会看到不一致，因此，Paxos算法的特点是一致性&gt;可用性。</p>
+<p>vector clock向量时钟是另外一种保证复制的算法，其特点是可用性&gt;一致性，但是，一旦发生冲突，不像Paxos能自行解决，需要人工干预编写代码解决。</p>
+<p>Paxos算法和Vector Clock都是由Leslie Lamport提出。</p>
+<h2 id="参考资料"><a class="markdownIt-Anchor" href="#参考资料"></a> 参考资料</h2>
+<ul>
+<li><a href="https://lamport.azurewebsites.net/pubs/paxos-simple.pdf" target="_blank" rel="noopener">Paxos Made Simple 论文</a></li>
+<li><a href="https://www.jdon.com/artichect/paxos.html" target="_blank" rel="noopener">分布式系统Paxos算法</a></li>
+</ul>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+        
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="zh-CN">
     <link itemprop="mainEntityOfPage" href="https://dunwu.github.io/blog/blog/design/theory/raft/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -246,7 +413,7 @@
               <span class="post-meta-item-text">发表于</span>
               
 
-              <time title="创建时间：2020-02-01 22:07:00 / 修改时间：22:32:36" itemprop="dateCreated datePublished" datetime="2020-02-01T22:07:00+08:00">2020-02-01</time>
+              <time title="创建时间：2020-02-01 22:07:00 / 修改时间：22:41:39" itemprop="dateCreated datePublished" datetime="2020-02-01T22:07:00+08:00">2020-02-01</time>
             </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -306,7 +473,10 @@
 
       
           <h1 id="深入剖析一致性算法-raft"><a class="markdownIt-Anchor" href="#深入剖析一致性算法-raft"></a> 深入剖析一致性算法 Raft</h1>
-<p><img src="https://raw.githubusercontent.com/dunwu/images/master/snap/20200201221202.png" alt="" /></p>
+<blockquote>
+<p>📦 本文已归档到：「<a href="https://github.com/dunwu/blog" target="_blank" rel="noopener">blog</a>」</p>
+</blockquote>
+<p><img src="https://raw.githubusercontent.com/dunwu/images/master/snap/20200201221202.png" alt="img" /></p>
 <!-- TOC depthFrom:2 depthTo:3 -->
 <ul>
 <li><a href="#%E4%B8%80raft-%E7%AE%80%E4%BB%8B">一、Raft 简介</a>
@@ -591,156 +761,6 @@
 <li><a href="https://zhuanlan.zhihu.com/p/32052223" target="_blank" rel="noopener">Raft 算法详解</a></li>
 <li><a href="http://thesecretlivesofdata.com/raft" target="_blank" rel="noopener">Raft: Understandable Distributed Consensus</a> - 一个动画教程</li>
 <li><a href="https://github.com/sofastack/sofa-jraft" target="_blank" rel="noopener">sofa-jraft</a> - 蚂蚁金服的 Raft 算法实现库（Java 版）</li>
-</ul>
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-        
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="https://dunwu.github.io/blog/blog/design/theory/paxos/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/blog/images/avatar.gif">
-      <meta itemprop="name" content="Zhang Peng">
-      <meta itemprop="description" content="Dunwu's Blog">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Dunwu">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/blog/design/theory/paxos/" class="post-title-link" itemprop="url">design/theory/paxos</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-
-              <time title="创建时间：2020-01-31 17:42:52" itemprop="dateCreated datePublished" datetime="2020-01-31T17:42:52+08:00">2020-01-31</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-calendar-check-o"></i>
-                </span>
-                <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2020-02-01 22:24:44" itemprop="dateModified" datetime="2020-02-01T22:24:44+08:00">2020-02-01</time>
-              </span>
-
-          
-  
-  <span class="post-meta-item">
-    
-      <span class="post-meta-item-icon">
-        <i class="fa fa-comment-o"></i>
-      </span>
-      <span class="post-meta-item-text">Disqus：</span>
-    
-    <a title="disqus" href="/blog/design/theory/paxos/#comments" itemprop="discussionUrl">
-      <span class="post-comments-count disqus-comment-count" data-disqus-identifier="design/theory/paxos/" itemprop="commentCount"></span>
-    </a>
-  </span>
-  
-  <br>
-            <span class="post-meta-item" title="本文字数">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-file-word-o"></i>
-              </span>
-                <span class="post-meta-item-text">本文字数：</span>
-              <span>5.5k</span>
-            </span>
-            <span class="post-meta-item" title="阅读时长">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-clock-o"></i>
-              </span>
-                <span class="post-meta-item-text">阅读时长 &asymp;</span>
-              <span>5 分钟</span>
-            </span>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h1 id="深入剖析一致性算法-paxos"><a class="markdownIt-Anchor" href="#深入剖析一致性算法-paxos"></a> 深入剖析一致性算法 Paxos</h1>
-<p>这是一个有关Paxos算法非常形象的讲解与示范。Paxos是能够基于一大堆完全不可靠的网络条件下却能可靠确定地实现共识一致性的算法。也就是说：它允许一组不一定可靠的处理器（服务器）在某些条件得到满足情况下就能达成确定的安全的共识，如果条件不能满足也确保这组处理器（服务器）保持一致。</p>
-<h3 id="什么是共识"><a class="markdownIt-Anchor" href="#什么是共识"></a> 什么是共识？</h3>
-<p>具体来说是这样：分布式系统中由于网络之间通讯可能会中断，虽然概率很低，但是没有100%完美的网络因此，依靠网络通讯的计算机之间要达成共识就比较困难，假设有X, Y和Z三台计算机谋划在周一攻击人类世界，它们的攻击计划是只要所有计算机可用于战斗时就一起进行攻击，不落下任何一台机器，但是当他们决定具体什么时间开始攻击时，在这个关键问题上往往会出错。</p>
-<p>一个基本问题是，每台机器都有自己的攻击时间建议，计算机X可以建议在08:00时间，因为这个时间正是周一早晨，而人们刚刚过完狂欢的周末休息天，但是计算机Z认为13:00比较好，理由当然也有一大堆，让这三台计算机基于某个时刻达成共识是非常困难的，因此，也给人类反击留下了机会。</p>
-<p>另外一个情况是，这三台计算机是位于世界不同的位置，之间通讯或许通过电缆或者其他不太可靠的网络设备通讯，如果X建议在08:00，它必须确认它的这个建议能够到达活着的Y和Z，以免一个人战斗。</p>
-<p>问题是：我们不能准确地知道某个计算机的延迟的原因：是因为性能慢了还是已经是彻底死机不能用？</p>
-<p>那么，X怎么知道其他两个计算机是可用的呢？也就是说，当X和其他两个计算机通讯发现得到响应要过很长时间，它不能确定这两台计算机到底还能不能继续活下去，也许这次通讯有延迟了，下一次它们又活过来了没有延迟了，也许下次延迟更长了一点，也许下次延迟稍微短了一点，这些随机概率问题使得X不能确定Y和Z到底是出了什么问题造成延迟的，是因为处理了某个特别耗费CPU的任务还是因为死锁等原因？当然，有些天真的设计者会说，只要我们将性能监控到位，如果延迟超过一定时间，我们人工介入告诉X确切情况就可以，那么这种人工介入的分布式系统不是一个天然自洽的自动化系统了，不在我们讨论范围之内，而且这样的系统会让人疲于奔命。</p>
-<p>因为X不能确定Y或Z是否可用，所以X仅仅只能和Y与Z中一台基于攻击时间达成共识，就无法完全三台机器全部投入战斗的计划。注意的是，X Y Z三台中任何一台都可能会出现延迟，这就造成了三台机器之间任何通讯都是无法确认可靠的，比如X发出消息给Z，Z确认后回执给X，但是这段时间X突然死机了，那么Z要等待X多长时间才能知道它收到确认呢？还是再次等待X回复确认的确认，这样无限循环下去也不能解决它们之间通讯可能出现随机不可靠的问题。</p>
-<p>所有关键问题在于：由于这三台机器之间通讯是无法保证100%可靠，它们就不能就任何事情达成共识。</p>
-<p>下面以分布式拍卖案例说明这种情况以及Paxos的基本原理？</p>
-<p>在传统拍卖场景中，价高者先得，这些拍卖者都是在同一个房间，彼此能够直接看得到对方的报价，如果我们假设分布式拍卖是将这些拍卖者分离到不同的地方，这样我们可以用拍卖者之间的联系模拟分布式计算机之间的通讯。</p>
-<p>假设拍卖者各自在自己家里拍卖，通过邮局信件发出自己的拍卖信息，拍卖者之间除非等到邮局投递人告诉他们彼此之间的报价，否则是无法知道对方报价的。如果邮局信件投递这个环节出了问题，投递速度慢了甚至无法投递了，那么整个拍卖程序就无法继续进行下去。</p>
-<h3 id="paxos解决共识思路"><a class="markdownIt-Anchor" href="#paxos解决共识思路"></a> Paxos解决共识思路</h3>
-<p>Paxos是一个解决<a href="http://harry.me/blog/2013/07/07/id-like-to-have-an-argument-a-primer-on-consensus/" target="_blank" rel="noopener">共识问题consensus problem</a>的算法，现实中Paxos的实现以及成为一些世界级软件的心脏，如Cassandra, Google的 Spanner数据库, 分布式锁服务Chubby. 一个被Paxos管理的系统实际上谈论的是值 状态和跟踪等问题，其目标是建造更高可用性和强一致性的分布式系统。</p>
-<p>Paxos完成一次写操作需要两次来回，分别是prepare/promise, 和 propose/accept：</p>
-<p><img src="https://www.jdon.com/simgs/bigdata/paxos.png" alt="paxos" /></p>
-<p>第一次由提交者Leader向所有其他服务器发出prepare消息请求准备，所有服务器中大多数如果回复诺言承诺就表示准备好了，可以接受写入；第二次提交者向所有服务器发出正式建议propose，所有服务器中大多数如果回复已经接收就表示成功了。</p>
-<p>为了详细描述这个两段过程，首先让我们定义一下我们将使用的一些名词术语：</p>
-<ul>
-<li>一个流程是系统中计算机的一个. 人们使用有关复制或节点等词语表达，都差不多。</li>
-<li>一个客户端是属于系统中一个成员的计算机，但是询问系统值是什么或者要求系统获取一个新的值。</li>
-</ul>
-<p>Paxos构建分布式数据库的小片段: 它仅仅实现流程将一个新的东西精确地写入系统中，流程是由Paxos的一个实例管治，可以失败或者不知道任何东西、或者大多数流程都知道一个同样的值，这就是共识，Paxos并不真的告诉我们如何用它来构建数据库或类似的东西，它只是负责独立节点之间通讯的流程， 这些流程服务器会基于一个新值执行决定，Paxos会存储一个值数据，只是一次性的，一旦你第一次设置以后就不能再改变它。</p>
-<h3 id="paxo读操作"><a class="markdownIt-Anchor" href="#paxo读操作"></a> Paxo读操作</h3>
-<p>其实Paxos精华是在写操作，将读操作放在写操作前面讲解，是着重Paxos以大多数服务器达成共识为重要标志，通过读取判断是否达成共识这一状态。</p>
-<p>为了从Paxos系统中读取一个值数据，客户端会请求读取所有流程中存储的当前值，然后从大多数流程服务器中获得这个值，如果数量凑不够大多数或者没有足够的客户端响应，读取操作失败，下面图示你会看到一个客户端询问其他节点他们的值是多少，这些节点返回值给客户端，当客户端获得了大多数节点的响应，返回的值都是同样的，它就算成功地读操作了，并顺便保存读结果。</p>
-<p>与单节点系统(只有一台服务器)相比这有些奇怪，这两个系统中，客户端都需要观察系统已决定状态，但是在非分布式系统中像MySQL或一个memcached服务器中, 客户端只需直接向标准的状态存储的服务器地址获取状态即可，在简单的Paxos中, 客户端也是同样的方式观察状态，但是因为并没有标准的状态存储的服务器地址，它需要询问所有的成员，以便能够确定仅有一个会报告值数据，实际上是大多数节点都持有的值数据，如果客户端询问一个节点，有可能这个节点流程已经过期，得到了错误的值数据，流程失效过期的原因有很多：由于不可靠的网络导致本应送达到它们的消息丢失了；或者他们也许当机然后使用了一个过期状态恢复；或者算法还在运行计算中，流程并没有正好得到消息等等。在现实中使用Paxos实现时，其实不需要每个节点都进行一次读取，会有更好的读取方式，但是他们都是拓展的原始 Paxos 算法。</p>
-<h3 id="paxos写操作"><a class="markdownIt-Anchor" href="#paxos写操作"></a> Paxos写操作</h3>
-<p>当一个客户端要求写入系统一个新值时，让我们看看Paxos让我们集群的流程都做了什么？下面的过程都是只有一个值的写入，最终我们能用这个流程作为原始数据，允许值数据在彼此之间一个个设置，但是基本的Paxos算法管治了一个新值数据的写操作流程， 然后做重复的事情。</p>
-<p>首先Paxos管理的系统中一个客户端要求写入一个新值，客户端这里如图所示是红圈，其它流程是蓝圈， Paxos能保证客户端发送它们的写请求到Paxos集群中任何成员, 这里演示中客户端随机挑选流程中任意一个，这种方式是重要且巧妙的，意味著没有任何单点风险，意味着我们的Paxos管治系统能继续保持在线可用，无论任何一个节点当机或其他不可用原因无响应。如果我们设计一个特定节点作为“推荐人proposer”或者 “the master” 等, 如果这个主节点死机，那么整个系统就崩溃了。</p>
-<p>当写请求被接受后，Paxos流程会接受这个写新值到系统中请求“建议”， “建议”是Paxos中一个正式概念: 向一个Paxos管治的系统建议可能会成功或失败，需要步骤来确保共识能够达成维系，这个建议以准备消息从那些与客户端连接的流程节点们被发往整个系统。</p>
-<h4 id="序列号"><a class="markdownIt-Anchor" href="#序列号"></a> 序列号</h4>
-<p>这个准备消息保存在被建议的值数据中，它们也称为序列号s<em>equence number</em>，序列号是由建议流程产生的，它定义了接受流程应该准备接受带有序列号的建议，这个序列号是关键: 它用于表明新旧建议之间的区别，如果两个流程试图获得需要设置一个值，Paxos认为最后一个流程应该有优先权，这样让流程分辨哪个是最后一个，这样它就能设置最新的值。</p>
-<p>这些接受的流程能够进行在系统中关键的检查：这个在到来的准备消息中序列号是我见过的最高级别吗？如果是，那就很cool, 我能准备好接受将要到来的值数据，那就不要管之前听到的任何其他值数据了，你能看到这个过程在右边演示中：客户端每隔一段向一个流程建议一个新值，这个流程发送准备消息给其他流程，然后那些流程注意到这是一个成功的更高的超过旧的新序列号，然后就放手那些旧建议。</p>
-<p>这里有一个顺序的设计(先发送准备消息)，这是为避免单点风险，如果没有这个顺序，Paxos中成员就无法分辨哪个建议是他们可以有信心地准备接受的。</p>
-<p>我们不能想象有另外不同的共识算法，不是按照如下步骤：首先发送第一个消息询问其他流程，以确保将设置的新值是最新的值，尽管方式可以再简单些，但是可能就不能满足共识算法安全的需求了，如果两个流程正好同时建议不同的值，如下所示：</p>
-<p>大自然经常会这样欺骗我们，每个包都能另外一半的流程相信它们接受的也许是正确也许是错误的值，系统将进入一个僵局，存在两个相同数量的组却有不同的值，那么就无法确定大多数这个概念了，这个僵局能够被第一个Paxos消息避免，因为Paxos的序列号，那些有问题的建议将有被其他更低的序列号，这样序列号更高的建议就会毫不含糊地被大多数流程接收，它们也首先获得了更高的序列号，然后如果接受到更低的序列号就会拒绝，Paxos 就是这样通过用序列号控制整个系统的时间节奏。</p>
-<p><em>上图演示了客户端首先发一个准备消息给Paxos流程，Paxos流程会检查下一步将到来的建议的序列号，以分辨是否准备接受这个新值，所有流程都是这样消除歧义，共识由此达成。</em></p>
-<p>注意：保证没有两个建议使用相同的序列号是很重要的，这是确保他们的顺序，这样每个序列号只有一个建议，这样才能比较两个建议，实现Paxos时，全局唯一有序的序列号实际是精确系统时间和集群中节点数量的拷贝，随着时间不断增加，从来不会重复。</p>
-<h4 id="paxos第一阶段准备perpare诺言promises"><a class="markdownIt-Anchor" href="#paxos第一阶段准备perpare诺言promises"></a> Paxos第一阶段：准备Perpare/诺言Promises</h4>
-<p>Paxos的第一阶段是prepare/promise，准备阶段就是将建议值发送到各个目标节点。</p>
-<p>当建议被发到目标节点后，流程会会检查建议中的序列号，是否是它们见到过的最高级，如果是最高级，它们会发出一个promise不再接受比这个新序列号更旧的建议了，这个诺言promise作为消息从许下诺言的流程发到提交建议新值的流程服务器，这个诺言消息给提交建议的流程后，提交建议的流程需要自己统计一下有多少其他流程已经发回它们的诺言promise了，如果判断数量上是否达到大多数？如果大多数流程已经同意接受这个建议或者更高级序列号的建议，这个提交建议的流程就能知道它获得了发言权(因为有大多数支持)，这样就开始讲话，算法中的下一步处理将可能进行；如果回复诺言的节点数量没有达到大多数，也就是共识没有达成，这样这个节点提交的建议将退出，客户端要求的写操作失败。</p>
-<p>为了决定一个建议是否已经有足够的回复诺言promises, 提交建议者只是统计一下它接受到的 <code>promise</code> 消息数量，然后和整个系统中节点服务器数量比较一下，“足够”意味着大多数(N/2 + 1)个流程服务器在某段时间内都回复了诺言promises。如果超过一半的流程服务器没有返回诺言，这意味着这个建议没有被大多数通过，那么在前面描述的读算法中就不能满足大多数的要求，也就不能达成共识，这个建议就退出。其他包括网络分区错误也可能会阻止大多数达成共识，</p>
-<h3 id="第二阶段paoxs接纳acceptance"><a class="markdownIt-Anchor" href="#第二阶段paoxs接纳acceptance"></a> 第二阶段：Paoxs接纳Acceptance</h3>
-<p>当完成prepare/promise阶段，进入了 propose/accept阶段。</p>
-<p>一旦建议提交者已经从大多数其他流程服务器获得了诺言，它会要求许诺的流程服务器接收它们之前承诺接受的新值数据，这是一个“确认commit”阶段，如果没有冲突建议 失败或分区错误，那么这个新建议将被所有其他节点接受，那么Paxos过程就完成了。</p>
-<p>你能看到右边的演示，注意这个演示比上面promise在最后多了一个动作，也就是提交建议者将新值发给那些许诺言的流程服务器，让它们接受了这个新值。</p>
-<p>接受的过程也许可能会发生失败，在回复了诺言消息以后，在接受到Accept消息之前，如果有足够多的服务器正好在这个时间段失败，那么接受行为只能是少数服务器，那么Paxos进入了厄运状态：一些流程服务器接受了新值，而不是全部的，这种不一致已经在前面读操作中描述：一个客户端试图从系统中大多数节点服务器读取它们同意接受的值，它发现一些节点服务器报告有不同的值数据，这会引起读失败，但是Paxos还保持一致性，不允许在没有达成共识情况下任何写操作发生，这种坏的情况在实践中经常通过重复接受阶段来让大多数节点最终接受。</p>
-<h3 id="总结"><a class="markdownIt-Anchor" href="#总结"></a> 总结</h3>
-<p>Paxos算法是保证在分布式系统中写操作能够顺利进行，保证系统中大多数状态是一致的，没有机会看到不一致，因此，Paxos算法的特点是一致性&gt;可用性。</p>
-<p>vector clock向量时钟是另外一种保证复制的算法，其特点是可用性&gt;一致性，但是，一旦发生冲突，不像Paxos能自行解决，需要人工干预编写代码解决。</p>
-<p>Paxos算法和Vector Clock都是由Leslie Lamport提出。</p>
-<h2 id="参考资料"><a class="markdownIt-Anchor" href="#参考资料"></a> 参考资料</h2>
-<ul>
-<li><a href="https://lamport.azurewebsites.net/pubs/paxos-simple.pdf" target="_blank" rel="noopener">Paxos Made Simple 论文</a></li>
-<li><a href="https://www.jdon.com/artichect/paxos.html" target="_blank" rel="noopener">分布式系统Paxos算法</a></li>
 </ul>
 
       
@@ -1335,7 +1355,7 @@ GFM 中可以显示的展示 diff 效果。可以用 <code>+</code> 开头表示
                   <i class="fa fa-calendar-check-o"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2020-01-25 22:49:22" itemprop="dateModified" datetime="2020-01-25T22:49:22+08:00">2020-01-25</time>
+                <time title="修改时间：2020-02-01 22:42:18" itemprop="dateModified" datetime="2020-02-01T22:42:18+08:00">2020-02-01</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -1395,6 +1415,9 @@ GFM 中可以显示的展示 diff 效果。可以用 <code>+</code> 开头表示
 
       
           <h1 id="限流基本原理"><a class="markdownIt-Anchor" href="#限流基本原理"></a> 限流基本原理</h1>
+<blockquote>
+<p>📦 本文已归档到：「<a href="https://github.com/dunwu/blog" target="_blank" rel="noopener">blog</a>」</p>
+</blockquote>
 <!-- TOC depthFrom:2 depthTo:3 -->
 <ul>
 <li><a href="#%E9%99%90%E6%B5%81%E6%96%B9%E6%B3%95">限流方法</a>
@@ -1778,7 +1801,7 @@ GFM 中可以显示的展示 diff 效果。可以用 <code>+</code> 开头表示
                   <i class="fa fa-calendar-check-o"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2019-11-27 15:59:25" itemprop="dateModified" datetime="2019-11-27T15:59:25+08:00">2019-11-27</time>
+                <time title="修改时间：2020-02-01 22:42:28" itemprop="dateModified" datetime="2020-02-01T22:42:28+08:00">2020-02-01</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -1838,6 +1861,9 @@ GFM 中可以显示的展示 diff 效果。可以用 <code>+</code> 开头表示
 
       
           <h1 id="分库分表基本原理"><a class="markdownIt-Anchor" href="#分库分表基本原理"></a> 分库分表基本原理</h1>
+<blockquote>
+<p>📦 本文已归档到：「<a href="https://github.com/dunwu/blog" target="_blank" rel="noopener">blog</a>」</p>
+</blockquote>
 <p>分片（Sharding）的基本思想就要把一个数据库切分成多个部分，存储在不同的数据库(server)上，从而缓解单一数据库的性能问题。</p>
 <h2 id="1-数据分片"><a class="markdownIt-Anchor" href="#1-数据分片"></a> 1. 数据分片</h2>
 <p>数据分片指按照某个维度将存放在单一数据库中的数据分散地存放至多个数据库或表中以达到提升性能瓶颈以及可用性的效果。 数据分片的有效手段是对关系型数据库进行分库和分表。分库和分表均可以有效的避免由数据量超过可承受阈值而产生的查询瓶颈。 除此之外，分库还能够用于有效的分散对数据库单点的访问量；分表虽然无法缓解数据库压力，但却能够提供尽量将分布式事务转化为本地事务的可能，一旦涉及到跨库的更新操作，分布式事务往往会使问题变得复杂。 使用多主多从的分片方式，可以有效的避免数据单点，从而提升数据架构的可用性。</p>
@@ -1975,7 +2001,7 @@ GFM 中可以显示的展示 diff 效果。可以用 <code>+</code> 开头表示
                   <i class="fa fa-calendar-check-o"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2019-11-27 16:34:35" itemprop="dateModified" datetime="2019-11-27T16:34:35+08:00">2019-11-27</time>
+                <time title="修改时间：2020-02-01 22:42:06" itemprop="dateModified" datetime="2020-02-01T22:42:06+08:00">2020-02-01</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -2035,6 +2061,9 @@ GFM 中可以显示的展示 diff 效果。可以用 <code>+</code> 开头表示
 
       
           <h1 id="分布式存储基本原理"><a class="markdownIt-Anchor" href="#分布式存储基本原理"></a> 分布式存储基本原理</h1>
+<blockquote>
+<p>📦 本文已归档到：「<a href="https://github.com/dunwu/blog" target="_blank" rel="noopener">blog</a>」</p>
+</blockquote>
 <h2 id="1-分区规则"><a class="markdownIt-Anchor" href="#1-分区规则"></a> 1. 分区规则</h2>
 <p><strong>分布式数据库</strong> 首先要解决把 <strong>整个数据集</strong> 按照 <strong>分区规则</strong> 映射到 <strong>多个节点</strong> 的问题，即把 <strong>数据集</strong> 划分到 <strong>多个节点</strong> 上，每个节点负责 <strong>整体数据</strong> 的一个 <strong>子集</strong>。</p>
 <div align="center">
@@ -2162,7 +2191,7 @@ GFM 中可以显示的展示 diff 效果。可以用 <code>+</code> 开头表示
                   <i class="fa fa-calendar-check-o"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2020-01-19 21:56:17" itemprop="dateModified" datetime="2020-01-19T21:56:17+08:00">2020-01-19</time>
+                <time title="修改时间：2020-02-01 22:41:52" itemprop="dateModified" datetime="2020-02-01T22:41:52+08:00">2020-02-01</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -2223,6 +2252,7 @@ GFM 中可以显示的展示 diff 效果。可以用 <code>+</code> 开头表示
       
           <h1 id="分布式-id-基本原理"><a class="markdownIt-Anchor" href="#分布式-id-基本原理"></a> 分布式 ID 基本原理</h1>
 <blockquote>
+<p>📦 本文已归档到：「<a href="https://github.com/dunwu/blog" target="_blank" rel="noopener">blog</a>」</p>
 <p>传统数据库软件开发中，主键自动生成技术是基本需求。而各个数据库对于该需求也提供了相应的支持，比如 MySQL 的自增键，Oracle 的自增序列等。</p>
 <p>数据分片后，不同数据节点生成全局唯一主键是非常棘手的问题。同一个逻辑表内的不同实际表之间的自增键由于无法互相感知而产生重复主键。 虽然可通过约束自增主键初始值和步长的方式避免碰撞，但需引入额外的运维规则，使解决方案缺乏完整性和可扩展性。</p>
 <p>为此，需要使用分布式 ID 来解决此问题。本文总结业界常用的分布式 ID 解决方案。</p>
@@ -2512,7 +2542,7 @@ GFM 中可以显示的展示 diff 效果。可以用 <code>+</code> 开头表示
                   <i class="fa fa-calendar-check-o"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2020-01-20 11:26:54" itemprop="dateModified" datetime="2020-01-20T11:26:54+08:00">2020-01-20</time>
+                <time title="修改时间：2020-02-01 22:42:28" itemprop="dateModified" datetime="2020-02-01T22:42:28+08:00">2020-02-01</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -2573,6 +2603,7 @@ GFM 中可以显示的展示 diff 效果。可以用 <code>+</code> 开头表示
       
           <h1 id="消息队列基本原理"><a class="markdownIt-Anchor" href="#消息队列基本原理"></a> 消息队列基本原理</h1>
 <blockquote>
+<p>📦 本文已归档到：「<a href="https://github.com/dunwu/blog" target="_blank" rel="noopener">blog</a>」</p>
 <p>消息队列（Message Queue，简称 MQ）技术是分布式应用间交换信息的一种技术。</p>
 <p>消息队列主要解决应用耦合，异步消息，流量削锋等问题，实现高性能，高可用，可伸缩和最终一致性架构。是大型分布式系统不可缺少的中间件。</p>
 <p>注意：<em>为了简便，下文中除了文章标题，一律使用 MQ 简称</em>。</p>
@@ -2934,7 +2965,7 @@ P2P 模式包含三个角色：MQ（Queue），发送者(Sender)，接收者(Rec
       <div class="site-state-item site-state-tags">
             <a href="/blog/tags/">
           
-        <span class="site-state-item-count">43</span>
+        <span class="site-state-item-count">44</span>
         <span class="site-state-item-name">标签</span></a>
       </div>
   </nav>

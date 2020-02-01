@@ -52,13 +52,13 @@
   };
 </script>
 
-  <meta name="description" content="分库分表基本原理 分片（Sharding）的基本思想就要把一个数据库切分成多个部分，存储在不同的数据库(server)上，从而缓解单一数据库的性能问题。  1. 数据分片 数据分片指按照某个维度将存放在单一数据库中的数据分散地存放至多个数据库或表中以达到提升性能瓶颈以及可用性的效果。 数据分片的有效手段是对关系型数据库进行分库和分表。分库和分表均可以有效的避免由数据量超过可承受阈值而产生的查询瓶">
+  <meta name="description" content="分库分表基本原理  📦 本文已归档到：「blog」  分片（Sharding）的基本思想就要把一个数据库切分成多个部分，存储在不同的数据库(server)上，从而缓解单一数据库的性能问题。  1. 数据分片 数据分片指按照某个维度将存放在单一数据库中的数据分散地存放至多个数据库或表中以达到提升性能瓶颈以及可用性的效果。 数据分片的有效手段是对关系型数据库进行分库和分表。分库和分表均可以有效的避">
 <meta name="keywords" content="设计,系统原理,分片">
 <meta property="og:type" content="article">
 <meta property="og:title" content="分库分表基本原理">
 <meta property="og:url" content="https:&#x2F;&#x2F;dunwu.github.io&#x2F;blog&#x2F;design&#x2F;theory&#x2F;sharding-theory&#x2F;index.html">
 <meta property="og:site_name" content="Dunwu">
-<meta property="og:description" content="分库分表基本原理 分片（Sharding）的基本思想就要把一个数据库切分成多个部分，存储在不同的数据库(server)上，从而缓解单一数据库的性能问题。  1. 数据分片 数据分片指按照某个维度将存放在单一数据库中的数据分散地存放至多个数据库或表中以达到提升性能瓶颈以及可用性的效果。 数据分片的有效手段是对关系型数据库进行分库和分表。分库和分表均可以有效的避免由数据量超过可承受阈值而产生的查询瓶">
+<meta property="og:description" content="分库分表基本原理  📦 本文已归档到：「blog」  分片（Sharding）的基本思想就要把一个数据库切分成多个部分，存储在不同的数据库(server)上，从而缓解单一数据库的性能问题。  1. 数据分片 数据分片指按照某个维度将存放在单一数据库中的数据分散地存放至多个数据库或表中以达到提升性能瓶颈以及可用性的效果。 数据分片的有效手段是对关系型数据库进行分库和分表。分库和分表均可以有效的避">
 <meta property="og:locale" content="zh-CN">
 <meta property="og:image" content="https:&#x2F;&#x2F;shardingsphere.apache.org&#x2F;document&#x2F;current&#x2F;img&#x2F;sharding&#x2F;vertical_sharding.png">
 <meta property="og:image" content="https:&#x2F;&#x2F;shardingsphere.apache.org&#x2F;document&#x2F;current&#x2F;img&#x2F;sharding&#x2F;horizontal_sharding.png">
@@ -66,7 +66,7 @@
 <meta property="og:image" content="https:&#x2F;&#x2F;upload-images.jianshu.io&#x2F;upload_images&#x2F;3710706-9a7cfbdb95bb9b70.png?imageMogr2&#x2F;auto-orient&#x2F;strip%7CimageView2&#x2F;2&#x2F;w&#x2F;640&#x2F;format&#x2F;webp">
 <meta property="og:image" content="https:&#x2F;&#x2F;shardingsphere.apache.org&#x2F;document&#x2F;current&#x2F;img&#x2F;read-write-split&#x2F;read-write-split.png">
 <meta property="og:image" content="https:&#x2F;&#x2F;shardingsphere.apache.org&#x2F;document&#x2F;current&#x2F;img&#x2F;read-write-split&#x2F;sharding-read-write-split.png">
-<meta property="og:updated_time" content="2019-11-27T07:59:25.224Z">
+<meta property="og:updated_time" content="2020-02-01T14:42:28.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:image" content="https:&#x2F;&#x2F;shardingsphere.apache.org&#x2F;document&#x2F;current&#x2F;img&#x2F;sharding&#x2F;vertical_sharding.png">
 
@@ -162,7 +162,7 @@
   </li>
         <li class="menu-item menu-item-tags">
 
-    <a href="/blog/tags/" rel="section"><i class="fa fa-fw fa-tags"></i>标签<span class="badge">43</span></a>
+    <a href="/blog/tags/" rel="section"><i class="fa fa-fw fa-tags"></i>标签<span class="badge">44</span></a>
 
   </li>
         <li class="menu-item menu-item-categories">
@@ -260,7 +260,7 @@
                   <i class="fa fa-calendar-check-o"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2019-11-27 15:59:25" itemprop="dateModified" datetime="2019-11-27T15:59:25+08:00">2019-11-27</time>
+                <time title="修改时间：2020-02-01 22:42:28" itemprop="dateModified" datetime="2020-02-01T22:42:28+08:00">2020-02-01</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -320,6 +320,9 @@
 
       
         <h1 id="分库分表基本原理"><a class="markdownIt-Anchor" href="#分库分表基本原理"></a> 分库分表基本原理</h1>
+<blockquote>
+<p>📦 本文已归档到：「<a href="https://github.com/dunwu/blog" target="_blank" rel="noopener">blog</a>」</p>
+</blockquote>
 <p>分片（Sharding）的基本思想就要把一个数据库切分成多个部分，存储在不同的数据库(server)上，从而缓解单一数据库的性能问题。</p>
 <h2 id="1-数据分片"><a class="markdownIt-Anchor" href="#1-数据分片"></a> 1. 数据分片</h2>
 <p>数据分片指按照某个维度将存放在单一数据库中的数据分散地存放至多个数据库或表中以达到提升性能瓶颈以及可用性的效果。 数据分片的有效手段是对关系型数据库进行分库和分表。分库和分表均可以有效的避免由数据量超过可承受阈值而产生的查询瓶颈。 除此之外，分库还能够用于有效的分散对数据库单点的访问量；分表虽然无法缓解数据库压力，但却能够提供尽量将分布式事务转化为本地事务的可能，一旦涉及到跨库的更新操作，分布式事务往往会使问题变得复杂。 使用多主多从的分片方式，可以有效的避免数据单点，从而提升数据架构的可用性。</p>
@@ -527,7 +530,7 @@
       <div class="site-state-item site-state-tags">
             <a href="/blog/tags/">
           
-        <span class="site-state-item-count">43</span>
+        <span class="site-state-item-count">44</span>
         <span class="site-state-item-name">标签</span></a>
       </div>
   </nav>

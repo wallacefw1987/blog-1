@@ -52,13 +52,13 @@
   };
 </script>
 
-  <meta name="description" content="分布式事务基本原理  分布式事务指的是事务操作跨越多个节点，并且要求满足事务的 ACID 特性。  分布式事务的实现主要有以下 5 种方案：  XA 方案 TCC 方案 本地消息表 可靠消息最终一致性方案 最大努力通知方案   1. 两阶段提交  两阶段提交（Two-phase Commit，2PC）通过引入协调者（Coordinator）来调度参与者的行为，并最终决定这些参与者是否要真正执行事">
+  <meta name="description" content="分布式事务基本原理  📦 本文已归档到：「blog」 分布式事务指的是事务操作跨越多个节点，并且要求满足事务的 ACID 特性。  分布式事务的实现主要有以下 5 种方案：  XA 方案 TCC 方案 本地消息表 可靠消息最终一致性方案 最大努力通知方案   1. 两阶段提交  两阶段提交（Two-phase Commit，2PC）通过引入协调者（Coordinator）来调度参与者的行为，并">
 <meta name="keywords" content="设计,系统原理,事务">
 <meta property="og:type" content="article">
 <meta property="og:title" content="分布式事务基本原理">
 <meta property="og:url" content="https:&#x2F;&#x2F;dunwu.github.io&#x2F;blog&#x2F;design&#x2F;theory&#x2F;distributed-transaction-theory&#x2F;index.html">
 <meta property="og:site_name" content="Dunwu">
-<meta property="og:description" content="分布式事务基本原理  分布式事务指的是事务操作跨越多个节点，并且要求满足事务的 ACID 特性。  分布式事务的实现主要有以下 5 种方案：  XA 方案 TCC 方案 本地消息表 可靠消息最终一致性方案 最大努力通知方案   1. 两阶段提交  两阶段提交（Two-phase Commit，2PC）通过引入协调者（Coordinator）来调度参与者的行为，并最终决定这些参与者是否要真正执行事">
+<meta property="og:description" content="分布式事务基本原理  📦 本文已归档到：「blog」 分布式事务指的是事务操作跨越多个节点，并且要求满足事务的 ACID 特性。  分布式事务的实现主要有以下 5 种方案：  XA 方案 TCC 方案 本地消息表 可靠消息最终一致性方案 最大努力通知方案   1. 两阶段提交  两阶段提交（Two-phase Commit，2PC）通过引入协调者（Coordinator）来调度参与者的行为，并">
 <meta property="og:locale" content="zh-CN">
 <meta property="og:image" content="http:&#x2F;&#x2F;dunwu.test.upcdn.net&#x2F;cs&#x2F;design&#x2F;architecture&#x2F;分布式事务两阶段提交-01.jpg!zp">
 <meta property="og:image" content="http:&#x2F;&#x2F;dunwu.test.upcdn.net&#x2F;cs&#x2F;design&#x2F;architecture&#x2F;分布式事务两阶段提交-02.jpg!zp">
@@ -66,7 +66,7 @@
 <meta property="og:image" content="https:&#x2F;&#x2F;github.com&#x2F;doocs&#x2F;advanced-java&#x2F;blob&#x2F;master&#x2F;images&#x2F;distributed-transaction-XA.png">
 <meta property="og:image" content="https:&#x2F;&#x2F;github.com&#x2F;doocs&#x2F;advanced-java&#x2F;blob&#x2F;master&#x2F;images&#x2F;distributed-transaction-local-message-table.png">
 <meta property="og:image" content="https:&#x2F;&#x2F;github.com&#x2F;doocs&#x2F;advanced-java&#x2F;blob&#x2F;master&#x2F;images&#x2F;distributed-transaction-reliable-message.png">
-<meta property="og:updated_time" content="2020-01-25T15:30:02.724Z">
+<meta property="og:updated_time" content="2020-02-01T14:42:18.028Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:image" content="http:&#x2F;&#x2F;dunwu.test.upcdn.net&#x2F;cs&#x2F;design&#x2F;architecture&#x2F;分布式事务两阶段提交-01.jpg!zp">
 
@@ -162,7 +162,7 @@
   </li>
         <li class="menu-item menu-item-tags">
 
-    <a href="/blog/tags/" rel="section"><i class="fa fa-fw fa-tags"></i>标签<span class="badge">43</span></a>
+    <a href="/blog/tags/" rel="section"><i class="fa fa-fw fa-tags"></i>标签<span class="badge">44</span></a>
 
   </li>
         <li class="menu-item menu-item-categories">
@@ -260,7 +260,7 @@
                   <i class="fa fa-calendar-check-o"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2020-01-25 23:30:02" itemprop="dateModified" datetime="2020-01-25T23:30:02+08:00">2020-01-25</time>
+                <time title="修改时间：2020-02-01 22:42:18" itemprop="dateModified" datetime="2020-02-01T22:42:18+08:00">2020-02-01</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -321,6 +321,7 @@
       
         <h1 id="分布式事务基本原理"><a class="markdownIt-Anchor" href="#分布式事务基本原理"></a> 分布式事务基本原理</h1>
 <blockquote>
+<p>📦 本文已归档到：「<a href="https://github.com/dunwu/blog" target="_blank" rel="noopener">blog</a>」</p>
 <p><strong>分布式事务指的是事务操作跨越多个节点，并且要求满足事务的 ACID 特性。</strong></p>
 </blockquote>
 <p>分布式事务的实现主要有以下 5 种方案：</p>
@@ -587,7 +588,7 @@
       <div class="site-state-item site-state-tags">
             <a href="/blog/tags/">
           
-        <span class="site-state-item-count">43</span>
+        <span class="site-state-item-count">44</span>
         <span class="site-state-item-name">标签</span></a>
       </div>
   </nav>
