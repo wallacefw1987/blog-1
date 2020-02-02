@@ -221,7 +221,7 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="https://dunwu.github.io/blog/blog/design/theory/cache-theory/">
+    <link itemprop="mainEntityOfPage" href="https://dunwu.github.io/blog/blog/distributed/mq-theory/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/blog/images/avatar.gif">
@@ -235,7 +235,396 @@
       <header class="post-header">
         <h2 class="post-title" itemprop="name headline">
           
-            <a href="/blog/design/theory/cache-theory/" class="post-title-link" itemprop="url">缓存基本原理</a>
+            <a href="/blog/distributed/mq-theory/" class="post-title-link" itemprop="url">消息队列基本原理</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2019-07-05 15:11:00" itemprop="dateCreated datePublished" datetime="2019-07-05T15:11:00+08:00">2019-07-05</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2020-02-02 18:07:05" itemprop="dateModified" datetime="2020-02-02T18:07:05+08:00">2020-02-02</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/blog/categories/%E5%88%86%E5%B8%83%E5%BC%8F/" itemprop="url" rel="index">
+                    <span itemprop="name">分布式</span>
+                  </a>
+                </span>
+            </span>
+
+          
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="fa fa-comment-o"></i>
+      </span>
+      <span class="post-meta-item-text">Disqus：</span>
+    
+    <a title="disqus" href="/blog/distributed/mq-theory/#comments" itemprop="discussionUrl">
+      <span class="post-comments-count disqus-comment-count" data-disqus-identifier="distributed/mq-theory/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  <br>
+            <span class="post-meta-item" title="本文字数">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-file-word-o"></i>
+              </span>
+                <span class="post-meta-item-text">本文字数：</span>
+              <span>8.9k</span>
+            </span>
+            <span class="post-meta-item" title="阅读时长">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-clock-o"></i>
+              </span>
+                <span class="post-meta-item-text">阅读时长 &asymp;</span>
+              <span>8 分钟</span>
+            </span>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h1 id="消息队列基本原理"><a class="markdownIt-Anchor" href="#消息队列基本原理"></a> 消息队列基本原理</h1>
+<blockquote>
+<p>📦 本文已归档到：「<a href="https://github.com/dunwu/blog" target="_blank" rel="noopener">blog</a>」</p>
+<p>消息队列（Message Queue，简称 MQ）技术是分布式应用间交换信息的一种技术。</p>
+<p>消息队列主要解决应用耦合，异步消息，流量削锋等问题，实现高性能，高可用，可伸缩和最终一致性架构。是大型分布式系统不可缺少的中间件。</p>
+<p>注意：<em>为了简便，下文中除了文章标题，一律使用 MQ 简称</em>。</p>
+</blockquote>
+<h2 id="1-为什么要使用-mq"><a class="markdownIt-Anchor" href="#1-为什么要使用-mq"></a> 1. 为什么要使用 MQ</h2>
+<p>MQ 比较核心的优点有 3 个：<strong>解耦</strong>、<strong>异步</strong>、<strong>削峰</strong>。</p>
+<h3 id="11-解耦"><a class="markdownIt-Anchor" href="#11-解耦"></a> 1.1. 解耦</h3>
+<p>不同系统如果要建立通信，传统的做法是：调用接口。</p>
+<p>如果需要和新的系统建立通信或删除已建立的通信，都需要修改代码，这种方案显然耦合度很高。</p>
+<p><img src="http://dunwu.test.upcdn.net/cs/design/theory/mq/mq_1.png" alt="" /></p>
+<p>如果使用 MQ，系统间的通信只需要通过发布/订阅（Pub/Sub）模型即可，彼此没有直接联系，也就不需要相互感知，从而达到 <strong>解耦</strong>。</p>
+<p><img src="http://dunwu.test.upcdn.net/cs/design/theory/mq/mq_2.png" alt="" /></p>
+<h3 id="12-异步"><a class="markdownIt-Anchor" href="#12-异步"></a> 1.2. 异步</h3>
+<p>假设这样一个场景，用户向系统 A 发起请求，系统 A 处理计算只需要 10 ms，然后通知系统 BCD 写库，系统 BCD 写库耗时分别为：100ms、200ms、300ms。最终总耗时为： 10+100ms+200ms+300ms=610ms。此外，加上请求和响应的网络传输时间，从用户角度看，可能要等待将近 1s 才能得到结果。</p>
+<p><img src="http://dunwu.test.upcdn.net/cs/design/theory/mq/mq_3.png" alt="" /></p>
+<p>如果使用 MQ，系统 A 接到请求后，耗时 10ms 处理计算，然后向系统 BCD 连续发送消息，假设耗时 5ms。那么 这一过程的总耗时为 3ms + 5ms = 8ms，这相比于 610 ms，大大缩短了响应时间。至于系统 BCD 的写库操作，只要自行消费 MQ 后处理即可，用户无需关注。</p>
+<p><img src="http://dunwu.test.upcdn.net/cs/design/theory/mq/mq_4.png" alt="" /></p>
+<h3 id="13-削峰"><a class="markdownIt-Anchor" href="#13-削峰"></a> 1.3. 削峰</h3>
+<p>假设某个系统读写数据库的稳定性能为每秒处理 1000 条数据。平常情况下，远远达不到这么大的处理量。假设，因为因为做活动，系统的瞬时请求量剧增，达到每秒 10000 个并发请求，数据库根本承受不了，可能直接就把数据库给整崩溃了，这样系统服务就不可用了。</p>
+<p><img src="http://dunwu.test.upcdn.net/cs/design/theory/mq/mq_5.png" alt="" /></p>
+<p>如果使用 MQ，每秒写入 10000 条请求，但是系统 A 每秒只从 MQ 中消费 1000 条请求，然后写入数据库。这样，就不会超过数据库的承受能力，而是把请求积压在 MQ 中。只要高峰期一过，系统 A 就会很快把积压的消息给处理掉。</p>
+<p><img src="http://dunwu.test.upcdn.net/cs/design/theory/mq/mq_6.png" alt="" /></p>
+<h2 id="2-mq-引入的问题"><a class="markdownIt-Anchor" href="#2-mq-引入的问题"></a> 2. MQ 引入的问题</h2>
+<p>凡事有利有弊，使用 MQ 给系统带来很多好处，也会付出一定的代价。</p>
+<p>它引入了以下问题：</p>
+<ul>
+<li><strong>系统可用性降低</strong> - 引入了 MQ 后，通信需要基于 MQ 完成，如果 MQ 宕机，则服务不可用。因此，MQ 要保证是高可用的，详情参考：<a href="#MQ-%E7%9A%84%E9%AB%98%E5%8F%AF%E7%94%A8">MQ 的高可用</a></li>
+<li><strong>系统复杂度提高</strong> - 使用 MQ，需要关注一些新的问题：
+<ul>
+<li>如何保证消息没有重复消费？</li>
+<li>如何处理消息丢失的问题？</li>
+<li>如何保证消息传递的顺序性？</li>
+<li>如何处理大量消息积压的问题？</li>
+</ul>
+</li>
+<li><strong>一致性问题</strong> - 假设系统 A 处理完直接返回成功的结果给用户，用户认为请求成功。但如果此时，系统 BCD 中只要有任意一个写库失败，那么数据就不一致了。这种情况如何处理？</li>
+</ul>
+<h3 id="21-重复消费"><a class="markdownIt-Anchor" href="#21-重复消费"></a> 2.1. 重复消费</h3>
+<p><strong>如何保证消息不被重复消费</strong> 和 <strong>如何保证消息消费的幂等性</strong> 是同一个问题。</p>
+<p>必须先明确产生重复消费的原因，才能对症下药。</p>
+<h4 id="211-重复消费问题原因"><a class="markdownIt-Anchor" href="#211-重复消费问题原因"></a> 2.1.1. 重复消费问题原因</h4>
+<p>重复消费问题通常不是 MQ 来处理，而是由开发来处理的。</p>
+<p>以 Kafka 举例：Kafka 每个 Partition 都是一个有序的、不可变的记录序列，不断追加到结构化的提交日志中。Partition 中的记录每个分配一个连续的 id 号，称为偏移量（Offset），用于唯一标识 Partition 内的每条记录。</p>
+<p><img src="http://kafka.apachecn.org/10/images/log_consumer.png" alt="" /></p>
+<p>Kafka 的客户端和 Broker 都会保存 Offset。客户端消费消息后，每隔一段时间，就把已消费的 Offset 提交给 Kafka Broker，表示已消费。</p>
+<p>在这个过程中，如果客户端应用消费消息后，因为宕机、重启等情况而没有提交已消费的 Offset 。当系统恢复后，会继续消费消息，由于 Offset 未提交，就会出现重复消费的问题。</p>
+<p><img src="http://upload-images.jianshu.io/upload_images/3101171-75abe308f9cf21f8.png" alt="" /></p>
+<h4 id="212-重复消费解决方案"><a class="markdownIt-Anchor" href="#212-重复消费解决方案"></a> 2.1.2. 重复消费解决方案</h4>
+<p>应对重复消费问题，就要通过幂等性来解决。</p>
+<p>这个问题可以从业务层面来解决。</p>
+<p>MQ 重复消费不可怕，可怕的是没有应对机制，可以借鉴的思路有：</p>
+<ul>
+<li>如果是写库，可以先根据主键查询，判断数据是否已存在，存在则更新，不存在则插入；</li>
+<li>如果是写 Redis，set 操作，由于天然具有幂等性，大可放心；</li>
+<li>如果是根据消息做较复杂的逻辑处理，可以在消息中加入全局唯一 ID，例如：订单 ID 等。在客户端存储中（Mysql、Redis 等）保存已消费消息的 ID。一旦接受到新消息，先判断消息中的 ID 是否在已消费消息 ID 表中存在，存在则不再处理，不存在则处理。</li>
+</ul>
+<h3 id="22-消息丢失"><a class="markdownIt-Anchor" href="#22-消息丢失"></a> 2.2. 消息丢失</h3>
+<p><strong>如何处理消息丢失的问题</strong> 和 <strong>如何保证消息不被重复消费</strong> 是同一个问题。关注点有按个：</p>
+<ul>
+<li>Kafka 丢失数据</li>
+<li>消费方丢失数据</li>
+<li>生产方丢失数据</li>
+</ul>
+<h4 id="221-消费方丢失数据"><a class="markdownIt-Anchor" href="#221-消费方丢失数据"></a> 2.2.1. 消费方丢失数据</h4>
+<p>唯一可能导致消费方丢失数据的情况，就是：消费方设置了<strong>自动提交 Offset</strong>。设置了自动提交 Offset，接受到消息后就会自动提交 Offset 给 Kafka ，Kafka 就认为消息已被消费。如果此时，消费方尚未来得及处理消息就挂了，那么消息就丢了。</p>
+<p>解决方法就是消费方关闭自动提交 Offset，处理完消息后手动提交 Offset。但这种情况下可能会出现重复消费的情形，需要自行保证幂等性。</p>
+<h4 id="222-kafka-丢失数据"><a class="markdownIt-Anchor" href="#222-kafka-丢失数据"></a> 2.2.2. Kafka 丢失数据</h4>
+<p>当 Kafka 某个 Broker 宕机，需要重新选举 Partition 的 Leader。若此时其他的 Follower 尚未同步 Leader 的数据，那么新选某个 Follower 为 Leader 后，就丢失了部分数据。</p>
+<p>为此，一般要求至少设置 4 个参数：</p>
+<ul>
+<li>给 Topic 设置 <code>replication.factor</code> 参数 - 这个值必须大于 1，要求每个 Partition 必须有至少 2 个副本。</li>
+<li>在 Kafka 服务端设置 <code>min.insync.replicas</code> 参数 - 这个值必须大于 1，这是要求一个 Leader 需要和至少一个 Follower 保持通信，这样才能确保 Leader 挂了还有替补。</li>
+<li>在 Producer 端设置 <code>acks=all</code> - 这意味着：要求每条数据，必须是<strong>写入所有 replica 之后，才能认为是写成功了</strong>。</li>
+<li>在 Producer 端设置 <code>retries=MAX</code>（很大很大很大的一个值，无限次重试的意思） - 这意味着<strong>要求一旦写入失败，就无限重试</strong>，卡在这里了。</li>
+</ul>
+<h4 id="223-生产方丢失数据"><a class="markdownIt-Anchor" href="#223-生产方丢失数据"></a> 2.2.3. 生产方丢失数据</h4>
+<p>如果按照上述的思路设置了 <code>acks=all</code>，生产方一定不会丢数据。</p>
+<p>要求是，你的 Leader 接收到消息，所有的 Follower 都同步到了消息之后，才认为本生产消息成功了。如果未满足这个条件，生产者会自动不断的重试，重试无限次。</p>
+<h3 id="23-消息的顺序性"><a class="markdownIt-Anchor" href="#23-消息的顺序性"></a> 2.3. 消息的顺序性</h3>
+<blockquote>
+<p>以 Kafka 为例</p>
+</blockquote>
+<p>要保证 MQ 的顺序性，势必要付出一定的代价，所以实施方案前，要先明确业务场景是不是有必要保证消息的顺序性。只有那些明确对消息处理顺序有要求的业务场景才值得去保证消息顺序性。</p>
+<p>方案一</p>
+<p>一个 Topic，一个 Partition，一个 Consumer，内部单线程消费，单线程吞吐量太低，一般不会用这个。</p>
+<p>方案二</p>
+<ul>
+<li>写入数据到 Partition 时指定一个唯一的 Key，例如订单 ID。由发送方保证相同 Key 的消息只能发送到同一个 Partition 并且这个 Partition 中的数据一定是顺序的。</li>
+<li>基于上一点，消费方从 Kafka Partition 中消费消息时，此刻一定是顺序的。但如果消费方式以并发方式消费消息，顺序就可能会被打乱。为此，还有做到以下几点：
+<ul>
+<li>消费方维护 N 个缓存队列，具有相同 key 的数据都写入同一个队列中；</li>
+<li>创建 N 个线程，每个线程只负责从指定的一个队列中取数据。</li>
+</ul>
+</li>
+</ul>
+<p><img src="http://dunwu.test.upcdn.net/cs/design/theory/mq/mq_7.png" alt="" /></p>
+<h3 id="24-消息积压"><a class="markdownIt-Anchor" href="#24-消息积压"></a> 2.4. 消息积压</h3>
+<p>假设一个 MQ 消费者可以一秒处理 1000 条消息，三个 MQ 消费者可以一秒处理 3000 条消息，那么一分钟的处理量是 18 万条。如果 MQ 中积压了几百万到上千万的数据，即使消费者恢复了，也需要大概很长的时间才能恢复过来。</p>
+<p>对于产线环境来说，漫长的等待是不可接受的，所以面临这种窘境时，只能临时紧急扩容以应对了，具体操作步骤和思路如下：</p>
+<ul>
+<li>先修复 Consumer 的问题，确保其恢复消费速度，然后将现有 Consumer 都停掉。</li>
+<li>新建一个 Topic，Partition 是原来的 10 倍，临时建立好原先 10 倍的 Queue 数量。</li>
+<li>然后写一个临时的分发数据的 Consumer 程序，这个程序部署上去消费积压的数据，<strong>消费之后不做耗时的处理</strong>，直接均匀轮询写入临时建立好的 10 倍数量的 Queue。</li>
+<li>接着临时征用 10 倍的机器来部署 Consumer ，每一批 Consumer 消费一个临时 Queue 的数据。这种做法相当于是临时将 Queue 资源和 Consumer 资源扩大 10 倍，以正常的 10 倍速度来消费数据。</li>
+<li>等快速消费完积压数据之后，<strong>得恢复原先部署的架构</strong>，<strong>重新</strong>用原先的 consumer 机器来消费消息。</li>
+</ul>
+<h2 id="3-mq-的高可用"><a class="markdownIt-Anchor" href="#3-mq-的高可用"></a> 3. MQ 的高可用</h2>
+<p>不同 MQ 实现高可用的原理各不相同。因为 Kafka 比较具有代表性，所以这里以 Kafka 为例。</p>
+<h3 id="31-kafka-的高可用"><a class="markdownIt-Anchor" href="#31-kafka-的高可用"></a> 3.1. Kafka 的高可用</h3>
+<h4 id="311-kafka-的核心概念"><a class="markdownIt-Anchor" href="#311-kafka-的核心概念"></a> 3.1.1. Kafka 的核心概念</h4>
+<p>了解 Kafka，必须先了解 Kafka 的核心概念：</p>
+<ul>
+<li>
+<p><strong>Broker</strong> - Kafka 集群包含一个或多个节点，这种节点被称为 Broker。</p>
+</li>
+<li>
+<p><strong>Topic</strong> - 每条发布到 Kafka 集群的消息都有一个类别，这个类别被称为 Topic。（不同 Topic 的消息是物理隔离的；同一个 Topic 的消息保存在一个或多个 Broker 上，但用户只需指定消息的 Topic 即可生产或消费数据而不必关心数据存于何处）。对于每一个 Topic， Kafka 集群都会维持一个分区日志。</p>
+</li>
+<li>
+<p><strong>Partition</strong> - 了提高 Kafka 的吞吐率，每个 Topic 包含一个或多个 Partition，每个 Partition 在物理上对应一个文件夹，该文件夹下存储这个 Partition 的所有消息和索引文件。</p>
+<ul>
+<li>Kafka 日志的分区（Partition）分布在 Kafka 集群的节点上。每个节点在处理数据和请求时，共享这些分区。每一个分区都会在已配置的节点上进行备份，确保容错性。</li>
+</ul>
+</li>
+</ul>
+<p><img src="http://dunwu.test.upcdn.net/cs/java/javaweb/distributed/mq/kafka/kafka-cluster-roles.png" alt="" /></p>
+<h4 id="312-kafka-的副本机制"><a class="markdownIt-Anchor" href="#312-kafka-的副本机制"></a> 3.1.2. Kafka 的副本机制</h4>
+<p>Kafka 是如何实现高可用的呢？</p>
+<p>Kafka 在 0.8 以前的版本中，如果一个 Broker 宕机了，其上面的 Partition 都不能用了，这自然不是高可用的。</p>
+<p>为了实现高可用，Kafka 引入了复制功能。</p>
+<p>简单来说，就是副本机制（ Replicate ）。</p>
+<p>每个 Partition 都有一个 Broker 作为 Leader，零个或者多个 Broker 作为 Follower。每个 Broker 都会成为某些分区的 Leader 和某些分区的 Follower，因此集群的负载是平衡的。</p>
+<ul>
+<li><strong>Leader 处理一切对 Partition （分区）的读写请求</strong>；</li>
+<li><strong>而 Follower 只需被动的同步 Leader 上的数据</strong>。</li>
+</ul>
+<p>同一个 Topic 的不同 Partition 会分布在多个 Broker 上，而且一个 Partition 还会在其他的 Broker 上面进行备份，Producer 在发布消息到某个 Partition 时，先找到该 Partition 的 Leader，然后向这个 Leader 推送消息；每个 Follower 都从 Leader 拉取消息，拉取消息成功之后，向 Leader 发送一个 ACK 确认。</p>
+<p><img src="http://dunwu.test.upcdn.net/cs/java/javaweb/distributed/mq/kafka/kafka-replication.png" alt="" /></p>
+<blockquote>
+<p>FAQ</p>
+<p>问：为什么让 Leader 处理一切对对 Partition （分区）的读写请求？</p>
+<p>答：因为如果允许所有 Broker 都可以处理读写请求，就可能产生数据一致性问题。</p>
+</blockquote>
+<h4 id="313-kafka-选举-leader"><a class="markdownIt-Anchor" href="#313-kafka-选举-leader"></a> 3.1.3. Kafka 选举 Leader</h4>
+<p>由上文可知，Partition 在多个 Broker 上存在副本。</p>
+<p>如果某个 Follower 宕机，啥事儿没有，正常工作。</p>
+<p>如果 Leader 宕机了，会从 Follower 中<strong>重新选举</strong>一个新的 Leader。</p>
+<h2 id="4-mq-的通信模式"><a class="markdownIt-Anchor" href="#4-mq-的通信模式"></a> 4. MQ 的通信模式</h2>
+<p>MQ 可驻留在内存或磁盘上，队列存储消息直到它们被应用程序读取。通过 MQ，应用程序可独立地执行，它们不需要知道彼此的位置，不需要等待接收程序接收此消息。在分布式计算环境中，为了集成分布式应用，开发者需要对异构网络环境下的分布式应用提供有效的通信手段。为了管理需要共享的信息，对应用提供公共的信息交换机制是重要的。</p>
+<ul>
+<li><strong>点对点</strong> - 点对点方式是最为传统和常见的通讯方式，它支持一对一、一对多、多对多、多对一等多种配置方式，支持树状、网状等多种拓扑结构。</li>
+<li><strong>多点广播</strong> - MQ 适用于不同类型的应用。其中重要的，也是正在发展中的是&quot;多点广播&quot;应用，即能够将消息发送到多个目标站点 (Destination List)。可以使用一条 MQ 指令将单一消息发送到多个目标站点，并确保为每一站点可靠地提供信息。MQ 不仅提供了多点广播的功能，而且还拥有智能消息分发功能，在将一条消息发送到同一系统上的多个用户时，MQ 将消息的一个复制版本和该系统上接收者的名单发送到目标 MQ 系统。目标 MQ 系统在本地复制这些消息，并将它们发送到名单上的队列，从而尽可能减少网络的传输量。</li>
+<li><strong>发布/订阅 (Publish/Subscribe)</strong> - 发布/订阅模式使消息的分发可以突破目的队列地理位置的限制，使消息按照特定的主题甚至内容进行分发，用户或应用程序可以根据主题或内容接收到所需要的消息。发布/订阅模式使得发送者和接收者之间的耦合关系变得更为松散，发送者不必关心接收者的目的地址，而接收者也不必关心消息的发送地址，而只是根据消息的主题进行消息的收发。</li>
+<li><strong>集群 (Cluster)</strong> - 为了简化点对点通讯模式中的系统配置，MQ 提供 Cluster(集群) 的解决方案。集群类似于一个域 (Domain)，集群内部的队列管理器之间通讯时，不需要两两之间建立消息通道，而是采用集群 (Cluster) 通道与其它成员通讯，从而大大简化了系统配置。此外，集群中的队列管理器之间能够自动进行负载均衡，当某一队列管理器出现故障时，其它队列管理器可以接管它的工作，从而大大提高系统的高可靠性。</li>
+</ul>
+<h2 id="5-常用-mq-对比"><a class="markdownIt-Anchor" href="#5-常用-mq-对比"></a> 5. 常用 MQ 对比</h2>
+<table>
+<thead>
+<tr>
+<th>特性</th>
+<th>ActiveMQ</th>
+<th>RabbitMQ</th>
+<th>RocketMQ</th>
+<th>Kafka</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>单机吞吐量</td>
+<td>万级，比 RocketMQ、Kafka 低一个数量级</td>
+<td>同 ActiveMQ</td>
+<td>10 万级，支撑高吞吐</td>
+<td>10 万级，高吞吐，一般配合大数据类的系统来进行实时数据计算、日志采集等场景</td>
+</tr>
+<tr>
+<td>topic 数量对吞吐量的影响</td>
+<td></td>
+<td></td>
+<td>topic 可以达到几百/几千的级别，吞吐量会有较小幅度的下降，这是 RocketMQ 的一大优势，在同等机器下，可以支撑大量的 topic</td>
+<td>topic 从几十到几百个时候，吞吐量会大幅度下降，在同等机器下，Kafka 尽量保证 topic 数量不要过多，如果要支撑大规模的 topic，需要增加更多的机器资源</td>
+</tr>
+<tr>
+<td>时效性</td>
+<td>ms 级</td>
+<td>微秒级，这是 RabbitMQ 的一大特点，延迟最低</td>
+<td>ms 级</td>
+<td>延迟在 ms 级以内</td>
+</tr>
+<tr>
+<td>可用性</td>
+<td>高，基于主从架构实现高可用</td>
+<td>同 ActiveMQ</td>
+<td>非常高，分布式架构</td>
+<td>非常高，分布式，一个数据多个副本，少数机器宕机，不会丢失数据，不会导致不可用</td>
+</tr>
+<tr>
+<td>消息可靠性</td>
+<td>有较低的概率丢失数据</td>
+<td>基本不丢</td>
+<td>经过参数优化配置，可以做到 0 丢失</td>
+<td>同 RocketMQ</td>
+</tr>
+<tr>
+<td>功能支持</td>
+<td>MQ 领域的功能极其完备</td>
+<td>基于 erlang 开发，并发能力很强，性能极好，延时很低</td>
+<td>MQ 功能较为完善，还是分布式的，扩展性好</td>
+<td>功能较为简单，主要支持简单的 MQ 功能，在大数据领域的实时计算以及日志采集被大规模使用</td>
+</tr>
+</tbody>
+</table>
+<p>综上，各种对比之后，有如下建议：</p>
+<ul>
+<li>一般的业务系统要引入 MQ，最早大家都用 ActiveMQ，但是现在确实大家用的不多了，没经过大规模吞吐量场景的验证，社区也不是很活跃，所以大家还是算了吧，我个人不推荐用这个了；</li>
+<li>后来大家开始用 RabbitMQ，但是确实 erlang 语言阻止了大量的 Java 工程师去深入研究和掌控它，对公司而言，几乎处于不可控的状态，但是确实人家是开源的，比较稳定的支持，活跃度也高；</li>
+<li>不过现在确实越来越多的公司会去用 RocketMQ，确实很不错，毕竟是阿里出品，但社区可能有突然黄掉的风险（目前 RocketMQ 已捐给 <a href="https://github.com/apache/rocketmq" target="_blank" rel="noopener">Apache</a>，但 GitHub 上的活跃度其实不算高）对自己公司技术实力有绝对自信的，推荐用 RocketMQ，否则回去老老实实用 RabbitMQ 吧，人家有活跃的开源社区，绝对不会黄。</li>
+<li>所以<strong>中小型公司</strong>，技术实力较为一般，技术挑战不是特别高，用 RabbitMQ 是不错的选择；<strong>大型公司</strong>，基础架构研发实力较强，用 RocketMQ 是很好的选择。</li>
+<li>如果是<strong>大数据领域</strong>的实时计算、日志采集等场景，用 Kafka 是业内标准的，绝对没问题，社区活跃度很高，绝对不会黄，何况几乎是全世界这个领域的事实性规范。</li>
+</ul>
+<h2 id="6-jms"><a class="markdownIt-Anchor" href="#6-jms"></a> 6. JMS</h2>
+<p>谈 MQ 就不得不提一下 JMS 。</p>
+<p><strong>JMS（JAVA Message Service，java 消息服务）API 是一个消息服务的标准/规范，允许应用程序组件基于 JavaEE 平台创建、发送、接收和读取消息</strong>。它使分布式通信耦合度更低，消息服务更加可靠以及异步性。</p>
+<p>在 EJB 架构中，有消息 bean 可以无缝的与 JM 消息服务集成。在 J2EE 架构模式中，有消息服务者模式，用于实现消息与应用直接的解耦。</p>
+<h3 id="61-消息模型"><a class="markdownIt-Anchor" href="#61-消息模型"></a> 6.1. 消息模型</h3>
+<p>在 JMS 标准中，有两种消息模型：</p>
+<ul>
+<li>P2P(Point to Point)</li>
+<li>Pub/Sub(Publish/Subscribe)</li>
+</ul>
+<h4 id="611-p2p-模式"><a class="markdownIt-Anchor" href="#611-p2p-模式"></a> 6.1.1. P2P 模式</h4>
+<div align="center"><img src="http://upload-images.jianshu.io/upload_images/3101171-2adc66e2367cd2c2.png"/></div>
+P2P 模式包含三个角色：MQ（Queue），发送者(Sender)，接收者(Receiver)。每个消息都被发送到一个特定的队列，接收者从队列中获取消息。队列保留着消息，直到他们被消费或超时。
+<p>P2P 的特点</p>
+<ul>
+<li>每个消息只有一个消费者（Consumer）(即一旦被消费，消息就不再在 MQ 中)</li>
+<li>发送者和接收者之间在时间上没有依赖性，也就是说当发送者发送了消息之后，不管接收者有没有正在运行，它不会影响到消息被发送到队列</li>
+<li>接收者在成功接收消息之后需向队列应答成功</li>
+</ul>
+<p>如果希望发送的每个消息都会被成功处理的话，那么需要 P2P 模式。</p>
+<h4 id="612-pubsub-模式"><a class="markdownIt-Anchor" href="#612-pubsub-模式"></a> 6.1.2. Pub/sub 模式</h4>
+<div align="center"><img src="http://upload-images.jianshu.io/upload_images/3101171-12afe9581da889ea.png"/></div>
+包含三个角色主题（Topic），发布者（Publisher），订阅者（Subscriber） 。多个发布者将消息发送到 Topic,系统将这些消息传递给多个订阅者。
+<p>Pub/Sub 的特点</p>
+<ul>
+<li>每个消息可以有多个消费者</li>
+<li>发布者和订阅者之间有时间上的依赖性。针对某个主题（Topic）的订阅者，它必须创建一个订阅者之后，才能消费发布者的消息。</li>
+<li>为了消费消息，订阅者必须保持运行的状态。</li>
+</ul>
+<p>为了缓和这样严格的时间相关性，JMS 允许订阅者创建一个可持久化的订阅。这样，即使订阅者没有被激活（运行），它也能接收到发布者的消息。</p>
+<p>如果希望发送的消息可以不被做任何处理、或者只被一个消息者处理、或者可以被多个消费者处理的话，那么可以采用 Pub/Sub 模型。</p>
+<h3 id="62-消息消费"><a class="markdownIt-Anchor" href="#62-消息消费"></a> 6.2. 消息消费</h3>
+<p>在 JMS 中，消息的产生和消费都是异步的。对于消费来说，JMS 的消息者可以通过两种方式来消费消息。</p>
+<ul>
+<li><strong>同步</strong> - 订阅者或接收者通过 <code>receive</code> 方法来接收消息，<code>receive</code> 方法在接收到消息之前（或超时之前）将一直阻塞；</li>
+<li><strong>异步</strong> - 订阅者或接收者可以注册为一个消息监听器。当消息到达之后，系统自动调用监听器的 <code>onMessage</code> 方法。</li>
+</ul>
+<p><code>JNDI</code> - Java 命名和目录接口,是一种标准的 Java 命名系统接口。可以在网络上查找和访问服务。通过指定一个资源名称，该名称对应于数据库或命名服务中的一个记录，同时返回资源连接建立所必须的信息。</p>
+<p>JNDI 在 JMS 中起到查找和访问发送目标或消息来源的作用。</p>
+<h3 id="63-jms-编程模型"><a class="markdownIt-Anchor" href="#63-jms-编程模型"></a> 6.3. JMS 编程模型</h3>
+<h4 id="631-connectionfactory"><a class="markdownIt-Anchor" href="#631-connectionfactory"></a> 6.3.1. ConnectionFactory</h4>
+<p>创建 Connection 对象的工厂，针对两种不同的 jms 消息模型，分别有 QueueConnectionFactory 和 TopicConnectionFactory 两种。可以通过 JNDI 来查找 ConnectionFactory 对象。</p>
+<h4 id="632-destination"><a class="markdownIt-Anchor" href="#632-destination"></a> 6.3.2. Destination</h4>
+<p>Destination 的意思是消息生产者的消息发送目标或者说消息消费者的消息来源。对于消息生产者来说，它的 Destination 是某个队列（Queue）或某个主题（Topic）;对于消息消费者来说，它的 Destination 也是某个队列或主题（即消息来源）。</p>
+<p>所以，Destination 实际上就是两种类型的对象：Queue、Topic。可以通过 JNDI 来查找 Destination。</p>
+<h4 id="633-3-connection"><a class="markdownIt-Anchor" href="#633-3-connection"></a> 6.3.3. (3) Connection</h4>
+<p>Connection 表示在客户端和 JMS 系统之间建立的链接（对 TCP/IP socket 的包装）。Connection 可以产生一个或多个 Session。跟 ConnectionFactory 一样，Connection 也有两种类型：QueueConnection 和 TopicConnection。</p>
+<h4 id="634-4-session"><a class="markdownIt-Anchor" href="#634-4-session"></a> 6.3.4. (4) Session</h4>
+<p>Session 是操作消息的接口。可以通过 session 创建生产者、消费者、消息等。Session 提供了事务的功能。当需要使用 session 发送/接收多个消息时，可以将这些发送/接收动作放到一个事务中。同样，也分 QueueSession 和 TopicSession。</p>
+<h4 id="635-消息的生产者"><a class="markdownIt-Anchor" href="#635-消息的生产者"></a> 6.3.5. 消息的生产者</h4>
+<p>消息生产者由 Session 创建，并用于将消息发送到 Destination。同样，消息生产者分两种类型：QueueSender 和 TopicPublisher。可以调用消息生产者的方法（send 或 publish 方法）发送消息。</p>
+<h4 id="636-消息消费者"><a class="markdownIt-Anchor" href="#636-消息消费者"></a> 6.3.6. 消息消费者</h4>
+<p>消息消费者由 Session 创建，用于接收被发送到 Destination 的消息。两种类型：QueueReceiver 和 TopicSubscriber。可分别通过 session 的 createReceiver(Queue)或 createSubscriber(Topic)来创建。当然，也可以 session 的 creatDurableSubscriber 方法来创建持久化的订阅者。</p>
+<h4 id="637-messagelistener"><a class="markdownIt-Anchor" href="#637-messagelistener"></a> 6.3.7. MessageListener</h4>
+<p>消息监听器。如果注册了消息监听器，一旦消息到达，将自动调用监听器的 onMessage 方法。EJB 中的 MDB（Message-Driven Bean）就是一种 MessageListener。</p>
+<p>深入学习 JMS 对掌握 JAVA 架构，EJB 架构有很好的帮助，消息中间件也是大型分布式系统必须的组件。本次分享主要做全局性介绍，具体的深入需要大家学习，实践，总结，领会。</p>
+<h2 id="7-参考资料"><a class="markdownIt-Anchor" href="#7-参考资料"></a> 7. 参考资料</h2>
+<ul>
+<li><a href="https://www.cnblogs.com/itfly8/p/5155983.html" target="_blank" rel="noopener">大型网站架构系列：分布式 MQ（一）</a></li>
+<li><a href="https://www.cnblogs.com/itfly8/p/5156155.html" target="_blank" rel="noopener">大型网站架构系列：MQ（二）</a></li>
+<li><a href="https://www.jianshu.com/p/453c6e7ff81c" target="_blank" rel="noopener">分布式开放 MQ(RocketMQ)的原理与实践</a></li>
+<li><a href="https://juejin.im/entry/5a0abfb5f265da43062a4a91" target="_blank" rel="noopener">阿里 RocketMQ 优势对比</a></li>
+<li><a href="https://github.com/doocs/advanced-java/blob/master/docs/high-concurrency/mq-interview.md" target="_blank" rel="noopener">advanced-java 之 MQ</a></li>
+</ul>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+        
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://dunwu.github.io/blog/blog/distributed/cache-theory/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/blog/images/avatar.gif">
+      <meta itemprop="name" content="Zhang Peng">
+      <meta itemprop="description" content="Dunwu's Blog">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Dunwu">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/blog/distributed/cache-theory/" class="post-title-link" itemprop="url">缓存基本原理</a>
         </h2>
 
         <div class="post-meta">
@@ -252,7 +641,7 @@
                   <i class="fa fa-calendar-check-o"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2020-02-01 22:41:43" itemprop="dateModified" datetime="2020-02-01T22:41:43+08:00">2020-02-01</time>
+                <time title="修改时间：2020-02-02 18:07:05" itemprop="dateModified" datetime="2020-02-02T18:07:05+08:00">2020-02-02</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -260,14 +649,8 @@
               </span>
               <span class="post-meta-item-text">分类于</span>
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/blog/categories/%E8%AE%BE%E8%AE%A1/" itemprop="url" rel="index">
-                    <span itemprop="name">设计</span>
-                  </a>
-                </span>
-                  ，
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/blog/categories/%E8%AE%BE%E8%AE%A1/%E7%B3%BB%E7%BB%9F%E5%8E%9F%E7%90%86/" itemprop="url" rel="index">
-                    <span itemprop="name">系统原理</span>
+                  <a href="/blog/categories/%E5%88%86%E5%B8%83%E5%BC%8F/" itemprop="url" rel="index">
+                    <span itemprop="name">分布式</span>
                   </a>
                 </span>
             </span>
@@ -281,8 +664,8 @@
       </span>
       <span class="post-meta-item-text">Disqus：</span>
     
-    <a title="disqus" href="/blog/design/theory/cache-theory/#comments" itemprop="discussionUrl">
-      <span class="post-comments-count disqus-comment-count" data-disqus-identifier="design/theory/cache-theory/" itemprop="commentCount"></span>
+    <a title="disqus" href="/blog/distributed/cache-theory/#comments" itemprop="discussionUrl">
+      <span class="post-comments-count disqus-comment-count" data-disqus-identifier="distributed/cache-theory/" itemprop="commentCount"></span>
     </a>
   </span>
   
@@ -918,7 +1301,7 @@ Redis 用来存储热点数据，如果缓存不命中，则去查询数据库�
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="https://dunwu.github.io/blog/blog/design/theory/distributed-transaction-theory/">
+    <link itemprop="mainEntityOfPage" href="https://dunwu.github.io/blog/blog/distributed/distributed-transaction-theory/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/blog/images/avatar.gif">
@@ -932,7 +1315,7 @@ Redis 用来存储热点数据，如果缓存不命中，则去查询数据库�
       <header class="post-header">
         <h2 class="post-title" itemprop="name headline">
           
-            <a href="/blog/design/theory/distributed-transaction-theory/" class="post-title-link" itemprop="url">分布式事务基本原理</a>
+            <a href="/blog/distributed/distributed-transaction-theory/" class="post-title-link" itemprop="url">分布式事务基本原理</a>
         </h2>
 
         <div class="post-meta">
@@ -949,7 +1332,7 @@ Redis 用来存储热点数据，如果缓存不命中，则去查询数据库�
                   <i class="fa fa-calendar-check-o"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2020-02-01 22:42:18" itemprop="dateModified" datetime="2020-02-01T22:42:18+08:00">2020-02-01</time>
+                <time title="修改时间：2020-02-02 18:07:05" itemprop="dateModified" datetime="2020-02-02T18:07:05+08:00">2020-02-02</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -957,14 +1340,8 @@ Redis 用来存储热点数据，如果缓存不命中，则去查询数据库�
               </span>
               <span class="post-meta-item-text">分类于</span>
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/blog/categories/%E8%AE%BE%E8%AE%A1/" itemprop="url" rel="index">
-                    <span itemprop="name">设计</span>
-                  </a>
-                </span>
-                  ，
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/blog/categories/%E8%AE%BE%E8%AE%A1/%E7%B3%BB%E7%BB%9F%E5%8E%9F%E7%90%86/" itemprop="url" rel="index">
-                    <span itemprop="name">系统原理</span>
+                  <a href="/blog/categories/%E5%88%86%E5%B8%83%E5%BC%8F/" itemprop="url" rel="index">
+                    <span itemprop="name">分布式</span>
                   </a>
                 </span>
             </span>
@@ -978,8 +1355,8 @@ Redis 用来存储热点数据，如果缓存不命中，则去查询数据库�
       </span>
       <span class="post-meta-item-text">Disqus：</span>
     
-    <a title="disqus" href="/blog/design/theory/distributed-transaction-theory/#comments" itemprop="discussionUrl">
-      <span class="post-comments-count disqus-comment-count" data-disqus-identifier="design/theory/distributed-transaction-theory/" itemprop="commentCount"></span>
+    <a title="disqus" href="/blog/distributed/distributed-transaction-theory/#comments" itemprop="discussionUrl">
+      <span class="post-comments-count disqus-comment-count" data-disqus-identifier="distributed/distributed-transaction-theory/" itemprop="commentCount"></span>
     </a>
   </span>
   
@@ -1176,7 +1553,7 @@ Redis 用来存储热点数据，如果缓存不命中，则去查询数据库�
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="https://dunwu.github.io/blog/blog/design/theory/distributed-lock-theory/">
+    <link itemprop="mainEntityOfPage" href="https://dunwu.github.io/blog/blog/distributed/distributed-lock-theory/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/blog/images/avatar.gif">
@@ -1190,7 +1567,7 @@ Redis 用来存储热点数据，如果缓存不命中，则去查询数据库�
       <header class="post-header">
         <h2 class="post-title" itemprop="name headline">
           
-            <a href="/blog/design/theory/distributed-lock-theory/" class="post-title-link" itemprop="url">分布式锁基本原理</a>
+            <a href="/blog/distributed/distributed-lock-theory/" class="post-title-link" itemprop="url">分布式锁基本原理</a>
         </h2>
 
         <div class="post-meta">
@@ -1207,7 +1584,7 @@ Redis 用来存储热点数据，如果缓存不命中，则去查询数据库�
                   <i class="fa fa-calendar-check-o"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2020-02-01 22:42:06" itemprop="dateModified" datetime="2020-02-01T22:42:06+08:00">2020-02-01</time>
+                <time title="修改时间：2020-02-02 18:07:05" itemprop="dateModified" datetime="2020-02-02T18:07:05+08:00">2020-02-02</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -1215,14 +1592,8 @@ Redis 用来存储热点数据，如果缓存不命中，则去查询数据库�
               </span>
               <span class="post-meta-item-text">分类于</span>
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/blog/categories/%E8%AE%BE%E8%AE%A1/" itemprop="url" rel="index">
-                    <span itemprop="name">设计</span>
-                  </a>
-                </span>
-                  ，
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/blog/categories/%E8%AE%BE%E8%AE%A1/%E7%B3%BB%E7%BB%9F%E5%8E%9F%E7%90%86/" itemprop="url" rel="index">
-                    <span itemprop="name">系统原理</span>
+                  <a href="/blog/categories/%E5%88%86%E5%B8%83%E5%BC%8F/" itemprop="url" rel="index">
+                    <span itemprop="name">分布式</span>
                   </a>
                 </span>
             </span>
@@ -1236,8 +1607,8 @@ Redis 用来存储热点数据，如果缓存不命中，则去查询数据库�
       </span>
       <span class="post-meta-item-text">Disqus：</span>
     
-    <a title="disqus" href="/blog/design/theory/distributed-lock-theory/#comments" itemprop="discussionUrl">
-      <span class="post-comments-count disqus-comment-count" data-disqus-identifier="design/theory/distributed-lock-theory/" itemprop="commentCount"></span>
+    <a title="disqus" href="/blog/distributed/distributed-lock-theory/#comments" itemprop="discussionUrl">
+      <span class="post-comments-count disqus-comment-count" data-disqus-identifier="distributed/distributed-lock-theory/" itemprop="commentCount"></span>
     </a>
   </span>
   
@@ -1448,7 +1819,7 @@ Redis 用来存储热点数据，如果缓存不命中，则去查询数据库�
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="https://dunwu.github.io/blog/blog/design/theory/distributed-session-theory/">
+    <link itemprop="mainEntityOfPage" href="https://dunwu.github.io/blog/blog/distributed/distributed-session-theory/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/blog/images/avatar.gif">
@@ -1462,7 +1833,7 @@ Redis 用来存储热点数据，如果缓存不命中，则去查询数据库�
       <header class="post-header">
         <h2 class="post-title" itemprop="name headline">
           
-            <a href="/blog/design/theory/distributed-session-theory/" class="post-title-link" itemprop="url">分布式会话基本原理</a>
+            <a href="/blog/distributed/distributed-session-theory/" class="post-title-link" itemprop="url">分布式会话基本原理</a>
         </h2>
 
         <div class="post-meta">
@@ -1479,7 +1850,7 @@ Redis 用来存储热点数据，如果缓存不命中，则去查询数据库�
                   <i class="fa fa-calendar-check-o"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2020-02-01 22:42:06" itemprop="dateModified" datetime="2020-02-01T22:42:06+08:00">2020-02-01</time>
+                <time title="修改时间：2020-02-02 18:07:05" itemprop="dateModified" datetime="2020-02-02T18:07:05+08:00">2020-02-02</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -1487,14 +1858,8 @@ Redis 用来存储热点数据，如果缓存不命中，则去查询数据库�
               </span>
               <span class="post-meta-item-text">分类于</span>
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/blog/categories/%E8%AE%BE%E8%AE%A1/" itemprop="url" rel="index">
-                    <span itemprop="name">设计</span>
-                  </a>
-                </span>
-                  ，
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/blog/categories/%E8%AE%BE%E8%AE%A1/%E7%B3%BB%E7%BB%9F%E5%8E%9F%E7%90%86/" itemprop="url" rel="index">
-                    <span itemprop="name">系统原理</span>
+                  <a href="/blog/categories/%E5%88%86%E5%B8%83%E5%BC%8F/" itemprop="url" rel="index">
+                    <span itemprop="name">分布式</span>
                   </a>
                 </span>
             </span>
@@ -1508,8 +1873,8 @@ Redis 用来存储热点数据，如果缓存不命中，则去查询数据库�
       </span>
       <span class="post-meta-item-text">Disqus：</span>
     
-    <a title="disqus" href="/blog/design/theory/distributed-session-theory/#comments" itemprop="discussionUrl">
-      <span class="post-comments-count disqus-comment-count" data-disqus-identifier="design/theory/distributed-session-theory/" itemprop="commentCount"></span>
+    <a title="disqus" href="/blog/distributed/distributed-session-theory/#comments" itemprop="discussionUrl">
+      <span class="post-comments-count disqus-comment-count" data-disqus-identifier="distributed/distributed-session-theory/" itemprop="commentCount"></span>
     </a>
   </span>
   
@@ -1666,7 +2031,7 @@ Redis 用来存储热点数据，如果缓存不命中，则去查询数据库�
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="https://dunwu.github.io/blog/blog/communication/network-interview/">
+    <link itemprop="mainEntityOfPage" href="https://dunwu.github.io/blog/blog/network/network-interview/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/blog/images/avatar.gif">
@@ -1680,7 +2045,7 @@ Redis 用来存储热点数据，如果缓存不命中，则去查询数据库�
       <header class="post-header">
         <h2 class="post-title" itemprop="name headline">
           
-            <a href="/blog/communication/network-interview/" class="post-title-link" itemprop="url">网络通信知识点面经</a>
+            <a href="/blog/network/network-interview/" class="post-title-link" itemprop="url">网络通信知识点面经</a>
         </h2>
 
         <div class="post-meta">
@@ -1697,7 +2062,7 @@ Redis 用来存储热点数据，如果缓存不命中，则去查询数据库�
                   <i class="fa fa-calendar-check-o"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2020-01-16 17:48:30" itemprop="dateModified" datetime="2020-01-16T17:48:30+08:00">2020-01-16</time>
+                <time title="修改时间：2020-02-02 18:16:21" itemprop="dateModified" datetime="2020-02-02T18:16:21+08:00">2020-02-02</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -1705,8 +2070,8 @@ Redis 用来存储热点数据，如果缓存不命中，则去查询数据库�
               </span>
               <span class="post-meta-item-text">分类于</span>
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/blog/categories/%E9%80%9A%E4%BF%A1/" itemprop="url" rel="index">
-                    <span itemprop="name">通信</span>
+                  <a href="/blog/categories/%E7%BD%91%E7%BB%9C/" itemprop="url" rel="index">
+                    <span itemprop="name">网络</span>
                   </a>
                 </span>
             </span>
@@ -1720,8 +2085,8 @@ Redis 用来存储热点数据，如果缓存不命中，则去查询数据库�
       </span>
       <span class="post-meta-item-text">Disqus：</span>
     
-    <a title="disqus" href="/blog/communication/network-interview/#comments" itemprop="discussionUrl">
-      <span class="post-comments-count disqus-comment-count" data-disqus-identifier="communication/network-interview/" itemprop="commentCount"></span>
+    <a title="disqus" href="/blog/network/network-interview/#comments" itemprop="discussionUrl">
+      <span class="post-comments-count disqus-comment-count" data-disqus-identifier="network/network-interview/" itemprop="commentCount"></span>
     </a>
   </span>
   
@@ -1987,7 +2352,7 @@ Redis 用来存储热点数据，如果缓存不命中，则去查询数据库�
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="https://dunwu.github.io/blog/blog/communication/udp/">
+    <link itemprop="mainEntityOfPage" href="https://dunwu.github.io/blog/blog/network/udp/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/blog/images/avatar.gif">
@@ -2001,7 +2366,7 @@ Redis 用来存储热点数据，如果缓存不命中，则去查询数据库�
       <header class="post-header">
         <h2 class="post-title" itemprop="name headline">
           
-            <a href="/blog/communication/udp/" class="post-title-link" itemprop="url">网络协议之 UDP</a>
+            <a href="/blog/network/udp/" class="post-title-link" itemprop="url">网络协议之 UDP</a>
         </h2>
 
         <div class="post-meta">
@@ -2018,7 +2383,7 @@ Redis 用来存储热点数据，如果缓存不命中，则去查询数据库�
                   <i class="fa fa-calendar-check-o"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2020-01-16 17:48:30" itemprop="dateModified" datetime="2020-01-16T17:48:30+08:00">2020-01-16</time>
+                <time title="修改时间：2020-02-02 18:16:21" itemprop="dateModified" datetime="2020-02-02T18:16:21+08:00">2020-02-02</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -2026,8 +2391,8 @@ Redis 用来存储热点数据，如果缓存不命中，则去查询数据库�
               </span>
               <span class="post-meta-item-text">分类于</span>
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/blog/categories/%E9%80%9A%E4%BF%A1/" itemprop="url" rel="index">
-                    <span itemprop="name">通信</span>
+                  <a href="/blog/categories/%E7%BD%91%E7%BB%9C/" itemprop="url" rel="index">
+                    <span itemprop="name">网络</span>
                   </a>
                 </span>
             </span>
@@ -2041,8 +2406,8 @@ Redis 用来存储热点数据，如果缓存不命中，则去查询数据库�
       </span>
       <span class="post-meta-item-text">Disqus：</span>
     
-    <a title="disqus" href="/blog/communication/udp/#comments" itemprop="discussionUrl">
-      <span class="post-comments-count disqus-comment-count" data-disqus-identifier="communication/udp/" itemprop="commentCount"></span>
+    <a title="disqus" href="/blog/network/udp/#comments" itemprop="discussionUrl">
+      <span class="post-comments-count disqus-comment-count" data-disqus-identifier="network/udp/" itemprop="commentCount"></span>
     </a>
   </span>
   
@@ -2131,7 +2496,7 @@ Redis 用来存储热点数据，如果缓存不命中，则去查询数据库�
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="https://dunwu.github.io/blog/blog/communication/tcp/">
+    <link itemprop="mainEntityOfPage" href="https://dunwu.github.io/blog/blog/network/tcp/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/blog/images/avatar.gif">
@@ -2145,7 +2510,7 @@ Redis 用来存储热点数据，如果缓存不命中，则去查询数据库�
       <header class="post-header">
         <h2 class="post-title" itemprop="name headline">
           
-            <a href="/blog/communication/tcp/" class="post-title-link" itemprop="url">网络协议之 TCP</a>
+            <a href="/blog/network/tcp/" class="post-title-link" itemprop="url">网络协议之 TCP</a>
         </h2>
 
         <div class="post-meta">
@@ -2162,7 +2527,7 @@ Redis 用来存储热点数据，如果缓存不命中，则去查询数据库�
                   <i class="fa fa-calendar-check-o"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2020-01-16 17:48:30" itemprop="dateModified" datetime="2020-01-16T17:48:30+08:00">2020-01-16</time>
+                <time title="修改时间：2020-02-02 18:16:21" itemprop="dateModified" datetime="2020-02-02T18:16:21+08:00">2020-02-02</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -2170,8 +2535,8 @@ Redis 用来存储热点数据，如果缓存不命中，则去查询数据库�
               </span>
               <span class="post-meta-item-text">分类于</span>
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/blog/categories/%E9%80%9A%E4%BF%A1/" itemprop="url" rel="index">
-                    <span itemprop="name">通信</span>
+                  <a href="/blog/categories/%E7%BD%91%E7%BB%9C/" itemprop="url" rel="index">
+                    <span itemprop="name">网络</span>
                   </a>
                 </span>
             </span>
@@ -2185,8 +2550,8 @@ Redis 用来存储热点数据，如果缓存不命中，则去查询数据库�
       </span>
       <span class="post-meta-item-text">Disqus：</span>
     
-    <a title="disqus" href="/blog/communication/tcp/#comments" itemprop="discussionUrl">
-      <span class="post-comments-count disqus-comment-count" data-disqus-identifier="communication/tcp/" itemprop="commentCount"></span>
+    <a title="disqus" href="/blog/network/tcp/#comments" itemprop="discussionUrl">
+      <span class="post-comments-count disqus-comment-count" data-disqus-identifier="network/tcp/" itemprop="commentCount"></span>
     </a>
   </span>
   
@@ -2375,7 +2740,7 @@ Redis 用来存储热点数据，如果缓存不命中，则去查询数据库�
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="https://dunwu.github.io/blog/blog/communication/websocket/">
+    <link itemprop="mainEntityOfPage" href="https://dunwu.github.io/blog/blog/network/websocket/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/blog/images/avatar.gif">
@@ -2389,7 +2754,7 @@ Redis 用来存储热点数据，如果缓存不命中，则去查询数据库�
       <header class="post-header">
         <h2 class="post-title" itemprop="name headline">
           
-            <a href="/blog/communication/websocket/" class="post-title-link" itemprop="url">网络协议之 Websocket</a>
+            <a href="/blog/network/websocket/" class="post-title-link" itemprop="url">网络协议之 Websocket</a>
         </h2>
 
         <div class="post-meta">
@@ -2406,7 +2771,7 @@ Redis 用来存储热点数据，如果缓存不命中，则去查询数据库�
                   <i class="fa fa-calendar-check-o"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2020-01-19 12:32:03" itemprop="dateModified" datetime="2020-01-19T12:32:03+08:00">2020-01-19</time>
+                <time title="修改时间：2020-02-02 18:16:21" itemprop="dateModified" datetime="2020-02-02T18:16:21+08:00">2020-02-02</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -2414,8 +2779,8 @@ Redis 用来存储热点数据，如果缓存不命中，则去查询数据库�
               </span>
               <span class="post-meta-item-text">分类于</span>
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/blog/categories/%E9%80%9A%E4%BF%A1/" itemprop="url" rel="index">
-                    <span itemprop="name">通信</span>
+                  <a href="/blog/categories/%E7%BD%91%E7%BB%9C/" itemprop="url" rel="index">
+                    <span itemprop="name">网络</span>
                   </a>
                 </span>
             </span>
@@ -2429,8 +2794,8 @@ Redis 用来存储热点数据，如果缓存不命中，则去查询数据库�
       </span>
       <span class="post-meta-item-text">Disqus：</span>
     
-    <a title="disqus" href="/blog/communication/websocket/#comments" itemprop="discussionUrl">
-      <span class="post-comments-count disqus-comment-count" data-disqus-identifier="communication/websocket/" itemprop="commentCount"></span>
+    <a title="disqus" href="/blog/network/websocket/#comments" itemprop="discussionUrl">
+      <span class="post-comments-count disqus-comment-count" data-disqus-identifier="network/websocket/" itemprop="commentCount"></span>
     </a>
   </span>
   
@@ -2688,7 +3053,7 @@ Redis 用来存储热点数据，如果缓存不命中，则去查询数据库�
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="https://dunwu.github.io/blog/blog/communication/cdn/">
+    <link itemprop="mainEntityOfPage" href="https://dunwu.github.io/blog/blog/network/cdn/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/blog/images/avatar.gif">
@@ -2702,7 +3067,7 @@ Redis 用来存储热点数据，如果缓存不命中，则去查询数据库�
       <header class="post-header">
         <h2 class="post-title" itemprop="name headline">
           
-            <a href="/blog/communication/cdn/" class="post-title-link" itemprop="url">网络通信之 CDN</a>
+            <a href="/blog/network/cdn/" class="post-title-link" itemprop="url">网络通信之 CDN</a>
         </h2>
 
         <div class="post-meta">
@@ -2719,7 +3084,7 @@ Redis 用来存储热点数据，如果缓存不命中，则去查询数据库�
                   <i class="fa fa-calendar-check-o"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2020-01-16 17:48:30" itemprop="dateModified" datetime="2020-01-16T17:48:30+08:00">2020-01-16</time>
+                <time title="修改时间：2020-02-02 18:16:21" itemprop="dateModified" datetime="2020-02-02T18:16:21+08:00">2020-02-02</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -2727,8 +3092,8 @@ Redis 用来存储热点数据，如果缓存不命中，则去查询数据库�
               </span>
               <span class="post-meta-item-text">分类于</span>
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/blog/categories/%E9%80%9A%E4%BF%A1/" itemprop="url" rel="index">
-                    <span itemprop="name">通信</span>
+                  <a href="/blog/categories/%E7%BD%91%E7%BB%9C/" itemprop="url" rel="index">
+                    <span itemprop="name">网络</span>
                   </a>
                 </span>
             </span>
@@ -2742,8 +3107,8 @@ Redis 用来存储热点数据，如果缓存不命中，则去查询数据库�
       </span>
       <span class="post-meta-item-text">Disqus：</span>
     
-    <a title="disqus" href="/blog/communication/cdn/#comments" itemprop="discussionUrl">
-      <span class="post-comments-count disqus-comment-count" data-disqus-identifier="communication/cdn/" itemprop="commentCount"></span>
+    <a title="disqus" href="/blog/network/cdn/#comments" itemprop="discussionUrl">
+      <span class="post-comments-count disqus-comment-count" data-disqus-identifier="network/cdn/" itemprop="commentCount"></span>
     </a>
   </span>
   
@@ -2891,435 +3256,6 @@ Redis 用来存储热点数据，如果缓存不命中，则去查询数据库�
   
   
 
-        
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="https://dunwu.github.io/blog/blog/os/mac/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/blog/images/avatar.gif">
-      <meta itemprop="name" content="Zhang Peng">
-      <meta itemprop="description" content="Dunwu's Blog">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Dunwu">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/blog/os/mac/" class="post-title-link" itemprop="url">Mac 常用技巧总结</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-
-              <time title="创建时间：2019-05-07 20:35:00" itemprop="dateCreated datePublished" datetime="2019-05-07T20:35:00+08:00">2019-05-07</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-calendar-check-o"></i>
-                </span>
-                <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2019-11-22 11:31:57" itemprop="dateModified" datetime="2019-11-22T11:31:57+08:00">2019-11-22</time>
-              </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/blog/categories/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/" itemprop="url" rel="index">
-                    <span itemprop="name">操作系统</span>
-                  </a>
-                </span>
-            </span>
-
-          
-  
-  <span class="post-meta-item">
-    
-      <span class="post-meta-item-icon">
-        <i class="fa fa-comment-o"></i>
-      </span>
-      <span class="post-meta-item-text">Disqus：</span>
-    
-    <a title="disqus" href="/blog/os/mac/#comments" itemprop="discussionUrl">
-      <span class="post-comments-count disqus-comment-count" data-disqus-identifier="os/mac/" itemprop="commentCount"></span>
-    </a>
-  </span>
-  
-  <br>
-            <span class="post-meta-item" title="本文字数">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-file-word-o"></i>
-              </span>
-                <span class="post-meta-item-text">本文字数：</span>
-              <span>4.3k</span>
-            </span>
-            <span class="post-meta-item" title="阅读时长">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-clock-o"></i>
-              </span>
-                <span class="post-meta-item-text">阅读时长 &asymp;</span>
-              <span>4 分钟</span>
-            </span>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h2 id="基本操作"><a class="markdownIt-Anchor" href="#基本操作"></a> 基本操作</h2>
-<h3 id="软件管理"><a class="markdownIt-Anchor" href="#软件管理"></a> 软件管理</h3>
-<p>dmg 格式：双击安装包，然后拖到 applications 文件夹下即可。</p>
-<h3 id="浏览器"><a class="markdownIt-Anchor" href="#浏览器"></a> 浏览器</h3>
-<h4 id="更改默认搜索引擎"><a class="markdownIt-Anchor" href="#更改默认搜索引擎"></a> 更改默认搜索引擎</h4>
-<p>选择「偏好设置–&gt;搜索–&gt;搜索引擎–&gt;Google」。</p>
-<h4 id="导入-chrome-浏览器的书签"><a class="markdownIt-Anchor" href="#导入-chrome-浏览器的书签"></a> 导入 chrome 浏览器的书签</h4>
-<p>选择「文件–&gt;导入自–&gt; Google Chrome」，然后选择要导入的项目。</p>
-<h4 id="快捷键"><a class="markdownIt-Anchor" href="#快捷键"></a> 快捷键</h4>
-<p>Command + R 刷新</p>
-<h4 id="上方显示书签栏收藏栏"><a class="markdownIt-Anchor" href="#上方显示书签栏收藏栏"></a> 上方显示书签栏／收藏栏</h4>
-<p>选择「显示–&gt; 显示个人收藏栏」。</p>
-<h4 id="关闭软件的右上角通知"><a class="markdownIt-Anchor" href="#关闭软件的右上角通知"></a> 关闭软件的右上角通知</h4>
-<p>在 Mac 系统中有对通知的设置，打开系统偏好设置 — 通知 找到 QQ，然后将 QQ 提示样式设置成无即可。</p>
-<h4 id="复制文件文件夹路径"><a class="markdownIt-Anchor" href="#复制文件文件夹路径"></a> 复制文件/文件夹路径</h4>
-<ul>
-<li>OS X 10.11 系统，选中文件夹，「cmd +Option +c」 复制文件夹路径，cmd+v 粘贴。<br />
-之前的系统，利用 Administrator 创建一个到右键菜单，然后到设置里面设置快捷键。具体操作请百度。</li>
-</ul>
-<h4 id="打开来自身份不明的开发者的应用程序"><a class="markdownIt-Anchor" href="#打开来自身份不明的开发者的应用程序"></a> 打开来自身份不明的开发者的应用程序</h4>
-<p>在应用程序文件夹，按住 control 键的同时打开应用程序。</p>
-<h4 id="复制文件路径"><a class="markdownIt-Anchor" href="#复制文件路径"></a> 复制文件路径</h4>
-<ul>
-<li>
-<p>选择文件／文件夹按 Command+C 复制，在终端中 Command+V 粘贴即可。</p>
-</li>
-<li>
-<p>如果只是想在 Finder 中看到文件的路径, 并方便切换层级, Finder 内置了「显示路径栏」的功能, 并配置了快捷键(Option+Cmd+P). 如下图所示：</p>
-</li>
-</ul>
-<p>20161124-184148.png</p>
-<p>参考链接：</p>
-<ul>
-<li>[<a href="https://www.zhihu.com/question/22883229" target="_blank" rel="noopener">https://www.zhihu.com/question/22883229</a>]</li>
-</ul>
-<h3 id="隐藏和取消隐藏-mac-app-store-中的已购项目"><a class="markdownIt-Anchor" href="#隐藏和取消隐藏-mac-app-store-中的已购项目"></a> 隐藏和取消隐藏 Mac App Store 中的已购项目</h3>
-<h3 id="mac-同时登陆两个-qq"><a class="markdownIt-Anchor" href="#mac-同时登陆两个-qq"></a> Mac 同时登陆两个 QQ</h3>
-<p>在已经打开的 QQ 中，按住「command + N」即可。</p>
-<h2 id="系统便好设置"><a class="markdownIt-Anchor" href="#系统便好设置"></a> 系统便好设置</h2>
-<h3 id="语音播报"><a class="markdownIt-Anchor" href="#语音播报"></a> 语音播报</h3>
-<p>打开「系统便好设置–&gt;辅助功能–&gt;语音」，即可设置不同国家的语言。</p>
-<p>勾选上图中的红框部分，可以设置全局快捷键。这样的话，在任何一个软件当中，按下「 option+esc」时，就会朗读选中的文本。</p>
-<h3 id="调整字体大小"><a class="markdownIt-Anchor" href="#调整字体大小"></a> 调整字体大小</h3>
-<p>Mac 调整字体大小：「系统偏好设置 -&gt; 显示器 -&gt; 缩放」。如下图：</p>
-<h3 id="如何分别设置-mac-的鼠标和触控板的滚动方向"><a class="markdownIt-Anchor" href="#如何分别设置-mac-的鼠标和触控板的滚动方向"></a> 如何分别设置 Mac 的鼠标和触控板的滚动方向</h3>
-<p>很多人习惯鼠标使用相反的滚动方向，而触控板类似 iPad 那样的自然滚动，问如何设置，当时我的回答是不知道，因为目前 OS X 的系统设置里，鼠标和触控板的设置是统一<br />
-的。今天发现了一个免费的软件 Scroll Reverser，可以实现鼠标和触控板的分别设置。下载地址：<a href="https://pilotmoon.com/scrollreverser/" target="_blank" rel="noopener">https://pilotmoon.com/scrollreverser/</a><br />
-启动后程序显示在顶部菜单栏，设置简单明了，有需要的用户体验一下吧。</p>
-<h3 id="touch-bar-自定义"><a class="markdownIt-Anchor" href="#touch-bar-自定义"></a> Touch Bar 自定义</h3>
-<p>打开「系统偏好设置-键盘」，下面有个自定义控制条。</p>
-<h3 id="色温调节夜间模式"><a class="markdownIt-Anchor" href="#色温调节夜间模式"></a> 色温调节：夜间模式</h3>
-<p>iOS9.3 的最明显变化，莫过于苹果在发布会上特意提到的 Night Shift 夜间护眼模式。</p>
-<h3 id="icloud-邮箱"><a class="markdownIt-Anchor" href="#icloud-邮箱"></a> iCloud 邮箱</h3>
-<p>如果您用于设置 iCloud 的 Apple ID 不以“@icloud.com”、“@me.com”或“@mac.com”结尾，您必须先设置一个“@icloud.com”电子邮件地址，然后才能使用 iCloud“邮件”。</p>
-<p>如果您拥有以“@mac.com”或“@me.com”结尾的电子邮件地址，则您已经拥有了名称相同但以“@icloud.com”结尾的等效地址。如果您使用的电子邮件别名以“@mac.com”或“@me.com”结尾，您也将拥有以“@icloud.com”结尾的等效地址。</p>
-<p><strong>操作如下：</strong></p>
-<ul>
-<li>
-<p>在 iOS 设备上，前往“设置”&gt;“iCloud”，开启“邮件”，然后按照屏幕上的说明操作。</p>
-</li>
-<li>
-<p>在 Mac 上，选取 Apple 菜单 &gt;“系统偏好设置”，点按“iCloud”，再选择“邮件”，然后按照屏幕上的说明操作。</p>
-</li>
-</ul>
-<p>PS：创建 iCloud 电子邮件地址后，您无法对其进行更改。</p>
-<p>设置 @icloud.com 电子邮件地址后即可用其登录 iCloud。您也可以用创建 iCloud 帐户时所用的 Apple ID 登录。</p>
-<p>您可以从以下任意地址发送 iCloud 电子邮件：</p>
-<p>您的 iCloud 电子邮件地址（您的帐号名称@icloud.com）</p>
-<p>别名</p>
-<p>参考链接：</p>
-<p><strong>直接注册以@icloud.com 结尾的 Apple ID：</strong></p>
-<p>参考链接：</p>
-<h2 id="podcast"><a class="markdownIt-Anchor" href="#podcast"></a> PodCast</h2>
-<p>PodCast 中文翻译为播客，是一种特殊的音频 or 视频节目。PodCast 这个单词是由 iPod+Broadcast 这两个单词组成的。</p>
-<p>PodCast 可以在 iTunes 中收听。</p>
-<h2 id="others"><a class="markdownIt-Anchor" href="#others"></a> others</h2>
-<h3 id="词典"><a class="markdownIt-Anchor" href="#词典"></a> 词典</h3>
-<p>系统有一个自带应用「词典」，可以进行单词的查询。</p>
-<h3 id="如何解决-mac-软件dmgakpapp出现程序已损坏的提示"><a class="markdownIt-Anchor" href="#如何解决-mac-软件dmgakpapp出现程序已损坏的提示"></a> 如何解决 MAC 软件（dmg，akp，app）出现程序已损坏的提示</h3>
-<p>「xxx.app 已损坏,打不开.你应该将它移到废纸篓」，并非你安装的软件已损坏，而是 Mac 系统的安全设置问题，因为这些应用都是破解或者汉化的,那么解决方法就是临时改变 Mac 系统安全设置。</p>
-<p>出现这个问题的解决方法：修改系统配置：系统偏好设置… -&gt; 安全性与隐私。修改为任何来源。</p>
-<p>如果没有这个选项的话（macOS Sierra 10.12）,打开终端，执行：</p>
-<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">sudo spctl --master-disable</span><br></pre></td></tr></table></figure>
-<p>即可。</p>
-<p>参考链接：</p>
-<ul>
-<li>
-<p><a href="http://www.jianshu.com/p/379b49b88df9" target="_blank" rel="noopener">Max OS-[xxx.app 已损坏,打不开.你应该将它移到废纸篓]</a></p>
-</li>
-<li>
-<p><a href="http://www.yunrui.co/25693.html" target="_blank" rel="noopener">如何解决 MAC 软件（dmg，akp，app）出现程序已损坏的提示</a></p>
-</li>
-</ul>
-<p>备注：这个链接里的各种资源都很不错啊。</p>
-<h4 id="终端"><a class="markdownIt-Anchor" href="#终端"></a> 终端</h4>
-<h4 id="在-finder-的当前目录打开终端"><a class="markdownIt-Anchor" href="#在-finder-的当前目录打开终端"></a> 在 Finder 的当前目录打开终端</h4>
-<p>在 Finder 打开 terminal 终端这个功能其实是有的，但是系统默认没有打开。我们可以通过如下方法将其打开：</p>
-<p>进入系统偏好设置-&gt;键盘-&gt;快捷键-&gt;服务。</p>
-<p>在右边新建位于文件夹位置的终端窗口上打勾。</p>
-<p>如此设置后，在 Finder 中右击某文件，在出现的菜单中找到服务，然后点击新建位于文件夹位置的终端窗口即可！</p>
-<h2 id="mac-常用快捷键"><a class="markdownIt-Anchor" href="#mac-常用快捷键"></a> Mac 常用快捷键</h2>
-<h3 id="finder"><a class="markdownIt-Anchor" href="#finder"></a> Finder</h3>
-<table>
-<thead>
-<tr>
-<th style="text-align:left">快捷键</th>
-<th style="text-align:left">作用</th>
-<th style="text-align:left">备注</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td style="text-align:left">Shift + Command + G</td>
-<td style="text-align:left">前往指定路径的文件夹</td>
-<td style="text-align:left">包括隐藏文件夹</td>
-</tr>
-<tr>
-<td style="text-align:left">Shift + Command + .</td>
-<td style="text-align:left">显示隐藏文件、文件夹</td>
-<td style="text-align:left">再按一次，恢复隐藏</td>
-</tr>
-<tr>
-<td style="text-align:left">Command + ↑</td>
-<td style="text-align:left">返回上一层</td>
-<td style="text-align:left"></td>
-</tr>
-<tr>
-<td style="text-align:left">Command + ↓</td>
-<td style="text-align:left">进入当前文件夹</td>
-<td style="text-align:left"></td>
-</tr>
-</tbody>
-</table>
-<h3 id="编辑"><a class="markdownIt-Anchor" href="#编辑"></a> 编辑</h3>
-<p><strong>删除文字</strong>：</p>
-<table>
-<thead>
-<tr>
-<th style="text-align:left">快捷键</th>
-<th style="text-align:left">作用</th>
-<th style="text-align:left">备注</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td style="text-align:left">delete</td>
-<td style="text-align:left">删除光标的前一个字符</td>
-<td style="text-align:left">相当于 Windows 键盘上的退格键</td>
-</tr>
-<tr>
-<td style="text-align:left">fn + delete</td>
-<td style="text-align:left">删除光标的后一个字符</td>
-<td style="text-align:left"></td>
-</tr>
-<tr>
-<td style="text-align:left">option + delete</td>
-<td style="text-align:left">删除光标之前的一个单词</td>
-<td style="text-align:left">英文有效</td>
-</tr>
-<tr>
-<td style="text-align:left"><strong>command + delete</strong></td>
-<td style="text-align:left">删除光标之前的整行内容</td>
-<td style="text-align:left">【荐】</td>
-</tr>
-<tr>
-<td style="text-align:left">command + delete</td>
-<td style="text-align:left">在 finder 中删掉该文件</td>
-<td style="text-align:left"></td>
-</tr>
-<tr>
-<td style="text-align:left">shift + command + delete</td>
-<td style="text-align:left">清空回收站</td>
-<td style="text-align:left"></td>
-</tr>
-</tbody>
-</table>
-<p><strong>剪切文件</strong>：</p>
-<p>首先选中文件，按 Command+C 复制文件；然后按「Command ＋ Option ＋ V」剪切文件。</p>
-<p>备注：Command+X 只能剪切文字文本，不要混淆了。</p>
-<h2 id="mac-用户必须知道的-15-组快捷键"><a class="markdownIt-Anchor" href="#mac-用户必须知道的-15-组快捷键"></a> Mac 用户必须知道的 15 组快捷键</h2>
-<blockquote>
-<p>参考链接：<a href="http://v.youku.com/v_show/id_XNDE4MzM0NDgw.html" target="_blank" rel="noopener">《轻松玩 Mac》第 6 期：Mac 用户必须知道的 15 组快捷键</a></p>
-</blockquote>
-<h3 id="space键快速预览"><a class="markdownIt-Anchor" href="#space键快速预览"></a> 「space」键：快速预览</h3>
-<p>选中文件后， 不需要启动任何应用程序，使用「space」空格键可进行快速预览，再次按下「space」空格键取消预览。</p>
-<p>可以预览 mp3、视频、pdf 等文件。</p>
-<p>我们还可以<strong>选中多张图片</strong>， 然后按「space」键，就可以同时对比预览多张图片。这一点，很赞。</p>
-<h3 id="改名"><a class="markdownIt-Anchor" href="#改名"></a> 改名</h3>
-<p>选中文件/文件夹后，按 enter 键，就可以改名了。</p>
-<h3 id="command-i键查看文件属性"><a class="markdownIt-Anchor" href="#command-i键查看文件属性"></a> 「command + I」键：查看文件属性</h3>
-<ul>
-<li>
-<p>选中文件后，按「command + I」键，可以查看文件的各种属性。</p>
-</li>
-<li>
-<p>选中<strong>文件夹</strong>后，按「command + I」键，可以查看文件夹的大小。【荐】</p>
-</li>
-</ul>
-<h3 id="切换输入法"><a class="markdownIt-Anchor" href="#切换输入法"></a> 切换输入法</h3>
-<p>「control + space」</p>
-<h3 id="打开-spotlight-搜索框"><a class="markdownIt-Anchor" href="#打开-spotlight-搜索框"></a> 打开 spotlight 搜索框</h3>
-<p>spotlight 是系统自带的软件，搜索功能不是很强大。我们一般都会用第三方的 Alfred 软件。</p>
-<h3 id="编辑相关"><a class="markdownIt-Anchor" href="#编辑相关"></a> 编辑相关</h3>
-<p>Cmd+C、Cmd+V、Cmd+X、Cmd+A、Cmd+Z。</p>
-<h3 id="翻页和光标"><a class="markdownIt-Anchor" href="#翻页和光标"></a> 翻页和光标</h3>
-<ul>
-<li>
-<p>「control + ↑」：将光标定位到文章的最开头（翻页到文档的最上方）</p>
-</li>
-<li>
-<p>「control + ↓」：将光标定位到文章的最末尾（翻页到文档的最下方）</p>
-</li>
-<li>
-<p>「control + ←」：将光标定位到当前行的最左侧</p>
-</li>
-<li>
-<p>「control + →」：将光标定位到当前行的最右侧</p>
-</li>
-</ul>
-<h3 id="command-shift-y将文字快速保存到便笺"><a class="markdownIt-Anchor" href="#command-shift-y将文字快速保存到便笺"></a> 「command + shift + Y」：将文字快速保存到便笺</h3>
-<p>选中你想要的内容（例如文字、链接等），然后按下 command + shift + Y」，那么你选中的内容就会快速保存到系统自带的「便笺」软件中。</p>
-<p>如果你想临时性的保存一段内容，这个操作很实用。</p>
-<h3 id="程序相关"><a class="markdownIt-Anchor" href="#程序相关"></a> 程序相关</h3>
-<ul>
-<li>
-<p>「command + Q」：快速退出程序</p>
-</li>
-<li>
-<p>「command + tab」：切换程序</p>
-</li>
-<li>
-<p>「command + H」：隐藏当前应用程序。这是一个有趣的快捷键。</p>
-</li>
-<li>
-<p>「command + ，」：打开当前应用程序的「偏好设置」。</p>
-</li>
-</ul>
-<h3 id="窗口相关"><a class="markdownIt-Anchor" href="#窗口相关"></a> 窗口相关</h3>
-<ul>
-<li>
-<p>「command + N」：新建一个当前应用程序的窗口</p>
-</li>
-<li>
-<p>「command + `」：在当前应用程序的不同窗口之间切换【很实用】</p>
-</li>
-</ul>
-<p>我们知道，「command + tab」是在不同的软件之间切换。但你不知道的是，「command + `」是在同一个软件的不同窗口之间切换。</p>
-<ul>
-<li>
-<p>「command + M」：将当前窗口最小化</p>
-</li>
-<li>
-<p>「command + W」：关闭当前窗口</p>
-</li>
-</ul>
-<h3 id="浏览器相关"><a class="markdownIt-Anchor" href="#浏览器相关"></a> 浏览器相关</h3>
-<ul>
-<li>
-<p>「command + T」：浏览器中，新建一个标签</p>
-</li>
-<li>
-<p>「command + W」：关闭当前标签</p>
-</li>
-</ul>
-<ul>
-<li>「command + R」：强制刷新。</li>
-</ul>
-<ul>
-<li>「command + L」：定位到地址栏。【重要】</li>
-</ul>
-<h3 id="截图相关"><a class="markdownIt-Anchor" href="#截图相关"></a> 截图相关</h3>
-<ul>
-<li>「command + shift + 3」：截全屏（对整个屏幕截图）。</li>
-</ul>
-<h3 id="声音相关"><a class="markdownIt-Anchor" href="#声音相关"></a> 声音相关</h3>
-<p>选中文字后，按住「ctrl + esc」键，会将文字进行朗读。（我发现，在触控条版的 mac 上，并没有生效）</p>
-<h3 id="dock-栏相关"><a class="markdownIt-Anchor" href="#dock-栏相关"></a> Dock 栏相关</h3>
-<ul>
-<li>「option + command + D」：隐藏 dock 栏</li>
-</ul>
-<h3 id="强制推出"><a class="markdownIt-Anchor" href="#强制推出"></a> 强制推出</h3>
-<blockquote>
-<p>强制退出的快捷键非常重要</p>
-</blockquote>
-<ul>
-<li>「option + command + esc」：打开强制退出的窗口</li>
-</ul>
-<h3 id="option-相关"><a class="markdownIt-Anchor" href="#option-相关"></a> option 相关</h3>
-<blockquote>
-<p>强烈推荐</p>
-</blockquote>
-<ul>
-<li>
-<p>「option + command + H」：隐藏除当前应用程序之外的其他应用程序</p>
-</li>
-<li>
-<p>在文本中，按住「option」键，配合鼠标的选中，可以进行块状文字选取。</p>
-</li>
-<li>
-<p>「option + command + W」：快速关闭当前应用程序的所有窗口。【很实用】</p>
-</li>
-</ul>
-<p>比如说，你一次性打开了很多文件的详情，然后就可以通过此快捷键，将这些窗口一次性关闭。</p>
-<ul>
-<li>「option + command + I」：查看多个文件的总的属性。</li>
-</ul>
-<ul>
-<li>
-<p>打开 launchpad，按住「option」键，可以快速卸载应用程序。</p>
-</li>
-<li>
-<p>在 dock 栏，右键点击软件图标，同时按住「option」键，就可以<strong>强制退出</strong>该软件。【重要】</p>
-</li>
-</ul>
-<ul>
-<li>在 Safari 浏览器中，按住「option + command + Q」退出 Safari。等下次进入 Safari 的时候，上次退出时的网址会自动被打开。【实用】</li>
-</ul>
-<h3 id="推荐一个软件cheatsheet"><a class="markdownIt-Anchor" href="#推荐一个软件cheatsheet"></a> 推荐一个软件：CheatSheet</h3>
-<p>打开 CheatSheet 后，长按 command 键，会弹出当前应用程序的所有快捷键。我们还可以对这些快捷键进行保存。</p>
-<h2 id="学习资源"><a class="markdownIt-Anchor" href="#学习资源"></a> 📚 学习资源</h2>
-<ul>
-<li><a href="https://github.com/jaywcjlove/awesome-mac" target="_blank" rel="noopener">Awesome Mac</a></li>
-<li><a href="https://github.com/herrbischoff/awesome-macos-command-line" target="_blank" rel="noopener">awesome-macos-command-line</a></li>
-</ul>
-<h2 id="传送门"><a class="markdownIt-Anchor" href="#传送门"></a> 🚪 传送门</h2>
-<p>| <a href="https://github.com/dunwu/blog" target="_blank" rel="noopener">回首頁</a> |</p>
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
   </div>
 
   
@@ -3428,12 +3364,12 @@ Redis 用来存储热点数据，如果缓存不命中，则去查询数据库�
     <span class="post-meta-item-icon">
       <i class="fa fa-area-chart"></i>
     </span>
-    <span title="站点总字数">364k</span>
+    <span title="站点总字数">365k</span>
     <span class="post-meta-divider">|</span>
     <span class="post-meta-item-icon">
       <i class="fa fa-coffee"></i>
     </span>
-    <span title="站点阅读时长">5:31</span>
+    <span title="站点阅读时长">5:32</span>
 </div>
 
         

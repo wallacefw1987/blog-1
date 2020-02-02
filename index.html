@@ -221,7 +221,7 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="https://dunwu.github.io/blog/blog/design/theory/paxos/">
+    <link itemprop="mainEntityOfPage" href="https://dunwu.github.io/blog/blog/distributed/paxos/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/blog/images/avatar.gif">
@@ -235,7 +235,7 @@
       <header class="post-header">
         <h2 class="post-title" itemprop="name headline">
           
-            <a href="/blog/design/theory/paxos/" class="post-title-link" itemprop="url">深入剖析一致性算法 Paxos</a>
+            <a href="/blog/distributed/paxos/" class="post-title-link" itemprop="url">深入剖析共识性算法 Paxos</a>
         </h2>
 
         <div class="post-meta">
@@ -244,30 +244,18 @@
                 <i class="fa fa-calendar-o"></i>
               </span>
               <span class="post-meta-item-text">发表于</span>
+              
 
-              <time title="创建时间：2020-02-02 12:00:00" itemprop="dateCreated datePublished" datetime="2020-02-02T12:00:00+08:00">2020-02-02</time>
+              <time title="创建时间：2020-02-02 12:00:00 / 修改时间：18:08:31" itemprop="dateCreated datePublished" datetime="2020-02-02T12:00:00+08:00">2020-02-02</time>
             </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-calendar-check-o"></i>
-                </span>
-                <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2020-02-01 22:37:21" itemprop="dateModified" datetime="2020-02-01T22:37:21+08:00">2020-02-01</time>
-              </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
                 <i class="fa fa-folder-o"></i>
               </span>
               <span class="post-meta-item-text">分类于</span>
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/blog/categories/%E8%AE%BE%E8%AE%A1/" itemprop="url" rel="index">
-                    <span itemprop="name">设计</span>
-                  </a>
-                </span>
-                  ，
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/blog/categories/%E8%AE%BE%E8%AE%A1/%E7%B3%BB%E7%BB%9F%E5%8E%9F%E7%90%86/" itemprop="url" rel="index">
-                    <span itemprop="name">系统原理</span>
+                  <a href="/blog/categories/%E5%88%86%E5%B8%83%E5%BC%8F/" itemprop="url" rel="index">
+                    <span itemprop="name">分布式</span>
                   </a>
                 </span>
             </span>
@@ -281,8 +269,8 @@
       </span>
       <span class="post-meta-item-text">Disqus：</span>
     
-    <a title="disqus" href="/blog/design/theory/paxos/#comments" itemprop="discussionUrl">
-      <span class="post-comments-count disqus-comment-count" data-disqus-identifier="design/theory/paxos/" itemprop="commentCount"></span>
+    <a title="disqus" href="/blog/distributed/paxos/#comments" itemprop="discussionUrl">
+      <span class="post-comments-count disqus-comment-count" data-disqus-identifier="distributed/paxos/" itemprop="commentCount"></span>
     </a>
   </span>
   
@@ -292,7 +280,7 @@
                 <i class="fa fa-file-word-o"></i>
               </span>
                 <span class="post-meta-item-text">本文字数：</span>
-              <span>5.5k</span>
+              <span>5.6k</span>
             </span>
             <span class="post-meta-item" title="阅读时长">
               <span class="post-meta-item-icon">
@@ -311,63 +299,67 @@
     <div class="post-body" itemprop="articleBody">
 
       
-          <h1 id="深入剖析一致性算法-paxos"><a class="markdownIt-Anchor" href="#深入剖析一致性算法-paxos"></a> 深入剖析一致性算法 Paxos</h1>
-<p>这是一个有关Paxos算法非常形象的讲解与示范。Paxos是能够基于一大堆完全不可靠的网络条件下却能可靠确定地实现共识一致性的算法。也就是说：它允许一组不一定可靠的处理器（服务器）在某些条件得到满足情况下就能达成确定的安全的共识，如果条件不能满足也确保这组处理器（服务器）保持一致。</p>
+          <h1 id="深入剖析共识性算法-paxos"><a class="markdownIt-Anchor" href="#深入剖析共识性算法-paxos"></a> 深入剖析共识性算法 Paxos</h1>
+<blockquote>
+<p>Paxos 是一种基于消息传递且具有高度容错特性的共识（consensus）算法。</p>
+</blockquote>
+<p>这是一个有关 Paxos 算法非常形象的讲解与示范。Paxos 是能够基于一大堆完全不可靠的网络条件下却能可靠确定地实现共识一致性的算法。也就是说：它允许一组不一定可靠的处理器（服务器）在某些条件得到满足情况下就能达成确定的安全的共识，如果条件不能满足也确保这组处理器（服务器）保持一致。</p>
 <h3 id="什么是共识"><a class="markdownIt-Anchor" href="#什么是共识"></a> 什么是共识？</h3>
-<p>具体来说是这样：分布式系统中由于网络之间通讯可能会中断，虽然概率很低，但是没有100%完美的网络因此，依靠网络通讯的计算机之间要达成共识就比较困难，假设有X, Y和Z三台计算机谋划在周一攻击人类世界，它们的攻击计划是只要所有计算机可用于战斗时就一起进行攻击，不落下任何一台机器，但是当他们决定具体什么时间开始攻击时，在这个关键问题上往往会出错。</p>
-<p>一个基本问题是，每台机器都有自己的攻击时间建议，计算机X可以建议在08:00时间，因为这个时间正是周一早晨，而人们刚刚过完狂欢的周末休息天，但是计算机Z认为13:00比较好，理由当然也有一大堆，让这三台计算机基于某个时刻达成共识是非常困难的，因此，也给人类反击留下了机会。</p>
-<p>另外一个情况是，这三台计算机是位于世界不同的位置，之间通讯或许通过电缆或者其他不太可靠的网络设备通讯，如果X建议在08:00，它必须确认它的这个建议能够到达活着的Y和Z，以免一个人战斗。</p>
+<p>具体来说是这样：分布式系统中由于网络之间通讯可能会中断，虽然概率很低，但是没有 100%完美的网络因此，依靠网络通讯的计算机之间要达成共识就比较困难，假设有 X, Y 和 Z 三台计算机谋划在周一攻击人类世界，它们的攻击计划是只要所有计算机可用于战斗时就一起进行攻击，不落下任何一台机器，但是当他们决定具体什么时间开始攻击时，在这个关键问题上往往会出错。</p>
+<p>一个基本问题是，每台机器都有自己的攻击时间建议，计算机 X 可以建议在 08:00 时间，因为这个时间正是周一早晨，而人们刚刚过完狂欢的周末休息天，但是计算机 Z 认为 13:00 比较好，理由当然也有一大堆，让这三台计算机基于某个时刻达成共识是非常困难的，因此，也给人类反击留下了机会。</p>
+<p>另外一个情况是，这三台计算机是位于世界不同的位置，之间通讯或许通过电缆或者其他不太可靠的网络设备通讯，如果 X 建议在 08:00，它必须确认它的这个建议能够到达活着的 Y 和 Z，以免一个人战斗。</p>
 <p>问题是：我们不能准确地知道某个计算机的延迟的原因：是因为性能慢了还是已经是彻底死机不能用？</p>
-<p>那么，X怎么知道其他两个计算机是可用的呢？也就是说，当X和其他两个计算机通讯发现得到响应要过很长时间，它不能确定这两台计算机到底还能不能继续活下去，也许这次通讯有延迟了，下一次它们又活过来了没有延迟了，也许下次延迟更长了一点，也许下次延迟稍微短了一点，这些随机概率问题使得X不能确定Y和Z到底是出了什么问题造成延迟的，是因为处理了某个特别耗费CPU的任务还是因为死锁等原因？当然，有些天真的设计者会说，只要我们将性能监控到位，如果延迟超过一定时间，我们人工介入告诉X确切情况就可以，那么这种人工介入的分布式系统不是一个天然自洽的自动化系统了，不在我们讨论范围之内，而且这样的系统会让人疲于奔命。</p>
-<p>因为X不能确定Y或Z是否可用，所以X仅仅只能和Y与Z中一台基于攻击时间达成共识，就无法完全三台机器全部投入战斗的计划。注意的是，X Y Z三台中任何一台都可能会出现延迟，这就造成了三台机器之间任何通讯都是无法确认可靠的，比如X发出消息给Z，Z确认后回执给X，但是这段时间X突然死机了，那么Z要等待X多长时间才能知道它收到确认呢？还是再次等待X回复确认的确认，这样无限循环下去也不能解决它们之间通讯可能出现随机不可靠的问题。</p>
-<p>所有关键问题在于：由于这三台机器之间通讯是无法保证100%可靠，它们就不能就任何事情达成共识。</p>
-<p>下面以分布式拍卖案例说明这种情况以及Paxos的基本原理？</p>
+<p>那么，X 怎么知道其他两个计算机是可用的呢？也就是说，当 X 和其他两个计算机通讯发现得到响应要过很长时间，它不能确定这两台计算机到底还能不能继续活下去，也许这次通讯有延迟了，下一次它们又活过来了没有延迟了，也许下次延迟更长了一点，也许下次延迟稍微短了一点，这些随机概率问题使得 X 不能确定 Y 和 Z 到底是出了什么问题造成延迟的，是因为处理了某个特别耗费 CPU 的任务还是因为死锁等原因？当然，有些天真的设计者会说，只要我们将性能监控到位，如果延迟超过一定时间，我们人工介入告诉 X 确切情况就可以，那么这种人工介入的分布式系统不是一个天然自洽的自动化系统了，不在我们讨论范围之内，而且这样的系统会让人疲于奔命。</p>
+<p>因为 X 不能确定 Y 或 Z 是否可用，所以 X 仅仅只能和 Y 与 Z 中一台基于攻击时间达成共识，就无法完全三台机器全部投入战斗的计划。注意的是，X Y Z 三台中任何一台都可能会出现延迟，这就造成了三台机器之间任何通讯都是无法确认可靠的，比如 X 发出消息给 Z，Z 确认后回执给 X，但是这段时间 X 突然死机了，那么 Z 要等待 X 多长时间才能知道它收到确认呢？还是再次等待 X 回复确认的确认，这样无限循环下去也不能解决它们之间通讯可能出现随机不可靠的问题。</p>
+<p>所有关键问题在于：由于这三台机器之间通讯是无法保证 100%可靠，它们就不能就任何事情达成共识。</p>
+<p>下面以分布式拍卖案例说明这种情况以及 Paxos 的基本原理？</p>
 <p>在传统拍卖场景中，价高者先得，这些拍卖者都是在同一个房间，彼此能够直接看得到对方的报价，如果我们假设分布式拍卖是将这些拍卖者分离到不同的地方，这样我们可以用拍卖者之间的联系模拟分布式计算机之间的通讯。</p>
 <p>假设拍卖者各自在自己家里拍卖，通过邮局信件发出自己的拍卖信息，拍卖者之间除非等到邮局投递人告诉他们彼此之间的报价，否则是无法知道对方报价的。如果邮局信件投递这个环节出了问题，投递速度慢了甚至无法投递了，那么整个拍卖程序就无法继续进行下去。</p>
-<h3 id="paxos解决共识思路"><a class="markdownIt-Anchor" href="#paxos解决共识思路"></a> Paxos解决共识思路</h3>
-<p>Paxos是一个解决<a href="http://harry.me/blog/2013/07/07/id-like-to-have-an-argument-a-primer-on-consensus/" target="_blank" rel="noopener">共识问题consensus problem</a>的算法，现实中Paxos的实现以及成为一些世界级软件的心脏，如Cassandra, Google的 Spanner数据库, 分布式锁服务Chubby. 一个被Paxos管理的系统实际上谈论的是值 状态和跟踪等问题，其目标是建造更高可用性和强一致性的分布式系统。</p>
-<p>Paxos完成一次写操作需要两次来回，分别是prepare/promise, 和 propose/accept：</p>
+<h3 id="paxos-解决共识思路"><a class="markdownIt-Anchor" href="#paxos-解决共识思路"></a> Paxos 解决共识思路</h3>
+<p>Paxos 是一个解决<a href="http://harry.me/blog/2013/07/07/id-like-to-have-an-argument-a-primer-on-consensus/" target="_blank" rel="noopener">共识问题 consensus problem</a>的算法，现实中 Paxos 的实现以及成为一些世界级软件的心脏，如 Cassandra, Google 的 Spanner 数据库, 分布式锁服务 Chubby. 一个被 Paxos 管理的系统实际上谈论的是值 状态和跟踪等问题，其目标是建造更高可用性和强一致性的分布式系统。</p>
+<p>Paxos 完成一次写操作需要两次来回，分别是 prepare/promise, 和 propose/accept：</p>
 <p><img src="https://www.jdon.com/simgs/bigdata/paxos.png" alt="paxos" /></p>
-<p>第一次由提交者Leader向所有其他服务器发出prepare消息请求准备，所有服务器中大多数如果回复诺言承诺就表示准备好了，可以接受写入；第二次提交者向所有服务器发出正式建议propose，所有服务器中大多数如果回复已经接收就表示成功了。</p>
+<p>第一次由提交者 Leader 向所有其他服务器发出 prepare 消息请求准备，所有服务器中大多数如果回复诺言承诺就表示准备好了，可以接受写入；第二次提交者向所有服务器发出正式建议 propose，所有服务器中大多数如果回复已经接收就表示成功了。</p>
 <p>为了详细描述这个两段过程，首先让我们定义一下我们将使用的一些名词术语：</p>
 <ul>
 <li>一个流程是系统中计算机的一个. 人们使用有关复制或节点等词语表达，都差不多。</li>
 <li>一个客户端是属于系统中一个成员的计算机，但是询问系统值是什么或者要求系统获取一个新的值。</li>
 </ul>
-<p>Paxos构建分布式数据库的小片段: 它仅仅实现流程将一个新的东西精确地写入系统中，流程是由Paxos的一个实例管治，可以失败或者不知道任何东西、或者大多数流程都知道一个同样的值，这就是共识，Paxos并不真的告诉我们如何用它来构建数据库或类似的东西，它只是负责独立节点之间通讯的流程， 这些流程服务器会基于一个新值执行决定，Paxos会存储一个值数据，只是一次性的，一旦你第一次设置以后就不能再改变它。</p>
-<h3 id="paxo读操作"><a class="markdownIt-Anchor" href="#paxo读操作"></a> Paxo读操作</h3>
-<p>其实Paxos精华是在写操作，将读操作放在写操作前面讲解，是着重Paxos以大多数服务器达成共识为重要标志，通过读取判断是否达成共识这一状态。</p>
-<p>为了从Paxos系统中读取一个值数据，客户端会请求读取所有流程中存储的当前值，然后从大多数流程服务器中获得这个值，如果数量凑不够大多数或者没有足够的客户端响应，读取操作失败，下面图示你会看到一个客户端询问其他节点他们的值是多少，这些节点返回值给客户端，当客户端获得了大多数节点的响应，返回的值都是同样的，它就算成功地读操作了，并顺便保存读结果。</p>
-<p>与单节点系统(只有一台服务器)相比这有些奇怪，这两个系统中，客户端都需要观察系统已决定状态，但是在非分布式系统中像MySQL或一个memcached服务器中, 客户端只需直接向标准的状态存储的服务器地址获取状态即可，在简单的Paxos中, 客户端也是同样的方式观察状态，但是因为并没有标准的状态存储的服务器地址，它需要询问所有的成员，以便能够确定仅有一个会报告值数据，实际上是大多数节点都持有的值数据，如果客户端询问一个节点，有可能这个节点流程已经过期，得到了错误的值数据，流程失效过期的原因有很多：由于不可靠的网络导致本应送达到它们的消息丢失了；或者他们也许当机然后使用了一个过期状态恢复；或者算法还在运行计算中，流程并没有正好得到消息等等。在现实中使用Paxos实现时，其实不需要每个节点都进行一次读取，会有更好的读取方式，但是他们都是拓展的原始 Paxos 算法。</p>
-<h3 id="paxos写操作"><a class="markdownIt-Anchor" href="#paxos写操作"></a> Paxos写操作</h3>
-<p>当一个客户端要求写入系统一个新值时，让我们看看Paxos让我们集群的流程都做了什么？下面的过程都是只有一个值的写入，最终我们能用这个流程作为原始数据，允许值数据在彼此之间一个个设置，但是基本的Paxos算法管治了一个新值数据的写操作流程， 然后做重复的事情。</p>
-<p>首先Paxos管理的系统中一个客户端要求写入一个新值，客户端这里如图所示是红圈，其它流程是蓝圈， Paxos能保证客户端发送它们的写请求到Paxos集群中任何成员, 这里演示中客户端随机挑选流程中任意一个，这种方式是重要且巧妙的，意味著没有任何单点风险，意味着我们的Paxos管治系统能继续保持在线可用，无论任何一个节点当机或其他不可用原因无响应。如果我们设计一个特定节点作为“推荐人proposer”或者 “the master” 等, 如果这个主节点死机，那么整个系统就崩溃了。</p>
-<p>当写请求被接受后，Paxos流程会接受这个写新值到系统中请求“建议”， “建议”是Paxos中一个正式概念: 向一个Paxos管治的系统建议可能会成功或失败，需要步骤来确保共识能够达成维系，这个建议以准备消息从那些与客户端连接的流程节点们被发往整个系统。</p>
+<p>Paxos 构建分布式数据库的小片段: 它仅仅实现流程将一个新的东西精确地写入系统中，流程是由 Paxos 的一个实例管治，可以失败或者不知道任何东西、或者大多数流程都知道一个同样的值，这就是共识，Paxos 并不真的告诉我们如何用它来构建数据库或类似的东西，它只是负责独立节点之间通讯的流程， 这些流程服务器会基于一个新值执行决定，Paxos 会存储一个值数据，只是一次性的，一旦你第一次设置以后就不能再改变它。</p>
+<h3 id="paxo-读操作"><a class="markdownIt-Anchor" href="#paxo-读操作"></a> Paxo 读操作</h3>
+<p>其实 Paxos 精华是在写操作，将读操作放在写操作前面讲解，是着重 Paxos 以大多数服务器达成共识为重要标志，通过读取判断是否达成共识这一状态。</p>
+<p>为了从 Paxos 系统中读取一个值数据，客户端会请求读取所有流程中存储的当前值，然后从大多数流程服务器中获得这个值，如果数量凑不够大多数或者没有足够的客户端响应，读取操作失败，下面图示你会看到一个客户端询问其他节点他们的值是多少，这些节点返回值给客户端，当客户端获得了大多数节点的响应，返回的值都是同样的，它就算成功地读操作了，并顺便保存读结果。</p>
+<p>与单节点系统(只有一台服务器)相比这有些奇怪，这两个系统中，客户端都需要观察系统已决定状态，但是在非分布式系统中像 MySQL 或一个 memcached 服务器中, 客户端只需直接向标准的状态存储的服务器地址获取状态即可，在简单的 Paxos 中, 客户端也是同样的方式观察状态，但是因为并没有标准的状态存储的服务器地址，它需要询问所有的成员，以便能够确定仅有一个会报告值数据，实际上是大多数节点都持有的值数据，如果客户端询问一个节点，有可能这个节点流程已经过期，得到了错误的值数据，流程失效过期的原因有很多：由于不可靠的网络导致本应送达到它们的消息丢失了；或者他们也许当机然后使用了一个过期状态恢复；或者算法还在运行计算中，流程并没有正好得到消息等等。在现实中使用 Paxos 实现时，其实不需要每个节点都进行一次读取，会有更好的读取方式，但是他们都是拓展的原始 Paxos 算法。</p>
+<h3 id="paxos-写操作"><a class="markdownIt-Anchor" href="#paxos-写操作"></a> Paxos 写操作</h3>
+<p>当一个客户端要求写入系统一个新值时，让我们看看 Paxos 让我们集群的流程都做了什么？下面的过程都是只有一个值的写入，最终我们能用这个流程作为原始数据，允许值数据在彼此之间一个个设置，但是基本的 Paxos 算法管治了一个新值数据的写操作流程， 然后做重复的事情。</p>
+<p>首先 Paxos 管理的系统中一个客户端要求写入一个新值，客户端这里如图所示是红圈，其它流程是蓝圈， Paxos 能保证客户端发送它们的写请求到 Paxos 集群中任何成员, 这里演示中客户端随机挑选流程中任意一个，这种方式是重要且巧妙的，意味著没有任何单点风险，意味着我们的 Paxos 管治系统能继续保持在线可用，无论任何一个节点当机或其他不可用原因无响应。如果我们设计一个特定节点作为“推荐人 proposer”或者 “the master” 等, 如果这个主节点死机，那么整个系统就崩溃了。</p>
+<p>当写请求被接受后，Paxos 流程会接受这个写新值到系统中请求“建议”， “建议”是 Paxos 中一个正式概念: 向一个 Paxos 管治的系统建议可能会成功或失败，需要步骤来确保共识能够达成维系，这个建议以准备消息从那些与客户端连接的流程节点们被发往整个系统。</p>
 <h4 id="序列号"><a class="markdownIt-Anchor" href="#序列号"></a> 序列号</h4>
-<p>这个准备消息保存在被建议的值数据中，它们也称为序列号s<em>equence number</em>，序列号是由建议流程产生的，它定义了接受流程应该准备接受带有序列号的建议，这个序列号是关键: 它用于表明新旧建议之间的区别，如果两个流程试图获得需要设置一个值，Paxos认为最后一个流程应该有优先权，这样让流程分辨哪个是最后一个，这样它就能设置最新的值。</p>
-<p>这些接受的流程能够进行在系统中关键的检查：这个在到来的准备消息中序列号是我见过的最高级别吗？如果是，那就很cool, 我能准备好接受将要到来的值数据，那就不要管之前听到的任何其他值数据了，你能看到这个过程在右边演示中：客户端每隔一段向一个流程建议一个新值，这个流程发送准备消息给其他流程，然后那些流程注意到这是一个成功的更高的超过旧的新序列号，然后就放手那些旧建议。</p>
-<p>这里有一个顺序的设计(先发送准备消息)，这是为避免单点风险，如果没有这个顺序，Paxos中成员就无法分辨哪个建议是他们可以有信心地准备接受的。</p>
+<p>这个准备消息保存在被建议的值数据中，它们也称为序列号 s<em>equence number</em>，序列号是由建议流程产生的，它定义了接受流程应该准备接受带有序列号的建议，这个序列号是关键: 它用于表明新旧建议之间的区别，如果两个流程试图获得需要设置一个值，Paxos 认为最后一个流程应该有优先权，这样让流程分辨哪个是最后一个，这样它就能设置最新的值。</p>
+<p>这些接受的流程能够进行在系统中关键的检查：这个在到来的准备消息中序列号是我见过的最高级别吗？如果是，那就很 cool, 我能准备好接受将要到来的值数据，那就不要管之前听到的任何其他值数据了，你能看到这个过程在右边演示中：客户端每隔一段向一个流程建议一个新值，这个流程发送准备消息给其他流程，然后那些流程注意到这是一个成功的更高的超过旧的新序列号，然后就放手那些旧建议。</p>
+<p>这里有一个顺序的设计(先发送准备消息)，这是为避免单点风险，如果没有这个顺序，Paxos 中成员就无法分辨哪个建议是他们可以有信心地准备接受的。</p>
 <p>我们不能想象有另外不同的共识算法，不是按照如下步骤：首先发送第一个消息询问其他流程，以确保将设置的新值是最新的值，尽管方式可以再简单些，但是可能就不能满足共识算法安全的需求了，如果两个流程正好同时建议不同的值，如下所示：</p>
-<p>大自然经常会这样欺骗我们，每个包都能另外一半的流程相信它们接受的也许是正确也许是错误的值，系统将进入一个僵局，存在两个相同数量的组却有不同的值，那么就无法确定大多数这个概念了，这个僵局能够被第一个Paxos消息避免，因为Paxos的序列号，那些有问题的建议将有被其他更低的序列号，这样序列号更高的建议就会毫不含糊地被大多数流程接收，它们也首先获得了更高的序列号，然后如果接受到更低的序列号就会拒绝，Paxos 就是这样通过用序列号控制整个系统的时间节奏。</p>
-<p><em>上图演示了客户端首先发一个准备消息给Paxos流程，Paxos流程会检查下一步将到来的建议的序列号，以分辨是否准备接受这个新值，所有流程都是这样消除歧义，共识由此达成。</em></p>
-<p>注意：保证没有两个建议使用相同的序列号是很重要的，这是确保他们的顺序，这样每个序列号只有一个建议，这样才能比较两个建议，实现Paxos时，全局唯一有序的序列号实际是精确系统时间和集群中节点数量的拷贝，随着时间不断增加，从来不会重复。</p>
-<h4 id="paxos第一阶段准备perpare诺言promises"><a class="markdownIt-Anchor" href="#paxos第一阶段准备perpare诺言promises"></a> Paxos第一阶段：准备Perpare/诺言Promises</h4>
-<p>Paxos的第一阶段是prepare/promise，准备阶段就是将建议值发送到各个目标节点。</p>
-<p>当建议被发到目标节点后，流程会会检查建议中的序列号，是否是它们见到过的最高级，如果是最高级，它们会发出一个promise不再接受比这个新序列号更旧的建议了，这个诺言promise作为消息从许下诺言的流程发到提交建议新值的流程服务器，这个诺言消息给提交建议的流程后，提交建议的流程需要自己统计一下有多少其他流程已经发回它们的诺言promise了，如果判断数量上是否达到大多数？如果大多数流程已经同意接受这个建议或者更高级序列号的建议，这个提交建议的流程就能知道它获得了发言权(因为有大多数支持)，这样就开始讲话，算法中的下一步处理将可能进行；如果回复诺言的节点数量没有达到大多数，也就是共识没有达成，这样这个节点提交的建议将退出，客户端要求的写操作失败。</p>
-<p>为了决定一个建议是否已经有足够的回复诺言promises, 提交建议者只是统计一下它接受到的 <code>promise</code> 消息数量，然后和整个系统中节点服务器数量比较一下，“足够”意味着大多数(N/2 + 1)个流程服务器在某段时间内都回复了诺言promises。如果超过一半的流程服务器没有返回诺言，这意味着这个建议没有被大多数通过，那么在前面描述的读算法中就不能满足大多数的要求，也就不能达成共识，这个建议就退出。其他包括网络分区错误也可能会阻止大多数达成共识，</p>
-<h3 id="第二阶段paoxs接纳acceptance"><a class="markdownIt-Anchor" href="#第二阶段paoxs接纳acceptance"></a> 第二阶段：Paoxs接纳Acceptance</h3>
-<p>当完成prepare/promise阶段，进入了 propose/accept阶段。</p>
-<p>一旦建议提交者已经从大多数其他流程服务器获得了诺言，它会要求许诺的流程服务器接收它们之前承诺接受的新值数据，这是一个“确认commit”阶段，如果没有冲突建议 失败或分区错误，那么这个新建议将被所有其他节点接受，那么Paxos过程就完成了。</p>
-<p>你能看到右边的演示，注意这个演示比上面promise在最后多了一个动作，也就是提交建议者将新值发给那些许诺言的流程服务器，让它们接受了这个新值。</p>
-<p>接受的过程也许可能会发生失败，在回复了诺言消息以后，在接受到Accept消息之前，如果有足够多的服务器正好在这个时间段失败，那么接受行为只能是少数服务器，那么Paxos进入了厄运状态：一些流程服务器接受了新值，而不是全部的，这种不一致已经在前面读操作中描述：一个客户端试图从系统中大多数节点服务器读取它们同意接受的值，它发现一些节点服务器报告有不同的值数据，这会引起读失败，但是Paxos还保持一致性，不允许在没有达成共识情况下任何写操作发生，这种坏的情况在实践中经常通过重复接受阶段来让大多数节点最终接受。</p>
+<p>大自然经常会这样欺骗我们，每个包都能另外一半的流程相信它们接受的也许是正确也许是错误的值，系统将进入一个僵局，存在两个相同数量的组却有不同的值，那么就无法确定大多数这个概念了，这个僵局能够被第一个 Paxos 消息避免，因为 Paxos 的序列号，那些有问题的建议将有被其他更低的序列号，这样序列号更高的建议就会毫不含糊地被大多数流程接收，它们也首先获得了更高的序列号，然后如果接受到更低的序列号就会拒绝，Paxos 就是这样通过用序列号控制整个系统的时间节奏。</p>
+<p><em>上图演示了客户端首先发一个准备消息给 Paxos 流程，Paxos 流程会检查下一步将到来的建议的序列号，以分辨是否准备接受这个新值，所有流程都是这样消除歧义，共识由此达成。</em></p>
+<p>注意：保证没有两个建议使用相同的序列号是很重要的，这是确保他们的顺序，这样每个序列号只有一个建议，这样才能比较两个建议，实现 Paxos 时，全局唯一有序的序列号实际是精确系统时间和集群中节点数量的拷贝，随着时间不断增加，从来不会重复。</p>
+<h4 id="paxos-第一阶段准备-perpare诺言-promises"><a class="markdownIt-Anchor" href="#paxos-第一阶段准备-perpare诺言-promises"></a> Paxos 第一阶段：准备 Perpare/诺言 Promises</h4>
+<p>Paxos 的第一阶段是 prepare/promise，准备阶段就是将建议值发送到各个目标节点。</p>
+<p>当建议被发到目标节点后，流程会会检查建议中的序列号，是否是它们见到过的最高级，如果是最高级，它们会发出一个 promise 不再接受比这个新序列号更旧的建议了，这个诺言 promise 作为消息从许下诺言的流程发到提交建议新值的流程服务器，这个诺言消息给提交建议的流程后，提交建议的流程需要自己统计一下有多少其他流程已经发回它们的诺言 promise 了，如果判断数量上是否达到大多数？如果大多数流程已经同意接受这个建议或者更高级序列号的建议，这个提交建议的流程就能知道它获得了发言权(因为有大多数支持)，这样就开始讲话，算法中的下一步处理将可能进行；如果回复诺言的节点数量没有达到大多数，也就是共识没有达成，这样这个节点提交的建议将退出，客户端要求的写操作失败。</p>
+<p>为了决定一个建议是否已经有足够的回复诺言 promises, 提交建议者只是统计一下它接受到的 <code>promise</code> 消息数量，然后和整个系统中节点服务器数量比较一下，“足够”意味着大多数(N/2 + 1)个流程服务器在某段时间内都回复了诺言 promises。如果超过一半的流程服务器没有返回诺言，这意味着这个建议没有被大多数通过，那么在前面描述的读算法中就不能满足大多数的要求，也就不能达成共识，这个建议就退出。其他包括网络分区错误也可能会阻止大多数达成共识，</p>
+<h3 id="第二阶段paoxs-接纳-acceptance"><a class="markdownIt-Anchor" href="#第二阶段paoxs-接纳-acceptance"></a> 第二阶段：Paoxs 接纳 Acceptance</h3>
+<p>当完成 prepare/promise 阶段，进入了 propose/accept 阶段。</p>
+<p>一旦建议提交者已经从大多数其他流程服务器获得了诺言，它会要求许诺的流程服务器接收它们之前承诺接受的新值数据，这是一个“确认 commit”阶段，如果没有冲突建议 失败或分区错误，那么这个新建议将被所有其他节点接受，那么 Paxos 过程就完成了。</p>
+<p>你能看到右边的演示，注意这个演示比上面 promise 在最后多了一个动作，也就是提交建议者将新值发给那些许诺言的流程服务器，让它们接受了这个新值。</p>
+<p>接受的过程也许可能会发生失败，在回复了诺言消息以后，在接受到 Accept 消息之前，如果有足够多的服务器正好在这个时间段失败，那么接受行为只能是少数服务器，那么 Paxos 进入了厄运状态：一些流程服务器接受了新值，而不是全部的，这种不一致已经在前面读操作中描述：一个客户端试图从系统中大多数节点服务器读取它们同意接受的值，它发现一些节点服务器报告有不同的值数据，这会引起读失败，但是 Paxos 还保持一致性，不允许在没有达成共识情况下任何写操作发生，这种坏的情况在实践中经常通过重复接受阶段来让大多数节点最终接受。</p>
 <h3 id="总结"><a class="markdownIt-Anchor" href="#总结"></a> 总结</h3>
-<p>Paxos算法是保证在分布式系统中写操作能够顺利进行，保证系统中大多数状态是一致的，没有机会看到不一致，因此，Paxos算法的特点是一致性&gt;可用性。</p>
-<p>vector clock向量时钟是另外一种保证复制的算法，其特点是可用性&gt;一致性，但是，一旦发生冲突，不像Paxos能自行解决，需要人工干预编写代码解决。</p>
-<p>Paxos算法和Vector Clock都是由Leslie Lamport提出。</p>
+<p>Paxos 算法是保证在分布式系统中写操作能够顺利进行，保证系统中大多数状态是一致的，没有机会看到不一致，因此，Paxos 算法的特点是一致性&gt;可用性。</p>
+<p>vector clock 向量时钟是另外一种保证复制的算法，其特点是可用性&gt;一致性，但是，一旦发生冲突，不像 Paxos 能自行解决，需要人工干预编写代码解决。</p>
+<p>Paxos 算法和 Vector Clock 都是由 Leslie Lamport 提出。</p>
 <h2 id="参考资料"><a class="markdownIt-Anchor" href="#参考资料"></a> 参考资料</h2>
 <ul>
 <li><a href="https://lamport.azurewebsites.net/pubs/paxos-simple.pdf" target="_blank" rel="noopener">Paxos Made Simple 论文</a></li>
-<li><a href="https://www.jdon.com/artichect/paxos.html" target="_blank" rel="noopener">分布式系统Paxos算法</a></li>
+<li><a href="https://www.jdon.com/artichect/paxos.html" target="_blank" rel="noopener">分布式系统 Paxos 算法</a></li>
+<li><a href="https://zh.wikipedia.org/w/index.php?title=Paxos%E7%AE%97%E6%B3%95" target="_blank" rel="noopener">Wiki - Paxos 算法</a></li>
 </ul>
 
       
@@ -388,7 +380,7 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="https://dunwu.github.io/blog/blog/design/theory/raft/">
+    <link itemprop="mainEntityOfPage" href="https://dunwu.github.io/blog/blog/distributed/byzantine-generals/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/blog/images/avatar.gif">
@@ -402,7 +394,7 @@
       <header class="post-header">
         <h2 class="post-title" itemprop="name headline">
           
-            <a href="/blog/design/theory/raft/" class="post-title-link" itemprop="url">深入剖析一致性算法 Raft</a>
+            <a href="/blog/distributed/byzantine-generals/" class="post-title-link" itemprop="url">拜占庭将军问题</a>
         </h2>
 
         <div class="post-meta">
@@ -413,7 +405,7 @@
               <span class="post-meta-item-text">发表于</span>
               
 
-              <time title="创建时间：2020-02-01 22:07:00 / 修改时间：22:41:39" itemprop="dateCreated datePublished" datetime="2020-02-01T22:07:00+08:00">2020-02-01</time>
+              <time title="创建时间：2020-02-02 12:00:00 / 修改时间：18:07:05" itemprop="dateCreated datePublished" datetime="2020-02-02T12:00:00+08:00">2020-02-02</time>
             </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -421,14 +413,8 @@
               </span>
               <span class="post-meta-item-text">分类于</span>
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/blog/categories/%E8%AE%BE%E8%AE%A1/" itemprop="url" rel="index">
-                    <span itemprop="name">设计</span>
-                  </a>
-                </span>
-                  ，
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/blog/categories/%E8%AE%BE%E8%AE%A1/%E7%B3%BB%E7%BB%9F%E5%8E%9F%E7%90%86/" itemprop="url" rel="index">
-                    <span itemprop="name">系统原理</span>
+                  <a href="/blog/categories/%E5%88%86%E5%B8%83%E5%BC%8F/" itemprop="url" rel="index">
+                    <span itemprop="name">分布式</span>
                   </a>
                 </span>
             </span>
@@ -442,8 +428,127 @@
       </span>
       <span class="post-meta-item-text">Disqus：</span>
     
-    <a title="disqus" href="/blog/design/theory/raft/#comments" itemprop="discussionUrl">
-      <span class="post-comments-count disqus-comment-count" data-disqus-identifier="design/theory/raft/" itemprop="commentCount"></span>
+    <a title="disqus" href="/blog/distributed/byzantine-generals/#comments" itemprop="discussionUrl">
+      <span class="post-comments-count disqus-comment-count" data-disqus-identifier="distributed/byzantine-generals/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  <br>
+            <span class="post-meta-item" title="本文字数">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-file-word-o"></i>
+              </span>
+                <span class="post-meta-item-text">本文字数：</span>
+              <span>748</span>
+            </span>
+            <span class="post-meta-item" title="阅读时长">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-clock-o"></i>
+              </span>
+                <span class="post-meta-item-text">阅读时长 &asymp;</span>
+              <span>1 分钟</span>
+            </span>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h1 id="拜占庭将军问题"><a class="markdownIt-Anchor" href="#拜占庭将军问题"></a> 拜占庭将军问题</h1>
+<p>拜占庭将军问题是由<a href="https://zh.wikipedia.org/wiki/%E8%8E%B1%E6%96%AF%E5%88%A9%C2%B7%E5%85%B0%E6%B3%A2%E7%89%B9" target="_blank" rel="noopener">莱斯利·兰波特</a>在其同名论文中提出的<a href="https://zh.wikipedia.org/wiki/%E5%AF%B9%E7%AD%89%E7%BD%91%E7%BB%9C" target="_blank" rel="noopener">分布式对等网络</a>通信容错问题。</p>
+<p>在<a href="https://zh.wikipedia.org/wiki/%E5%88%86%E5%B8%83%E5%BC%8F%E8%A8%88%E7%AE%97" target="_blank" rel="noopener">分布式计算</a>中，不同的节点通过通讯交换信息达成共识而按照同一套协作策略行动。但有时候，系统中的节点可能出错而发送错误的信息，用于传递信息的通讯网络也可能导致信息损坏，使得网络中不同的成员关于全体协作的策略得出不同结论，从而破坏系统一致性。拜占庭将军问题被认为是容错性问题中最难的问题类型之一。</p>
+<h2 id="问题描述"><a class="markdownIt-Anchor" href="#问题描述"></a> 问题描述</h2>
+<p>一群拜占庭将军各领一支军队共同围困一座城市。</p>
+<p>为了简化问题，军队的行动策略只有两种：进攻（Attack，后面简称 A）或撤退（Retreat，后面简称 R）。如果这些军队不是统一进攻或撤退，就可能会造成灾难性后果，因此<strong>将军们必须通过投票来达成一致策略：同进或同退</strong>。</p>
+<p>因为将军们分别在城市的不同方位，所以他们只能<strong>通过信使互相联系</strong>。在投票过程中，<strong>每位将军都将自己的投票信息（A 或 R）通知其他所有将军</strong>，这样一来每位将军根据自己的投票和其他所有将军送来的信息就可以分析出共同的投票结果而决定行动策略。</p>
+<p>这个抽象模型的问题在于：将军中可能存在叛徒，他们不仅会发出误导性投票，还可能选择性地发送投票信息。</p>
+<p>由于将军之间需要通过信使通讯，叛变将军可能通过伪造信件来以其他将军的身份发送假投票。而即使在保证所有将军忠诚的情况下，也不能排除信使被敌人截杀，甚至被敌人间谍替换等情况。因此很难通过保证人员可靠性及通讯可靠性来解决问题。</p>
+<p>假使那些忠诚（或是没有出错）的将军仍然能通过多数决定来决定他们的战略，便称达到了拜占庭容错。在此，票都会有一个默认值，若消息（票）没有被收到，则使用此默认值来投票。</p>
+<p>上述的故事映射到分布式系统里，将军便成了机器节点，而信差就是通信系统。</p>
+<h2 id="参考资料"><a class="markdownIt-Anchor" href="#参考资料"></a> 参考资料</h2>
+<ul>
+<li><a href="https://zh.wikipedia.org/wiki/%E6%8B%9C%E5%8D%A0%E5%BA%AD%E5%B0%86%E5%86%9B%E9%97%AE%E9%A2%98" target="_blank" rel="noopener">Wiki - 拜占庭将军问题</a></li>
+<li><a href="https://www.bilibili.com/video/av78588312/" target="_blank" rel="noopener">李永乐老师的拜占庭将军问题视频讲解</a></li>
+</ul>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+        
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://dunwu.github.io/blog/blog/distributed/raft/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/blog/images/avatar.gif">
+      <meta itemprop="name" content="Zhang Peng">
+      <meta itemprop="description" content="Dunwu's Blog">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Dunwu">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/blog/distributed/raft/" class="post-title-link" itemprop="url">深入剖析共识性算法 Raft</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2020-02-01 22:07:00" itemprop="dateCreated datePublished" datetime="2020-02-01T22:07:00+08:00">2020-02-01</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2020-02-02 18:08:54" itemprop="dateModified" datetime="2020-02-02T18:08:54+08:00">2020-02-02</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/blog/categories/%E5%88%86%E5%B8%83%E5%BC%8F/" itemprop="url" rel="index">
+                    <span itemprop="name">分布式</span>
+                  </a>
+                </span>
+            </span>
+
+          
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="fa fa-comment-o"></i>
+      </span>
+      <span class="post-meta-item-text">Disqus：</span>
+    
+    <a title="disqus" href="/blog/distributed/raft/#comments" itemprop="discussionUrl">
+      <span class="post-comments-count disqus-comment-count" data-disqus-identifier="distributed/raft/" itemprop="commentCount"></span>
     </a>
   </span>
   
@@ -472,7 +577,7 @@
     <div class="post-body" itemprop="articleBody">
 
       
-          <h1 id="深入剖析一致性算法-raft"><a class="markdownIt-Anchor" href="#深入剖析一致性算法-raft"></a> 深入剖析一致性算法 Raft</h1>
+          <h1 id="深入剖析共识性算法-raft"><a class="markdownIt-Anchor" href="#深入剖析共识性算法-raft"></a> 深入剖析共识性算法 Raft</h1>
 <blockquote>
 <p>📦 本文已归档到：「<a href="https://github.com/dunwu/blog" target="_blank" rel="noopener">blog</a>」</p>
 </blockquote>
@@ -1324,7 +1429,7 @@ GFM 中可以显示的展示 diff 效果。可以用 <code>+</code> 开头表示
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="https://dunwu.github.io/blog/blog/design/theory/flow-limit-theory/">
+    <link itemprop="mainEntityOfPage" href="https://dunwu.github.io/blog/blog/distributed/flow-limit-theory/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/blog/images/avatar.gif">
@@ -1338,7 +1443,7 @@ GFM 中可以显示的展示 diff 效果。可以用 <code>+</code> 开头表示
       <header class="post-header">
         <h2 class="post-title" itemprop="name headline">
           
-            <a href="/blog/design/theory/flow-limit-theory/" class="post-title-link" itemprop="url">限流基本原理</a>
+            <a href="/blog/distributed/flow-limit-theory/" class="post-title-link" itemprop="url">限流基本原理</a>
         </h2>
 
         <div class="post-meta">
@@ -1355,7 +1460,7 @@ GFM 中可以显示的展示 diff 效果。可以用 <code>+</code> 开头表示
                   <i class="fa fa-calendar-check-o"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2020-02-01 22:42:18" itemprop="dateModified" datetime="2020-02-01T22:42:18+08:00">2020-02-01</time>
+                <time title="修改时间：2020-02-02 18:07:05" itemprop="dateModified" datetime="2020-02-02T18:07:05+08:00">2020-02-02</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -1363,14 +1468,8 @@ GFM 中可以显示的展示 diff 效果。可以用 <code>+</code> 开头表示
               </span>
               <span class="post-meta-item-text">分类于</span>
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/blog/categories/%E8%AE%BE%E8%AE%A1/" itemprop="url" rel="index">
-                    <span itemprop="name">设计</span>
-                  </a>
-                </span>
-                  ，
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/blog/categories/%E8%AE%BE%E8%AE%A1/%E7%B3%BB%E7%BB%9F%E5%8E%9F%E7%90%86/" itemprop="url" rel="index">
-                    <span itemprop="name">系统原理</span>
+                  <a href="/blog/categories/%E5%88%86%E5%B8%83%E5%BC%8F/" itemprop="url" rel="index">
+                    <span itemprop="name">分布式</span>
                   </a>
                 </span>
             </span>
@@ -1384,8 +1483,8 @@ GFM 中可以显示的展示 diff 效果。可以用 <code>+</code> 开头表示
       </span>
       <span class="post-meta-item-text">Disqus：</span>
     
-    <a title="disqus" href="/blog/design/theory/flow-limit-theory/#comments" itemprop="discussionUrl">
-      <span class="post-comments-count disqus-comment-count" data-disqus-identifier="design/theory/flow-limit-theory/" itemprop="commentCount"></span>
+    <a title="disqus" href="/blog/distributed/flow-limit-theory/#comments" itemprop="discussionUrl">
+      <span class="post-comments-count disqus-comment-count" data-disqus-identifier="distributed/flow-limit-theory/" itemprop="commentCount"></span>
     </a>
   </span>
   
@@ -1484,7 +1583,7 @@ GFM 中可以显示的展示 diff 效果。可以用 <code>+</code> 开头表示
       <header class="post-header">
         <h2 class="post-title" itemprop="name headline">
           
-            <a href="/blog/design/architecture/test-architecture/" class="post-title-link" itemprop="url">测试技术原理</a>
+            <a href="/blog/design/architecture/test-architecture/" class="post-title-link" itemprop="url">系统测试架构</a>
         </h2>
 
         <div class="post-meta">
@@ -1493,10 +1592,16 @@ GFM 中可以显示的展示 diff 效果。可以用 <code>+</code> 开头表示
                 <i class="fa fa-calendar-o"></i>
               </span>
               <span class="post-meta-item-text">发表于</span>
-              
 
-              <time title="创建时间：2019-12-10 17:00:00 / 修改时间：17:44:07" itemprop="dateCreated datePublished" datetime="2019-12-10T17:00:00+08:00">2019-12-10</time>
+              <time title="创建时间：2019-12-10 17:00:00" itemprop="dateCreated datePublished" datetime="2019-12-10T17:00:00+08:00">2019-12-10</time>
             </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2020-02-02 18:14:57" itemprop="dateModified" datetime="2020-02-02T18:14:57+08:00">2020-02-02</time>
+              </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
                 <i class="fa fa-folder-o"></i>
@@ -1509,8 +1614,8 @@ GFM 中可以显示的展示 diff 效果。可以用 <code>+</code> 开头表示
                 </span>
                   ，
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/blog/categories/%E8%AE%BE%E8%AE%A1/%E7%B3%BB%E7%BB%9F%E5%8E%9F%E7%90%86/" itemprop="url" rel="index">
-                    <span itemprop="name">系统原理</span>
+                  <a href="/blog/categories/%E8%AE%BE%E8%AE%A1/%E6%9E%B6%E6%9E%84/" itemprop="url" rel="index">
+                    <span itemprop="name">架构</span>
                   </a>
                 </span>
             </span>
@@ -1554,7 +1659,7 @@ GFM 中可以显示的展示 diff 效果。可以用 <code>+</code> 开头表示
     <div class="post-body" itemprop="articleBody">
 
       
-          <h1 id="测试技术原理"><a class="markdownIt-Anchor" href="#测试技术原理"></a> 测试技术原理</h1>
+          <h1 id="系统测试架构"><a class="markdownIt-Anchor" href="#系统测试架构"></a> 系统测试架构</h1>
 <blockquote>
 <p>软件测试描述一种用来促进鉴定软件的正确性、完整性、安全性和质量的过程。软件测试的经典定义是：在规定的条件下对程序进行操作，以发现程序错误，衡量软件质量，并对其是否能满足设计要求进行评估的过程。</p>
 <p>现代软件开发项目中，分工明确，基本上都会有研发、测试、QA 等角色。不同角色由于关注的视角不同，测试目标和测试方法也不完全相同。本文主要从研发、测试的视角去考量软件测试技术。</p>
@@ -1770,7 +1875,7 @@ GFM 中可以显示的展示 diff 效果。可以用 <code>+</code> 开头表示
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="https://dunwu.github.io/blog/blog/design/theory/sharding-theory/">
+    <link itemprop="mainEntityOfPage" href="https://dunwu.github.io/blog/blog/distributed/sharding-theory/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/blog/images/avatar.gif">
@@ -1784,7 +1889,7 @@ GFM 中可以显示的展示 diff 效果。可以用 <code>+</code> 开头表示
       <header class="post-header">
         <h2 class="post-title" itemprop="name headline">
           
-            <a href="/blog/design/theory/sharding-theory/" class="post-title-link" itemprop="url">分库分表基本原理</a>
+            <a href="/blog/distributed/sharding-theory/" class="post-title-link" itemprop="url">分库分表基本原理</a>
         </h2>
 
         <div class="post-meta">
@@ -1801,7 +1906,7 @@ GFM 中可以显示的展示 diff 效果。可以用 <code>+</code> 开头表示
                   <i class="fa fa-calendar-check-o"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2020-02-01 22:42:28" itemprop="dateModified" datetime="2020-02-01T22:42:28+08:00">2020-02-01</time>
+                <time title="修改时间：2020-02-02 18:07:05" itemprop="dateModified" datetime="2020-02-02T18:07:05+08:00">2020-02-02</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -1809,14 +1914,8 @@ GFM 中可以显示的展示 diff 效果。可以用 <code>+</code> 开头表示
               </span>
               <span class="post-meta-item-text">分类于</span>
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/blog/categories/%E8%AE%BE%E8%AE%A1/" itemprop="url" rel="index">
-                    <span itemprop="name">设计</span>
-                  </a>
-                </span>
-                  ，
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/blog/categories/%E8%AE%BE%E8%AE%A1/%E7%B3%BB%E7%BB%9F%E5%8E%9F%E7%90%86/" itemprop="url" rel="index">
-                    <span itemprop="name">系统原理</span>
+                  <a href="/blog/categories/%E5%88%86%E5%B8%83%E5%BC%8F/" itemprop="url" rel="index">
+                    <span itemprop="name">分布式</span>
                   </a>
                 </span>
             </span>
@@ -1830,8 +1929,8 @@ GFM 中可以显示的展示 diff 效果。可以用 <code>+</code> 开头表示
       </span>
       <span class="post-meta-item-text">Disqus：</span>
     
-    <a title="disqus" href="/blog/design/theory/sharding-theory/#comments" itemprop="discussionUrl">
-      <span class="post-comments-count disqus-comment-count" data-disqus-identifier="design/theory/sharding-theory/" itemprop="commentCount"></span>
+    <a title="disqus" href="/blog/distributed/sharding-theory/#comments" itemprop="discussionUrl">
+      <span class="post-comments-count disqus-comment-count" data-disqus-identifier="distributed/sharding-theory/" itemprop="commentCount"></span>
     </a>
   </span>
   
@@ -1970,7 +2069,7 @@ GFM 中可以显示的展示 diff 效果。可以用 <code>+</code> 开头表示
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="https://dunwu.github.io/blog/blog/design/theory/distributed-storage-theory/">
+    <link itemprop="mainEntityOfPage" href="https://dunwu.github.io/blog/blog/distributed/distributed-storage-theory/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/blog/images/avatar.gif">
@@ -1984,7 +2083,7 @@ GFM 中可以显示的展示 diff 效果。可以用 <code>+</code> 开头表示
       <header class="post-header">
         <h2 class="post-title" itemprop="name headline">
           
-            <a href="/blog/design/theory/distributed-storage-theory/" class="post-title-link" itemprop="url">分布式存储基本原理</a>
+            <a href="/blog/distributed/distributed-storage-theory/" class="post-title-link" itemprop="url">分布式存储基本原理</a>
         </h2>
 
         <div class="post-meta">
@@ -2001,7 +2100,7 @@ GFM 中可以显示的展示 diff 效果。可以用 <code>+</code> 开头表示
                   <i class="fa fa-calendar-check-o"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2020-02-01 22:42:06" itemprop="dateModified" datetime="2020-02-01T22:42:06+08:00">2020-02-01</time>
+                <time title="修改时间：2020-02-02 18:07:05" itemprop="dateModified" datetime="2020-02-02T18:07:05+08:00">2020-02-02</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -2009,14 +2108,8 @@ GFM 中可以显示的展示 diff 效果。可以用 <code>+</code> 开头表示
               </span>
               <span class="post-meta-item-text">分类于</span>
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/blog/categories/%E8%AE%BE%E8%AE%A1/" itemprop="url" rel="index">
-                    <span itemprop="name">设计</span>
-                  </a>
-                </span>
-                  ，
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/blog/categories/%E8%AE%BE%E8%AE%A1/%E7%B3%BB%E7%BB%9F%E5%8E%9F%E7%90%86/" itemprop="url" rel="index">
-                    <span itemprop="name">系统原理</span>
+                  <a href="/blog/categories/%E5%88%86%E5%B8%83%E5%BC%8F/" itemprop="url" rel="index">
+                    <span itemprop="name">分布式</span>
                   </a>
                 </span>
             </span>
@@ -2030,8 +2123,8 @@ GFM 中可以显示的展示 diff 效果。可以用 <code>+</code> 开头表示
       </span>
       <span class="post-meta-item-text">Disqus：</span>
     
-    <a title="disqus" href="/blog/design/theory/distributed-storage-theory/#comments" itemprop="discussionUrl">
-      <span class="post-comments-count disqus-comment-count" data-disqus-identifier="design/theory/distributed-storage-theory/" itemprop="commentCount"></span>
+    <a title="disqus" href="/blog/distributed/distributed-storage-theory/#comments" itemprop="discussionUrl">
+      <span class="post-comments-count disqus-comment-count" data-disqus-identifier="distributed/distributed-storage-theory/" itemprop="commentCount"></span>
     </a>
   </span>
   
@@ -2160,7 +2253,7 @@ GFM 中可以显示的展示 diff 效果。可以用 <code>+</code> 开头表示
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="https://dunwu.github.io/blog/blog/design/theory/distributed-id-theory/">
+    <link itemprop="mainEntityOfPage" href="https://dunwu.github.io/blog/blog/distributed/distributed-id-theory/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/blog/images/avatar.gif">
@@ -2174,7 +2267,7 @@ GFM 中可以显示的展示 diff 效果。可以用 <code>+</code> 开头表示
       <header class="post-header">
         <h2 class="post-title" itemprop="name headline">
           
-            <a href="/blog/design/theory/distributed-id-theory/" class="post-title-link" itemprop="url">分布式 ID 基本原理</a>
+            <a href="/blog/distributed/distributed-id-theory/" class="post-title-link" itemprop="url">分布式 ID 基本原理</a>
         </h2>
 
         <div class="post-meta">
@@ -2191,7 +2284,7 @@ GFM 中可以显示的展示 diff 效果。可以用 <code>+</code> 开头表示
                   <i class="fa fa-calendar-check-o"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2020-02-01 22:41:52" itemprop="dateModified" datetime="2020-02-01T22:41:52+08:00">2020-02-01</time>
+                <time title="修改时间：2020-02-02 18:07:05" itemprop="dateModified" datetime="2020-02-02T18:07:05+08:00">2020-02-02</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -2199,14 +2292,8 @@ GFM 中可以显示的展示 diff 效果。可以用 <code>+</code> 开头表示
               </span>
               <span class="post-meta-item-text">分类于</span>
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/blog/categories/%E8%AE%BE%E8%AE%A1/" itemprop="url" rel="index">
-                    <span itemprop="name">设计</span>
-                  </a>
-                </span>
-                  ，
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/blog/categories/%E8%AE%BE%E8%AE%A1/%E7%B3%BB%E7%BB%9F%E5%8E%9F%E7%90%86/" itemprop="url" rel="index">
-                    <span itemprop="name">系统原理</span>
+                  <a href="/blog/categories/%E5%88%86%E5%B8%83%E5%BC%8F/" itemprop="url" rel="index">
+                    <span itemprop="name">分布式</span>
                   </a>
                 </span>
             </span>
@@ -2220,8 +2307,8 @@ GFM 中可以显示的展示 diff 效果。可以用 <code>+</code> 开头表示
       </span>
       <span class="post-meta-item-text">Disqus：</span>
     
-    <a title="disqus" href="/blog/design/theory/distributed-id-theory/#comments" itemprop="discussionUrl">
-      <span class="post-comments-count disqus-comment-count" data-disqus-identifier="design/theory/distributed-id-theory/" itemprop="commentCount"></span>
+    <a title="disqus" href="/blog/distributed/distributed-id-theory/#comments" itemprop="discussionUrl">
+      <span class="post-comments-count disqus-comment-count" data-disqus-identifier="distributed/distributed-id-theory/" itemprop="commentCount"></span>
     </a>
   </span>
   
@@ -2507,401 +2594,6 @@ GFM 中可以显示的展示 diff 效果。可以用 <code>+</code> 开头表示
   
   
 
-        
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="https://dunwu.github.io/blog/blog/design/theory/mq-theory/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/blog/images/avatar.gif">
-      <meta itemprop="name" content="Zhang Peng">
-      <meta itemprop="description" content="Dunwu's Blog">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Dunwu">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/blog/design/theory/mq-theory/" class="post-title-link" itemprop="url">消息队列基本原理</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-
-              <time title="创建时间：2019-07-05 15:11:00" itemprop="dateCreated datePublished" datetime="2019-07-05T15:11:00+08:00">2019-07-05</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-calendar-check-o"></i>
-                </span>
-                <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2020-02-01 22:42:28" itemprop="dateModified" datetime="2020-02-01T22:42:28+08:00">2020-02-01</time>
-              </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/blog/categories/%E8%AE%BE%E8%AE%A1/" itemprop="url" rel="index">
-                    <span itemprop="name">设计</span>
-                  </a>
-                </span>
-                  ，
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/blog/categories/%E8%AE%BE%E8%AE%A1/%E7%B3%BB%E7%BB%9F%E5%8E%9F%E7%90%86/" itemprop="url" rel="index">
-                    <span itemprop="name">系统原理</span>
-                  </a>
-                </span>
-            </span>
-
-          
-  
-  <span class="post-meta-item">
-    
-      <span class="post-meta-item-icon">
-        <i class="fa fa-comment-o"></i>
-      </span>
-      <span class="post-meta-item-text">Disqus：</span>
-    
-    <a title="disqus" href="/blog/design/theory/mq-theory/#comments" itemprop="discussionUrl">
-      <span class="post-comments-count disqus-comment-count" data-disqus-identifier="design/theory/mq-theory/" itemprop="commentCount"></span>
-    </a>
-  </span>
-  
-  <br>
-            <span class="post-meta-item" title="本文字数">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-file-word-o"></i>
-              </span>
-                <span class="post-meta-item-text">本文字数：</span>
-              <span>8.9k</span>
-            </span>
-            <span class="post-meta-item" title="阅读时长">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-clock-o"></i>
-              </span>
-                <span class="post-meta-item-text">阅读时长 &asymp;</span>
-              <span>8 分钟</span>
-            </span>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h1 id="消息队列基本原理"><a class="markdownIt-Anchor" href="#消息队列基本原理"></a> 消息队列基本原理</h1>
-<blockquote>
-<p>📦 本文已归档到：「<a href="https://github.com/dunwu/blog" target="_blank" rel="noopener">blog</a>」</p>
-<p>消息队列（Message Queue，简称 MQ）技术是分布式应用间交换信息的一种技术。</p>
-<p>消息队列主要解决应用耦合，异步消息，流量削锋等问题，实现高性能，高可用，可伸缩和最终一致性架构。是大型分布式系统不可缺少的中间件。</p>
-<p>注意：<em>为了简便，下文中除了文章标题，一律使用 MQ 简称</em>。</p>
-</blockquote>
-<h2 id="1-为什么要使用-mq"><a class="markdownIt-Anchor" href="#1-为什么要使用-mq"></a> 1. 为什么要使用 MQ</h2>
-<p>MQ 比较核心的优点有 3 个：<strong>解耦</strong>、<strong>异步</strong>、<strong>削峰</strong>。</p>
-<h3 id="11-解耦"><a class="markdownIt-Anchor" href="#11-解耦"></a> 1.1. 解耦</h3>
-<p>不同系统如果要建立通信，传统的做法是：调用接口。</p>
-<p>如果需要和新的系统建立通信或删除已建立的通信，都需要修改代码，这种方案显然耦合度很高。</p>
-<p><img src="http://dunwu.test.upcdn.net/cs/design/theory/mq/mq_1.png" alt="" /></p>
-<p>如果使用 MQ，系统间的通信只需要通过发布/订阅（Pub/Sub）模型即可，彼此没有直接联系，也就不需要相互感知，从而达到 <strong>解耦</strong>。</p>
-<p><img src="http://dunwu.test.upcdn.net/cs/design/theory/mq/mq_2.png" alt="" /></p>
-<h3 id="12-异步"><a class="markdownIt-Anchor" href="#12-异步"></a> 1.2. 异步</h3>
-<p>假设这样一个场景，用户向系统 A 发起请求，系统 A 处理计算只需要 10 ms，然后通知系统 BCD 写库，系统 BCD 写库耗时分别为：100ms、200ms、300ms。最终总耗时为： 10+100ms+200ms+300ms=610ms。此外，加上请求和响应的网络传输时间，从用户角度看，可能要等待将近 1s 才能得到结果。</p>
-<p><img src="http://dunwu.test.upcdn.net/cs/design/theory/mq/mq_3.png" alt="" /></p>
-<p>如果使用 MQ，系统 A 接到请求后，耗时 10ms 处理计算，然后向系统 BCD 连续发送消息，假设耗时 5ms。那么 这一过程的总耗时为 3ms + 5ms = 8ms，这相比于 610 ms，大大缩短了响应时间。至于系统 BCD 的写库操作，只要自行消费 MQ 后处理即可，用户无需关注。</p>
-<p><img src="http://dunwu.test.upcdn.net/cs/design/theory/mq/mq_4.png" alt="" /></p>
-<h3 id="13-削峰"><a class="markdownIt-Anchor" href="#13-削峰"></a> 1.3. 削峰</h3>
-<p>假设某个系统读写数据库的稳定性能为每秒处理 1000 条数据。平常情况下，远远达不到这么大的处理量。假设，因为因为做活动，系统的瞬时请求量剧增，达到每秒 10000 个并发请求，数据库根本承受不了，可能直接就把数据库给整崩溃了，这样系统服务就不可用了。</p>
-<p><img src="http://dunwu.test.upcdn.net/cs/design/theory/mq/mq_5.png" alt="" /></p>
-<p>如果使用 MQ，每秒写入 10000 条请求，但是系统 A 每秒只从 MQ 中消费 1000 条请求，然后写入数据库。这样，就不会超过数据库的承受能力，而是把请求积压在 MQ 中。只要高峰期一过，系统 A 就会很快把积压的消息给处理掉。</p>
-<p><img src="http://dunwu.test.upcdn.net/cs/design/theory/mq/mq_6.png" alt="" /></p>
-<h2 id="2-mq-引入的问题"><a class="markdownIt-Anchor" href="#2-mq-引入的问题"></a> 2. MQ 引入的问题</h2>
-<p>凡事有利有弊，使用 MQ 给系统带来很多好处，也会付出一定的代价。</p>
-<p>它引入了以下问题：</p>
-<ul>
-<li><strong>系统可用性降低</strong> - 引入了 MQ 后，通信需要基于 MQ 完成，如果 MQ 宕机，则服务不可用。因此，MQ 要保证是高可用的，详情参考：<a href="#MQ-%E7%9A%84%E9%AB%98%E5%8F%AF%E7%94%A8">MQ 的高可用</a></li>
-<li><strong>系统复杂度提高</strong> - 使用 MQ，需要关注一些新的问题：
-<ul>
-<li>如何保证消息没有重复消费？</li>
-<li>如何处理消息丢失的问题？</li>
-<li>如何保证消息传递的顺序性？</li>
-<li>如何处理大量消息积压的问题？</li>
-</ul>
-</li>
-<li><strong>一致性问题</strong> - 假设系统 A 处理完直接返回成功的结果给用户，用户认为请求成功。但如果此时，系统 BCD 中只要有任意一个写库失败，那么数据就不一致了。这种情况如何处理？</li>
-</ul>
-<h3 id="21-重复消费"><a class="markdownIt-Anchor" href="#21-重复消费"></a> 2.1. 重复消费</h3>
-<p><strong>如何保证消息不被重复消费</strong> 和 <strong>如何保证消息消费的幂等性</strong> 是同一个问题。</p>
-<p>必须先明确产生重复消费的原因，才能对症下药。</p>
-<h4 id="211-重复消费问题原因"><a class="markdownIt-Anchor" href="#211-重复消费问题原因"></a> 2.1.1. 重复消费问题原因</h4>
-<p>重复消费问题通常不是 MQ 来处理，而是由开发来处理的。</p>
-<p>以 Kafka 举例：Kafka 每个 Partition 都是一个有序的、不可变的记录序列，不断追加到结构化的提交日志中。Partition 中的记录每个分配一个连续的 id 号，称为偏移量（Offset），用于唯一标识 Partition 内的每条记录。</p>
-<p><img src="http://kafka.apachecn.org/10/images/log_consumer.png" alt="" /></p>
-<p>Kafka 的客户端和 Broker 都会保存 Offset。客户端消费消息后，每隔一段时间，就把已消费的 Offset 提交给 Kafka Broker，表示已消费。</p>
-<p>在这个过程中，如果客户端应用消费消息后，因为宕机、重启等情况而没有提交已消费的 Offset 。当系统恢复后，会继续消费消息，由于 Offset 未提交，就会出现重复消费的问题。</p>
-<p><img src="http://upload-images.jianshu.io/upload_images/3101171-75abe308f9cf21f8.png" alt="" /></p>
-<h4 id="212-重复消费解决方案"><a class="markdownIt-Anchor" href="#212-重复消费解决方案"></a> 2.1.2. 重复消费解决方案</h4>
-<p>应对重复消费问题，就要通过幂等性来解决。</p>
-<p>这个问题可以从业务层面来解决。</p>
-<p>MQ 重复消费不可怕，可怕的是没有应对机制，可以借鉴的思路有：</p>
-<ul>
-<li>如果是写库，可以先根据主键查询，判断数据是否已存在，存在则更新，不存在则插入；</li>
-<li>如果是写 Redis，set 操作，由于天然具有幂等性，大可放心；</li>
-<li>如果是根据消息做较复杂的逻辑处理，可以在消息中加入全局唯一 ID，例如：订单 ID 等。在客户端存储中（Mysql、Redis 等）保存已消费消息的 ID。一旦接受到新消息，先判断消息中的 ID 是否在已消费消息 ID 表中存在，存在则不再处理，不存在则处理。</li>
-</ul>
-<h3 id="22-消息丢失"><a class="markdownIt-Anchor" href="#22-消息丢失"></a> 2.2. 消息丢失</h3>
-<p><strong>如何处理消息丢失的问题</strong> 和 <strong>如何保证消息不被重复消费</strong> 是同一个问题。关注点有按个：</p>
-<ul>
-<li>Kafka 丢失数据</li>
-<li>消费方丢失数据</li>
-<li>生产方丢失数据</li>
-</ul>
-<h4 id="221-消费方丢失数据"><a class="markdownIt-Anchor" href="#221-消费方丢失数据"></a> 2.2.1. 消费方丢失数据</h4>
-<p>唯一可能导致消费方丢失数据的情况，就是：消费方设置了<strong>自动提交 Offset</strong>。设置了自动提交 Offset，接受到消息后就会自动提交 Offset 给 Kafka ，Kafka 就认为消息已被消费。如果此时，消费方尚未来得及处理消息就挂了，那么消息就丢了。</p>
-<p>解决方法就是消费方关闭自动提交 Offset，处理完消息后手动提交 Offset。但这种情况下可能会出现重复消费的情形，需要自行保证幂等性。</p>
-<h4 id="222-kafka-丢失数据"><a class="markdownIt-Anchor" href="#222-kafka-丢失数据"></a> 2.2.2. Kafka 丢失数据</h4>
-<p>当 Kafka 某个 Broker 宕机，需要重新选举 Partition 的 Leader。若此时其他的 Follower 尚未同步 Leader 的数据，那么新选某个 Follower 为 Leader 后，就丢失了部分数据。</p>
-<p>为此，一般要求至少设置 4 个参数：</p>
-<ul>
-<li>给 Topic 设置 <code>replication.factor</code> 参数 - 这个值必须大于 1，要求每个 Partition 必须有至少 2 个副本。</li>
-<li>在 Kafka 服务端设置 <code>min.insync.replicas</code> 参数 - 这个值必须大于 1，这是要求一个 Leader 需要和至少一个 Follower 保持通信，这样才能确保 Leader 挂了还有替补。</li>
-<li>在 Producer 端设置 <code>acks=all</code> - 这意味着：要求每条数据，必须是<strong>写入所有 replica 之后，才能认为是写成功了</strong>。</li>
-<li>在 Producer 端设置 <code>retries=MAX</code>（很大很大很大的一个值，无限次重试的意思） - 这意味着<strong>要求一旦写入失败，就无限重试</strong>，卡在这里了。</li>
-</ul>
-<h4 id="223-生产方丢失数据"><a class="markdownIt-Anchor" href="#223-生产方丢失数据"></a> 2.2.3. 生产方丢失数据</h4>
-<p>如果按照上述的思路设置了 <code>acks=all</code>，生产方一定不会丢数据。</p>
-<p>要求是，你的 Leader 接收到消息，所有的 Follower 都同步到了消息之后，才认为本生产消息成功了。如果未满足这个条件，生产者会自动不断的重试，重试无限次。</p>
-<h3 id="23-消息的顺序性"><a class="markdownIt-Anchor" href="#23-消息的顺序性"></a> 2.3. 消息的顺序性</h3>
-<blockquote>
-<p>以 Kafka 为例</p>
-</blockquote>
-<p>要保证 MQ 的顺序性，势必要付出一定的代价，所以实施方案前，要先明确业务场景是不是有必要保证消息的顺序性。只有那些明确对消息处理顺序有要求的业务场景才值得去保证消息顺序性。</p>
-<p>方案一</p>
-<p>一个 Topic，一个 Partition，一个 Consumer，内部单线程消费，单线程吞吐量太低，一般不会用这个。</p>
-<p>方案二</p>
-<ul>
-<li>写入数据到 Partition 时指定一个唯一的 Key，例如订单 ID。由发送方保证相同 Key 的消息只能发送到同一个 Partition 并且这个 Partition 中的数据一定是顺序的。</li>
-<li>基于上一点，消费方从 Kafka Partition 中消费消息时，此刻一定是顺序的。但如果消费方式以并发方式消费消息，顺序就可能会被打乱。为此，还有做到以下几点：
-<ul>
-<li>消费方维护 N 个缓存队列，具有相同 key 的数据都写入同一个队列中；</li>
-<li>创建 N 个线程，每个线程只负责从指定的一个队列中取数据。</li>
-</ul>
-</li>
-</ul>
-<p><img src="http://dunwu.test.upcdn.net/cs/design/theory/mq/mq_7.png" alt="" /></p>
-<h3 id="24-消息积压"><a class="markdownIt-Anchor" href="#24-消息积压"></a> 2.4. 消息积压</h3>
-<p>假设一个 MQ 消费者可以一秒处理 1000 条消息，三个 MQ 消费者可以一秒处理 3000 条消息，那么一分钟的处理量是 18 万条。如果 MQ 中积压了几百万到上千万的数据，即使消费者恢复了，也需要大概很长的时间才能恢复过来。</p>
-<p>对于产线环境来说，漫长的等待是不可接受的，所以面临这种窘境时，只能临时紧急扩容以应对了，具体操作步骤和思路如下：</p>
-<ul>
-<li>先修复 Consumer 的问题，确保其恢复消费速度，然后将现有 Consumer 都停掉。</li>
-<li>新建一个 Topic，Partition 是原来的 10 倍，临时建立好原先 10 倍的 Queue 数量。</li>
-<li>然后写一个临时的分发数据的 Consumer 程序，这个程序部署上去消费积压的数据，<strong>消费之后不做耗时的处理</strong>，直接均匀轮询写入临时建立好的 10 倍数量的 Queue。</li>
-<li>接着临时征用 10 倍的机器来部署 Consumer ，每一批 Consumer 消费一个临时 Queue 的数据。这种做法相当于是临时将 Queue 资源和 Consumer 资源扩大 10 倍，以正常的 10 倍速度来消费数据。</li>
-<li>等快速消费完积压数据之后，<strong>得恢复原先部署的架构</strong>，<strong>重新</strong>用原先的 consumer 机器来消费消息。</li>
-</ul>
-<h2 id="3-mq-的高可用"><a class="markdownIt-Anchor" href="#3-mq-的高可用"></a> 3. MQ 的高可用</h2>
-<p>不同 MQ 实现高可用的原理各不相同。因为 Kafka 比较具有代表性，所以这里以 Kafka 为例。</p>
-<h3 id="31-kafka-的高可用"><a class="markdownIt-Anchor" href="#31-kafka-的高可用"></a> 3.1. Kafka 的高可用</h3>
-<h4 id="311-kafka-的核心概念"><a class="markdownIt-Anchor" href="#311-kafka-的核心概念"></a> 3.1.1. Kafka 的核心概念</h4>
-<p>了解 Kafka，必须先了解 Kafka 的核心概念：</p>
-<ul>
-<li>
-<p><strong>Broker</strong> - Kafka 集群包含一个或多个节点，这种节点被称为 Broker。</p>
-</li>
-<li>
-<p><strong>Topic</strong> - 每条发布到 Kafka 集群的消息都有一个类别，这个类别被称为 Topic。（不同 Topic 的消息是物理隔离的；同一个 Topic 的消息保存在一个或多个 Broker 上，但用户只需指定消息的 Topic 即可生产或消费数据而不必关心数据存于何处）。对于每一个 Topic， Kafka 集群都会维持一个分区日志。</p>
-</li>
-<li>
-<p><strong>Partition</strong> - 了提高 Kafka 的吞吐率，每个 Topic 包含一个或多个 Partition，每个 Partition 在物理上对应一个文件夹，该文件夹下存储这个 Partition 的所有消息和索引文件。</p>
-<ul>
-<li>Kafka 日志的分区（Partition）分布在 Kafka 集群的节点上。每个节点在处理数据和请求时，共享这些分区。每一个分区都会在已配置的节点上进行备份，确保容错性。</li>
-</ul>
-</li>
-</ul>
-<p><img src="http://dunwu.test.upcdn.net/cs/java/javaweb/distributed/mq/kafka/kafka-cluster-roles.png" alt="" /></p>
-<h4 id="312-kafka-的副本机制"><a class="markdownIt-Anchor" href="#312-kafka-的副本机制"></a> 3.1.2. Kafka 的副本机制</h4>
-<p>Kafka 是如何实现高可用的呢？</p>
-<p>Kafka 在 0.8 以前的版本中，如果一个 Broker 宕机了，其上面的 Partition 都不能用了，这自然不是高可用的。</p>
-<p>为了实现高可用，Kafka 引入了复制功能。</p>
-<p>简单来说，就是副本机制（ Replicate ）。</p>
-<p>每个 Partition 都有一个 Broker 作为 Leader，零个或者多个 Broker 作为 Follower。每个 Broker 都会成为某些分区的 Leader 和某些分区的 Follower，因此集群的负载是平衡的。</p>
-<ul>
-<li><strong>Leader 处理一切对 Partition （分区）的读写请求</strong>；</li>
-<li><strong>而 Follower 只需被动的同步 Leader 上的数据</strong>。</li>
-</ul>
-<p>同一个 Topic 的不同 Partition 会分布在多个 Broker 上，而且一个 Partition 还会在其他的 Broker 上面进行备份，Producer 在发布消息到某个 Partition 时，先找到该 Partition 的 Leader，然后向这个 Leader 推送消息；每个 Follower 都从 Leader 拉取消息，拉取消息成功之后，向 Leader 发送一个 ACK 确认。</p>
-<p><img src="http://dunwu.test.upcdn.net/cs/java/javaweb/distributed/mq/kafka/kafka-replication.png" alt="" /></p>
-<blockquote>
-<p>FAQ</p>
-<p>问：为什么让 Leader 处理一切对对 Partition （分区）的读写请求？</p>
-<p>答：因为如果允许所有 Broker 都可以处理读写请求，就可能产生数据一致性问题。</p>
-</blockquote>
-<h4 id="313-kafka-选举-leader"><a class="markdownIt-Anchor" href="#313-kafka-选举-leader"></a> 3.1.3. Kafka 选举 Leader</h4>
-<p>由上文可知，Partition 在多个 Broker 上存在副本。</p>
-<p>如果某个 Follower 宕机，啥事儿没有，正常工作。</p>
-<p>如果 Leader 宕机了，会从 Follower 中<strong>重新选举</strong>一个新的 Leader。</p>
-<h2 id="4-mq-的通信模式"><a class="markdownIt-Anchor" href="#4-mq-的通信模式"></a> 4. MQ 的通信模式</h2>
-<p>MQ 可驻留在内存或磁盘上，队列存储消息直到它们被应用程序读取。通过 MQ，应用程序可独立地执行，它们不需要知道彼此的位置，不需要等待接收程序接收此消息。在分布式计算环境中，为了集成分布式应用，开发者需要对异构网络环境下的分布式应用提供有效的通信手段。为了管理需要共享的信息，对应用提供公共的信息交换机制是重要的。</p>
-<ul>
-<li><strong>点对点</strong> - 点对点方式是最为传统和常见的通讯方式，它支持一对一、一对多、多对多、多对一等多种配置方式，支持树状、网状等多种拓扑结构。</li>
-<li><strong>多点广播</strong> - MQ 适用于不同类型的应用。其中重要的，也是正在发展中的是&quot;多点广播&quot;应用，即能够将消息发送到多个目标站点 (Destination List)。可以使用一条 MQ 指令将单一消息发送到多个目标站点，并确保为每一站点可靠地提供信息。MQ 不仅提供了多点广播的功能，而且还拥有智能消息分发功能，在将一条消息发送到同一系统上的多个用户时，MQ 将消息的一个复制版本和该系统上接收者的名单发送到目标 MQ 系统。目标 MQ 系统在本地复制这些消息，并将它们发送到名单上的队列，从而尽可能减少网络的传输量。</li>
-<li><strong>发布/订阅 (Publish/Subscribe)</strong> - 发布/订阅模式使消息的分发可以突破目的队列地理位置的限制，使消息按照特定的主题甚至内容进行分发，用户或应用程序可以根据主题或内容接收到所需要的消息。发布/订阅模式使得发送者和接收者之间的耦合关系变得更为松散，发送者不必关心接收者的目的地址，而接收者也不必关心消息的发送地址，而只是根据消息的主题进行消息的收发。</li>
-<li><strong>集群 (Cluster)</strong> - 为了简化点对点通讯模式中的系统配置，MQ 提供 Cluster(集群) 的解决方案。集群类似于一个域 (Domain)，集群内部的队列管理器之间通讯时，不需要两两之间建立消息通道，而是采用集群 (Cluster) 通道与其它成员通讯，从而大大简化了系统配置。此外，集群中的队列管理器之间能够自动进行负载均衡，当某一队列管理器出现故障时，其它队列管理器可以接管它的工作，从而大大提高系统的高可靠性。</li>
-</ul>
-<h2 id="5-常用-mq-对比"><a class="markdownIt-Anchor" href="#5-常用-mq-对比"></a> 5. 常用 MQ 对比</h2>
-<table>
-<thead>
-<tr>
-<th>特性</th>
-<th>ActiveMQ</th>
-<th>RabbitMQ</th>
-<th>RocketMQ</th>
-<th>Kafka</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>单机吞吐量</td>
-<td>万级，比 RocketMQ、Kafka 低一个数量级</td>
-<td>同 ActiveMQ</td>
-<td>10 万级，支撑高吞吐</td>
-<td>10 万级，高吞吐，一般配合大数据类的系统来进行实时数据计算、日志采集等场景</td>
-</tr>
-<tr>
-<td>topic 数量对吞吐量的影响</td>
-<td></td>
-<td></td>
-<td>topic 可以达到几百/几千的级别，吞吐量会有较小幅度的下降，这是 RocketMQ 的一大优势，在同等机器下，可以支撑大量的 topic</td>
-<td>topic 从几十到几百个时候，吞吐量会大幅度下降，在同等机器下，Kafka 尽量保证 topic 数量不要过多，如果要支撑大规模的 topic，需要增加更多的机器资源</td>
-</tr>
-<tr>
-<td>时效性</td>
-<td>ms 级</td>
-<td>微秒级，这是 RabbitMQ 的一大特点，延迟最低</td>
-<td>ms 级</td>
-<td>延迟在 ms 级以内</td>
-</tr>
-<tr>
-<td>可用性</td>
-<td>高，基于主从架构实现高可用</td>
-<td>同 ActiveMQ</td>
-<td>非常高，分布式架构</td>
-<td>非常高，分布式，一个数据多个副本，少数机器宕机，不会丢失数据，不会导致不可用</td>
-</tr>
-<tr>
-<td>消息可靠性</td>
-<td>有较低的概率丢失数据</td>
-<td>基本不丢</td>
-<td>经过参数优化配置，可以做到 0 丢失</td>
-<td>同 RocketMQ</td>
-</tr>
-<tr>
-<td>功能支持</td>
-<td>MQ 领域的功能极其完备</td>
-<td>基于 erlang 开发，并发能力很强，性能极好，延时很低</td>
-<td>MQ 功能较为完善，还是分布式的，扩展性好</td>
-<td>功能较为简单，主要支持简单的 MQ 功能，在大数据领域的实时计算以及日志采集被大规模使用</td>
-</tr>
-</tbody>
-</table>
-<p>综上，各种对比之后，有如下建议：</p>
-<ul>
-<li>一般的业务系统要引入 MQ，最早大家都用 ActiveMQ，但是现在确实大家用的不多了，没经过大规模吞吐量场景的验证，社区也不是很活跃，所以大家还是算了吧，我个人不推荐用这个了；</li>
-<li>后来大家开始用 RabbitMQ，但是确实 erlang 语言阻止了大量的 Java 工程师去深入研究和掌控它，对公司而言，几乎处于不可控的状态，但是确实人家是开源的，比较稳定的支持，活跃度也高；</li>
-<li>不过现在确实越来越多的公司会去用 RocketMQ，确实很不错，毕竟是阿里出品，但社区可能有突然黄掉的风险（目前 RocketMQ 已捐给 <a href="https://github.com/apache/rocketmq" target="_blank" rel="noopener">Apache</a>，但 GitHub 上的活跃度其实不算高）对自己公司技术实力有绝对自信的，推荐用 RocketMQ，否则回去老老实实用 RabbitMQ 吧，人家有活跃的开源社区，绝对不会黄。</li>
-<li>所以<strong>中小型公司</strong>，技术实力较为一般，技术挑战不是特别高，用 RabbitMQ 是不错的选择；<strong>大型公司</strong>，基础架构研发实力较强，用 RocketMQ 是很好的选择。</li>
-<li>如果是<strong>大数据领域</strong>的实时计算、日志采集等场景，用 Kafka 是业内标准的，绝对没问题，社区活跃度很高，绝对不会黄，何况几乎是全世界这个领域的事实性规范。</li>
-</ul>
-<h2 id="6-jms"><a class="markdownIt-Anchor" href="#6-jms"></a> 6. JMS</h2>
-<p>谈 MQ 就不得不提一下 JMS 。</p>
-<p><strong>JMS（JAVA Message Service，java 消息服务）API 是一个消息服务的标准/规范，允许应用程序组件基于 JavaEE 平台创建、发送、接收和读取消息</strong>。它使分布式通信耦合度更低，消息服务更加可靠以及异步性。</p>
-<p>在 EJB 架构中，有消息 bean 可以无缝的与 JM 消息服务集成。在 J2EE 架构模式中，有消息服务者模式，用于实现消息与应用直接的解耦。</p>
-<h3 id="61-消息模型"><a class="markdownIt-Anchor" href="#61-消息模型"></a> 6.1. 消息模型</h3>
-<p>在 JMS 标准中，有两种消息模型：</p>
-<ul>
-<li>P2P(Point to Point)</li>
-<li>Pub/Sub(Publish/Subscribe)</li>
-</ul>
-<h4 id="611-p2p-模式"><a class="markdownIt-Anchor" href="#611-p2p-模式"></a> 6.1.1. P2P 模式</h4>
-<div align="center"><img src="http://upload-images.jianshu.io/upload_images/3101171-2adc66e2367cd2c2.png"/></div>
-P2P 模式包含三个角色：MQ（Queue），发送者(Sender)，接收者(Receiver)。每个消息都被发送到一个特定的队列，接收者从队列中获取消息。队列保留着消息，直到他们被消费或超时。
-<p>P2P 的特点</p>
-<ul>
-<li>每个消息只有一个消费者（Consumer）(即一旦被消费，消息就不再在 MQ 中)</li>
-<li>发送者和接收者之间在时间上没有依赖性，也就是说当发送者发送了消息之后，不管接收者有没有正在运行，它不会影响到消息被发送到队列</li>
-<li>接收者在成功接收消息之后需向队列应答成功</li>
-</ul>
-<p>如果希望发送的每个消息都会被成功处理的话，那么需要 P2P 模式。</p>
-<h4 id="612-pubsub-模式"><a class="markdownIt-Anchor" href="#612-pubsub-模式"></a> 6.1.2. Pub/sub 模式</h4>
-<div align="center"><img src="http://upload-images.jianshu.io/upload_images/3101171-12afe9581da889ea.png"/></div>
-包含三个角色主题（Topic），发布者（Publisher），订阅者（Subscriber） 。多个发布者将消息发送到 Topic,系统将这些消息传递给多个订阅者。
-<p>Pub/Sub 的特点</p>
-<ul>
-<li>每个消息可以有多个消费者</li>
-<li>发布者和订阅者之间有时间上的依赖性。针对某个主题（Topic）的订阅者，它必须创建一个订阅者之后，才能消费发布者的消息。</li>
-<li>为了消费消息，订阅者必须保持运行的状态。</li>
-</ul>
-<p>为了缓和这样严格的时间相关性，JMS 允许订阅者创建一个可持久化的订阅。这样，即使订阅者没有被激活（运行），它也能接收到发布者的消息。</p>
-<p>如果希望发送的消息可以不被做任何处理、或者只被一个消息者处理、或者可以被多个消费者处理的话，那么可以采用 Pub/Sub 模型。</p>
-<h3 id="62-消息消费"><a class="markdownIt-Anchor" href="#62-消息消费"></a> 6.2. 消息消费</h3>
-<p>在 JMS 中，消息的产生和消费都是异步的。对于消费来说，JMS 的消息者可以通过两种方式来消费消息。</p>
-<ul>
-<li><strong>同步</strong> - 订阅者或接收者通过 <code>receive</code> 方法来接收消息，<code>receive</code> 方法在接收到消息之前（或超时之前）将一直阻塞；</li>
-<li><strong>异步</strong> - 订阅者或接收者可以注册为一个消息监听器。当消息到达之后，系统自动调用监听器的 <code>onMessage</code> 方法。</li>
-</ul>
-<p><code>JNDI</code> - Java 命名和目录接口,是一种标准的 Java 命名系统接口。可以在网络上查找和访问服务。通过指定一个资源名称，该名称对应于数据库或命名服务中的一个记录，同时返回资源连接建立所必须的信息。</p>
-<p>JNDI 在 JMS 中起到查找和访问发送目标或消息来源的作用。</p>
-<h3 id="63-jms-编程模型"><a class="markdownIt-Anchor" href="#63-jms-编程模型"></a> 6.3. JMS 编程模型</h3>
-<h4 id="631-connectionfactory"><a class="markdownIt-Anchor" href="#631-connectionfactory"></a> 6.3.1. ConnectionFactory</h4>
-<p>创建 Connection 对象的工厂，针对两种不同的 jms 消息模型，分别有 QueueConnectionFactory 和 TopicConnectionFactory 两种。可以通过 JNDI 来查找 ConnectionFactory 对象。</p>
-<h4 id="632-destination"><a class="markdownIt-Anchor" href="#632-destination"></a> 6.3.2. Destination</h4>
-<p>Destination 的意思是消息生产者的消息发送目标或者说消息消费者的消息来源。对于消息生产者来说，它的 Destination 是某个队列（Queue）或某个主题（Topic）;对于消息消费者来说，它的 Destination 也是某个队列或主题（即消息来源）。</p>
-<p>所以，Destination 实际上就是两种类型的对象：Queue、Topic。可以通过 JNDI 来查找 Destination。</p>
-<h4 id="633-3-connection"><a class="markdownIt-Anchor" href="#633-3-connection"></a> 6.3.3. (3) Connection</h4>
-<p>Connection 表示在客户端和 JMS 系统之间建立的链接（对 TCP/IP socket 的包装）。Connection 可以产生一个或多个 Session。跟 ConnectionFactory 一样，Connection 也有两种类型：QueueConnection 和 TopicConnection。</p>
-<h4 id="634-4-session"><a class="markdownIt-Anchor" href="#634-4-session"></a> 6.3.4. (4) Session</h4>
-<p>Session 是操作消息的接口。可以通过 session 创建生产者、消费者、消息等。Session 提供了事务的功能。当需要使用 session 发送/接收多个消息时，可以将这些发送/接收动作放到一个事务中。同样，也分 QueueSession 和 TopicSession。</p>
-<h4 id="635-消息的生产者"><a class="markdownIt-Anchor" href="#635-消息的生产者"></a> 6.3.5. 消息的生产者</h4>
-<p>消息生产者由 Session 创建，并用于将消息发送到 Destination。同样，消息生产者分两种类型：QueueSender 和 TopicPublisher。可以调用消息生产者的方法（send 或 publish 方法）发送消息。</p>
-<h4 id="636-消息消费者"><a class="markdownIt-Anchor" href="#636-消息消费者"></a> 6.3.6. 消息消费者</h4>
-<p>消息消费者由 Session 创建，用于接收被发送到 Destination 的消息。两种类型：QueueReceiver 和 TopicSubscriber。可分别通过 session 的 createReceiver(Queue)或 createSubscriber(Topic)来创建。当然，也可以 session 的 creatDurableSubscriber 方法来创建持久化的订阅者。</p>
-<h4 id="637-messagelistener"><a class="markdownIt-Anchor" href="#637-messagelistener"></a> 6.3.7. MessageListener</h4>
-<p>消息监听器。如果注册了消息监听器，一旦消息到达，将自动调用监听器的 onMessage 方法。EJB 中的 MDB（Message-Driven Bean）就是一种 MessageListener。</p>
-<p>深入学习 JMS 对掌握 JAVA 架构，EJB 架构有很好的帮助，消息中间件也是大型分布式系统必须的组件。本次分享主要做全局性介绍，具体的深入需要大家学习，实践，总结，领会。</p>
-<h2 id="7-参考资料"><a class="markdownIt-Anchor" href="#7-参考资料"></a> 7. 参考资料</h2>
-<ul>
-<li><a href="https://www.cnblogs.com/itfly8/p/5155983.html" target="_blank" rel="noopener">大型网站架构系列：分布式 MQ（一）</a></li>
-<li><a href="https://www.cnblogs.com/itfly8/p/5156155.html" target="_blank" rel="noopener">大型网站架构系列：MQ（二）</a></li>
-<li><a href="https://www.jianshu.com/p/453c6e7ff81c" target="_blank" rel="noopener">分布式开放 MQ(RocketMQ)的原理与实践</a></li>
-<li><a href="https://juejin.im/entry/5a0abfb5f265da43062a4a91" target="_blank" rel="noopener">阿里 RocketMQ 优势对比</a></li>
-<li><a href="https://github.com/doocs/advanced-java/blob/master/docs/high-concurrency/mq-interview.md" target="_blank" rel="noopener">advanced-java 之 MQ</a></li>
-</ul>
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
   </div>
 
   
@@ -3010,12 +2702,12 @@ P2P 模式包含三个角色：MQ（Queue），发送者(Sender)，接收者(Rec
     <span class="post-meta-item-icon">
       <i class="fa fa-area-chart"></i>
     </span>
-    <span title="站点总字数">364k</span>
+    <span title="站点总字数">365k</span>
     <span class="post-meta-divider">|</span>
     <span class="post-meta-item-icon">
       <i class="fa fa-coffee"></i>
     </span>
-    <span title="站点阅读时长">5:31</span>
+    <span title="站点阅读时长">5:32</span>
 </div>
 
         
