@@ -1,0 +1,671 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 4.0.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/blog/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/blog/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/blog/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/blog/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/blog/css/main.css">
+
+
+<link rel="stylesheet" href="/blog/lib/font-awesome/css/font-awesome.min.css">
+  <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/pace/1.0.2/themes/blue/pace-theme-minimal.min.css">
+  <script src="//cdnjs.cloudflare.com/ajax/libs/pace/1.0.2/pace.min.js"></script>
+
+
+<script id="hexo-configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/blog/',
+    scheme: 'Pisces',
+    version: '7.5.0',
+    exturl: false,
+    sidebar: {"position":"left","display":"post","offset":12,"onmobile":true},
+    copycode: {"enable":false,"show_result":false,"style":null},
+    back2top: {"enable":true,"sidebar":false,"scrollpercent":false},
+    bookmark: {"enable":true,"color":"#222","save":"auto"},
+    fancybox: false,
+    mediumzoom: false,
+    lazyload: false,
+    pangu: false,
+    algolia: {
+      appID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    },
+    localsearch: {"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},
+    path: 'search.xml',
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    translation: {
+      copy_button: '复制',
+      copy_success: '复制成功',
+      copy_failure: '复制失败'
+    },
+    sidebarPadding: 40
+  };
+</script>
+
+  <meta name="description" content="CAP 定理和 BASE 理论   📦 本文已归档到：「blog」 大型网站几乎都是分布式系统。分布式系统的最大难点，在于各节点的状态如何同步。CAP 定理是这方面的基本定理，也是理解分布式系统的起点。    一、CAP  分区容错性 一致性 可用性 权衡   二、BASE  基本可用 软状态 最终一致性   参考资料    一、CAP CAP 定理是加州大学计算机科学家埃里克·布鲁尔提出来的">
+<meta name="keywords" content="分布式,CAP,BASE">
+<meta property="og:type" content="article">
+<meta property="og:title" content="CAP 定理和 BASE 理论">
+<meta property="og:url" content="https:&#x2F;&#x2F;dunwu.github.io&#x2F;blog&#x2F;distributed&#x2F;cap-and-base&#x2F;index.html">
+<meta property="og:site_name" content="Dunwu">
+<meta property="og:description" content="CAP 定理和 BASE 理论   📦 本文已归档到：「blog」 大型网站几乎都是分布式系统。分布式系统的最大难点，在于各节点的状态如何同步。CAP 定理是这方面的基本定理，也是理解分布式系统的起点。    一、CAP  分区容错性 一致性 可用性 权衡   二、BASE  基本可用 软状态 最终一致性   参考资料    一、CAP CAP 定理是加州大学计算机科学家埃里克·布鲁尔提出来的">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:image" content="https:&#x2F;&#x2F;raw.githubusercontent.com&#x2F;dunwu&#x2F;images&#x2F;master&#x2F;snap&#x2F;20200202201007.png">
+<meta property="og:image" content="http:&#x2F;&#x2F;dunwu.test.upcdn.net&#x2F;cs&#x2F;design&#x2F;architecture&#x2F;分布式理论-CAP.jpg">
+<meta property="og:image" content="https:&#x2F;&#x2F;www.wangbase.com&#x2F;blogimg&#x2F;asset&#x2F;201807&#x2F;bg2018071601.png">
+<meta property="og:image" content="https:&#x2F;&#x2F;www.wangbase.com&#x2F;blogimg&#x2F;asset&#x2F;201807&#x2F;bg2018071602.png">
+<meta property="og:image" content="https:&#x2F;&#x2F;www.wangbase.com&#x2F;blogimg&#x2F;asset&#x2F;201807&#x2F;bg2018071603.png">
+<meta property="og:image" content="https:&#x2F;&#x2F;www.wangbase.com&#x2F;blogimg&#x2F;asset&#x2F;201807&#x2F;bg2018071604.png">
+<meta property="og:image" content="https:&#x2F;&#x2F;www.wangbase.com&#x2F;blogimg&#x2F;asset&#x2F;201807&#x2F;bg2018071605.png">
+<meta property="og:image" content="https:&#x2F;&#x2F;www.wangbase.com&#x2F;blogimg&#x2F;asset&#x2F;201807&#x2F;bg2018071606.png">
+<meta property="og:image" content="http:&#x2F;&#x2F;dunwu.test.upcdn.net&#x2F;cs&#x2F;design&#x2F;architecture&#x2F;%E5%88%86%E5%B8%83%E5%BC%8F%E7%90%86%E8%AE%BA-BASE.png">
+<meta property="og:updated_time" content="2020-02-02T12:12:55.068Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https:&#x2F;&#x2F;raw.githubusercontent.com&#x2F;dunwu&#x2F;images&#x2F;master&#x2F;snap&#x2F;20200202201007.png">
+
+<link rel="canonical" href="https://dunwu.github.io/blog/distributed/cap-and-base/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome: false,
+    isPost: true,
+    isPage: false,
+    isArchive: false
+  };
+</script>
+
+  <title>CAP 定理和 BASE 理论 | Dunwu</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+<link rel="alternate" href="/blog/atom.xml" title="Dunwu" type="application/atom+xml">
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-meta">
+
+    <div>
+      <a href="/blog/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Dunwu</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+        <h1 class="site-subtitle" itemprop="description">大道至简，知易行难</h1>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+</div>
+
+
+<nav class="site-nav">
+  
+  <ul id="menu" class="menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/blog/" rel="section"><i class="fa fa-fw fa-home"></i>首页</a>
+
+  </li>
+        <li class="menu-item menu-item-about">
+
+    <a href="/blog/about/" rel="section"><i class="fa fa-fw fa-user"></i>关于</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/blog/tags/" rel="section"><i class="fa fa-fw fa-tags"></i>标签<span class="badge">46</span></a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/blog/categories/" rel="section"><i class="fa fa-fw fa-th"></i>分类<span class="badge">11</span></a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/blog/archives/" rel="section"><i class="fa fa-fw fa-archive"></i>归档<span class="badge">74</span></a>
+
+  </li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
+  </ul>
+
+</nav>
+  <div class="site-search">
+    <div class="popup search-popup">
+    <div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocorrect="off" autocapitalize="none"
+           placeholder="搜索..." spellcheck="false"
+           type="text" id="search-input">
+  </div>
+  <span class="popup-btn-close">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div id="search-result"></div>
+
+</div>
+<div class="search-pop-overlay"></div>
+
+  </div>
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+  <div class="reading-progress-bar"></div>
+  <a role="button" class="book-mark-link book-mark-link-fixed"></a>
+
+  <a href="https://github.com/dunwu" class="github-corner" title="Follow me on GitHub" aria-label="Follow me on GitHub" rel="noopener" target="_blank"><svg width="80" height="80" viewBox="0 0 250 250" aria-hidden="true"><path d="M0,0 L115,115 L130,115 L142,142 L250,250 L250,0 Z"></path><path d="M128.3,109.0 C113.8,99.7 119.0,89.6 119.0,89.6 C122.0,82.7 120.5,78.6 120.5,78.6 C119.2,72.0 123.4,76.3 123.4,76.3 C127.3,80.9 125.5,87.3 125.5,87.3 C122.9,97.6 130.6,101.9 134.4,103.2" fill="currentColor" style="transform-origin: 130px 106px;" class="octo-arm"></path><path d="M115.0,115.0 C114.9,115.1 118.7,116.5 119.8,115.4 L133.7,101.6 C136.9,99.2 139.9,98.4 142.2,98.6 C133.8,88.0 127.5,74.4 143.8,58.0 C148.5,53.4 154.0,51.2 159.7,51.0 C160.3,49.4 163.2,43.6 171.4,40.1 C171.4,40.1 176.1,42.5 178.8,56.2 C183.1,58.6 187.2,61.8 190.9,65.4 C194.5,69.0 197.7,73.2 200.1,77.6 C213.8,80.2 216.3,84.9 216.3,84.9 C212.7,93.1 206.9,96.0 205.4,96.6 C205.1,102.4 203.0,107.8 198.3,112.5 C181.9,128.9 168.3,122.5 157.7,114.1 C157.9,116.9 156.7,120.9 152.7,124.9 L141.0,136.5 C139.8,137.7 141.6,141.9 141.8,141.8 Z" fill="currentColor" class="octo-body"></path></svg></a>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content">
+            
+
+  <div class="posts-expand">
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block " lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://dunwu.github.io/blog/blog/distributed/cap-and-base/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/blog/images/avatar.gif">
+      <meta itemprop="name" content="Zhang Peng">
+      <meta itemprop="description" content="Dunwu's Blog">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Dunwu">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          CAP 定理和 BASE 理论<a href="https://github.com/dunwu/blog/blob/master/source/_posts/distributed/cap-and-base.md" class="post-edit-link" title="编辑" rel="noopener" target="_blank"><i class="fa fa-pencil"></i></a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+              
+
+              <time title="创建时间：2020-02-02 19:39:00 / 修改时间：20:12:55" itemprop="dateCreated datePublished" datetime="2020-02-02T19:39:00+08:00">2020-02-02</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/blog/categories/%E5%88%86%E5%B8%83%E5%BC%8F/" itemprop="url" rel="index">
+                    <span itemprop="name">分布式</span>
+                  </a>
+                </span>
+            </span>
+
+          
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="fa fa-comment-o"></i>
+      </span>
+      <span class="post-meta-item-text">Disqus：</span>
+    
+    <a title="disqus" href="/blog/distributed/cap-and-base/#comments" itemprop="discussionUrl">
+      <span class="post-comments-count disqus-comment-count" data-disqus-identifier="distributed/cap-and-base/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  <br>
+            <span class="post-meta-item" title="本文字数">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-file-word-o"></i>
+              </span>
+                <span class="post-meta-item-text">本文字数：</span>
+              <span>1.8k</span>
+            </span>
+            <span class="post-meta-item" title="阅读时长">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-clock-o"></i>
+              </span>
+                <span class="post-meta-item-text">阅读时长 &asymp;</span>
+              <span>2 分钟</span>
+            </span>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <h1 id="cap-定理和-base-理论"><a class="markdownIt-Anchor" href="#cap-定理和-base-理论"></a> CAP 定理和 BASE 理论</h1>
+<p><img src="https://raw.githubusercontent.com/dunwu/images/master/snap/20200202201007.png" alt="img" /></p>
+<blockquote>
+<p>📦 本文已归档到：「<a href="https://github.com/dunwu/blog" target="_blank" rel="noopener">blog</a>」</p>
+<p>大型网站几乎都是分布式系统。分布式系统的最大难点，在于各节点的状态如何同步。CAP 定理是这方面的基本定理，也是理解分布式系统的起点。</p>
+</blockquote>
+<!-- TOC depthFrom:2 depthTo:3 -->
+<ul>
+<li><a href="#%E4%B8%80cap">一、CAP</a>
+<ul>
+<li><a href="#%E5%88%86%E5%8C%BA%E5%AE%B9%E9%94%99%E6%80%A7">分区容错性</a></li>
+<li><a href="#%E4%B8%80%E8%87%B4%E6%80%A7">一致性</a></li>
+<li><a href="#%E5%8F%AF%E7%94%A8%E6%80%A7">可用性</a></li>
+<li><a href="#%E6%9D%83%E8%A1%A1">权衡</a></li>
+</ul>
+</li>
+<li><a href="#%E4%BA%8Cbase">二、BASE</a>
+<ul>
+<li><a href="#%E5%9F%BA%E6%9C%AC%E5%8F%AF%E7%94%A8">基本可用</a></li>
+<li><a href="#%E8%BD%AF%E7%8A%B6%E6%80%81">软状态</a></li>
+<li><a href="#%E6%9C%80%E7%BB%88%E4%B8%80%E8%87%B4%E6%80%A7">最终一致性</a></li>
+</ul>
+</li>
+<li><a href="#%E5%8F%82%E8%80%83%E8%B5%84%E6%96%99">参考资料</a></li>
+</ul>
+<!-- /TOC -->
+<h2 id="一-cap"><a class="markdownIt-Anchor" href="#一-cap"></a> 一、CAP</h2>
+<p>CAP 定理是加州大学计算机科学家埃里克·布鲁尔提出来的猜想，后来被证明成为分布式计算领域公认的定理。</p>
+<p>CAP 定理又称为 CAP 原则，指的是：<strong>在一个分布式系统中， <code>一致性（C：Consistency）</code>、<code>可用性（A：Availability）</code> 和 <code>分区容忍性（P：Partition Tolerance）</code>，最多只能同时满足其中两项</strong>。</p>
+<div align="center">
+<img src="http://dunwu.test.upcdn.net/cs/design/architecture/分布式理论-CAP.jpg" width="450"/>
+</div>
+<h3 id="分区容错性"><a class="markdownIt-Anchor" href="#分区容错性"></a> 分区容错性</h3>
+<p>分区容错性（Partition Tolerance）指 <strong>分布式系统在遇到任何网络分区故障的时候，仍然需要能对外提供一致性和可用性的服务，除非是整个网络环境都发生了故障</strong>。</p>
+<p>大多数分布式系统都分布在多个子网络，每个子网络就叫做一个区（Partition）。分区容错的意思是，区间通信可能失败。比如，一台服务器放在中国，另一台服务器放在美国，这就是两个区，它们之间可能无法通信。</p>
+<p><img src="https://www.wangbase.com/blogimg/asset/201807/bg2018071601.png" alt="img" /></p>
+<p>上图中，G1 和 G2 是两台跨区的服务器。G1 向 G2 发送一条消息，G2 可能无法收到。系统设计的时候，必须考虑到这种情况。</p>
+<p><strong>一般来说，分区容错无法避免</strong>，因此可以认为 CAP 的 P 总是成立。CAP 定理告诉我们，剩下的 C 和 A 无法同时做到。</p>
+<h3 id="一致性"><a class="markdownIt-Anchor" href="#一致性"></a> 一致性</h3>
+<p>一致性（Consistency）指的是<strong>多个数据副本是否能保持一致</strong>的特性。</p>
+<p>在一致性的条件下，分布式系统在执行写操作成功后，如果所有用户都能够读取到最新的值，该系统就被认为具有强一致性。</p>
+<p>举例来说，某条记录是 v0，用户向 G1 发起一个写操作，将其改为 v1。</p>
+<p><img src="https://www.wangbase.com/blogimg/asset/201807/bg2018071602.png" alt="img" /></p>
+<p>接下来，用户的读操作就会得到 v1。这就叫一致性。</p>
+<p><img src="https://www.wangbase.com/blogimg/asset/201807/bg2018071603.png" alt="img" /></p>
+<p>问题是，用户有可能向 G2 发起读操作，由于 G2 的值没有发生变化，因此返回的是 v0。G1 和 G2 读操作的结果不一致，这就不满足一致性了。</p>
+<p><img src="https://www.wangbase.com/blogimg/asset/201807/bg2018071604.png" alt="img" /></p>
+<p>为了让 G2 也能变为 v1，就要在 G1 写操作的时候，让 G1 向 G2 发送一条消息，要求 G2 也改成 v1。</p>
+<p><img src="https://www.wangbase.com/blogimg/asset/201807/bg2018071605.png" alt="img" /></p>
+<p>这样的话，用户向 G2 发起读操作，也能得到 v1。</p>
+<p><img src="https://www.wangbase.com/blogimg/asset/201807/bg2018071606.png" alt="img" /></p>
+<h3 id="可用性"><a class="markdownIt-Anchor" href="#可用性"></a> 可用性</h3>
+<p>可用性指<strong>分布式系统在面对各种异常时可以提供正常服务的能力</strong>，可以用系统可用时间占总时间的比值来衡量，4 个 9 的可用性表示系统 <code>99.99%</code> 的时间是可用的。</p>
+<p>在可用性条件下，系统提供的服务一直处于可用的状态，对于用户的每一个操作请求总是能够在有限的时间内返回结果。</p>
+<h3 id="权衡"><a class="markdownIt-Anchor" href="#权衡"></a> 权衡</h3>
+<p>在分布式系统中，分区容忍性必不可少，因为需要总是假设网络是不可靠的。因此，<strong>CAP 理论实际在是要在可用性和一致性之间做权衡</strong>。</p>
+<p>可用性和一致性往往是冲突的，很难都使它们同时满足。在多个节点之间进行数据同步时，</p>
+<ul>
+<li>为了保证一致性（CP），就需要让所有节点下线成为不可用的状态，等待同步完成；</li>
+<li>为了保证可用性（AP），在同步过程中允许读取所有节点的数据，但是数据可能不一致。</li>
+</ul>
+<h2 id="二-base"><a class="markdownIt-Anchor" href="#二-base"></a> 二、BASE</h2>
+<p>BASE 是 <strong><code>基本可用（Basically Available）</code></strong>、<strong><code>软状态（Soft State）</code></strong> 和 <strong><code>最终一致性（Eventually Consistent）</code></strong> 三个短语的缩写。</p>
+<p>BASE 理论是对 CAP 中一致性和可用性权衡的结果，它的理论的核心思想是：即使无法做到强一致性，但每个应用都可以根据自身业务特点，采用适当的方式来使系统达到最终一致性。</p>
+<p><img src="http://dunwu.test.upcdn.net/cs/design/architecture/%E5%88%86%E5%B8%83%E5%BC%8F%E7%90%86%E8%AE%BA-BASE.png" alt="img" /></p>
+<h3 id="基本可用"><a class="markdownIt-Anchor" href="#基本可用"></a> 基本可用</h3>
+<p>基本可用（Basically Available）指分布式系统在出现故障的时候，<strong>保证核心可用，允许损失部分可用性</strong>。</p>
+<p>例如，电商在做促销时，为了保证购物系统的稳定性，部分消费者可能会被引导到一个降级的页面。</p>
+<h3 id="软状态"><a class="markdownIt-Anchor" href="#软状态"></a> 软状态</h3>
+<p>软状态（Soft State）指允许系统中的数据存在中间状态，并认为该中间状态不会影响系统整体可用性，即<strong>允许系统不同节点的数据副本之间进行同步的过程存在延时</strong>。</p>
+<h3 id="最终一致性"><a class="markdownIt-Anchor" href="#最终一致性"></a> 最终一致性</h3>
+<p>最终一致性（Eventually Consistent）强调的是<strong>系统中所有的数据副本，在经过一段时间的同步后，最终能达到一致的状态</strong>。</p>
+<p>ACID 要求强一致性，通常运用在传统的数据库系统上。而 BASE 要求最终一致性，通过牺牲强一致性来达到可用性，通常运用在大型分布式系统中。</p>
+<p>在实际的分布式场景中，不同业务单元和组件对一致性的要求是不同的，因此 ACID 和 BASE 往往会结合在一起使用。</p>
+<h2 id="参考资料"><a class="markdownIt-Anchor" href="#参考资料"></a> 参考资料</h2>
+<ul>
+<li><a href="https://www.ruanyifeng.com/blog/2018/07/cap.html" target="_blank" rel="noopener">CAP 定理的含义</a> - by 阮一峰</li>
+<li><a href="https://juejin.im/post/5d720e86f265da03cc08de74" target="_blank" rel="noopener">神一样的 CAP 理论被应用在何方</a></li>
+</ul>
+
+    </div>
+
+    
+    
+    
+        
+
+<div>
+<ul class="post-copyright">
+  <li class="post-copyright-author">
+    <strong>本文作者： </strong>Zhang Peng
+  </li>
+  <li class="post-copyright-link">
+    <strong>本文链接：</strong>
+    <a href="https://dunwu.github.io/blog/distributed/cap-and-base/" title="CAP 定理和 BASE 理论">https://dunwu.github.io/blog/distributed/cap-and-base/</a>
+  </li>
+  <li class="post-copyright-license">
+    <strong>版权声明： </strong>本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh" rel="noopener" target="_blank"><i class="fa fa-fw fa-creative-commons"></i>BY-NC-SA</a> 许可协议。转载请注明出处！
+  </li>
+</ul>
+</div>
+
+
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/blog/tags/%E5%88%86%E5%B8%83%E5%BC%8F/" rel="tag"># 分布式</a>
+              <a href="/blog/tags/CAP/" rel="tag"># CAP</a>
+              <a href="/blog/tags/BASE/" rel="tag"># BASE</a>
+          </div>
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-next post-nav-item">
+                <a href="/blog/distributed/byzantine/" rel="next" title="拜占庭将军问题">
+                  <i class="fa fa-chevron-left"></i> 拜占庭将军问题
+                </a>
+            </div>
+
+            <span class="post-nav-divider"></span>
+
+            <div class="post-nav-prev post-nav-item">
+                <a href="/blog/distributed/paxos/" rel="prev" title="深入剖析共识性算法 Paxos">
+                  深入剖析共识性算法 Paxos <i class="fa fa-chevron-right"></i>
+                </a>
+            </div>
+          </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+  </div>
+
+
+          </div>
+          
+    
+  <div class="comments" id="comments">
+    <div id="disqus_thread">
+      <noscript>Please enable JavaScript to view the comments powered by Disqus.</noscript>
+    </div>
+  </div>
+  
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#cap-定理和-base-理论"><span class="nav-text"> CAP 定理和 BASE 理论</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#一-cap"><span class="nav-text"> 一、CAP</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#分区容错性"><span class="nav-text"> 分区容错性</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#一致性"><span class="nav-text"> 一致性</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#可用性"><span class="nav-text"> 可用性</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#权衡"><span class="nav-text"> 权衡</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#二-base"><span class="nav-text"> 二、BASE</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#基本可用"><span class="nav-text"> 基本可用</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#软状态"><span class="nav-text"> 软状态</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#最终一致性"><span class="nav-text"> 最终一致性</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#参考资料"><span class="nav-text"> 参考资料</span></a></li></ol></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <img class="site-author-image" itemprop="image" alt="Zhang Peng"
+    src="/blog/images/avatar.gif">
+  <p class="site-author-name" itemprop="name">Zhang Peng</p>
+  <div class="site-description" itemprop="description">Dunwu's Blog</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/blog/archives/">
+        
+          <span class="site-state-item-count">74</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/blog/categories/">
+          
+        <span class="site-state-item-count">11</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/blog/tags/">
+          
+        <span class="site-state-item-count">46</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author motion-element">
+      <span class="links-of-author-item">
+        <a href="https://github.com/dunwu" title="GitHub &amp;rarr; https:&#x2F;&#x2F;github.com&#x2F;dunwu" rel="noopener" target="_blank"><i class="fa fa-fw fa-github"></i>GitHub</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="/blog/mailto:forbreak@163.com" title="E-Mail &amp;rarr; mailto:forbreak@163.com" rel="noopener" target="_blank"><i class="fa fa-fw fa-envelope"></i>E-Mail</a>
+      </span>
+  </div>
+  <div class="cc-license motion-element" itemprop="license">
+    <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh" class="cc-opacity" rel="noopener" target="_blank"><img src="/blog/images/cc-by-nc-sa.svg" alt="Creative Commons"></a>
+  </div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+<div class="copyright">
+  
+  &copy; 2015 – 
+  <span itemprop="copyrightYear">2020</span>
+  <span class="with-love">
+    <i class="fa fa-paper-plane"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Zhang Peng</span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-area-chart"></i>
+    </span>
+    <span title="站点总字数">365k</span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-coffee"></i>
+    </span>
+    <span title="站点阅读时长">5:31</span>
+</div>
+
+        
+
+
+
+
+
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+  </div>
+
+  
+  
+  <script color='0,0,255' opacity='0.5' zIndex='-1' count='99' src="//cdn.jsdelivr.net/gh/theme-next/theme-next-canvas-nest@1/canvas-nest.min.js"></script>
+  <script src="/blog/lib/anime.min.js"></script>
+  <script src="/blog/lib/velocity/velocity.min.js"></script>
+  <script src="/blog/lib/velocity/velocity.ui.min.js"></script>
+<script src="/blog/js/utils.js"></script><script src="/blog/js/motion.js"></script>
+<script src="/blog/js/schemes/pisces.js"></script>
+<script src="/blog/js/next-boot.js"></script><script src="/blog/js/bookmark.js"></script>
+
+
+
+  
+
+
+
+
+  <script src="/blog/js/local-search.js"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+<script>
+  function loadCount() {
+    var d = document, s = d.createElement('script');
+    s.src = 'https://blog-ajay4qmfci.disqus.com/count.js';
+    s.id = 'dsq-count-scr';
+    (d.head || d.body).appendChild(s);
+  }
+  // defer loading until the whole page loading is completed
+  window.addEventListener('load', loadCount, false);
+</script>
+<script>
+  function loadComments() {
+    if (window.DISQUS) {
+      DISQUS.reset({
+        reload: true,
+        config: {page: {
+            url: "https://dunwu.github.io/blog/distributed/cap-and-base/",
+            identifier: "distributed/cap-and-base/",
+            title: "CAP 定理和 BASE 理论"
+          }
+        }
+      });
+    } else {
+      var d = document, s = d.createElement('script');
+      s.src = 'https://blog-ajay4qmfci.disqus.com/embed.js';
+      s.setAttribute('data-timestamp', '' + +new Date());
+      (d.head || d.body).appendChild(s);
+    }
+  }
+    (function() {
+      var offsetTop = document.getElementById('comments').offsetTop - window.innerHeight;
+      if (offsetTop <= 0) {
+        // load directly when there's no a scrollbar
+        window.addEventListener('load', loadComments, false);
+      } else {
+        var disqus_scroll = () => {
+          // offsetTop may changes because of manually resizing browser window or lazy loading images.
+          var offsetTop = document.getElementById('comments').offsetTop - window.innerHeight;
+          var scrollTop = window.scrollY;
+
+          // pre-load comments a bit? (margin or anything else)
+          if (offsetTop - scrollTop < 60) {
+            window.removeEventListener('scroll', disqus_scroll);
+            loadComments();
+          }
+        };
+        window.addEventListener('scroll', disqus_scroll);
+      }
+    })();
+  
+</script>
+
+</body>
+</html>

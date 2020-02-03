@@ -52,13 +52,13 @@
   };
 </script>
 
-  <meta name="description" content="简介  什么是 TCP TCP（Transmission Control Protocol），即传输控制协议，它是一种面向连接的、可靠的、基于字节流的传输层通信协议。TCP 由 RFC 793 定义。   TCP 的特性  面向连接的 - 面向连接是指 TCP 需要通过三次握手、四次挥手原则建立和断开双向连接。 可靠的 - 可靠是指 TCP 传输的数据包保证以原始顺序到达目的地，且数据包不被损坏">
+  <meta name="description" content="网络协议之 TCP  📦 本文已归档到：「blog」    简介  什么是 TCP TCP 的特性 TCP 的适用场景 TCP 报文   TCP 通信流程  三次握手 四次挥手   滑动窗口 TCP 重传机制  超时重传机制 快速重传机制   参考资料    简介  什么是 TCP TCP（Transmission Control Protocol），即传输控制协议，它是一种面向连接的、可靠的">
 <meta name="keywords" content="网络,通信,协议">
 <meta property="og:type" content="article">
 <meta property="og:title" content="网络协议之 TCP">
 <meta property="og:url" content="https:&#x2F;&#x2F;dunwu.github.io&#x2F;blog&#x2F;network&#x2F;tcp&#x2F;index.html">
 <meta property="og:site_name" content="Dunwu">
-<meta property="og:description" content="简介  什么是 TCP TCP（Transmission Control Protocol），即传输控制协议，它是一种面向连接的、可靠的、基于字节流的传输层通信协议。TCP 由 RFC 793 定义。   TCP 的特性  面向连接的 - 面向连接是指 TCP 需要通过三次握手、四次挥手原则建立和断开双向连接。 可靠的 - 可靠是指 TCP 传输的数据包保证以原始顺序到达目的地，且数据包不被损坏">
+<meta property="og:description" content="网络协议之 TCP  📦 本文已归档到：「blog」    简介  什么是 TCP TCP 的特性 TCP 的适用场景 TCP 报文   TCP 通信流程  三次握手 四次挥手   滑动窗口 TCP 重传机制  超时重传机制 快速重传机制   参考资料    简介  什么是 TCP TCP（Transmission Control Protocol），即传输控制协议，它是一种面向连接的、可靠的">
 <meta property="og:locale" content="zh-CN">
 <meta property="og:image" content="http:&#x2F;&#x2F;dunwu.test.upcdn.net&#x2F;snap&#x2F;1559263786555.png!zp">
 <meta property="og:image" content="http:&#x2F;&#x2F;dunwu.test.upcdn.net&#x2F;snap&#x2F;1559264511812.png!zp">
@@ -68,7 +68,7 @@
 <meta property="og:image" content="http:&#x2F;&#x2F;dunwu.test.upcdn.net&#x2F;cs&#x2F;network&#x2F;transport&#x2F;四次挥手.gif!zp">
 <meta property="og:image" content="http:&#x2F;&#x2F;dunwu.test.upcdn.net&#x2F;snap&#x2F;1559265819762.png!zp">
 <meta property="og:image" content="http:&#x2F;&#x2F;dunwu.test.upcdn.net&#x2F;snap&#x2F;1559265927658.png!zp">
-<meta property="og:updated_time" content="2020-02-02T10:16:21.285Z">
+<meta property="og:updated_time" content="2020-02-03T02:30:08.059Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:image" content="http:&#x2F;&#x2F;dunwu.test.upcdn.net&#x2F;snap&#x2F;1559263786555.png!zp">
 
@@ -164,7 +164,7 @@
   </li>
         <li class="menu-item menu-item-tags">
 
-    <a href="/blog/tags/" rel="section"><i class="fa fa-fw fa-tags"></i>标签<span class="badge">44</span></a>
+    <a href="/blog/tags/" rel="section"><i class="fa fa-fw fa-tags"></i>标签<span class="badge">46</span></a>
 
   </li>
         <li class="menu-item menu-item-categories">
@@ -174,7 +174,7 @@
   </li>
         <li class="menu-item menu-item-archives">
 
-    <a href="/blog/archives/" rel="section"><i class="fa fa-fw fa-archive"></i>归档<span class="badge">72</span></a>
+    <a href="/blog/archives/" rel="section"><i class="fa fa-fw fa-archive"></i>归档<span class="badge">74</span></a>
 
   </li>
       <li class="menu-item menu-item-search">
@@ -262,7 +262,7 @@
                   <i class="fa fa-calendar-check-o"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2020-02-02 18:16:21" itemprop="dateModified" datetime="2020-02-02T18:16:21+08:00">2020-02-02</time>
+                <time title="修改时间：2020-02-03 10:30:08" itemprop="dateModified" datetime="2020-02-03T10:30:08+08:00">2020-02-03</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -296,7 +296,7 @@
                 <i class="fa fa-file-word-o"></i>
               </span>
                 <span class="post-meta-item-text">本文字数：</span>
-              <span>3k</span>
+              <span>3.1k</span>
             </span>
             <span class="post-meta-item" title="阅读时长">
               <span class="post-meta-item-icon">
@@ -315,7 +315,37 @@
     <div class="post-body" itemprop="articleBody">
 
       
-        <h2 id="简介"><a class="markdownIt-Anchor" href="#简介"></a> 简介</h2>
+        <h1 id="网络协议之-tcp"><a class="markdownIt-Anchor" href="#网络协议之-tcp"></a> 网络协议之 TCP</h1>
+<blockquote>
+<p>📦 本文已归档到：「<a href="https://github.com/dunwu/blog" target="_blank" rel="noopener">blog</a>」</p>
+</blockquote>
+<!-- TOC depthFrom:2 depthTo:3 -->
+<ul>
+<li><a href="#%E7%AE%80%E4%BB%8B">简介</a>
+<ul>
+<li><a href="#%E4%BB%80%E4%B9%88%E6%98%AF-tcp">什么是 TCP</a></li>
+<li><a href="#tcp-%E7%9A%84%E7%89%B9%E6%80%A7">TCP 的特性</a></li>
+<li><a href="#tcp-%E7%9A%84%E9%80%82%E7%94%A8%E5%9C%BA%E6%99%AF">TCP 的适用场景</a></li>
+<li><a href="#tcp-%E6%8A%A5%E6%96%87">TCP 报文</a></li>
+</ul>
+</li>
+<li><a href="#tcp-%E9%80%9A%E4%BF%A1%E6%B5%81%E7%A8%8B">TCP 通信流程</a>
+<ul>
+<li><a href="#%E4%B8%89%E6%AC%A1%E6%8F%A1%E6%89%8B">三次握手</a></li>
+<li><a href="#%E5%9B%9B%E6%AC%A1%E6%8C%A5%E6%89%8B">四次挥手</a></li>
+</ul>
+</li>
+<li><a href="#%E6%BB%91%E5%8A%A8%E7%AA%97%E5%8F%A3">滑动窗口</a></li>
+<li><a href="#tcp-%E9%87%8D%E4%BC%A0%E6%9C%BA%E5%88%B6">TCP 重传机制</a>
+<ul>
+<li><a href="#%E8%B6%85%E6%97%B6%E9%87%8D%E4%BC%A0%E6%9C%BA%E5%88%B6">超时重传机制</a></li>
+<li><a href="#%E5%BF%AB%E9%80%9F%E9%87%8D%E4%BC%A0%E6%9C%BA%E5%88%B6">快速重传机制</a></li>
+</ul>
+</li>
+<li><a href="#%E5%8F%82%E8%80%83%E8%B5%84%E6%96%99">参考资料</a></li>
+</ul>
+<!-- /TOC -->
+<h2 id="简介"><a class="markdownIt-Anchor" href="#简介"></a> 简介</h2>
 <h3 id="什么是-tcp"><a class="markdownIt-Anchor" href="#什么是-tcp"></a> 什么是 TCP</h3>
 <p><strong>TCP（Transmission Control Protocol），即传输控制协议，它是一种<code>面向连接的</code>、<code>可靠的</code>、<code>基于字节流的</code>传输层通信协议</strong>。TCP 由 RFC 793 定义。</p>
 <div align="center"><img src="http://dunwu.test.upcdn.net/snap/1559263786555.png!zp"/></div>
@@ -491,8 +521,8 @@
 
           <div class="post-nav">
             <div class="post-nav-next post-nav-item">
-                <a href="/blog/network/websocket/" rel="next" title="网络协议之 Websocket">
-                  <i class="fa fa-chevron-left"></i> 网络协议之 Websocket
+                <a href="/blog/network/cdn/" rel="next" title="网络通信之 CDN">
+                  <i class="fa fa-chevron-left"></i> 网络通信之 CDN
                 </a>
             </div>
 
@@ -547,7 +577,7 @@
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
-          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#简介"><span class="nav-text"> 简介</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#什么是-tcp"><span class="nav-text"> 什么是 TCP</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#tcp-的特性"><span class="nav-text"> TCP 的特性</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#tcp-的适用场景"><span class="nav-text"> TCP 的适用场景</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#tcp-报文"><span class="nav-text"> TCP 报文</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#tcp-通信流程"><span class="nav-text"> TCP 通信流程</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#三次握手"><span class="nav-text"> 三次握手</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#四次挥手"><span class="nav-text"> 四次挥手</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#滑动窗口"><span class="nav-text"> 滑动窗口</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#tcp-重传机制"><span class="nav-text"> TCP 重传机制</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#超时重传机制"><span class="nav-text"> 超时重传机制</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#快速重传机制"><span class="nav-text"> 快速重传机制</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#参考资料"><span class="nav-text"> 参考资料</span></a></li></ol></div>
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#网络协议之-tcp"><span class="nav-text"> 网络协议之 TCP</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#简介"><span class="nav-text"> 简介</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#什么是-tcp"><span class="nav-text"> 什么是 TCP</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#tcp-的特性"><span class="nav-text"> TCP 的特性</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#tcp-的适用场景"><span class="nav-text"> TCP 的适用场景</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#tcp-报文"><span class="nav-text"> TCP 报文</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#tcp-通信流程"><span class="nav-text"> TCP 通信流程</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#三次握手"><span class="nav-text"> 三次握手</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#四次挥手"><span class="nav-text"> 四次挥手</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#滑动窗口"><span class="nav-text"> 滑动窗口</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#tcp-重传机制"><span class="nav-text"> TCP 重传机制</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#超时重传机制"><span class="nav-text"> 超时重传机制</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#快速重传机制"><span class="nav-text"> 快速重传机制</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#参考资料"><span class="nav-text"> 参考资料</span></a></li></ol></li></ol></div>
       </div>
       <!--/noindex-->
 
@@ -563,7 +593,7 @@
       <div class="site-state-item site-state-posts">
           <a href="/blog/archives/">
         
-          <span class="site-state-item-count">72</span>
+          <span class="site-state-item-count">74</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
@@ -576,7 +606,7 @@
       <div class="site-state-item site-state-tags">
             <a href="/blog/tags/">
           
-        <span class="site-state-item-count">44</span>
+        <span class="site-state-item-count">46</span>
         <span class="site-state-item-name">标签</span></a>
       </div>
   </nav>
@@ -626,7 +656,7 @@
     <span class="post-meta-item-icon">
       <i class="fa fa-coffee"></i>
     </span>
-    <span title="站点阅读时长">5:32</span>
+    <span title="站点阅读时长">5:31</span>
 </div>
 
         

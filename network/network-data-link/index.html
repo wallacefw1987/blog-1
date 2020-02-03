@@ -52,20 +52,20 @@
   };
 </script>
 
-  <meta name="description" content="数据链路层（Data Link Layer） - 网络层针对的还是主机之间的数据传输服务，而主机之间可以有很多链路，链路层协议就是为同一链路的主机提供数据传输服务。数据链路层把网络层传下来的分组封装成帧。  主要协议：PPP、CSMA&#x2F;CD 等。 数据单元：帧（frame）。 典型设备：二层交换机、网桥、网卡。    简介  链路是从一个节点到相邻节点的一段物理线路，数据链路则是在链路的基础上增">
+  <meta name="description" content="计算机网络之数据链路层  📦 本文已归档到：「blog」 数据链路层（Data Link Layer） - 网络层针对的还是主机之间的数据传输服务，而主机之间可以有很多链路，链路层协议就是为同一链路的主机提供数据传输服务。数据链路层把网络层传下来的分组封装成帧。  主要协议：PPP、CSMA&#x2F;CD 等。 数据单元：帧（frame）。 典型设备：二层交换机、网桥、网卡。     简介 基本问题">
 <meta name="keywords" content="网络,通信">
 <meta property="og:type" content="article">
 <meta property="og:title" content="计算机网络之数据链路层">
 <meta property="og:url" content="https:&#x2F;&#x2F;dunwu.github.io&#x2F;blog&#x2F;network&#x2F;network-data-link&#x2F;index.html">
 <meta property="og:site_name" content="Dunwu">
-<meta property="og:description" content="数据链路层（Data Link Layer） - 网络层针对的还是主机之间的数据传输服务，而主机之间可以有很多链路，链路层协议就是为同一链路的主机提供数据传输服务。数据链路层把网络层传下来的分组封装成帧。  主要协议：PPP、CSMA&#x2F;CD 等。 数据单元：帧（frame）。 典型设备：二层交换机、网桥、网卡。    简介  链路是从一个节点到相邻节点的一段物理线路，数据链路则是在链路的基础上增">
+<meta property="og:description" content="计算机网络之数据链路层  📦 本文已归档到：「blog」 数据链路层（Data Link Layer） - 网络层针对的还是主机之间的数据传输服务，而主机之间可以有很多链路，链路层协议就是为同一链路的主机提供数据传输服务。数据链路层把网络层传下来的分组封装成帧。  主要协议：PPP、CSMA&#x2F;CD 等。 数据单元：帧（frame）。 典型设备：二层交换机、网桥、网卡。     简介 基本问题">
 <meta property="og:locale" content="zh-CN">
 <meta property="og:image" content="http:&#x2F;&#x2F;dunwu.test.upcdn.net&#x2F;cs&#x2F;network&#x2F;data-link&#x2F;数据链路帧.png!zp">
 <meta property="og:image" content="http:&#x2F;&#x2F;dunwu.test.upcdn.net&#x2F;cs&#x2F;network&#x2F;data-link&#x2F;经过字节填充后发送的数据.png!zp">
 <meta property="og:image" content="http:&#x2F;&#x2F;dunwu.test.upcdn.net&#x2F;cs&#x2F;network&#x2F;data-link&#x2F;PPP协议.png!zp">
 <meta property="og:image" content="http:&#x2F;&#x2F;dunwu.test.upcdn.net&#x2F;cs&#x2F;network&#x2F;data-link&#x2F;PPP帧.png!zp">
 <meta property="og:image" content="http:&#x2F;&#x2F;dunwu.test.upcdn.net&#x2F;cs&#x2F;network&#x2F;data-link&#x2F;MAC帧.png!zp">
-<meta property="og:updated_time" content="2020-02-02T10:16:21.292Z">
+<meta property="og:updated_time" content="2020-02-03T02:31:26.886Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:image" content="http:&#x2F;&#x2F;dunwu.test.upcdn.net&#x2F;cs&#x2F;network&#x2F;data-link&#x2F;数据链路帧.png!zp">
 
@@ -161,7 +161,7 @@
   </li>
         <li class="menu-item menu-item-tags">
 
-    <a href="/blog/tags/" rel="section"><i class="fa fa-fw fa-tags"></i>标签<span class="badge">44</span></a>
+    <a href="/blog/tags/" rel="section"><i class="fa fa-fw fa-tags"></i>标签<span class="badge">46</span></a>
 
   </li>
         <li class="menu-item menu-item-categories">
@@ -171,7 +171,7 @@
   </li>
         <li class="menu-item menu-item-archives">
 
-    <a href="/blog/archives/" rel="section"><i class="fa fa-fw fa-archive"></i>归档<span class="badge">72</span></a>
+    <a href="/blog/archives/" rel="section"><i class="fa fa-fw fa-archive"></i>归档<span class="badge">74</span></a>
 
   </li>
       <li class="menu-item menu-item-search">
@@ -259,7 +259,7 @@
                   <i class="fa fa-calendar-check-o"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2020-02-02 18:16:21" itemprop="dateModified" datetime="2020-02-02T18:16:21+08:00">2020-02-02</time>
+                <time title="修改时间：2020-02-03 10:31:26" itemprop="dateModified" datetime="2020-02-03T10:31:26+08:00">2020-02-03</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -293,7 +293,7 @@
                 <i class="fa fa-file-word-o"></i>
               </span>
                 <span class="post-meta-item-text">本文字数：</span>
-              <span>2.4k</span>
+              <span>2.5k</span>
             </span>
             <span class="post-meta-item" title="阅读时长">
               <span class="post-meta-item-icon">
@@ -312,7 +312,9 @@
     <div class="post-body" itemprop="articleBody">
 
       
-        <blockquote>
+        <h1 id="计算机网络之数据链路层"><a class="markdownIt-Anchor" href="#计算机网络之数据链路层"></a> 计算机网络之数据链路层</h1>
+<blockquote>
+<p>📦 本文已归档到：「<a href="https://github.com/dunwu/blog" target="_blank" rel="noopener">blog</a>」</p>
 <p><strong>数据链路层（Data Link Layer）</strong> - 网络层针对的还是主机之间的数据传输服务，而主机之间可以有很多链路，链路层协议就是为同一链路的主机提供数据传输服务。数据链路层把网络层传下来的分组封装成帧。</p>
 <ul>
 <li>主要协议：<code>PPP</code>、<code>CSMA/CD</code> 等。</li>
@@ -320,6 +322,39 @@
 <li>典型设备：二层交换机、网桥、网卡。</li>
 </ul>
 </blockquote>
+<!-- TOC depthFrom:2 depthTo:3 -->
+<ul>
+<li><a href="#%E7%AE%80%E4%BB%8B">简介</a></li>
+<li><a href="#%E5%9F%BA%E6%9C%AC%E9%97%AE%E9%A2%98">基本问题</a>
+<ul>
+<li><a href="#%E5%B0%81%E8%A3%85%E6%88%90%E5%B8%A7">封装成帧</a></li>
+<li><a href="#%E9%80%8F%E6%98%8E%E4%BC%A0%E8%BE%93">透明传输</a></li>
+<li><a href="#%E5%B7%AE%E9%94%99%E6%A3%80%E6%B5%8B">差错检测</a></li>
+</ul>
+</li>
+<li><a href="#%E7%82%B9%E5%AF%B9%E7%82%B9%E4%BF%A1%E9%81%93">点对点信道</a>
+<ul>
+<li><a href="#ppp-%E5%8D%8F%E8%AE%AE">PPP 协议</a></li>
+</ul>
+</li>
+<li><a href="#%E5%B9%BF%E6%92%AD%E4%BF%A1%E9%81%93">广播信道</a>
+<ul>
+<li><a href="#csmacd-%E5%8D%8F%E8%AE%AE">CSMA/CD 协议</a></li>
+</ul>
+</li>
+<li><a href="#%E5%B1%80%E5%9F%9F%E7%BD%91">局域网</a></li>
+<li><a href="#%E4%BB%A5%E5%A4%AA%E7%BD%91">以太网</a></li>
+<li><a href="#mac-%E5%9C%B0%E5%9D%80">MAC 地址</a></li>
+<li><a href="#%E8%AE%BE%E5%A4%87">设备</a>
+<ul>
+<li><a href="#%E9%80%82%E9%85%8D%E5%99%A8">适配器</a></li>
+<li><a href="#%E9%9B%86%E7%BA%BF%E5%99%A8">集线器</a></li>
+<li><a href="#%E7%BD%91%E6%A1%A5">网桥</a></li>
+<li><a href="#%E4%BB%A5%E5%A4%AA%E7%BD%91%E4%BA%A4%E6%8D%A2%E6%9C%BA">以太网交换机</a></li>
+</ul>
+</li>
+</ul>
+<!-- /TOC -->
 <h2 id="简介"><a class="markdownIt-Anchor" href="#简介"></a> 简介</h2>
 <ul>
 <li>链路是从一个节点到相邻节点的一段物理线路，数据链路则是在链路的基础上增加了一些必要的硬件（网络适配器）和软件（协议）。</li>
@@ -429,16 +464,16 @@
 
           <div class="post-nav">
             <div class="post-nav-next post-nav-item">
-                <a href="/blog/network/network-network/" rel="next" title="计算机网络之网络层">
-                  <i class="fa fa-chevron-left"></i> 计算机网络之网络层
+                <a href="/blog/network/network-transport/" rel="next" title="计算机网络之传输层">
+                  <i class="fa fa-chevron-left"></i> 计算机网络之传输层
                 </a>
             </div>
 
             <span class="post-nav-divider"></span>
 
             <div class="post-nav-prev post-nav-item">
-                <a href="/blog/bigdata/hbase/hbase-ops/" rel="prev" title="HBase 维护">
-                  HBase 维护 <i class="fa fa-chevron-right"></i>
+                <a href="/blog/network/network-network/" rel="prev" title="计算机网络之网络层">
+                  计算机网络之网络层 <i class="fa fa-chevron-right"></i>
                 </a>
             </div>
           </div>
@@ -485,7 +520,7 @@
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
-          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#简介"><span class="nav-text"> 简介</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#基本问题"><span class="nav-text"> 基本问题</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#封装成帧"><span class="nav-text"> 封装成帧</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#透明传输"><span class="nav-text"> 透明传输</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#差错检测"><span class="nav-text"> 差错检测</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#点对点信道"><span class="nav-text"> 点对点信道</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#ppp-协议"><span class="nav-text"> PPP 协议</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#广播信道"><span class="nav-text"> 广播信道</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#csmacd-协议"><span class="nav-text"> CSMA/CD 协议</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#局域网"><span class="nav-text"> 局域网</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#以太网"><span class="nav-text"> 以太网</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#mac-地址"><span class="nav-text"> MAC 地址</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#设备"><span class="nav-text"> 设备</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#适配器"><span class="nav-text"> 适配器</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#集线器"><span class="nav-text"> 集线器</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#网桥"><span class="nav-text"> 网桥</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#以太网交换机"><span class="nav-text"> 以太网交换机</span></a></li></ol></li></ol></div>
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#计算机网络之数据链路层"><span class="nav-text"> 计算机网络之数据链路层</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#简介"><span class="nav-text"> 简介</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#基本问题"><span class="nav-text"> 基本问题</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#封装成帧"><span class="nav-text"> 封装成帧</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#透明传输"><span class="nav-text"> 透明传输</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#差错检测"><span class="nav-text"> 差错检测</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#点对点信道"><span class="nav-text"> 点对点信道</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#ppp-协议"><span class="nav-text"> PPP 协议</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#广播信道"><span class="nav-text"> 广播信道</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#csmacd-协议"><span class="nav-text"> CSMA/CD 协议</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#局域网"><span class="nav-text"> 局域网</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#以太网"><span class="nav-text"> 以太网</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#mac-地址"><span class="nav-text"> MAC 地址</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#设备"><span class="nav-text"> 设备</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#适配器"><span class="nav-text"> 适配器</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#集线器"><span class="nav-text"> 集线器</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#网桥"><span class="nav-text"> 网桥</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#以太网交换机"><span class="nav-text"> 以太网交换机</span></a></li></ol></li></ol></li></ol></div>
       </div>
       <!--/noindex-->
 
@@ -501,7 +536,7 @@
       <div class="site-state-item site-state-posts">
           <a href="/blog/archives/">
         
-          <span class="site-state-item-count">72</span>
+          <span class="site-state-item-count">74</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
@@ -514,7 +549,7 @@
       <div class="site-state-item site-state-tags">
             <a href="/blog/tags/">
           
-        <span class="site-state-item-count">44</span>
+        <span class="site-state-item-count">46</span>
         <span class="site-state-item-name">标签</span></a>
       </div>
   </nav>
@@ -564,7 +599,7 @@
     <span class="post-meta-item-icon">
       <i class="fa fa-coffee"></i>
     </span>
-    <span title="站点阅读时长">5:32</span>
+    <span title="站点阅读时长">5:31</span>
 </div>
 
         

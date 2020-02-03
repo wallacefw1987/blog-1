@@ -52,23 +52,23 @@
   };
 </script>
 
-  <meta name="description" content="分布式系统基本原理  📦 本文已归档到：「blog」    1. 分布式术语  1.1. 异常 1.2. 超时 1.3. 衡量指标   2. 分布式理论  2.1. CAP 2.2. BASE   3. 分布式事务  3.1. 两阶段提交（2PC） 3.2. 补偿事务（TCC） 3.3. 本地消息表（异步确保） 3.4. MQ 事务消息   4. 共识性问题  4.1. Paxos 4.2.">
+  <meta name="description" content="分布式系统基本原理  📦 本文已归档到：「blog」    1. 分布式术语  1.1. 异常 1.2. 超时 1.3. 衡量指标   2. 分布式基础理论 3. 分布式事务  3.1. 两阶段提交（2PC） 3.2. 补偿事务（TCC） 3.3. 本地消息表（异步确保） 3.4. MQ 事务消息   4. 分布式共识性算法  4.1. Paxos 4.2. Raft   5. 参考资料">
 <meta name="keywords" content="分布式">
 <meta property="og:type" content="article">
 <meta property="og:title" content="分布式系统基本原理">
 <meta property="og:url" content="https:&#x2F;&#x2F;dunwu.github.io&#x2F;blog&#x2F;distributed&#x2F;distributed-base-theory&#x2F;index.html">
 <meta property="og:site_name" content="Dunwu">
-<meta property="og:description" content="分布式系统基本原理  📦 本文已归档到：「blog」    1. 分布式术语  1.1. 异常 1.2. 超时 1.3. 衡量指标   2. 分布式理论  2.1. CAP 2.2. BASE   3. 分布式事务  3.1. 两阶段提交（2PC） 3.2. 补偿事务（TCC） 3.3. 本地消息表（异步确保） 3.4. MQ 事务消息   4. 共识性问题  4.1. Paxos 4.2.">
+<meta property="og:description" content="分布式系统基本原理  📦 本文已归档到：「blog」    1. 分布式术语  1.1. 异常 1.2. 超时 1.3. 衡量指标   2. 分布式基础理论 3. 分布式事务  3.1. 两阶段提交（2PC） 3.2. 补偿事务（TCC） 3.3. 本地消息表（异步确保） 3.4. MQ 事务消息   4. 分布式共识性算法  4.1. Paxos 4.2. Raft   5. 参考资料">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:image" content="http:&#x2F;&#x2F;dunwu.test.upcdn.net&#x2F;cs&#x2F;design&#x2F;architecture&#x2F;分布式理论-CAP.jpg">
-<meta property="og:image" content="http:&#x2F;&#x2F;dunwu.test.upcdn.net&#x2F;cs&#x2F;design&#x2F;architecture&#x2F;%E5%88%86%E5%B8%83%E5%BC%8F%E7%90%86%E8%AE%BA-BASE.png">
+<meta property="og:image" content="https:&#x2F;&#x2F;raw.githubusercontent.com&#x2F;dunwu&#x2F;images&#x2F;master&#x2F;snap&#x2F;20200202201007.png">
 <meta property="og:image" content="http:&#x2F;&#x2F;dunwu.test.upcdn.net&#x2F;cs&#x2F;design&#x2F;architecture&#x2F;分布式事务两阶段提交-01.jpg">
 <meta property="og:image" content="http:&#x2F;&#x2F;dunwu.test.upcdn.net&#x2F;cs&#x2F;design&#x2F;architecture&#x2F;分布式事务两阶段提交-02.jpg">
 <meta property="og:image" content="http:&#x2F;&#x2F;dunwu.test.upcdn.net&#x2F;cs&#x2F;design&#x2F;architecture&#x2F;分布式事务本地消息.jpg">
+<meta property="og:image" content="https:&#x2F;&#x2F;raw.githubusercontent.com&#x2F;dunwu&#x2F;images&#x2F;master&#x2F;snap&#x2F;20200202221611.png">
 <meta property="og:image" content="https:&#x2F;&#x2F;raw.githubusercontent.com&#x2F;dunwu&#x2F;images&#x2F;master&#x2F;snap&#x2F;20200201221202.png">
-<meta property="og:updated_time" content="2020-02-02T10:08:31.345Z">
+<meta property="og:updated_time" content="2020-02-02T14:21:46.727Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:image" content="http:&#x2F;&#x2F;dunwu.test.upcdn.net&#x2F;cs&#x2F;design&#x2F;architecture&#x2F;分布式理论-CAP.jpg">
+<meta name="twitter:image" content="https:&#x2F;&#x2F;raw.githubusercontent.com&#x2F;dunwu&#x2F;images&#x2F;master&#x2F;snap&#x2F;20200202201007.png">
 
 <link rel="canonical" href="https://dunwu.github.io/blog/distributed/distributed-base-theory/">
 
@@ -162,7 +162,7 @@
   </li>
         <li class="menu-item menu-item-tags">
 
-    <a href="/blog/tags/" rel="section"><i class="fa fa-fw fa-tags"></i>标签<span class="badge">44</span></a>
+    <a href="/blog/tags/" rel="section"><i class="fa fa-fw fa-tags"></i>标签<span class="badge">46</span></a>
 
   </li>
         <li class="menu-item menu-item-categories">
@@ -172,7 +172,7 @@
   </li>
         <li class="menu-item menu-item-archives">
 
-    <a href="/blog/archives/" rel="section"><i class="fa fa-fw fa-archive"></i>归档<span class="badge">72</span></a>
+    <a href="/blog/archives/" rel="section"><i class="fa fa-fw fa-archive"></i>归档<span class="badge">74</span></a>
 
   </li>
       <li class="menu-item menu-item-search">
@@ -260,7 +260,7 @@
                   <i class="fa fa-calendar-check-o"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2020-02-02 18:08:31" itemprop="dateModified" datetime="2020-02-02T18:08:31+08:00">2020-02-02</time>
+                <time title="修改时间：2020-02-02 22:21:46" itemprop="dateModified" datetime="2020-02-02T22:21:46+08:00">2020-02-02</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -294,14 +294,14 @@
                 <i class="fa fa-file-word-o"></i>
               </span>
                 <span class="post-meta-item-text">本文字数：</span>
-              <span>5.6k</span>
+              <span>3.3k</span>
             </span>
             <span class="post-meta-item" title="阅读时长">
               <span class="post-meta-item-icon">
                 <i class="fa fa-clock-o"></i>
               </span>
                 <span class="post-meta-item-text">阅读时长 &asymp;</span>
-              <span>5 分钟</span>
+              <span>3 分钟</span>
             </span>
 
         </div>
@@ -326,12 +326,7 @@
 <li><a href="#13-%E8%A1%A1%E9%87%8F%E6%8C%87%E6%A0%87">1.3. 衡量指标</a></li>
 </ul>
 </li>
-<li><a href="#2-%E5%88%86%E5%B8%83%E5%BC%8F%E7%90%86%E8%AE%BA">2. 分布式理论</a>
-<ul>
-<li><a href="#21-cap">2.1. CAP</a></li>
-<li><a href="#22-base">2.2. BASE</a></li>
-</ul>
-</li>
+<li><a href="#2-%E5%88%86%E5%B8%83%E5%BC%8F%E5%9F%BA%E7%A1%80%E7%90%86%E8%AE%BA">2. 分布式基础理论</a></li>
 <li><a href="#3-%E5%88%86%E5%B8%83%E5%BC%8F%E4%BA%8B%E5%8A%A1">3. 分布式事务</a>
 <ul>
 <li><a href="#31-%E4%B8%A4%E9%98%B6%E6%AE%B5%E6%8F%90%E4%BA%A42pc">3.1. 两阶段提交（2PC）</a></li>
@@ -340,7 +335,7 @@
 <li><a href="#34-mq-%E4%BA%8B%E5%8A%A1%E6%B6%88%E6%81%AF">3.4. MQ 事务消息</a></li>
 </ul>
 </li>
-<li><a href="#4-%E5%85%B1%E8%AF%86%E6%80%A7%E9%97%AE%E9%A2%98">4. 共识性问题</a>
+<li><a href="#4-%E5%88%86%E5%B8%83%E5%BC%8F%E5%85%B1%E8%AF%86%E6%80%A7%E7%AE%97%E6%B3%95">4. 分布式共识性算法</a>
 <ul>
 <li><a href="#41-paxos">4.1. Paxos</a></li>
 <li><a href="#42-raft">4.2. Raft</a></li>
@@ -378,41 +373,11 @@
 <p>可以从两个角度理解一致性：从客户端的角度，读写操作是否满足某种特性；从服务器的角度，多个数据副本之间是否一致。</p>
 <h4 id="可扩展性"><a class="markdownIt-Anchor" href="#可扩展性"></a> 可扩展性</h4>
 <p>指系统通过扩展集群服务器规模来提高性能的能力。理想的分布式系统需要实现“线性可扩展”，即随着集群规模的增加，系统的整体性能也会线性增加。</p>
-<h2 id="2-分布式理论"><a class="markdownIt-Anchor" href="#2-分布式理论"></a> 2. 分布式理论</h2>
-<h3 id="21-cap"><a class="markdownIt-Anchor" href="#21-cap"></a> 2.1. CAP</h3>
-<p>分布式系统不可能同时满足 <strong><code>一致性（C：Consistency）</code></strong>、<strong><code>可用性（A：Availability）</code><strong>和</strong><code>分区容忍性（P：Partition Tolerance）</code></strong>，最多只能同时满足其中两项。</p>
-<div align="center">
-<img src="http://dunwu.test.upcdn.net/cs/design/architecture/分布式理论-CAP.jpg" width="450"/>
-</div>
-<h4 id="一致性-2"><a class="markdownIt-Anchor" href="#一致性-2"></a> 一致性</h4>
-<p>一致性指的是<strong>多个数据副本是否能保持一致</strong>的特性。</p>
-<p>在一致性的条件下，系统在执行数据更新操作之后能够从一致性状态转移到另一个一致性状态。</p>
-<p>对系统的一个数据更新成功之后，如果所有用户都能够读取到最新的值，该系统就被认为具有强一致性。</p>
-<h4 id="可用性-2"><a class="markdownIt-Anchor" href="#可用性-2"></a> 可用性</h4>
-<p>可用性指<strong>分布式系统在面对各种异常时可以提供正常服务的能力</strong>，可以用系统可用时间占总时间的比值来衡量，4 个 9 的可用性表示系统 <code>99.99%</code> 的时间是可用的。</p>
-<p>在可用性条件下，系统提供的服务一直处于可用的状态，对于用户的每一个操作请求总是能够在有限的时间内返回结果。</p>
-<h4 id="分区容错性"><a class="markdownIt-Anchor" href="#分区容错性"></a> 分区容错性</h4>
-<p>分区容错性指 <strong>分布式系统在遇到任何网络分区故障的时候，仍然需要能对外提供一致性和可用性的服务，除非是整个网络环境都发生了故障</strong>。</p>
-<h4 id="权衡"><a class="markdownIt-Anchor" href="#权衡"></a> 权衡</h4>
-<p>在分布式系统中，分区容忍性必不可少，因为需要总是假设网络是不可靠的。因此，CAP 理论实际在是要在可用性和一致性之间做权衡。</p>
-<p>可用性和一致性往往是冲突的，很难都使它们同时满足。在多个节点之间进行数据同步时，</p>
-<ul>
-<li>为了保证一致性（CP），就需要让所有节点下线成为不可用的状态，等待同步完成；</li>
-<li>为了保证可用性（AP），在同步过程中允许读取所有节点的数据，但是数据可能不一致。</li>
-</ul>
-<h3 id="22-base"><a class="markdownIt-Anchor" href="#22-base"></a> 2.2. BASE</h3>
-<p>BASE 是 <strong><code>基本可用（Basically Available）</code></strong>、<strong><code>软状态（Soft State）</code></strong> 和 <strong><code>最终一致性（Eventually Consistent）</code></strong> 三个短语的缩写。</p>
-<p>BASE 理论是对 CAP 中一致性和可用性权衡的结果，它的理论的核心思想是：即使无法做到强一致性，但每个应用都可以根据自身业务特点，采用适当的方式来使系统达到最终一致性。</p>
-<p><img src="http://dunwu.test.upcdn.net/cs/design/architecture/%E5%88%86%E5%B8%83%E5%BC%8F%E7%90%86%E8%AE%BA-BASE.png" alt="img" /></p>
-<h4 id="基本可用"><a class="markdownIt-Anchor" href="#基本可用"></a> 基本可用</h4>
-<p>指分布式系统在出现故障的时候，保证核心可用，允许损失部分可用性。</p>
-<p>例如，电商在做促销时，为了保证购物系统的稳定性，部分消费者可能会被引导到一个降级的页面。</p>
-<h4 id="软状态"><a class="markdownIt-Anchor" href="#软状态"></a> 软状态</h4>
-<p>指允许系统中的数据存在中间状态，并认为该中间状态不会影响系统整体可用性，即允许系统不同节点的数据副本之间进行同步的过程存在延时。</p>
-<h4 id="最终一致性"><a class="markdownIt-Anchor" href="#最终一致性"></a> 最终一致性</h4>
-<p>最终一致性强调的是系统中所有的数据副本，在经过一段时间的同步后，最终能达到一致的状态。</p>
-<p>ACID 要求强一致性，通常运用在传统的数据库系统上。而 BASE 要求最终一致性，通过牺牲强一致性来达到可用性，通常运用在大型分布式系统中。</p>
-<p>在实际的分布式场景中，不同业务单元和组件对一致性的要求是不同的，因此 ACID 和 BASE 往往会结合在一起使用。</p>
+<h2 id="2-分布式基础理论"><a class="markdownIt-Anchor" href="#2-分布式基础理论"></a> 2. 分布式基础理论</h2>
+<p><img src="https://raw.githubusercontent.com/dunwu/images/master/snap/20200202201007.png" alt="img" /></p>
+<blockquote>
+<p>💡 CAP 和 BASE 详尽剖析，请参考：<a href="cap-and-base.md">CAP 定理和 BASE 理论</a></p>
+</blockquote>
 <h2 id="3-分布式事务"><a class="markdownIt-Anchor" href="#3-分布式事务"></a> 3. 分布式事务</h2>
 <h3 id="31-两阶段提交2pc"><a class="markdownIt-Anchor" href="#31-两阶段提交2pc"></a> 3.1. 两阶段提交（2PC）</h3>
 <p>两阶段提交（Two-phase Commit，2PC）</p>
@@ -491,45 +456,12 @@
 <li>优点：实现了最终一致性，不需要依赖本地数据库事务。</li>
 <li>缺点：实现难度大，主流 MQ 不支持。</li>
 </ul>
-<h2 id="4-分布式一致性算法"><a class="markdownIt-Anchor" href="#4-分布式一致性算法"></a> 4. 分布式一致性算法</h2>
+<h2 id="4-共识性算法"><a class="markdownIt-Anchor" href="#4-共识性算法"></a> 4. 共识性算法</h2>
 <h3 id="41-paxos"><a class="markdownIt-Anchor" href="#41-paxos"></a> 4.1. Paxos</h3>
-<p>用于达成共识性问题，即对多个节点产生的值，该算法能保证只选出唯一一个值。</p>
-<p>主要有三类节点：</p>
-<ul>
-<li>提议者（Proposer）：提议一个值；</li>
-<li>接受者（Acceptor）：对每个提议进行投票；</li>
-<li>告知者（Learner）：被告知投票的结果，不参与投票过程。</li>
-</ul>
-<p>算法需要满足 safety 和 liveness 两方面的约束要求（实际上这两个基础属性是大部分分布式算法都该考虑的）：</p>
-<ul>
-<li>safety：保证决议结果是对的，无歧义的，不会出现错误情况。
-<ul>
-<li>决议（value）只有在被 proposers 提出的 proposal 才能被最终批准；</li>
-<li>在一次执行实例中，只批准（chosen）一个最终决议，意味着多数接受（accept）的结果能成为决议；</li>
-</ul>
-</li>
-<li>liveness：保证决议过程能在有限时间内完成。
-<ul>
-<li>决议总会产生，并且 learners 能获得被批准（chosen）的决议。</li>
-</ul>
-</li>
-</ul>
-<p>基本过程包括 proposer 提出提案，先争取大多数 acceptor 的支持，超过一半支持时，则发送结案结果给所有人进行确认。一个潜在的问题是 proposer 在此过程中出现故障，可以通过超时机制来解决。极为凑巧的情况下，每次新的一轮提案的 proposer 都恰好故障，系统则永远无法达成一致（概率很小）。</p>
-<p>Paxos 能保证在超过 <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mn>1</mn><mi mathvariant="normal">/</mi><mn>2</mn></mrow><annotation encoding="application/x-tex">1/2</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord">1</span><span class="mord">/</span><span class="mord">2</span></span></span></span> 的正常节点存在时，系统能达成共识。</p>
-<h4 id="单个提案者多接收者"><a class="markdownIt-Anchor" href="#单个提案者多接收者"></a> 单个提案者+多接收者</h4>
-<p>如果系统中限定只有某个特定节点是提案者，那么一致性肯定能达成（只有一个方案，要么达成，要么失败）。提案者只要收到了来自多数接收者的投票，即可认为通过，因为系统中不存在其他的提案。</p>
-<p>但一旦提案者故障，则系统无法工作。</p>
-<h4 id="多个提案者单个接收者"><a class="markdownIt-Anchor" href="#多个提案者单个接收者"></a> 多个提案者+单个接收者</h4>
-<p>限定某个节点作为接收者。这种情况下，共识也很容易达成，接收者收到多个提案，选第一个提案作为决议，拒绝掉后续的提案即可。</p>
-<p>缺陷也是容易发生单点故障，包括接收者故障或首个提案者节点故障。</p>
-<p>以上两种情形其实类似主从模式，虽然不那么可靠，但因为原理简单而被广泛采用。</p>
-<p>当提案者和接收者都推广到多个的情形，会出现一些挑战。</p>
-<h4 id="多个提案者多个接收者"><a class="markdownIt-Anchor" href="#多个提案者多个接收者"></a> 多个提案者+多个接收者</h4>
-<p>既然限定单提案者或单接收者都会出现故障，那么就得允许出现多个提案者和多个接收者。问题一下子变得复杂了。</p>
-<p>一种情况是同一时间片段（如一个提案周期）内只有一个提案者，这时可以退化到单提案者的情形。需要设计一种机制来保障提案者的正确产生，例如按照时间、序列、或者大家猜拳（出一个数字来比较）之类。考虑到分布式系统要处理的工作量很大，这个过程要尽量高效，满足这一条件的机制非常难设计。</p>
-<p>另一种情况是允许同一时间片段内可以出现多个提案者。那同一个节点可能收到多份提案，怎么对他们进行区分呢？这个时候采用只接受第一个提案而拒绝后续提案的方法也不适用。很自然的，提案需要带上不同的序号。节点需要根据提案序号来判断接受哪个。比如接受其中序号较大（往往意味着是接受新提出的，因为旧提案者故障概率更大）的提案。</p>
-<p>如何为提案分配序号呢？一种可能方案是每个节点的提案数字区间彼此隔离开，互相不冲突。为了满足递增的需求可以配合用时间戳作为前缀字段。</p>
-<p>此外，提案者即便收到了多数接收者的投票，也不敢说就一定通过。因为在此过程中系统可能还有其它的提案。</p>
+<p><img src="https://raw.githubusercontent.com/dunwu/images/master/snap/20200202221611.png" alt="" /></p>
+<blockquote>
+<p>💡 Paxos 详尽剖析，请参考：<a href="paxos.md">深入剖析共识性算法 Paxos</a></p>
+</blockquote>
 <h3 id="42-raft"><a class="markdownIt-Anchor" href="#42-raft"></a> 4.2. Raft</h3>
 <p><img src="https://raw.githubusercontent.com/dunwu/images/master/snap/20200201221202.png" alt="" /></p>
 <blockquote>
@@ -633,7 +565,7 @@
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
-          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#分布式系统基本原理"><span class="nav-text"> 分布式系统基本原理</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#1-分布式术语"><span class="nav-text"> 1. 分布式术语</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#11-异常"><span class="nav-text"> 1.1. 异常</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#12-超时"><span class="nav-text"> 1.2. 超时</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#13-衡量指标"><span class="nav-text"> 1.3. 衡量指标</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#性能"><span class="nav-text"> 性能</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#可用性"><span class="nav-text"> 可用性</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#一致性"><span class="nav-text"> 一致性</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#可扩展性"><span class="nav-text"> 可扩展性</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-分布式理论"><span class="nav-text"> 2. 分布式理论</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#21-cap"><span class="nav-text"> 2.1. CAP</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#一致性-2"><span class="nav-text"> 一致性</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#可用性-2"><span class="nav-text"> 可用性</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#分区容错性"><span class="nav-text"> 分区容错性</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#权衡"><span class="nav-text"> 权衡</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#22-base"><span class="nav-text"> 2.2. BASE</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#基本可用"><span class="nav-text"> 基本可用</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#软状态"><span class="nav-text"> 软状态</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#最终一致性"><span class="nav-text"> 最终一致性</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#3-分布式事务"><span class="nav-text"> 3. 分布式事务</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#31-两阶段提交2pc"><span class="nav-text"> 3.1. 两阶段提交（2PC）</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#运行过程"><span class="nav-text"> 运行过程</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#问题"><span class="nav-text"> 问题</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#pc-优缺点"><span class="nav-text"> PC 优缺点</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#32-补偿事务tcc"><span class="nav-text"> 3.2. 补偿事务（TCC）</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#tcc-优缺点"><span class="nav-text"> TCC 优缺点</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#33-本地消息表异步确保"><span class="nav-text"> 3.3. 本地消息表（异步确保）</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#本地消息表优缺点"><span class="nav-text"> 本地消息表优缺点</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#34-mq-事务消息"><span class="nav-text"> 3.4. MQ 事务消息</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#mq-事务消息优缺点"><span class="nav-text"> MQ 事务消息优缺点</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#4-分布式一致性算法"><span class="nav-text"> 4. 分布式一致性算法</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#41-paxos"><span class="nav-text"> 4.1. Paxos</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#单个提案者多接收者"><span class="nav-text"> 单个提案者+多接收者</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#多个提案者单个接收者"><span class="nav-text"> 多个提案者+单个接收者</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#多个提案者多个接收者"><span class="nav-text"> 多个提案者+多个接收者</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#42-raft"><span class="nav-text"> 4.2. Raft</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#5-参考资料"><span class="nav-text"> 5. 参考资料</span></a></li></ol></li></ol></div>
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#分布式系统基本原理"><span class="nav-text"> 分布式系统基本原理</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#1-分布式术语"><span class="nav-text"> 1. 分布式术语</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#11-异常"><span class="nav-text"> 1.1. 异常</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#12-超时"><span class="nav-text"> 1.2. 超时</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#13-衡量指标"><span class="nav-text"> 1.3. 衡量指标</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#性能"><span class="nav-text"> 性能</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#可用性"><span class="nav-text"> 可用性</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#一致性"><span class="nav-text"> 一致性</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#可扩展性"><span class="nav-text"> 可扩展性</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-分布式基础理论"><span class="nav-text"> 2. 分布式基础理论</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#3-分布式事务"><span class="nav-text"> 3. 分布式事务</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#31-两阶段提交2pc"><span class="nav-text"> 3.1. 两阶段提交（2PC）</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#运行过程"><span class="nav-text"> 运行过程</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#问题"><span class="nav-text"> 问题</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#pc-优缺点"><span class="nav-text"> PC 优缺点</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#32-补偿事务tcc"><span class="nav-text"> 3.2. 补偿事务（TCC）</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#tcc-优缺点"><span class="nav-text"> TCC 优缺点</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#33-本地消息表异步确保"><span class="nav-text"> 3.3. 本地消息表（异步确保）</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#本地消息表优缺点"><span class="nav-text"> 本地消息表优缺点</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#34-mq-事务消息"><span class="nav-text"> 3.4. MQ 事务消息</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#mq-事务消息优缺点"><span class="nav-text"> MQ 事务消息优缺点</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#4-共识性算法"><span class="nav-text"> 4. 共识性算法</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#41-paxos"><span class="nav-text"> 4.1. Paxos</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#42-raft"><span class="nav-text"> 4.2. Raft</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#5-参考资料"><span class="nav-text"> 5. 参考资料</span></a></li></ol></li></ol></div>
       </div>
       <!--/noindex-->
 
@@ -649,7 +581,7 @@
       <div class="site-state-item site-state-posts">
           <a href="/blog/archives/">
         
-          <span class="site-state-item-count">72</span>
+          <span class="site-state-item-count">74</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
@@ -662,7 +594,7 @@
       <div class="site-state-item site-state-tags">
             <a href="/blog/tags/">
           
-        <span class="site-state-item-count">44</span>
+        <span class="site-state-item-count">46</span>
         <span class="site-state-item-name">标签</span></a>
       </div>
   </nav>
@@ -712,7 +644,7 @@
     <span class="post-meta-item-icon">
       <i class="fa fa-coffee"></i>
     </span>
-    <span title="站点阅读时长">5:32</span>
+    <span title="站点阅读时长">5:31</span>
 </div>
 
         

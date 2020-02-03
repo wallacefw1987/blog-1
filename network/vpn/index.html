@@ -52,18 +52,26 @@
   };
 </script>
 
-  <meta name="description" content="拜占庭将军问题 拜占庭将军问题是由莱斯利·兰波特在其同名论文中提出的分布式对等网络通信容错问题。 在分布式计算中，不同的节点通过通讯交换信息达成共识而按照同一套协作策略行动。但有时候，系统中的节点可能出错而发送错误的信息，用于传递信息的通讯网络也可能导致信息损坏，使得网络中不同的成员关于全体协作的策略得出不同结论，从而破坏系统一致性。拜占庭将军问题被认为是容错性问题中最难的问题类型之一。  问题">
-<meta name="keywords" content="分布式,共识性">
+  <meta name="description" content="网络通信之 VPN  📦 本文已归档到：「blog」     简介 VPN 的作用  隐藏 IP 和位置 通信加密 翻墙 避免被监听   工作原理 VPN 协议 VPN 服务 参考资料    简介 虚拟专用网络(VPN)的功能是：在公用网络上建立专用网络，进行加密通讯。在企业网络中有广泛应用。VPN 网关通过对数据包的加密和数据包目标地址的转换实现远程访问。VPN 可通过服务器、硬件、软件等多">
+<meta name="keywords" content="网络,通信,VPN">
 <meta property="og:type" content="article">
-<meta property="og:title" content="拜占庭将军问题">
-<meta property="og:url" content="https:&#x2F;&#x2F;dunwu.github.io&#x2F;blog&#x2F;distributed&#x2F;byzantine-generals&#x2F;index.html">
+<meta property="og:title" content="网络通信之 VPN">
+<meta property="og:url" content="https:&#x2F;&#x2F;dunwu.github.io&#x2F;blog&#x2F;network&#x2F;vpn&#x2F;index.html">
 <meta property="og:site_name" content="Dunwu">
-<meta property="og:description" content="拜占庭将军问题 拜占庭将军问题是由莱斯利·兰波特在其同名论文中提出的分布式对等网络通信容错问题。 在分布式计算中，不同的节点通过通讯交换信息达成共识而按照同一套协作策略行动。但有时候，系统中的节点可能出错而发送错误的信息，用于传递信息的通讯网络也可能导致信息损坏，使得网络中不同的成员关于全体协作的策略得出不同结论，从而破坏系统一致性。拜占庭将军问题被认为是容错性问题中最难的问题类型之一。  问题">
+<meta property="og:description" content="网络通信之 VPN  📦 本文已归档到：「blog」     简介 VPN 的作用  隐藏 IP 和位置 通信加密 翻墙 避免被监听   工作原理 VPN 协议 VPN 服务 参考资料    简介 虚拟专用网络(VPN)的功能是：在公用网络上建立专用网络，进行加密通讯。在企业网络中有广泛应用。VPN 网关通过对数据包的加密和数据包目标地址的转换实现远程访问。VPN 可通过服务器、硬件、软件等多">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:updated_time" content="2020-02-02T10:07:05.552Z">
+<meta property="og:image" content="https:&#x2F;&#x2F;raw.githubusercontent.com&#x2F;dunwu&#x2F;images&#x2F;master&#x2F;snap&#x2F;20200203095528.png">
+<meta property="og:image" content="https:&#x2F;&#x2F;raw.githubusercontent.com&#x2F;dunwu&#x2F;images&#x2F;master&#x2F;snap&#x2F;20200203100404.png">
+<meta property="og:image" content="https:&#x2F;&#x2F;raw.githubusercontent.com&#x2F;dunwu&#x2F;images&#x2F;master&#x2F;snap&#x2F;20200203100543.png">
+<meta property="og:image" content="https:&#x2F;&#x2F;raw.githubusercontent.com&#x2F;dunwu&#x2F;images&#x2F;master&#x2F;snap&#x2F;20200203100706.png">
+<meta property="og:image" content="https:&#x2F;&#x2F;raw.githubusercontent.com&#x2F;dunwu&#x2F;images&#x2F;master&#x2F;snap&#x2F;20200203100933.png">
+<meta property="og:image" content="https:&#x2F;&#x2F;raw.githubusercontent.com&#x2F;dunwu&#x2F;images&#x2F;master&#x2F;snap&#x2F;20200203102422.png">
+<meta property="og:image" content="https:&#x2F;&#x2F;raw.githubusercontent.com&#x2F;dunwu&#x2F;images&#x2F;master&#x2F;snap&#x2F;20200203102656.png">
+<meta property="og:updated_time" content="2020-02-03T02:29:15.702Z">
 <meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https:&#x2F;&#x2F;raw.githubusercontent.com&#x2F;dunwu&#x2F;images&#x2F;master&#x2F;snap&#x2F;20200203095528.png">
 
-<link rel="canonical" href="https://dunwu.github.io/blog/distributed/byzantine-generals/">
+<link rel="canonical" href="https://dunwu.github.io/blog/network/vpn/">
 
 
 <script id="page-configurations">
@@ -77,7 +85,7 @@
   };
 </script>
 
-  <title>拜占庭将军问题 | Dunwu</title>
+  <title>网络通信之 VPN | Dunwu</title>
   
 
 
@@ -155,7 +163,7 @@
   </li>
         <li class="menu-item menu-item-tags">
 
-    <a href="/blog/tags/" rel="section"><i class="fa fa-fw fa-tags"></i>标签<span class="badge">44</span></a>
+    <a href="/blog/tags/" rel="section"><i class="fa fa-fw fa-tags"></i>标签<span class="badge">46</span></a>
 
   </li>
         <li class="menu-item menu-item-categories">
@@ -165,7 +173,7 @@
   </li>
         <li class="menu-item menu-item-archives">
 
-    <a href="/blog/archives/" rel="section"><i class="fa fa-fw fa-archive"></i>归档<span class="badge">72</span></a>
+    <a href="/blog/archives/" rel="section"><i class="fa fa-fw fa-archive"></i>归档<span class="badge">74</span></a>
 
   </li>
       <li class="menu-item menu-item-search">
@@ -223,7 +231,7 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block " lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="https://dunwu.github.io/blog/blog/distributed/byzantine-generals/">
+    <link itemprop="mainEntityOfPage" href="https://dunwu.github.io/blog/blog/network/vpn/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/blog/images/avatar.gif">
@@ -236,7 +244,7 @@
     </span>
       <header class="post-header">
         <h2 class="post-title" itemprop="name headline">
-          拜占庭将军问题<a href="https://github.com/dunwu/blog/blob/master/source/_posts/distributed/byzantine-generals.md" class="post-edit-link" title="编辑" rel="noopener" target="_blank"><i class="fa fa-pencil"></i></a>
+          网络通信之 VPN<a href="https://github.com/dunwu/blog/blob/master/source/_posts/network/vpn.md" class="post-edit-link" title="编辑" rel="noopener" target="_blank"><i class="fa fa-pencil"></i></a>
         </h2>
 
         <div class="post-meta">
@@ -247,7 +255,7 @@
               <span class="post-meta-item-text">发表于</span>
               
 
-              <time title="创建时间：2020-02-02 12:00:00 / 修改时间：18:07:05" itemprop="dateCreated datePublished" datetime="2020-02-02T12:00:00+08:00">2020-02-02</time>
+              <time title="创建时间：2020-02-03 10:30:00 / 修改时间：10:29:15" itemprop="dateCreated datePublished" datetime="2020-02-03T10:30:00+08:00">2020-02-03</time>
             </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -255,8 +263,8 @@
               </span>
               <span class="post-meta-item-text">分类于</span>
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/blog/categories/%E5%88%86%E5%B8%83%E5%BC%8F/" itemprop="url" rel="index">
-                    <span itemprop="name">分布式</span>
+                  <a href="/blog/categories/%E7%BD%91%E7%BB%9C/" itemprop="url" rel="index">
+                    <span itemprop="name">网络</span>
                   </a>
                 </span>
             </span>
@@ -270,8 +278,8 @@
       </span>
       <span class="post-meta-item-text">Disqus：</span>
     
-    <a title="disqus" href="/blog/distributed/byzantine-generals/#comments" itemprop="discussionUrl">
-      <span class="post-comments-count disqus-comment-count" data-disqus-identifier="distributed/byzantine-generals/" itemprop="commentCount"></span>
+    <a title="disqus" href="/blog/network/vpn/#comments" itemprop="discussionUrl">
+      <span class="post-comments-count disqus-comment-count" data-disqus-identifier="network/vpn/" itemprop="commentCount"></span>
     </a>
   </span>
   
@@ -281,14 +289,14 @@
                 <i class="fa fa-file-word-o"></i>
               </span>
                 <span class="post-meta-item-text">本文字数：</span>
-              <span>748</span>
+              <span>2.1k</span>
             </span>
             <span class="post-meta-item" title="阅读时长">
               <span class="post-meta-item-icon">
                 <i class="fa fa-clock-o"></i>
               </span>
                 <span class="post-meta-item-text">阅读时长 &asymp;</span>
-              <span>1 分钟</span>
+              <span>2 分钟</span>
             </span>
 
         </div>
@@ -300,21 +308,109 @@
     <div class="post-body" itemprop="articleBody">
 
       
-        <h1 id="拜占庭将军问题"><a class="markdownIt-Anchor" href="#拜占庭将军问题"></a> 拜占庭将军问题</h1>
-<p>拜占庭将军问题是由<a href="https://zh.wikipedia.org/wiki/%E8%8E%B1%E6%96%AF%E5%88%A9%C2%B7%E5%85%B0%E6%B3%A2%E7%89%B9" target="_blank" rel="noopener">莱斯利·兰波特</a>在其同名论文中提出的<a href="https://zh.wikipedia.org/wiki/%E5%AF%B9%E7%AD%89%E7%BD%91%E7%BB%9C" target="_blank" rel="noopener">分布式对等网络</a>通信容错问题。</p>
-<p>在<a href="https://zh.wikipedia.org/wiki/%E5%88%86%E5%B8%83%E5%BC%8F%E8%A8%88%E7%AE%97" target="_blank" rel="noopener">分布式计算</a>中，不同的节点通过通讯交换信息达成共识而按照同一套协作策略行动。但有时候，系统中的节点可能出错而发送错误的信息，用于传递信息的通讯网络也可能导致信息损坏，使得网络中不同的成员关于全体协作的策略得出不同结论，从而破坏系统一致性。拜占庭将军问题被认为是容错性问题中最难的问题类型之一。</p>
-<h2 id="问题描述"><a class="markdownIt-Anchor" href="#问题描述"></a> 问题描述</h2>
-<p>一群拜占庭将军各领一支军队共同围困一座城市。</p>
-<p>为了简化问题，军队的行动策略只有两种：进攻（Attack，后面简称 A）或撤退（Retreat，后面简称 R）。如果这些军队不是统一进攻或撤退，就可能会造成灾难性后果，因此<strong>将军们必须通过投票来达成一致策略：同进或同退</strong>。</p>
-<p>因为将军们分别在城市的不同方位，所以他们只能<strong>通过信使互相联系</strong>。在投票过程中，<strong>每位将军都将自己的投票信息（A 或 R）通知其他所有将军</strong>，这样一来每位将军根据自己的投票和其他所有将军送来的信息就可以分析出共同的投票结果而决定行动策略。</p>
-<p>这个抽象模型的问题在于：将军中可能存在叛徒，他们不仅会发出误导性投票，还可能选择性地发送投票信息。</p>
-<p>由于将军之间需要通过信使通讯，叛变将军可能通过伪造信件来以其他将军的身份发送假投票。而即使在保证所有将军忠诚的情况下，也不能排除信使被敌人截杀，甚至被敌人间谍替换等情况。因此很难通过保证人员可靠性及通讯可靠性来解决问题。</p>
-<p>假使那些忠诚（或是没有出错）的将军仍然能通过多数决定来决定他们的战略，便称达到了拜占庭容错。在此，票都会有一个默认值，若消息（票）没有被收到，则使用此默认值来投票。</p>
-<p>上述的故事映射到分布式系统里，将军便成了机器节点，而信差就是通信系统。</p>
+        <h1 id="网络通信之-vpn"><a class="markdownIt-Anchor" href="#网络通信之-vpn"></a> 网络通信之 VPN</h1>
+<blockquote>
+<p>📦 本文已归档到：「<a href="https://github.com/dunwu/blog" target="_blank" rel="noopener">blog</a>」</p>
+</blockquote>
+<p><img src="https://raw.githubusercontent.com/dunwu/images/master/snap/20200203095528.png" alt="img" /></p>
+<!-- TOC depthFrom:2 depthTo:3 -->
+<ul>
+<li><a href="#%E7%AE%80%E4%BB%8B">简介</a></li>
+<li><a href="#vpn-%E7%9A%84%E4%BD%9C%E7%94%A8">VPN 的作用</a>
+<ul>
+<li><a href="#%E9%9A%90%E8%97%8F-ip-%E5%92%8C%E4%BD%8D%E7%BD%AE">隐藏 IP 和位置</a></li>
+<li><a href="#%E9%80%9A%E4%BF%A1%E5%8A%A0%E5%AF%86">通信加密</a></li>
+<li><a href="#%E7%BF%BB%E5%A2%99">翻墙</a></li>
+<li><a href="#%E9%81%BF%E5%85%8D%E8%A2%AB%E7%9B%91%E5%90%AC">避免被监听</a></li>
+</ul>
+</li>
+<li><a href="#%E5%B7%A5%E4%BD%9C%E5%8E%9F%E7%90%86">工作原理</a></li>
+<li><a href="#vpn-%E5%8D%8F%E8%AE%AE">VPN 协议</a></li>
+<li><a href="#vpn-%E6%9C%8D%E5%8A%A1">VPN 服务</a></li>
+<li><a href="#%E5%8F%82%E8%80%83%E8%B5%84%E6%96%99">参考资料</a></li>
+</ul>
+<!-- /TOC -->
+<h2 id="简介"><a class="markdownIt-Anchor" href="#简介"></a> 简介</h2>
+<p>虚拟专用网络(VPN)的功能是：在公用网络上建立专用网络，进行加密通讯。在企业网络中有广泛应用。VPN 网关通过对数据包的加密和数据包目标地址的转换实现远程访问。VPN 可通过服务器、硬件、软件等多种方式实现。</p>
+<p>VPN 属于远程访问技术，简单地说就是利用公用网络架设专用网络。例如某公司员工出差到外地，他想访问企业内网的服务器资源，这种访问就属于远程访问。<br />
+在传统的企业网络配置中，要进行远程访问，传统的方法是租用 DDN（数字数据网）专线或帧中继，这样的通讯方案必然导致高昂的网络通讯和维护费用。对于移动用户（移动办公人员）与远端个人用户而言，一般会通过拨号线路（Internet）进入企业的局域网，但这样必然带来安全上的隐患。<br />
+让外地员工访问到内网资源，利用 VPN 的解决方法就是在内网中架设一台 VPN 服务器。外地员工在当地连上互联网后，通过互联网连接 VPN 服务器，然后通过 VPN 服务器进入企业内网。为了保证数据安全，VPN 服务器和客户机之间的通讯数据都进行了加密处理。有了数据加密，就可以认为数据是在一条专用的数据链路上进行安全传输，就如同专门架设了一个专用网络一样，但实际上 VPN 使用的是互联网上的公用链路，因此 VPN 称为虚拟专用网络，其实质上就是利用加密技术在公网上封装出一个数据通讯隧道。有了 VPN 技术，用户无论是在外地出差还是在家中办公，只要能上互联网就能利用 VPN 访问内网资源，这就是 VPN 在企业中应用得如此广泛的原因。</p>
+<h2 id="vpn-的作用"><a class="markdownIt-Anchor" href="#vpn-的作用"></a> VPN 的作用</h2>
+<h3 id="隐藏-ip-和位置"><a class="markdownIt-Anchor" href="#隐藏-ip-和位置"></a> 隐藏 IP 和位置</h3>
+<p><img src="https://raw.githubusercontent.com/dunwu/images/master/snap/20200203100404.png" alt="img" /></p>
+<p>VPN 可以隐藏使用者的 IP 地址和位置。</p>
+<p>使用 VPN 的最常见原因之一是屏蔽您的真实 IP 地址。</p>
+<p>您的 IP 地址是由 ISP 分配的唯一数字地址。 您在线上所做的所有事情都链接到您的 IP 地址，因此可以用来将您与在线活动进行匹配。 大多数网站记录其访问者的 IP 地址。</p>
+<p>广告商还可以使用您的 IP 地址，根据您的身份和浏览历史为您提供有针对性的广告。</p>
+<p>连接到 VPN 服务器时，您将使用该 VPN 服务器的 IP 地址。 您访问的任何网站都会看到 VPN 服务器的 IP 地址，而不是您自己的。</p>
+<p>您将能够绕过 IP 地址阻止并浏览网站，而不会将您的活动作为一个个人追溯到您。</p>
+<h3 id="通信加密"><a class="markdownIt-Anchor" href="#通信加密"></a> 通信加密</h3>
+<p><img src="https://raw.githubusercontent.com/dunwu/images/master/snap/20200203100543.png" alt="img" /></p>
+<p>使用 VPN 时，可以对信息进行加密，使得密码，电子邮件，照片，银行数据和其他敏感信息不会被拦截。</p>
+<p>如果在公共场所使用公共 WiFi 连接网络时，敏感数据有被盗的风险。黑客可以利用开放和未加密的网络来窃取重要数据，例如您的密码，电子邮件，照片，银行数据和其他敏感信息。</p>
+<p>VPN 可以加密信息，使黑客更难以拦截和窃取数据。</p>
+<h3 id="翻墙"><a class="markdownIt-Anchor" href="#翻墙"></a> 翻墙</h3>
+<p><img src="https://raw.githubusercontent.com/dunwu/images/master/snap/20200203100706.png" alt="img" /></p>
+<p>轻松解除对 Facebook 和 Twitter，Skype，YouTube 和 Gmail 等网站和服务的阻止。 即使您被告知您所在的国家/地区不可用它，或者您所在的学校或办公室网络限制访问，也可以获取所需的东西。</p>
+<p>某些服务（例如 Netflix 或 BBC iPlayer）会根据您访问的国家/地区限制访问内容。使用 VPN 可以绕过这些地理限制并解锁“隐藏”内容的唯一可靠方法。</p>
+<h3 id="避免被监听"><a class="markdownIt-Anchor" href="#避免被监听"></a> 避免被监听</h3>
+<p><img src="https://raw.githubusercontent.com/dunwu/images/master/snap/20200203100933.png" alt="img" /></p>
+<p>使用 VPN 可以向政府、ISP、黑客隐藏通信信息。</p>
+<p>您的 Internet 服务提供商（ISP）可以看到您访问的所有网站，并且几乎可以肯定会记录该信息。</p>
+<p>在某些国家/地区，ISP 需要长时间收集和存储用户数据，并且政府能够访问，存储和搜索该信息。</p>
+<p>在美国，英国，澳大利亚和欧洲大部分地区就是这种情况，仅举几例。</p>
+<p>由于 VPN 会加密从设备到 VPN 服务器的互联网流量，因此您的 ISP 或任何其他第三方将无法监视您的在线活动。</p>
+<p>要了解有关监视技术和全球大规模监视问题的更多信息，请访问 EFF 和 Privacy International。 您还可以在此处找到全球监视披露的更新列表。</p>
+<h2 id="工作原理"><a class="markdownIt-Anchor" href="#工作原理"></a> 工作原理</h2>
+<p>VPN 会在您的设备和私人服务器之间建立私人和加密的互联网连接。 这意味着您的数据无法被 ISP 或任何其他第三方读取或理解。 然后，私有服务器将您的流量发送到您要访问的网站或服务上。</p>
+<p><img src="https://raw.githubusercontent.com/dunwu/images/master/snap/20200203102422.png" alt="" /></p>
+<p>VPN 的基本处理过程如下：</p>
+<ol>
+<li>要保护主机发送明文信息到其他 VPN 设备。</li>
+<li>VPN 设备根据网络管理员设置的规则，确定是对数据进行加密还是直接传输。</li>
+<li>对需要加密的数据，VPN 设备将其整个数据包（包括要传输的数据、源 IP 地址和目的 lP 地址）进行加密并附上数据签名，加上新的数据报头（包括目的地 VPN 设备需要的安全信息和一些初始化参数）重新封装。</li>
+<li>将封装后的数据包通过隧道在公共网络上传输。</li>
+<li>数据包到达目的 VPN 设备后，将其解封，核对数字签名无误后，对数据包解密。</li>
+</ol>
+<h2 id="vpn-协议"><a class="markdownIt-Anchor" href="#vpn-协议"></a> VPN 协议</h2>
+<p><img src="https://raw.githubusercontent.com/dunwu/images/master/snap/20200203102656.png" alt="" /></p>
+<ul>
+<li>
+<p>OpenVPN</p>
+</li>
+<li>
+<p>IKEv2 / IPSec</p>
+</li>
+<li>
+<p>SSTP</p>
+</li>
+<li>
+<p>PPTP</p>
+</li>
+<li>
+<p>Wireguard</p>
+</li>
+</ul>
+<h2 id="vpn-服务"><a class="markdownIt-Anchor" href="#vpn-服务"></a> VPN 服务</h2>
+<p>你可以选择付费 VPN 或自行搭建 VPN。</p>
+<p>VPN 服务商：</p>
+<ul>
+<li><a href="https://go.nordvpn.net/aff_c?offer_id=15&amp;aff_id=22023&amp;url_id=902" target="_blank" rel="noopener">NordVPN</a></li>
+<li><a href="https://www.linkev.com/?a_fid=techacro" target="_blank" rel="noopener">ExpressVPN</a></li>
+<li><a href="https://cybertool.co/tchacrobat_fs_izci9mc6y" target="_blank" rel="noopener">CyberGhostVPN</a></li>
+<li><a href="https://click.tunnelbear.com/aff_c?offer_id=36&amp;aff_id=7306" target="_blank" rel="noopener">TunnelBear</a></li>
+<li><a href="https://www.ipvanish.com/" target="_blank" rel="noopener">IPVanish</a></li>
+</ul>
+<p>开源 VPN：</p>
+<ul>
+<li><a href="https://openvpn.net/" target="_blank" rel="noopener">OpenVPN</a></li>
+</ul>
 <h2 id="参考资料"><a class="markdownIt-Anchor" href="#参考资料"></a> 参考资料</h2>
 <ul>
-<li><a href="https://zh.wikipedia.org/wiki/%E6%8B%9C%E5%8D%A0%E5%BA%AD%E5%B0%86%E5%86%9B%E9%97%AE%E9%A2%98" target="_blank" rel="noopener">Wiki - 拜占庭将军问题</a></li>
-<li><a href="https://www.bilibili.com/video/av78588312/" target="_blank" rel="noopener">李永乐老师的拜占庭将军问题视频讲解</a></li>
+<li><a href="https://baike.baidu.com/item/%E8%99%9A%E6%8B%9F%E4%B8%93%E7%94%A8%E7%BD%91%E7%BB%9C" target="_blank" rel="noopener">百度百科 - VPN</a></li>
+<li><a href="https://www.expressvpn.com/what-is-vpn" target="_blank" rel="noopener">What is a VPN</a></li>
+<li><a href="https://www.youtube.com/watch?v=_wQTRMBAvzg" target="_blank" rel="noopener">What is a VPN and How Does it Work</a></li>
+<li><a href="https://www.top10vpn.com/guides/what-is-a-vpn/" target="_blank" rel="noopener">What Is a VPN (Virtual Private Network) and How Does It Work?</a></li>
 </ul>
 
     </div>
@@ -331,7 +427,7 @@
   </li>
   <li class="post-copyright-link">
     <strong>本文链接：</strong>
-    <a href="https://dunwu.github.io/blog/distributed/byzantine-generals/" title="拜占庭将军问题">https://dunwu.github.io/blog/distributed/byzantine-generals/</a>
+    <a href="https://dunwu.github.io/blog/network/vpn/" title="网络通信之 VPN">https://dunwu.github.io/blog/network/vpn/</a>
   </li>
   <li class="post-copyright-license">
     <strong>版权声明： </strong>本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh" rel="noopener" target="_blank"><i class="fa fa-fw fa-creative-commons"></i>BY-NC-SA</a> 许可协议。转载请注明出处！
@@ -342,25 +438,23 @@
 
       <footer class="post-footer">
           <div class="post-tags">
-              <a href="/blog/tags/%E5%88%86%E5%B8%83%E5%BC%8F/" rel="tag"># 分布式</a>
-              <a href="/blog/tags/%E5%85%B1%E8%AF%86%E6%80%A7/" rel="tag"># 共识性</a>
+              <a href="/blog/tags/%E7%BD%91%E7%BB%9C/" rel="tag"># 网络</a>
+              <a href="/blog/tags/%E9%80%9A%E4%BF%A1/" rel="tag"># 通信</a>
+              <a href="/blog/tags/VPN/" rel="tag"># VPN</a>
           </div>
 
         
 
           <div class="post-nav">
             <div class="post-nav-next post-nav-item">
-                <a href="/blog/distributed/raft/" rel="next" title="深入剖析共识性算法 Raft">
-                  <i class="fa fa-chevron-left"></i> 深入剖析共识性算法 Raft
+                <a href="/blog/distributed/paxos/" rel="next" title="深入剖析共识性算法 Paxos">
+                  <i class="fa fa-chevron-left"></i> 深入剖析共识性算法 Paxos
                 </a>
             </div>
 
             <span class="post-nav-divider"></span>
 
             <div class="post-nav-prev post-nav-item">
-                <a href="/blog/distributed/paxos/" rel="prev" title="深入剖析共识性算法 Paxos">
-                  深入剖析共识性算法 Paxos <i class="fa fa-chevron-right"></i>
-                </a>
             </div>
           </div>
       </footer>
@@ -406,7 +500,7 @@
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
-          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#拜占庭将军问题"><span class="nav-text"> 拜占庭将军问题</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#问题描述"><span class="nav-text"> 问题描述</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#参考资料"><span class="nav-text"> 参考资料</span></a></li></ol></li></ol></div>
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#网络通信之-vpn"><span class="nav-text"> 网络通信之 VPN</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#简介"><span class="nav-text"> 简介</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#vpn-的作用"><span class="nav-text"> VPN 的作用</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#隐藏-ip-和位置"><span class="nav-text"> 隐藏 IP 和位置</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#通信加密"><span class="nav-text"> 通信加密</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#翻墙"><span class="nav-text"> 翻墙</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#避免被监听"><span class="nav-text"> 避免被监听</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#工作原理"><span class="nav-text"> 工作原理</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#vpn-协议"><span class="nav-text"> VPN 协议</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#vpn-服务"><span class="nav-text"> VPN 服务</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#参考资料"><span class="nav-text"> 参考资料</span></a></li></ol></li></ol></div>
       </div>
       <!--/noindex-->
 
@@ -422,7 +516,7 @@
       <div class="site-state-item site-state-posts">
           <a href="/blog/archives/">
         
-          <span class="site-state-item-count">72</span>
+          <span class="site-state-item-count">74</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
@@ -435,7 +529,7 @@
       <div class="site-state-item site-state-tags">
             <a href="/blog/tags/">
           
-        <span class="site-state-item-count">44</span>
+        <span class="site-state-item-count">46</span>
         <span class="site-state-item-name">标签</span></a>
       </div>
   </nav>
@@ -485,7 +579,7 @@
     <span class="post-meta-item-icon">
       <i class="fa fa-coffee"></i>
     </span>
-    <span title="站点阅读时长">5:32</span>
+    <span title="站点阅读时长">5:31</span>
 </div>
 
         
@@ -557,9 +651,9 @@
       DISQUS.reset({
         reload: true,
         config: {page: {
-            url: "https://dunwu.github.io/blog/distributed/byzantine-generals/",
-            identifier: "distributed/byzantine-generals/",
-            title: "拜占庭将军问题"
+            url: "https://dunwu.github.io/blog/network/vpn/",
+            identifier: "network/vpn/",
+            title: "网络通信之 VPN"
           }
         }
       });

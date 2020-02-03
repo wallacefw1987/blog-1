@@ -52,13 +52,13 @@
   };
 </script>
 
-  <meta name="description" content="网络层只把分组发送到目的主机，但是真正通信的并不是主机而是主机中的进程。传输层提供了进程间的逻辑通信，传输层向高层用户屏蔽了下面网络层的核心细节，使应用程序看起来像是在两个传输层实体之间有一条端到端的逻辑通信信道。   UDP 和 TCP 的特点   用户数据报协议 UDP（User Datagram Protocol）是无连接的，尽最大可能交付，没有拥塞控制，面向报文（对于应用程序传下来的报文">
+  <meta name="description" content="计算机网络之传输层  📦 本文已归档到：「blog」 网络层只把分组发送到目的主机，但是真正通信的并不是主机而是主机中的进程。传输层提供了进程间的逻辑通信，传输层向高层用户屏蔽了下面网络层的核心细节，使应用程序看起来像是在两个传输层实体之间有一条端到端的逻辑通信信道。    UDP 和 TCP 的特点 UDP 首部格式 TCP 首部格式 TCP 的三次握手 TCP 的四次挥手 TCP 可靠传输">
 <meta name="keywords" content="网络,通信">
 <meta property="og:type" content="article">
 <meta property="og:title" content="计算机网络之传输层">
 <meta property="og:url" content="https:&#x2F;&#x2F;dunwu.github.io&#x2F;blog&#x2F;network&#x2F;network-transport&#x2F;index.html">
 <meta property="og:site_name" content="Dunwu">
-<meta property="og:description" content="网络层只把分组发送到目的主机，但是真正通信的并不是主机而是主机中的进程。传输层提供了进程间的逻辑通信，传输层向高层用户屏蔽了下面网络层的核心细节，使应用程序看起来像是在两个传输层实体之间有一条端到端的逻辑通信信道。   UDP 和 TCP 的特点   用户数据报协议 UDP（User Datagram Protocol）是无连接的，尽最大可能交付，没有拥塞控制，面向报文（对于应用程序传下来的报文">
+<meta property="og:description" content="计算机网络之传输层  📦 本文已归档到：「blog」 网络层只把分组发送到目的主机，但是真正通信的并不是主机而是主机中的进程。传输层提供了进程间的逻辑通信，传输层向高层用户屏蔽了下面网络层的核心细节，使应用程序看起来像是在两个传输层实体之间有一条端到端的逻辑通信信道。    UDP 和 TCP 的特点 UDP 首部格式 TCP 首部格式 TCP 的三次握手 TCP 的四次挥手 TCP 可靠传输">
 <meta property="og:locale" content="zh-CN">
 <meta property="og:image" content="http:&#x2F;&#x2F;dunwu.test.upcdn.net&#x2F;cs&#x2F;network&#x2F;transport&#x2F;1551092392065.png!zp">
 <meta property="og:image" content="http:&#x2F;&#x2F;dunwu.test.upcdn.net&#x2F;cs&#x2F;network&#x2F;transport&#x2F;1551092419042.png!zp">
@@ -70,7 +70,7 @@
 <meta property="og:image" content="http:&#x2F;&#x2F;dunwu.test.upcdn.net&#x2F;cs&#x2F;network&#x2F;transport&#x2F;1551092981695.png!zp">
 <meta property="og:image" content="http:&#x2F;&#x2F;dunwu.test.upcdn.net&#x2F;cs&#x2F;network&#x2F;transport&#x2F;1551093119265.png!zp">
 <meta property="og:image" content="http:&#x2F;&#x2F;dunwu.test.upcdn.net&#x2F;cs&#x2F;network&#x2F;transport&#x2F;1551093167163.png!zp">
-<meta property="og:updated_time" content="2020-02-02T10:16:21.142Z">
+<meta property="og:updated_time" content="2020-02-03T02:32:52.237Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:image" content="http:&#x2F;&#x2F;dunwu.test.upcdn.net&#x2F;cs&#x2F;network&#x2F;transport&#x2F;1551092392065.png!zp">
 
@@ -166,7 +166,7 @@
   </li>
         <li class="menu-item menu-item-tags">
 
-    <a href="/blog/tags/" rel="section"><i class="fa fa-fw fa-tags"></i>标签<span class="badge">44</span></a>
+    <a href="/blog/tags/" rel="section"><i class="fa fa-fw fa-tags"></i>标签<span class="badge">46</span></a>
 
   </li>
         <li class="menu-item menu-item-categories">
@@ -176,7 +176,7 @@
   </li>
         <li class="menu-item menu-item-archives">
 
-    <a href="/blog/archives/" rel="section"><i class="fa fa-fw fa-archive"></i>归档<span class="badge">72</span></a>
+    <a href="/blog/archives/" rel="section"><i class="fa fa-fw fa-archive"></i>归档<span class="badge">74</span></a>
 
   </li>
       <li class="menu-item menu-item-search">
@@ -264,7 +264,7 @@
                   <i class="fa fa-calendar-check-o"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2020-02-02 18:16:21" itemprop="dateModified" datetime="2020-02-02T18:16:21+08:00">2020-02-02</time>
+                <time title="修改时间：2020-02-03 10:32:52" itemprop="dateModified" datetime="2020-02-03T10:32:52+08:00">2020-02-03</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -298,7 +298,7 @@
                 <i class="fa fa-file-word-o"></i>
               </span>
                 <span class="post-meta-item-text">本文字数：</span>
-              <span>3.3k</span>
+              <span>3.4k</span>
             </span>
             <span class="post-meta-item" title="阅读时长">
               <span class="post-meta-item-icon">
@@ -317,9 +317,29 @@
     <div class="post-body" itemprop="articleBody">
 
       
-        <blockquote>
+        <h1 id="计算机网络之传输层"><a class="markdownIt-Anchor" href="#计算机网络之传输层"></a> 计算机网络之传输层</h1>
+<blockquote>
+<p>📦 本文已归档到：「<a href="https://github.com/dunwu/blog" target="_blank" rel="noopener">blog</a>」</p>
 <p>网络层只把分组发送到目的主机，但是真正通信的并不是主机而是主机中的进程。传输层提供了进程间的逻辑通信，传输层向高层用户屏蔽了下面网络层的核心细节，使应用程序看起来像是在两个传输层实体之间有一条端到端的逻辑通信信道。</p>
 </blockquote>
+<!-- TOC depthFrom:2 depthTo:3 -->
+<ul>
+<li><a href="#udp-%E5%92%8C-tcp-%E7%9A%84%E7%89%B9%E7%82%B9">UDP 和 TCP 的特点</a></li>
+<li><a href="#udp-%E9%A6%96%E9%83%A8%E6%A0%BC%E5%BC%8F">UDP 首部格式</a></li>
+<li><a href="#tcp-%E9%A6%96%E9%83%A8%E6%A0%BC%E5%BC%8F">TCP 首部格式</a></li>
+<li><a href="#tcp-%E7%9A%84%E4%B8%89%E6%AC%A1%E6%8F%A1%E6%89%8B">TCP 的三次握手</a></li>
+<li><a href="#tcp-%E7%9A%84%E5%9B%9B%E6%AC%A1%E6%8C%A5%E6%89%8B">TCP 的四次挥手</a></li>
+<li><a href="#tcp-%E5%8F%AF%E9%9D%A0%E4%BC%A0%E8%BE%93">TCP 可靠传输</a></li>
+<li><a href="#tcp-%E6%BB%91%E5%8A%A8%E7%AA%97%E5%8F%A3">TCP 滑动窗口</a></li>
+<li><a href="#tcp-%E6%B5%81%E9%87%8F%E6%8E%A7%E5%88%B6">TCP 流量控制</a></li>
+<li><a href="#tcp-%E6%8B%A5%E5%A1%9E%E6%8E%A7%E5%88%B6">TCP 拥塞控制</a>
+<ul>
+<li><a href="#1-%E6%85%A2%E5%BC%80%E5%A7%8B%E4%B8%8E%E6%8B%A5%E5%A1%9E%E9%81%BF%E5%85%8D">1. 慢开始与拥塞避免</a></li>
+<li><a href="#2-%E5%BF%AB%E9%87%8D%E4%BC%A0%E4%B8%8E%E5%BF%AB%E6%81%A2%E5%A4%8D">2. 快重传与快恢复</a></li>
+</ul>
+</li>
+</ul>
+<!-- /TOC -->
 <h2 id="udp-和-tcp-的特点"><a class="markdownIt-Anchor" href="#udp-和-tcp-的特点"></a> UDP 和 TCP 的特点</h2>
 <ul>
 <li>
@@ -483,16 +503,16 @@
 
           <div class="post-nav">
             <div class="post-nav-next post-nav-item">
-                <a href="/blog/bigdata/hbase/README/" rel="next" title="HBase">
-                  <i class="fa fa-chevron-left"></i> HBase
+                <a href="/blog/efficiency/style/dir-style/" rel="next" title="合理对文档进行归类">
+                  <i class="fa fa-chevron-left"></i> 合理对文档进行归类
                 </a>
             </div>
 
             <span class="post-nav-divider"></span>
 
             <div class="post-nav-prev post-nav-item">
-                <a href="/blog/design/architecture/README/" rel="prev" title="架构设计">
-                  架构设计 <i class="fa fa-chevron-right"></i>
+                <a href="/blog/network/network-data-link/" rel="prev" title="计算机网络之数据链路层">
+                  计算机网络之数据链路层 <i class="fa fa-chevron-right"></i>
                 </a>
             </div>
           </div>
@@ -539,7 +559,7 @@
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
-          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#udp-和-tcp-的特点"><span class="nav-text"> UDP 和 TCP 的特点</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#udp-首部格式"><span class="nav-text"> UDP 首部格式</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#tcp-首部格式"><span class="nav-text"> TCP 首部格式</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#tcp-的三次握手"><span class="nav-text"> TCP 的三次握手</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#tcp-的四次挥手"><span class="nav-text"> TCP 的四次挥手</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#tcp-可靠传输"><span class="nav-text"> TCP 可靠传输</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#tcp-滑动窗口"><span class="nav-text"> TCP 滑动窗口</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#tcp-流量控制"><span class="nav-text"> TCP 流量控制</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#tcp-拥塞控制"><span class="nav-text"> TCP 拥塞控制</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-慢开始与拥塞避免"><span class="nav-text"> 1. 慢开始与拥塞避免</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-快重传与快恢复"><span class="nav-text"> 2. 快重传与快恢复</span></a></li></ol></li></ol></div>
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#计算机网络之传输层"><span class="nav-text"> 计算机网络之传输层</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#udp-和-tcp-的特点"><span class="nav-text"> UDP 和 TCP 的特点</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#udp-首部格式"><span class="nav-text"> UDP 首部格式</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#tcp-首部格式"><span class="nav-text"> TCP 首部格式</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#tcp-的三次握手"><span class="nav-text"> TCP 的三次握手</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#tcp-的四次挥手"><span class="nav-text"> TCP 的四次挥手</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#tcp-可靠传输"><span class="nav-text"> TCP 可靠传输</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#tcp-滑动窗口"><span class="nav-text"> TCP 滑动窗口</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#tcp-流量控制"><span class="nav-text"> TCP 流量控制</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#tcp-拥塞控制"><span class="nav-text"> TCP 拥塞控制</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-慢开始与拥塞避免"><span class="nav-text"> 1. 慢开始与拥塞避免</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-快重传与快恢复"><span class="nav-text"> 2. 快重传与快恢复</span></a></li></ol></li></ol></li></ol></div>
       </div>
       <!--/noindex-->
 
@@ -555,7 +575,7 @@
       <div class="site-state-item site-state-posts">
           <a href="/blog/archives/">
         
-          <span class="site-state-item-count">72</span>
+          <span class="site-state-item-count">74</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
@@ -568,7 +588,7 @@
       <div class="site-state-item site-state-tags">
             <a href="/blog/tags/">
           
-        <span class="site-state-item-count">44</span>
+        <span class="site-state-item-count">46</span>
         <span class="site-state-item-name">标签</span></a>
       </div>
   </nav>
@@ -618,7 +638,7 @@
     <span class="post-meta-item-icon">
       <i class="fa fa-coffee"></i>
     </span>
-    <span title="站点阅读时长">5:32</span>
+    <span title="站点阅读时长">5:31</span>
 </div>
 
         

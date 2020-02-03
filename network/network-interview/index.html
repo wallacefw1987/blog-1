@@ -52,13 +52,13 @@
   };
 </script>
 
-  <meta name="description" content="网络通信知识点面经   1. 综合  1.1. 计算机网络如何分层？   2. HTTP 3. DNS 4. TCP&#x2F;UDP  4.1. 什么是 TCP？ 4.2. TCP 的特性是什么？ 4.3. TCP 三次握手 4.4. TCP 四次挥手 4.5. TCP 滑动窗口 4.6. TCP 重传机制      1. 综合  1.1. 计算机网络如何分层？  ❓ 问题：计算机网络如何分层？各层的作">
+  <meta name="description" content="网络通信知识点面经  📦 本文已归档到：「blog」 如果你不是从事于通信领域，面试时问及计算机网络的知识，一般也就限定在：HTTP（含 HTTPS、Cookie、Session）、TCP、UDP、Socket 这些    1. 综合  1.1. 计算机网络如何分层？   2. HTTP 3. DNS 4. TCP&#x2F;UDP  4.1. 什么是 TCP？ 4.2. TCP 的特性是什么？ 4.3">
 <meta name="keywords" content="网络,通信,application">
 <meta property="og:type" content="article">
 <meta property="og:title" content="网络通信知识点面经">
 <meta property="og:url" content="https:&#x2F;&#x2F;dunwu.github.io&#x2F;blog&#x2F;network&#x2F;network-interview&#x2F;index.html">
 <meta property="og:site_name" content="Dunwu">
-<meta property="og:description" content="网络通信知识点面经   1. 综合  1.1. 计算机网络如何分层？   2. HTTP 3. DNS 4. TCP&#x2F;UDP  4.1. 什么是 TCP？ 4.2. TCP 的特性是什么？ 4.3. TCP 三次握手 4.4. TCP 四次挥手 4.5. TCP 滑动窗口 4.6. TCP 重传机制      1. 综合  1.1. 计算机网络如何分层？  ❓ 问题：计算机网络如何分层？各层的作">
+<meta property="og:description" content="网络通信知识点面经  📦 本文已归档到：「blog」 如果你不是从事于通信领域，面试时问及计算机网络的知识，一般也就限定在：HTTP（含 HTTPS、Cookie、Session）、TCP、UDP、Socket 这些    1. 综合  1.1. 计算机网络如何分层？   2. HTTP 3. DNS 4. TCP&#x2F;UDP  4.1. 什么是 TCP？ 4.2. TCP 的特性是什么？ 4.3">
 <meta property="og:locale" content="zh-CN">
 <meta property="og:image" content="http:&#x2F;&#x2F;dunwu.test.upcdn.net&#x2F;cs&#x2F;network&#x2F;overview&#x2F;network-layers.png!zp">
 <meta property="og:image" content="http:&#x2F;&#x2F;dunwu.test.upcdn.net&#x2F;cs&#x2F;network&#x2F;overview&#x2F;网络分层架构图.png!zp">
@@ -66,7 +66,7 @@
 <meta property="og:image" content="http:&#x2F;&#x2F;dunwu.test.upcdn.net&#x2F;cs&#x2F;network&#x2F;transport&#x2F;四次挥手.gif!zp">
 <meta property="og:image" content="http:&#x2F;&#x2F;dunwu.test.upcdn.net&#x2F;snap&#x2F;1559265819762.png!zp">
 <meta property="og:image" content="http:&#x2F;&#x2F;dunwu.test.upcdn.net&#x2F;snap&#x2F;1559265927658.png!zp">
-<meta property="og:updated_time" content="2020-02-02T10:16:21.155Z">
+<meta property="og:updated_time" content="2020-02-03T02:54:27.408Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:image" content="http:&#x2F;&#x2F;dunwu.test.upcdn.net&#x2F;cs&#x2F;network&#x2F;overview&#x2F;network-layers.png!zp">
 
@@ -162,7 +162,7 @@
   </li>
         <li class="menu-item menu-item-tags">
 
-    <a href="/blog/tags/" rel="section"><i class="fa fa-fw fa-tags"></i>标签<span class="badge">44</span></a>
+    <a href="/blog/tags/" rel="section"><i class="fa fa-fw fa-tags"></i>标签<span class="badge">46</span></a>
 
   </li>
         <li class="menu-item menu-item-categories">
@@ -172,7 +172,7 @@
   </li>
         <li class="menu-item menu-item-archives">
 
-    <a href="/blog/archives/" rel="section"><i class="fa fa-fw fa-archive"></i>归档<span class="badge">72</span></a>
+    <a href="/blog/archives/" rel="section"><i class="fa fa-fw fa-archive"></i>归档<span class="badge">74</span></a>
 
   </li>
       <li class="menu-item menu-item-search">
@@ -260,7 +260,7 @@
                   <i class="fa fa-calendar-check-o"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2020-02-02 18:16:21" itemprop="dateModified" datetime="2020-02-02T18:16:21+08:00">2020-02-02</time>
+                <time title="修改时间：2020-02-03 10:54:27" itemprop="dateModified" datetime="2020-02-03T10:54:27+08:00">2020-02-03</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -294,7 +294,7 @@
                 <i class="fa fa-file-word-o"></i>
               </span>
                 <span class="post-meta-item-text">本文字数：</span>
-              <span>3.9k</span>
+              <span>4k</span>
             </span>
             <span class="post-meta-item" title="阅读时长">
               <span class="post-meta-item-icon">
@@ -314,7 +314,11 @@
 
       
         <h1 id="网络通信知识点面经"><a class="markdownIt-Anchor" href="#网络通信知识点面经"></a> 网络通信知识点面经</h1>
-<!-- TOC depthFrom:2 depthTo:4 -->
+<blockquote>
+<p>📦 本文已归档到：「<a href="https://github.com/dunwu/blog" target="_blank" rel="noopener">blog</a>」</p>
+<p>如果你不是从事于通信领域，面试时问及计算机网络的知识，一般也就限定在：HTTP（含 HTTPS、Cookie、Session）、TCP、UDP、Socket 这些</p>
+</blockquote>
+<!-- TOC depthFrom:2 depthTo:3 -->
 <ul>
 <li><a href="#1-%E7%BB%BC%E5%90%88">1. 综合</a>
 <ul>
@@ -342,13 +346,13 @@
 <p>这是学习计算机网络知识宏观层面必须要了解的核心点。知道了这些，对于网络的体系结构就基本上了解了。</p>
 </blockquote>
 <div align="center"><img src="http://dunwu.test.upcdn.net/cs/network/overview/network-layers.png!zp"/></div>
-<p>计算机网络分层一般有三种划分体系：OSI 分层；五层协议分层；TCP/IP 协议分层。</p>
+计算机网络分层一般有三种划分体系：OSI 分层；五层协议分层；TCP/IP 协议分层。
 <ul>
 <li>OSI 的七层体系结构概念清楚，理论完整，但是比较复杂且不实用，所以并不流行。</li>
 <li>五层协议分层是一种折中方案，在现实中更为流行。</li>
 </ul>
 <div align="center"><img src="http://dunwu.test.upcdn.net/cs/network/overview/网络分层架构图.png!zp"/></div>
-<p><strong>物理层</strong></p>
+**物理层**
 <blockquote>
 <p>物理层（Physical Layer）只接收和发送一串比特(bit)流，不考虑信息的意义和信息结构。</p>
 <p>扩展阅读：<a href="network-physical.md">计算机网络之物理层</a></p>
@@ -453,7 +457,7 @@
 </ul>
 <p>（2）什么是三次握手？</p>
 <div align="center"><img src="http://dunwu.test.upcdn.net/cs/network/transport/三次握手.gif!zp"/></div>
-<p>如上图所示，三次握手流程如下：</p>
+如上图所示，三次握手流程如下：
 <ol>
 <li>第一次握手 - 客户端向服务端发送带有 SYN 标志的数据包。</li>
 <li>第二次握手 - 服务端向客户端发送带有 SYN/ACK 标志的数据包。</li>
@@ -481,12 +485,10 @@
 <p>（2）什么是四次挥手？</p>
 <p>如上图所示，四次挥手流程如下：</p>
 <div align="center"><img src="http://dunwu.test.upcdn.net/cs/network/transport/四次挥手.gif!zp"/></div>
-<ol>
-<li>第一次挥手 - 客户端向服务端发送一个 FIN 包，用来关闭客户端到服务端的数据传送。</li>
-<li>第二次挥手 - 服务端收到这个 FIN 包，向客户端发送一个 ACK 包，确认序号为收到的序号加 1。和 SYN 一样，一个 FIN 将占用一个序号。</li>
-<li>第三次挥手 - 服务端关闭与客户端的连接，向客户端发送一个 FIN 包。</li>
-<li>第四次挥手 - 客户端向服务端发送 ACK 包，并将确认序号设置为收到序号加 1。</li>
-</ol>
+1. 第一次挥手 - 客户端向服务端发送一个 FIN 包，用来关闭客户端到服务端的数据传送。
+2. 第二次挥手 - 服务端收到这个 FIN 包，向客户端发送一个 ACK 包，确认序号为收到的序号加 1。和 SYN 一样，一个 FIN 将占用一个序号。
+3. 第三次挥手 - 服务端关闭与客户端的连接，向客户端发送一个 FIN 包。
+4. 第四次挥手 - 客户端向服务端发送 ACK 包，并将确认序号设置为收到序号加 1。
 <p>（3）为什么建立连接是三次握手，关闭连接确是四次挥手呢？</p>
 <ul>
 <li>建立连接的时候， 服务器在 LISTEN 状态下，收到建立连接请求的 SYN 报文后，把 ACK 和 SYN 放在一个报文里发送给客户端。</li>
@@ -502,14 +504,12 @@
 <p>TCP 头里有一个字段叫 Window，又叫 Advertised-Window，这个字段是接收端告诉发送端自己还有多少缓冲区可以接收数据。<strong>于是发送端就可以根据这个接收端的处理能力来发送数据，而不会导致接收端处理不过来</strong>。</p>
 <p>滑动窗口原理是什么？</p>
 <div align="center"><img src="http://dunwu.test.upcdn.net/snap/1559265819762.png!zp"/></div>
-<ol>
-<li>已发送已确认 - 数据流中最早的字节已经发送并得到确认。这些数据是站在发送端的角度来看的。上图中的 31 个字节已经发送并确认。</li>
-<li>已发送但尚未确认 - 已发送但尚未得到确认的字节。发送方在确认之前，不认为这些数据已经被处理。上图中的 32 ~ 45 字节为第 2 类。</li>
-<li>未发送而接收方已 Ready - 设备尚未将数据发出 ，但接收方根据最近一次关于发送方一次要发送多少字节确认自己有足够空间。发送方会立即尝试发送。上图中的 46 ~ 51 字节为第 3 类。</li>
-<li>未发送而接收方 Not Ready - 由于接收方 not ready，还不允许将这部分数据发出。上图中的 52 以后的字节为第 4 类。</li>
-</ol>
+1. 已发送已确认 - 数据流中最早的字节已经发送并得到确认。这些数据是站在发送端的角度来看的。上图中的 31 个字节已经发送并确认。
+2. 已发送但尚未确认 - 已发送但尚未得到确认的字节。发送方在确认之前，不认为这些数据已经被处理。上图中的 32 \~ 45 字节为第 2 类。
+3. 未发送而接收方已 Ready - 设备尚未将数据发出 ，但接收方根据最近一次关于发送方一次要发送多少字节确认自己有足够空间。发送方会立即尝试发送。上图中的 46 \~ 51 字节为第 3 类。
+4. 未发送而接收方 Not Ready - 由于接收方 not ready，还不允许将这部分数据发出。上图中的 52 以后的字节为第 4 类。
 <div align="center"><img src="http://dunwu.test.upcdn.net/snap/1559265927658.png!zp"/></div>
-<p>这张图片相对于上一张图片，滑动窗口偏移了 5 个字节，意味着有 5 个已发送的字节得到了确认。</p>
+这张图片相对于上一张图片，滑动窗口偏移了 5 个字节，意味着有 5 个已发送的字节得到了确认。
 <h3 id="46-tcp-重传机制"><a class="markdownIt-Anchor" href="#46-tcp-重传机制"></a> 4.6. TCP 重传机制</h3>
 <blockquote>
 <p>❓ 问题：为什么需要重传机制？TCP 有哪些重传机制，原理是什么？</p>
@@ -566,16 +566,16 @@
 
           <div class="post-nav">
             <div class="post-nav-next post-nav-item">
-                <a href="/blog/network/udp/" rel="next" title="网络协议之 UDP">
-                  <i class="fa fa-chevron-left"></i> 网络协议之 UDP
+                <a href="/blog/network/websocket/" rel="next" title="网络协议之 Websocket">
+                  <i class="fa fa-chevron-left"></i> 网络协议之 Websocket
                 </a>
             </div>
 
             <span class="post-nav-divider"></span>
 
             <div class="post-nav-prev post-nav-item">
-                <a href="/blog/distributed/distributed-session-theory/" rel="prev" title="分布式会话基本原理">
-                  分布式会话基本原理 <i class="fa fa-chevron-right"></i>
+                <a href="/blog/distributed/distributed-lock-theory/" rel="prev" title="分布式锁基本原理">
+                  分布式锁基本原理 <i class="fa fa-chevron-right"></i>
                 </a>
             </div>
           </div>
@@ -638,7 +638,7 @@
       <div class="site-state-item site-state-posts">
           <a href="/blog/archives/">
         
-          <span class="site-state-item-count">72</span>
+          <span class="site-state-item-count">74</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
@@ -651,7 +651,7 @@
       <div class="site-state-item site-state-tags">
             <a href="/blog/tags/">
           
-        <span class="site-state-item-count">44</span>
+        <span class="site-state-item-count">46</span>
         <span class="site-state-item-name">标签</span></a>
       </div>
   </nav>
@@ -701,7 +701,7 @@
     <span class="post-meta-item-icon">
       <i class="fa fa-coffee"></i>
     </span>
-    <span title="站点阅读时长">5:32</span>
+    <span title="站点阅读时长">5:31</span>
 </div>
 
         

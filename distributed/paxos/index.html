@@ -52,18 +52,23 @@
   };
 </script>
 
-  <meta name="description" content="深入剖析共识性算法 Paxos  Paxos 是一种基于消息传递且具有高度容错特性的共识（consensus）算法。  这是一个有关 Paxos 算法非常形象的讲解与示范。Paxos 是能够基于一大堆完全不可靠的网络条件下却能可靠确定地实现共识一致性的算法。也就是说：它允许一组不一定可靠的处理器（服务器）在某些条件得到满足情况下就能达成确定的安全的共识，如果条件不能满足也确保这组处理器（服务器）">
-<meta name="keywords" content="分布式,一致性">
+  <meta name="description" content="深入剖析共识性算法 Paxos  📦 本文已归档到：「blog」 Paxos 是一种基于消息传递且具有容错性的共识性（consensus）算法。 Paxos 算法解决的问题正是分布式一致性问题。在一个节点数为 N 的分布式集群中，只要半数以上的节点（N&#x2F;2 + 1）还正常工作，整个系统仍可以正常工作。     一、Paxos 背景 二、Basic Paxos 算法  角色 算法 实例   三、">
+<meta name="keywords" content="分布式,共识性">
 <meta property="og:type" content="article">
 <meta property="og:title" content="深入剖析共识性算法 Paxos">
 <meta property="og:url" content="https:&#x2F;&#x2F;dunwu.github.io&#x2F;blog&#x2F;distributed&#x2F;paxos&#x2F;index.html">
 <meta property="og:site_name" content="Dunwu">
-<meta property="og:description" content="深入剖析共识性算法 Paxos  Paxos 是一种基于消息传递且具有高度容错特性的共识（consensus）算法。  这是一个有关 Paxos 算法非常形象的讲解与示范。Paxos 是能够基于一大堆完全不可靠的网络条件下却能可靠确定地实现共识一致性的算法。也就是说：它允许一组不一定可靠的处理器（服务器）在某些条件得到满足情况下就能达成确定的安全的共识，如果条件不能满足也确保这组处理器（服务器）">
+<meta property="og:description" content="深入剖析共识性算法 Paxos  📦 本文已归档到：「blog」 Paxos 是一种基于消息传递且具有容错性的共识性（consensus）算法。 Paxos 算法解决的问题正是分布式一致性问题。在一个节点数为 N 的分布式集群中，只要半数以上的节点（N&#x2F;2 + 1）还正常工作，整个系统仍可以正常工作。     一、Paxos 背景 二、Basic Paxos 算法  角色 算法 实例   三、">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:image" content="https:&#x2F;&#x2F;www.jdon.com&#x2F;simgs&#x2F;bigdata&#x2F;paxos.png">
-<meta property="og:updated_time" content="2020-02-02T10:08:31.248Z">
+<meta property="og:image" content="https:&#x2F;&#x2F;raw.githubusercontent.com&#x2F;dunwu&#x2F;images&#x2F;master&#x2F;snap&#x2F;20200202221611.png">
+<meta property="og:image" content="https:&#x2F;&#x2F;raw.githubusercontent.com&#x2F;dunwu&#x2F;images&#x2F;master&#x2F;snap&#x2F;20200202213738.png">
+<meta property="og:image" content="https:&#x2F;&#x2F;pic1.zhimg.com&#x2F;80&#x2F;v2-ac7e4a827f77dc57d316c77ae95e1940_hd.jpg">
+<meta property="og:image" content="https:&#x2F;&#x2F;pic2.zhimg.com&#x2F;80&#x2F;v2-3ae48cb81d39079022666ccb35821c71_hd.jpg">
+<meta property="og:image" content="https:&#x2F;&#x2F;pic2.zhimg.com&#x2F;80&#x2F;v2-931f9487900f0f002867c9e116dec255_hd.jpg">
+<meta property="og:image" content="https:&#x2F;&#x2F;pic1.zhimg.com&#x2F;80&#x2F;v2-0e18b29659367076ff1c0156ae46eca0_hd.jpg">
+<meta property="og:updated_time" content="2020-02-02T14:17:25.832Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:image" content="https:&#x2F;&#x2F;www.jdon.com&#x2F;simgs&#x2F;bigdata&#x2F;paxos.png">
+<meta name="twitter:image" content="https:&#x2F;&#x2F;raw.githubusercontent.com&#x2F;dunwu&#x2F;images&#x2F;master&#x2F;snap&#x2F;20200202221611.png">
 
 <link rel="canonical" href="https://dunwu.github.io/blog/distributed/paxos/">
 
@@ -157,7 +162,7 @@
   </li>
         <li class="menu-item menu-item-tags">
 
-    <a href="/blog/tags/" rel="section"><i class="fa fa-fw fa-tags"></i>标签<span class="badge">44</span></a>
+    <a href="/blog/tags/" rel="section"><i class="fa fa-fw fa-tags"></i>标签<span class="badge">46</span></a>
 
   </li>
         <li class="menu-item menu-item-categories">
@@ -167,7 +172,7 @@
   </li>
         <li class="menu-item menu-item-archives">
 
-    <a href="/blog/archives/" rel="section"><i class="fa fa-fw fa-archive"></i>归档<span class="badge">72</span></a>
+    <a href="/blog/archives/" rel="section"><i class="fa fa-fw fa-archive"></i>归档<span class="badge">74</span></a>
 
   </li>
       <li class="menu-item menu-item-search">
@@ -249,7 +254,7 @@
               <span class="post-meta-item-text">发表于</span>
               
 
-              <time title="创建时间：2020-02-02 12:00:00 / 修改时间：18:08:31" itemprop="dateCreated datePublished" datetime="2020-02-02T12:00:00+08:00">2020-02-02</time>
+              <time title="创建时间：2020-02-02 22:00:00 / 修改时间：22:17:25" itemprop="dateCreated datePublished" datetime="2020-02-02T22:00:00+08:00">2020-02-02</time>
             </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -283,14 +288,14 @@
                 <i class="fa fa-file-word-o"></i>
               </span>
                 <span class="post-meta-item-text">本文字数：</span>
-              <span>5.6k</span>
+              <span>3.2k</span>
             </span>
             <span class="post-meta-item" title="阅读时长">
               <span class="post-meta-item-icon">
                 <i class="fa fa-clock-o"></i>
               </span>
                 <span class="post-meta-item-text">阅读时长 &asymp;</span>
-              <span>5 分钟</span>
+              <span>3 分钟</span>
             </span>
 
         </div>
@@ -304,65 +309,121 @@
       
         <h1 id="深入剖析共识性算法-paxos"><a class="markdownIt-Anchor" href="#深入剖析共识性算法-paxos"></a> 深入剖析共识性算法 Paxos</h1>
 <blockquote>
-<p>Paxos 是一种基于消息传递且具有高度容错特性的共识（consensus）算法。</p>
+<p>📦 本文已归档到：「<a href="https://github.com/dunwu/blog" target="_blank" rel="noopener">blog</a>」</p>
+<p>Paxos 是一种基于消息传递且具有容错性的共识性（consensus）算法。</p>
+<p>Paxos 算法解决的问题正是分布式一致性问题。在一个节点数为 N 的分布式集群中，只要半数以上的节点（N/2 + 1）还正常工作，整个系统仍可以正常工作。</p>
 </blockquote>
-<p>这是一个有关 Paxos 算法非常形象的讲解与示范。Paxos 是能够基于一大堆完全不可靠的网络条件下却能可靠确定地实现共识一致性的算法。也就是说：它允许一组不一定可靠的处理器（服务器）在某些条件得到满足情况下就能达成确定的安全的共识，如果条件不能满足也确保这组处理器（服务器）保持一致。</p>
-<h3 id="什么是共识"><a class="markdownIt-Anchor" href="#什么是共识"></a> 什么是共识？</h3>
-<p>具体来说是这样：分布式系统中由于网络之间通讯可能会中断，虽然概率很低，但是没有 100%完美的网络因此，依靠网络通讯的计算机之间要达成共识就比较困难，假设有 X, Y 和 Z 三台计算机谋划在周一攻击人类世界，它们的攻击计划是只要所有计算机可用于战斗时就一起进行攻击，不落下任何一台机器，但是当他们决定具体什么时间开始攻击时，在这个关键问题上往往会出错。</p>
-<p>一个基本问题是，每台机器都有自己的攻击时间建议，计算机 X 可以建议在 08:00 时间，因为这个时间正是周一早晨，而人们刚刚过完狂欢的周末休息天，但是计算机 Z 认为 13:00 比较好，理由当然也有一大堆，让这三台计算机基于某个时刻达成共识是非常困难的，因此，也给人类反击留下了机会。</p>
-<p>另外一个情况是，这三台计算机是位于世界不同的位置，之间通讯或许通过电缆或者其他不太可靠的网络设备通讯，如果 X 建议在 08:00，它必须确认它的这个建议能够到达活着的 Y 和 Z，以免一个人战斗。</p>
-<p>问题是：我们不能准确地知道某个计算机的延迟的原因：是因为性能慢了还是已经是彻底死机不能用？</p>
-<p>那么，X 怎么知道其他两个计算机是可用的呢？也就是说，当 X 和其他两个计算机通讯发现得到响应要过很长时间，它不能确定这两台计算机到底还能不能继续活下去，也许这次通讯有延迟了，下一次它们又活过来了没有延迟了，也许下次延迟更长了一点，也许下次延迟稍微短了一点，这些随机概率问题使得 X 不能确定 Y 和 Z 到底是出了什么问题造成延迟的，是因为处理了某个特别耗费 CPU 的任务还是因为死锁等原因？当然，有些天真的设计者会说，只要我们将性能监控到位，如果延迟超过一定时间，我们人工介入告诉 X 确切情况就可以，那么这种人工介入的分布式系统不是一个天然自洽的自动化系统了，不在我们讨论范围之内，而且这样的系统会让人疲于奔命。</p>
-<p>因为 X 不能确定 Y 或 Z 是否可用，所以 X 仅仅只能和 Y 与 Z 中一台基于攻击时间达成共识，就无法完全三台机器全部投入战斗的计划。注意的是，X Y Z 三台中任何一台都可能会出现延迟，这就造成了三台机器之间任何通讯都是无法确认可靠的，比如 X 发出消息给 Z，Z 确认后回执给 X，但是这段时间 X 突然死机了，那么 Z 要等待 X 多长时间才能知道它收到确认呢？还是再次等待 X 回复确认的确认，这样无限循环下去也不能解决它们之间通讯可能出现随机不可靠的问题。</p>
-<p>所有关键问题在于：由于这三台机器之间通讯是无法保证 100%可靠，它们就不能就任何事情达成共识。</p>
-<p>下面以分布式拍卖案例说明这种情况以及 Paxos 的基本原理？</p>
-<p>在传统拍卖场景中，价高者先得，这些拍卖者都是在同一个房间，彼此能够直接看得到对方的报价，如果我们假设分布式拍卖是将这些拍卖者分离到不同的地方，这样我们可以用拍卖者之间的联系模拟分布式计算机之间的通讯。</p>
-<p>假设拍卖者各自在自己家里拍卖，通过邮局信件发出自己的拍卖信息，拍卖者之间除非等到邮局投递人告诉他们彼此之间的报价，否则是无法知道对方报价的。如果邮局信件投递这个环节出了问题，投递速度慢了甚至无法投递了，那么整个拍卖程序就无法继续进行下去。</p>
-<h3 id="paxos-解决共识思路"><a class="markdownIt-Anchor" href="#paxos-解决共识思路"></a> Paxos 解决共识思路</h3>
-<p>Paxos 是一个解决<a href="http://harry.me/blog/2013/07/07/id-like-to-have-an-argument-a-primer-on-consensus/" target="_blank" rel="noopener">共识问题 consensus problem</a>的算法，现实中 Paxos 的实现以及成为一些世界级软件的心脏，如 Cassandra, Google 的 Spanner 数据库, 分布式锁服务 Chubby. 一个被 Paxos 管理的系统实际上谈论的是值 状态和跟踪等问题，其目标是建造更高可用性和强一致性的分布式系统。</p>
-<p>Paxos 完成一次写操作需要两次来回，分别是 prepare/promise, 和 propose/accept：</p>
-<p><img src="https://www.jdon.com/simgs/bigdata/paxos.png" alt="paxos" /></p>
-<p>第一次由提交者 Leader 向所有其他服务器发出 prepare 消息请求准备，所有服务器中大多数如果回复诺言承诺就表示准备好了，可以接受写入；第二次提交者向所有服务器发出正式建议 propose，所有服务器中大多数如果回复已经接收就表示成功了。</p>
-<p>为了详细描述这个两段过程，首先让我们定义一下我们将使用的一些名词术语：</p>
+<p><img src="https://raw.githubusercontent.com/dunwu/images/master/snap/20200202221611.png" alt="img" /></p>
+<!-- TOC depthFrom:2 depthTo:3 -->
 <ul>
-<li>一个流程是系统中计算机的一个. 人们使用有关复制或节点等词语表达，都差不多。</li>
-<li>一个客户端是属于系统中一个成员的计算机，但是询问系统值是什么或者要求系统获取一个新的值。</li>
+<li><a href="#%E4%B8%80paxos-%E8%83%8C%E6%99%AF">一、Paxos 背景</a></li>
+<li><a href="#%E4%BA%8Cbasic-paxos-%E7%AE%97%E6%B3%95">二、Basic Paxos 算法</a>
+<ul>
+<li><a href="#%E8%A7%92%E8%89%B2">角色</a></li>
+<li><a href="#%E7%AE%97%E6%B3%95">算法</a></li>
+<li><a href="#%E5%AE%9E%E4%BE%8B">实例</a></li>
 </ul>
-<p>Paxos 构建分布式数据库的小片段: 它仅仅实现流程将一个新的东西精确地写入系统中，流程是由 Paxos 的一个实例管治，可以失败或者不知道任何东西、或者大多数流程都知道一个同样的值，这就是共识，Paxos 并不真的告诉我们如何用它来构建数据库或类似的东西，它只是负责独立节点之间通讯的流程， 这些流程服务器会基于一个新值执行决定，Paxos 会存储一个值数据，只是一次性的，一旦你第一次设置以后就不能再改变它。</p>
-<h3 id="paxo-读操作"><a class="markdownIt-Anchor" href="#paxo-读操作"></a> Paxo 读操作</h3>
-<p>其实 Paxos 精华是在写操作，将读操作放在写操作前面讲解，是着重 Paxos 以大多数服务器达成共识为重要标志，通过读取判断是否达成共识这一状态。</p>
-<p>为了从 Paxos 系统中读取一个值数据，客户端会请求读取所有流程中存储的当前值，然后从大多数流程服务器中获得这个值，如果数量凑不够大多数或者没有足够的客户端响应，读取操作失败，下面图示你会看到一个客户端询问其他节点他们的值是多少，这些节点返回值给客户端，当客户端获得了大多数节点的响应，返回的值都是同样的，它就算成功地读操作了，并顺便保存读结果。</p>
-<p>与单节点系统(只有一台服务器)相比这有些奇怪，这两个系统中，客户端都需要观察系统已决定状态，但是在非分布式系统中像 MySQL 或一个 memcached 服务器中, 客户端只需直接向标准的状态存储的服务器地址获取状态即可，在简单的 Paxos 中, 客户端也是同样的方式观察状态，但是因为并没有标准的状态存储的服务器地址，它需要询问所有的成员，以便能够确定仅有一个会报告值数据，实际上是大多数节点都持有的值数据，如果客户端询问一个节点，有可能这个节点流程已经过期，得到了错误的值数据，流程失效过期的原因有很多：由于不可靠的网络导致本应送达到它们的消息丢失了；或者他们也许当机然后使用了一个过期状态恢复；或者算法还在运行计算中，流程并没有正好得到消息等等。在现实中使用 Paxos 实现时，其实不需要每个节点都进行一次读取，会有更好的读取方式，但是他们都是拓展的原始 Paxos 算法。</p>
-<h3 id="paxos-写操作"><a class="markdownIt-Anchor" href="#paxos-写操作"></a> Paxos 写操作</h3>
-<p>当一个客户端要求写入系统一个新值时，让我们看看 Paxos 让我们集群的流程都做了什么？下面的过程都是只有一个值的写入，最终我们能用这个流程作为原始数据，允许值数据在彼此之间一个个设置，但是基本的 Paxos 算法管治了一个新值数据的写操作流程， 然后做重复的事情。</p>
-<p>首先 Paxos 管理的系统中一个客户端要求写入一个新值，客户端这里如图所示是红圈，其它流程是蓝圈， Paxos 能保证客户端发送它们的写请求到 Paxos 集群中任何成员, 这里演示中客户端随机挑选流程中任意一个，这种方式是重要且巧妙的，意味著没有任何单点风险，意味着我们的 Paxos 管治系统能继续保持在线可用，无论任何一个节点当机或其他不可用原因无响应。如果我们设计一个特定节点作为“推荐人 proposer”或者 “the master” 等, 如果这个主节点死机，那么整个系统就崩溃了。</p>
-<p>当写请求被接受后，Paxos 流程会接受这个写新值到系统中请求“建议”， “建议”是 Paxos 中一个正式概念: 向一个 Paxos 管治的系统建议可能会成功或失败，需要步骤来确保共识能够达成维系，这个建议以准备消息从那些与客户端连接的流程节点们被发往整个系统。</p>
-<h4 id="序列号"><a class="markdownIt-Anchor" href="#序列号"></a> 序列号</h4>
-<p>这个准备消息保存在被建议的值数据中，它们也称为序列号 s<em>equence number</em>，序列号是由建议流程产生的，它定义了接受流程应该准备接受带有序列号的建议，这个序列号是关键: 它用于表明新旧建议之间的区别，如果两个流程试图获得需要设置一个值，Paxos 认为最后一个流程应该有优先权，这样让流程分辨哪个是最后一个，这样它就能设置最新的值。</p>
-<p>这些接受的流程能够进行在系统中关键的检查：这个在到来的准备消息中序列号是我见过的最高级别吗？如果是，那就很 cool, 我能准备好接受将要到来的值数据，那就不要管之前听到的任何其他值数据了，你能看到这个过程在右边演示中：客户端每隔一段向一个流程建议一个新值，这个流程发送准备消息给其他流程，然后那些流程注意到这是一个成功的更高的超过旧的新序列号，然后就放手那些旧建议。</p>
-<p>这里有一个顺序的设计(先发送准备消息)，这是为避免单点风险，如果没有这个顺序，Paxos 中成员就无法分辨哪个建议是他们可以有信心地准备接受的。</p>
-<p>我们不能想象有另外不同的共识算法，不是按照如下步骤：首先发送第一个消息询问其他流程，以确保将设置的新值是最新的值，尽管方式可以再简单些，但是可能就不能满足共识算法安全的需求了，如果两个流程正好同时建议不同的值，如下所示：</p>
-<p>大自然经常会这样欺骗我们，每个包都能另外一半的流程相信它们接受的也许是正确也许是错误的值，系统将进入一个僵局，存在两个相同数量的组却有不同的值，那么就无法确定大多数这个概念了，这个僵局能够被第一个 Paxos 消息避免，因为 Paxos 的序列号，那些有问题的建议将有被其他更低的序列号，这样序列号更高的建议就会毫不含糊地被大多数流程接收，它们也首先获得了更高的序列号，然后如果接受到更低的序列号就会拒绝，Paxos 就是这样通过用序列号控制整个系统的时间节奏。</p>
-<p><em>上图演示了客户端首先发一个准备消息给 Paxos 流程，Paxos 流程会检查下一步将到来的建议的序列号，以分辨是否准备接受这个新值，所有流程都是这样消除歧义，共识由此达成。</em></p>
-<p>注意：保证没有两个建议使用相同的序列号是很重要的，这是确保他们的顺序，这样每个序列号只有一个建议，这样才能比较两个建议，实现 Paxos 时，全局唯一有序的序列号实际是精确系统时间和集群中节点数量的拷贝，随着时间不断增加，从来不会重复。</p>
-<h4 id="paxos-第一阶段准备-perpare诺言-promises"><a class="markdownIt-Anchor" href="#paxos-第一阶段准备-perpare诺言-promises"></a> Paxos 第一阶段：准备 Perpare/诺言 Promises</h4>
-<p>Paxos 的第一阶段是 prepare/promise，准备阶段就是将建议值发送到各个目标节点。</p>
-<p>当建议被发到目标节点后，流程会会检查建议中的序列号，是否是它们见到过的最高级，如果是最高级，它们会发出一个 promise 不再接受比这个新序列号更旧的建议了，这个诺言 promise 作为消息从许下诺言的流程发到提交建议新值的流程服务器，这个诺言消息给提交建议的流程后，提交建议的流程需要自己统计一下有多少其他流程已经发回它们的诺言 promise 了，如果判断数量上是否达到大多数？如果大多数流程已经同意接受这个建议或者更高级序列号的建议，这个提交建议的流程就能知道它获得了发言权(因为有大多数支持)，这样就开始讲话，算法中的下一步处理将可能进行；如果回复诺言的节点数量没有达到大多数，也就是共识没有达成，这样这个节点提交的建议将退出，客户端要求的写操作失败。</p>
-<p>为了决定一个建议是否已经有足够的回复诺言 promises, 提交建议者只是统计一下它接受到的 <code>promise</code> 消息数量，然后和整个系统中节点服务器数量比较一下，“足够”意味着大多数(N/2 + 1)个流程服务器在某段时间内都回复了诺言 promises。如果超过一半的流程服务器没有返回诺言，这意味着这个建议没有被大多数通过，那么在前面描述的读算法中就不能满足大多数的要求，也就不能达成共识，这个建议就退出。其他包括网络分区错误也可能会阻止大多数达成共识，</p>
-<h3 id="第二阶段paoxs-接纳-acceptance"><a class="markdownIt-Anchor" href="#第二阶段paoxs-接纳-acceptance"></a> 第二阶段：Paoxs 接纳 Acceptance</h3>
-<p>当完成 prepare/promise 阶段，进入了 propose/accept 阶段。</p>
-<p>一旦建议提交者已经从大多数其他流程服务器获得了诺言，它会要求许诺的流程服务器接收它们之前承诺接受的新值数据，这是一个“确认 commit”阶段，如果没有冲突建议 失败或分区错误，那么这个新建议将被所有其他节点接受，那么 Paxos 过程就完成了。</p>
-<p>你能看到右边的演示，注意这个演示比上面 promise 在最后多了一个动作，也就是提交建议者将新值发给那些许诺言的流程服务器，让它们接受了这个新值。</p>
-<p>接受的过程也许可能会发生失败，在回复了诺言消息以后，在接受到 Accept 消息之前，如果有足够多的服务器正好在这个时间段失败，那么接受行为只能是少数服务器，那么 Paxos 进入了厄运状态：一些流程服务器接受了新值，而不是全部的，这种不一致已经在前面读操作中描述：一个客户端试图从系统中大多数节点服务器读取它们同意接受的值，它发现一些节点服务器报告有不同的值数据，这会引起读失败，但是 Paxos 还保持一致性，不允许在没有达成共识情况下任何写操作发生，这种坏的情况在实践中经常通过重复接受阶段来让大多数节点最终接受。</p>
-<h3 id="总结"><a class="markdownIt-Anchor" href="#总结"></a> 总结</h3>
-<p>Paxos 算法是保证在分布式系统中写操作能够顺利进行，保证系统中大多数状态是一致的，没有机会看到不一致，因此，Paxos 算法的特点是一致性&gt;可用性。</p>
-<p>vector clock 向量时钟是另外一种保证复制的算法，其特点是可用性&gt;一致性，但是，一旦发生冲突，不像 Paxos 能自行解决，需要人工干预编写代码解决。</p>
-<p>Paxos 算法和 Vector Clock 都是由 Leslie Lamport 提出。</p>
+</li>
+<li><a href="#%E4%B8%89multi-paxos-%E7%AE%97%E6%B3%95">三、Multi Paxos 算法</a>
+<ul>
+<li><a href="#basic-paxos-%E7%9A%84%E9%97%AE%E9%A2%98">Basic Paxos 的问题</a></li>
+<li><a href="#multi-paxos-%E7%9A%84%E6%94%B9%E8%BF%9B">Multi Paxos 的改进</a></li>
+</ul>
+</li>
+<li><a href="#%E5%8F%82%E8%80%83%E8%B5%84%E6%96%99">参考资料</a></li>
+</ul>
+<!-- /TOC -->
+<h2 id="一-paxos-背景"><a class="markdownIt-Anchor" href="#一-paxos-背景"></a> 一、Paxos 背景</h2>
+<p>Paxos 是 Leslie Lamport 于 1990 年提出的一种基于消息传递且具有高度容错特性的共识（consensus）算法。</p>
+<p>为描述 Paxos 算法，Lamport 虚拟了一个叫做 Paxos 的希腊城邦，这个岛按照议会民主制的政治模式制订法律，但是没有人愿意将自己的全部时间和精力放在这种事情上。所以无论是议员，议长或者传递纸条的服务员都不能承诺别人需要时一定会出现，也无法承诺批准决议或者传递消息的时间。</p>
+<h2 id="二-basic-paxos-算法"><a class="markdownIt-Anchor" href="#二-basic-paxos-算法"></a> 二、Basic Paxos 算法</h2>
+<h3 id="角色"><a class="markdownIt-Anchor" href="#角色"></a> 角色</h3>
+<p>Paxos 将分布式系统中的节点分为以下角色：</p>
+<ul>
+<li><strong>提议者（Proposer）</strong>：发出提案（Proposal）。Proposal 信息包括提案编号 (Proposal ID) 和提议的值 (Value)。</li>
+<li><strong>决策者（Acceptor）</strong>：参与决策，回应 Proposer 的提案。收到 Proposal 后可以接受提案，若 Proposal 获得多数 Acceptor 的接受，则称该 Proposal 被批准。</li>
+<li><strong>学习者（Learner）</strong>：不参与决策，从 Proposers/Acceptors 学习最新达成一致的提案（Value）。</li>
+</ul>
+<p>在复制状态机中，每个副本都同时具有 Proposer、Acceptor、Learner 三种角色。</p>
+<p><img src="https://raw.githubusercontent.com/dunwu/images/master/snap/20200202213738.png" alt="img" /></p>
+<h3 id="算法"><a class="markdownIt-Anchor" href="#算法"></a> 算法</h3>
+<p>Paxos 算法通过一个决议分为两个阶段（Learn 阶段之前决议已经形成）：</p>
+<ol>
+<li>第一阶段：Prepare 阶段。Proposer 向 Acceptors 发出 Prepare 请求，Acceptors 针对收到的 Prepare 请求进行 Promise 承诺。</li>
+<li>第二阶段：Accept 阶段。Proposer 收到多数 Acceptors 承诺的 Promise 后，向 Acceptors 发出 Propose 请求，Acceptors 针对收到的 Propose 请求进行 Accept 处理。</li>
+<li>第三阶段：Learn 阶段。Proposer 在收到多数 Acceptors 的 Accept 之后，标志着本次 Accept 成功，决议形成，将形成的决议发送给所有 Learners。</li>
+</ol>
+<p>Paxos 算法流程中的每条消息描述如下：</p>
+<ul>
+<li>
+<p><strong>Prepare</strong>: Proposer 生成全局唯一且递增的 Proposal ID (可使用时间戳加 Server ID)，向所有 Acceptors 发送 Prepare 请求，这里无需携带提案内容，只携带 Proposal ID 即可。</p>
+</li>
+<li>
+<p><strong>Promise</strong>: Acceptors 收到 Prepare 请求后，做出“两个承诺，一个应答”。</p>
+<ul>
+<li>
+<p>两个承诺：</p>
+<ul>
+<li>不再接受 Proposal ID 小于等于当前请求的 Prepare 请求。</li>
+<li>不再接受 Proposal ID 小于当前请求的 Propose 请求。</li>
+</ul>
+</li>
+<li>
+<p>一个应答：</p>
+<ul>
+<li>不违背以前作出的承诺下，回复已经 Accept 过的提案中 Proposal ID 最大的那个提案的 Value 和 Proposal ID，没有则返回空值。</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>
+<p><strong>Propose</strong>: Proposer 收到多数 Acceptors 的 Promise 应答后，从应答中选择 Proposal ID 最大的提案的 Value，作为本次要发起的提案。如果所有应答的提案 Value 均为空值，则可以自己随意决定提案 Value。然后携带当前 Proposal ID，向所有 Acceptors 发送 Propose 请求。</p>
+</li>
+<li>
+<p><strong>Accept</strong>: Acceptor 收到 Propose 请求后，在不违背自己之前作出的承诺下，接受并持久化当前 Proposal ID 和提案 Value。</p>
+</li>
+<li>
+<p><strong>Learn</strong>: Proposer 收到多数 Acceptors 的 Accept 后，决议形成，将形成的决议发送给所有 Learners。</p>
+</li>
+</ul>
+<h3 id="实例"><a class="markdownIt-Anchor" href="#实例"></a> 实例</h3>
+<h4 id="paxos-算法实例-1"><a class="markdownIt-Anchor" href="#paxos-算法实例-1"></a> Paxos 算法实例 1</h4>
+<p>下面举几个例子，实例 1 如下图：</p>
+<p><img src="https://pic1.zhimg.com/80/v2-ac7e4a827f77dc57d316c77ae95e1940_hd.jpg" alt="img" /></p>
+<p>图中 P 代表 Prepare 阶段，A 代表 Accept 阶段。3.1 代表 Proposal ID 为 3.1，其中 3 为时间戳，1 为 Server ID。X 和 Y 代表提议 Value。</p>
+<p>实例 1 中 P 3.1 达成多数派，其 Value(X)被 Accept，然后 P 4.5 学习到 Value(X)，并 Accept。</p>
+<p><img src="https://pic2.zhimg.com/80/v2-3ae48cb81d39079022666ccb35821c71_hd.jpg" alt="img" />Paxos 算法实例 2</p>
+<p>实例 2 中 P 3.1 没有被多数派 Accept（只有 S3 Accept），但是被 P 4.5 学习到，P 4.5 将自己的 Value 由 Y 替换为 X，Accept（X）。</p>
+<p><img src="https://pic2.zhimg.com/80/v2-931f9487900f0f002867c9e116dec255_hd.jpg" alt="img" />Paxos 算法实例 3</p>
+<p>实例 3 中 P 3.1 没有被多数派 Accept（只有 S1 Accept），同时也没有被 P 4.5 学习到。由于 P 4.5 Propose 的所有应答，均未返回 Value，则 P 4.5 可以 Accept 自己的 Value (Y)。后续 P 3.1 的 Accept (X) 会失败，已经 Accept 的 S1，会被覆盖。</p>
+<p>Paxos 算法可能形成活锁而永远不会结束，如下图实例所示：</p>
+<p><img src="https://pic1.zhimg.com/80/v2-0e18b29659367076ff1c0156ae46eca0_hd.jpg" alt="img" />Paxos 算法形成活锁</p>
+<p>回顾两个承诺之一，Acceptor 不再应答 Proposal ID 小于等于当前请求的 Prepare 请求。意味着需要应答 Proposal ID 大于当前请求的 Prepare 请求。</p>
+<p>两个 Proposers 交替 Prepare 成功，而 Accept 失败，形成活锁（Livelock）。</p>
+<h2 id="三-multi-paxos-算法"><a class="markdownIt-Anchor" href="#三-multi-paxos-算法"></a> 三、Multi Paxos 算法</h2>
+<h3 id="basic-paxos-的问题"><a class="markdownIt-Anchor" href="#basic-paxos-的问题"></a> Basic Paxos 的问题</h3>
+<p>Basic Paxos 有以下问题，导致它不能应用于实际：</p>
+<ul>
+<li><strong>Basic Paxos 算法只能对一个值形成决议</strong>。</li>
+<li><strong>Basic Paxos 算法会消耗大量网络带宽</strong>。Basic Paxos 中，决议的形成至少需要两次网络通信，在高并发情况下可能需要更多的网络通信，极端情况下甚至可能形成活锁。如果想连续确定多个值，Basic Paxos 搞不定了。</li>
+</ul>
+<h3 id="multi-paxos-的改进"><a class="markdownIt-Anchor" href="#multi-paxos-的改进"></a> Multi Paxos 的改进</h3>
+<p>Multi Paxos 正是为解决以上问题而提出。Multi Paxos 基于 Basic Paxos 做了两点改进：</p>
+<ul>
+<li>针对每一个要确定的值，运行一次 Paxos 算法实例（Instance），形成决议。每一个 Paxos 实例使用唯一的 Instance ID 标识。</li>
+<li>在所有 Proposer 中选举一个 Leader，由 Leader 唯一地提交 Proposal 给 Acceptor 进行表决。这样没有 Proposer 竞争，解决了活锁问题。在系统中仅有一个 Leader 进行 Value 提交的情况下，Prepare 阶段就可以跳过，从而将两阶段变为一阶段，提高效率。</li>
+</ul>
+<p>Multi Paxos 首先需要选举 Leader，Leader 的确定也是一次决议的形成，所以可执行一次 Basic Paxos 实例来选举出一个 Leader。选出 Leader 之后只能由 Leader 提交 Proposal，在 Leader 宕机之后服务临时不可用，需要重新选举 Leader 继续服务。在系统中仅有一个 Leader 进行 Proposal 提交的情况下，Prepare 阶段可以跳过。</p>
+<p>Multi Paxos 通过改变 Prepare 阶段的作用范围至后面 Leader 提交的所有实例，从而使得 Leader 的连续提交只需要执行一次 Prepare 阶段，后续只需要执行 Accept 阶段，将两阶段变为一阶段，提高了效率。为了区分连续提交的多个实例，每个实例使用一个 Instance ID 标识，Instance ID 由 Leader 本地递增生成即可。</p>
+<p>Multi Paxos 允许有多个自认为是 Leader 的节点并发提交 Proposal 而不影响其安全性，这样的场景即退化为 Basic Paxos。</p>
+<p>Chubby 和 Boxwood 均使用 Multi Paxos。ZooKeeper 使用的 Zab 也是 Multi Paxos 的变形。</p>
 <h2 id="参考资料"><a class="markdownIt-Anchor" href="#参考资料"></a> 参考资料</h2>
 <ul>
 <li><a href="https://lamport.azurewebsites.net/pubs/paxos-simple.pdf" target="_blank" rel="noopener">Paxos Made Simple 论文</a></li>
 <li><a href="https://www.jdon.com/artichect/paxos.html" target="_blank" rel="noopener">分布式系统 Paxos 算法</a></li>
+<li><a href="https://zhuanlan.zhihu.com/p/31780743" target="_blank" rel="noopener">Paxos 算法详解</a></li>
 <li><a href="https://zh.wikipedia.org/w/index.php?title=Paxos%E7%AE%97%E6%B3%95" target="_blank" rel="noopener">Wiki - Paxos 算法</a></li>
+<li><a href="https://www.bilibili.com/video/av36556594" target="_blank" rel="noopener">Raft 作者讲解 Paxos 视频</a></li>
 </ul>
 
     </div>
@@ -391,21 +452,24 @@
       <footer class="post-footer">
           <div class="post-tags">
               <a href="/blog/tags/%E5%88%86%E5%B8%83%E5%BC%8F/" rel="tag"># 分布式</a>
-              <a href="/blog/tags/%E4%B8%80%E8%87%B4%E6%80%A7/" rel="tag"># 一致性</a>
+              <a href="/blog/tags/%E5%85%B1%E8%AF%86%E6%80%A7/" rel="tag"># 共识性</a>
           </div>
 
         
 
           <div class="post-nav">
             <div class="post-nav-next post-nav-item">
-                <a href="/blog/distributed/byzantine-generals/" rel="next" title="拜占庭将军问题">
-                  <i class="fa fa-chevron-left"></i> 拜占庭将军问题
+                <a href="/blog/distributed/cap-and-base/" rel="next" title="CAP 定理和 BASE 理论">
+                  <i class="fa fa-chevron-left"></i> CAP 定理和 BASE 理论
                 </a>
             </div>
 
             <span class="post-nav-divider"></span>
 
             <div class="post-nav-prev post-nav-item">
+                <a href="/blog/network/vpn/" rel="prev" title="网络通信之 VPN">
+                  网络通信之 VPN <i class="fa fa-chevron-right"></i>
+                </a>
             </div>
           </div>
       </footer>
@@ -451,7 +515,7 @@
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
-          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#深入剖析共识性算法-paxos"><span class="nav-text"> 深入剖析共识性算法 Paxos</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#什么是共识"><span class="nav-text"> 什么是共识？</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#paxos-解决共识思路"><span class="nav-text"> Paxos 解决共识思路</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#paxo-读操作"><span class="nav-text"> Paxo 读操作</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#paxos-写操作"><span class="nav-text"> Paxos 写操作</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#序列号"><span class="nav-text"> 序列号</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#paxos-第一阶段准备-perpare诺言-promises"><span class="nav-text"> Paxos 第一阶段：准备 Perpare/诺言 Promises</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#第二阶段paoxs-接纳-acceptance"><span class="nav-text"> 第二阶段：Paoxs 接纳 Acceptance</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#总结"><span class="nav-text"> 总结</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#参考资料"><span class="nav-text"> 参考资料</span></a></li></ol></li></ol></div>
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#深入剖析共识性算法-paxos"><span class="nav-text"> 深入剖析共识性算法 Paxos</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#一-paxos-背景"><span class="nav-text"> 一、Paxos 背景</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#二-basic-paxos-算法"><span class="nav-text"> 二、Basic Paxos 算法</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#角色"><span class="nav-text"> 角色</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#算法"><span class="nav-text"> 算法</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#实例"><span class="nav-text"> 实例</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#paxos-算法实例-1"><span class="nav-text"> Paxos 算法实例 1</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#三-multi-paxos-算法"><span class="nav-text"> 三、Multi Paxos 算法</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#basic-paxos-的问题"><span class="nav-text"> Basic Paxos 的问题</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#multi-paxos-的改进"><span class="nav-text"> Multi Paxos 的改进</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#参考资料"><span class="nav-text"> 参考资料</span></a></li></ol></li></ol></div>
       </div>
       <!--/noindex-->
 
@@ -467,7 +531,7 @@
       <div class="site-state-item site-state-posts">
           <a href="/blog/archives/">
         
-          <span class="site-state-item-count">72</span>
+          <span class="site-state-item-count">74</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
@@ -480,7 +544,7 @@
       <div class="site-state-item site-state-tags">
             <a href="/blog/tags/">
           
-        <span class="site-state-item-count">44</span>
+        <span class="site-state-item-count">46</span>
         <span class="site-state-item-name">标签</span></a>
       </div>
   </nav>
@@ -530,7 +594,7 @@
     <span class="post-meta-item-icon">
       <i class="fa fa-coffee"></i>
     </span>
-    <span title="站点阅读时长">5:32</span>
+    <span title="站点阅读时长">5:31</span>
 </div>
 
         

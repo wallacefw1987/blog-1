@@ -52,17 +52,17 @@
   };
 </script>
 
-  <meta name="description" content="ICMP 简介 ICMP 全名为(INTERNET CONTROL MESSAGE PROTOCOL)网络控制消息协议。 ICMP 的协议号为1。 ICMP 报文就像是 IP 报文的小弟，总顶着 IP 报文的名头出来混。因为 ICMP 报文是在 IP 报文内部的，如图：   ICMP 类型 ICMP 报文主要有两大功能：查询报文和差错报文。  目的不可达(Destination Unreacha">
+  <meta name="description" content="网络协议之 ICMP  📦 本文已归档到：「blog」    ICMP 简介 ICMP 类型 目的不可达(Destination Unreachable Message) 超时(Time Exceeded Message) 参数错误报文(Parameter Problem Message) 源冷却(Source Quench Message) 重定向(Redirect Message) 请求回">
 <meta name="keywords" content="网络,通信,协议">
 <meta property="og:type" content="article">
 <meta property="og:title" content="网络协议之 ICMP">
 <meta property="og:url" content="https:&#x2F;&#x2F;dunwu.github.io&#x2F;blog&#x2F;network&#x2F;icmp&#x2F;index.html">
 <meta property="og:site_name" content="Dunwu">
-<meta property="og:description" content="ICMP 简介 ICMP 全名为(INTERNET CONTROL MESSAGE PROTOCOL)网络控制消息协议。 ICMP 的协议号为1。 ICMP 报文就像是 IP 报文的小弟，总顶着 IP 报文的名头出来混。因为 ICMP 报文是在 IP 报文内部的，如图：   ICMP 类型 ICMP 报文主要有两大功能：查询报文和差错报文。  目的不可达(Destination Unreacha">
+<meta property="og:description" content="网络协议之 ICMP  📦 本文已归档到：「blog」    ICMP 简介 ICMP 类型 目的不可达(Destination Unreachable Message) 超时(Time Exceeded Message) 参数错误报文(Parameter Problem Message) 源冷却(Source Quench Message) 重定向(Redirect Message) 请求回">
 <meta property="og:locale" content="zh-CN">
 <meta property="og:image" content="https:&#x2F;&#x2F;images2015.cnblogs.com&#x2F;blog&#x2F;318837&#x2F;201606&#x2F;318837-20160617091834260-1410966672.png">
 <meta property="og:image" content="https:&#x2F;&#x2F;images2015.cnblogs.com&#x2F;blog&#x2F;318837&#x2F;201606&#x2F;318837-20160617091835838-1982473379.png">
-<meta property="og:updated_time" content="2020-02-02T10:16:21.168Z">
+<meta property="og:updated_time" content="2020-02-03T02:34:19.652Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:image" content="https:&#x2F;&#x2F;images2015.cnblogs.com&#x2F;blog&#x2F;318837&#x2F;201606&#x2F;318837-20160617091834260-1410966672.png">
 
@@ -158,7 +158,7 @@
   </li>
         <li class="menu-item menu-item-tags">
 
-    <a href="/blog/tags/" rel="section"><i class="fa fa-fw fa-tags"></i>标签<span class="badge">44</span></a>
+    <a href="/blog/tags/" rel="section"><i class="fa fa-fw fa-tags"></i>标签<span class="badge">46</span></a>
 
   </li>
         <li class="menu-item menu-item-categories">
@@ -168,7 +168,7 @@
   </li>
         <li class="menu-item menu-item-archives">
 
-    <a href="/blog/archives/" rel="section"><i class="fa fa-fw fa-archive"></i>归档<span class="badge">72</span></a>
+    <a href="/blog/archives/" rel="section"><i class="fa fa-fw fa-archive"></i>归档<span class="badge">74</span></a>
 
   </li>
       <li class="menu-item menu-item-search">
@@ -256,7 +256,7 @@
                   <i class="fa fa-calendar-check-o"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2020-02-02 18:16:21" itemprop="dateModified" datetime="2020-02-02T18:16:21+08:00">2020-02-02</time>
+                <time title="修改时间：2020-02-03 10:34:19" itemprop="dateModified" datetime="2020-02-03T10:34:19+08:00">2020-02-03</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -290,7 +290,7 @@
                 <i class="fa fa-file-word-o"></i>
               </span>
                 <span class="post-meta-item-text">本文字数：</span>
-              <span>3.4k</span>
+              <span>3.6k</span>
             </span>
             <span class="post-meta-item" title="阅读时长">
               <span class="post-meta-item-icon">
@@ -309,7 +309,27 @@
     <div class="post-body" itemprop="articleBody">
 
       
-        <h2 id="icmp-简介"><a class="markdownIt-Anchor" href="#icmp-简介"></a> ICMP 简介</h2>
+        <h1 id="网络协议之-icmp"><a class="markdownIt-Anchor" href="#网络协议之-icmp"></a> 网络协议之 ICMP</h1>
+<blockquote>
+<p>📦 本文已归档到：「<a href="https://github.com/dunwu/blog" target="_blank" rel="noopener">blog</a>」</p>
+</blockquote>
+<!-- TOC depthFrom:2 depthTo:3 -->
+<ul>
+<li><a href="#icmp-%E7%AE%80%E4%BB%8B">ICMP 简介</a></li>
+<li><a href="#icmp-%E7%B1%BB%E5%9E%8B">ICMP 类型</a></li>
+<li><a href="#%E7%9B%AE%E7%9A%84%E4%B8%8D%E5%8F%AF%E8%BE%BEdestination-unreachable-message">目的不可达(Destination Unreachable Message)</a></li>
+<li><a href="#%E8%B6%85%E6%97%B6time-exceeded-message">超时(Time Exceeded Message)</a></li>
+<li><a href="#%E5%8F%82%E6%95%B0%E9%94%99%E8%AF%AF%E6%8A%A5%E6%96%87parameter-problem-message">参数错误报文(Parameter Problem Message)</a></li>
+<li><a href="#%E6%BA%90%E5%86%B7%E5%8D%B4source-quench-message">源冷却(Source Quench Message)</a></li>
+<li><a href="#%E9%87%8D%E5%AE%9A%E5%90%91redirect-message">重定向(Redirect Message)</a></li>
+<li><a href="#%E8%AF%B7%E6%B1%82%E5%9B%9E%E6%98%BE%E6%88%96%E5%9B%9E%E6%98%BE%E5%BA%94%E7%AD%94echo-or-echo-reply-message">请求回显或回显应答(Echo or Echo Reply Message)</a></li>
+<li><a href="#%E6%97%B6%E9%97%B4%E6%88%B3%E6%88%96%E6%97%B6%E9%97%B4%E6%88%B3%E8%AF%B7%E6%B1%82timestamp-or-timestamp-reply-message">时间戳或时间戳请求(Timestamp or Timestamp Reply Message)</a></li>
+<li><a href="#%E4%BF%A1%E6%81%AF%E8%AF%B7%E6%B1%82%E6%88%96%E4%BF%A1%E6%81%AF%E5%93%8D%E5%BA%94">信息请求或信息响应</a></li>
+<li><a href="#%E6%80%BB%E7%BB%93">总结</a></li>
+<li><a href="#%E5%8F%82%E8%80%83">参考</a></li>
+</ul>
+<!-- /TOC -->
+<h2 id="icmp-简介"><a class="markdownIt-Anchor" href="#icmp-简介"></a> ICMP 简介</h2>
 <p>ICMP 全名为(INTERNET CONTROL MESSAGE PROTOCOL)网络控制消息协议。</p>
 <p>ICMP 的协议号为<strong>1</strong>。</p>
 <p>ICMP 报文就像是 IP 报文的小弟，总顶着 IP 报文的名头出来混。因为 ICMP 报文是在 IP 报文内部的，如图：</p>
@@ -510,7 +530,7 @@
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
-          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#icmp-简介"><span class="nav-text"> ICMP 简介</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#icmp-类型"><span class="nav-text"> ICMP 类型</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#目的不可达destination-unreachable-message"><span class="nav-text"> 目的不可达(Destination Unreachable Message)</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#超时time-exceeded-message"><span class="nav-text"> 超时(Time Exceeded Message)</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#参数错误报文parameter-problem-message"><span class="nav-text"> 参数错误报文(Parameter Problem Message)</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#源冷却source-quench-message"><span class="nav-text"> 源冷却(Source Quench Message)</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#重定向redirect-message"><span class="nav-text"> 重定向(Redirect Message)</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#请求回显或回显应答echo-or-echo-reply-message"><span class="nav-text"> 请求回显或回显应答(Echo or Echo Reply Message)</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#时间戳或时间戳请求timestamp-or-timestamp-reply-message"><span class="nav-text"> 时间戳或时间戳请求(Timestamp or Timestamp Reply Message)</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#信息请求或信息响应"><span class="nav-text"> 信息请求或信息响应</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#总结"><span class="nav-text"> 总结</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#参考"><span class="nav-text"> 参考</span></a></li></ol></div>
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#网络协议之-icmp"><span class="nav-text"> 网络协议之 ICMP</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#icmp-简介"><span class="nav-text"> ICMP 简介</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#icmp-类型"><span class="nav-text"> ICMP 类型</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#目的不可达destination-unreachable-message"><span class="nav-text"> 目的不可达(Destination Unreachable Message)</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#超时time-exceeded-message"><span class="nav-text"> 超时(Time Exceeded Message)</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#参数错误报文parameter-problem-message"><span class="nav-text"> 参数错误报文(Parameter Problem Message)</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#源冷却source-quench-message"><span class="nav-text"> 源冷却(Source Quench Message)</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#重定向redirect-message"><span class="nav-text"> 重定向(Redirect Message)</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#请求回显或回显应答echo-or-echo-reply-message"><span class="nav-text"> 请求回显或回显应答(Echo or Echo Reply Message)</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#时间戳或时间戳请求timestamp-or-timestamp-reply-message"><span class="nav-text"> 时间戳或时间戳请求(Timestamp or Timestamp Reply Message)</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#信息请求或信息响应"><span class="nav-text"> 信息请求或信息响应</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#总结"><span class="nav-text"> 总结</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#参考"><span class="nav-text"> 参考</span></a></li></ol></li></ol></div>
       </div>
       <!--/noindex-->
 
@@ -526,7 +546,7 @@
       <div class="site-state-item site-state-posts">
           <a href="/blog/archives/">
         
-          <span class="site-state-item-count">72</span>
+          <span class="site-state-item-count">74</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
@@ -539,7 +559,7 @@
       <div class="site-state-item site-state-tags">
             <a href="/blog/tags/">
           
-        <span class="site-state-item-count">44</span>
+        <span class="site-state-item-count">46</span>
         <span class="site-state-item-name">标签</span></a>
       </div>
   </nav>
@@ -589,7 +609,7 @@
     <span class="post-meta-item-icon">
       <i class="fa fa-coffee"></i>
     </span>
-    <span title="站点阅读时长">5:32</span>
+    <span title="站点阅读时长">5:31</span>
 </div>
 
         
